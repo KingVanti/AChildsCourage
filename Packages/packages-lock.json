@@ -158,6 +158,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "io.tinu.asepriteimporter": {
+      "version": "file:Aseprite importer",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
