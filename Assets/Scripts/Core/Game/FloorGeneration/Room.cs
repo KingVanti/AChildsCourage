@@ -6,8 +6,6 @@
 
         #region Properties
 
-        public string Name { get; }
-
         public RoomShape Shape { get; }
 
         #endregion
