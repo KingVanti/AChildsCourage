@@ -7,10 +7,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
 
-namespace AChildsCourage.Game.Input {
-    public class @UserControls : IInputActionCollection, IDisposable {
+namespace AChildsCourage.Game.Input
+{
+    public class @UserControls : IInputActionCollection, IDisposable
+    {
         public InputActionAsset asset { get; }
-        public @UserControls() {
+        public @UserControls()
+        {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""user"",
     ""maps"": [
@@ -516,39 +519,47 @@ namespace AChildsCourage.Game.Input {
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             UnityEngine.Object.Destroy(asset);
         }
 
-        public InputBinding? bindingMask {
+        public InputBinding? bindingMask
+        {
             get => asset.bindingMask;
             set => asset.bindingMask = value;
         }
 
-        public ReadOnlyArray<InputDevice>? devices {
+        public ReadOnlyArray<InputDevice>? devices
+        {
             get => asset.devices;
             set => asset.devices = value;
         }
 
         public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-        public bool Contains(InputAction action) {
+        public bool Contains(InputAction action)
+        {
             return asset.Contains(action);
         }
 
-        public IEnumerator<InputAction> GetEnumerator() {
+        public IEnumerator<InputAction> GetEnumerator()
+        {
             return asset.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() {
+        IEnumerator IEnumerable.GetEnumerator()
+        {
             return GetEnumerator();
         }
 
-        public void Enable() {
+        public void Enable()
+        {
             asset.Enable();
         }
 
-        public void Disable() {
+        public void Disable()
+        {
             asset.Disable();
         }
 
@@ -560,7 +571,8 @@ namespace AChildsCourage.Game.Input {
         private readonly InputAction m_Player_Item1;
         private readonly InputAction m_Player_Item2;
         private readonly InputAction m_Player_Pickup;
-        public struct PlayerActions {
+        public struct PlayerActions
+        {
             private @UserControls m_Wrapper;
             public PlayerActions(@UserControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
@@ -573,8 +585,10 @@ namespace AChildsCourage.Game.Input {
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-            public void SetCallbacks(IPlayerActions instance) {
-                if (m_Wrapper.m_PlayerActionsCallbackInterface != null) {
+            public void SetCallbacks(IPlayerActions instance)
+            {
+                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                {
                     @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
@@ -592,7 +606,8 @@ namespace AChildsCourage.Game.Input {
                     @Pickup.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
@@ -623,7 +638,8 @@ namespace AChildsCourage.Game.Input {
         private readonly InputAction m_UI_Point;
         private readonly InputAction m_UI_LeftClick;
         private readonly InputAction m_UI_RightClick;
-        public struct UIActions {
+        public struct UIActions
+        {
             private @UserControls m_Wrapper;
             public UIActions(@UserControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Navigation => m_Wrapper.m_UI_Navigation;
@@ -638,8 +654,10 @@ namespace AChildsCourage.Game.Input {
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
             public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-            public void SetCallbacks(IUIActions instance) {
-                if (m_Wrapper.m_UIActionsCallbackInterface != null) {
+            public void SetCallbacks(IUIActions instance)
+            {
+                if (m_Wrapper.m_UIActionsCallbackInterface != null)
+                {
                     @Navigation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
                     @Navigation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
                     @Navigation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
@@ -663,7 +681,8 @@ namespace AChildsCourage.Game.Input {
                     @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
                 }
                 m_Wrapper.m_UIActionsCallbackInterface = instance;
-                if (instance != null) {
+                if (instance != null)
+                {
                     @Navigation.started += instance.OnNavigation;
                     @Navigation.performed += instance.OnNavigation;
                     @Navigation.canceled += instance.OnNavigation;
@@ -690,48 +709,60 @@ namespace AChildsCourage.Game.Input {
         }
         public UIActions @UI => new UIActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
-        public InputControlScheme KeyboardMouseScheme {
-            get {
+        public InputControlScheme KeyboardMouseScheme
+        {
+            get
+            {
                 if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
                 return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
             }
         }
         private int m_GamepadSchemeIndex = -1;
-        public InputControlScheme GamepadScheme {
-            get {
+        public InputControlScheme GamepadScheme
+        {
+            get
+            {
                 if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
                 return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
         private int m_TouchSchemeIndex = -1;
-        public InputControlScheme TouchScheme {
-            get {
+        public InputControlScheme TouchScheme
+        {
+            get
+            {
                 if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
                 return asset.controlSchemes[m_TouchSchemeIndex];
             }
         }
         private int m_JoystickSchemeIndex = -1;
-        public InputControlScheme JoystickScheme {
-            get {
+        public InputControlScheme JoystickScheme
+        {
+            get
+            {
                 if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
                 return asset.controlSchemes[m_JoystickSchemeIndex];
             }
         }
         private int m_XRSchemeIndex = -1;
-        public InputControlScheme XRScheme {
-            get {
+        public InputControlScheme XRScheme
+        {
+            get
+            {
                 if (m_XRSchemeIndex == -1) m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
                 return asset.controlSchemes[m_XRSchemeIndex];
             }
         }
-        public interface IPlayerActions {
+        public interface IPlayerActions
+        {
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnItem1(InputAction.CallbackContext context);
             void OnItem2(InputAction.CallbackContext context);
             void OnPickup(InputAction.CallbackContext context);
         }
-        public interface IUIActions {
+        public interface IUIActions
+        {
             void OnNavigation(InputAction.CallbackContext context);
             void OnSubmit(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
