@@ -10,13 +10,13 @@ namespace AChildsCourage.Game.FloorGeneration
 
         public RoomShape Shape { get; }
 
-        public RoomItems Items { get; }
+        public RoomEntities Items { get; }
 
         #endregion
 
         #region Constructors
 
-        public Room(RoomShape shape, RoomItems items)
+        public Room(RoomShape shape, RoomEntities items)
         {
             Shape = shape;
             Items = items;

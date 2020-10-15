@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         {
             return new Room(
                 asset.RoomShape,
-                asset.RoomItems);
+                asset.RoomEntities);
         }
 
 

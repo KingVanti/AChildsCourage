@@ -93,7 +93,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         public void LoadFromAsset(RoomAsset asset)
         {
             LoadRoomShape(asset.RoomShape);
-            LoadRoomItems(asset.RoomItems);
+            LoadRoomEntities(asset.RoomEntities);
         }
 
         private void LoadRoomShape(RoomShape roomShape)
@@ -102,16 +102,16 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
         }
 
-        private void LoadRoomItems(RoomItems roomItems)
+        private void LoadRoomEntities(RoomEntities roomItems)
         {
-            WritePositionsToTileMap(roomItems.PotentialSpawnPositions, EntitiesTileMap, ItemTile);
+            WritePositionsToTileMap(roomItems.ItemPositions, EntitiesTileMap, ItemTile);
         }
 
 
         public void SaveChangesToAsset(RoomAsset asset)
         {
             asset.RoomShape = ReadRoomShape();
-            asset.RoomItems = ReadRoomItems();
+            asset.RoomEntities = ReadRoomItems();
 
             EditorUtility.SetDirty(asset);
             Debug.Log("Changes applied to asset. Press Ctrl+S to save!");
@@ -125,11 +125,11 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             return new RoomShape(wallPositions, floorPositions);
         }
 
-        private RoomItems ReadRoomItems()
+        private RoomEntities ReadRoomItems()
         {
-            var potentialSpawnPositions = new TilePositions(GetOccupiedPositions(EntitiesTileMap, "Item"));
+            var itemPositions = new TilePositions(GetOccupiedPositions(EntitiesTileMap, "Item"));
 
-            return new RoomItems(potentialSpawnPositions);
+            return new RoomEntities(itemPositions);
         }
 
 
