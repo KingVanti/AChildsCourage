@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
@@ -18,8 +19,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Fields
 
-        internal int x;
-        internal int y;
+        [SerializeField] internal int x;
+        [SerializeField] internal int y;
 
         #endregion
 

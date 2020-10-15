@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 
 namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
@@ -22,8 +23,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Fields
 
-        internal SerializableTilePosition[] wallPositions;
-        internal SerializableTilePosition[] floorPositions;
+        [SerializeField] internal SerializableTilePosition[] wallPositions;
+        [SerializeField] internal SerializableTilePosition[] floorPositions;
 
         #endregion
 
