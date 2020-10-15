@@ -23,7 +23,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(serializable.positions, Is.EqualTo(tilePositions.Positions.Select(SerializableTilePosition.From)), "Positions not correctly copied!");
+            var expected = tilePositions.Positions.Select(SerializableTilePosition.From);
+            Assert.That(serializable.positions, Is.EqualTo(expected), "Positions not correctly copied!");
         }
 
         [Test]
@@ -39,7 +40,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(tilePositions.Positions, Is.EqualTo(serializable.positions.Select(p => p.ToTilePosition())), "Positions not correctly copied!");
+            var expected = serializable.positions.Select(p => p.ToTilePosition());
+            Assert.That(tilePositions.Positions, Is.EqualTo(expected), "Positions not correctly copied!");
         }
 
         #endregion

@@ -24,8 +24,11 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(serializable.wallPositions, Is.EqualTo(SerializableTilePositions.From(shape.WallPositions)), "Wall positions not correctly copied!");
-            Assert.That(serializable.floorPositions, Is.EqualTo(SerializableTilePositions.From(shape.FloorPositions)), "Floor positions not correctly copied!");
+            var expectedWallPositions = SerializableTilePositions.From(shape.WallPositions);
+            var expectedFloorPositions = SerializableTilePositions.From(shape.FloorPositions);
+
+            Assert.That(serializable.wallPositions, Is.EqualTo(expectedWallPositions), "Wall positions not correctly copied!");
+            Assert.That(serializable.floorPositions, Is.EqualTo(expectedFloorPositions), "Floor positions not correctly copied!");
         }
 
         [Test]
@@ -43,8 +46,11 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(shape.WallPositions, Is.EqualTo(serializable.wallPositions.ToTilePositions()), "Wall positions not correctly copied!");
-            Assert.That(shape.FloorPositions, Is.EqualTo(serializable.floorPositions.ToTilePositions()), "Floor positions not correctly copied!");
+            var expectedWallPositions = serializable.wallPositions.ToTilePositions();
+            var expectedFloorPositions = serializable.floorPositions.ToTilePositions();
+
+            Assert.That(shape.WallPositions, Is.EqualTo(expectedWallPositions), "Wall positions not correctly copied!");
+            Assert.That(shape.FloorPositions, Is.EqualTo(expectedFloorPositions), "Floor positions not correctly copied!");
         }
 
         #endregion
