@@ -6,15 +6,15 @@
 
         #region Properties
 
-        public TilePosition[] WallPositions { get; }
+        public TilePositions WallPositions { get; }
 
-        public TilePosition[] FloorPositions { get; }
+        public TilePositions FloorPositions { get; }
 
         #endregion
 
         #region Constructors
 
-        public RoomShape(TilePosition[] wallPositions, TilePosition[] floorPositions)
+        public RoomShape(TilePositions wallPositions, TilePositions floorPositions)
         {
             WallPositions = wallPositions;
             FloorPositions = floorPositions;

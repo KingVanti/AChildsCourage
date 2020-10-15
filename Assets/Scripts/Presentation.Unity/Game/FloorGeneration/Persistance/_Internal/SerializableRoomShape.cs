@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 
 namespace AChildsCourage.Game.FloorGeneration.Persistance
@@ -13,8 +12,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         internal static SerializableRoomShape From(RoomShape shape)
         {
-            var wallPositions = shape.WallPositions.Select(SerializableTilePosition.From).ToArray();
-            var floorPositions = shape.FloorPositions.Select(SerializableTilePosition.From).ToArray();
+            var wallPositions = SerializableTilePositions.From(shape.WallPositions);
+            var floorPositions = SerializableTilePositions.From(shape.FloorPositions);
 
             return new SerializableRoomShape(wallPositions, floorPositions);
         }
@@ -23,14 +22,14 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Fields
 
-        [SerializeField] internal SerializableTilePosition[] wallPositions;
-        [SerializeField] internal SerializableTilePosition[] floorPositions;
+        [SerializeField] internal SerializableTilePositions wallPositions;
+        [SerializeField] internal SerializableTilePositions floorPositions;
 
         #endregion
 
         #region Constructors
 
-        internal SerializableRoomShape(SerializableTilePosition[] wallPositions, SerializableTilePosition[] floorPositions)
+        internal SerializableRoomShape(SerializableTilePositions wallPositions, SerializableTilePositions floorPositions)
         {
             this.wallPositions = wallPositions;
             this.floorPositions = floorPositions;
@@ -43,8 +42,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         internal RoomShape ToRoomShape()
         {
             return new RoomShape(
-                wallPositions.Select(p => p.ToTilePosition()).ToArray(),
-                floorPositions.Select(p => p.ToTilePosition()).ToArray());
+                wallPositions.ToTilePositions(),
+                floorPositions.ToTilePositions());
         }
 
         #endregion

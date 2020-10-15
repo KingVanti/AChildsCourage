@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.FloorGeneration.Persistance;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -106,7 +105,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
         }
 
-        private void WritePositionsToTileMap(TilePosition[] positions, Tilemap tilemap, Tile tile)
+        private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
         {
             tilemap.ClearAllTiles();
 
@@ -124,8 +123,8 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private RoomShape ReadRoomShape()
         {
-            var wallPositions = GetOccupiedPositions(WallTileMap).ToArray();
-            var floorPositions = GetOccupiedPositions(FloorTileMap).ToArray();
+            var wallPositions = new TilePositions(GetOccupiedPositions(WallTileMap));
+            var floorPositions = new TilePositions(GetOccupiedPositions(FloorTileMap));
 
             return new RoomShape(wallPositions, floorPositions);
         }

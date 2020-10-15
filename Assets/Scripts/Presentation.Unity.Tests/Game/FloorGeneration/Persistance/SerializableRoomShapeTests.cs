@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Linq;
 
 namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
@@ -15,8 +14,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         {
             // Given
 
-            var wallPositions = new[] { new TilePosition(1, 1), new TilePosition(-1, 3) };
-            var floorPositions = new[] { new TilePosition(-1, 0) };
+            var wallPositions = new TilePositions(new[] { new TilePosition(1, 1), new TilePosition(-1, 3) });
+            var floorPositions = new TilePositions(new[] { new TilePosition(-1, 0) });
             var shape = new RoomShape(wallPositions, floorPositions);
 
             // When
@@ -25,8 +24,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(serializable.wallPositions, Is.EqualTo(shape.WallPositions.Select(SerializableTilePosition.From)), "Wall positions not correctly copied!");
-            Assert.That(serializable.floorPositions, Is.EqualTo(shape.FloorPositions.Select(SerializableTilePosition.From)), "Floor positions not correctly copied!");
+            Assert.That(serializable.wallPositions, Is.EqualTo(SerializableTilePositions.From(shape.WallPositions)), "Wall positions not correctly copied!");
+            Assert.That(serializable.floorPositions, Is.EqualTo(SerializableTilePositions.From(shape.FloorPositions)), "Floor positions not correctly copied!");
         }
 
         [Test]
@@ -34,8 +33,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         {
             // Given
 
-            var wallPositions = new[] { new SerializableTilePosition(1, 1), new SerializableTilePosition(-1, 3) };
-            var floorPositions = new[] { new SerializableTilePosition(-1, 0) };
+            var wallPositions = new SerializableTilePositions(new[] { new SerializableTilePosition(1, 1), new SerializableTilePosition(-1, 3) });
+            var floorPositions = new SerializableTilePositions(new[] { new SerializableTilePosition(-1, 0) });
             var serializable = new SerializableRoomShape(wallPositions, floorPositions);
 
             // When
@@ -44,8 +43,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
             // Then
 
-            Assert.That(shape.WallPositions, Is.EqualTo(serializable.wallPositions.Select(p => p.ToTilePosition())), "Wall positions not correctly copied!");
-            Assert.That(shape.FloorPositions, Is.EqualTo(serializable.floorPositions.Select(p => p.ToTilePosition())), "Floor positions not correctly copied!");
+            Assert.That(shape.WallPositions, Is.EqualTo(serializable.wallPositions.ToTilePositions()), "Wall positions not correctly copied!");
+            Assert.That(shape.FloorPositions, Is.EqualTo(serializable.floorPositions.ToTilePositions()), "Floor positions not correctly copied!");
         }
 
         #endregion
