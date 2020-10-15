@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,15 +9,11 @@ namespace AChildsCourage.Game.Input {
 
         #region Fields
 
-        [SerializeField] private Transform playerTransform;
+        UserControls controls;
 
-        private Vector3 movement;
+        [SerializeField] private float _movementSpeed;
 
-        public UserControls controls;
-
-        private float _movementSpeed;
-        private bool _isMoving;
-
+        private Vector2 direction;
 
         #endregion
 
@@ -27,37 +24,43 @@ namespace AChildsCourage.Game.Input {
             set { _movementSpeed = value; }
         }
 
-        public bool IsMoving {
-            get { return _isMoving; }
-            set { _isMoving = value; }
-        }
-
-
         #endregion
 
         #region Methods
 
-        private void Awake() {
+        private void Update() {
 
-            controls = new UserControls();
+            Moving();
+            
+        }
 
-            controls.Player.Move.performed += _ => movement = _.ReadValue<Vector2>();
-            controls.Player.Move.canceled += _ => movement = Vector3.zero;
+        public void OnMovementChanged(InputAction.CallbackContext context) {
+
+            direction = context.ReadValue<Vector2>();
 
         }
 
-        private void Update() {
-            Vector3 move = new Vector3(movement.x, 0, movement.z) * Time.deltaTime * MovementSpeed;
-            transform.Translate(move, Space.World);
+        private void Moving() {
+
+            transform.Translate(direction * Time.deltaTime * MovementSpeed, Space.World);
+
         }
 
         private void OnEnable() {
+
+            if(controls == null) {
+                controls = new UserControls();
+            }
+
             controls.Player.Enable();
+
         }
 
         private void OnDisable() {
+
             controls.Player.Disable();
         }
+
 
         #endregion
 
