@@ -140,6 +140,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             asset.RoomItems = ReadRoomItems();
 
             EditorUtility.SetDirty(asset);
+            Debug.Log("Changes applied to asset. Press Ctrl+S to save!");
         }
 
         private RoomShape ReadRoomShape()
