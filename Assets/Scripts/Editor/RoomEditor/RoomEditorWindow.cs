@@ -102,29 +102,18 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private void LoadRoomShape(RoomShape roomShape)
         {
-            LoadWalls(roomShape.WallPositions);
-            LoadFloors(roomShape.FloorPositions);
+            WritePositionsToTileMap(roomShape.WallPositions, WallTileMap, WallTile);
+            WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
         }
 
-        private void LoadWalls(TilePosition[] wallPositions)
+        private void WritePositionsToTileMap(TilePosition[] positions, Tilemap tilemap, Tile tile)
         {
-            WallTileMap.ClearAllTiles();
+            tilemap.ClearAllTiles();
 
-            foreach (var wallPosition in wallPositions)
+            foreach (var position in positions)
             {
-                var vectorPosition = new Vector3Int(wallPosition.X, wallPosition.Y, 0);
-                WallTileMap.SetTile(vectorPosition, WallTile);
-            }
-        }
-
-        private void LoadFloors(TilePosition[] floorPositions)
-        {
-            FloorTileMap.ClearAllTiles();
-
-            foreach (var floorPosition in floorPositions)
-            {
-                var vectorPosition = new Vector3Int(floorPosition.X, floorPosition.Y, 0);
-                FloorTileMap.SetTile(vectorPosition, FloorTile);
+                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
+                tilemap.SetTile(vectorPosition, tile);
             }
         }
 
@@ -135,20 +124,10 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private RoomShape ReadRoomShape()
         {
-            var wallPositions = ReadWallPositions();
-            var floorPositions = ReadFloorPositions();
+            var wallPositions = GetOccupiedPositions(WallTileMap).ToArray();
+            var floorPositions = GetOccupiedPositions(FloorTileMap).ToArray();
 
             return new RoomShape(wallPositions, floorPositions);
-        }
-
-        private TilePosition[] ReadWallPositions()
-        {
-            return GetOccupiedPositions(WallTileMap).ToArray();
-        }
-
-        private TilePosition[] ReadFloorPositions()
-        {
-            return GetOccupiedPositions(FloorTileMap).ToArray();
         }
 
         private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap)
