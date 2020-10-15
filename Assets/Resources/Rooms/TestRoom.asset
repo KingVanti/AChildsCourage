@@ -26,8 +26,16 @@ MonoBehaviour:
         y: 1
       - x: 1
         y: 0
-  _roomItems:
-    potentialSpawnPositions:
+  _roomEntities:
+    itemPositions:
       positions:
-      - x: 0
+      - x: 2
+        y: 0
+    smallCouragePositions:
+      positions:
+      - x: 3
+        y: 1
+    bigCouragePositions:
+      positions:
+      - x: 3
         y: 0
