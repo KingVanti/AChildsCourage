@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AChildsCourage.Game.Input {
-    public class PlayerController : MonoBehaviour {
+namespace AChildsCourage.Game.Input
+{
+    public class PlayerController : MonoBehaviour
+    {
 
         #region Fields
 
@@ -19,7 +18,8 @@ namespace AChildsCourage.Game.Input {
 
         #region Properties
 
-        public float MovementSpeed {
+        public float MovementSpeed
+        {
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
@@ -28,27 +28,32 @@ namespace AChildsCourage.Game.Input {
 
         #region Methods
 
-        private void FixedUpdate() {
+        private void Update()
+        {
 
             Moving();
-            
+
         }
 
-        public void OnMovementChanged(InputAction.CallbackContext context) {
+        public void OnMovementChanged(InputAction.CallbackContext context)
+        {
 
             direction = context.ReadValue<Vector2>();
 
         }
 
-        private void Moving() {
+        private void Moving()
+        {
 
-            transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            transform.Translate(direction * Time.deltaTime * MovementSpeed, Space.World);
 
         }
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
 
-            if(controls == null) {
+            if (controls == null)
+            {
                 controls = new UserControls();
             }
 
@@ -56,7 +61,8 @@ namespace AChildsCourage.Game.Input {
 
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
 
             controls.Player.Disable();
         }

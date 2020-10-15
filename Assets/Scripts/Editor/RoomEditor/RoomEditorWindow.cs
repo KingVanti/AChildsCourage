@@ -1,4 +1,6 @@
 ﻿using AChildsCourage.Game.FloorGeneration.Persistance;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -89,6 +91,8 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         {
             if (GUILayout.Button("Load room from asset"))
                 LoadFromAsset(selectedRoomAsset);
+            if (GUILayout.Button("Save changes"))
+                SaveChangesToAsset(selectedRoomAsset);
         }
 
         private void LoadFromAsset(RoomAsset asset)
@@ -98,30 +102,46 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private void LoadRoomShape(RoomShape roomShape)
         {
-            LoadWalls(roomShape.WallPositions);
-            LoadFloors(roomShape.FloorPositions);
+            WritePositionsToTileMap(roomShape.WallPositions, WallTileMap, WallTile);
+            WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
         }
 
-        private void LoadWalls(TilePosition[] wallPositions)
+        private void WritePositionsToTileMap(TilePosition[] positions, Tilemap tilemap, Tile tile)
         {
-            WallTileMap.ClearAllTiles();
+            tilemap.ClearAllTiles();
 
-            foreach (var wallPosition in wallPositions)
+            foreach (var position in positions)
             {
-                var vectorPosition = new Vector3Int(wallPosition.X, wallPosition.Y, 0);
-                WallTileMap.SetTile(vectorPosition, WallTile);
+                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
+                tilemap.SetTile(vectorPosition, tile);
             }
         }
 
-        private void LoadFloors(TilePosition[] floorPositions)
+        private void SaveChangesToAsset(RoomAsset asset)
         {
-            FloorTileMap.ClearAllTiles();
+            asset.RoomShape = ReadRoomShape();
+        }
 
-            foreach (var floorPosition in floorPositions)
-            {
-                var vectorPosition = new Vector3Int(floorPosition.X, floorPosition.Y, 0);
-                FloorTileMap.SetTile(vectorPosition, FloorTile);
-            }
+        private RoomShape ReadRoomShape()
+        {
+            var wallPositions = GetOccupiedPositions(WallTileMap).ToArray();
+            var floorPositions = GetOccupiedPositions(FloorTileMap).ToArray();
+
+            return new RoomShape(wallPositions, floorPositions);
+        }
+
+        private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap)
+        {
+            var bounds = tilemap.cellBounds;
+
+            for (var x = bounds.xMin; x <= bounds.xMax; x++)
+                for (var y = bounds.yMin; y <= bounds.yMax; y++)
+                {
+                    var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
+
+                    if (tile != null)
+                        yield return new TilePosition(x, y);
+                }
         }
 
         #endregion
