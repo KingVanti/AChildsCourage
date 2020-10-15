@@ -10,7 +10,7 @@
         {
             var asset = GetRoomAsset(id);
 
-            // TODO: Update properties
+            asset.RoomShape = room.Shape;
         }
 
         #endregion

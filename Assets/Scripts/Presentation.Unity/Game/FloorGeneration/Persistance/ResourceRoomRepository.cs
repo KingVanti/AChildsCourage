@@ -21,9 +21,15 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
             var asset = GetRoomAsset(id);
 
             if (asset != null)
-                return new Room();
+                return CreateRoomFrom(asset);
             else
                 throw new FileNotFoundException($"Could not find room with the id {id}!");
+        }
+
+        private Room CreateRoomFrom(RoomAsset asset)
+        {
+            return new Room(
+                asset.RoomShape);
         }
 
 

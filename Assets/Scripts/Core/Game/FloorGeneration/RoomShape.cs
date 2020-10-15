@@ -12,6 +12,16 @@
 
         #endregion
 
+        #region Constructors
+
+        public RoomShape(TilePosition[] wallPositions, TilePosition[] floorPositions)
+        {
+            WallPositions = wallPositions;
+            FloorPositions = floorPositions;
+        }
+
+        #endregion
+
     }
 
 }

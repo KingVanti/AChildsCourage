@@ -10,6 +10,15 @@
 
         #endregion
 
+        #region Constructors
+
+        public Room(RoomShape shape)
+        {
+            Shape = shape;
+        }
+
+        #endregion
+
     }
 
 }
