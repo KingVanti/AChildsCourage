@@ -138,6 +138,8 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         {
             asset.RoomShape = ReadRoomShape();
             asset.RoomItems = ReadRoomItems();
+
+            EditorUtility.SetDirty(asset);
         }
 
         private RoomShape ReadRoomShape()
