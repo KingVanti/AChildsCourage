@@ -5,16 +5,12 @@ using UnityEngine;
 namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
 
-    public class ResourceRoomLoader : IRoomLoader
+    public class ResourceRoomRepository : IRoomRepository
     {
 
         #region Constants
 
-        private const string RoomResourcePath = "Rooms/";
-
-        #endregion
-
-        #region Fields
+        protected const string RoomResourcePath = "Rooms/";
 
         #endregion
 
@@ -25,12 +21,25 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
             var asset = GetRoomAsset(id);
 
             if (asset != null)
-                return new Room();
+                return CreateRoomFrom(asset);
             else
                 throw new FileNotFoundException($"Could not find room with the id {id}!");
         }
 
-        private RoomAsset GetRoomAsset(int id)
+        private Room CreateRoomFrom(RoomAsset asset)
+        {
+            return new Room(
+                asset.RoomShape);
+        }
+
+
+        public bool Contains(int id)
+        {
+            return GetRoomAsset(id) != null;
+        }
+
+
+        protected RoomAsset GetRoomAsset(int id)
         {
             return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
         }

@@ -12,6 +12,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 #pragma warning disable 649
 
         [SerializeField] private int _id;
+        [SerializeField] private SerializableRoomShape _roomShape;
 
 #pragma warning restore 649
 
@@ -19,7 +20,13 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Properties
 
-        public int Id { get { return _id; } }
+        public int Id { get { return _id; } set { _id = value; } }
+
+        public RoomShape RoomShape
+        {
+            get { return _roomShape?.ToRoomShape(); }
+            set { _roomShape = value != null ? SerializableRoomShape.From(value) : null; }
+        }
 
         #endregion
 
