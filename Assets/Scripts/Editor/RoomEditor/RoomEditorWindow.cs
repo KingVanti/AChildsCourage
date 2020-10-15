@@ -137,6 +137,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         private void SaveChangesToAsset(RoomAsset asset)
         {
             asset.RoomShape = ReadRoomShape();
+            asset.RoomItems = ReadRoomItems();
         }
 
         private RoomShape ReadRoomShape()
@@ -146,6 +147,26 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
             return new RoomShape(wallPositions, floorPositions);
         }
+
+        private RoomItems ReadRoomItems()
+        {
+            var potentialSpawnPositions = new TilePositions(GetOccupiedPositions(EntitiesTileMap, "Item"));
+
+            return new RoomItems(potentialSpawnPositions);
+        }
+
+
+        private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
+        {
+            tilemap.ClearAllTiles();
+
+            foreach (var position in positions)
+            {
+                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
+                tilemap.SetTile(vectorPosition, tile);
+            }
+        }
+
 
         private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap, string tileName)
         {
@@ -159,18 +180,6 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                     if (tile != null && tile.name == tileName)
                         yield return new TilePosition(x, y);
                 }
-        }
-
-
-        private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
-        {
-            tilemap.ClearAllTiles();
-
-            foreach (var position in positions)
-            {
-                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
-                tilemap.SetTile(vectorPosition, tile);
-            }
         }
 
         #endregion
