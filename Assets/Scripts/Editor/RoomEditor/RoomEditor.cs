@@ -10,81 +10,23 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
     public class RoomEditor
     {
 
-        #region Fields
+        #region Constants
 
-        private Tilemap _entitiesTileMap;
-        private Tilemap _staticTileMap;
-        private Tilemap _floorTileMap;
-        private Tile _itemTile;
-        private Tile _wallTile;
-        private Tile _floorTile;
-
+        private const string WallTileName = "Wall";
+        private const string FloorTileName = "Floor";
+        private const string ItemTileName = "Item";
+        private const string SmallCourageTileName = "Courage_Small";
+        private const string BigCourageTileName = "Courage_Big";
+        private const string EntitiesTilemapName = "Entities";
+        private const string StaticTilemapName = "Static";
+        private const string FloorTilemapName = "Floor";
+        
         #endregion
 
-        #region Properties
+        #region Fields
 
-        private Tilemap EntitiesTileMap
-        {
-            get
-            {
-                if (_entitiesTileMap == null)
-                    _entitiesTileMap = GameObject.Find("Entities").GetComponent<Tilemap>();
-                return _entitiesTileMap;
-            }
-        }
-
-        private Tilemap StaticTileMap
-        {
-            get
-            {
-                if (_staticTileMap == null)
-                    _staticTileMap = GameObject.Find("Static").GetComponent<Tilemap>();
-                return _staticTileMap;
-            }
-        }
-
-        private Tilemap FloorTileMap
-        {
-            get
-            {
-                if (_floorTileMap == null)
-                    _floorTileMap = GameObject.Find("Floor").GetComponent<Tilemap>();
-                return _floorTileMap;
-            }
-        }
-
-        private Tile ItemTile
-        {
-            get
-            {
-                if (_itemTile == null)
-                    _itemTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Item.asset");
-
-                return _itemTile;
-            }
-        }
-
-        private Tile WallTile
-        {
-            get
-            {
-                if (_wallTile == null)
-                    _wallTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Wall.asset");
-
-                return _wallTile;
-            }
-        }
-
-        private Tile FloorTile
-        {
-            get
-            {
-                if (_floorTile == null)
-                    _floorTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Floor.asset");
-
-                return _floorTile;
-            }
-        }
+        private readonly Dictionary<string, Tilemap> tilemaps = new Dictionary<string, Tilemap>();
+        private readonly Dictionary<string, Tile> tiles = new Dictionary<string, Tile>();
 
         #endregion
 
@@ -92,51 +34,60 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         public void LoadFromAsset(RoomAsset asset)
         {
+            foreach (var tilemap in tilemaps.Values)
+                tilemap.ClearAllTiles();
+
             LoadRoomShape(asset.RoomShape);
             LoadRoomEntities(asset.RoomEntities);
         }
 
         private void LoadRoomShape(RoomShape roomShape)
         {
-            WritePositionsToTileMap(roomShape.WallPositions, StaticTileMap, WallTile);
-            WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
+            WritePositionsToTileMap(roomShape.WallPositions, GetTileMap(StaticTilemapName), GetTile(WallTileName));
+            WritePositionsToTileMap(roomShape.FloorPositions, GetTileMap(FloorTilemapName), GetTile(FloorTileName));
         }
 
         private void LoadRoomEntities(RoomEntities roomItems)
         {
-            WritePositionsToTileMap(roomItems.ItemPositions, EntitiesTileMap, ItemTile);
+            var entitiesMap = GetTileMap(EntitiesTilemapName);
+
+            WritePositionsToTileMap(roomItems.ItemPositions, entitiesMap, GetTile(ItemTileName));
+            WritePositionsToTileMap(roomItems.SmallCouragePositions, entitiesMap, GetTile(SmallCourageTileName));
+            WritePositionsToTileMap(roomItems.BigCouragePositions, entitiesMap, GetTile(BigCourageTileName));
         }
 
 
         public void SaveChangesToAsset(RoomAsset asset)
         {
             asset.RoomShape = ReadRoomShape();
-            asset.RoomEntities = ReadRoomItems();
+            asset.RoomEntities = ReadRoomEntities();
 
             EditorUtility.SetDirty(asset);
-            Debug.Log("Changes applied to asset. Press Ctrl+S to save!");
+            Debug.Log("Changes applied to asset. Exit play-mode and press Ctrl+S to save!");
         }
 
         private RoomShape ReadRoomShape()
         {
-            var wallPositions = new TilePositions(GetOccupiedPositions(StaticTileMap, "Wall"));
-            var floorPositions = new TilePositions(GetOccupiedPositions(FloorTileMap, "Floor"));
+            var wallPositions = new TilePositions(GetOccupiedPositions(GetTileMap(StaticTilemapName), WallTileName));
+            var floorPositions = new TilePositions(GetOccupiedPositions(GetTileMap(FloorTilemapName), FloorTileName));
 
             return new RoomShape(wallPositions, floorPositions);
         }
 
-        private RoomEntities ReadRoomItems()
+        private RoomEntities ReadRoomEntities()
         {
-            var itemPositions = new TilePositions(GetOccupiedPositions(EntitiesTileMap, "Item"));
+            var entitiesTilemap = GetTileMap(EntitiesTilemapName);
 
-            return new RoomEntities(itemPositions);
+            var itemPositions = new TilePositions(GetOccupiedPositions(entitiesTilemap, ItemTileName));
+            var smallPositions = new TilePositions(GetOccupiedPositions(entitiesTilemap, SmallCourageTileName));
+            var bigPositions = new TilePositions(GetOccupiedPositions(entitiesTilemap, BigCourageTileName));
+
+            return new RoomEntities(itemPositions, smallPositions, bigPositions);
         }
 
 
         private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
         {
-            tilemap.ClearAllTiles();
-
             foreach (var position in positions)
             {
                 var vectorPosition = new Vector3Int(position.X, position.Y, 0);
@@ -157,6 +108,23 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                     if (tile != null && tile.name == tileName)
                         yield return new TilePosition(x, y);
                 }
+        }
+
+
+        private Tilemap GetTileMap(string name)
+        {
+            if (!tilemaps.ContainsKey(name))
+                tilemaps.Add(name, GameObject.Find(name).GetComponent<Tilemap>());
+
+            return tilemaps[name];
+        }
+
+        private Tile GetTile(string name)
+        {
+            if (!tiles.ContainsKey(name))
+                tiles.Add(name, AssetDatabase.LoadAssetAtPath<Tile>($"Assets/Sprites/Editor/Tiles/{name}.asset"));
+
+            return tiles[name];
         }
 
         #endregion
