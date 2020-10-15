@@ -35,6 +35,11 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
             return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
         }
 
+        public bool Contains(int id)
+        {
+            return GetRoomAsset(id) != null;
+        }
+
         #endregion
 
     }
