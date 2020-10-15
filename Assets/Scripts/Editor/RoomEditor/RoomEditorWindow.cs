@@ -19,10 +19,12 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private void OnGUI()
         {
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "RoomEditor")
-                DrawEditor();
-            else
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "RoomEditor")
                 EditorGUILayout.LabelField("Open the RoomEditor scene to edit rooms!");
+            else if(!Application.isPlaying)
+                EditorGUILayout.LabelField("Press play to edit rooms!");
+            else
+                DrawEditor();
         }
 
         private void DrawEditor()
