@@ -13,14 +13,26 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         #region Fields
 
         private RoomAsset selectedRoomAsset;
+        private Tilemap _entitiesTileMap;
         private Tilemap _staticTileMap;
         private Tilemap _floorTileMap;
+        private Tile _itemTile;
         private Tile _wallTile;
         private Tile _floorTile;
 
         #endregion
 
         #region Properties
+
+        private Tilemap EntitiesTileMap
+        {
+            get
+            {
+                if (_entitiesTileMap == null)
+                    _entitiesTileMap = GameObject.Find("Entities").GetComponent<Tilemap>();
+                return _entitiesTileMap;
+            }
+        }
 
         private Tilemap StaticTileMap
         {
@@ -39,6 +51,17 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                 if (_floorTileMap == null)
                     _floorTileMap = GameObject.Find("Floor").GetComponent<Tilemap>();
                 return _floorTileMap;
+            }
+        }
+
+        private Tile ItemTile
+        {
+            get
+            {
+                if (_itemTile == null)
+                    _itemTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Item.asset");
+
+                return _itemTile;
             }
         }
 
@@ -97,23 +120,18 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         private void LoadFromAsset(RoomAsset asset)
         {
             LoadRoomShape(asset.RoomShape);
+            LoadRoomItems(asset.RoomItems);
         }
 
         private void LoadRoomShape(RoomShape roomShape)
         {
             WritePositionsToTileMap(roomShape.WallPositions, StaticTileMap, WallTile);
             WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
-        }
+        }      
 
-        private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
+        private void LoadRoomItems(RoomItems roomItems)
         {
-            tilemap.ClearAllTiles();
-
-            foreach (var position in positions)
-            {
-                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
-                tilemap.SetTile(vectorPosition, tile);
-            }
+            WritePositionsToTileMap(roomItems.PotentialSpawnPositions, EntitiesTileMap, ItemTile);
         }
 
         private void SaveChangesToAsset(RoomAsset asset)
@@ -141,6 +159,18 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                     if (tile != null && tile.name == tileName)
                         yield return new TilePosition(x, y);
                 }
+        }
+
+
+        private void WritePositionsToTileMap(TilePositions positions, Tilemap tilemap, Tile tile)
+        {
+            tilemap.ClearAllTiles();
+
+            foreach (var position in positions)
+            {
+                var vectorPosition = new Vector3Int(position.X, position.Y, 0);
+                tilemap.SetTile(vectorPosition, tile);
+            }
         }
 
         #endregion
