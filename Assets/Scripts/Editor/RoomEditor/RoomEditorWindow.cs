@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         #region Fields
 
         private RoomAsset selectedRoomAsset;
-        private Tilemap _wallTileMap;
+        private Tilemap _staticTileMap;
         private Tile _wallTile;
         private Tilemap _floorTileMap;
         private Tile _floorTile;
@@ -22,13 +22,13 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         #region Properties
 
-        private Tilemap WallTileMap
+        private Tilemap StaticTileMap
         {
             get
             {
-                if (_wallTileMap == null)
-                    _wallTileMap = GameObject.Find("Walls").GetComponent<Tilemap>();
-                return _wallTileMap;
+                if (_staticTileMap == null)
+                    _staticTileMap = GameObject.Find("Static").GetComponent<Tilemap>();
+                return _staticTileMap;
             }
         }
 
@@ -37,7 +37,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             get
             {
                 if (_wallTile == null)
-                    _wallTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Placeholder_Wall.asset");
+                    _wallTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Wall.asset");
 
                 return _wallTile;
             }
@@ -58,7 +58,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             get
             {
                 if (_floorTile == null)
-                    _floorTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Placeholder_Floor.asset");
+                    _floorTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Floor.asset");
 
                 return _floorTile;
             }
@@ -101,7 +101,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private void LoadRoomShape(RoomShape roomShape)
         {
-            WritePositionsToTileMap(roomShape.WallPositions, WallTileMap, WallTile);
+            WritePositionsToTileMap(roomShape.WallPositions, StaticTileMap, WallTile);
             WritePositionsToTileMap(roomShape.FloorPositions, FloorTileMap, FloorTile);
         }
 
@@ -123,13 +123,13 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private RoomShape ReadRoomShape()
         {
-            var wallPositions = new TilePositions(GetOccupiedPositions(WallTileMap));
-            var floorPositions = new TilePositions(GetOccupiedPositions(FloorTileMap));
+            var wallPositions = new TilePositions(GetOccupiedPositions(StaticTileMap, "Wall"));
+            var floorPositions = new TilePositions(GetOccupiedPositions(FloorTileMap, "Floor"));
 
             return new RoomShape(wallPositions, floorPositions);
         }
 
-        private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap)
+        private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap, string tileName)
         {
             var bounds = tilemap.cellBounds;
 
@@ -138,7 +138,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                 {
                     var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
 
-                    if (tile != null)
+                    if (tile != null && tile.name == tileName)
                         yield return new TilePosition(x, y);
                 }
         }

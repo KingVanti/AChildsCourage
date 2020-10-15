@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 874654443}
   - component: {fileID: 874654442}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 1551180279}
   - component: {fileID: 1551180278}
   m_Layer: 0
-  m_Name: PotentialItemPositions
+  m_Name: Entities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
