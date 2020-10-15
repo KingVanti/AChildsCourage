@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Input
 
         #region Methods
 
-        private void Update()
+        private void FixedUpdate()
         {
 
             Moving();
@@ -45,7 +45,7 @@ namespace AChildsCourage.Game.Input
         private void Moving()
         {
 
-            transform.Translate(direction * Time.deltaTime * MovementSpeed, Space.World);
+            transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
 
         }
 
