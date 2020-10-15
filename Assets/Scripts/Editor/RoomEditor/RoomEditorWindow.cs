@@ -1,4 +1,6 @@
 ﻿using AChildsCourage.Game.FloorGeneration.Persistance;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -89,6 +91,8 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         {
             if (GUILayout.Button("Load room from asset"))
                 LoadFromAsset(selectedRoomAsset);
+            if (GUILayout.Button("Save changes"))
+                SaveChangesToAsset(selectedRoomAsset);
         }
 
         private void LoadFromAsset(RoomAsset asset)
@@ -122,6 +126,43 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                 var vectorPosition = new Vector3Int(floorPosition.X, floorPosition.Y, 0);
                 FloorTileMap.SetTile(vectorPosition, FloorTile);
             }
+        }
+
+        private void SaveChangesToAsset(RoomAsset asset)
+        {
+            asset.RoomShape = ReadRoomShape();
+        }
+
+        private RoomShape ReadRoomShape()
+        {
+            var wallPositions = ReadWallPositions();
+            var floorPositions = ReadFloorPositions();
+
+            return new RoomShape(wallPositions, floorPositions);
+        }
+
+        private TilePosition[] ReadWallPositions()
+        {
+            return GetOccupiedPositions(WallTileMap).ToArray();
+        }
+
+        private TilePosition[] ReadFloorPositions()
+        {
+            return GetOccupiedPositions(FloorTileMap).ToArray();
+        }
+
+        private IEnumerable<TilePosition> GetOccupiedPositions(Tilemap tilemap)
+        {
+            var bounds = tilemap.cellBounds;
+
+            for (var x = bounds.xMin; x <= bounds.xMax; x++)
+                for (var y = bounds.yMin; y <= bounds.yMax; y++)
+                {
+                    var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
+
+                    if (tile != null)
+                        yield return new TilePosition(x, y);
+                }
         }
 
         #endregion
