@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Properties
 
-        public int Id { get { return _id; } }
+        public int Id { get { return _id; } set { _id = value; } }
 
         #endregion
 

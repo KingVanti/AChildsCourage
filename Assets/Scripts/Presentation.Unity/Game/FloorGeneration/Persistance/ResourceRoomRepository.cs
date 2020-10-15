@@ -10,11 +10,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Constants
 
-        private const string RoomResourcePath = "Rooms/";
-
-        #endregion
-
-        #region Fields
+        protected const string RoomResourcePath = "Rooms/";
 
         #endregion
 
@@ -30,14 +26,16 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
                 throw new FileNotFoundException($"Could not find room with the id {id}!");
         }
 
-        private RoomAsset GetRoomAsset(int id)
-        {
-            return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
-        }
 
         public bool Contains(int id)
         {
             return GetRoomAsset(id) != null;
+        }
+
+
+        protected RoomAsset GetRoomAsset(int id)
+        {
+            return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
         }
 
         #endregion
