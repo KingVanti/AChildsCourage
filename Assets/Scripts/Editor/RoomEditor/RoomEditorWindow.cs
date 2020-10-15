@@ -14,8 +14,8 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
 
         private RoomAsset selectedRoomAsset;
         private Tilemap _staticTileMap;
-        private Tile _wallTile;
         private Tilemap _floorTileMap;
+        private Tile _wallTile;
         private Tile _floorTile;
 
         #endregion
@@ -32,6 +32,16 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
             }
         }
 
+        private Tilemap FloorTileMap
+        {
+            get
+            {
+                if (_floorTileMap == null)
+                    _floorTileMap = GameObject.Find("Floor").GetComponent<Tilemap>();
+                return _floorTileMap;
+            }
+        }
+
         private Tile WallTile
         {
             get
@@ -40,16 +50,6 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
                     _wallTile = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Sprites/Editor/Tiles/Wall.asset");
 
                 return _wallTile;
-            }
-        }
-
-        private Tilemap FloorTileMap
-        {
-            get
-            {
-                if (_floorTileMap == null)
-                    _floorTileMap = GameObject.Find("Floor").GetComponent<Tilemap>();
-                return _floorTileMap;
             }
         }
 
