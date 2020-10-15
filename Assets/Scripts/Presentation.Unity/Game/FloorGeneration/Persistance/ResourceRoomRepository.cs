@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
 
-    public class ResourceRoomLoader : IRoomLoader
+    public class ResourceRoomRepository : IRoomRepository
     {
 
         #region Constants

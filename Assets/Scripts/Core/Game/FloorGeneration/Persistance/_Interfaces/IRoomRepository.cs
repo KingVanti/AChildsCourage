@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
 
-    public interface IRoomLoader
+    public interface IRoomRepository
     {
 
         #region Methods
