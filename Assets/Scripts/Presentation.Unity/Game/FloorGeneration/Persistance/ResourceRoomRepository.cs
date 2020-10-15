@@ -29,7 +29,8 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         private Room CreateRoomFrom(RoomAsset asset)
         {
             return new Room(
-                asset.RoomShape);
+                asset.RoomShape,
+                asset.RoomItems);
         }
 
 

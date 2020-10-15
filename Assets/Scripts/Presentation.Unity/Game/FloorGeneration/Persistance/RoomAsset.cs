@@ -13,6 +13,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         [SerializeField] private int _id;
         [SerializeField] private SerializableRoomShape _roomShape;
+        [SerializeField] private SerializableRoomItems _roomItems;
 
 #pragma warning restore 649
 
@@ -26,6 +27,12 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
         {
             get { return _roomShape?.ToRoomShape(); }
             set { _roomShape = value != null ? SerializableRoomShape.From(value) : null; }
+        }
+
+        public RoomItems RoomItems
+        {
+            get { return _roomItems?.ToRoomItems(); }
+            set { _roomItems = value != null ? SerializableRoomItems.From(value) : null; }
         }
 
         #endregion
