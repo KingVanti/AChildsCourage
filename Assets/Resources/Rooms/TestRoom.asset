@@ -15,12 +15,19 @@ MonoBehaviour:
   _id: 0
   _roomShape:
     wallPositions:
-    - x: 0
-      y: 0
-    - x: 1
-      y: 1
+      positions:
+      - x: 0
+        y: 0
+      - x: 1
+        y: 1
     floorPositions:
-    - x: 0
-      y: 1
-    - x: 1
-      y: 0
+      positions:
+      - x: 0
+        y: 1
+      - x: 1
+        y: 0
+  _roomItems:
+    potentialSpawnPositions:
+      positions:
+      - x: 0
+        y: 0
