@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Input {
 
         private UserControls controls;
         [SerializeField] private Animator animator;
-
+        [SerializeField] private Transform flashlight;
         [SerializeField] private float _movementSpeed;
 
         private Vector2 direction;
@@ -70,7 +70,7 @@ namespace AChildsCourage.Game.Input {
 
             LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
 
-            //transform.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+            flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
         }
 
