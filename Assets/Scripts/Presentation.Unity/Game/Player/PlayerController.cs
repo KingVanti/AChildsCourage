@@ -1,21 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AChildsCourage.Game.Input
-{
-    public class PlayerController : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Input {
+    public class PlayerController : MonoBehaviour {
 
         #region Fields
 
-        UserControls controls;
+        private UserControls controls;
+        [SerializeField] private Animator animator;
 
         [SerializeField] private float _movementSpeed;
 
         private Vector2 direction;
         private Vector2 mousePosition;
 
-        private float mouseAngle;
+        private float _lookAngle;
 
         [SerializeField] private Camera mainCamera;
 
@@ -23,19 +22,32 @@ namespace AChildsCourage.Game.Input
 
         #region Properties
 
-        public float MovementSpeed
-        {
+        /// <summary>
+        /// The movement speed of the player character.
+        /// </summary>
+        public float MovementSpeed {
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
 
+        /// <summary>
+        /// The angle the player is facing towards the mouse cursor.
+        /// </summary>
+        public float LookAngle {
+
+            get { return _lookAngle; }
+            set { 
+                _lookAngle = value;
+                animator.SetFloat("LookAngle", _lookAngle < 0 ? _lookAngle + 360 : _lookAngle);
+            }
+
+        }
 
         #endregion
 
         #region Methods
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
 
             Move();
             Rotate();
@@ -48,8 +60,33 @@ namespace AChildsCourage.Game.Input
 
         }
 
-        public void OnMovementChanged(InputAction.CallbackContext context)
-        {
+
+        private void Rotate() {
+
+            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
+            Vector2 playerPos = transform.position;
+
+            Vector2 relativeMousePosition = projectedMousePosition - playerPos;
+
+            LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
+
+            //transform.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+
+        }
+
+        private void Move() {
+
+            transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
+
+        }
+
+        private float CalculateAngle(float yPos, float xPos) {
+
+            return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
+
+        }
+
+        public void OnMovementChanged(InputAction.CallbackContext context) {
 
             direction = context.ReadValue<Vector2>();
 
@@ -61,31 +98,9 @@ namespace AChildsCourage.Game.Input
 
         }
 
-        private void Rotate() {
+        private void OnEnable() {
 
-            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
-            Vector2 playerPos = transform.position;
-
-            Vector2 relativeMousePosition = projectedMousePosition - playerPos;
-
-            float angle = Mathf.Atan2(relativeMousePosition.y, relativeMousePosition.x) * Mathf.Rad2Deg;
-
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        }
-
-        private void Move()
-        {
-
-            transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
-
-        }
-
-        private void OnEnable()
-        {
-
-            if (controls == null)
-            {
+            if (controls == null) {
                 controls = new UserControls();
             }
 
@@ -93,8 +108,7 @@ namespace AChildsCourage.Game.Input
 
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
 
             controls.Player.Disable();
         }
