@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.FloorGeneration.Persistance
+namespace AChildsCourage.Game.Floors.Persistance
 {
 
     [Serializable]

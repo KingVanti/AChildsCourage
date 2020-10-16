@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AChildsCourage.Game.FloorGeneration.Persistance
+namespace AChildsCourage.Game.Floors.Persistance
 {
 
     [Serializable]

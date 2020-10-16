@@ -1,8 +1,8 @@
-﻿using AChildsCourage.Game.FloorGeneration.Persistance;
+﻿using AChildsCourage.Game.Floors.Persistance;
 using UnityEditor;
 using UnityEngine;
 
-namespace AChildsCourage.Game.FloorGeneration.Editor
+namespace AChildsCourage.Game.Floors.Editor
 {
 
     public class RoomEditorWindow : EditorWindow

@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.FloorGeneration.Editor;
+﻿using AChildsCourage.Game.Floors.Editor;
 using UnityEditor;
 
 namespace AChildsCourage.Editor

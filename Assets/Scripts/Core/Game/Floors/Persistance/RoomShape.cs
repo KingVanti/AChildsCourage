@@ -1,4 +1,4 @@
-﻿namespace AChildsCourage.Game.FloorGeneration.Persistance
+﻿namespace AChildsCourage.Game.Floors.Persistance
 {
 
     public class RoomShape

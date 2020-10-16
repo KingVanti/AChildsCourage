@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.FloorGeneration.Persistance
+namespace AChildsCourage.Game.Floors.Persistance
 {
 
     public class ResourceRoomRepository : IRoomRepository

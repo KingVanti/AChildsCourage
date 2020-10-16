@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.FloorGeneration.Persistance;
+﻿using AChildsCourage.Game.Floors.Persistance;
 
-namespace AChildsCourage.Game.FloorGeneration
+namespace AChildsCourage.Game.Floors
 {
 
     public class RoomData

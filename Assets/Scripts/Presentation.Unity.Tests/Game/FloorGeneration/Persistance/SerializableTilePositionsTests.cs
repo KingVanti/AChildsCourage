@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 
-namespace AChildsCourage.Game.FloorGeneration.Persistance
+namespace AChildsCourage.Game.Floors.Persistance
 {
 
     [TestFixture]

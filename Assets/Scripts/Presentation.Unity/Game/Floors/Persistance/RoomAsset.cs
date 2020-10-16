@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AChildsCourage.Game.FloorGeneration.Persistance
+namespace AChildsCourage.Game.Floors.Persistance
 {
 
     [CreateAssetMenu(menuName = "A Child's Courage/Room", fileName = "New Room")]

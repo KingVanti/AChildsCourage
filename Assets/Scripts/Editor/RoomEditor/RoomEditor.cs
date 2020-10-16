@@ -1,10 +1,10 @@
-﻿using AChildsCourage.Game.FloorGeneration.Persistance;
+﻿using AChildsCourage.Game.Floors.Persistance;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace AChildsCourage.Game.FloorGeneration.Editor
+namespace AChildsCourage.Game.Floors.Editor
 {
 
     public class RoomEditor
