@@ -9,10 +9,10 @@ namespace AChildsCourage.Editor
 
         #region Methods
 
-        [MenuItem("A Child's Courage/Room-editor")]
+        [MenuItem("Window/A Child's Courage/Room-editor")]
         public static void OpenRoomEditor()
         {
-            EditorWindow.GetWindow<RoomEditorWindow>().Show();
+            EditorWindow.GetWindow<RoomEditorView>().Show();
         }
 
         #endregion
