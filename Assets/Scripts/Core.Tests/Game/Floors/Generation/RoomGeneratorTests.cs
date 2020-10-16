@@ -20,15 +20,7 @@ namespace AChildsCourage.Game.Floors.Generation
             new TilePosition(3, 0)
         });
 
-        private static TilePositions TestGroundPositions { get; } = new TilePositions(new[]
-        {
-            new TilePosition(0, 1),
-            new TilePosition(1, 1),
-            new TilePosition(2, 1),
-            new TilePosition(3, 1)
-        });
-
-        private static RoomShape TestRoomShape { get; } = new RoomShape(TestWallPositions, TestGroundPositions);
+        private static RoomShape TestRoomShape { get; } = new RoomShape(TestWallPositions);
 
         private static TilePositions TestItemPositions { get; } = new TilePositions(new[]
         {
@@ -71,7 +63,7 @@ namespace AChildsCourage.Game.Floors.Generation
         }
 
         [Test]
-        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_Places_All_Walls()
+        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_It_Places_All_Walls()
         {
             // Given
 
@@ -93,7 +85,7 @@ namespace AChildsCourage.Game.Floors.Generation
         }
 
         [Test]
-        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_Places_All_Ground()
+        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_It_Places_All_Ground()
         {
             // Given
 
@@ -111,7 +103,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            Assert.That(builtGroundPositions, Is.EqualTo(TestGroundPositions));
+            Assert.That(builtGroundPositions, Is.EqualTo(roomGenerator.GetFillingGroundPositions(TestWallPositions)));
         }
 
         [Test]

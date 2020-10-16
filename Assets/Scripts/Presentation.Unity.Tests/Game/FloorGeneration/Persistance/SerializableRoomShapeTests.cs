@@ -15,8 +15,7 @@ namespace AChildsCourage.Game.Floors.Persistance
             // Given
 
             var wallPositions = new TilePositions(new[] { new TilePosition(1, 1), new TilePosition(-1, 3) });
-            var groundPositions = new TilePositions(new[] { new TilePosition(-1, 0) });
-            var shape = new RoomShape(wallPositions, groundPositions);
+            var shape = new RoomShape(wallPositions);
 
             // When
 
@@ -25,10 +24,8 @@ namespace AChildsCourage.Game.Floors.Persistance
             // Then
 
             var expectedWallPositions = SerializableTilePositions.From(shape.WallPositions);
-            var expectedGroundPositions = SerializableTilePositions.From(shape.GroundPositions);
 
             Assert.That(serializable.wallPositions, Is.EqualTo(expectedWallPositions), "Wall positions not correctly copied!");
-            Assert.That(serializable.groundPositions, Is.EqualTo(expectedGroundPositions), "Ground positions not correctly copied!");
         }
 
         [Test]
@@ -37,8 +34,7 @@ namespace AChildsCourage.Game.Floors.Persistance
             // Given
 
             var wallPositions = new SerializableTilePositions(new[] { new SerializableTilePosition(1, 1), new SerializableTilePosition(-1, 3) });
-            var groundPositions = new SerializableTilePositions(new[] { new SerializableTilePosition(-1, 0) });
-            var serializable = new SerializableRoomShape(wallPositions, groundPositions);
+            var serializable = new SerializableRoomShape(wallPositions);
 
             // When
 
@@ -47,10 +43,8 @@ namespace AChildsCourage.Game.Floors.Persistance
             // Then
 
             var expectedWallPositions = serializable.wallPositions.ToTilePositions();
-            var expectedGroundPositions = serializable.groundPositions.ToTilePositions();
 
             Assert.That(shape.WallPositions, Is.EqualTo(expectedWallPositions), "Wall positions not correctly copied!");
-            Assert.That(shape.GroundPositions, Is.EqualTo(expectedGroundPositions), "Ground positions not correctly copied!");
         }
 
         #endregion

@@ -8,16 +8,13 @@
 
         public TilePositions WallPositions { get; }
 
-        public TilePositions GroundPositions { get; }
-
         #endregion
 
         #region Constructors
 
-        public RoomShape(TilePositions wallPositions, TilePositions groundPositions)
+        public RoomShape(TilePositions wallPositions)
         {
             WallPositions = wallPositions;
-            GroundPositions = groundPositions;
         }
 
         #endregion

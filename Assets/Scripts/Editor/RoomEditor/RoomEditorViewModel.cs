@@ -37,8 +37,7 @@ namespace AChildsCourage.Game.Floors.Editor
         public void SaveChanges()
         {
             SelectedRoomAsset.RoomShape = new RoomShape(
-                new TilePositions(GetPositionsWith(TileType.Wall)),
-                new TilePositions(GetPositionsWith(TileType.Empty)));
+                new TilePositions(GetPositionsWith(TileType.Wall)));
 
             SelectedRoomAsset.RoomEntities = new RoomEntities(
                 new TilePositions(GetPositionsWith(TileType.Item)),
