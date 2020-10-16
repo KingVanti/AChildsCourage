@@ -44,7 +44,7 @@ namespace AChildsCourage
             {
                 Assembly.Load("AChildsCourage.Core"),
                 Assembly.Load("AChildsCourage.Presentation.Core"),
-                Assembly.Load("AChildsCourage.Presentation.Unity.Core")
+                Assembly.Load("AChildsCourage.Presentation.Unity")
             };
 
             kernel.Bind(x => x
