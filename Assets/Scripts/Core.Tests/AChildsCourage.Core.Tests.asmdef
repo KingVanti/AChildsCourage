@@ -1,6 +1,7 @@
 {
     "name": "AChildsCourage.Core.Tests",
     "references": [
+        "PADEAH.TestUtility",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "AChildsCourage.Core"
