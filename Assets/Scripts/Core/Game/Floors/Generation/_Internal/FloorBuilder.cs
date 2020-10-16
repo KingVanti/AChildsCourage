@@ -9,6 +9,7 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Events
 
         public event EventHandler<FloorPlacedEventArgs> OnFloorPlaced;
+        public event EventHandler<WallPlacedEventArgs> OnWallPlaced;
 
         #endregion
 
@@ -28,7 +29,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public void PlaceWall(TilePosition position, RoomBuildingSession session)
         {
-            throw new NotImplementedException();
+            OnWallPlaced.Invoke(this, new WallPlacedEventArgs(position));
         }
 
         #endregion
