@@ -9,6 +9,7 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Events
 
         event EventHandler<FloorPlacedEventArgs> OnFloorPlaced;
+        event EventHandler<WallPlacedEventArgs> OnWallPlaced;
 
         #endregion
 
