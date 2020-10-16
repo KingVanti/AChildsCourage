@@ -70,10 +70,10 @@ namespace AChildsCourage.Game.Floors.Editor
 
         private void OnRoomAssetChanged(RoomAsset roomAsset)
         {
+            ClearTileTypes();
+
             if (roomAsset != null)
-                LoadTileTypes(roomAsset);
-            else
-                ClearTileTypes();
+                LoadTileTypes(roomAsset); 
         }
 
         private void ClearTileTypes()
