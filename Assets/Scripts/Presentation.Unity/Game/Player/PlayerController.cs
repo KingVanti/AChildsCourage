@@ -13,6 +13,11 @@ namespace AChildsCourage.Game.Input
         [SerializeField] private float _movementSpeed;
 
         private Vector2 direction;
+        private Vector2 mousePosition;
+
+        private float mouseAngle;
+
+        [SerializeField] private Camera mainCamera;
 
         #endregion
 
@@ -24,6 +29,7 @@ namespace AChildsCourage.Game.Input
             set { _movementSpeed = value; }
         }
 
+
         #endregion
 
         #region Methods
@@ -31,7 +37,14 @@ namespace AChildsCourage.Game.Input
         private void FixedUpdate()
         {
 
-            Moving();
+            Move();
+            Rotate();
+
+        }
+
+        private void LateUpdate() {
+
+            mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
         }
 
@@ -42,7 +55,26 @@ namespace AChildsCourage.Game.Input
 
         }
 
-        private void Moving()
+        public void OnRotationChanged(InputAction.CallbackContext context) {
+
+            mousePosition = context.ReadValue<Vector2>();
+
+        }
+
+        private void Rotate() {
+
+            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
+            Vector2 playerPos = transform.position;
+
+            Vector2 relativeMousePosition = projectedMousePosition - playerPos;
+
+            float angle = Mathf.Atan2(relativeMousePosition.y, relativeMousePosition.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        }
+
+        private void Move()
         {
 
             transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
