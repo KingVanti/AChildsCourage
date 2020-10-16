@@ -1,7 +1,9 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+using System;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public interface IRoomBuilder
+    public interface IFloorBuilder
     {
 
         #region Methods
