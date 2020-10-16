@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.FloorGeneration.Editor
         private const string EntitiesTilemapName = "Entities";
         private const string StaticTilemapName = "Static";
         private const string FloorTilemapName = "Floor";
-        
+
         #endregion
 
         #region Fields
