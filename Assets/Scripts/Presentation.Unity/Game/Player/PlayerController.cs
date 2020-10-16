@@ -9,16 +9,20 @@ namespace AChildsCourage.Game.Input
         #region Fields
 
         private UserControls controls;
+
+#pragma warning disable 649
+
         [SerializeField] private Animator animator;
         [SerializeField] private Transform flashlight;
+        [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
+
+#pragma warning restore 649
 
         private Vector2 direction;
         private Vector2 mousePosition;
 
         private float _lookAngle;
-
-        [SerializeField] private Camera mainCamera;
 
         #endregion
 
