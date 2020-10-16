@@ -13,13 +13,13 @@ namespace AChildsCourage.Game.Floors.Editor
         #region Constants
 
         private const string WallTileName = "Wall";
-        private const string FloorTileName = "Floor";
+        private const string GroundTileName = "Ground";
         private const string ItemTileName = "Item";
         private const string SmallCourageTileName = "Courage_Small";
         private const string BigCourageTileName = "Courage_Big";
         private const string EntitiesTilemapName = "Entities";
         private const string StaticTilemapName = "Static";
-        private const string FloorTilemapName = "Floor";
+        private const string GroundTilemapName = "Ground";
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.Floors.Editor
         private void LoadRoomShape(RoomShape roomShape)
         {
             WritePositionsToTileMap(roomShape.WallPositions, GetTileMap(StaticTilemapName), GetTile(WallTileName));
-            WritePositionsToTileMap(roomShape.FloorPositions, GetTileMap(FloorTilemapName), GetTile(FloorTileName));
+            WritePositionsToTileMap(roomShape.GroundPositions, GetTileMap(GroundTilemapName), GetTile(GroundTileName));
         }
 
         private void LoadRoomEntities(RoomEntities roomItems)
@@ -69,9 +69,9 @@ namespace AChildsCourage.Game.Floors.Editor
         private RoomShape ReadRoomShape()
         {
             var wallPositions = new TilePositions(GetOccupiedPositions(GetTileMap(StaticTilemapName), WallTileName));
-            var floorPositions = new TilePositions(GetOccupiedPositions(GetTileMap(FloorTilemapName), FloorTileName));
+            var groundPositions = new TilePositions(GetOccupiedPositions(GetTileMap(GroundTilemapName), GroundTileName));
 
-            return new RoomShape(wallPositions, floorPositions);
+            return new RoomShape(wallPositions, groundPositions);
         }
 
         private RoomEntities ReadRoomEntities()

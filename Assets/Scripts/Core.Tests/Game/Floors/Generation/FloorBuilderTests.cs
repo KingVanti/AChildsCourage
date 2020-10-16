@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Tests
 
         [Test]
-        public void Given_Any_Builder_When_Floor_Is_Placed_Then_An_Event_Is_Raised()
+        public void Given_Any_Builder_When_Ground_Is_Placed_Then_An_Event_Is_Raised()
         {
             // Given
 
@@ -20,8 +20,8 @@ namespace AChildsCourage.Game.Floors.Generation
             // When
 
             var position = new TilePosition(1, 1);
-            var raisedArgs = builder.Capture<FloorPlacedEventArgs>(
-                () => builder.PlaceFloor(position, new RoomBuildingSession()));
+            var raisedArgs = builder.Capture<GroundPlacedEventArgs>(
+                () => builder.PlaceGround(position, new RoomBuildingSession()));
 
             // Then
 

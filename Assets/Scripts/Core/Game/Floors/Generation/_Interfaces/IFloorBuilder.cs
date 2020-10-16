@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Events
 
-        event EventHandler<FloorPlacedEventArgs> OnFloorPlaced;
+        event EventHandler<GroundPlacedEventArgs> OnGroundPlaced;
         event EventHandler<WallPlacedEventArgs> OnWallPlaced;
 
         #endregion
@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         void PlaceWall(TilePosition position, RoomBuildingSession session);
 
-        void PlaceFloor(TilePosition position, RoomBuildingSession session);
+        void PlaceGround(TilePosition position, RoomBuildingSession session);
 
         #endregion
 

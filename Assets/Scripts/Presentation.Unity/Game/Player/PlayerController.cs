@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AChildsCourage.Game.Input {
-    public class PlayerController : MonoBehaviour {
+namespace AChildsCourage.Game.Input
+{
+    public class PlayerController : MonoBehaviour
+    {
 
         #region Fields
 
@@ -25,7 +27,8 @@ namespace AChildsCourage.Game.Input {
         /// <summary>
         /// The movement speed of the player character.
         /// </summary>
-        public float MovementSpeed {
+        public float MovementSpeed
+        {
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
@@ -33,10 +36,12 @@ namespace AChildsCourage.Game.Input {
         /// <summary>
         /// The angle the player is facing towards the mouse cursor.
         /// </summary>
-        public float LookAngle {
+        public float LookAngle
+        {
 
             get { return _lookAngle; }
-            set { 
+            set
+            {
                 _lookAngle = value;
                 animator.SetFloat("LookAngle", _lookAngle < 0 ? _lookAngle + 360 : _lookAngle);
             }
@@ -47,21 +52,24 @@ namespace AChildsCourage.Game.Input {
 
         #region Methods
 
-        private void FixedUpdate() {
+        private void FixedUpdate()
+        {
 
             Move();
             Rotate();
 
         }
 
-        private void LateUpdate() {
+        private void LateUpdate()
+        {
 
             mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
 
         }
 
 
-        private void Rotate() {
+        private void Rotate()
+        {
 
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
             Vector2 playerPos = transform.position;
@@ -74,33 +82,39 @@ namespace AChildsCourage.Game.Input {
 
         }
 
-        private void Move() {
+        private void Move()
+        {
 
             transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
 
         }
 
-        private float CalculateAngle(float yPos, float xPos) {
+        private float CalculateAngle(float yPos, float xPos)
+        {
 
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
 
         }
 
-        public void OnMovementChanged(InputAction.CallbackContext context) {
+        public void OnMovementChanged(InputAction.CallbackContext context)
+        {
 
             direction = context.ReadValue<Vector2>();
 
         }
 
-        public void OnRotationChanged(InputAction.CallbackContext context) {
+        public void OnRotationChanged(InputAction.CallbackContext context)
+        {
 
             mousePosition = context.ReadValue<Vector2>();
 
         }
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
 
-            if (controls == null) {
+            if (controls == null)
+            {
                 controls = new UserControls();
             }
 
@@ -108,7 +122,8 @@ namespace AChildsCourage.Game.Input {
 
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
 
             controls.Player.Disable();
         }

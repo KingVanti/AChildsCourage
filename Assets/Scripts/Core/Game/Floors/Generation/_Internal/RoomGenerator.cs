@@ -30,8 +30,8 @@ namespace AChildsCourage.Game.Floors.Generation
             foreach (var wallPosition in data.Shape.WallPositions)
                 builder.PlaceWall(wallPosition, session);
 
-            foreach (var floorPosition in data.Shape.FloorPositions)
-                builder.PlaceFloor(floorPosition, session);
+            foreach (var groundPosition in data.Shape.GroundPositions)
+                builder.PlaceGround(groundPosition, session);
 
             return new Room();
         }

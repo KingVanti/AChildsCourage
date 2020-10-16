@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class FloorPlacedEventArgs : EventArgs
+    public class GroundPlacedEventArgs : EventArgs
     {
 
         #region Properties
@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        public FloorPlacedEventArgs(TilePosition position)
+        public GroundPlacedEventArgs(TilePosition position)
         {
             Position = position;
         }

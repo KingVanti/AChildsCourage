@@ -12,9 +12,9 @@ namespace AChildsCourage.Game.Floors.Generation
 
 #pragma warning disable 649
 
-        [SerializeField] private Tile floorTile;
+        [SerializeField] private Tile groundTile;
         [SerializeField] private Tile wallTile;
-        [SerializeField] private Tilemap floorTilemap;
+        [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
 
 #pragma warning restore 649
@@ -31,16 +31,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void BindTo(IFloorBuilder floorBuilder)
         {
-            floorBuilder.OnFloorPlaced += (_, e) => OnFloorPlaced(e);
+            floorBuilder.OnGroundPlaced += (_, e) => OnGroundPlaced(e);
             floorBuilder.OnWallPlaced += (_, e) => OnWallPlaced(e);
         }
 
-        private void OnFloorPlaced(FloorPlacedEventArgs eventArgs)
+        private void OnGroundPlaced(GroundPlacedEventArgs eventArgs)
         {
-            var tile = floorTile;
+            var tile = groundTile;
             var position = eventArgs.Position.ToVector3Int();
 
-            floorTilemap.SetTile(position, tile);
+            groundTilemap.SetTile(position, tile);
         }
 
         private void OnWallPlaced(WallPlacedEventArgs eventArgs)

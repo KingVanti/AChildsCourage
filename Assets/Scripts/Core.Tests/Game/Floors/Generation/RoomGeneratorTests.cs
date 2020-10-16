@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors.Generation
             new TilePosition(3, 0)
         });
 
-        private static TilePositions TestFloorPositions { get; } = new TilePositions(new[]
+        private static TilePositions TestGroundPositions { get; } = new TilePositions(new[]
         {
             new TilePosition(0, 1),
             new TilePosition(1, 1),
@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Floors.Generation
             new TilePosition(3, 1)
         });
 
-        private static RoomShape TestRoomShape { get; } = new RoomShape(TestWallPositions, TestFloorPositions);
+        private static RoomShape TestRoomShape { get; } = new RoomShape(TestWallPositions, TestGroundPositions);
 
         private static TilePositions TestItemPositions { get; } = new TilePositions(new[]
         {
@@ -93,17 +93,17 @@ namespace AChildsCourage.Game.Floors.Generation
         }
 
         [Test]
-        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_Places_All_Floors()
+        public void Given_Any_RoomGenerator_When_It_Generates_A_Room_Then_Places_All_Ground()
         {
             // Given
 
             var mockRoomBuilder = new Mock<IFloorBuilder>();
             var roomGenerator = new RoomGenerator(mockRoomBuilder.Object);
 
-            var builtFloorPositions = new List<TilePosition>();
+            var builtGroundPositions = new List<TilePosition>();
             mockRoomBuilder
-                .Setup(b => b.PlaceFloor(It.IsAny<TilePosition>(), It.IsAny<RoomBuildingSession>()))
-                .Callback<TilePosition, RoomBuildingSession>((p, _) => builtFloorPositions.Add(p));
+                .Setup(b => b.PlaceGround(It.IsAny<TilePosition>(), It.IsAny<RoomBuildingSession>()))
+                .Callback<TilePosition, RoomBuildingSession>((p, _) => builtGroundPositions.Add(p));
 
             // When
 
@@ -111,7 +111,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            Assert.That(builtFloorPositions, Is.EqualTo(TestFloorPositions));
+            Assert.That(builtGroundPositions, Is.EqualTo(TestGroundPositions));
         }
 
         [Test]

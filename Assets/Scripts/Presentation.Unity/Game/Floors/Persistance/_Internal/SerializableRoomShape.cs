@@ -13,9 +13,9 @@ namespace AChildsCourage.Game.Floors.Persistance
         internal static SerializableRoomShape From(RoomShape shape)
         {
             var wallPositions = SerializableTilePositions.From(shape.WallPositions);
-            var floorPositions = SerializableTilePositions.From(shape.FloorPositions);
+            var groundPositions = SerializableTilePositions.From(shape.GroundPositions);
 
-            return new SerializableRoomShape(wallPositions, floorPositions);
+            return new SerializableRoomShape(wallPositions, groundPositions);
         }
 
         #endregion
@@ -23,16 +23,16 @@ namespace AChildsCourage.Game.Floors.Persistance
         #region Fields
 
         [SerializeField] internal SerializableTilePositions wallPositions;
-        [SerializeField] internal SerializableTilePositions floorPositions;
+        [SerializeField] internal SerializableTilePositions groundPositions;
 
         #endregion
 
         #region Constructors
 
-        internal SerializableRoomShape(SerializableTilePositions wallPositions, SerializableTilePositions floorPositions)
+        internal SerializableRoomShape(SerializableTilePositions wallPositions, SerializableTilePositions groundPositions)
         {
             this.wallPositions = wallPositions;
-            this.floorPositions = floorPositions;
+            this.groundPositions = groundPositions;
         }
 
         #endregion
@@ -43,7 +43,7 @@ namespace AChildsCourage.Game.Floors.Persistance
         {
             return new RoomShape(
                 wallPositions.ToTilePositions(),
-                floorPositions.ToTilePositions());
+                groundPositions.ToTilePositions());
         }
 
         #endregion
