@@ -10,16 +10,16 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         public RoomShape Shape { get; }
 
-        public RoomEntities Items { get; }
+        public RoomEntities Entities { get; }
 
         #endregion
 
         #region Constructors
 
-        public RoomData(RoomShape shape, RoomEntities items)
+        public RoomData(RoomShape shape, RoomEntities entities)
         {
             Shape = shape;
-            Items = items;
+            Entities = entities;
         }
 
         #endregion
