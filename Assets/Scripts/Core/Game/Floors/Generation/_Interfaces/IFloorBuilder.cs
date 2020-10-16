@@ -1,10 +1,16 @@
-using System;
+﻿using System;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
 
     public interface IFloorBuilder
     {
+
+        #region Events
+
+        event EventHandler<FloorPlacedEventArgs> OnFloorPlaced;
+
+        #endregion
 
         #region Methods
 

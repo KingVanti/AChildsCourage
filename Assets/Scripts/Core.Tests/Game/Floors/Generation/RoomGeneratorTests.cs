@@ -58,7 +58,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomBuilder = new Mock<IRoomBuilder>();
+            var mockRoomBuilder = new Mock<IFloorBuilder>();
             var roomGenerator = new RoomGenerator(mockRoomBuilder.Object);
 
             // When
@@ -75,7 +75,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomBuilder = new Mock<IRoomBuilder>();
+            var mockRoomBuilder = new Mock<IFloorBuilder>();
             var roomGenerator = new RoomGenerator(mockRoomBuilder.Object);
 
             var builtWallPositions = new List<TilePosition>();
@@ -97,7 +97,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomBuilder = new Mock<IRoomBuilder>();
+            var mockRoomBuilder = new Mock<IFloorBuilder>();
             var roomGenerator = new RoomGenerator(mockRoomBuilder.Object);
 
             var builtFloorPositions = new List<TilePosition>();
@@ -119,7 +119,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomBuilder = new Mock<IRoomBuilder>();
+            var mockRoomBuilder = new Mock<IFloorBuilder>();
             var roomGenerator = new RoomGenerator(mockRoomBuilder.Object);
 
             // When

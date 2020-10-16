@@ -8,13 +8,13 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Fields
 
-        private readonly IRoomBuilder builder;
+        private readonly IFloorBuilder builder;
 
         #endregion
 
         #region Constructors
 
-        public RoomGenerator(IRoomBuilder builder)
+        public RoomGenerator(IFloorBuilder builder)
         {
             this.builder = builder;
         }
