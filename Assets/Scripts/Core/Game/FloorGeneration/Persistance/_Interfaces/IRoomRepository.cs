@@ -6,7 +6,7 @@
 
         #region Methods
 
-        Room Load(int id);
+        RoomData Load(int id);
 
         bool Contains(int id);
 

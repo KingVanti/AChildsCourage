@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
 
         #region Methods
 
-        public Room Load(int id)
+        public RoomData Load(int id)
         {
             var asset = GetRoomAsset(id);
 
@@ -26,9 +26,9 @@ namespace AChildsCourage.Game.FloorGeneration.Persistance
                 throw new FileNotFoundException($"Could not find room with the id {id}!");
         }
 
-        private Room CreateRoomFrom(RoomAsset asset)
+        private RoomData CreateRoomFrom(RoomAsset asset)
         {
-            return new Room(
+            return new RoomData(
                 asset.RoomShape,
                 asset.RoomEntities);
         }

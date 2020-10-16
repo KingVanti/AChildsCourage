@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.FloorGeneration
 {
 
-    public class Room
+    public class RoomData
     {
 
         #region Properties
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.FloorGeneration
 
         #region Constructors
 
-        public Room(RoomShape shape, RoomEntities items)
+        public RoomData(RoomShape shape, RoomEntities items)
         {
             Shape = shape;
             Items = items;

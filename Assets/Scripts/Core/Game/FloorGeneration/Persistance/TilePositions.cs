@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AChildsCourage.Game.FloorGeneration
+namespace AChildsCourage.Game.FloorGeneration.Persistance
 {
 
     public class TilePositions : IEnumerable<TilePosition>
