@@ -117,7 +117,7 @@ namespace AChildsCourage.Game.Floors.Editor
             switch (tileType)
             {
                 case TileType.Empty:
-                    return "E";
+                    return "";
                 case TileType.Wall:
                     return "W";
                 case TileType.Item:
