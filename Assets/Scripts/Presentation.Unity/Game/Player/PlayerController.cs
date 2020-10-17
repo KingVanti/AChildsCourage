@@ -60,7 +60,6 @@ namespace AChildsCourage.Game.Input
         {
 
             Move();
-            Rotate();
 
         }
 
@@ -111,6 +110,7 @@ namespace AChildsCourage.Game.Input
         {
 
             mousePosition = context.ReadValue<Vector2>();
+            Rotate();
 
         }
 
