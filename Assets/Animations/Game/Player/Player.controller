@@ -33,7 +33,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f6a7da42dcee45349adebfcb9f1443ae, type: 2}
-    m_Threshold: 90
+    m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -41,7 +41,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f725b34e2d39b564aa339766c6453a78, type: 2}
-    m_Threshold: 180
+    m_Threshold: 2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -49,16 +49,16 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f8124cbc053d07a4180ddcd6aff0bcec, type: 2}
-    m_Threshold: 270
+    m_Threshold: 3
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LookAngle
     m_Mirror: 0
-  m_BlendParameter: LookAngle
+  m_BlendParameter: RotationIndex
   m_BlendParameterY: LookAngle
   m_MinThreshold: 0
-  m_MaxThreshold: 270
+  m_MaxThreshold: 3
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -111,7 +111,7 @@ AnimatorController:
   m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: LookAngle
+  - m_Name: RotationIndex
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
