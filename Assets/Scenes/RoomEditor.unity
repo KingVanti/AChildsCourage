@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 339682973}
   - component: {fileID: 339682975}
   - component: {fileID: 339682974}
+  - component: {fileID: 339682976}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -174,7 +175,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,6 +242,20 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &339682976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339682972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb47e637f67cb4a46b2bf4dd35ed8b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 11400000, guid: c4111e074f36d8e429253ac255089f42, type: 2}
+  tilemap: {fileID: 339682975}
 --- !u!1 &850559012
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 850559013}
+  - component: {fileID: 850559014}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -271,6 +287,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &850559014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850559012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdce7a2a4c7a08468dfccf6c6fc7c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onMouseDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 339682976}
+        m_TargetAssemblyTypeName: AChildsCourage.RoomEditor.TilePlacer, AChildsCourage.Presentation.Unity.RoomEditor
+        m_MethodName: OnMouseDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  cam: {fileID: 1366718033}
 --- !u!1 &1133358438
 GameObject:
   m_ObjectHideFlags: 0
