@@ -1,0 +1,71 @@
+{
+    "name": "RoomEditor",
+    "maps": [
+        {
+            "name": "Mouse",
+            "id": "4960f215-c838-49bd-87dc-e480b9c0eb33",
+            "actions": [
+                {
+                    "name": "Place",
+                    "type": "Button",
+                    "id": "d9286359-014b-4818-bb64-de9d41ad180e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Delete",
+                    "type": "Button",
+                    "id": "892da7af-b281-41a6-bfb0-bbfe8bbe5e36",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "ae3aa284-2e7d-4234-80a2-0709f72f8e8b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "512491cd-cd98-4215-8d47-101a467e1d65",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d56ec763-0666-407a-aee6-afc6ab26bb11",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc3a11d6-b60a-4b3e-acb5-76b3bc712476",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

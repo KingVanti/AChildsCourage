@@ -12,34 +12,43 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Data
 
-        private static TilePositions TestWallPositions { get; } = new TilePositions(new[]
+        private static TilePosition[] TestWallPositions { get; } = new[]
         {
             new TilePosition(0, 0),
             new TilePosition(1, 0),
             new TilePosition(2, 0),
             new TilePosition(3, 0)
-        });
+        };
 
-        private static RoomShape TestRoomShape { get; } = new RoomShape(TestWallPositions);
+        private static TilePosition[] TestGroundPositions { get; } = new[]
+       {
+            new TilePosition(0, 1),
+            new TilePosition(1, 1),
+            new TilePosition(2, 1),
+            new TilePosition(3, 1)
+        };
 
-        private static TilePositions TestItemPositions { get; } = new TilePositions(new[]
+        private static TilePosition[] TestItemPositions { get; } = new[]
         {
             new TilePosition(0, 1)
-        });
+        };
 
-        private static TilePositions TestSmallCouragePositions { get; } = new TilePositions(new[]
+        private static TilePosition[] TestSmallCouragePositions { get; } = new[]
         {
             new TilePosition(1, 1)
-        });
+        };
 
-        private static TilePositions TestBigCouragePositions { get; } = new TilePositions(new[]
+        private static TilePosition[] TestBigCouragePositions { get; } = new[]
         {
             new TilePosition(2, 1)
-        });
+        };
 
-        private static RoomEntities TestRoomEntities { get; } = new RoomEntities(TestItemPositions, TestSmallCouragePositions, TestBigCouragePositions);
-
-        private static RoomData TestRoomData { get; } = new RoomData(TestRoomShape, TestRoomEntities);
+        private static RoomData TestRoomData { get; } = new RoomData(
+            TestGroundPositions,
+            TestWallPositions,
+            TestItemPositions,
+            TestSmallCouragePositions,
+            TestBigCouragePositions);
 
         #endregion
 
@@ -103,7 +112,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            Assert.That(builtGroundPositions, Is.EqualTo(roomGenerator.GetFillingGroundPositions(TestWallPositions)));
+            Assert.That(builtGroundPositions, Is.EqualTo(TestGroundPositions));
         }
 
         [Test]
