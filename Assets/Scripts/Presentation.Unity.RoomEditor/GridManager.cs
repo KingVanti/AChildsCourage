@@ -74,7 +74,21 @@ namespace AChildsCourage.RoomEditor
 
         public void ApplyAssetToGrid(RoomAsset roomAsset)
         {
+            foreach (var layer in layersByName.Values)
+                layer.Clear();
 
+            WritePositionsTo(roomAsset.GroundPositions, "Ground", "Ground");
+            WritePositionsTo(roomAsset.WallPositions, "Static", "Wall");
+            WritePositionsTo(roomAsset.ItemPositions, "Static", "Item");
+            WritePositionsTo(roomAsset.SmallCouragePositions, "Static", "Courage_Small");
+            WritePositionsTo(roomAsset.BigCouragePositions, "Static", "Courage_Big");
+        }
+
+        private void WritePositionsTo(Vector2Int[] positions, string layerName, string tileName)
+        {
+            var layer = layersByName[layerName];
+
+            layer.PlaceTiles(tileName, positions);
         }
 
 

@@ -97,7 +97,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void OnAssetSelected()
         {
-
+            (target as GridManager).ApplyAssetToGrid(SelectedAsset);
         }
 
 

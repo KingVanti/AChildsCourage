@@ -69,6 +69,21 @@ namespace AChildsCourage.RoomEditor
         }
 
 
+        public void PlaceTiles(string tileName, Vector2Int[] positions)
+        {
+            var tile = tilesByName[tileName];
+
+            foreach (var position in positions)
+                tilemap.SetTile((Vector3Int)position, tile);
+        }
+
+
+        public void Clear()
+        {
+            tilemap.ClearAllTiles();
+        }
+
+
         private void Awake()
         {
             foreach (var tile in tiles)
