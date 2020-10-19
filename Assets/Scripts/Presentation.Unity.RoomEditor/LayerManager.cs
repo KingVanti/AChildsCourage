@@ -39,14 +39,34 @@ namespace AChildsCourage.RoomEditor
             selectedTile = tilesByName[name];
         }
 
+
         public void PlaceTileAt(TilePosition tilePosition)
         {
             tilemap.SetTile(tilePosition.ToVector3Int(), selectedTile);
         }
 
+
         public void DeleteTile(TilePosition tilePosition)
         {
             tilemap.SetTile(tilePosition.ToVector3Int(), null);
+        }
+
+
+        public TilePosition[] GetPositionsWithTile(string name)
+        {
+            var bounds = tilemap.cellBounds;
+            var positions = new List<TilePosition>();
+
+            for (var x = bounds.xMin; x <= bounds.xMax; x++)
+                for (var y = bounds.yMin; y <= bounds.yMax; y++)
+                {
+                    var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
+
+                    if (tile != null && tile.name == name)
+                        positions.Add(new TilePosition(x, y));
+                }
+
+            return positions.ToArray();
         }
 
 

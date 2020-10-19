@@ -12,8 +12,11 @@ namespace AChildsCourage.Game.Floors.Persistance
 #pragma warning disable 649
 
         [SerializeField] private int _id;
-        [SerializeField] private SerializableRoomShape _roomShape;
-        [SerializeField] private SerializableRoomEntities _roomEntities;
+        [SerializeField] private Vector2Int[] _groundPositions;
+        [SerializeField] private Vector2Int[] _wallPositions;
+        [SerializeField] private Vector2Int[] _itemPositions;
+        [SerializeField] private Vector2Int[] _smallCouragePositions;
+        [SerializeField] private Vector2Int[] _bigCouragePositions;
 
 #pragma warning restore 649
 
@@ -21,19 +24,17 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Properties
 
-        public int Id { get { return _id; } set { _id = value; } }
+        public int Id { get { return _id; } }
 
-        public RoomShape RoomShape
-        {
-            get { return _roomShape?.ToRoomShape(); }
-            set { _roomShape = value != null ? SerializableRoomShape.From(value) : null; }
-        }
+        public Vector2Int[] GroundPositions { get { return _groundPositions; } set { _groundPositions = value; } }
 
-        public RoomEntities RoomEntities
-        {
-            get { return _roomEntities?.ToRoomEntities(); }
-            set { _roomEntities = value != null ? SerializableRoomEntities.From(value) : null; }
-        }
+        public Vector2Int[] WallPositions { get { return _wallPositions; } set { _wallPositions = value; } }
+
+        public Vector2Int[] ItemPositions { get { return _itemPositions; } set { _itemPositions = value; } }
+
+        public Vector2Int[] SmallCouragePositions { get { return _smallCouragePositions; } set { _smallCouragePositions = value; } }
+
+        public Vector2Int[] BigCouragePositions { get { return _bigCouragePositions; } set { _bigCouragePositions = value; } }
 
         #endregion
 

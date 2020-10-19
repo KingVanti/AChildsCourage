@@ -6,18 +6,31 @@
 
         #region Properties
 
-        public RoomShape Shape { get; }
+        public TilePosition[] GroundPositions { get; }
 
-        public RoomEntities Entities { get; }
+        public TilePosition[] WallPositions { get; }
+
+        public TilePosition[] ItemPositions { get; }
+
+        public TilePosition[] SmallCouragePositions { get; }
+
+        public TilePosition[] BigCouragePositions { get; }
 
         #endregion
 
         #region Constructors
 
-        public RoomData(RoomShape shape, RoomEntities entities)
+        public RoomData(TilePosition[] groundPositions,
+                        TilePosition[] wallPositions,
+                        TilePosition[] itemPositions,
+                        TilePosition[] smallCouragePositions,
+                        TilePosition[] bigCouragePositions)
         {
-            Shape = shape;
-            Entities = entities;
+            GroundPositions = groundPositions;
+            WallPositions = wallPositions;
+            ItemPositions = itemPositions;
+            SmallCouragePositions = smallCouragePositions;
+            BigCouragePositions = bigCouragePositions;
         }
 
         #endregion
