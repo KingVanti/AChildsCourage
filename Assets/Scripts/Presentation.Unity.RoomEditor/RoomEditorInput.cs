@@ -80,6 +80,96 @@ namespace AChildsCourage.RoomEditor
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Movement"",
+            ""id"": ""abfd69af-1afc-424d-bffe-9a5005637b7c"",
+            ""actions"": [
+                {
+                    ""name"": ""Horizontal"",
+                    ""type"": ""Value"",
+                    ""id"": ""55bddb43-cfea-4630-a431-0c55e414cdbb"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Vertical"",
+                    ""type"": ""Value"",
+                    ""id"": ""65079ace-c069-4c70-9c8b-cc9ebf17ea13"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""AD"",
+                    ""id"": ""afacd57e-a565-4aa8-b141-10b6296d32b0"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""23508df0-2e1c-4c4a-8186-a586c0eceb2e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""e102a305-1bff-43d6-8bf3-a505bb88e7c5"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Horizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""WS"",
+                    ""id"": ""a1e4eddd-cd52-4acb-bb4c-ac74156410f8"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""ff56a4af-8a75-4501-a837-4491dd6d880c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""2026583e-5599-4485-a31b-dd10cd272410"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Vertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -89,6 +179,10 @@ namespace AChildsCourage.RoomEditor
             m_Mouse_Place = m_Mouse.FindAction("Place", throwIfNotFound: true);
             m_Mouse_Delete = m_Mouse.FindAction("Delete", throwIfNotFound: true);
             m_Mouse_Move = m_Mouse.FindAction("Move", throwIfNotFound: true);
+            // Movement
+            m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+            m_Movement_Horizontal = m_Movement.FindAction("Horizontal", throwIfNotFound: true);
+            m_Movement_Vertical = m_Movement.FindAction("Vertical", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -183,11 +277,57 @@ namespace AChildsCourage.RoomEditor
             }
         }
         public MouseActions @Mouse => new MouseActions(this);
+
+        // Movement
+        private readonly InputActionMap m_Movement;
+        private IMovementActions m_MovementActionsCallbackInterface;
+        private readonly InputAction m_Movement_Horizontal;
+        private readonly InputAction m_Movement_Vertical;
+        public struct MovementActions
+        {
+            private @RoomEditorInput m_Wrapper;
+            public MovementActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Horizontal => m_Wrapper.m_Movement_Horizontal;
+            public InputAction @Vertical => m_Wrapper.m_Movement_Vertical;
+            public InputActionMap Get() { return m_Wrapper.m_Movement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
+            public void SetCallbacks(IMovementActions instance)
+            {
+                if (m_Wrapper.m_MovementActionsCallbackInterface != null)
+                {
+                    @Horizontal.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Horizontal.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Horizontal.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Vertical.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    @Vertical.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    @Vertical.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                }
+                m_Wrapper.m_MovementActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Horizontal.started += instance.OnHorizontal;
+                    @Horizontal.performed += instance.OnHorizontal;
+                    @Horizontal.canceled += instance.OnHorizontal;
+                    @Vertical.started += instance.OnVertical;
+                    @Vertical.performed += instance.OnVertical;
+                    @Vertical.canceled += instance.OnVertical;
+                }
+            }
+        }
+        public MovementActions @Movement => new MovementActions(this);
         public interface IMouseActions
         {
             void OnPlace(InputAction.CallbackContext context);
             void OnDelete(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
+        }
+        public interface IMovementActions
+        {
+            void OnHorizontal(InputAction.CallbackContext context);
+            void OnVertical(InputAction.CallbackContext context);
         }
     }
 }
