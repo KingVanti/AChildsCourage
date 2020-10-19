@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game;
-using AChildsCourage.Game.Floors.Persistance;
+﻿using AChildsCourage.Game.Floors.Persistance;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -61,24 +60,23 @@ namespace AChildsCourage.RoomEditor
 
         public void ApplyGridTo(RoomAsset roomAsset)
         {
-            roomAsset.GroundPositions = Serialize(GetPositionsFor("Ground", "Ground"));
-            roomAsset.WallPositions = Serialize(GetPositionsFor("Static", "Wall"));
-            roomAsset.ItemPositions = Serialize(GetPositionsFor("Static", "Item"));
-            roomAsset.SmallCouragePositions = Serialize(GetPositionsFor("Static", "Courage_Small"));
-            roomAsset.BigCouragePositions = Serialize(GetPositionsFor("Static", "Courage_Big"));
+            roomAsset.GroundPositions = GetPositionsFor("Ground", "Ground");
+            roomAsset.WallPositions = GetPositionsFor("Static", "Wall");
+            roomAsset.ItemPositions = GetPositionsFor("Static", "Item");
+            roomAsset.SmallCouragePositions = GetPositionsFor("Static", "Courage_Small");
+            roomAsset.BigCouragePositions = GetPositionsFor("Static", "Courage_Big");
         }
 
-        private TilePosition[] GetPositionsFor(string layerName, string tileName)
+        private Vector2Int[] GetPositionsFor(string layerName, string tileName)
         {
             return layersByName[layerName].GetPositionsWithTile(tileName);
         }
 
-        private Vector2Int[] Serialize(TilePosition[] tilePositions)
+        public void ApplyAssetToGrid(RoomAsset roomAsset)
         {
-            return tilePositions
-                .Select(p => new Vector2Int(p.X, p.Y))
-                .ToArray();
+
         }
+
 
         private void Awake()
         {

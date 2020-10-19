@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game;
+﻿using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -8,7 +8,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Properties
 
-        public TilePosition Position { get; }
+        public Vector2Int Position { get; }
 
         public string MouseButtonName { get; }
 
@@ -16,7 +16,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Constructors
 
-        public MouseDownEventArgs(TilePosition position, string mouseButtonName)
+        public MouseDownEventArgs(Vector2Int position, string mouseButtonName)
         {
             Position = position;
             MouseButtonName = mouseButtonName;

@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -40,22 +39,22 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        public void PlaceTileAt(TilePosition tilePosition)
+        public void PlaceTileAt(Vector2Int tilePosition)
         {
-            tilemap.SetTile(tilePosition.ToVector3Int(), selectedTile);
+            tilemap.SetTile((Vector3Int)tilePosition, selectedTile);
         }
 
 
-        public void DeleteTile(TilePosition tilePosition)
+        public void DeleteTile(Vector2Int tilePosition)
         {
-            tilemap.SetTile(tilePosition.ToVector3Int(), null);
+            tilemap.SetTile((Vector3Int)tilePosition, null);
         }
 
 
-        public TilePosition[] GetPositionsWithTile(string name)
+        public Vector2Int[] GetPositionsWithTile(string name)
         {
             var bounds = tilemap.cellBounds;
-            var positions = new List<TilePosition>();
+            var positions = new List<Vector2Int>();
 
             for (var x = bounds.xMin; x <= bounds.xMax; x++)
                 for (var y = bounds.yMin; y <= bounds.yMax; y++)
@@ -63,7 +62,7 @@ namespace AChildsCourage.RoomEditor
                     var tile = tilemap.GetTile(new Vector3Int(x, y, 0));
 
                     if (tile != null && tile.name == name)
-                        positions.Add(new TilePosition(x, y));
+                        positions.Add(new Vector2Int(x, y));
                 }
 
             return positions.ToArray();

@@ -1,7 +1,5 @@
-﻿using AChildsCourage.Game;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -20,7 +18,7 @@ namespace AChildsCourage.RoomEditor
 #pragma warning restore 649
 
         private string lastButtonName;
-        private TilePosition lastTilePosition;
+        private Vector2Int lastTilePosition;
         private RoomEditorInput input;
 
         #endregion
@@ -62,11 +60,11 @@ namespace AChildsCourage.RoomEditor
             }
         }
 
-        private TilePosition GetCurrentMousePosition()
+        private Vector2Int GetCurrentMousePosition()
         {
             var pos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            return new TilePosition(
+            return new Vector2Int(
                 Mathf.FloorToInt(pos.x),
                 Mathf.FloorToInt(pos.y));
         }
