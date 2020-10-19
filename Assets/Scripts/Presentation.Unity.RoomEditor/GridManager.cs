@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,16 +18,20 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-        private TilePlacer selectedPlacer;
-        private Dictionary<string, TilePlacer> allPlacers = new Dictionary<string, TilePlacer>();
+        private LayerManager selectedLayer;
+        private Dictionary<string, LayerManager> layersByName = new Dictionary<string, LayerManager>();
 
         #endregion
 
         #region Properties
 
-        public string[] PlacerNames { get { return allPlacers.Keys.ToArray(); } }
+        public string[] LayerNames { get { return layersByName.Keys.ToArray(); } }
 
-        public string SelectedPlacerName { get { return selectedPlacer != null ? selectedPlacer.name : "None"; } }
+        public string SelectedLayerName { get { return selectedLayer.name; } }
+
+        public string SelectedTileName { get { return selectedLayer.SelectedTileName; } }
+
+        public string[] TileNames { get { return selectedLayer.TileNames; } }
 
         #endregion
 
@@ -35,22 +40,27 @@ namespace AChildsCourage.RoomEditor
         public void OnMouseDown(MouseDownEventArgs eventArgs)
         {
             if (eventArgs.MouseButtonName == PlaceMouseButton)
-                selectedPlacer.PlaceTileAt(eventArgs.Position);
+                selectedLayer.PlaceTileAt(eventArgs.Position);
             else if (eventArgs.MouseButtonName == DeleteMouseButton)
-                selectedPlacer.DeleteTile(eventArgs.Position);
+                selectedLayer.DeleteTile(eventArgs.Position);
         }
 
-        public void SelectPlacer(string placerName)
+        public void SelectLayer(string layerName)
         {
-            selectedPlacer = allPlacers[placerName];
+            selectedLayer = layersByName[layerName];
+        }
+
+        public void SelectTile(string tileName)
+        {
+            selectedLayer.SelectTile(tileName);
         }
 
         private void Awake()
         {
-            foreach (var placer in FindObjectsOfType<TilePlacer>())
-                allPlacers.Add(placer.name, placer);
+            foreach (var layer in FindObjectsOfType<LayerManager>())
+                layersByName.Add(layer.name, layer);
 
-            selectedPlacer = allPlacers.Values.First();
+            SelectLayer(layersByName.Keys.First());
         }
 
         #endregion

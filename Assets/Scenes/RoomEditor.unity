@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 339682974}
   - component: {fileID: 339682976}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb47e637f67cb4a46b2bf4dd35ed8b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: c4111e074f36d8e429253ac255089f42, type: 2}
+  tiles:
+  - {fileID: 11400000, guid: c4111e074f36d8e429253ac255089f42, type: 2}
   tilemap: {fileID: 339682975}
 --- !u!1 &624658608
 GameObject:
@@ -301,7 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb47e637f67cb4a46b2bf4dd35ed8b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: e2c2e78d87ae3bf44add63488a26ac06, type: 2}
+  tiles:
+  - {fileID: 11400000, guid: e2c2e78d87ae3bf44add63488a26ac06, type: 2}
   tilemap: {fileID: 624658612}
 --- !u!483693784 &624658611
 TilemapRenderer:
