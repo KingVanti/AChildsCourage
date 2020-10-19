@@ -11,7 +11,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
         #region Fields
 
-        private RoomAsset _selectedAsset;
+        private static RoomAsset _selectedAsset;
 
         #endregion
 
