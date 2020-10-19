@@ -21,6 +21,7 @@ namespace AChildsCourage.RoomEditor
 
         private string lastButtonName;
         private TilePosition lastTilePosition;
+        private RoomEditorInput input;
 
         #endregion
 
@@ -30,36 +31,24 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        private void Update()
+        private void Awake()
         {
-            UpdateClick();
-            UpdateDrag();
+            input = new RoomEditorInput();
+
+            input.Mouse.Place.started += (_) => UpdateTilePosition("leftButton");
+            input.Mouse.Delete.started += (_) => UpdateTilePosition("rightButton");
+            input.Mouse.Move.performed += (_) => OnMouseMoved();
+
+            input.Enable();
         }
 
-        private void UpdateClick()
+        private void OnMouseMoved()
         {
-            UpdateClickFor(Mouse.current.leftButton);
-            UpdateClickFor(Mouse.current.rightButton);
+            if (input.Mouse.Place.phase == InputActionPhase.Started)
+                UpdateTilePosition("leftButton");
+            if (input.Mouse.Delete.phase == InputActionPhase.Started)
+                UpdateTilePosition("rightButton");
         }
-
-        private void UpdateClickFor(ButtonControl mouseButton)
-        {
-            if (mouseButton.wasPressedThisFrame)
-                UpdateTilePosition(mouseButton.name);
-        }
-
-        private void UpdateDrag()
-        {
-            UpdateDragFor(Mouse.current.leftButton);
-            UpdateDragFor(Mouse.current.rightButton);
-        }
-
-        private void UpdateDragFor(ButtonControl mouseButton)
-        {
-            if (mouseButton.isPressed)
-                UpdateTilePosition(mouseButton.name);
-        }
-
 
         private void UpdateTilePosition(string buttonName)
         {
