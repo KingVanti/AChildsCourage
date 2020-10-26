@@ -70,13 +70,13 @@ namespace AChildsCourage.Game.Player {
         #region Methods
 
         private void FixedUpdate() {
-
             Move();
-
         }
+
 
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
+            listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
         }
 
         private void Rotate(Vector2 mousePos) {
@@ -86,7 +86,9 @@ namespace AChildsCourage.Game.Player {
 
             Vector2 relativeMousePosition = (projectedMousePosition - playerPos).normalized;
 
-            ChangeLookDirection(relativeMousePosition);
+            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.5f) {
+                ChangeLookDirection(relativeMousePosition);
+            }
 
             LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
             flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
@@ -108,9 +110,7 @@ namespace AChildsCourage.Game.Player {
         }
 
         private void Move() {
-
             transform.Translate(movingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
-
         }
 
         private float CalculateAngle(float yPos, float xPos) {
@@ -120,6 +120,10 @@ namespace AChildsCourage.Game.Player {
 
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
             Rotate(eventArgs.MousePosition);
+        }
+
+        public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
+            movingDirection = eventArgs.MoveDirection;
         }
 
 

@@ -5,10 +5,7 @@ namespace AChildsCourage.Game.Player {
 
         [SerializeField] private CharacterController characterController;
 
-        Vector2 mousePosition;
-
         private void LateUpdate() {
-
 
             transform.position = characterController.transform.position + new Vector3(0, 0, -10);
 
