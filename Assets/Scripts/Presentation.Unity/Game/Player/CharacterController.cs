@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Input;
+using Appccelerate.EventBroker;
+using Appccelerate.EventBroker.Handlers;
+using Ninject.Extensions.Unity;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AChildsCourage.Game.Input {
-    public class PlayerController : MonoBehaviour {
+namespace AChildsCourage.Game.Player {
+    public class CharacterController : MonoBehaviour {
 
         #region Fields
-
-        private UserControls controls;
 
 #pragma warning disable 649
 
@@ -26,6 +28,13 @@ namespace AChildsCourage.Game.Input {
         #endregion
 
         #region Properties
+
+        [AutoInject]
+        public IInputListener InputListener { 
+            set {
+                BindTo(value);
+            } 
+        }
 
         /// <summary>
         /// The movement speed of the player character.
@@ -65,19 +74,26 @@ namespace AChildsCourage.Game.Input {
 
         }
 
-        private void LateUpdate() {
-
-            mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-
+        private void BindTo(IInputListener listener) {
+            listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
         }
-
 
         private void Rotate() {
 
-            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
+            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(UserInput.instance.MousePosition);
             Vector2 playerPos = transform.position;
 
             Vector2 relativeMousePosition = (projectedMousePosition - playerPos).normalized;
+
+            ChangeLookDirection(relativeMousePosition);
+
+            LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
+
+            flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+
+        }
+
+        private void ChangeLookDirection(Vector2 relativeMousePosition) {
 
             if (relativeMousePosition.x > 0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)) {
                 RotationIndex = 0;
@@ -88,12 +104,6 @@ namespace AChildsCourage.Game.Input {
             } else if (relativeMousePosition.y < -0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)) {
                 RotationIndex = 3;
             }
-
-            Debug.Log(RotationIndex);
-
-            LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
-
-            flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
         }
 
@@ -109,32 +119,20 @@ namespace AChildsCourage.Game.Input {
 
         }
 
+        /*
+        public void OnRotationChanged() {
+            Rotate();
+        }
+
         public void OnMovementChanged(InputAction.CallbackContext context) {
 
             direction = context.ReadValue<Vector2>();
 
         }
+         */
 
-        public void OnRotationChanged(InputAction.CallbackContext context) {
-
-            mousePosition = context.ReadValue<Vector2>();
-            Rotate();
-
-        }
-
-        private void OnEnable() {
-
-            if (controls == null) {
-                controls = new UserControls();
-            }
-
-            controls.Player.Enable();
-
-        }
-
-        private void OnDisable() {
-
-            controls.Player.Disable();
+        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
+            Debug.Log(eventArgs.MousePosition);
         }
 
 
