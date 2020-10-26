@@ -19,11 +19,9 @@ namespace AChildsCourage.Game.Player {
 
 #pragma warning restore 649
 
-        private Vector2 direction;
-        private Vector2 mousePosition;
-
-        private float _lookAngle;
-        private int _rotationIndex;
+        private Vector2 movingDirection;
+        private float _lookAngle = 0f;
+        private int _rotationIndex = 0;
 
         #endregion
 
@@ -56,6 +54,9 @@ namespace AChildsCourage.Game.Player {
 
         }
 
+        /// <summary>
+        /// The rotation direction index for the animation
+        /// </summary>
         public int RotationIndex {
             get { return _rotationIndex; }
             set { 
@@ -78,9 +79,9 @@ namespace AChildsCourage.Game.Player {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
         }
 
-        private void Rotate() {
+        private void Rotate(Vector2 mousePos) {
 
-            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(UserInput.instance.MousePosition);
+            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePos);
             Vector2 playerPos = transform.position;
 
             Vector2 relativeMousePosition = (projectedMousePosition - playerPos).normalized;
@@ -88,7 +89,6 @@ namespace AChildsCourage.Game.Player {
             ChangeLookDirection(relativeMousePosition);
 
             LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
-
             flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
         }
@@ -109,36 +109,21 @@ namespace AChildsCourage.Game.Player {
 
         private void Move() {
 
-            transform.Translate(direction * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            transform.Translate(movingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
 
         }
 
         private float CalculateAngle(float yPos, float xPos) {
-
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
-
         }
 
-        /*
-        public void OnRotationChanged() {
-            Rotate();
-        }
-
-        public void OnMovementChanged(InputAction.CallbackContext context) {
-
-            direction = context.ReadValue<Vector2>();
-
-        }
-         */
 
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
-            Debug.Log(eventArgs.MousePosition);
+            Rotate(eventArgs.MousePosition);
         }
 
 
         #endregion
-
-
 
     }
 

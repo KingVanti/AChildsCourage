@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-
 namespace AChildsCourage.Game.Input
 {
     public class @UserControls : IInputActionCollection, IDisposable
@@ -121,7 +120,7 @@ namespace AChildsCourage.Game.Input
                 {
                     ""name"": """",
                     ""id"": ""28315ec3-c052-41d4-9e1c-535d9eb47fd0"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
