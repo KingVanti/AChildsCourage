@@ -1,9 +1,6 @@
 ﻿using AChildsCourage.Game.Input;
-using Appccelerate.EventBroker;
-using Appccelerate.EventBroker.Handlers;
 using Ninject.Extensions.Unity;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
@@ -28,10 +25,8 @@ namespace AChildsCourage.Game.Player {
         #region Properties
 
         [AutoInject]
-        public IInputListener InputListener { 
-            set {
-                BindTo(value);
-            } 
+        public IInputListener InputListener {
+            set { BindTo(value); }
         }
 
         /// <summary>
@@ -46,12 +41,8 @@ namespace AChildsCourage.Game.Player {
         /// The angle the player is facing towards the mouse cursor.
         /// </summary>
         public float LookAngle {
-
             get { return _lookAngle; }
-            set {
-                _lookAngle = value;
-            }
-
+            set { _lookAngle = value; }
         }
 
         /// <summary>
@@ -59,7 +50,7 @@ namespace AChildsCourage.Game.Player {
         /// </summary>
         public int RotationIndex {
             get { return _rotationIndex; }
-            set { 
+            set {
                 _rotationIndex = value;
                 animator.SetFloat("RotationIndex", RotationIndex);
             }
