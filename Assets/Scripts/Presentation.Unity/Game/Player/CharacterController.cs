@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Player {
 
 #pragma warning restore 649
 
-        private Vector2 movingDirection;
+        private Vector2 _movingDirection;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
 
@@ -47,7 +47,7 @@ namespace AChildsCourage.Game.Player {
         }
 
         /// <summary>
-        /// The rotation direction index for the animation
+        /// The rotation direction index for the animation.
         /// </summary>
         public int RotationIndex {
             get { return _rotationIndex; }
@@ -55,6 +55,25 @@ namespace AChildsCourage.Game.Player {
                 _rotationIndex = value;
                 animator.SetFloat("RotationIndex", RotationIndex);
             }
+        }
+
+
+        /// <summary>.
+        /// The moving direction of the player character
+        /// </summary>
+        public Vector2 MovingDirection {
+            get { return _movingDirection; }
+            set { 
+                _movingDirection = value;
+                animator.SetBool("IsMoving", IsMoving);
+            }
+        }
+
+        /// <summary>
+        /// True if the character is currently moving.
+        /// </summary>
+        public bool IsMoving {
+            get { return MovingDirection != Vector2.zero; }
         }
 
         #endregion
@@ -103,7 +122,7 @@ namespace AChildsCourage.Game.Player {
         }
 
         private void Move() {
-            transform.Translate(movingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
         }
 
         private float CalculateAngle(float yPos, float xPos) {
@@ -116,7 +135,7 @@ namespace AChildsCourage.Game.Player {
         }
 
         public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
-            movingDirection = eventArgs.MoveDirection;
+            MovingDirection = eventArgs.MoveDirection;
         }
 
 
