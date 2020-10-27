@@ -10,9 +10,10 @@ namespace AChildsCourage.Game.Player {
 #pragma warning disable 649
 
         [SerializeField] private Animator animator;
-        [SerializeField] private Transform flashlight;
+        [SerializeField] private Transform characterVision;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
+        [SerializeField] private GameObject flashlight;
 
 #pragma warning restore 649
 
@@ -77,12 +78,13 @@ namespace AChildsCourage.Game.Player {
 
             Vector2 relativeMousePosition = (projectedMousePosition - playerPos).normalized;
 
-            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.5f) {
+            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.7f) {
                 ChangeLookDirection(relativeMousePosition);
             }
 
             LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
-            flashlight.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+            characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+
 
         }
 
