@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Input;
 using Ninject.Extensions.Unity;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
@@ -69,6 +70,7 @@ namespace AChildsCourage.Game.Player {
             get; set;
         } = new Vector2(0, 0);
 
+
         public bool IsMovingBackwards {
             get {
                 if (IsMoving && (RelativeMousePos.x < 0) && (MovingDirection.x > 0)) {
@@ -128,7 +130,6 @@ namespace AChildsCourage.Game.Player {
             }
 
             LookAngle = CalculateAngle(RelativeMousePos.y, RelativeMousePos.x);
-            Debug.Log(LookAngle);
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
         }
