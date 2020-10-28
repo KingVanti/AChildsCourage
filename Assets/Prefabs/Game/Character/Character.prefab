@@ -326,7 +326,7 @@ MonoBehaviour:
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1905114233987173524}
   mainCamera: {fileID: 0}
-  _movementSpeed: 3.2
+  _movementSpeed: 2.4
   flashlight: {fileID: 788487156}
 --- !u!95 &1266752489
 Animator:
