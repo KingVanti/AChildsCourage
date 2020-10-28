@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Input {
-    public class MoveDirectionChangedEventArgs : EventArgs {
+namespace AChildsCourage.Game.Input
+{
+    public class MoveDirectionChangedEventArgs : EventArgs
+    {
 
         #region Properties
 
-        public Vector2 MoveDirection {
+        public Vector2 MoveDirection
+        {
             get;
         }
 
@@ -14,7 +17,8 @@ namespace AChildsCourage.Game.Input {
 
         #region Constructors
 
-        public MoveDirectionChangedEventArgs(Vector2 moveDirection) {
+        public MoveDirectionChangedEventArgs(Vector2 moveDirection)
+        {
             MoveDirection = moveDirection;
         }
 

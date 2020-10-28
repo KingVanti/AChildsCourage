@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Input {
-    public class MousePositionChangedEventArgs : EventArgs {
+namespace AChildsCourage.Game.Input
+{
+    public class MousePositionChangedEventArgs : EventArgs
+    {
 
         #region Properties
 
-        public Vector2 MousePosition {
+        public Vector2 MousePosition
+        {
             get;
         }
 
@@ -14,7 +17,8 @@ namespace AChildsCourage.Game.Input {
 
         #region Constructors
 
-        public MousePositionChangedEventArgs(Vector2 mousePosition) {
+        public MousePositionChangedEventArgs(Vector2 mousePosition)
+        {
             MousePosition = mousePosition;
         }
 
