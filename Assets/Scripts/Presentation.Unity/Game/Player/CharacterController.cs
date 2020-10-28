@@ -2,10 +2,8 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Player
-{
-    public class CharacterController : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Player {
+    public class CharacterController : MonoBehaviour {
 
         #region Fields
 
@@ -29,16 +27,14 @@ namespace AChildsCourage.Game.Player
         #region Properties
 
         [AutoInject]
-        public IInputListener InputListener
-        {
+        public IInputListener InputListener {
             set { BindTo(value); }
         }
 
         /// <summary>
         /// The movement speed of the player character.
         /// </summary>
-        public float MovementSpeed
-        {
+        public float MovementSpeed {
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
@@ -46,8 +42,7 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         /// The angle the player is facing towards the mouse cursor.
         /// </summary>
-        public float LookAngle
-        {
+        public float LookAngle {
             get { return _lookAngle; }
             set { _lookAngle = value; }
         }
@@ -55,11 +50,9 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         /// The rotation direction index for the animation.
         /// </summary>
-        public int RotationIndex
-        {
+        public int RotationIndex {
             get { return _rotationIndex; }
-            set
-            {
+            set {
                 _rotationIndex = value;
                 animator.SetFloat("RotationIndex", RotationIndex);
                 animator.SetBool("IsMoving", IsMoving);
@@ -92,8 +85,7 @@ namespace AChildsCourage.Game.Player
         /// <summary>.
         /// The moving direction of the player character
         /// </summary>
-        public Vector2 MovingDirection
-        {
+        public Vector2 MovingDirection {
             get { return _movingDirection; }
             set {
                 _movingDirection = value;
@@ -105,8 +97,7 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         /// True if the character is currently moving.
         /// </summary>
-        public bool IsMoving
-        {
+        public bool IsMoving {
             get { return MovingDirection != Vector2.zero; }
 
         }
@@ -115,20 +106,17 @@ namespace AChildsCourage.Game.Player
 
         #region Methods
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
             Move();
         }
 
 
-        private void BindTo(IInputListener listener)
-        {
+        private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
         }
 
-        private void Rotate(Vector2 mousePos)
-        {
+        private void Rotate(Vector2 mousePos) {
 
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePos);
             Vector2 playerPos = transform.position;
@@ -145,35 +133,25 @@ namespace AChildsCourage.Game.Player
 
         }
 
-        private void ChangeLookDirection(Vector2 relativeMousePosition)
-        {
+        private void ChangeLookDirection(Vector2 relativeMousePosition) {
 
-            if (relativeMousePosition.x > 0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f))
-            {
+            if (relativeMousePosition.x > 0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)) {
                 RotationIndex = 0;
-            }
-            else if (relativeMousePosition.y > 0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f))
-            {
+            } else if (relativeMousePosition.y > 0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)) {
                 RotationIndex = 1;
-            }
-            else if (relativeMousePosition.x < -0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f))
-            {
+            } else if (relativeMousePosition.x < -0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)) {
                 RotationIndex = 2;
-            }
-            else if (relativeMousePosition.y < -0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f))
-            {
+            } else if (relativeMousePosition.y < -0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)) {
                 RotationIndex = 3;
             }
 
         }
 
-        private void Move()
-        {
+        private void Move() {
             transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
         }
 
-        private float CalculateAngle(float yPos, float xPos)
-        {
+        private float CalculateAngle(float yPos, float xPos) {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
@@ -182,8 +160,7 @@ namespace AChildsCourage.Game.Player
             Rotate(MousePos);
         }
 
-        public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs)
-        {
+        public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
             MovingDirection = eventArgs.MoveDirection;
         }
 
