@@ -18,6 +18,7 @@ namespace AChildsCourage.Game.Player {
 #pragma warning restore 649
 
         private Vector2 _movingDirection;
+        private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
 
@@ -54,6 +55,29 @@ namespace AChildsCourage.Game.Player {
             set {
                 _rotationIndex = value;
                 animator.SetFloat("RotationIndex", RotationIndex);
+                animator.SetBool("IsMoving", IsMoving);
+                animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+            }
+        }
+
+        public Vector2 MousePos {
+            get { return _mousePos; }
+            set { _mousePos = value; }
+        }
+
+        private Vector2 RelativeMousePos {
+            get; set;
+        } = new Vector2(0, 0);
+
+        public bool IsMovingBackwards {
+            get {
+                if (IsMoving && (RelativeMousePos.x < 0) && (MovingDirection.x > 0)) {
+                    return true;
+                } else if (IsMoving && (RelativeMousePos.x > 0) && (MovingDirection.x < 0)) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
 
@@ -63,9 +87,10 @@ namespace AChildsCourage.Game.Player {
         /// </summary>
         public Vector2 MovingDirection {
             get { return _movingDirection; }
-            set { 
+            set {
                 _movingDirection = value;
                 animator.SetBool("IsMoving", IsMoving);
+                animator.SetBool("IsMovingBackwards", IsMovingBackwards);
             }
         }
 
@@ -73,7 +98,9 @@ namespace AChildsCourage.Game.Player {
         /// True if the character is currently moving.
         /// </summary>
         public bool IsMoving {
-            get { return MovingDirection != Vector2.zero; }
+            get {
+                return MovingDirection != Vector2.zero;
+            }
         }
 
         #endregion
@@ -95,15 +122,15 @@ namespace AChildsCourage.Game.Player {
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePos);
             Vector2 playerPos = transform.position;
 
-            Vector2 relativeMousePosition = (projectedMousePosition - playerPos).normalized;
+            RelativeMousePos = (projectedMousePosition - playerPos).normalized;
 
             if (Vector2.Distance(projectedMousePosition, playerPos) > 0.7f) {
-                ChangeLookDirection(relativeMousePosition);
+                ChangeLookDirection(RelativeMousePos);
             }
 
-            LookAngle = CalculateAngle(relativeMousePosition.y, relativeMousePosition.x);
+            LookAngle = CalculateAngle(RelativeMousePos.y, RelativeMousePos.x);
+            Debug.Log(LookAngle);
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
-
 
         }
 
@@ -129,9 +156,9 @@ namespace AChildsCourage.Game.Player {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
-
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
-            Rotate(eventArgs.MousePosition);
+            MousePos = eventArgs.MousePosition;
+            Rotate(MousePos);
         }
 
         public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
