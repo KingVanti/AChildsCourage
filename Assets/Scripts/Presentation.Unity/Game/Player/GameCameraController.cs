@@ -2,42 +2,50 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Player
-{
-    public class GameCameraController : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Player {
+    public class GameCameraController : MonoBehaviour {
+
+        #region Fields
+
+#pragma warning disable 649
 
         [SerializeField] private CharacterController characterController;
         [SerializeField] private Camera mainCamera;
+
+#pragma warning restore 649
+
         private float cameraDistance = -10.0f;
 
+        #endregion
+
+        #region Properties
+
         [AutoInject]
-        public IInputListener InputListener
-        {
+        public IInputListener InputListener {
             set { BindTo(value); }
         }
 
-        public Vector3 MousePos
-        {
+        public Vector3 MousePos {
             get; private set;
         }
 
-        private void BindTo(IInputListener listener)
-        {
+        #endregion
+
+        #region Methods
+
+        private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
         }
 
-        private void LateUpdate()
-        {
-
+        private void LateUpdate() {
             transform.position = new Vector3(characterController.transform.position.x, characterController.transform.position.y, cameraDistance);
-
         }
 
-        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
-        {
+        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
             MousePos = eventArgs.MousePosition;
         }
+
+        #endregion
 
 
 
