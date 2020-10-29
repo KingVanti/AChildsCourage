@@ -1,6 +1,9 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class RoomBuildingSession { }
+    public class TilePlacingSettings
+    {
+
+    }
 
 }

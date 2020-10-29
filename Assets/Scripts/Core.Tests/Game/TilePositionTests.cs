@@ -27,6 +27,24 @@ namespace AChildsCourage.Game
             Assert.That(position.Y, Is.EqualTo(y), "Incorrect Y coordinate!");
         }
 
+        [Test]
+        public void Given_Two_TilePositions_When_They_Are_Added_Then_Their_Cooridantes_Are_Added()
+        {
+            // Given
+
+            var t1 = new TilePosition(0, 0);
+            var t2 = new TilePosition(1, -1);
+
+            // When
+
+            var actual = t1 + t2;
+
+            // Then
+
+            Assert.That(actual.X, Is.EqualTo(t1.X + t2.X), "X coordinate incorrectly added!");
+            Assert.That(actual.Y, Is.EqualTo(t1.Y + t2.Y), "Y coordinate incorrectly added!");
+        }
+
         #endregion
 
     }

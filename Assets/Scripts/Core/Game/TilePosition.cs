@@ -31,6 +31,17 @@
 
         #endregion
 
+        #region Operators
+
+        public static TilePosition operator +(TilePosition t1, TilePosition t2)
+        {
+            return new TilePosition(
+                t1.X + t2.X,
+                t1.Y + t2.Y);
+        }
+
+        #endregion
+
     }
 
 }

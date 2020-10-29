@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public class Room
+    internal class Room : IRoom
     {
 
         #region Constants
