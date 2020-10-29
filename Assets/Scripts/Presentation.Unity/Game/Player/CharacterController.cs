@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Input;
 using Ninject.Extensions.Unity;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
@@ -61,6 +61,9 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
+        /// <summary>
+        /// The position of the mouse.
+        /// </summary>
         public Vector2 MousePos {
             get { return _mousePos; }
             set { _mousePos = value; }
@@ -68,10 +71,10 @@ namespace AChildsCourage.Game.Player {
 
         private Vector2 RelativeMousePos {
             get; set;
-        } = new Vector2(0, 0);
+        }
 
 
-        public bool IsMovingBackwards {
+        private bool IsMovingBackwards {
             get {
                 if (IsMoving && (RelativeMousePos.x < 0) && (MovingDirection.x > 0)) {
                     return true;
@@ -106,6 +109,7 @@ namespace AChildsCourage.Game.Player {
 
         #endregion
 
+
         #region Methods
 
         private void FixedUpdate() {
@@ -118,19 +122,22 @@ namespace AChildsCourage.Game.Player {
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
         }
 
-        private void Rotate(Vector2 mousePos) {
+        private void Rotate() {
 
-            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(mousePos);
+            float oldAngle = LookAngle;
+
+            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
             Vector2 playerPos = transform.position;
 
             RelativeMousePos = (projectedMousePosition - playerPos).normalized;
 
+            LookAngle = CalculateAngle(RelativeMousePos.y, RelativeMousePos.x);
+
+            characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
+
             if (Vector2.Distance(projectedMousePosition, playerPos) > 0.7f) {
                 ChangeLookDirection(RelativeMousePos);
             }
-
-            LookAngle = CalculateAngle(RelativeMousePos.y, RelativeMousePos.x);
-            characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
         }
 
@@ -156,15 +163,24 @@ namespace AChildsCourage.Game.Player {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
+        private void ToggleFlashlight() {
+
+            if (flashlight.activeSelf) {
+                flashlight.SetActive(false);
+            } else {
+                flashlight.SetActive(true);
+            }
+
+        }
+
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
             MousePos = eventArgs.MousePosition;
-            Rotate(MousePos);
+            Rotate();
         }
 
         public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
             MovingDirection = eventArgs.MoveDirection;
         }
-
 
         #endregion
 
