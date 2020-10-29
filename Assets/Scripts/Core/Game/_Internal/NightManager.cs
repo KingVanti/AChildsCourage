@@ -3,6 +3,7 @@
 namespace AChildsCourage.Game
 {
 
+    [Singleton]
     public class NightManager : INightManager
     {
 

@@ -3,6 +3,7 @@
 namespace AChildsCourage.Game.Floors.Generation
 {
 
+    [Singleton]
     public class TileBuilder : ITileBuilder
     {
 

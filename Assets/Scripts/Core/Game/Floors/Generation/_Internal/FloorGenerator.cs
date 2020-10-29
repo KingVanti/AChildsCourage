@@ -1,6 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
+    [Singleton]
     internal class FloorGenerator : IFloorGenerator
     {
 

@@ -4,6 +4,7 @@ using AChildsCourage.Game.Persistance;
 namespace AChildsCourage.Game
 {
 
+    [Singleton]
     public class NightLoader : INightLoader
     {
 

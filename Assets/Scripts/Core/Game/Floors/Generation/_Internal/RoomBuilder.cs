@@ -4,6 +4,7 @@ using System;
 namespace AChildsCourage.Game.Floors.Generation
 {
 
+    [Singleton]
     internal class RoomBuilder : IRoomBuilder
     {
 
