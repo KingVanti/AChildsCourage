@@ -72,6 +72,12 @@ namespace AChildsCourage.Game.Player {
             get; set;
         }
 
+        /// <summary>
+        /// True if the character is currently moving.
+        /// </summary>
+        public bool IsMoving {
+            get { return MovingDirection != Vector2.zero; }
+        }
 
         private bool IsMovingBackwards {
             get {
@@ -85,7 +91,6 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-
         /// <summary>.
         /// The moving direction of the player character
         /// </summary>
@@ -96,14 +101,6 @@ namespace AChildsCourage.Game.Player {
                 animator.SetBool("IsMoving", IsMoving);
                 animator.SetBool("IsMovingBackwards", IsMovingBackwards);
             }
-        }
-
-        /// <summary>
-        /// True if the character is currently moving.
-        /// </summary>
-        public bool IsMoving {
-            get { return MovingDirection != Vector2.zero; }
-
         }
 
         #endregion
