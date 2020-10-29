@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.Input;
 using Ninject.Extensions.Unity;
-using System.Collections;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Player {
@@ -109,7 +108,6 @@ namespace AChildsCourage.Game.Player {
 
         #endregion
 
-
         #region Methods
 
         private void FixedUpdate() {
@@ -123,8 +121,6 @@ namespace AChildsCourage.Game.Player {
         }
 
         private void Rotate() {
-
-            float oldAngle = LookAngle;
 
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
             Vector2 playerPos = transform.position;
@@ -161,16 +157,6 @@ namespace AChildsCourage.Game.Player {
 
         private float CalculateAngle(float yPos, float xPos) {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
-        }
-
-        private void ToggleFlashlight() {
-
-            if (flashlight.activeSelf) {
-                flashlight.SetActive(false);
-            } else {
-                flashlight.SetActive(true);
-            }
-
         }
 
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
