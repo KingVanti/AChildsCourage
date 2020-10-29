@@ -1,12 +1,12 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public interface IFloorBuilder
+    public interface IFloorGenerator
     {
 
         #region Methods
 
-        void Build(FloorPlan floorPlan);
+        FloorPlan GenerateNew(int seed);
 
         #endregion
 

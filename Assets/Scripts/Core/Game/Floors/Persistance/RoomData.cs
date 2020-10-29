@@ -20,6 +20,15 @@
 
         #region Constructors
 
+        public RoomData()
+        {
+            GroundPositions = new TilePosition[0];
+            WallPositions = new TilePosition[0];
+            ItemPositions = new TilePosition[0];
+            SmallCouragePositions = new TilePosition[0];
+            BigCouragePositions = new TilePosition[0];
+        }
+
         public RoomData(TilePosition[] groundPositions,
                         TilePosition[] wallPositions,
                         TilePosition[] itemPositions,

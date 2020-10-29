@@ -1,35 +1,35 @@
-﻿using System;
-
-namespace AChildsCourage.Game.Floors.Generation
+﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
     internal class FloorBuilder : IFloorBuilder
     {
 
-        #region Events
+        #region Fields
 
-        public event EventHandler<GroundPlacedEventArgs> OnGroundPlaced;
-        public event EventHandler<WallPlacedEventArgs> OnWallPlaced;
+        private readonly IRoomBuilder roomBuilder;
+
+        #endregion
+
+        #region Constructors
+
+        public FloorBuilder(IRoomBuilder roomBuilder)
+        {
+            this.roomBuilder = roomBuilder;
+        }
 
         #endregion
 
         #region Methods
 
-        public RoomBuildingSession StartBuilding()
+        public void Build(FloorPlan floorPlan)
         {
-            throw new NotImplementedException();
+            BuildRooms(floorPlan.RoomPositions);
         }
 
-
-        public void PlaceGround(TilePosition position, RoomBuildingSession session)
+        private void BuildRooms(RoomAtPosition[] roomPositions)
         {
-            OnGroundPlaced.Invoke(this, new GroundPlacedEventArgs(position));
-        }
-
-
-        public void PlaceWall(TilePosition position, RoomBuildingSession session)
-        {
-            OnWallPlaced.Invoke(this, new WallPlacedEventArgs(position));
+            foreach (var roomPosition in roomPositions)
+                roomBuilder.Build(roomPosition);
         }
 
         #endregion

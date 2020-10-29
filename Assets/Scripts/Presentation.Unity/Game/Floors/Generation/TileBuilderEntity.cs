@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class FloorBuilderEntity : MonoBehaviour
+    public class TileBuilderEntity : MonoBehaviour
     {
 
         #region Fields
@@ -23,16 +23,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Properties
 
-        [AutoInject] public IFloorBuilder FloorBuilder { set { BindTo(value); } }
+        [AutoInject] public ITileBuilder TileBuilder { set { BindTo(value); } }
 
         #endregion
 
         #region Methods
 
-        private void BindTo(IFloorBuilder floorBuilder)
+        private void BindTo(ITileBuilder tileBuilder)
         {
-            floorBuilder.OnGroundPlaced += (_, e) => OnGroundPlaced(e);
-            floorBuilder.OnWallPlaced += (_, e) => OnWallPlaced(e);
+            tileBuilder.OnGroundPlaced += (_, e) => OnGroundPlaced(e);
+            tileBuilder.OnWallPlaced += (_, e) => OnWallPlaced(e);
         }
 
         private void OnGroundPlaced(GroundPlacedEventArgs eventArgs)
