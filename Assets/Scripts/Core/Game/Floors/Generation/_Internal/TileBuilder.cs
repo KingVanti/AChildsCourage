@@ -18,13 +18,13 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public void PlaceGround(TilePosition position)
         {
-            OnGroundPlaced.Invoke(this, new GroundPlacedEventArgs(position));
+            OnGroundPlaced?.Invoke(this, new GroundPlacedEventArgs(position));
         }
 
 
         public void PlaceWall(TilePosition position)
         {
-            OnWallPlaced.Invoke(this, new WallPlacedEventArgs(position));
+            OnWallPlaced?.Invoke(this, new WallPlacedEventArgs(position));
         }
 
         #endregion
