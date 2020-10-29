@@ -8,7 +8,11 @@
 
         public RunData LoadCurrent()
         {
-            throw new System.NotImplementedException();
+            // TODO: Load current run data
+
+            var nightData = new NightData(123);
+
+            return new RunData(nightData);
         }
 
         #endregion

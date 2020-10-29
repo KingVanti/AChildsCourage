@@ -9,7 +9,12 @@
 
         public FloorPlan GenerateNew(int seed)
         {
-            throw new System.NotImplementedException();
+            // TODO: Implement floor generation
+
+            return new FloorPlan(new[]
+            {
+                new RoomAtPosition(0, new TilePosition(0, 0))
+            });
         }
 
         #endregion
