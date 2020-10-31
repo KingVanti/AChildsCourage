@@ -1,6 +1,8 @@
 ﻿using AChildsCourage.Game.Input;
 using Ninject.Extensions.Unity;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
@@ -21,6 +23,7 @@ namespace AChildsCourage.Game.Player {
         private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
+        public Vector2Event OnPositionChanged;
 
         #endregion
 
@@ -111,7 +114,6 @@ namespace AChildsCourage.Game.Player {
             Move();
         }
 
-
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
@@ -150,6 +152,7 @@ namespace AChildsCourage.Game.Player {
 
         private void Move() {
             transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            OnPositionChanged.Invoke(transform.position);
         }
 
         private float CalculateAngle(float yPos, float xPos) {
@@ -164,6 +167,13 @@ namespace AChildsCourage.Game.Player {
         public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
             MovingDirection = eventArgs.MoveDirection;
         }
+
+        #endregion
+
+        #region Subclasses
+
+        [Serializable]
+        public class Vector2Event : UnityEvent<Vector2> { }
 
         #endregion
 
