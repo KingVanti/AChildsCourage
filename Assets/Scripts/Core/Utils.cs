@@ -1,5 +1,4 @@
 ﻿namespace AChildsCourage {
-
     public static class Utils {
 
         #region Methods
@@ -24,3 +23,4 @@
 
     }
 }
+
