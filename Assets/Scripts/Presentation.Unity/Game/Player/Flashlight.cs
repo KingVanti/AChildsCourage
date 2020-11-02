@@ -9,6 +9,12 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Light2D lightComponent;
 
+        [Range(1.0f, 5.0f)]
+        [SerializeField] private float maxFlashlightDistance;
+
+        [Range(0.1f, 1.0f)]
+        [SerializeField] private float maxFlashlightIntensity;
+
         private Vector2 characterPosition;
         
 
@@ -31,7 +37,7 @@ namespace AChildsCourage.Game.Player {
         private void ChangeLightIntensity() {
 
             float flashlightDistance = Mathf.Abs(Vector2.Distance(transform.position, characterPosition));
-            lightComponent.intensity = Mathf.Clamp(Utils.Map(flashlightDistance, 0.5f, 3.0f, 0.4f, 0f),0,0.4f);
+            lightComponent.intensity = Mathf.Clamp(Utils.Map(flashlightDistance, 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f),0, maxFlashlightIntensity);
 
         }
 
