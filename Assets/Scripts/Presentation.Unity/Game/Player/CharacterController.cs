@@ -1,7 +1,8 @@
 ﻿using AChildsCourage.Game.Input;
 using Ninject.Extensions.Unity;
-using System.Collections;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
@@ -22,6 +23,7 @@ namespace AChildsCourage.Game.Player {
         private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
+        public Vector2Event OnPositionChanged;
 
         #endregion
 
@@ -73,6 +75,12 @@ namespace AChildsCourage.Game.Player {
             get; set;
         }
 
+        /// <summary>
+        /// True if the character is currently moving.
+        /// </summary>
+        public bool IsMoving {
+            get { return MovingDirection != Vector2.zero; }
+        }
 
         private bool IsMovingBackwards {
             get {
@@ -86,7 +94,6 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-
         /// <summary>.
         /// The moving direction of the player character
         /// </summary>
@@ -99,16 +106,7 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-        /// <summary>
-        /// True if the character is currently moving.
-        /// </summary>
-        public bool IsMoving {
-            get { return MovingDirection != Vector2.zero; }
-
-        }
-
         #endregion
-
 
         #region Methods
 
@@ -116,15 +114,12 @@ namespace AChildsCourage.Game.Player {
             Move();
         }
 
-
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
         }
 
         private void Rotate() {
-
-            float oldAngle = LookAngle;
 
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
             Vector2 playerPos = transform.position;
@@ -157,20 +152,11 @@ namespace AChildsCourage.Game.Player {
 
         private void Move() {
             transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            OnPositionChanged.Invoke(transform.position);
         }
 
         private float CalculateAngle(float yPos, float xPos) {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
-        }
-
-        private void ToggleFlashlight() {
-
-            if (flashlight.activeSelf) {
-                flashlight.SetActive(false);
-            } else {
-                flashlight.SetActive(true);
-            }
-
         }
 
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
@@ -181,6 +167,13 @@ namespace AChildsCourage.Game.Player {
         public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
             MovingDirection = eventArgs.MoveDirection;
         }
+
+        #endregion
+
+        #region Subclasses
+
+        [Serializable]
+        public class Vector2Event : UnityEvent<Vector2> { }
 
         #endregion
 
