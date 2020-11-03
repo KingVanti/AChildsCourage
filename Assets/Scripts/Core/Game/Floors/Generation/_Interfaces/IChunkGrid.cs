@@ -17,7 +17,7 @@
 
         ChunkPassages GetPassagesTo(ChunkPosition position);
 
-        ChunkPosition FindDeadEndChunks();
+        ChunkPosition[] FindDeadEndChunks();
 
         bool IsEmpty(ChunkPosition position);
 

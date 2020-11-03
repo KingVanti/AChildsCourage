@@ -62,6 +62,11 @@ namespace AChildsCourage.Game.Floors.Generation
             return !roomsByChunks.ContainsKey(position);
         }
 
+        public ChunkPosition[] FindDeadEndChunks()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
     }
