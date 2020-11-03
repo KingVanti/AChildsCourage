@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Appccelerate.EventBroker;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -19,6 +22,12 @@ namespace AChildsCourage.Game.Floors.Generation
             throw new NotImplementedException();
         }
 
+        private IEnumerable<ChunkPosition> GetPossiblePositions()
+        {
+            throw new NotImplementedException();
+        }
+
+
         internal float GetChunkWeight(ChunkPosition position)
         {
             throw new NotImplementedException();
@@ -31,6 +40,12 @@ namespace AChildsCourage.Game.Floors.Generation
 
 
         public void Place(RoomInfo room, ChunkPosition position)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public ChunkPassages GetPassagesTo(ChunkPosition position)
         {
             throw new NotImplementedException();
         }

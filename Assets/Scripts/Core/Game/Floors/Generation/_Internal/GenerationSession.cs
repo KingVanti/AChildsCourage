@@ -16,6 +16,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private readonly IRNG rng;
         private readonly IChunkGrid chunkGrid;
+        private readonly IRoomInfoRepository roomInfoRepository;
 
         #endregion
 
@@ -27,10 +28,11 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid)
+        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomInfoRepository roomInfoRepository)
         {
             this.rng = rng;
             this.chunkGrid = chunkGrid;
+            this.roomInfoRepository = roomInfoRepository;
         }
 
         #endregion
@@ -71,7 +73,9 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
         {
-            throw new NotImplementedException();
+            var passages = chunkGrid.GetPassagesTo(chunkPosition);
+
+            return roomInfoRepository.TryFindRoomFor(passages);
         }
 
 
