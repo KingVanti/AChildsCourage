@@ -17,6 +17,8 @@
 
         ChunkPassages GetPassagesTo(ChunkPosition position);
 
+        bool IsEmpty(ChunkPosition position);
+
         void Place(RoomInfo room, ChunkPosition position);
 
         #endregion
