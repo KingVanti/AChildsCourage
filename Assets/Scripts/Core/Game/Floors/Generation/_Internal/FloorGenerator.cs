@@ -31,8 +31,7 @@
 
         private IGenerationSession StartSession(int seed)
         {
-            // TODO: Add RNG instance
-            var rng = (IRNG)null;
+            var rng = new RNG(seed);
             var chunkGrid = new ChunkGrid();
 
             return new GenerationSession(rng, chunkGrid, roomInfoRepository);
