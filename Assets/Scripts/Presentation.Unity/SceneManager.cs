@@ -1,6 +1,7 @@
 ﻿using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
+using Ninject.Extensions.Unity;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;

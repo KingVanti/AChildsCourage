@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ninject.Extensions.Unity;
+using UnityEngine;
 
 namespace AChildsCourage.Game
 {

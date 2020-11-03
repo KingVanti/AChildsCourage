@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Ninject.Extensions.Unity;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace AChildsCourage.Game.Floors.Generation
