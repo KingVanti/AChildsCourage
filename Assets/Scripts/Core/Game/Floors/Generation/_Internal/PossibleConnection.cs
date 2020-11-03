@@ -3,7 +3,7 @@
 
     public readonly struct PossibleConnection
     {
-        
+
         #region Properties
 
         public PassageDirection First { get; }

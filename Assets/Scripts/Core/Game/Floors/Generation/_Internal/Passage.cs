@@ -1,13 +1,13 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public readonly struct Passage 
-    {   
+    public readonly struct Passage
+    {
 
         #region Properties
 
         public PassageDirection Direction { get; }
-        
+
         public PassageIndex Index { get; }
 
         #endregion
@@ -21,7 +21,7 @@
         }
 
         #endregion
- 
+
     }
 
 }

@@ -1,5 +1,7 @@
-﻿namespace AChildsCourage {
-    public static class Utils {
+﻿namespace AChildsCourage
+{
+    public static class Utils
+    {
 
         #region Methods
 
@@ -12,7 +14,8 @@
         /// <param name="begin2"></param>
         /// <param name="end2"></param>
         /// <returns></returns>
-        public static float Map(float x, float begin1, float end1, float begin2, float end2) {
+        public static float Map(float x, float begin1, float end1, float begin2, float end2)
+        {
 
             float value = begin2 + (end2 - begin2) * ((x - begin1) / (end1 - begin1));
             return value;

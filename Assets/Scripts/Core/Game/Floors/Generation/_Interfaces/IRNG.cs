@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public interface IRNG 
+    public interface IRNG
     {
 
         #region Methods

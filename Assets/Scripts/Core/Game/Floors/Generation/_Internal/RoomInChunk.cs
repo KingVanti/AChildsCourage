@@ -1,9 +1,9 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public readonly struct RoomInChunk 
+    public readonly struct RoomInChunk
     {
-        
+
         #region Properties
 
         public RoomInfo Room { get; }
