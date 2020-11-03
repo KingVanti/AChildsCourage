@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using System;
 
-namespace AChildsCourage.Game.Floors.Generation
-{
+namespace AChildsCourage.Game.Floors.Generation {
 
-    internal class GenerationSession : IGenerationSession
-    {
+    internal class GenerationSession : IGenerationSession {
 
         #region Constants
 
@@ -18,18 +17,24 @@ namespace AChildsCourage.Game.Floors.Generation
         private readonly IChunkGrid chunkGrid;
         private readonly IRoomInfoRepository roomInfoRepository;
 
+
         #endregion
 
         #region Properties
 
-        private bool CanPlaceMoreRooms { get { throw new NotImplementedException(); } }
+        private bool CanPlaceMoreRooms {
+            get {
+
+                return (chunkGrid.RoomCount < (MaxRoomCount - chunkGrid.FindDeadEndChunks().Length));
+
+            }
+        }
 
         #endregion
 
         #region Constructors
 
-        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomInfoRepository roomInfoRepository)
-        {
+        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomInfoRepository roomInfoRepository) {
             this.rng = rng;
             this.chunkGrid = chunkGrid;
             this.roomInfoRepository = roomInfoRepository;
@@ -39,31 +44,22 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        public FloorPlan Generate()
-        {
+        public FloorPlan Generate() {
             PlaceStartRoom();
             PlaceNormalRooms();
-            PlaceDeadEnds();
             PlaceEndRoom();
+            PlaceDeadEnds();
 
             return chunkGrid.BuildPlan();
         }
 
-        private void PlaceStartRoom()
-        {
-            chunkGrid.Place(GetStartRoomInfo(), new ChunkPosition(0, 0));
-        }
-
-        private RoomInfo GetStartRoomInfo()
-        {
-            throw new NotImplementedException();
+        private void PlaceStartRoom() {
+            chunkGrid.Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
         }
 
 
-        private void PlaceNormalRooms()
-        {
-            while (CanPlaceMoreRooms)
-            {
+        private void PlaceNormalRooms() {
+            while (CanPlaceMoreRooms) {
                 var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
                 var roomInfo = GetRoomFor(chunkPosition);
 
@@ -71,23 +67,29 @@ namespace AChildsCourage.Game.Floors.Generation
             }
         }
 
-        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
-        {
+        private RoomInfo GetRoomFor(ChunkPosition chunkPosition) {
             var passages = chunkGrid.GetPassagesTo(chunkPosition);
-
             return roomInfoRepository.TryFindRoomFor(passages);
         }
 
+        private void PlaceDeadEnds() {
 
-        private void PlaceDeadEnds()
-        {
-            throw new NotImplementedException();
+            ChunkPosition[] cps = chunkGrid.FindDeadEndChunks();
+
+            foreach (ChunkPosition cp in cps) {
+                var roomInfo = GetRoomFor(cp);
+                chunkGrid.Place(roomInfo, cp);
+            }
+
+
         }
 
+        private void PlaceEndRoom() {
+            var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
 
-        private void PlaceEndRoom()
-        {
-            throw new NotImplementedException();
+            if (chunkGrid.GetPassagesTo(chunkPosition).Passages.Length == 1) {
+                chunkGrid.Place(roomInfoRepository.EndRoom, chunkPosition);
+            }
         }
 
         #endregion
