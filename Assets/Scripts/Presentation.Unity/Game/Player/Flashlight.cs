@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Input;
-using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
