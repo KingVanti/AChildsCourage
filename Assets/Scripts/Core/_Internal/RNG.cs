@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AChildsCourage.Game.Floors.Generation {
+namespace AChildsCourage {
 
     internal class RNG : IRNG {
 
