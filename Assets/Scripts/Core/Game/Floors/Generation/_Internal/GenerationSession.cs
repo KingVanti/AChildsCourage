@@ -57,11 +57,6 @@ namespace AChildsCourage.Game.Floors.Generation
             throw new NotImplementedException();
         }
 
-        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
-        {
-            throw new NotImplementedException();
-        }
-
 
         private void PlaceNormalRooms()
         {
@@ -72,6 +67,11 @@ namespace AChildsCourage.Game.Floors.Generation
 
                 chunkGrid.Place(roomInfo, chunkPosition);
             }
+        }
+
+        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
+        {
+            throw new NotImplementedException();
         }
 
 
