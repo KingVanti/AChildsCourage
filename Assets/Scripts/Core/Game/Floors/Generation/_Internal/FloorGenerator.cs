@@ -9,12 +9,18 @@
 
         public FloorPlan GenerateNew(int seed)
         {
-            // TODO: Implement floor generation
+            var session = StartSession(seed);
 
-            return new FloorPlan(new[]
-            {
-                new RoomAtPosition(0, new TilePosition(0, 0))
-            });
+            return session.Generate();
+        }
+
+        private IGenerationSession StartSession(int seed)
+        {
+            // TODO: Add RNG instance
+            var rng = (IRNG)null;
+            var chunkGrid = new ChunkGrid();
+
+            return new GenerationSession(rng, chunkGrid);
         }
 
         #endregion
