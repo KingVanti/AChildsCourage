@@ -10,14 +10,14 @@ namespace AChildsCourage
 
         #region Methods
 
-        public static IEnumerable<Weighted<T>> AttachWeigths<T>(this IEnumerable<T> collection, Func<T, float> weightFunction)
+        public static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> collection, Func<T, float> weightFunction)
         {
             return collection.Select(o => new Weighted<T>(o, weightFunction(o)));
         }
 
         public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
         {
-            var weightedCollection = collection.AttachWeigths(weightFunction);
+            var weightedCollection = collection.AttachWeights(weightFunction);
 
             float totalWeight = weightedCollection.Sum(o => o.Weight);
             float itemWeightIndex = rng.GetValueUnder(totalWeight);
