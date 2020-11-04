@@ -12,7 +12,12 @@ namespace AChildsCourage
 
         public static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> collection, Func<T, float> weightFunction)
         {
-            return collection.Select(o => new Weighted<T>(o, weightFunction(o)));
+            return collection.Select(o => AttachWeight(o, weightFunction));
+        }
+
+        private static Weighted<T> AttachWeight<T>(T element, Func<T, float> weightFunction)
+        {
+            return new Weighted<T>(element, weightFunction(element));
         }
 
         public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
