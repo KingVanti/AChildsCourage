@@ -3,10 +3,12 @@ using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace AChildsCourage.Game.Player
-{
-    public class Flashlight : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Player {
+    public class Flashlight : MonoBehaviour {
+
+        #region Fields
+
+#pragma warning disable 649
 
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Light2D lightComponent;
@@ -17,53 +19,62 @@ namespace AChildsCourage.Game.Player
         [Range(0.1f, 1.0f)]
         [SerializeField] private float maxFlashlightIntensity;
 
+#pragma warning restore 649
+
         private Vector2 characterPosition;
 
+        #endregion
+
+        #region Properties
 
         [AutoInject]
-        public IInputListener InputListener
-        {
+        public IInputListener InputListener {
             set { BindTo(value); }
         }
 
-        private Vector2 MousePos
-        {
+        private Vector2 MousePos {
             get; set;
         }
 
-        private void FollowMousePosition()
-        {
+        private Vector2 ProjectedMousePos {
+            get { return mainCamera.ScreenToWorldPoint(MousePos); }
+        }
 
-            Vector2 projectedMousePos = mainCamera.ScreenToWorldPoint(MousePos);
-            transform.position = new Vector3(projectedMousePos.x, projectedMousePos.y, 0);
+        private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition)); } }
+
+        #endregion
+
+        #region Methods
+
+        private void FollowMousePosition() {
+            transform.position = new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
+        }
+
+        private void ChangeLightIntensity() {
+
+            lightComponent.intensity = Mathf.Clamp(Utils.Map(CharacterDistance, 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
 
         }
 
-        private void ChangeLightIntensity()
-        {
-
-            float flashlightDistance = Mathf.Abs(Vector2.Distance(transform.position, characterPosition));
-            lightComponent.intensity = Mathf.Clamp(Utils.Map(flashlightDistance, 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
-
-        }
-
-        private void BindTo(IInputListener listener)
-        {
+        private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
         }
 
-        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
-        {
+        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
+
             MousePos = eventArgs.MousePosition;
             FollowMousePosition();
             ChangeLightIntensity();
+
         }
 
-        public void UpdateCharacterPosition(Vector2 charPos)
-        {
+        public void UpdateCharacterPosition(Vector2 charPos) {
+
             characterPosition = charPos;
+
         }
 
+        #endregion
 
     }
 }
