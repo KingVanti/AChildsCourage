@@ -20,7 +20,11 @@
 
         #region Properties
 
-        private bool CanPlaceMoreRooms { get { return (chunkGrid.RoomCount < (MaxRoomCount - chunkGrid.FindDeadEndChunks().Length)); } }
+        private bool CanPlaceMoreRooms { get { return chunkGrid.RoomCount < NormalRoomCount; } }
+
+        private int NormalRoomCount { get { return MaxRoomCount - DeadEndCount; } }
+
+        private int DeadEndCount { get { return chunkGrid.FindDeadEndChunks().Length; } }
 
         #endregion
 
