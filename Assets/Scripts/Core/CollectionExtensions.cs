@@ -23,6 +23,9 @@ namespace AChildsCourage
 
         public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
         {
+            if (collection.Count() == 0)
+                return default(T);
+
             var weightedCollection = collection.AttachWeights(weightFunction);
 
             float totalWeight = weightedCollection.Sum(o => o.Weight);
@@ -43,6 +46,9 @@ namespace AChildsCourage
 
         public static T GetRandom<T>(this IEnumerable<T> collection, IRNG rng)
         {
+            if (collection.Count() == 0)
+                return default(T);
+
             var index = rng.GetValueUnder(collection.Count());
 
             return collection.ElementAt(index);

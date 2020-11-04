@@ -11,6 +11,40 @@ namespace AChildsCourage
         #region Methods
 
         [Test]
+        public void Getting_A_Random_Element_From_Empty_Collection_Returns_Default()
+        {
+            // Given
+
+            var elements = new int[0];
+            var rng = new RNG(0);
+
+            // When
+
+            var element = elements.GetRandom(rng);
+
+            // Then
+
+            Assert.That(element, Is.Zero, "Did not get default element!");
+        }
+
+        [Test]
+        public void Getting_A_Random_Weighted_Element_From_Empty_Collection_Returns_Default()
+        {
+            // Given
+
+            var elements = new int[0];
+            var rng = new RNG(0);
+
+            // When
+
+            var element = elements.GetWeightedRandom(e => e, rng);
+
+            // Then
+
+            Assert.That(element, Is.Zero, "Did not get default element!");
+        }
+
+        [Test]
         public void Elements_With_Double_The_Weight_Appear_Approximatly_Double_As_Often()
         {
             // Given
