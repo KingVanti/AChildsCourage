@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.00.00">
-	<object class="AudioFile" id="{41f56ecf-62e1-421f-be72-c6085b004787}">
+	<object class="AudioFile" id="{63fa4547-c664-4c96-b314-57d272b6dbd9}">
 		<property name="assetPath">
-			<value>Strings_4.wav</value>
+			<value>SFX/Character/steps/earth/Footstep02.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>44.0999985</value>
+			<value>48</value>
 		</property>
 		<property name="channelCount">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<property name="length">
-			<value>4.4754648526077094</value>
+			<value>0.38766666666666666</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{2cab07a3-fcf7-450b-8f2e-4283b75c88b1}</destination>

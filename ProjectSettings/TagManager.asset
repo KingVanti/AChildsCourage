@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Ground
   - Entity
+  - earth
+  - stone
   layers:
   - Default
   - TransparentFX
