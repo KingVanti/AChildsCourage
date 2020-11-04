@@ -1,4 +1,7 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using Ninject;
+using Ninject.Parameters;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     [Singleton]
@@ -8,14 +11,16 @@
         #region Fields
 
         private readonly IRoomInfoRepository roomInfoRepository;
+        private readonly IKernel kernel;
 
         #endregion
 
         #region Constructors
 
-        public FloorGenerator(IRoomInfoRepository roomInfoRepository)
+        public FloorGenerator(IRoomInfoRepository roomInfoRepository, IKernel kernel)
         {
             this.roomInfoRepository = roomInfoRepository;
+            this.kernel = kernel;
         }
 
         #endregion
@@ -31,8 +36,8 @@
 
         private IGenerationSession StartSession(int seed)
         {
-            var rng = new RNG(seed);
-            var chunkGrid = new ChunkGrid();
+            var rng = kernel.Get<IRNG>(new Parameter("seed", seed, true));
+            var chunkGrid = kernel.Get<IChunkGrid>();
 
             return new GenerationSession(rng, chunkGrid, roomInfoRepository);
         }
