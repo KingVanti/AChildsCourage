@@ -22,6 +22,7 @@ namespace AChildsCourage.Game.Player {
 #pragma warning restore 649
 
         private Vector2 characterPosition;
+        private LayerMask wallLayer;
 
         #endregion
 
@@ -42,36 +43,49 @@ namespace AChildsCourage.Game.Player {
 
         private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition)); } }
 
+        private RaycastHit2D RaycastMouseToCharacter {
+            get { return Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer); }
+        }
+
         #endregion
 
         #region Methods
 
+        private void OnEnable() {
+            wallLayer = LayerMask.GetMask("Walls");
+        }
+
         private void FollowMousePosition() {
-            transform.position = new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
+
+            if (RaycastMouseToCharacter.collider != null) {
+                transform.position = new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0);
+            } else {
+                transform.position = new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
+            }
+
         }
 
         private void ChangeLightIntensity() {
-
-            lightComponent.intensity = Mathf.Clamp(Utils.Map(CharacterDistance, 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
-
+            lightComponent.intensity = Mathf.Clamp(Utils.Map(Mathf.Abs(Vector2.Distance(transform.position, characterPosition)), 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
         }
 
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
         }
 
-        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
-
-            MousePos = eventArgs.MousePosition;
+        private void UpdateFlashlight() {
             FollowMousePosition();
             ChangeLightIntensity();
+        }
 
+        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
+            MousePos = eventArgs.MousePosition;
+            UpdateFlashlight();
         }
 
         public void UpdateCharacterPosition(Vector2 charPos) {
-
             characterPosition = charPos;
-
+            UpdateFlashlight();
         }
 
         #endregion
