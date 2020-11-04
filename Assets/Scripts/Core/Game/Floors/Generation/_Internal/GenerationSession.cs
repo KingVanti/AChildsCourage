@@ -17,7 +17,6 @@ namespace AChildsCourage.Game.Floors.Generation {
         private readonly IChunkGrid chunkGrid;
         private readonly IRoomInfoRepository roomInfoRepository;
 
-
         #endregion
 
         #region Properties
@@ -85,11 +84,11 @@ namespace AChildsCourage.Game.Floors.Generation {
         }
 
         private void PlaceEndRoom() {
-            var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
 
-            if (chunkGrid.GetPassagesTo(chunkPosition).Passages.Length == 1) {
-                chunkGrid.Place(roomInfoRepository.EndRoom, chunkPosition);
-            }
+            ChunkPosition endroomChunk = chunkGrid.FindDeadEndChunks().GetRandom(rng);
+
+            chunkGrid.Place(roomInfoRepository.EndRoom, endroomChunk);
+
         }
 
         #endregion
