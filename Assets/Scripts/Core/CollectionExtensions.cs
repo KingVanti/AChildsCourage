@@ -29,6 +29,13 @@ namespace AChildsCourage
             throw new Exception("No element selected. This should not happen!");
         }
 
+        public static T GetRandom<T>(this IEnumerable<T> collection, IRNG rng)
+        {
+            var index = rng.GetValueUnder(collection.Count());
+
+            return collection.ElementAt(index);
+        }
+
         #endregion
 
     }
