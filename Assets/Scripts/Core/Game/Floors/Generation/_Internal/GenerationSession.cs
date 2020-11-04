@@ -20,15 +20,7 @@
 
         #region Properties
 
-        private bool CanPlaceMoreRooms
-        {
-            get
-            {
-
-                return (chunkGrid.RoomCount < (MaxRoomCount - chunkGrid.FindDeadEndChunks().Length));
-
-            }
-        }
+        private bool CanPlaceMoreRooms { get { return (chunkGrid.RoomCount < (MaxRoomCount - chunkGrid.FindDeadEndChunks().Length)); } }
 
         #endregion
 
@@ -60,7 +52,6 @@
             chunkGrid.Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
         }
 
-
         private void PlaceNormalRooms()
         {
             while (CanPlaceMoreRooms)
@@ -80,7 +71,6 @@
 
         private void PlaceDeadEnds()
         {
-
             ChunkPosition[] cps = chunkGrid.FindDeadEndChunks();
 
             foreach (ChunkPosition cp in cps)
@@ -88,17 +78,13 @@
                 var roomInfo = GetRoomFor(cp);
                 chunkGrid.Place(roomInfo, cp);
             }
-
-
         }
 
         private void PlaceEndRoom()
         {
-
             ChunkPosition endroomChunk = chunkGrid.FindDeadEndChunks().GetRandom(rng);
 
             chunkGrid.Place(roomInfoRepository.EndRoom, endroomChunk);
-
         }
 
         #endregion
