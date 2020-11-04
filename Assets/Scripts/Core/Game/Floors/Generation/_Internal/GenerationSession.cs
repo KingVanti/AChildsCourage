@@ -51,12 +51,12 @@
             return chunkGrid.BuildPlan();
         }
 
-        private void PlaceStartRoom()
+        internal void PlaceStartRoom()
         {
             chunkGrid.Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
         }
 
-        private void PlaceNormalRooms()
+        internal void PlaceNormalRooms()
         {
             while (CanPlaceMoreRooms)
             {
@@ -73,7 +73,7 @@
             return roomInfoRepository.TryFindRoomFor(passages);
         }
 
-        private void PlaceDeadEnds()
+        internal void PlaceDeadEnds()
         {
             ChunkPosition[] cps = chunkGrid.FindDeadEndChunks();
 
@@ -84,7 +84,7 @@
             }
         }
 
-        private void PlaceEndRoom()
+        internal void PlaceEndRoom()
         {
             ChunkPosition endroomChunk = chunkGrid.FindDeadEndChunks().GetRandom(rng);
 

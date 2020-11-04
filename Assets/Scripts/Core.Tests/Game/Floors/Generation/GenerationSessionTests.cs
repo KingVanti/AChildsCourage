@@ -1,0 +1,54 @@
+﻿using Moq;
+using NUnit.Framework;
+using System;
+using System.Linq;
+
+namespace AChildsCourage.Game.Floors.Generation
+{
+
+    [TestFixture]
+    public class GenerationSessionTests
+    {
+
+        #region Data
+
+        private static RoomInfo StartRoom { get; } = new RoomInfo(0, new ChunkPassages(
+            new Passage(PassageDirection.North, PassageIndex.Second),
+            new Passage(PassageDirection.East, PassageIndex.Second),
+            new Passage(PassageDirection.South, PassageIndex.Second),
+            new Passage(PassageDirection.West, PassageIndex.Second)));
+
+        #endregion
+
+        #region Tests
+
+        [Test]
+        public void Starting_Room_Is_Always_At_Origin()
+        {
+            // Given
+
+            var mockRoomInfoRepository = new Mock<IRoomInfoRepository>();
+            mockRoomInfoRepository.SetupGet(r => r.StartRoom).Returns(StartRoom);
+
+            var chunkGrid = new ChunkGrid();
+
+            var session = new GenerationSession(new RNG(0), chunkGrid, mockRoomInfoRepository.Object);
+
+            // When
+
+            session.PlaceStartRoom();
+
+            // Then
+
+            var floorPlan = chunkGrid.BuildPlan();
+            var originRoom = floorPlan.Rooms.FirstOrDefault(r => r.Position == new ChunkPosition(0, 0));
+
+            Assert.That(originRoom, Is.Not.Null, "No room placed at origin");
+            Assert.That(originRoom.RoomId, Is.Zero, "Incorrect room placed at origin!");
+        }
+
+        #endregion
+
+    }
+
+}

@@ -76,7 +76,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             return TryGetPassageOutOf(positionInDirection, invertedDirection);
         }
-        
+
         private PassageDirection Invert(PassageDirection direction)
         {
             switch (direction)
@@ -103,10 +103,12 @@ namespace AChildsCourage.Game.Floors.Generation
             return roomInfo.Passages.TryGet(direction);
         }
 
-        
+
         public FloorPlan BuildPlan()
         {
-            throw new NotImplementedException();
+            var roomsInChunks = roomsByChunks.Select(kvP => new RoomInChunk(kvP.Value.RoomId, kvP.Key)).ToArray();
+
+            return new FloorPlan(roomsInChunks);
         }
 
 
@@ -118,7 +120,12 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public ChunkPosition[] FindDeadEndChunks()
         {
-            throw new NotImplementedException();
+            return GetPossiblePositions().Where(IsDeadEnd).ToArray();
+        }
+
+        private bool IsDeadEnd(ChunkPosition position)
+        {
+            return GetPassagesTo(position).Count == 1;
         }
 
         #endregion
