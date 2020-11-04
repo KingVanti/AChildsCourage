@@ -5,14 +5,19 @@ using System.Linq;
 namespace AChildsCourage
 {
 
-    public static class CollectionExtensions 
+    public static class CollectionExtensions
     {
 
         #region Methods
 
+        public static IEnumerable<Weighted<T>> AttachWeigths<T>(this IEnumerable<T> collection, Func<T, float> weightFunction)
+        {
+            return collection.Select(o => new Weighted<T>(o, weightFunction(o)));
+        }
+
         public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
         {
-            var weightedCollection = collection.Select(o => new Weighted<T>(o, weightFunction(o)));
+            var weightedCollection = collection.AttachWeigths(weightFunction);
 
             float totalWeight = weightedCollection.Sum(o => o.Weight);
             float itemWeightIndex = rng.GetValueUnder(totalWeight);
