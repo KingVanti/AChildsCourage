@@ -20,6 +20,7 @@ namespace AChildsCourage
             return new Weighted<T>(element, weightFunction(element));
         }
 
+
         public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
         {
             var weightedCollection = collection.AttachWeights(weightFunction);
@@ -38,6 +39,7 @@ namespace AChildsCourage
 
             throw new Exception("No element selected. This should not happen!");
         }
+
 
         public static T GetRandom<T>(this IEnumerable<T> collection, IRNG rng)
         {
