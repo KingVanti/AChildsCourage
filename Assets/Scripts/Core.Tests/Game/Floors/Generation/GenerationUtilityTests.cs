@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -76,6 +78,34 @@ namespace AChildsCourage.Game.Floors.Generation
             // Then
 
             Assert.That(actual, Is.True);
+        }
+
+        [Test]
+        public void Get_Correct_Surrounding_Positions()
+        {
+            // Given
+
+            var position = new ChunkPosition(0, 0);
+
+            // When
+
+            var surrounding = GenerationUtility.GetSurroundingPositions(position).ToArray();
+
+            // Then
+
+            Assert.That(surrounding.Length, Is.EqualTo(4), "Wrong number of positions!");
+            Assert.That(surrounding.Distinct().Count(), Is.EqualTo(surrounding.Length), "Positions should be destinct!");
+
+            for (var i = 0; i < 4; i++)
+            {
+                var p = surrounding[i];
+
+                var dX = p.X - position.X;
+                Assert.That(dX >= -1 && dX <= 1, $"X coordinate of position {i} incorrect!");
+
+                var dY = p.Y - position.Y;
+                Assert.That(dY >= -1 && dY <= 1, $"X coordinate of position {i} incorrect!");
+            }
         }
 
         #endregion

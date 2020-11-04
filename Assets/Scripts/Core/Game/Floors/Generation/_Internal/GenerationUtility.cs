@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using System.Collections.Generic;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     internal static class GenerationUtility
@@ -35,6 +37,14 @@
                     return true;
 
             return false;
+        }
+
+
+        internal static IEnumerable<ChunkPosition> GetSurroundingPositions(ChunkPosition position)
+        {
+            for (var dX = -1; dX <= 1; dX += 2)
+                for (var dY = -1; dY <= 1; dY += 2)
+                    yield return new ChunkPosition(position.X + dX, position.Y + dY);
         }
 
         #endregion

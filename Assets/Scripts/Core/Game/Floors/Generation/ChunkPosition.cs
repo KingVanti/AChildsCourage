@@ -1,4 +1,7 @@
-﻿namespace AChildsCourage.Game
+﻿using AChildsCourage.Game.Floors.Generation;
+using System;
+
+namespace AChildsCourage.Game
 {
 
     public readonly struct ChunkPosition
@@ -33,6 +36,27 @@
         public override string ToString()
         {
             return $"({X}, {Y})";
+        }
+
+        #endregion
+
+        #region Operators
+
+        public static ChunkPosition operator +(ChunkPosition position, PassageDirection direction)
+        {
+            switch (direction)
+            {
+                case PassageDirection.North:
+                    return new ChunkPosition(position.X, position.Y + 1);
+                case PassageDirection.East:
+                    return new ChunkPosition(position.X + 1, position.Y);
+                case PassageDirection.South:
+                    return new ChunkPosition(position.X, position.Y - 1);
+                case PassageDirection.West:
+                    return new ChunkPosition(position.X - 1, position.Y);
+            }
+
+            throw new Exception("Invalid direction!");
         }
 
         #endregion
