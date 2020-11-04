@@ -19,8 +19,8 @@ namespace AChildsCourage.Game.Floors.Generation
 
             var floorPlan = new FloorPlan(new[]
             {
-                new RoomAtPosition(0, new TilePosition(0, 0)),
-                new RoomAtPosition(1, new TilePosition(1, 1))
+                new RoomInChunk(0, new ChunkPosition(0, 0)),
+                new RoomInChunk(1, new ChunkPosition(1, 1))
             });
             var floorBuilder = new FloorBuilder(mockRoomBuilder.Object);
 
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            foreach (var roomPosition in floorPlan.RoomPositions)
+            foreach (var roomPosition in floorPlan.Rooms)
                 mockRoomBuilder.Verify(b => b.Build(roomPosition), Times.Once, $"Room position {roomPosition} was not built!");
         }
 

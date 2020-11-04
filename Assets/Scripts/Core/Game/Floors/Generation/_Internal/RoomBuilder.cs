@@ -33,38 +33,40 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        public void Build(RoomAtPosition roomAtPosition)
+        public void Build(RoomInChunk roomInChunk)
         {
-            var roomData = roomRepository.Load(roomAtPosition.RoomId);
+            var roomData = roomRepository.Load(roomInChunk.RoomId);
+            var offset = roomInChunk.Position.GetTileOffset();
 
-            var room = Build(roomData, roomAtPosition.Position);
+            var room = Build(roomData, offset);
 
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());
         }
 
-        private IRoom Build(RoomData roomData, TilePosition position)
+
+        private IRoom Build(RoomData roomData, TileOffset offset)
         {
-            BuildWalls(roomData.WallPositions, position);
-            BuildGround(roomData.GroundPositions, position);
+            BuildWalls(roomData.WallPositions, offset);
+            BuildGround(roomData.GroundPositions, offset);
 
             return null;
         }
 
-        private void BuildWalls(TilePosition[] wallPositions, TilePosition roomPosition)
+        private void BuildWalls(TilePosition[] wallPositions, TileOffset offset)
         {
             foreach (var wallPosition in wallPositions)
             {
-                var offsetPosition = wallPosition + roomPosition;
+                var offsetPosition = wallPosition + offset;
 
                 tileBuilder.PlaceWall(offsetPosition);
             }
         }
 
-        private void BuildGround(TilePosition[] groundPositions, TilePosition roomPosition)
+        private void BuildGround(TilePosition[] groundPositions, TileOffset offset)
         {
             foreach (var wallPosition in groundPositions)
             {
-                var offsetPosition = wallPosition + roomPosition;
+                var offsetPosition = wallPosition + offset;
 
                 tileBuilder.PlaceGround(offsetPosition);
             }

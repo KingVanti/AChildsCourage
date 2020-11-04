@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.Floors.Generation
             throw new NotImplementedException();
         }
 
-        private IEnumerable<ChunkPosition> GetPossiblePositions()
+        internal IEnumerable<ChunkPosition> GetPossiblePositions()
         {
             return roomsByChunks.Keys
                 .SelectMany(GenerationUtility.GetSurroundingPositions)

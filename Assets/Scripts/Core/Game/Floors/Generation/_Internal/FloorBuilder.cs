@@ -24,13 +24,13 @@
 
         public void Build(FloorPlan floorPlan)
         {
-            BuildRooms(floorPlan.RoomPositions);
+            BuildRooms(floorPlan.Rooms);
         }
 
-        private void BuildRooms(RoomAtPosition[] roomPositions)
+        private void BuildRooms(RoomInChunk[] rooms)
         {
-            foreach (var roomPosition in roomPositions)
-                roomBuilder.Build(roomPosition);
+            foreach (var room in rooms)
+                roomBuilder.Build(room);
         }
 
         #endregion

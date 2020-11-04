@@ -6,7 +6,7 @@
 
         #region Properties
 
-        public RoomAtPosition[] RoomPositions { get; }
+        public RoomInChunk[] Rooms { get; }
 
         #endregion
 
@@ -14,12 +14,12 @@
 
         internal FloorPlan()
         {
-            RoomPositions = new RoomAtPosition[0];
+            Rooms = new RoomInChunk[0];
         }
 
-        internal FloorPlan(RoomAtPosition[] roomPositions)
+        internal FloorPlan(RoomInChunk[] rooms)
         {
-            RoomPositions = roomPositions;
+            Rooms = rooms;
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AChildsCourage.Game.Floors.Generation;
+using NUnit.Framework;
 
 namespace AChildsCourage.Game
 {
@@ -28,21 +29,21 @@ namespace AChildsCourage.Game
         }
 
         [Test]
-        public void Given_Two_TilePositions_When_They_Are_Added_Then_Their_Cooridantes_Are_Added()
+        public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Cooridantes_Are_Added()
         {
             // Given
 
-            var t1 = new TilePosition(0, 0);
-            var t2 = new TilePosition(1, -1);
+            var position = new TilePosition(0, 0);
+            var offset = new TileOffset(1, -1);
 
             // When
 
-            var actual = t1 + t2;
+            var actual = position + offset;
 
             // Then
 
-            Assert.That(actual.X, Is.EqualTo(t1.X + t2.X), "X coordinate incorrectly added!");
-            Assert.That(actual.Y, Is.EqualTo(t1.Y + t2.Y), "Y coordinate incorrectly added!");
+            Assert.That(actual.X, Is.EqualTo(position.X + offset.X), "X coordinate incorrectly added!");
+            Assert.That(actual.Y, Is.EqualTo(position.Y + offset.Y), "Y coordinate incorrectly added!");
         }
 
         #endregion

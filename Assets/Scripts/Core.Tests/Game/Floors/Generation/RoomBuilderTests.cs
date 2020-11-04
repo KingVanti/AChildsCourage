@@ -24,7 +24,6 @@ namespace AChildsCourage.Game.Floors.Generation
                 new TilePosition[0],
                 new TilePosition[0]);
             var mockRoomRepository = new Mock<IRoomRepository>();
-            var roomPosition = new TilePosition(1, 1);
             mockRoomRepository.Setup(r => r.Load(0)).Returns(roomData);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
@@ -33,16 +32,11 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            roombuilder.Build(new RoomAtPosition(0, roomPosition));
+            roombuilder.Build(new RoomInChunk(0, new ChunkPosition(1, 1)));
 
             // Then
 
-            foreach (var wallPosition in roomData.WallPositions)
-            {
-                var offsetPosition = wallPosition + roomPosition;
-
-                mockTileBuilder.Verify(b => b.PlaceWall(offsetPosition), Times.Once, $"No wall placed at {offsetPosition}!");
-            }
+            mockTileBuilder.Verify(b => b.PlaceWall(It.IsAny<TilePosition>()), Times.Exactly(2), $"Incorrect number of walls placed!");
         }
 
         [Test]
@@ -57,7 +51,6 @@ namespace AChildsCourage.Game.Floors.Generation
                 new TilePosition[0],
                 new TilePosition[0]);
             var mockRoomRepository = new Mock<IRoomRepository>();
-            var roomPosition = new TilePosition(1, 1);
             mockRoomRepository.Setup(r => r.Load(0)).Returns(roomData);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
@@ -66,16 +59,11 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            roombuilder.Build(new RoomAtPosition(0, roomPosition));
+            roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0)));
 
             // Then
 
-            foreach (var groundPosition in roomData.GroundPositions)
-            {
-                var offsetPosition = groundPosition + roomPosition;
-
-                mockTileBuilder.Verify(b => b.PlaceGround(offsetPosition), Times.Once, $"No ground placed at {offsetPosition}!");
-            }
+            mockTileBuilder.Verify(b => b.PlaceGround(It.IsAny<TilePosition>()), Times.Exactly(2), $"Incorrect number of ground placed!");
         }
 
         [Test]
@@ -93,7 +81,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var raisedArgs = roombuilder.Capture<RoomBuiltEventArgs>(() => roombuilder.Build(new RoomAtPosition(0, new TilePosition(0, 0))));
+            var raisedArgs = roombuilder.Capture<RoomBuiltEventArgs>(() => roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0))));
 
             // Then
 

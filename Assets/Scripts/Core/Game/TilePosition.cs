@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game
+﻿using AChildsCourage.Game.Floors.Generation;
+
+namespace AChildsCourage.Game
 {
 
     public readonly struct TilePosition
@@ -33,11 +35,11 @@
 
         #region Operators
 
-        public static TilePosition operator +(TilePosition t1, TilePosition t2)
+        public static TilePosition operator +(TilePosition position, TileOffset offset)
         {
             return new TilePosition(
-                t1.X + t2.X,
-                t1.Y + t2.Y);
+                position.X + offset.X,
+                position.Y + offset.Y);
         }
 
         #endregion

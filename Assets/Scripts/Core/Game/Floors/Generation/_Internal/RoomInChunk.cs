@@ -6,7 +6,7 @@
 
         #region Properties
 
-        public RoomInfo Room { get; }
+        public int RoomId { get; }
 
         public ChunkPosition Position { get; }
 
@@ -14,9 +14,9 @@
 
         #region Constructors
 
-        public RoomInChunk(RoomInfo room, ChunkPosition position)
+        public RoomInChunk(int roomId, ChunkPosition position)
         {
-            Room = room;
+            RoomId = roomId;
             Position = position;
         }
 
