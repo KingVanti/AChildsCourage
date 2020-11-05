@@ -21,25 +21,29 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: -1184196128176115691, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.125
+    - time: 0.1
       value: {fileID: -9011894781492581350, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.25
+    - time: 0.2
       value: {fileID: 116614011918174913, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.375
+    - time: 0.3
       value: {fileID: 9148157532630114544, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.5
+    - time: 0.4
       value: {fileID: 8341892913040085360, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.625
+    - time: 0.5
       value: {fileID: 4250450489146639936, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.75
+    - time: 0.6
       value: {fileID: 8552842644637281587, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
-    - time: 0.875
+    - time: 0.7
       value: {fileID: -5632257181288219722, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
+    - time: 0.8
+      value: {fileID: -6039048310450960677, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
+    - time: 0.9
+      value: {fileID: -4120115542732122310, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 8
+  m_SampleRate: 10
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -62,6 +66,8 @@ AnimationClip:
     - {fileID: 4250450489146639936, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
     - {fileID: 8552842644637281587, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
     - {fileID: -5632257181288219722, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
+    - {fileID: -6039048310450960677, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
+    - {fileID: -4120115542732122310, guid: 7bf22e55a34e6334290a4aa8005de8bc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -87,14 +93,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.125
+  - time: 0.1
     functionName: PlayFootstepsEvent
     data: event:/char/steps
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.625
+  - time: 0.6
     functionName: PlayFootstepsEvent
     data: event:/char/steps
     objectReferenceParameter: {fileID: 0}
