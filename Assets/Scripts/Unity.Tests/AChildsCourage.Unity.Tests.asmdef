@@ -1,10 +1,10 @@
 {
-    "name": "AChildsCourage.Presentation.Unity.Tests",
+    "name": "AChildsCourage.Unity.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "AChildsCourage.Core",
-        "AChildsCourage.Presentation.Unity"
+        "AChildsCourage.Unity"
     ],
     "includePlatforms": [
         "Editor"
