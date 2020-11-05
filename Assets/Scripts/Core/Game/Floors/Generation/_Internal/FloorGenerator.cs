@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private IGenerationSession StartSession(int seed)
         {
-            var rng = kernel.Get<IRNG>(new Parameter("seed", seed, true));
+            var rng = kernel.Get<IRNG>(new ConstructorArgument("seed", seed, false));
             var chunkGrid = kernel.Get<IChunkGrid>();
 
             return new GenerationSession(rng, chunkGrid, roomInfoRepository);
