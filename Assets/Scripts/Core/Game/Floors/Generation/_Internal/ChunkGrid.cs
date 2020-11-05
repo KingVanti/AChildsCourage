@@ -26,7 +26,11 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             var possiblePositions = GetPossiblePositions();
 
-            return possiblePositions.GetWeightedRandom(GetChunkWeight, rng);
+            if (possiblePositions.Count() > 0)
+            {
+                return possiblePositions.GetWeightedRandom(GetChunkWeight, rng);
+            }
+            throw new Exception("Could not find any possible positions!");
         }
 
         internal float GetChunkWeight(ChunkPosition position)
