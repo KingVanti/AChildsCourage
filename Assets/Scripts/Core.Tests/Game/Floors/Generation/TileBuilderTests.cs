@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using PADEAH.TestUtility;
+using PADEAH.Tabs;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -20,7 +20,10 @@ namespace AChildsCourage.Game.Floors.Generation
             // When
 
             var position = new TilePosition(0, 0);
-            var eventArgs = tileBuilder.Capture<WallPlacedEventArgs>(() => tileBuilder.PlaceWall(position));
+            var eventArgs = ListenFor
+                .First<WallPlacedEventArgs>()
+                .From(tileBuilder)
+                .During(() => tileBuilder.PlaceWall(position));
 
             // Then
 
@@ -38,7 +41,10 @@ namespace AChildsCourage.Game.Floors.Generation
             // When
 
             var position = new TilePosition(0, 0);
-            var eventArgs = tileBuilder.Capture<GroundPlacedEventArgs>(() => tileBuilder.PlaceGround(position));
+            var eventArgs = ListenFor
+                .First<GroundPlacedEventArgs>()
+                .From(tileBuilder)
+                .During(() => tileBuilder.PlaceGround(position));
 
             // Then
 
