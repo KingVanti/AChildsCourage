@@ -3,7 +3,7 @@
 
     public class Weighted<T>
     {
-        
+
         #region Properties
 
         public T Object { get; }

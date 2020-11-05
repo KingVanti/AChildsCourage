@@ -1,15 +1,18 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace AChildsCourage.Game.Floors.Generation {
+namespace AChildsCourage.Game.Floors.Generation
+{
 
     [TestFixture]
-    public class RNGTests {
+    public class RNGTests
+    {
 
         #region Tests
 
         [Test]
-        public void Given_Same_Seed_The_RNG_Outcome_Is_Exactly_The_Same() {
+        public void Given_Same_Seed_The_RNG_Outcome_Is_Exactly_The_Same()
+        {
 
             // Given
 
@@ -20,8 +23,8 @@ namespace AChildsCourage.Game.Floors.Generation {
 
             // When
 
-            float rng3 = rng1.GetValueBetween(4.123f,8.6622f);
-            float rng4 = rng2.GetValueBetween(4.123f,8.6622f);
+            float rng3 = rng1.GetValueBetween(4.123f, 8.6622f);
+            float rng4 = rng2.GetValueBetween(4.123f, 8.6622f);
 
             // Then
 

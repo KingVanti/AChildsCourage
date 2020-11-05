@@ -1,8 +1,10 @@
 ﻿using System;
 
-namespace AChildsCourage {
+namespace AChildsCourage
+{
 
-    internal class RNG : IRNG {
+    internal class RNG : IRNG
+    {
 
         #region Fields
 
@@ -12,7 +14,8 @@ namespace AChildsCourage {
 
         #region Constructors
 
-        public RNG(int seed) {
+        public RNG(int seed)
+        {
             rng = new Random(seed);
         }
 
@@ -20,23 +23,28 @@ namespace AChildsCourage {
 
         #region Methods
 
-        public float GetValue01() {
+        public float GetValue01()
+        {
             return rng.Next(1);
         }
 
-        public float GetValueBetween(float min, float max) {
+        public float GetValueBetween(float min, float max)
+        {
             return (float)(rng.NextDouble() * (max - min) + min);
         }
 
-        public int GetValueBetween(int min, int max) {
+        public int GetValueBetween(int min, int max)
+        {
             return rng.Next(min, max);
         }
 
-        public float GetValueUnder(float max) {
+        public float GetValueUnder(float max)
+        {
             return (float)(rng.NextDouble() * (max - 0) + 0);
         }
 
-        public int GetValueUnder(int max) {
+        public int GetValueUnder(int max)
+        {
             return rng.Next(max);
         }
 

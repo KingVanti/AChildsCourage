@@ -69,7 +69,7 @@ namespace AChildsCourage.Game
             throw new Exception("Invalid direction!");
         }
 
-        public static bool operator == (ChunkPosition p1, ChunkPosition p2)
+        public static bool operator ==(ChunkPosition p1, ChunkPosition p2)
         {
             return p1.X == p2.X && p1.Y == p2.Y;
         }

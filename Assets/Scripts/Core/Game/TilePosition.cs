@@ -1,6 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
-
-namespace AChildsCourage.Game
+﻿namespace AChildsCourage.Game
 {
 
     public readonly struct TilePosition

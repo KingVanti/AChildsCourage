@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace AChildsCourage.Game
 {

@@ -3,7 +3,7 @@
 
     public readonly struct TileOffset
     {
-       
+
         #region Properties
 
         public int X { get; }
