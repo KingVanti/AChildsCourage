@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Linq;
+using System.Numerics;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -99,11 +100,9 @@ namespace AChildsCourage.Game.Floors.Generation
             {
                 var p = surrounding[i];
 
-                var dX = p.X - position.X;
-                Assert.That(dX >= -1 && dX <= 1, $"X coordinate of position {i} incorrect!");
+                var diff = new Vector2(p.X - position.X, p.Y - position.Y);
 
-                var dY = p.Y - position.Y;
-                Assert.That(dY >= -1 && dY <= 1, $"X coordinate of position {i} incorrect!");
+                Assert.That(diff.Length(), Is.EqualTo(1), "Distance of position to origin should be 1!");
             }
         }
 

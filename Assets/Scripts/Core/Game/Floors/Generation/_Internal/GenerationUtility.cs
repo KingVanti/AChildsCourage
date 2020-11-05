@@ -42,9 +42,10 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal static IEnumerable<ChunkPosition> GetSurroundingPositions(ChunkPosition position)
         {
-            for (var dX = -1; dX <= 1; dX += 2)
-                for (var dY = -1; dY <= 1; dY += 2)
-                    yield return new ChunkPosition(position.X + dX, position.Y + dY);
+            yield return new ChunkPosition(position.X, position.Y + 1);
+            yield return new ChunkPosition(position.X + 1, position.Y);
+            yield return new ChunkPosition(position.X, position.Y - 1);
+            yield return new ChunkPosition(position.X - 1, position.Y);
         }
 
         #endregion
