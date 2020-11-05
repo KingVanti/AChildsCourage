@@ -50,7 +50,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var chunkGrid = new ChunkGrid();
-            var passages = new ChunkPassages(null, new Passage(PassageDirection.East, PassageIndex.Second), null, null);
+            var passages = new ChunkPassages(Passages.East);
             chunkGrid.Place(new RoomInfo(0, passages), new ChunkPosition(0, 0));
 
             // When
@@ -68,7 +68,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var chunkGrid = new ChunkGrid();
-            var passages = new ChunkPassages(null, new Passage(PassageDirection.East, PassageIndex.Second), null, null);
+            var passages = new ChunkPassages(Passages.East);
             chunkGrid.Place(new RoomInfo(0, passages), new ChunkPosition(0, 0));
 
             // When
@@ -88,10 +88,8 @@ namespace AChildsCourage.Game.Floors.Generation
 
             var chunkGrid = new ChunkGrid();
 
-            var passages1 = new ChunkPassages(new Passage(PassageDirection.North, PassageIndex.Second), null, null, null);
-            chunkGrid.Place(new RoomInfo(0, passages1), new ChunkPosition(0, -1));
-            var passages2 = new ChunkPassages(null, null, null, new Passage(PassageDirection.West, PassageIndex.Second));
-            chunkGrid.Place(new RoomInfo(1, passages2), new ChunkPosition(1, 0));
+            chunkGrid.Place(new RoomInfo(0, new ChunkPassages(Passages.North)), new ChunkPosition(0, -1));
+            chunkGrid.Place(new RoomInfo(1, new ChunkPassages(Passages.West)), new ChunkPosition(1, 0));
 
             // When
 
@@ -99,16 +97,9 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            Assert.That(passages.Count, Is.EqualTo(2), "Incorrect passage count!");
-
             Assert.That(passages.HasNorth, Is.False, "North passage incorrectly found!");
-
             Assert.That(passages.HasEast, Is.True, "No east passage found!");
-            Assert.That(passages.East.Value.Index, Is.EqualTo(PassageIndex.Second), "East passage-index incorrect!");
-
             Assert.That(passages.HasSouth, Is.True, "No south passage found!");
-            Assert.That(passages.South.Value.Index, Is.EqualTo(PassageIndex.Second), "South passage-index incorrect!");
-
             Assert.That(passages.HasWest, Is.False, "West passage incorrectly found!");
         }
 

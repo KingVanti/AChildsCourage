@@ -11,74 +11,36 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Tests
 
-        [TestCase(PassageDirection.North, PassageDirection.North, false)]
-        [TestCase(PassageDirection.North, PassageDirection.East, false)]
-        [TestCase(PassageDirection.North, PassageDirection.South, true)]
-        [TestCase(PassageDirection.North, PassageDirection.West, false)]
+        [TestCase(Passages.North, Passages.North, false)]
+        [TestCase(Passages.North, Passages.East, false)]
+        [TestCase(Passages.North, Passages.South, true)]
+        [TestCase(Passages.North, Passages.West, false)]
 
-        [TestCase(PassageDirection.East, PassageDirection.North, false)]
-        [TestCase(PassageDirection.East, PassageDirection.East, false)]
-        [TestCase(PassageDirection.East, PassageDirection.South, false)]
-        [TestCase(PassageDirection.East, PassageDirection.West, true)]
+        [TestCase(Passages.East, Passages.North, false)]
+        [TestCase(Passages.East, Passages.East, false)]
+        [TestCase(Passages.East, Passages.South, false)]
+        [TestCase(Passages.East, Passages.West, true)]
 
-        [TestCase(PassageDirection.South, PassageDirection.North, true)]
-        [TestCase(PassageDirection.South, PassageDirection.East, false)]
-        [TestCase(PassageDirection.South, PassageDirection.South, false)]
-        [TestCase(PassageDirection.South, PassageDirection.West, false)]
+        [TestCase(Passages.South, Passages.North, true)]
+        [TestCase(Passages.South, Passages.East, false)]
+        [TestCase(Passages.South, Passages.South, false)]
+        [TestCase(Passages.South, Passages.West, false)]
 
-        [TestCase(PassageDirection.West, PassageDirection.North, false)]
-        [TestCase(PassageDirection.West, PassageDirection.East, true)]
-        [TestCase(PassageDirection.West, PassageDirection.South, false)]
-        [TestCase(PassageDirection.West, PassageDirection.West, false)]
-        public void Directions_Connect_Correctly(PassageDirection first, PassageDirection second, bool excpected)
+        [TestCase(Passages.West, Passages.North, false)]
+        [TestCase(Passages.West, Passages.East, true)]
+        [TestCase(Passages.West, Passages.South, false)]
+        [TestCase(Passages.West, Passages.West, false)]
+        public void Directions_Connect_Correctly(Passages first, Passages second, bool excpected)
         {
-            // Given
-
-            var p1 = new Passage(first, PassageIndex.First);
-            var p2 = new Passage(second, PassageIndex.First);
-
             // When
 
-            var actual = GenerationUtility.CanConnect(p1, p2);
+            var actual = GenerationUtility.CanConnect(first, second);
 
             // Then
 
             Assert.That(actual, Is.EqualTo(excpected));
         }
-
-        [Test]
-        public void Passages_With_Unequal_Index_Cannot_Connect()
-        {
-            // Given
-
-            var p1 = new Passage(PassageDirection.West, PassageIndex.First);
-            var p2 = new Passage(PassageDirection.East, PassageIndex.Second);
-
-            // When
-
-            var actual = GenerationUtility.CanConnect(p1, p2);
-
-            // Then
-
-            Assert.That(actual, Is.False);
-        }
-
-        [Test]
-        public void Passages_With_Equal_Index_Can_Connect()
-        {
-            // Given
-
-            var p1 = new Passage(PassageDirection.West, PassageIndex.First);
-            var p2 = new Passage(PassageDirection.East, PassageIndex.First);
-
-            // When
-
-            var actual = GenerationUtility.CanConnect(p1, p2);
-
-            // Then
-
-            Assert.That(actual, Is.True);
-        }
+    
 
         [Test]
         public void Get_Correct_Surrounding_Positions()

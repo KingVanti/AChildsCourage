@@ -11,11 +11,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Data
 
-        private static RoomInfo StartRoom { get; } = new RoomInfo(0, new ChunkPassages(
-            new Passage(PassageDirection.North, PassageIndex.Second),
-            new Passage(PassageDirection.East, PassageIndex.Second),
-            new Passage(PassageDirection.South, PassageIndex.Second),
-            new Passage(PassageDirection.West, PassageIndex.Second)));
+        private static RoomInfo StartRoom { get; } = new RoomInfo(0, ChunkPassages.All);
 
         #endregion
 

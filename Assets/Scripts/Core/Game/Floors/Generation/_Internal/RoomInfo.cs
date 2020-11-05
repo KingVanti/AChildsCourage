@@ -17,7 +17,7 @@
         internal RoomInfo()
         {
             RoomId = -1;
-            Passages = new ChunkPassages(null, null, null, null);
+            Passages = ChunkPassages.None;
         }
 
         public RoomInfo(int roomId, ChunkPassages passages)

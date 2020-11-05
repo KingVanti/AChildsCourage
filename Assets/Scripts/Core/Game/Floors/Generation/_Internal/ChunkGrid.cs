@@ -65,46 +65,46 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public ChunkPassages GetPassagesTo(ChunkPosition position)
         {
-            var northPassage = TryGetPassageInto(position, PassageDirection.North);
-            var eastPassage = TryGetPassageInto(position, PassageDirection.East);
-            var southPassage = TryGetPassageInto(position, PassageDirection.South);
-            var westPassage = TryGetPassageInto(position, PassageDirection.West);
+            var hasNorth = HasPassageInto(position, Passages.North);
+            var hasEast = HasPassageInto(position, Passages.East);
+            var hasSouth = HasPassageInto(position, Passages.South);
+            var hasWest = HasPassageInto(position, Passages.West);
 
-            return new ChunkPassages(northPassage, eastPassage, southPassage, westPassage);
+            return new ChunkPassages(hasNorth, hasEast, hasSouth, hasWest);
         }
 
-        private Passage? TryGetPassageInto(ChunkPosition position, PassageDirection direction)
+        private bool HasPassageInto(ChunkPosition position, Passages direction)
         {
             var positionInDirection = position + direction;
             var invertedDirection = Invert(direction);
 
-            return TryGetPassageOutOf(positionInDirection, invertedDirection);
+            return HasPassageOutOf(positionInDirection, invertedDirection);
         }
 
-        private PassageDirection Invert(PassageDirection direction)
+        private Passages Invert(Passages passage)
         {
-            switch (direction)
+            switch (passage)
             {
-                case PassageDirection.North:
-                    return PassageDirection.South;
-                case PassageDirection.East:
-                    return PassageDirection.West;
-                case PassageDirection.South:
-                    return PassageDirection.North;
-                case PassageDirection.West:
-                    return PassageDirection.East;
+                case Passages.North:
+                    return Passages.South;
+                case Passages.East:
+                    return Passages.West;
+                case Passages.South:
+                    return Passages.North;
+                case Passages.West:
+                    return Passages.East;
             }
 
             throw new Exception("Invalid direction");
         }
 
-        private Passage? TryGetPassageOutOf(ChunkPosition position, PassageDirection direction)
+        private bool HasPassageOutOf(ChunkPosition position, Passages passage)
         {
             if (IsEmpty(position))
-                return null;
+                return false;
 
             var roomInfo = roomsByChunks[position];
-            return roomInfo.Passages.TryGet(direction);
+            return roomInfo.Passages.Has(passage);
         }
 
 
