@@ -43,8 +43,7 @@ namespace AChildsCourage
             var assemblies = new[]
             {
                 Assembly.Load("AChildsCourage.Core"),
-                Assembly.Load("AChildsCourage.Presentation.Core"),
-                Assembly.Load("AChildsCourage.Presentation.Unity")
+                Assembly.Load("AChildsCourage.Unity")
             };
 
             kernel.Bind(x => x
