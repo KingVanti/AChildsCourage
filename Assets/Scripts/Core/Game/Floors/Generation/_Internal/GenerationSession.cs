@@ -1,4 +1,7 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     internal class GenerationSession : IGenerationSession
@@ -15,6 +18,7 @@
         private readonly IRNG rng;
         private readonly IChunkGrid chunkGrid;
         private readonly IRoomInfoRepository roomInfoRepository;
+        private readonly List<int> usedRoomIds = new List<int>();
 
         #endregion
 
@@ -53,7 +57,7 @@
 
         internal void PlaceStartRoom()
         {
-            chunkGrid.Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
+            Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
         }
 
         internal void PlaceNormalRooms()
@@ -63,24 +67,19 @@
                 var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
                 var roomInfo = GetRoomFor(chunkPosition);
 
-                chunkGrid.Place(roomInfo, chunkPosition);
+                Place(roomInfo, chunkPosition);
             }
-        }
-
-        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
-        {
-            var passages = chunkGrid.GetPassagesTo(chunkPosition);
-            return roomInfoRepository.TryFindRoomFor(passages);
         }
 
         internal void PlaceDeadEnds()
         {
-            ChunkPosition[] cps = chunkGrid.FindDeadEndChunks();
+            var positions = chunkGrid.FindDeadEndChunks();
 
-            foreach (ChunkPosition cp in cps)
+            foreach (var position in positions)
             {
-                var roomInfo = GetRoomFor(cp);
-                chunkGrid.Place(roomInfo, cp);
+                var roomInfo = GetRoomFor(position);
+
+                Place(roomInfo, position);
             }
         }
 
@@ -88,7 +87,41 @@
         {
             ChunkPosition endroomChunk = chunkGrid.FindDeadEndChunks().GetRandom(rng);
 
-            chunkGrid.Place(roomInfoRepository.EndRoom, endroomChunk);
+            Place(roomInfoRepository.EndRoom, endroomChunk);
+        }
+
+
+        private void Place(RoomInfo room, ChunkPosition position)
+        {
+            usedRoomIds.Add(room.RoomId);
+            chunkGrid.Place(room, position);
+        }
+
+
+        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
+        {
+            var passages = chunkGrid.GetPassagesTo(chunkPosition);
+            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(passages);
+
+            return ChooseRoomFrom(potentialRooms);
+        }
+
+        private RoomInfo ChooseRoomFrom(IEnumerable<RoomInfo> potentialRooms)
+        {
+            return
+                potentialRooms
+                .Where(IsValid)
+                .GetRandom(rng);
+        }
+
+        private bool IsValid(RoomInfo room)
+        {
+            return !IsUsed(room);
+        }
+
+        private bool IsUsed(RoomInfo room)
+        {
+            return usedRoomIds.Contains(room.RoomId);
         }
 
         #endregion

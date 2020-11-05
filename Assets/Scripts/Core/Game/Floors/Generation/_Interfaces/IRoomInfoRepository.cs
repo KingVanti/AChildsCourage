@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using System.Collections.Generic;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     public interface IRoomInfoRepository
@@ -14,7 +16,7 @@
 
         #region Methods
 
-        RoomInfo TryFindRoomFor(ChunkPassages passages);
+        IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassages passages);
 
         #endregion
 
