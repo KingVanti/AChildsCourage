@@ -1,11 +1,14 @@
 {
-    "name": "AChildsCourage.Presentation.Core.Tests",
+    "name": "AChildsCourage.Unity.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "AChildsCourage.Presentation.Core"
+        "AChildsCourage.Core",
+        "AChildsCourage.Unity"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
@@ -17,5 +20,5 @@
         "UNITY_INCLUDE_TESTS"
     ],
     "versionDefines": [],
-    "noEngineReferences": true
+    "noEngineReferences": false
 }

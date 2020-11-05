@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
 using Moq;
 using NUnit.Framework;
-using PADEAH.TestUtility;
+using PADEAH.Tabs;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -81,7 +81,10 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var raisedArgs = roombuilder.Capture<RoomBuiltEventArgs>(() => roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0))));
+            var raisedArgs = ListenFor
+                .First<RoomBuiltEventArgs>()
+                .From(roombuilder)
+                .During(() => roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0))));
 
             // Then
 

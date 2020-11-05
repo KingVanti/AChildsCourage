@@ -1,6 +1,11 @@
 {
-    "name": "PADEAH.TestUtility",
-    "references": [],
+    "name": "AChildsCourage.Unity.RoomEditor",
+    "references": [
+        "GUID:64b37223ed8a9824e8f41a193d4826b5",
+        "GUID:a3ff7ba5d0edb2345bcec0591301ad84",
+        "GUID:1116234ac7349ff49bead430b48cbf23",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
     "includePlatforms": [
         "Editor"
     ],

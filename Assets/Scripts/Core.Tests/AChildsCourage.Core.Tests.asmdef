@@ -1,7 +1,6 @@
 {
     "name": "AChildsCourage.Core.Tests",
     "references": [
-        "PADEAH.TestUtility",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "AChildsCourage.Core"
@@ -14,7 +13,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "Moq.dll"
+        "Moq.dll",
+        "Tabs.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
