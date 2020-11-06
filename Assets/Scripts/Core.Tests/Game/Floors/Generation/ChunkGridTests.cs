@@ -50,7 +50,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var chunkGrid = new ChunkGrid();
-            var passages = new ChunkPassages(Passages.East);
+            var passages = new ChunkPassages(false, true, false, false);
             chunkGrid.Place(new RoomInfo(0, passages), new ChunkPosition(0, 0));
 
             // When
@@ -68,7 +68,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var chunkGrid = new ChunkGrid();
-            var passages = new ChunkPassages(Passages.East);
+            var passages = new ChunkPassages(false, true, false, false);
             chunkGrid.Place(new RoomInfo(0, passages), new ChunkPosition(0, 0));
 
             // When
@@ -88,8 +88,8 @@ namespace AChildsCourage.Game.Floors.Generation
 
             var chunkGrid = new ChunkGrid();
 
-            chunkGrid.Place(new RoomInfo(0, new ChunkPassages(Passages.North)), new ChunkPosition(0, -1));
-            chunkGrid.Place(new RoomInfo(1, new ChunkPassages(Passages.West)), new ChunkPosition(1, 0));
+            chunkGrid.Place(new RoomInfo(0, new ChunkPassages(true, false, false, false)), new ChunkPosition(0, -1));
+            chunkGrid.Place(new RoomInfo(1, new ChunkPassages(false, false, false, true)), new ChunkPosition(1, 0));
 
             // When
 
