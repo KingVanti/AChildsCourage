@@ -10,17 +10,17 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private static PossibleConnection[] possibleConnections = new[]
         {
-            new PossibleConnection(Passages.North, Passages.South),
-            new PossibleConnection(Passages.East, Passages.West),
-            new PossibleConnection(Passages.South, Passages.North),
-            new PossibleConnection(Passages.West, Passages.East)
+            new PossibleConnection(Passage.North, Passage.South),
+            new PossibleConnection(Passage.East, Passage.West),
+            new PossibleConnection(Passage.South, Passage.North),
+            new PossibleConnection(Passage.West, Passage.East)
         };
 
         #endregion
 
         #region Methods
 
-        internal static bool CanConnect(Passages p1, Passages p2)
+        internal static bool CanConnect(Passage p1, Passage p2)
         {
             foreach (var connection in possibleConnections)
                 if (p1 == connection.First && p2 == connection.Second)

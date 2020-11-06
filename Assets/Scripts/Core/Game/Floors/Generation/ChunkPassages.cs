@@ -14,19 +14,25 @@
 
         #region Properties
 
-        public Passages Passages { get; }
+        public bool HasNorth { get; }
+
+        public bool HasEast { get; }
+
+        public bool HasSouth { get; }
+
+        public bool HasWest { get; }
 
 
         public int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
 
 
-        public bool HasNorth { get { return Has(Passages.North); } }
+        public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
 
-        public bool HasEast { get { return Has(Passages.East); } }
 
-        public bool HasSouth { get { return Has(Passages.South); } }
+        public ChunkPassages XMirrored { get { return new ChunkPassages(HasNorth, HasWest, HasSouth, HasEast); } }
 
-        public bool HasWest { get { return Has(Passages.West); } }
+
+        public ChunkPassages YMirrored { get { return new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest); } }
 
         #endregion
 
@@ -34,28 +40,52 @@
 
         public ChunkPassages(bool hasNorth, bool hasEast, bool hasSouth, bool hasWest)
         {
-            var passages = (Passages)0;
-
-            if (hasNorth) passages |= Passages.North;
-            if (hasEast) passages |= Passages.East;
-            if (hasSouth) passages |= Passages.South;
-            if (hasWest) passages |= Passages.West;
-
-            Passages = passages;
-        }
-
-        public ChunkPassages(Passages passages)
-        {
-            Passages = passages;
+            HasNorth = hasNorth;
+            HasEast = hasEast;
+            HasSouth = hasSouth;
+            HasWest = hasWest;
         }
 
         #endregion
 
         #region Methods
 
-        public bool Has(Passages passage)
+        public bool Has(Passage passage)
         {
-            return Passages.HasFlag(passage);
+            switch (passage)
+            {
+                case Passage.North:
+                    return HasNorth;
+                case Passage.East:
+                    return HasEast;
+                case Passage.South:
+                    return HasSouth;
+                case Passage.West:
+                    return HasWest;
+            }
+
+            throw new System.Exception("Invalid passage!");
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            return obj is ChunkPassages passages &&
+                   HasNorth == passages.HasNorth &&
+                   HasEast == passages.HasEast &&
+                   HasSouth == passages.HasSouth &&
+                   HasWest == passages.HasWest;
+        }
+
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1909415112;
+            hashCode = hashCode * -1521134295 + HasNorth.GetHashCode();
+            hashCode = hashCode * -1521134295 + HasEast.GetHashCode();
+            hashCode = hashCode * -1521134295 + HasSouth.GetHashCode();
+            hashCode = hashCode * -1521134295 + HasWest.GetHashCode();
+            return hashCode;
         }
 
         #endregion

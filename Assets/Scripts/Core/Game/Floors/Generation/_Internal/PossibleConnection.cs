@@ -6,15 +6,15 @@
 
         #region Properties
 
-        public Passages First { get; }
+        public Passage First { get; }
 
-        public Passages Second { get; }
+        public Passage Second { get; }
 
         #endregion
 
         #region Constructors
 
-        public PossibleConnection(Passages first, Passages second)
+        public PossibleConnection(Passage first, Passage second)
         {
             First = first;
             Second = second;

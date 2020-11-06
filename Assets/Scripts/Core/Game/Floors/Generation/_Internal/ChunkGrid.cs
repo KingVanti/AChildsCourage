@@ -65,15 +65,15 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public ChunkPassages GetPassagesTo(ChunkPosition position)
         {
-            var hasNorth = HasPassageInto(position, Passages.North);
-            var hasEast = HasPassageInto(position, Passages.East);
-            var hasSouth = HasPassageInto(position, Passages.South);
-            var hasWest = HasPassageInto(position, Passages.West);
+            var hasNorth = HasPassageInto(position, Passage.North);
+            var hasEast = HasPassageInto(position, Passage.East);
+            var hasSouth = HasPassageInto(position, Passage.South);
+            var hasWest = HasPassageInto(position, Passage.West);
 
             return new ChunkPassages(hasNorth, hasEast, hasSouth, hasWest);
         }
 
-        private bool HasPassageInto(ChunkPosition position, Passages direction)
+        private bool HasPassageInto(ChunkPosition position, Passage direction)
         {
             var positionInDirection = position + direction;
             var invertedDirection = Invert(direction);
@@ -81,24 +81,24 @@ namespace AChildsCourage.Game.Floors.Generation
             return HasPassageOutOf(positionInDirection, invertedDirection);
         }
 
-        private Passages Invert(Passages passage)
+        private Passage Invert(Passage passage)
         {
             switch (passage)
             {
-                case Passages.North:
-                    return Passages.South;
-                case Passages.East:
-                    return Passages.West;
-                case Passages.South:
-                    return Passages.North;
-                case Passages.West:
-                    return Passages.East;
+                case Passage.North:
+                    return Passage.South;
+                case Passage.East:
+                    return Passage.West;
+                case Passage.South:
+                    return Passage.North;
+                case Passage.West:
+                    return Passage.East;
             }
 
             throw new Exception("Invalid direction");
         }
 
-        private bool HasPassageOutOf(ChunkPosition position, Passages passage)
+        private bool HasPassageOutOf(ChunkPosition position, Passage passage)
         {
             if (IsEmpty(position))
                 return false;

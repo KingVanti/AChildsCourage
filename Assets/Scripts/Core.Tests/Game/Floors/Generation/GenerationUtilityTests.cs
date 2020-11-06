@@ -11,26 +11,26 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Tests
 
-        [TestCase(Passages.North, Passages.North, false)]
-        [TestCase(Passages.North, Passages.East, false)]
-        [TestCase(Passages.North, Passages.South, true)]
-        [TestCase(Passages.North, Passages.West, false)]
+        [TestCase(Passage.North, Passage.North, false)]
+        [TestCase(Passage.North, Passage.East, false)]
+        [TestCase(Passage.North, Passage.South, true)]
+        [TestCase(Passage.North, Passage.West, false)]
 
-        [TestCase(Passages.East, Passages.North, false)]
-        [TestCase(Passages.East, Passages.East, false)]
-        [TestCase(Passages.East, Passages.South, false)]
-        [TestCase(Passages.East, Passages.West, true)]
+        [TestCase(Passage.East, Passage.North, false)]
+        [TestCase(Passage.East, Passage.East, false)]
+        [TestCase(Passage.East, Passage.South, false)]
+        [TestCase(Passage.East, Passage.West, true)]
 
-        [TestCase(Passages.South, Passages.North, true)]
-        [TestCase(Passages.South, Passages.East, false)]
-        [TestCase(Passages.South, Passages.South, false)]
-        [TestCase(Passages.South, Passages.West, false)]
+        [TestCase(Passage.South, Passage.North, true)]
+        [TestCase(Passage.South, Passage.East, false)]
+        [TestCase(Passage.South, Passage.South, false)]
+        [TestCase(Passage.South, Passage.West, false)]
 
-        [TestCase(Passages.West, Passages.North, false)]
-        [TestCase(Passages.West, Passages.East, true)]
-        [TestCase(Passages.West, Passages.South, false)]
-        [TestCase(Passages.West, Passages.West, false)]
-        public void Directions_Connect_Correctly(Passages first, Passages second, bool excpected)
+        [TestCase(Passage.West, Passage.North, false)]
+        [TestCase(Passage.West, Passage.East, true)]
+        [TestCase(Passage.West, Passage.South, false)]
+        [TestCase(Passage.West, Passage.West, false)]
+        public void Directions_Connect_Correctly(Passage first, Passage second, bool excpected)
         {
             // When
 

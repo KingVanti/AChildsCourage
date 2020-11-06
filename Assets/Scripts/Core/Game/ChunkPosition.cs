@@ -52,17 +52,17 @@ namespace AChildsCourage.Game
 
         #region Operators
 
-        public static ChunkPosition operator +(ChunkPosition position, Passages direction)
+        public static ChunkPosition operator +(ChunkPosition position, Passage direction)
         {
             switch (direction)
             {
-                case Passages.North:
+                case Passage.North:
                     return new ChunkPosition(position.X, position.Y + 1);
-                case Passages.East:
+                case Passage.East:
                     return new ChunkPosition(position.X + 1, position.Y);
-                case Passages.South:
+                case Passage.South:
                     return new ChunkPosition(position.X, position.Y - 1);
-                case Passages.West:
+                case Passage.West:
                     return new ChunkPosition(position.X - 1, position.Y);
             }
 
