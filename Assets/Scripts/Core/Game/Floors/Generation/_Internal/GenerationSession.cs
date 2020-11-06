@@ -108,10 +108,14 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private RoomInfo ChooseRoomFrom(IEnumerable<RoomInfo> potentialRooms)
         {
-            return
+            var validRooms =
                 potentialRooms
-                .Where(IsValid)
-                .GetRandom(rng);
+                .Where(IsValid);
+
+            if (validRooms.Count() > 0)
+                return validRooms.GetRandom(rng);
+            else
+                throw new System.Exception("No valid rooms found!");
         }
 
         private bool IsValid(RoomInfo room)
