@@ -52,21 +52,21 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             roomInfos.Clear();
 
             StartRoom = CreateNew(ChunkPassages.All);
-            EndRoom = CreateNew(ChunkPassages.None);
+            EndRoom = CreateNew(new ChunkPassages(true, false, false, false));
         }
 
 
-        public IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassages passages)
+        public IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter)
         {
-            foreach (var roomPassages in FindFittingPassagesFor(passages))
+            foreach (var roomPassages in FindFittingPassagesFor(filter))
                 yield return CreateNew(roomPassages);
         }
 
-        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassages passages)
+        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter)
         {
-            foreach (var roomPassages in GetAllPassages())
-                if (Fits(passages, roomPassages))
-                    yield return roomPassages;
+            foreach (var passages in GetAllPassages())
+                if (filter.Matches(passages))
+                    yield return passages;
         }
 
         private IEnumerable<ChunkPassages> GetAllPassages()
@@ -84,15 +84,6 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             yield return passages.Rotated;
             yield return passages.Rotated.Rotated;
             yield return passages.Rotated.Rotated.Rotated;
-        }
-
-        private bool Fits(ChunkPassages pattern, ChunkPassages passage)
-        {
-            return
-                ((pattern.HasNorth && passage.HasNorth) || !pattern.HasNorth) &&
-                ((pattern.HasEast && passage.HasEast) || !pattern.HasEast) &&
-                ((pattern.HasSouth && passage.HasSouth) || !pattern.HasSouth) &&
-                ((pattern.HasWest && passage.HasWest) || !pattern.HasWest);
         }
 
         private RoomInfo CreateNew(ChunkPassages roomPassages)

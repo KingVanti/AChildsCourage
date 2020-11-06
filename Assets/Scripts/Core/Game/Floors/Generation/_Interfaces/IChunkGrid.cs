@@ -7,6 +7,8 @@
 
         int RoomCount { get; }
 
+        int ReservedChunkCount { get; }
+
         #endregion
 
         #region Methods
@@ -15,11 +17,7 @@
 
         ChunkPosition FindNextBuildChunk(IRNG rng);
 
-        ChunkPassages GetPassagesTo(ChunkPosition position);
-
-        ChunkPosition[] FindDeadEndChunks();
-
-        bool IsEmpty(ChunkPosition position);
+        ChunkPassageFilter GetFilterFor(ChunkPosition position);
 
         void Place(RoomInfo room, ChunkPosition position);
 

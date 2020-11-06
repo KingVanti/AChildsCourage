@@ -24,11 +24,9 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Properties
 
-        private bool CanPlaceMoreRooms { get { return chunkGrid.RoomCount < NormalRoomCount; } }
+        private bool CanPlaceMoreNormalRooms { get { return UsedChunksCount <= MaxRoomCount - 1; } }
 
-        private int NormalRoomCount { get { return MaxRoomCount - DeadEndCount; } }
-
-        private int DeadEndCount { get { return chunkGrid.FindDeadEndChunks().Length; } }
+        private int UsedChunksCount { get { return chunkGrid.RoomCount + chunkGrid.ReservedChunkCount; } }
 
         #endregion
 
@@ -50,7 +48,6 @@ namespace AChildsCourage.Game.Floors.Generation
             PlaceStartRoom();
             PlaceNormalRooms();
             PlaceEndRoom();
-            PlaceDeadEnds();
 
             return chunkGrid.BuildPlan();
         }
@@ -62,7 +59,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal void PlaceNormalRooms()
         {
-            while (CanPlaceMoreRooms)
+            while (CanPlaceMoreNormalRooms)
             {
                 var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
                 var roomInfo = GetRoomFor(chunkPosition);
@@ -71,21 +68,9 @@ namespace AChildsCourage.Game.Floors.Generation
             }
         }
 
-        internal void PlaceDeadEnds()
-        {
-            var positions = chunkGrid.FindDeadEndChunks();
-
-            foreach (var position in positions)
-            {
-                var roomInfo = GetRoomFor(position);
-
-                Place(roomInfo, position);
-            }
-        }
-
         internal void PlaceEndRoom()
         {
-            ChunkPosition endroomChunk = chunkGrid.FindDeadEndChunks().GetRandom(rng);
+            ChunkPosition endroomChunk = chunkGrid.FindNextBuildChunk(rng);
 
             Place(roomInfoRepository.EndRoom, endroomChunk);
         }
@@ -100,8 +85,8 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
         {
-            var passages = chunkGrid.GetPassagesTo(chunkPosition);
-            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(passages);
+            var filter = chunkGrid.GetFilterFor(chunkPosition);
+            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(filter);
 
             return ChooseRoomFrom(potentialRooms);
         }
