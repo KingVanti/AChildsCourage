@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter);
+        IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount);
 
         #endregion
 

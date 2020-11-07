@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Properties
 
-        private bool CanPlaceMoreNormalRooms { get { return UsedChunksCount <= MaxRoomCount - 1; } }
+        private int RemainingRoomCount { get { return MaxRoomCount - UsedChunksCount; } }
 
         private int UsedChunksCount { get { return chunkGrid.RoomCount + chunkGrid.ReservedChunkCount; } }
 
@@ -59,7 +59,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal void PlaceNormalRooms()
         {
-            while (CanPlaceMoreNormalRooms)
+            for (var i = 0; i < MaxRoomCount - 2; i++)
             {
                 var chunkPosition = chunkGrid.FindNextBuildChunk(rng);
                 var roomInfo = GetRoomFor(chunkPosition);
@@ -86,7 +86,7 @@ namespace AChildsCourage.Game.Floors.Generation
         private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
         {
             var filter = chunkGrid.GetFilterFor(chunkPosition);
-            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(filter);
+            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(filter, RemainingRoomCount);
 
             return ChooseRoomFrom(potentialRooms);
         }

@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using System;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     public readonly struct ChunkPassageFilter
@@ -42,6 +44,21 @@
                 filter == PassageFilter.Either ||
                 (hasPassage && filter == PassageFilter.MustHave) ||
                 (!hasPassage && filter == PassageFilter.MustNotHave);
+        }
+
+
+        internal int FindLooseEnds(ChunkPassages passages)
+        {
+            return
+                 (IsLooseEnd(north, passages.HasNorth) ? 1 : 0) +
+                 (IsLooseEnd(east, passages.HasEast) ? 1 : 0) +
+                 (IsLooseEnd(south, passages.HasSouth) ? 1 : 0) +
+                 (IsLooseEnd(west, passages.HasWest) ? 1 : 0);
+        }
+
+        private bool IsLooseEnd(PassageFilter filter, bool hasPassage)
+        {
+            return filter == PassageFilter.Either && hasPassage;
         }
 
         #endregion
