@@ -28,8 +28,15 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             var pixels = CreateColorArray(floorPlan);
             var offset = CalculateChunkOffset(floorPlan);
 
-            foreach (var room in floorPlan.Rooms)
-                PrintRoom(room, offset, roomInfoRespository, pixels);
+            for (var i = 0; i < floorPlan.Rooms.Length; i++)
+            {
+                var type = RoomType.Normal;
+
+                if (i == 0) type = RoomType.Start;
+                if (i == floorPlan.Rooms.Length - 1) type = RoomType.End;
+
+                PrintRoom(type,floorPlan.Rooms[i], offset, roomInfoRespository, pixels);
+            }
 
             return pixels;
         }
@@ -70,24 +77,39 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
                 -floorPlan.Rooms.Select(r => r.Position.Y).Min());
         }
 
-        private static void PrintRoom(RoomInChunk room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
+        private static void PrintRoom(RoomType type, RoomInChunk room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
         {
             var position = GetPixelPos(room.Position, offset);
             var passages = roomInfoRespository.GetById(room.RoomId).Passages;
 
-            PrintPassages(position, passages, pixels);
+            PrintPassages(type, position, passages, pixels);
         }
 
-        private static void PrintPassages(Vector2Int pixelPos, ChunkPassages passages, Color[][] pixels)
+        private static void PrintPassages(RoomType type, Vector2Int pixelPos, ChunkPassages passages, Color[][] pixels)
         {
             for (var dx = 1; dx < 4; dx++)
                 for (var dy = 1; dy < 4; dy++)
-                    pixels[pixelPos.x + dx][pixelPos.y + dy] = Color.white;
+                    pixels[pixelPos.x + dx][pixelPos.y + dy] = GetRoomtypeColor(type);
 
-            if (passages.HasNorth) pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.green;
-            if (passages.HasEast) pixels[pixelPos.x + 4][pixelPos.y + 2] = Color.blue;
-            if (passages.HasSouth) pixels[pixelPos.x + 2][pixelPos.y] = Color.yellow;
-            if (passages.HasWest) pixels[pixelPos.x][pixelPos.y + 2] = Color.red;
+            if (passages.HasNorth) pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.white;
+            if (passages.HasEast) pixels[pixelPos.x + 4][pixelPos.y + 2] = Color.white;
+            if (passages.HasSouth) pixels[pixelPos.x + 2][pixelPos.y] = Color.white;
+            if (passages.HasWest) pixels[pixelPos.x][pixelPos.y + 2] = Color.white;
+        }
+
+        private static Color GetRoomtypeColor(RoomType type)
+        {
+            switch (type)
+            {
+                case RoomType.Start:
+                    return Color.cyan;
+                case RoomType.Normal:
+                    return Color.white;
+                case RoomType.End:
+                    return Color.magenta;
+            }
+
+            throw new System.Exception("Invalid room type!");
         }
 
         private static Vector2Int GetPixelPos(ChunkPosition position, Vector2Int offset)
@@ -104,6 +126,17 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             return new Vector2Int(
                 position.X + offset.x,
                 position.Y + offset.y);
+        }
+
+        #endregion
+
+        #region Subtypes
+
+        private enum RoomType
+        {
+            Start,
+            Normal,
+            End
         }
 
         #endregion
