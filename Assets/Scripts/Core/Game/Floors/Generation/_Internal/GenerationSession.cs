@@ -72,8 +72,9 @@ namespace AChildsCourage.Game.Floors.Generation
         internal void PlaceEndRoom()
         {
             ChunkPosition endroomChunk = chunkGrid.FindNextBuildChunk(rng);
+            var filter = chunkGrid.GetFilterFor(endroomChunk);
 
-            Place(roomInfoRepository.EndRoom, endroomChunk);
+            Place(roomInfoRepository.GetEndRoomFor(filter), endroomChunk);
         }
 
 

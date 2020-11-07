@@ -10,13 +10,13 @@ namespace AChildsCourage.Game.Floors.Generation
 
         RoomInfo StartRoom { get; }
 
-        RoomInfo EndRoom { get; }
-
         #endregion
 
         #region Methods
 
         IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount);
+
+        RoomInfo GetEndRoomFor(ChunkPassageFilter filter);
 
         #endregion
 

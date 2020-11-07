@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace AChildsCourage.Game.Floors.Generation.Editor
 {
@@ -25,8 +26,6 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         public RoomInfo StartRoom { get; private set; }
 
-        public RoomInfo EndRoom { get; private set; }
-
         #endregion
 
         #region Constructors
@@ -52,28 +51,22 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             roomInfos.Clear();
 
             StartRoom = CreateNew(ChunkPassages.All);
-            EndRoom = CreateNew(new ChunkPassages(true, false, false, false));
         }
 
 
         public IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
         {
-            foreach (var roomPassages in FindFittingPassagesFor(filter, remainingRoomCount))
-                yield return CreateNew(roomPassages);
+            return FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew);
         }
 
         private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int remainingRoomCount)
         {
-            foreach (var passages in GetAllPassages())
-                if (filter.Matches(passages) && filter.FindLooseEnds(passages) <= remainingRoomCount)
-                    yield return passages;
+            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= remainingRoomCount);
         }
 
         private IEnumerable<ChunkPassages> GetAllPassages()
         {
-            foreach (var basePassages in allBasePassages)
-                foreach (var passage in GetVariations(basePassages))
-                    yield return passage;
+            return allBasePassages.SelectMany(GetVariations);
         }
 
         private IEnumerable<ChunkPassages> GetVariations(ChunkPassages passages)
@@ -94,6 +87,12 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
             currentId++;
             return info;
+        }
+
+
+        public RoomInfo GetEndRoomFor(ChunkPassageFilter filter)
+        {
+            return FindFittingRoomsFor(filter, 0).First();
         }
 
         #endregion
