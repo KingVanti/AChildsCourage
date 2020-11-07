@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AChildsCourage.Game.Floors.Generation
@@ -98,7 +99,7 @@ namespace AChildsCourage.Game.Floors.Generation
                 .Where(IsValid);
 
             if (validRooms.Count() > 0)
-                return validRooms.GetRandom(rng);
+                return validRooms.GetWeightedRandom(CalculateRoomWeight, rng);
             else
                 throw new System.Exception("No valid rooms found!");
         }
@@ -111,6 +112,16 @@ namespace AChildsCourage.Game.Floors.Generation
         private bool IsUsed(RoomInfo room)
         {
             return usedRoomIds.Contains(room.RoomId);
+        }
+
+        private float CalculateRoomWeight(RoomInfo room)
+        {
+            return CalculatePassageWeight(room);
+        }
+
+        private float CalculatePassageWeight(RoomInfo room)
+        {
+            return (float)Math.Pow(room.Passages.Count, 2);
         }
 
         #endregion
