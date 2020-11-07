@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
 
     internal class ChunkGrid : IChunkGrid
     {
+
+        #region Constants
+
+        private const float BaseWeight = 1;
+
+        #endregion
 
         #region Fields
 
@@ -36,7 +43,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal float GetChunkWeight(ChunkPosition position)
         {
-            return 1;
+            return
+                BaseWeight +
+                CalculateDistanceWeight(position);
+        }
+
+        private float CalculateDistanceWeight(ChunkPosition position)
+        {
+            var distance = new Vector2(position.X, position.Y).Length();
+
+            return (float)Math.Pow(1f / distance, 2);
         }
 
 
