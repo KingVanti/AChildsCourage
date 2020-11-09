@@ -38,18 +38,15 @@ namespace AChildsCourage.Game.Floors.Generation
             var roomData = roomRepository.Load(roomInChunk.RoomId);
             var offset = roomInChunk.Position.GetTileOffset();
 
-            var room = Build(roomData, offset);
-
+            Build(roomData, offset);
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());
         }
 
 
-        private IRoom Build(RoomData roomData, TileOffset offset)
+        private void Build(RoomData roomData, TileOffset offset)
         {
             BuildWalls(roomData.WallPositions, offset);
             BuildGround(roomData.GroundPositions, offset);
-
-            return null;
         }
 
         private void BuildWalls(TilePosition[] wallPositions, TileOffset offset)
