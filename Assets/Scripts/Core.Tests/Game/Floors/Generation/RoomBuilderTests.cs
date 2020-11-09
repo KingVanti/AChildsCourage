@@ -22,16 +22,14 @@ namespace AChildsCourage.Game.Floors.Generation
                 new TilePosition[0],
                 new TilePosition[0],
                 new TilePosition[0]);
-            var mockRoomRepository = new Mock<IRoomRepository>();
-            mockRoomRepository.Setup(r => r.Load(0)).Returns(roomData);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 
-            var roombuilder = new RoomBuilder(mockTileBuilder.Object, mockRoomRepository.Object);
+            var roombuilder = new RoomBuilder(mockTileBuilder.Object);
 
             // When
 
-            roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0)));
+            roombuilder.Build(roomData, new ChunkPosition(0, 0));
 
             // Then
 
@@ -44,19 +42,17 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var roomData = new RoomData();
-            var mockRoomRepository = new Mock<IRoomRepository>();
-            mockRoomRepository.Setup(r => r.Load(0)).Returns(roomData);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 
-            var roombuilder = new RoomBuilder(mockTileBuilder.Object, mockRoomRepository.Object);
+            var roombuilder = new RoomBuilder(mockTileBuilder.Object);
 
             // When
 
             var raisedArgs = ListenFor
                 .First<RoomBuiltEventArgs>()
                 .From(roombuilder)
-                .During(() => roombuilder.Build(new RoomInChunk(0, new ChunkPosition(0, 0))));
+                .During(() => roombuilder.Build(roomData, new ChunkPosition(0, 0)));
 
             // Then
 

@@ -17,26 +17,23 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Fields
 
         private readonly ITileBuilder tileBuilder;
-        private readonly IRoomRepository roomRepository;
 
         #endregion
 
         #region Constructors
 
-        public RoomBuilder(ITileBuilder tileBuilder, IRoomRepository roomRepository)
+        public RoomBuilder(ITileBuilder tileBuilder)
         {
             this.tileBuilder = tileBuilder;
-            this.roomRepository = roomRepository;
         }
 
         #endregion
 
         #region Methods
 
-        public void Build(RoomInChunk roomInChunk)
+        public void Build(RoomData roomData, ChunkPosition chunkPosition)
         {
-            var roomData = roomRepository.Load(roomInChunk.RoomId);
-            var offset = roomInChunk.Position.GetTileOffset();
+            var offset = chunkPosition.GetTileOffset();
 
             Build(roomData, offset);
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());

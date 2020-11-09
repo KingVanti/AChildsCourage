@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AChildsCourage.Game.Floors.Persistance;
+using System;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -14,7 +15,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        void Build(RoomInChunk room);
+        void Build(RoomData roomData, ChunkPosition chunkPosition);
 
         #endregion
 

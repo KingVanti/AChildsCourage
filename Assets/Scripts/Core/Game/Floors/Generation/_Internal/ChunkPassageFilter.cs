@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AChildsCourage.Game.Floors.Generation
+﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
     public readonly struct ChunkPassageFilter

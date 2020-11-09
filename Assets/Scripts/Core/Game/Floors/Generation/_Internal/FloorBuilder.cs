@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using AChildsCourage.Game.Floors.Persistance;
+
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     [Singleton]
@@ -7,14 +9,16 @@
 
         #region Fields
 
+        private readonly IRoomRepository roomRepository;
         private readonly IRoomBuilder roomBuilder;
 
         #endregion
 
         #region Constructors
 
-        public FloorBuilder(IRoomBuilder roomBuilder)
+        public FloorBuilder(IRoomRepository roomRepository, IRoomBuilder roomBuilder)
         {
+            this.roomRepository = roomRepository;
             this.roomBuilder = roomBuilder;
         }
 
@@ -24,13 +28,15 @@
 
         public void Build(FloorPlan floorPlan)
         {
-            BuildRooms(floorPlan.Rooms);
+            var floorRooms = roomRepository.LoadRoomsFor(floorPlan);
+
+            BuildRooms(floorRooms);
         }
 
-        private void BuildRooms(RoomInChunk[] rooms)
+        private void BuildRooms(FloorRooms rooms)
         {
             foreach (var room in rooms)
-                roomBuilder.Build(room);
+                roomBuilder.Build(room.RoomData, room.Position);
         }
 
         #endregion
