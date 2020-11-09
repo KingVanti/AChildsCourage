@@ -8,8 +8,6 @@
 
         RoomData Load(int id);
 
-        bool Contains(int id);
-
         #endregion
 
     }

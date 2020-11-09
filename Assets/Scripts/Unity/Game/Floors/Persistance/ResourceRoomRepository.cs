@@ -26,6 +26,12 @@ namespace AChildsCourage.Game.Floors.Persistance
                 throw new FileNotFoundException($"Could not find room with the id {id}!");
         }
 
+        private RoomAsset GetRoomAsset(int id)
+        {
+            return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
+        }
+
+
         private RoomData CreateRoomFrom(RoomAsset asset)
         {
             return new RoomData(
@@ -40,18 +46,6 @@ namespace AChildsCourage.Game.Floors.Persistance
             return positions
                 .Select(p => new TilePosition(p.x, p.y))
                 .ToArray();
-        }
-
-
-        public bool Contains(int id)
-        {
-            return GetRoomAsset(id) != null;
-        }
-
-
-        protected RoomAsset GetRoomAsset(int id)
-        {
-            return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
         }
 
         #endregion
