@@ -13,7 +13,7 @@ namespace AChildsCourage
 
         public static IEnumerator StepLerp(Action<float> stepFunction, float stepSize)
         {
-            float t = 0;
+            var t = 0f;
 
             while (t < 1)
             {
@@ -29,7 +29,7 @@ namespace AChildsCourage
 
         public static IEnumerator TimeLerp(Action<float> stepFunction, float time, Action onLerpCompleted = null)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             stepFunction?.Invoke(0);
@@ -37,7 +37,7 @@ namespace AChildsCourage
 
             while (stopwatch.Elapsed.TotalSeconds < time)
             {
-                float t = Mathf.Clamp((float)(stopwatch.Elapsed.TotalSeconds / time), 0, 1);
+                var t = Mathf.Clamp((float)(stopwatch.Elapsed.TotalSeconds / time), 0, 1);
 
                 stepFunction?.Invoke(t);
                 yield return t;
