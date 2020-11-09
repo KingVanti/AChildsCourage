@@ -30,7 +30,6 @@ namespace AChildsCourage.Game.Floors.Persistance
         {
             return new RoomData(
                 Deserialize(asset.GroundPositions),
-                Deserialize(asset.WallPositions),
                 Deserialize(asset.ItemPositions),
                 Deserialize(asset.SmallCouragePositions),
                 Deserialize(asset.BigCouragePositions));

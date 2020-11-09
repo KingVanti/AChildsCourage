@@ -61,7 +61,6 @@ namespace AChildsCourage.RoomEditor
         public void ApplyGridTo(RoomAsset roomAsset)
         {
             roomAsset.GroundPositions = GetPositionsFor("Ground", "Ground");
-            roomAsset.WallPositions = GetPositionsFor("Static", "Wall");
             roomAsset.ItemPositions = GetPositionsFor("Static", "Item");
             roomAsset.SmallCouragePositions = GetPositionsFor("Static", "Courage_Small");
             roomAsset.BigCouragePositions = GetPositionsFor("Static", "Courage_Big");
@@ -78,7 +77,6 @@ namespace AChildsCourage.RoomEditor
                 layer.Clear();
 
             WritePositionsTo(roomAsset.GroundPositions, "Ground", "Ground");
-            WritePositionsTo(roomAsset.WallPositions, "Static", "Wall");
             WritePositionsTo(roomAsset.ItemPositions, "Static", "Item");
             WritePositionsTo(roomAsset.SmallCouragePositions, "Static", "Courage_Small");
             WritePositionsTo(roomAsset.BigCouragePositions, "Static", "Courage_Big");

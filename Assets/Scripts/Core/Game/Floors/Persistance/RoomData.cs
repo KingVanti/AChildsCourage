@@ -8,8 +8,6 @@
 
         public TilePosition[] GroundPositions { get; }
 
-        public TilePosition[] WallPositions { get; }
-
         public TilePosition[] ItemPositions { get; }
 
         public TilePosition[] SmallCouragePositions { get; }
@@ -23,20 +21,17 @@
         public RoomData()
         {
             GroundPositions = new TilePosition[0];
-            WallPositions = new TilePosition[0];
             ItemPositions = new TilePosition[0];
             SmallCouragePositions = new TilePosition[0];
             BigCouragePositions = new TilePosition[0];
         }
 
         public RoomData(TilePosition[] groundPositions,
-                        TilePosition[] wallPositions,
                         TilePosition[] itemPositions,
                         TilePosition[] smallCouragePositions,
                         TilePosition[] bigCouragePositions)
         {
             GroundPositions = groundPositions;
-            WallPositions = wallPositions;
             ItemPositions = itemPositions;
             SmallCouragePositions = smallCouragePositions;
             BigCouragePositions = bigCouragePositions;

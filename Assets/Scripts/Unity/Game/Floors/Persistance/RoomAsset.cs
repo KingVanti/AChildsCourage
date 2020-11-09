@@ -13,7 +13,6 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         [SerializeField] private int _id;
         [SerializeField] private Vector2Int[] _groundPositions;
-        [SerializeField] private Vector2Int[] _wallPositions;
         [SerializeField] private Vector2Int[] _itemPositions;
         [SerializeField] private Vector2Int[] _smallCouragePositions;
         [SerializeField] private Vector2Int[] _bigCouragePositions;
@@ -27,8 +26,6 @@ namespace AChildsCourage.Game.Floors.Persistance
         public int Id { get { return _id; } }
 
         public Vector2Int[] GroundPositions { get { return _groundPositions; } set { _groundPositions = value; } }
-
-        public Vector2Int[] WallPositions { get { return _wallPositions; } set { _wallPositions = value; } }
 
         public Vector2Int[] ItemPositions { get { return _itemPositions; } set { _itemPositions = value; } }
 
