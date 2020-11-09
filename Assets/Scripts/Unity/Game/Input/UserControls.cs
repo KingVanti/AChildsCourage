@@ -38,19 +38,19 @@ namespace AChildsCourage.Game.Input
                 },
                 {
                     ""name"": ""Item1"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""7d2e1401-9d8c-4294-a8e3-44f8e67d8311"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold(duration=1)""
                 },
                 {
                     ""name"": ""Item2"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""918a9149-4af6-48b2-9095-084b814f9be4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold(duration=1)""
                 },
                 {
                     ""name"": ""Pickup"",

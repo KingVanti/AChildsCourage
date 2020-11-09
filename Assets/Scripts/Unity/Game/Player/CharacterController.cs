@@ -210,6 +210,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = true;
+                CurrentPickupInRange = collision.gameObject;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
@@ -219,6 +220,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = false;
+                CurrentPickupInRange = null;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
