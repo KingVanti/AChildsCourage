@@ -2,6 +2,8 @@
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Unity;
+using PADEAH.Tabs;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
