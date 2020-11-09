@@ -38,22 +38,22 @@ namespace AChildsCourage.Game.Input
                 },
                 {
                     ""name"": ""Item1"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""7d2e1401-9d8c-4294-a8e3-44f8e67d8311"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1)""
+                    ""interactions"": ""Hold(duration=1),Press(behavior=2)""
                 },
                 {
                     ""name"": ""Item2"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""918a9149-4af6-48b2-9095-084b814f9be4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1)""
+                    ""interactions"": ""Hold(duration=1),Press(behavior=2)""
                 },
                 {
-                    ""name"": ""Pickup"",
+                    ""name"": ""Swap"",
                     ""type"": ""Button"",
                     ""id"": ""2b242a65-6c96-479c-a9fa-2ddc1c888fce"",
                     ""expectedControlType"": ""Button"",
@@ -130,34 +130,12 @@ namespace AChildsCourage.Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""33368ea9-735e-4a1a-8c39-6a42b097fd4f"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Item1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""1a884d1f-bec2-4aab-b1e0-aaa01daae1ea"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Item1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""bbe9227d-585e-4365-a233-701a0dbb7430"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Item2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -174,23 +152,12 @@ namespace AChildsCourage.Game.Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f0de1a4d-7dc0-446d-8aa5-f6cea3e7f4a8"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Pickup"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b9b019a4-d0c7-4942-a4b5-a164d83e3721"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Pickup"",
+                    ""action"": ""Swap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -506,7 +473,7 @@ namespace AChildsCourage.Game.Input
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Item1 = m_Player.FindAction("Item1", throwIfNotFound: true);
             m_Player_Item2 = m_Player.FindAction("Item2", throwIfNotFound: true);
-            m_Player_Pickup = m_Player.FindAction("Pickup", throwIfNotFound: true);
+            m_Player_Swap = m_Player.FindAction("Swap", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigation = m_UI.FindAction("Navigation", throwIfNotFound: true);
@@ -569,7 +536,7 @@ namespace AChildsCourage.Game.Input
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Item1;
         private readonly InputAction m_Player_Item2;
-        private readonly InputAction m_Player_Pickup;
+        private readonly InputAction m_Player_Swap;
         public struct PlayerActions
         {
             private @UserControls m_Wrapper;
@@ -578,7 +545,7 @@ namespace AChildsCourage.Game.Input
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Item1 => m_Wrapper.m_Player_Item1;
             public InputAction @Item2 => m_Wrapper.m_Player_Item2;
-            public InputAction @Pickup => m_Wrapper.m_Player_Pickup;
+            public InputAction @Swap => m_Wrapper.m_Player_Swap;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -600,9 +567,9 @@ namespace AChildsCourage.Game.Input
                     @Item2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
                     @Item2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
                     @Item2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
-                    @Pickup.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
-                    @Pickup.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
-                    @Pickup.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickup;
+                    @Swap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
+                    @Swap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
+                    @Swap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -619,9 +586,9 @@ namespace AChildsCourage.Game.Input
                     @Item2.started += instance.OnItem2;
                     @Item2.performed += instance.OnItem2;
                     @Item2.canceled += instance.OnItem2;
-                    @Pickup.started += instance.OnPickup;
-                    @Pickup.performed += instance.OnPickup;
-                    @Pickup.canceled += instance.OnPickup;
+                    @Swap.started += instance.OnSwap;
+                    @Swap.performed += instance.OnSwap;
+                    @Swap.canceled += instance.OnSwap;
                 }
             }
         }
@@ -758,7 +725,7 @@ namespace AChildsCourage.Game.Input
             void OnLook(InputAction.CallbackContext context);
             void OnItem1(InputAction.CallbackContext context);
             void OnItem2(InputAction.CallbackContext context);
-            void OnPickup(InputAction.CallbackContext context);
+            void OnSwap(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
