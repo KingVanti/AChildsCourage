@@ -4,13 +4,13 @@ using System.Linq;
 namespace AChildsCourage.Game.Floors.Generation.Editor
 {
 
-    public class TestRoomInfoRespository : IRoomInfoRepository
+    public class TestRoomInfoRespository : IRoomPassagesRepository
     {
 
         #region Fields
 
         private int currentId = 0;
-        private readonly Dictionary<int, RoomInfo> roomInfos = new Dictionary<int, RoomInfo>();
+        private readonly Dictionary<int, RoomPassages> roomInfos = new Dictionary<int, RoomPassages>();
         private readonly ChunkPassages[] allBasePassages = new[]
         {
             new ChunkPassages(true, false, false, false),
@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Properties
 
-        public RoomInfo StartRoom { get; private set; }
+        public RoomPassages StartRoom { get; private set; }
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Methods
 
-        public RoomInfo GetById(int roomId)
+        public RoomPassages GetById(int roomId)
         {
             return roomInfos[roomId];
         }
@@ -54,7 +54,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         }
 
 
-        public IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
+        public IEnumerable<RoomPassages> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
         {
             return FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew);
         }
@@ -79,9 +79,9 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             yield return passages.Rotated.Rotated.Rotated;
         }
 
-        private RoomInfo CreateNew(ChunkPassages roomPassages)
+        private RoomPassages CreateNew(ChunkPassages roomPassages)
         {
-            var info = new RoomInfo(currentId, roomPassages);
+            var info = new RoomPassages(currentId, roomPassages);
 
             roomInfos.Add(currentId, info);
 
@@ -90,7 +90,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         }
 
 
-        public RoomInfo GetEndRoomFor(ChunkPassageFilter filter)
+        public RoomPassages GetEndRoomFor(ChunkPassageFilter filter)
         {
             return FindFittingRoomsFor(filter, 0).First();
         }

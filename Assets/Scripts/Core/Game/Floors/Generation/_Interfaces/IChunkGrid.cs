@@ -19,7 +19,7 @@
 
         ChunkPassageFilter GetFilterFor(ChunkPosition position);
 
-        void Place(RoomInfo room, ChunkPosition position);
+        void Place(RoomPassages room, ChunkPosition position);
 
         #endregion
 

@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class RoomInfo
+    public class RoomPassages
     {
 
         #region Properties
@@ -14,13 +14,13 @@
 
         #region Constructors
 
-        internal RoomInfo()
+        internal RoomPassages()
         {
             RoomId = -1;
             Passages = ChunkPassages.None;
         }
 
-        public RoomInfo(int roomId, ChunkPassages passages)
+        public RoomPassages(int roomId, ChunkPassages passages)
         {
             RoomId = roomId;
             Passages = passages;

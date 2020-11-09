@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Fields
 
-        private readonly Dictionary<ChunkPosition, RoomInfo> roomsByChunks = new Dictionary<ChunkPosition, RoomInfo>();
+        private readonly Dictionary<ChunkPosition, RoomPassages> roomsByChunks = new Dictionary<ChunkPosition, RoomPassages>();
         private readonly List<ChunkPosition> reservedChunks = new List<ChunkPosition>();
 
         #endregion
@@ -56,7 +56,7 @@ namespace AChildsCourage.Game.Floors.Generation
         }
 
 
-        public void Place(RoomInfo room, ChunkPosition position)
+        public void Place(RoomPassages room, ChunkPosition position)
         {
             roomsByChunks.Add(position, room);
 
