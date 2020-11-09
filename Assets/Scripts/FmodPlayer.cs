@@ -40,6 +40,7 @@ public class FmodPlayer : MonoBehaviour
     void PlayFootstepsEvent(string path)
     {
         FMOD.Studio.EventInstance Footsteps = FMODUnity.RuntimeManager.CreateInstance(path);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(Footsteps, transform, GetComponent<Rigidbody2D>());
         Footsteps.setParameterByName("Material", Material);
         Footsteps.start();
         Footsteps.release();
