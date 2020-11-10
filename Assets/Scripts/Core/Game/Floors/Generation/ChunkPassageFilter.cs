@@ -27,7 +27,7 @@
 
         #region Methods
 
-        internal bool Matches(ChunkPassages passages)
+        public bool Matches(ChunkPassages passages)
         {
             return
                  Matches(north, passages.HasNorth) &&
@@ -39,13 +39,13 @@
         private bool Matches(PassageFilter filter, bool hasPassage)
         {
             return
-                filter == PassageFilter.Either ||
-                (hasPassage && filter == PassageFilter.MustHave) ||
-                (!hasPassage && filter == PassageFilter.MustNotHave);
+                filter == PassageFilter.Open ||
+                (hasPassage && filter == PassageFilter.Passage) ||
+                (!hasPassage && filter == PassageFilter.NoPassage);
         }
 
 
-        internal int FindLooseEnds(ChunkPassages passages)
+        public int FindLooseEnds(ChunkPassages passages)
         {
             return
                  (IsLooseEnd(north, passages.HasNorth) ? 1 : 0) +
@@ -56,7 +56,7 @@
 
         private bool IsLooseEnd(PassageFilter filter, bool hasPassage)
         {
-            return filter == PassageFilter.Either && hasPassage;
+            return filter == PassageFilter.Open && hasPassage;
         }
 
         #endregion

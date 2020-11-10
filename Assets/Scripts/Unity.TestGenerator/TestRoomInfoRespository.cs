@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 namespace AChildsCourage.Game.Floors.Generation.Editor
 {
@@ -24,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Properties
 
-        public RoomPassages StartRoom { get; private set; }
+        private RoomPassages StartRoom { get; set; }
 
         #endregion
 
@@ -38,6 +39,12 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         #endregion
 
         #region Methods
+
+        public FilteredRoomPassages GetStartRooms()
+        {
+            return new FilteredRoomPassages(new[] { StartRoom });
+        }
+
 
         public RoomPassages GetById(int roomId)
         {
@@ -53,15 +60,14 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             StartRoom = CreateNew(ChunkPassages.All);
         }
 
-
-        public FilteredRoomPassages FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
+        public FilteredRoomPassages GetNormalRooms(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return new FilteredRoomPassages(FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew));
+            return new FilteredRoomPassages(FindFittingPassagesFor(filter, maxLooseEnds).Select(CreateNew));
         }
 
-        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int remainingRoomCount)
+        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= remainingRoomCount);
+            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= maxLooseEnds);
         }
 
         private IEnumerable<ChunkPassages> GetAllPassages()
@@ -89,10 +95,9 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             return info;
         }
 
-
-        public RoomPassages GetEndRoomFor(ChunkPassageFilter filter)
+        public FilteredRoomPassages GetEndRooms(ChunkPassageFilter filter)
         {
-            return FindFittingRoomsFor(filter, 0).First();
+            return GetNormalRooms(filter, 0);
         }
 
         #endregion

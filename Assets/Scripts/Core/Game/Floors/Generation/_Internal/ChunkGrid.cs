@@ -143,12 +143,12 @@ namespace AChildsCourage.Game.Floors.Generation
             var positionInDirection = position + passage;
 
             if (IsEmpty(positionInDirection))
-                return PassageFilter.Either;
+                return PassageFilter.Open;
 
             var roomAtPosition = roomsByChunks[positionInDirection];
             var hasPassage = roomAtPosition.Passages.Has(passage.Invert());
 
-            return hasPassage ? PassageFilter.MustHave : PassageFilter.MustNotHave;
+            return hasPassage ? PassageFilter.Passage : PassageFilter.NoPassage;
         }
 
 

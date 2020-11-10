@@ -10,6 +10,8 @@
 
         public ChunkPassages Passages { get; }
 
+        public RoomType Type { get; }
+
         #endregion
 
         #region Constructors
@@ -18,12 +20,14 @@
         {
             RoomId = -1;
             Passages = ChunkPassages.None;
+            Type = RoomType.Normal;
         }
 
-        public RoomPassages(int roomId, ChunkPassages passages)
+        public RoomPassages(int roomId, ChunkPassages passages, RoomType type = RoomType.Normal)
         {
             RoomId = roomId;
             Passages = passages;
+            Type = type;
         }
 
         #endregion 

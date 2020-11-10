@@ -55,7 +55,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal void PlaceStartRoom()
         {
-            Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
+            var startRoom = ChooseStartRoom();
+
+            Place(startRoom, new ChunkPosition(0, 0));
+        }
+
+        private RoomPassages ChooseStartRoom()
+        {
+            var startRooms = roomInfoRepository.GetStartRooms();
+
+            return startRooms.GetRandom(rng);
         }
 
         internal void PlaceNormalRooms()
@@ -72,9 +81,17 @@ namespace AChildsCourage.Game.Floors.Generation
         internal void PlaceEndRoom()
         {
             ChunkPosition endroomChunk = chunkGrid.FindNextBuildChunk(rng);
-            var filter = chunkGrid.GetFilterFor(endroomChunk);
+            var endRoom = ChooseEndRoom(endroomChunk);
 
-            Place(roomInfoRepository.GetEndRoomFor(filter), endroomChunk);
+            Place(endRoom, endroomChunk);
+        }
+
+        private RoomPassages ChooseEndRoom(ChunkPosition position)
+        {
+            var filter = chunkGrid.GetFilterFor(position);
+            var endRooms = roomInfoRepository.GetEndRooms(filter);
+
+            return endRooms.GetRandom(rng);
         }
 
 
@@ -88,15 +105,15 @@ namespace AChildsCourage.Game.Floors.Generation
         private RoomPassages GetRoomFor(ChunkPosition chunkPosition)
         {
             var filter = chunkGrid.GetFilterFor(chunkPosition);
-            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(filter, RemainingRoomCount);
+            var filteredRooms = roomInfoRepository.GetNormalRooms(filter, RemainingRoomCount);
 
-            return ChooseRoomFrom(potentialRooms);
+            return ChooseRoomFrom(filteredRooms);
         }
 
-        private RoomPassages ChooseRoomFrom(IEnumerable<RoomPassages> potentialRooms)
+        private RoomPassages ChooseRoomFrom(FilteredRoomPassages rooms)
         {
             var validRooms =
-                potentialRooms
+                rooms
                 .Where(IsValid);
 
             if (validRooms.Count() > 0)

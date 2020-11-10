@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -15,9 +16,12 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal FilteredRoomPassages(IEnumerable<RoomPassages> passages)
+        public FilteredRoomPassages(IEnumerable<RoomPassages> passages)
         {
-            this.passages = passages;
+            if (passages.Count() > 0)
+                this.passages = passages;
+            else
+                throw new System.Exception("No passages in this filter");
         }
 
         #endregion

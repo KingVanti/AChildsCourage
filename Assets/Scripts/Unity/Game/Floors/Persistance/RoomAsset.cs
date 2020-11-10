@@ -13,6 +13,7 @@ namespace AChildsCourage.Game.Floors.Persistance
 #pragma warning disable 649
 
         [SerializeField] private int _id;
+        [SerializeField] private RoomType type;
         [SerializeField] private Vector2Int[] _groundPositions;
         [SerializeField] private Vector2Int[] _itemPositions;
         [SerializeField] private Vector2Int[] _smallCouragePositions;
@@ -26,6 +27,8 @@ namespace AChildsCourage.Game.Floors.Persistance
         #region Properties
 
         public int Id { get { return _id; } }
+
+        public RoomType Type { get { return type; } }
 
         public Vector2Int[] GroundPositions { get { return _groundPositions; } set { _groundPositions = value; } }
 
