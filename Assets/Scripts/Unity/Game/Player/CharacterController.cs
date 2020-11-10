@@ -135,8 +135,10 @@ namespace AChildsCourage.Game.Player {
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
-            listener.OnItemButtonOnePressed += (_, e) => OnItemButtonOnePressed(e);
-            listener.OnItemButtonTwoPressed += (_, e) => OnItemButtonTwoPressed(e);
+            listener.OnItemButtonOneHeld += (_, e) => OnItemButtonOneHeld(e);
+            listener.OnItemButtonOneClicked += (_, e) => OnItemButtonOneClicked(e);
+            listener.OnItemButtonTwoHeld += (_, e) => OnItemButtonTwoHeld(e);
+            listener.OnItemButtonTwoClicked += (_, e) => OnItemButtonTwoClicked(e);
         }
 
         private void UpdateAnimator() {
@@ -194,16 +196,29 @@ namespace AChildsCourage.Game.Player {
             MovingDirection = eventArgs.MoveDirection;
         }
 
-        public void OnItemButtonOnePressed(ItemButtonOnePressedEventArgs eventArgs) {
-            if (IsInPickupRange) {
-                Debug.Log("1");
-            }
+
+        public void OnItemButtonOneClicked(ItemButtonOneClickedEventArgs eventArgs) {
+
+            Debug.Log("1 Geklickt");
+
         }
 
-        public void OnItemButtonTwoPressed(ItemButtonTwoPressedEventArgs eventArgs) {
-            if (IsInPickupRange) {
-                Debug.Log("2");
-            }
+        public void OnItemButtonTwoClicked(ItemButtonTwoClickedEventArgs eventArgs) {
+
+            Debug.Log("2 Geklickt");
+
+        }
+
+        public void OnItemButtonOneHeld(ItemButtonOneHeldEventArgs eventArgs) {
+
+            Debug.Log("1 Gehalten");
+
+        }
+
+        public void OnItemButtonTwoHeld(ItemButtonTwoHeldEventArgs eventArgs) {
+
+            Debug.Log("2 Gehalten");
+
         }
 
         private void OnTriggerEnter2D(Collider2D collision) {

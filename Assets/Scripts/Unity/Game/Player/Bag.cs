@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Player {
-    public class Bag {
+    public class Bag : MonoBehaviour {
 
         public Item[] item = new Item[2];
 
