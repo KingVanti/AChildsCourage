@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Floors.Generation;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Persistance
 {
@@ -16,6 +17,7 @@ namespace AChildsCourage.Game.Floors.Persistance
         [SerializeField] private Vector2Int[] _itemPositions;
         [SerializeField] private Vector2Int[] _smallCouragePositions;
         [SerializeField] private Vector2Int[] _bigCouragePositions;
+        [SerializeField] private SerializablePassages _passages;
 
 #pragma warning restore 649
 
@@ -32,6 +34,8 @@ namespace AChildsCourage.Game.Floors.Persistance
         public Vector2Int[] SmallCouragePositions { get { return _smallCouragePositions; } set { _smallCouragePositions = value; } }
 
         public Vector2Int[] BigCouragePositions { get { return _bigCouragePositions; } set { _bigCouragePositions = value; } }
+
+        public ChunkPassages Passages { get { return _passages.Deserialize(); } set { _passages = new SerializablePassages(value); } }
 
         #endregion
 
