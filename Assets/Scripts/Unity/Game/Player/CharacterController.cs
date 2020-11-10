@@ -196,25 +196,25 @@ namespace AChildsCourage.Game.Player {
 
         public void OnItemButtonOneClicked(ItemButtonOneClickedEventArgs eventArgs) {
 
-            Debug.Log("1 Geklickt");
+            throw new NotImplementedException();
 
         }
 
         public void OnItemButtonTwoClicked(ItemButtonTwoClickedEventArgs eventArgs) {
 
-            Debug.Log("2 Geklickt");
+            throw new NotImplementedException();
 
         }
 
         public void OnItemButtonOneHeld(ItemButtonOneHeldEventArgs eventArgs) {
 
-            Debug.Log("1 Gehalten");
+            throw new NotImplementedException();
 
         }
 
         public void OnItemButtonTwoHeld(ItemButtonTwoHeldEventArgs eventArgs) {
 
-            Debug.Log("2 Gehalten");
+            throw new NotImplementedException();
 
         }
 
