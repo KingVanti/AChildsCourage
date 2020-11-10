@@ -54,9 +54,9 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         }
 
 
-        public IEnumerable<RoomPassages> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
+        public FilteredRoomPassages FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
         {
-            return FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew);
+            return new FilteredRoomPassages(FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew));
         }
 
         private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int remainingRoomCount)

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AChildsCourage.Game.Floors.Generation
+﻿namespace AChildsCourage.Game.Floors.Generation
 {
 
     public interface IRoomPassagesRepository
@@ -14,7 +12,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        IEnumerable<RoomPassages> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount);
+        FilteredRoomPassages FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount);
 
         RoomPassages GetEndRoomFor(ChunkPassageFilter filter);
 
