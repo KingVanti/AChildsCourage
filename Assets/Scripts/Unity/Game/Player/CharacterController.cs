@@ -4,10 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player
-{
-    public class CharacterController : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Player {
+    public class CharacterController : MonoBehaviour {
 
         #region Fields
 
@@ -17,7 +15,6 @@ namespace AChildsCourage.Game.Player
         [SerializeField] private Transform characterVision;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
-        [SerializeField] private GameObject flashlight;
 
 #pragma warning restore 649
 
@@ -25,23 +22,27 @@ namespace AChildsCourage.Game.Player
         private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
+        private Bag bag;
+        private bool _isInPickupRange = false;
+        private GameObject _currentPickupInRange;
+
+        [Header("Events")]
         public Vector2Event OnPositionChanged;
+        public BoolEvent OnPickupReachChanged;
 
         #endregion
 
         #region Properties
 
         [AutoInject]
-        public IInputListener InputListener
-        {
+        public IInputListener InputListener {
             set { BindTo(value); }
         }
 
         /// <summary>
         /// The movement speed of the player character.
         /// </summary>
-        public float MovementSpeed
-        {
+        public float MovementSpeed {
             get { return _movementSpeed; }
             set { _movementSpeed = value; }
         }
@@ -49,8 +50,7 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         /// The angle the player is facing towards the mouse cursor.
         /// </summary>
-        public float LookAngle
-        {
+        public float LookAngle {
             get { return _lookAngle; }
             set { _lookAngle = value; }
         }
@@ -58,54 +58,40 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         /// The rotation direction index for the animation.
         /// </summary>
-        public int RotationIndex
-        {
+        public int RotationIndex {
             get { return _rotationIndex; }
-            set
-            {
+            set {
                 _rotationIndex = value;
-                animator.SetFloat("RotationIndex", RotationIndex);
-                animator.SetBool("IsMoving", IsMoving);
-                animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+                UpdateAnimator();
             }
         }
 
         /// <summary>
         /// The position of the mouse.
         /// </summary>
-        public Vector2 MousePos
-        {
+        public Vector2 MousePos {
             get { return _mousePos; }
             set { _mousePos = value; }
         }
 
-        private Vector2 RelativeMousePos
-        {
+        private Vector2 RelativeMousePos {
             get; set;
         }
 
         /// <summary>
         /// True if the character is currently moving.
         /// </summary>
-        public bool IsMoving
-        {
+        public bool IsMoving {
             get { return MovingDirection != Vector2.zero; }
         }
 
-        private bool IsMovingBackwards
-        {
-            get
-            {
-                if (IsMoving && (RelativeMousePos.x < 0) && (MovingDirection.x > 0))
-                {
+        private bool IsMovingBackwards {
+            get {
+                if (IsMoving && (RelativeMousePos.x < 0) && (MovingDirection.x > 0)) {
                     return true;
-                }
-                else if (IsMoving && (RelativeMousePos.x > 0) && (MovingDirection.x < 0))
-                {
+                } else if (IsMoving && (RelativeMousePos.x > 0) && (MovingDirection.x < 0)) {
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
             }
@@ -114,34 +100,52 @@ namespace AChildsCourage.Game.Player
         /// <summary>.
         /// The moving direction of the player character
         /// </summary>
-        public Vector2 MovingDirection
-        {
+        public Vector2 MovingDirection {
             get { return _movingDirection; }
-            set
-            {
+            set {
                 _movingDirection = value;
-                animator.SetBool("IsMoving", IsMoving);
-                animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+                UpdateAnimator();
             }
         }
 
+        public bool IsInPickupRange {
+            get { return _isInPickupRange; }
+            set {
+                _isInPickupRange = value;
+                OnPickupReachChanged.Invoke(_isInPickupRange);
+            }
+        }
+
+        public GameObject CurrentPickupInRange {
+            get { return _currentPickupInRange; }
+            set { _currentPickupInRange = value; }
+        }
         #endregion
 
         #region Methods
 
-        private void FixedUpdate()
-        {
+        private void Start() {
+            bag = new Bag();
+        }
+
+        private void FixedUpdate() {
             Move();
         }
 
-        private void BindTo(IInputListener listener)
-        {
+        private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
+            listener.OnItemButtonOnePressed += (_, e) => OnItemButtonOnePressed(e);
+            listener.OnItemButtonTwoPressed += (_, e) => OnItemButtonTwoPressed(e);
         }
 
-        private void Rotate()
-        {
+        private void UpdateAnimator() {
+            animator.SetFloat("RotationIndex", RotationIndex);
+            animator.SetBool("IsMoving", IsMoving);
+            animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+        }
+
+        private void Rotate() {
 
             Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
             Vector2 playerPos = transform.position;
@@ -152,55 +156,74 @@ namespace AChildsCourage.Game.Player
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f)
-            {
+            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f) {
                 ChangeLookDirection(RelativeMousePos);
             }
 
         }
 
-        private void ChangeLookDirection(Vector2 relativeMousePosition)
-        {
+        private void ChangeLookDirection(Vector2 relativeMousePosition) {
 
-            if (relativeMousePosition.x > 0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f))
-            {
+            if (relativeMousePosition.x > 0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)) {
                 RotationIndex = 0;
-            }
-            else if (relativeMousePosition.y > 0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f))
-            {
+            } else if (relativeMousePosition.y > 0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)) {
                 RotationIndex = 1;
-            }
-            else if (relativeMousePosition.x < -0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f))
-            {
+            } else if (relativeMousePosition.x < -0.7f && (relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)) {
                 RotationIndex = 2;
-            }
-            else if (relativeMousePosition.y < -0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f))
-            {
+            } else if (relativeMousePosition.y < -0.7f && (relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)) {
                 RotationIndex = 3;
             }
 
         }
 
-        private void Move()
-        {
+        private void Move() {
             transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
             OnPositionChanged.Invoke(transform.position);
         }
 
-        private float CalculateAngle(float yPos, float xPos)
-        {
+        private float CalculateAngle(float yPos, float xPos) {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
-        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
-        {
+        public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
             MousePos = eventArgs.MousePosition;
             Rotate();
         }
 
-        public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs)
-        {
+        public void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
             MovingDirection = eventArgs.MoveDirection;
+        }
+
+        public void OnItemButtonOnePressed(ItemButtonOnePressedEventArgs eventArgs) {
+            if (IsInPickupRange) {
+                Debug.Log("1");
+            }
+        }
+
+        public void OnItemButtonTwoPressed(ItemButtonTwoPressedEventArgs eventArgs) {
+            if (IsInPickupRange) {
+                Debug.Log("2");
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision) {
+
+            if (collision.CompareTag(EntityTags.Item)) {
+                IsInPickupRange = true;
+                CurrentPickupInRange = collision.gameObject;
+                OnPickupReachChanged.Invoke(IsInPickupRange);
+            }
+
+        }
+
+        private void OnTriggerExit2D(Collider2D collision) {
+
+            if (collision.CompareTag(EntityTags.Item)) {
+                IsInPickupRange = false;
+                CurrentPickupInRange = null;
+                OnPickupReachChanged.Invoke(IsInPickupRange);
+            }
+
         }
 
         #endregion
@@ -209,6 +232,9 @@ namespace AChildsCourage.Game.Player
 
         [Serializable]
         public class Vector2Event : UnityEvent<Vector2> { }
+
+        [Serializable]
+        public class BoolEvent : UnityEvent<bool> { }
 
         #endregion
 

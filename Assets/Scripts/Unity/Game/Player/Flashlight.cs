@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Player {
-    public class Flashlight : MonoBehaviour {
+    public class Flashlight : Item {
 
         #region Fields
 

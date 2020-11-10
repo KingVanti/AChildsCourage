@@ -8,6 +8,8 @@ namespace AChildsCourage.Game.Input
 
         event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
         event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
+        event EventHandler<ItemButtonOnePressedEventArgs> OnItemButtonOnePressed;
+        event EventHandler<ItemButtonTwoPressedEventArgs> OnItemButtonTwoPressed;
 
     }
 
