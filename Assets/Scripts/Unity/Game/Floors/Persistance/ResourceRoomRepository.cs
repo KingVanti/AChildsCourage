@@ -48,23 +48,7 @@ namespace AChildsCourage.Game.Floors.Persistance
         {
             var asset = assets.First(a => a.Id == id);
 
-            return CreateRoomFrom(asset);
-        }
-
-        private RoomData CreateRoomFrom(RoomAsset asset)
-        {
-            return new RoomData(
-                Deserialize(asset.GroundPositions),
-                Deserialize(asset.ItemPositions),
-                Deserialize(asset.SmallCouragePositions),
-                Deserialize(asset.BigCouragePositions));
-        }
-
-        private TilePosition[] Deserialize(Vector2Int[] positions)
-        {
-            return positions
-                .Select(p => new TilePosition(p.x, p.y))
-                .ToArray();
+            return asset.Deserialize();
         }
 
         #endregion

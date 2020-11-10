@@ -1,6 +1,4 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
-using ICSharpCode.NRefactory.Visitors;
-using System;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -11,11 +9,15 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
+        [SerializeField] private GridManager gridManager;
+
         private RoomAsset loadedAsset;
 
         #endregion
 
         #region Properties
+
+        public int CurrentAssetId { get { return loadedAsset.Id; } }
 
         public bool HasLoadedAsset { get { return loadedAsset != null; } }
 
@@ -27,12 +29,19 @@ namespace AChildsCourage.RoomEditor
         {
             loadedAsset = asset;
 
-            LoadAsset(asset);
+            LoadFromAsset(asset);
         }
 
-        private void LoadAsset(RoomAsset asset)
+        private void LoadFromAsset(RoomAsset asset)
         {
-            throw new NotImplementedException();
+            var roomData = asset.Deserialize();
+
+            Load(roomData);
+        }
+
+        private void Load(RoomData roomData)
+        {
+            gridManager.PlaceTilesFor(roomData);
         }
 
         #endregion

@@ -20,6 +20,9 @@ namespace AChildsCourage.RoomEditor.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            EditorGUILayout.Space();
+
+            GUI.color = new Color(0.75f, 0.75f, 1f);
 
             if (Application.isPlaying)
                 DrawRoomEdiorGUI();
@@ -31,6 +34,8 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             if (!RoomEditor.HasLoadedAsset)
                 DrawLoadAssetGUI();
+            else
+                DrawEditingGUI();
         }
 
         private void DrawLoadAssetGUI()
@@ -42,6 +47,11 @@ namespace AChildsCourage.RoomEditor.Editor
 
             if (selectedAsset != null)
                 RoomEditor.OnAssetSelected(selectedAsset);
+        }
+
+        private void DrawEditingGUI()
+        {
+            EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
         }
 
         #endregion

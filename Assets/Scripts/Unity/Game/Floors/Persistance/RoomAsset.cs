@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors.Generation;
+using System.Linq;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Persistance
@@ -39,6 +40,26 @@ namespace AChildsCourage.Game.Floors.Persistance
         public Vector2Int[] BigCouragePositions { get { return _bigCouragePositions; } set { _bigCouragePositions = value; } }
 
         public ChunkPassages Passages { get { return _passages.Deserialize(); } set { _passages = new SerializablePassages(value); } }
+
+        #endregion
+
+        #region Methods
+
+        public RoomData Deserialize()
+        {
+            return new RoomData(
+                Deserialize(GroundPositions),
+                Deserialize(ItemPositions),
+                Deserialize(SmallCouragePositions),
+                Deserialize(BigCouragePositions));
+        }
+
+        private TilePosition[] Deserialize(Vector2Int[] positions)
+        {
+            return positions
+                .Select(p => new TilePosition(p.x, p.y))
+                .ToArray();
+        }
 
         #endregion
 
