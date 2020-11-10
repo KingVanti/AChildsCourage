@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AChildsCourage.Game.Player {
     public class Bag : MonoBehaviour {
 
-        public Item[] item = new Item[2];
+        public Item[] carriedItems = new Item[2];
 
         public void OnItemPickup(Item item) {
             throw new NotImplementedException();

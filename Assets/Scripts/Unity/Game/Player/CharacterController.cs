@@ -15,6 +15,7 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Transform characterVision;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
+        [SerializeField] private Bag itemBag;
 
 #pragma warning restore 649
 
@@ -22,7 +23,7 @@ namespace AChildsCourage.Game.Player {
         private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
-        private Bag bag;
+
         private bool _isInPickupRange = false;
         private GameObject _currentPickupInRange;
 
@@ -123,10 +124,6 @@ namespace AChildsCourage.Game.Player {
         #endregion
 
         #region Methods
-
-        private void Start() {
-            bag = new Bag();
-        }
 
         private void FixedUpdate() {
             Move();
