@@ -1,15 +1,13 @@
 ﻿using System;
 
-namespace AChildsCourage.Game.Input
-{
+namespace AChildsCourage.Game.Input {
 
-    public interface IInputListener
-    {
+    public interface IInputListener {
 
         event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
         event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
-        event EventHandler<ItemButtonOnePressedEventArgs> OnItemButtonOnePressed;
-        event EventHandler<ItemButtonTwoPressedEventArgs> OnItemButtonTwoPressed;
+        event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
+        event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
 
     }
 

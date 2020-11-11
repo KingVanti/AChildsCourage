@@ -44,7 +44,9 @@ namespace AChildsCourage.Game.Player {
         private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition)); } }
 
         private RaycastHit2D RaycastMouseToCharacter {
-            get { return Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer); }
+            get {
+                return Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer);
+            }
         }
 
         #endregion
@@ -74,8 +76,12 @@ namespace AChildsCourage.Game.Player {
         }
 
         private void UpdateFlashlight() {
-            FollowMousePosition();
-            ChangeLightIntensity();
+
+            if (IsActive) {
+                FollowMousePosition();
+                ChangeLightIntensity();
+            }
+
         }
 
         public void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
@@ -86,6 +92,14 @@ namespace AChildsCourage.Game.Player {
         public void UpdateCharacterPosition(Vector2 charPos) {
             characterPosition = charPos;
             UpdateFlashlight();
+        }
+
+        public override void Toggle() {
+
+            lightComponent.enabled = IsActive ? false : true;
+            IsActive = IsActive ? false : true;
+            UpdateFlashlight();
+
         }
 
         #endregion

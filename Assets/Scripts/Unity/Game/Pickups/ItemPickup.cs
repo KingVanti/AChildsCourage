@@ -12,23 +12,20 @@ namespace AChildsCourage.Game.Pickups {
         [SerializeField] private ItemData testItem;
 #pragma warning restore 649
 
-        private int id;
+        public int Id { get; private set; }
 
         #endregion
 
         #region Methods
-
 
         // TEMP METHOD DELETE LATER
         private void Start() {
             SetItemData(testItem);
         }
 
-
-
         public void SetItemData(ItemData itemData) {
 
-            id = itemData.Id;
+            Id = itemData.Id;
             gameObject.name = itemData.ItemName;
             spriteRenderer.sprite = itemData.Sprite;
             gameObject.transform.localScale = itemData.Scale;

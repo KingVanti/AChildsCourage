@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Input;
+using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Transform characterVision;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
+        [SerializeField] private Bag itemBag;
 
 #pragma warning restore 649
 
@@ -22,13 +24,17 @@ namespace AChildsCourage.Game.Player {
         private Vector2 _mousePos;
         private float _lookAngle = 0f;
         private int _rotationIndex = 0;
-        private Bag bag;
+
         private bool _isInPickupRange = false;
         private GameObject _currentPickupInRange;
 
         [Header("Events")]
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
+        public IntEvent OnLMBHeld;
+        public IntEvent OnRMBHeld;
+        public UnityEvent OnLMBClicked;
+        public UnityEvent OnRMBClicked;
 
         #endregion
 
@@ -116,17 +122,13 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-        public GameObject CurrentPickupInRange {
+        public GameObject CurrentItemInRange {
             get { return _currentPickupInRange; }
             set { _currentPickupInRange = value; }
         }
         #endregion
 
         #region Methods
-
-        private void Start() {
-            bag = new Bag();
-        }
 
         private void FixedUpdate() {
             Move();
@@ -135,8 +137,8 @@ namespace AChildsCourage.Game.Player {
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
-            listener.OnItemButtonOnePressed += (_, e) => OnItemButtonOnePressed(e);
-            listener.OnItemButtonTwoPressed += (_, e) => OnItemButtonTwoPressed(e);
+            listener.OnItemPickedUp += (_, e) => OnItemPickedUp(e);
+            listener.OnEquippedItemUsed += (_, e) => OnEquippedItemUsed(e);
         }
 
         private void UpdateAnimator() {
@@ -194,23 +196,46 @@ namespace AChildsCourage.Game.Player {
             MovingDirection = eventArgs.MoveDirection;
         }
 
-        public void OnItemButtonOnePressed(ItemButtonOnePressedEventArgs eventArgs) {
-            if (IsInPickupRange) {
-                Debug.Log("1");
+
+        public void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs) {
+
+            switch (eventArgs.SlotId) {
+                case 0:
+                    OnLMBClicked?.Invoke();
+                    break;
+                case 1:
+                    OnRMBClicked?.Invoke();
+                    break;
             }
+
         }
 
-        public void OnItemButtonTwoPressed(ItemButtonTwoPressedEventArgs eventArgs) {
+
+        public void OnItemPickedUp(ItemPickedUpEventArgs eventArgs) {
+
             if (IsInPickupRange) {
-                Debug.Log("2");
+                switch (eventArgs.SlotId) {
+
+                    case 0:
+                        OnLMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                        break;
+                    case 1:
+                        OnRMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                        break;
+
+                }
+
+                Destroy(CurrentItemInRange);
             }
+
         }
+
 
         private void OnTriggerEnter2D(Collider2D collision) {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = true;
-                CurrentPickupInRange = collision.gameObject;
+                CurrentItemInRange = collision.gameObject;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
@@ -220,7 +245,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = false;
-                CurrentPickupInRange = null;
+                CurrentItemInRange = null;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
@@ -235,6 +260,9 @@ namespace AChildsCourage.Game.Player {
 
         [Serializable]
         public class BoolEvent : UnityEvent<bool> { }
+
+        [Serializable]
+        public class IntEvent : UnityEvent<int> { }
 
         #endregion
 
