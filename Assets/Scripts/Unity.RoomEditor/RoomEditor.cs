@@ -1,5 +1,7 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game;
+using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Floors.Persistance;
+using AChildsCourage.Game.Input;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -24,6 +26,9 @@ namespace AChildsCourage.RoomEditor
 
         public bool HasLoadedAsset { get { return loadedAsset != null; } }
 
+        public TileType SelectedTileType { get; set; }
+
+
         #endregion
 
         #region Methods
@@ -39,6 +44,31 @@ namespace AChildsCourage.RoomEditor
         {
             CurrentPassages = asset.Passages;
             gridManager.PlaceTiles(asset.RoomTiles);
+        }
+
+
+        public void OnMouseDown(MouseDownEventArgs eventArgs)
+        {
+            if (HasLoadedAsset)
+                ProcessEvent(eventArgs);
+        }
+
+        private void ProcessEvent(MouseDownEventArgs eventArgs)
+        {
+            if (eventArgs.MouseButtonName == MouseListener.LeftButtonName)
+                PlaceTileAt(eventArgs.Position);
+            else
+                DeleteTileAt(eventArgs.Position);
+        }
+
+        private void PlaceTileAt(Vector2Int position)
+        {
+            gridManager.PlaceTileOfType(position, SelectedTileType);
+        }
+
+        private void DeleteTileAt(Vector2Int position)
+        {
+            gridManager.DeleteTileOfType(position, SelectedTileType);
         }
 
         #endregion

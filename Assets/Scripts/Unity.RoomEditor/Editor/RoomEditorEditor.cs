@@ -55,7 +55,17 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
             EditorGUILayout.Space();
 
+            DrawTileTypeSelectionGUI();
+
             DrawPassageEditorGUI();
+        }
+
+        private void DrawTileTypeSelectionGUI()
+        {
+            if (GUILayout.Button("Ground"))
+                RoomEditor.SelectedTileType = TileType.Ground;
+
+            EditorGUILayout.Space();
         }
 
         private void DrawPassageEditorGUI()
