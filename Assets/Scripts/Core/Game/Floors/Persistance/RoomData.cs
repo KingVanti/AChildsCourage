@@ -6,13 +6,13 @@
 
         #region Properties
 
-        public TilePosition[] GroundPositions { get; }
+        public PositionList GroundPositions { get; }
 
-        public TilePosition[] ItemPositions { get; }
+        public PositionList ItemPositions { get; }
 
-        public TilePosition[] SmallCouragePositions { get; }
+        public PositionList SmallCouragePositions { get; }
 
-        public TilePosition[] BigCouragePositions { get; }
+        public PositionList BigCouragePositions { get; }
 
         #endregion
 
@@ -20,16 +20,16 @@
 
         public RoomData()
         {
-            GroundPositions = new TilePosition[0];
-            ItemPositions = new TilePosition[0];
-            SmallCouragePositions = new TilePosition[0];
-            BigCouragePositions = new TilePosition[0];
+            GroundPositions = new PositionList();
+            ItemPositions = new PositionList();
+            SmallCouragePositions = new PositionList();
+            BigCouragePositions = new PositionList();
         }
 
-        public RoomData(TilePosition[] groundPositions,
-                        TilePosition[] itemPositions,
-                        TilePosition[] smallCouragePositions,
-                        TilePosition[] bigCouragePositions)
+        public RoomData(PositionList groundPositions,
+                        PositionList itemPositions,
+                        PositionList smallCouragePositions,
+                        PositionList bigCouragePositions)
         {
             GroundPositions = groundPositions;
             ItemPositions = itemPositions;

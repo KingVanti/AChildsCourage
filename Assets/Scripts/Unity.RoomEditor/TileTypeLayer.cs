@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game;
+using AChildsCourage.Game.Floors.Persistance;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,7 +18,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceTilesAt(TilePosition[] positions)
+        public void PlaceTilesAt(PositionList positions)
         {
             tilemap.ClearAllTiles();
 

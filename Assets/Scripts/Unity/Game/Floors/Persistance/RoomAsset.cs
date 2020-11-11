@@ -54,11 +54,14 @@ namespace AChildsCourage.Game.Floors.Persistance
                 Deserialize(BigCouragePositions));
         }
 
-        private TilePosition[] Deserialize(Vector2Int[] positions)
+        private PositionList Deserialize(Vector2Int[] positions)
         {
-            return positions
+            var tilePosition =
+                positions
                 .Select(p => new TilePosition(p.x, p.y))
                 .ToArray();
+
+            return new PositionList(tilePosition);
         }
 
         #endregion

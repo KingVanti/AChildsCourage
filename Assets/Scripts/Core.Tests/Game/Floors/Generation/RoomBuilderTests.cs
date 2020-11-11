@@ -18,10 +18,10 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var roomData = new RoomData(
-                new[] { new TilePosition(0, 0), new TilePosition(1, 1) },
-                new TilePosition[0],
-                new TilePosition[0],
-                new TilePosition[0]);
+                new PositionList(new TilePosition(0, 0), new TilePosition(1, 1)),
+                PositionList.Empty,
+                PositionList.Empty,
+                PositionList.Empty);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 

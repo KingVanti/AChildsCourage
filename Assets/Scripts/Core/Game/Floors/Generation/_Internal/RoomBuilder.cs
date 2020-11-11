@@ -45,7 +45,7 @@ namespace AChildsCourage.Game.Floors.Generation
             BuildGround(roomData.GroundPositions, offset);
         }
 
-        private void BuildGround(TilePosition[] groundPositions, TileOffset offset)
+        private void BuildGround(PositionList groundPositions, TileOffset offset)
         {
             foreach (var wallPosition in groundPositions)
             {
