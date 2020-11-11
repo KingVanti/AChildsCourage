@@ -78,6 +78,12 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Courage Big"))
                 RoomEditor.SelectedTileType = TileType.CourageBig;
 
+            if (RoomEditor.CurrentRoomIsStartRoom && GUILayout.Button("Start point"))
+                RoomEditor.SelectedTileType = TileType.StartPoint;
+
+            if (RoomEditor.CurrentRoomIsEndRoom && GUILayout.Button("End point"))
+                RoomEditor.SelectedTileType = TileType.EndPoint;
+
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();

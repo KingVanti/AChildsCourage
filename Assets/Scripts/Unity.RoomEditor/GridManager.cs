@@ -67,6 +67,8 @@ namespace AChildsCourage.RoomEditor
                 case TileType.Item:
                 case TileType.CourageSmall:
                 case TileType.CourageBig:
+                case TileType.StartPoint:
+                case TileType.EndPoint:
                     return TileTypeCategory.Static;
             }
 

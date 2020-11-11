@@ -1,7 +1,5 @@
-﻿using AChildsCourage.Game;
-using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Floors.Persistance;
-using AChildsCourage.Game.Input;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -20,14 +18,21 @@ namespace AChildsCourage.RoomEditor
 
         #region Properties
 
-        public int CurrentAssetId { get { return loadedAsset.Id; } }
-
         public ChunkPassages CurrentPassages { get; set; }
-
-        public bool HasLoadedAsset { get { return loadedAsset != null; } }
 
         public TileType SelectedTileType { get; set; }
 
+
+        public int CurrentAssetId { get { return loadedAsset.Id; } }
+
+
+        public bool HasLoadedAsset { get { return loadedAsset != null; } }
+
+
+        public bool CurrentRoomIsStartRoom { get { return loadedAsset.Type == RoomType.Start; } }
+
+
+        public bool CurrentRoomIsEndRoom { get { return loadedAsset.Type == RoomType.End; } }
 
         #endregion
 

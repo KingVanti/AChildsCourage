@@ -6,7 +6,9 @@
         Ground,
         Item,
         CourageSmall,
-        CourageBig
+        CourageBig,
+        StartPoint,
+        EndPoint
     }
 
 }
