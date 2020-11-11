@@ -3,7 +3,10 @@
 
     public enum TileType
     {
-        Ground
+        Ground,
+        Item,
+        CourageSmall,
+        CourageBig
     }
 
 }

@@ -50,6 +50,12 @@ namespace AChildsCourage.RoomEditor
             {
                 case TileType.Ground:
                     return groundLayer;
+                case TileType.Item:
+                    return itemLayer;
+                case TileType.CourageSmall:
+                    return smallCourageLayer;
+                case TileType.CourageBig:
+                    return bigCourageLayer;
             }
 
             throw new Exception("Invalid tile type!");

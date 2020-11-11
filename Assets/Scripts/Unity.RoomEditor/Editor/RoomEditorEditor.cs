@@ -62,8 +62,23 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void DrawTileTypeSelectionGUI()
         {
+            EditorGUILayout.LabelField($"Current selected tile type: {RoomEditor.SelectedTileType}");
+
+            EditorGUILayout.BeginHorizontal();
+
             if (GUILayout.Button("Ground"))
                 RoomEditor.SelectedTileType = TileType.Ground;
+
+            if (GUILayout.Button("Item"))
+                RoomEditor.SelectedTileType = TileType.Item;
+
+            if (GUILayout.Button("Courage Small"))
+                RoomEditor.SelectedTileType = TileType.CourageSmall;
+
+            if (GUILayout.Button("Courage Big"))
+                RoomEditor.SelectedTileType = TileType.CourageBig;
+
+            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();
         }
