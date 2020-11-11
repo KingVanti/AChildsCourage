@@ -170,6 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 248689295}
   tile: {fileID: 11400000, guid: 18785e6c7efab6443bccf250d86e8d3d, type: 2}
+  _type: 1
+  _category: 1
 --- !u!483693784 &248689294
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -303,6 +305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 272473778}
   tile: {fileID: 11400000, guid: 0fac7df1dc46e774a829481836112eac, type: 2}
+  _type: 3
+  _category: 1
 --- !u!483693784 &272473777
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -522,6 +526,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 339682975}
   tile: {fileID: 11400000, guid: 53ed7d4cac232f54db55440a04c41a51, type: 2}
+  _type: 2
+  _category: 1
 --- !u!1 &624658608
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +575,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 624658612}
   tile: {fileID: 11400000, guid: e2c2e78d87ae3bf44add63488a26ac06, type: 2}
+  _type: 0
+  _category: 0
 --- !u!483693784 &624658611
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -716,10 +724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc02ca215763d1f478bccd314d5aabd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer: {fileID: 624658610}
-  smallCourageLayer: {fileID: 339682978}
-  bigCourageLayer: {fileID: 272473776}
-  itemLayer: {fileID: 248689293}
+  layers:
+  - {fileID: 624658610}
+  - {fileID: 248689293}
+  - {fileID: 339682978}
+  - {fileID: 272473776}
 --- !u!1 &1136378058
 GameObject:
   m_ObjectHideFlags: 0

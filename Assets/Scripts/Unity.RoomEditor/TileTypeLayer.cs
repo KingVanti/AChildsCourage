@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game;
 using AChildsCourage.Game.Floors.Persistance;
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +13,16 @@ namespace AChildsCourage.RoomEditor
 
         [SerializeField] private Tilemap tilemap;
         [SerializeField] private Tile tile;
+        [SerializeField] private TileType _type;
+        [SerializeField] private TileTypeCategory _category;
+
+        #endregion
+
+        #region Properties
+
+        public TileType Type { get { return _type; } }
+
+        public TileTypeCategory Category { get { return _category; } }
 
         #endregion
 

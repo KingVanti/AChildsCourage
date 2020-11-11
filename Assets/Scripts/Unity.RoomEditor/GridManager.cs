@@ -1,5 +1,7 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -10,10 +12,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-        [SerializeField] private TileTypeLayer groundLayer;
-        [SerializeField] private TileTypeLayer smallCourageLayer;
-        [SerializeField] private TileTypeLayer bigCourageLayer;
-        [SerializeField] private TileTypeLayer itemLayer;
+        [SerializeField] private TileTypeLayer[] layers;
 
         #endregion
 
@@ -21,41 +20,54 @@ namespace AChildsCourage.RoomEditor
 
         public void PlaceTiles(RoomTiles roomTiles)
         {
-            groundLayer.PlaceTilesAt(roomTiles.GroundPositions);
-            smallCourageLayer.PlaceTilesAt(roomTiles.SmallCouragePositions);
-            bigCourageLayer.PlaceTilesAt(roomTiles.BigCouragePositions);
-            itemLayer.PlaceTilesAt(roomTiles.ItemPositions);
+            GetLayerForTileOfType(TileType.Ground).PlaceTilesAt(roomTiles.GroundPositions);
+            GetLayerForTileOfType(TileType.Item).PlaceTilesAt(roomTiles.ItemPositions);
+            GetLayerForTileOfType(TileType.CourageSmall).PlaceTilesAt(roomTiles.SmallCouragePositions);
+            GetLayerForTileOfType(TileType.CourageBig).PlaceTilesAt(roomTiles.BigCouragePositions);
         }
 
 
         public void PlaceTileOfType(Vector2Int position, TileType tileType)
         {
-            var layer = GetLayerForTileOfType(tileType);
+            var category = GetTileTypeCategory(tileType);
 
-            layer.PlaceTileAt(position);
+            foreach (var layer in GetAllLayersOfCategory(category))
+                if (layer.Type == tileType)
+                    layer.PlaceTileAt(position);
+                else
+                    layer.DeleteTileAt(position);
         }
 
 
         public void DeleteTileOfType(Vector2Int position, TileType tileType)
         {
-            var layer = GetLayerForTileOfType(tileType);
+            var category = GetTileTypeCategory(tileType);
 
-            layer.DeleteTileAt(position);
+            foreach (var layer in GetAllLayersOfCategory(category))
+                layer.DeleteTileAt(position);
         }
 
 
         private TileTypeLayer GetLayerForTileOfType(TileType tileType)
         {
+            return layers.Where(l => l.Type == tileType).FirstOrDefault();
+        }
+
+        private IEnumerable<TileTypeLayer> GetAllLayersOfCategory(TileTypeCategory category)
+        {
+            return layers.Where(l => l.Category == category);
+        }
+
+        private TileTypeCategory GetTileTypeCategory(TileType tileType)
+        {
             switch (tileType)
             {
                 case TileType.Ground:
-                    return groundLayer;
+                    return TileTypeCategory.Ground;
                 case TileType.Item:
-                    return itemLayer;
                 case TileType.CourageSmall:
-                    return smallCourageLayer;
                 case TileType.CourageBig:
-                    return bigCourageLayer;
+                    return TileTypeCategory.Static;
             }
 
             throw new Exception("Invalid tile type!");
