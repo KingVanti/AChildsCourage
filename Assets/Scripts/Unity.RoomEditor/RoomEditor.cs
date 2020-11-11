@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.Persistance;
+﻿using AChildsCourage.Game.Floors.Generation;
+using AChildsCourage.Game.Floors.Persistance;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -19,6 +20,8 @@ namespace AChildsCourage.RoomEditor
 
         public int CurrentAssetId { get { return loadedAsset.Id; } }
 
+        public ChunkPassages CurrentPassages { get; set; }
+
         public bool HasLoadedAsset { get { return loadedAsset != null; } }
 
         #endregion
@@ -35,13 +38,14 @@ namespace AChildsCourage.RoomEditor
         private void LoadFromAsset(RoomAsset asset)
         {
             var roomData = asset.Deserialize();
+            CurrentPassages = asset.Passages;
 
             Load(roomData);
         }
 
         private void Load(RoomData roomData)
         {
-            gridManager.PlaceTilesFor(roomData);
+            gridManager.PlaceTilesFor(roomData);         
         }
 
         #endregion
