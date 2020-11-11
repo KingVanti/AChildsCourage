@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Floors.Generation
         private void BuildRooms(FloorRooms rooms)
         {
             foreach (var room in rooms)
-                roomBuilder.Build(room.RoomData, room.Position);
+                roomBuilder.Build(room.Tiles, room.Position);
         }
 
         #endregion

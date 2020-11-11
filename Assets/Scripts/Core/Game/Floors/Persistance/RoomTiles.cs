@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors.Persistance
 {
 
-    public class RoomData
+    public class RoomTiles
     {
 
         #region Properties
@@ -18,7 +18,7 @@
 
         #region Constructors
 
-        public RoomData()
+        public RoomTiles()
         {
             GroundPositions = new PositionList();
             ItemPositions = new PositionList();
@@ -26,7 +26,7 @@
             BigCouragePositions = new PositionList();
         }
 
-        public RoomData(PositionList groundPositions,
+        public RoomTiles(PositionList groundPositions,
                         PositionList itemPositions,
                         PositionList smallCouragePositions,
                         PositionList bigCouragePositions)

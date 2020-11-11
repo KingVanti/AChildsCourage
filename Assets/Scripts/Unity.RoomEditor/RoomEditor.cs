@@ -37,15 +37,8 @@ namespace AChildsCourage.RoomEditor
 
         private void LoadFromAsset(RoomAsset asset)
         {
-            var roomData = asset.Deserialize();
             CurrentPassages = asset.Passages;
-
-            Load(roomData);
-        }
-
-        private void Load(RoomData roomData)
-        {
-            gridManager.PlaceTilesFor(roomData);         
+            gridManager.PlaceTiles(asset.RoomTiles);
         }
 
         #endregion

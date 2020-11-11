@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var roomData = new RoomData(
+            var tiles = new RoomTiles(
                 new PositionList(new TilePosition(0, 0), new TilePosition(1, 1)),
                 PositionList.Empty,
                 PositionList.Empty,
@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            roombuilder.Build(roomData, new ChunkPosition(0, 0));
+            roombuilder.Build(tiles, new ChunkPosition(0, 0));
 
             // Then
 
@@ -41,7 +41,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var roomData = new RoomData();
+            var tiles = new RoomTiles();
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 
@@ -52,7 +52,7 @@ namespace AChildsCourage.Game.Floors.Generation
             var raisedArgs = ListenFor
                 .First<RoomBuiltEventArgs>()
                 .From(roombuilder)
-                .During(() => roombuilder.Build(roomData, new ChunkPosition(0, 0)));
+                .During(() => roombuilder.Build(tiles, new ChunkPosition(0, 0)));
 
             // Then
 

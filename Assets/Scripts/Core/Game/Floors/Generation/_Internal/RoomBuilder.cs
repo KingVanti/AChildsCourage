@@ -31,18 +31,18 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        public void Build(RoomData roomData, ChunkPosition chunkPosition)
+        public void Build(RoomTiles tiles, ChunkPosition chunkPosition)
         {
             var offset = chunkPosition.GetTileOffset();
 
-            Build(roomData, offset);
+            Build(tiles, offset);
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());
         }
 
 
-        private void Build(RoomData roomData, TileOffset offset)
+        private void Build(RoomTiles tiles, TileOffset offset)
         {
-            BuildGround(roomData.GroundPositions, offset);
+            BuildGround(tiles.GroundPositions, offset);
         }
 
         private void BuildGround(PositionList groundPositions, TileOffset offset)

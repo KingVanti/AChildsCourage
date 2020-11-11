@@ -43,7 +43,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Then
 
             foreach (var room in floorRooms)
-                mockRoomBuilder.Verify(b => b.Build(room.RoomData, room.Position), Times.Once, $"Room position { room.Position } was not built!");
+                mockRoomBuilder.Verify(b => b.Build(room.Tiles, room.Position), Times.Once, $"Room position { room.Position } was not built!");
         }
 
         #endregion

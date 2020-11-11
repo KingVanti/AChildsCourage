@@ -18,12 +18,12 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceTilesFor(RoomData roomData)
+        public void PlaceTiles(RoomTiles roomTiles)
         {
-            groundLayer.PlaceTilesAt(roomData.GroundPositions);
-            smallCourageLayer.PlaceTilesAt(roomData.SmallCouragePositions);
-            bigCourageLayer.PlaceTilesAt(roomData.BigCouragePositions);
-            itemLayer.PlaceTilesAt(roomData.ItemPositions);
+            groundLayer.PlaceTilesAt(roomTiles.GroundPositions);
+            smallCourageLayer.PlaceTilesAt(roomTiles.SmallCouragePositions);
+            bigCourageLayer.PlaceTilesAt(roomTiles.BigCouragePositions);
+            itemLayer.PlaceTilesAt(roomTiles.ItemPositions);
         }
 
         #endregion

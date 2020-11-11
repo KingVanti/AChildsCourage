@@ -35,8 +35,8 @@ namespace AChildsCourage.Game.Floors.Persistance
 
             foreach (var roomInChunk in roomsInChunks)
             {
-                var roomData = GetRoomWithId(assets, roomInChunk.RoomId);
-                var room = new FloorRoom(roomInChunk.Position, roomData);
+                var roomTiles = GetRoomTiles(assets, roomInChunk.RoomId);
+                var room = new FloorRoom(roomInChunk.Position, roomTiles);
 
                 floorRooms.Add(room);
             }
@@ -44,11 +44,11 @@ namespace AChildsCourage.Game.Floors.Persistance
             return floorRooms;
         }
 
-        private RoomData GetRoomWithId(IEnumerable<RoomAsset> assets, int id)
+        private RoomTiles GetRoomTiles(IEnumerable<RoomAsset> assets, int id)
         {
             var asset = assets.First(a => a.Id == id);
 
-            return asset.Deserialize();
+            return asset.RoomTiles;
         }
 
         #endregion

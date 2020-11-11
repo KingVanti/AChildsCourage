@@ -9,16 +9,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public ChunkPosition Position { get; }
 
-        public RoomData RoomData { get; }
+        public RoomTiles Tiles { get; }
 
         #endregion
 
         #region Constructors
 
-        public FloorRoom(ChunkPosition position, RoomData roomData)
+        public FloorRoom(ChunkPosition position, RoomTiles tiles)
         {
             Position = position;
-            RoomData = roomData;
+            Tiles = tiles;
         }
 
         #endregion
