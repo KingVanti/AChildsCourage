@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Player {
-    public class Item : MonoBehaviour {
+    public abstract class Item : MonoBehaviour {
 
+        [Range(0,120)]
+        [SerializeField] private float cooldown;
+        [SerializeField] private int id;
 
-        #region Methods
-        public void OnUse() {
+        public bool IsActive { get; set; }
 
-        }
-
-        #endregion
-
-
-
+        public abstract void Toggle();
 
     }
 

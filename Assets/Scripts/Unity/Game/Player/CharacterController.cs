@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Input;
+using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
 using UnityEngine;
@@ -30,6 +31,10 @@ namespace AChildsCourage.Game.Player {
         [Header("Events")]
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
+        public IntEvent OnLMBHeld;
+        public IntEvent OnRMBHeld;
+        public UnityEvent OnLMBClicked;
+        public UnityEvent OnRMBClicked;
 
         #endregion
 
@@ -117,7 +122,7 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-        public GameObject CurrentPickupInRange {
+        public GameObject CurrentItemInRange {
             get { return _currentPickupInRange; }
             set { _currentPickupInRange = value; }
         }
@@ -132,10 +137,8 @@ namespace AChildsCourage.Game.Player {
         private void BindTo(IInputListener listener) {
             listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
-            listener.OnItemButtonOneHeld += (_, e) => OnItemButtonOneHeld(e);
-            listener.OnItemButtonOneClicked += (_, e) => OnItemButtonOneClicked(e);
-            listener.OnItemButtonTwoHeld += (_, e) => OnItemButtonTwoHeld(e);
-            listener.OnItemButtonTwoClicked += (_, e) => OnItemButtonTwoClicked(e);
+            listener.OnItemPickedUp += (_, e) => OnItemPickedUp(e);
+            listener.OnEquippedItemUsed += (_, e) => OnEquippedItemUsed(e);
         }
 
         private void UpdateAnimator() {
@@ -194,35 +197,45 @@ namespace AChildsCourage.Game.Player {
         }
 
 
-        public void OnItemButtonOneClicked(ItemButtonOneClickedEventArgs eventArgs) {
+        public void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs) {
 
-            throw new NotImplementedException();
-
-        }
-
-        public void OnItemButtonTwoClicked(ItemButtonTwoClickedEventArgs eventArgs) {
-
-            throw new NotImplementedException();
-
-        }
-
-        public void OnItemButtonOneHeld(ItemButtonOneHeldEventArgs eventArgs) {
-
-            throw new NotImplementedException();
+            switch (eventArgs.SlotId) {
+                case 0:
+                    OnLMBClicked?.Invoke();
+                    break;
+                case 1:
+                    OnRMBClicked?.Invoke();
+                    break;
+            }
 
         }
 
-        public void OnItemButtonTwoHeld(ItemButtonTwoHeldEventArgs eventArgs) {
 
-            throw new NotImplementedException();
+        public void OnItemPickedUp(ItemPickedUpEventArgs eventArgs) {
+
+            if (IsInPickupRange) {
+                switch (eventArgs.SlotId) {
+
+                    case 0:
+                        OnLMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                        break;
+                    case 1:
+                        OnRMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                        break;
+
+                }
+
+                Destroy(CurrentItemInRange);
+            }
 
         }
+
 
         private void OnTriggerEnter2D(Collider2D collision) {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = true;
-                CurrentPickupInRange = collision.gameObject;
+                CurrentItemInRange = collision.gameObject;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
@@ -232,7 +245,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = false;
-                CurrentPickupInRange = null;
+                CurrentItemInRange = null;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
@@ -247,6 +260,9 @@ namespace AChildsCourage.Game.Player {
 
         [Serializable]
         public class BoolEvent : UnityEvent<bool> { }
+
+        [Serializable]
+        public class IntEvent : UnityEvent<int> { }
 
         #endregion
 

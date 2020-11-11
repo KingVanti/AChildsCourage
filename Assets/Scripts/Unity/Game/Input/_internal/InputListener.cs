@@ -12,10 +12,8 @@ namespace AChildsCourage.Game.Input {
 
         public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
         public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
-        public event EventHandler<ItemButtonOneClickedEventArgs> OnItemButtonOneClicked;
-        public event EventHandler<ItemButtonTwoClickedEventArgs> OnItemButtonTwoClicked;
-        public event EventHandler<ItemButtonOneHeldEventArgs> OnItemButtonOneHeld;
-        public event EventHandler<ItemButtonTwoHeldEventArgs> OnItemButtonTwoHeld;
+        public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
+        public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
 
         #endregion
 
@@ -24,15 +22,16 @@ namespace AChildsCourage.Game.Input {
         public InputListener() {
 
             UserControls userControls = new UserControls();
+
             userControls.Player.Look.performed += OnLook;
             userControls.Player.Move.performed += OnMove;
 
             userControls.Player.Item1.performed += ctx => {
 
                 if (ctx.interaction is HoldInteraction) {
-                    OnItemOneHeld(ctx);
+                    OnItemPickedUpTo(0,ctx);
                 } else {
-                    OnItemOneClicked(ctx);
+                    OnEquippedItemUsedIn(0,ctx);
                 }
 
             };
@@ -40,9 +39,9 @@ namespace AChildsCourage.Game.Input {
             userControls.Player.Item2.performed += ctx => {
 
                 if (ctx.interaction is HoldInteraction) {
-                    OnItemTwoHeld(ctx);
+                    OnItemPickedUpTo(1,ctx);
                 } else {
-                    OnItemTwoClicked(ctx);
+                    OnEquippedItemUsedIn(1,ctx);
                 }
 
             };
@@ -71,31 +70,17 @@ namespace AChildsCourage.Game.Input {
 
         }
 
-        private void OnItemOneClicked(Context context) {
+        private void OnEquippedItemUsedIn(int slotId, Context context) {
 
-            ItemButtonOneClickedEventArgs eventArgs = new ItemButtonOneClickedEventArgs();
-            OnItemButtonOneClicked?.Invoke(this, eventArgs);
-
-        }
-
-        private void OnItemOneHeld(Context context) {
-
-            ItemButtonOneHeldEventArgs eventArgs = new ItemButtonOneHeldEventArgs();
-            OnItemButtonOneHeld?.Invoke(this, eventArgs);
+            EquippedItemUsedEventArgs eventArgs = new EquippedItemUsedEventArgs(slotId);
+            OnEquippedItemUsed?.Invoke(this, eventArgs);
 
         }
 
-        private void OnItemTwoHeld(Context context) {
+        private void OnItemPickedUpTo(int slotId, Context context) {
 
-            ItemButtonTwoHeldEventArgs eventArgs = new ItemButtonTwoHeldEventArgs();
-            OnItemButtonTwoHeld?.Invoke(this, eventArgs);
-
-        }
-
-        private void OnItemTwoClicked(Context context) {
-
-            ItemButtonTwoClickedEventArgs eventArgs = new ItemButtonTwoClickedEventArgs();
-            OnItemButtonTwoClicked?.Invoke(this, eventArgs);
+            ItemPickedUpEventArgs eventArgs = new ItemPickedUpEventArgs(slotId);
+            OnItemPickedUp?.Invoke(this, eventArgs);
 
         }
 
