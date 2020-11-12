@@ -35,6 +35,7 @@ namespace AChildsCourage.Game.Player {
         public IntEvent OnRMBHeld;
         public UnityEvent OnLMBClicked;
         public UnityEvent OnRMBClicked;
+        public UnityEvent OnPickUp;
 
         #endregion
 
@@ -226,6 +227,7 @@ namespace AChildsCourage.Game.Player {
                 }
 
                 Destroy(CurrentItemInRange);
+                OnPickUp?.Invoke();
             }
 
         }
