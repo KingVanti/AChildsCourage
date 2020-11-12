@@ -43,7 +43,7 @@ public class FmodPlayer : MonoBehaviour
     }
 
 
-    void PlayFootstepsEvent()
+    public void PlayFootstepsEvent()
     {
         FMOD.Studio.EventInstance Footsteps = FMODUnity.RuntimeManager.CreateInstance(Footsteps_Path);
         Footsteps.setParameterByName("Material", Material);
@@ -51,32 +51,32 @@ public class FmodPlayer : MonoBehaviour
         Footsteps.release();
         // FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);  
     }
-    void PlayPickUp(string path)
+    public void PlayPickUp(string path)
     {
          FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
     }
 
-    void PlayBlankie(string path)
+    public void PlayBlankie(string path)
     {
         FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
     }
 
-    void PlayFlashlight(string path)
+    public void PlayFlashlight(string path)
     {
         FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
     }
 
-    void PlayPickUp()
+    public void PlayPickUp()
     {
          FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
     }
 
-    void PlayBlankie()
+    public void PlayBlankie()
     {
         FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
     }
 
-    void PlayFlashlight()
+    public void PlayFlashlight()
     {
         FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
     }
