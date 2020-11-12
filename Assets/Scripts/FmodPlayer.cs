@@ -7,6 +7,12 @@ public class FmodPlayer : MonoBehaviour
     private float distance = 0.1f;
     private float Material;
 
+    const string Footsteps_Path = "event:/char/steps";
+    const string PickUp_Path = "event:/UI/ItemPickup";
+    const string Flashlight_Path = "event:/UI/Flashlight";
+    const string Blankie_Path = "event:/UI/Blankie";
+
+
     private void FixedUpdate()
     {
         MaterialCheck();
@@ -37,13 +43,27 @@ public class FmodPlayer : MonoBehaviour
     }
 
 
-    void PlayFootstepsEvent(string path)
+    void PlayFootstepsEvent()
     {
-        FMOD.Studio.EventInstance Footsteps = FMODUnity.RuntimeManager.CreateInstance(path);
+        FMOD.Studio.EventInstance Footsteps = FMODUnity.RuntimeManager.CreateInstance(Footsteps_Path);
         Footsteps.setParameterByName("Material", Material);
         Footsteps.start();
         Footsteps.release();
         // FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);  
+    }
+    void PlayPickUp(string path)
+    {
+         FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
+    }
+
+    void PlayBlankie(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
+    }
+
+    void PlayFlashlight(string path)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
     }
 
 }

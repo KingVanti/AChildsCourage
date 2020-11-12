@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{9341b5b3-50af-4612-9f1d-76467d1792c9}">
+		<property name="assetPath">
+			<value>Click_on - Trimmed (2).wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.24741496598639456</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2cab07a3-fcf7-450b-8f2e-4283b75c88b1}</destination>
+		</relationship>
+	</object>
+</objects>
