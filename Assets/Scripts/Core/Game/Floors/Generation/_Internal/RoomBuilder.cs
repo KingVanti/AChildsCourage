@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Persistance;
-using System;
+﻿using System;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
@@ -31,25 +30,25 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        public void Build(RoomTiles tiles, ChunkPosition chunkPosition)
+        public void Build(Room room, ChunkPosition chunkPosition)
         {
             var offset = chunkPosition.GetTileOffset();
 
-            Build(tiles, offset);
+            Build(room, offset);
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());
         }
 
 
-        private void Build(RoomTiles tiles, TileOffset offset)
+        private void Build(Room room, TileOffset offset)
         {
-            BuildGround(tiles.GroundPositions, offset);
+            BuildGround(room.GroundTiles, offset);
         }
 
-        private void BuildGround(PositionList groundPositions, TileOffset offset)
+        private void BuildGround(Tiles<GroundTile> groundPositions, TileOffset offset)
         {
             foreach (var wallPosition in groundPositions)
             {
-                var offsetPosition = wallPosition + offset;
+                var offsetPosition = wallPosition.Position + offset;
 
                 tileBuilder.PlaceGround(offsetPosition);
             }

@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using Newtonsoft.Json;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Persistance
@@ -11,9 +11,7 @@ namespace AChildsCourage.Game.Floors.Persistance
         #region Fields
 
         [SerializeField] private int _id;
-        [SerializeField] private RoomType type;
-        [SerializeField] private SerializableRoomTiles _roomTiles;
-        [SerializeField] private SerializablePassages _passages;
+        [SerializeField] [HideInInspector] private string roomJson;
 
         #endregion
 
@@ -21,11 +19,29 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         public int Id { get { return _id; } }
 
-        public RoomType Type { get { return type; } }
+        public Room Room { get { return Read(); } set { Write(value); } }
 
-        public RoomTiles RoomTiles { get { return _roomTiles.Deserialize(); } set { _roomTiles = new SerializableRoomTiles(value); } }
+        #endregion
 
-        public ChunkPassages Passages { get { return _passages.Deserialize(); } set { _passages = new SerializablePassages(value); } }
+        #region Methods
+
+        private Room Read()
+        {
+            if(string.IsNullOrEmpty(roomJson))
+            {
+                var newRoom = Room.Empty;
+
+                Write(newRoom);
+                return newRoom;
+            }
+
+            return JsonConvert.DeserializeObject<Room>(roomJson);
+        }
+
+        private void Write(Room room)
+        {
+            roomJson = JsonConvert.SerializeObject(room);
+        }
 
         #endregion
 

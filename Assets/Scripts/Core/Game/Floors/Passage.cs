@@ -1,4 +1,4 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿namespace AChildsCourage.Game.Floors
 {
 
     public enum Passage

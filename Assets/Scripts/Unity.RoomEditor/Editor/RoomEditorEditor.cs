@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Persistance;
 using UnityEditor;
 using UnityEngine;
@@ -55,39 +55,45 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
             EditorGUILayout.Space();
 
-            DrawTileTypeSelectionGUI();
+            DrawTileCategorySelectionGUI();
+
+            if (RoomEditor.SelectedTileCategory == TileCategory.Data)
+                DrawDataTileSelectionGUI();
 
             DrawPassageEditorGUI();
 
             DrawSaveAssetGUI();
         }
 
-        private void DrawTileTypeSelectionGUI()
+        private void DrawTileCategorySelectionGUI()
         {
-            EditorGUILayout.LabelField($"Current selected tile type: {RoomEditor.SelectedTileType}");
-
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Ground"))
-                RoomEditor.SelectedTileType = TileType.Ground;
+                RoomEditor.SelectedTileCategory = TileCategory.Ground;
 
-            if (GUILayout.Button("Item"))
-                RoomEditor.SelectedTileType = TileType.Item;
-
-            if (GUILayout.Button("Courage Small"))
-                RoomEditor.SelectedTileType = TileType.CourageSmall;
-
-            if (GUILayout.Button("Courage Big"))
-                RoomEditor.SelectedTileType = TileType.CourageBig;
-
-            if (RoomEditor.CurrentRoomIsStartRoom && GUILayout.Button("Start point"))
-                RoomEditor.SelectedTileType = TileType.StartPoint;
-
-            if (RoomEditor.CurrentRoomIsEndRoom && GUILayout.Button("End point"))
-                RoomEditor.SelectedTileType = TileType.EndPoint;
+            if (GUILayout.Button("Data"))
+                RoomEditor.SelectedTileCategory = TileCategory.Data;
 
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.Space();
+        }
+
+        private void DrawDataTileSelectionGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Item"))
+                RoomEditor.SelectedDataTileType = DataTileType.Item;
+
+            if (GUILayout.Button("Spark"))
+                RoomEditor.SelectedDataTileType = DataTileType.CourageSpark;
+
+            if (GUILayout.Button("Orb"))
+                RoomEditor.SelectedDataTileType = DataTileType.CourageOrb;
+
+            EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
         }
 

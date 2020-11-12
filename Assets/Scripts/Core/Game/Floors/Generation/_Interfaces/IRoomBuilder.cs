@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        void Build(RoomTiles tiles, ChunkPosition chunkPosition);
+        void Build(Room room, ChunkPosition chunkPosition);
 
         #endregion
 

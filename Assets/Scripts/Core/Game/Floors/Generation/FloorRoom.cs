@@ -1,6 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Persistance;
-
-namespace AChildsCourage.Game.Floors.Generation
+﻿namespace AChildsCourage.Game.Floors.Generation
 {
     public class FloorRoom
     {
@@ -9,16 +7,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public ChunkPosition Position { get; }
 
-        public RoomTiles Tiles { get; }
+        public Room Room { get; }
 
         #endregion
 
         #region Constructors
 
-        public FloorRoom(ChunkPosition position, RoomTiles tiles)
+        public FloorRoom(ChunkPosition position, Room room)
         {
             Position = position;
-            Tiles = tiles;
+            Room = room;
         }
 
         #endregion
