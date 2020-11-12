@@ -66,6 +66,21 @@ public class FmodPlayer : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
     }
 
+    void PlayPickUp()
+    {
+         FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
+    }
+
+    void PlayBlankie()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
+    }
+
+    void PlayFlashlight()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
+    }
+
 }
 
 
