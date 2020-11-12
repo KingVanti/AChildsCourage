@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private readonly IRNG rng;
         private readonly IChunkGrid chunkGrid;
-        private readonly IRoomInfoRepository roomInfoRepository;
+        private readonly IRoomPassagesRepository roomInfoRepository;
         private readonly List<int> usedRoomIds = new List<int>();
 
         #endregion
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomInfoRepository roomInfoRepository)
+        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomPassagesRepository roomInfoRepository)
         {
             this.rng = rng;
             this.chunkGrid = chunkGrid;
@@ -55,7 +55,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal void PlaceStartRoom()
         {
-            Place(roomInfoRepository.StartRoom, new ChunkPosition(0, 0));
+            var startRoom = ChooseStartRoom();
+
+            Place(startRoom, new ChunkPosition(0, 0));
+        }
+
+        private RoomPassages ChooseStartRoom()
+        {
+            var startRooms = roomInfoRepository.GetStartRooms();
+
+            return startRooms.GetRandom(rng);
         }
 
         internal void PlaceNormalRooms()
@@ -72,31 +81,39 @@ namespace AChildsCourage.Game.Floors.Generation
         internal void PlaceEndRoom()
         {
             ChunkPosition endroomChunk = chunkGrid.FindNextBuildChunk(rng);
-            var filter = chunkGrid.GetFilterFor(endroomChunk);
+            var endRoom = ChooseEndRoom(endroomChunk);
 
-            Place(roomInfoRepository.GetEndRoomFor(filter), endroomChunk);
+            Place(endRoom, endroomChunk);
+        }
+
+        private RoomPassages ChooseEndRoom(ChunkPosition position)
+        {
+            var filter = chunkGrid.GetFilterFor(position);
+            var endRooms = roomInfoRepository.GetEndRooms(filter);
+
+            return endRooms.GetRandom(rng);
         }
 
 
-        private void Place(RoomInfo room, ChunkPosition position)
+        private void Place(RoomPassages room, ChunkPosition position)
         {
             usedRoomIds.Add(room.RoomId);
             chunkGrid.Place(room, position);
         }
 
 
-        private RoomInfo GetRoomFor(ChunkPosition chunkPosition)
+        private RoomPassages GetRoomFor(ChunkPosition chunkPosition)
         {
             var filter = chunkGrid.GetFilterFor(chunkPosition);
-            var potentialRooms = roomInfoRepository.FindFittingRoomsFor(filter, RemainingRoomCount);
+            var filteredRooms = roomInfoRepository.GetNormalRooms(filter, RemainingRoomCount);
 
-            return ChooseRoomFrom(potentialRooms);
+            return ChooseRoomFrom(filteredRooms);
         }
 
-        private RoomInfo ChooseRoomFrom(IEnumerable<RoomInfo> potentialRooms)
+        private RoomPassages ChooseRoomFrom(FilteredRoomPassages rooms)
         {
             var validRooms =
-                potentialRooms
+                rooms
                 .Where(IsValid);
 
             if (validRooms.Count() > 0)
@@ -105,22 +122,22 @@ namespace AChildsCourage.Game.Floors.Generation
                 throw new System.Exception("No valid rooms found!");
         }
 
-        private bool IsValid(RoomInfo room)
+        private bool IsValid(RoomPassages room)
         {
             return !IsUsed(room);
         }
 
-        private bool IsUsed(RoomInfo room)
+        private bool IsUsed(RoomPassages room)
         {
             return usedRoomIds.Contains(room.RoomId);
         }
 
-        private float CalculateRoomWeight(RoomInfo room)
+        private float CalculateRoomWeight(RoomPassages room)
         {
             return CalculatePassageWeight(room);
         }
 
-        private float CalculatePassageWeight(RoomInfo room)
+        private float CalculatePassageWeight(RoomPassages room)
         {
             return (float)Math.Pow(room.Passages.Count, 2);
         }

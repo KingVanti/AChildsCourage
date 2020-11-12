@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Fields
 
-        private readonly Dictionary<ChunkPosition, RoomInfo> roomsByChunks = new Dictionary<ChunkPosition, RoomInfo>();
+        private readonly Dictionary<ChunkPosition, RoomPassages> roomsByChunks = new Dictionary<ChunkPosition, RoomPassages>();
         private readonly List<ChunkPosition> reservedChunks = new List<ChunkPosition>();
 
         #endregion
@@ -56,7 +56,7 @@ namespace AChildsCourage.Game.Floors.Generation
         }
 
 
-        public void Place(RoomInfo room, ChunkPosition position)
+        public void Place(RoomPassages room, ChunkPosition position)
         {
             roomsByChunks.Add(position, room);
 
@@ -143,12 +143,12 @@ namespace AChildsCourage.Game.Floors.Generation
             var positionInDirection = position + passage;
 
             if (IsEmpty(positionInDirection))
-                return PassageFilter.Either;
+                return PassageFilter.Open;
 
             var roomAtPosition = roomsByChunks[positionInDirection];
             var hasPassage = roomAtPosition.Passages.Has(passage.Invert());
 
-            return hasPassage ? PassageFilter.MustHave : PassageFilter.MustNotHave;
+            return hasPassage ? PassageFilter.Passage : PassageFilter.NoPassage;
         }
 
 

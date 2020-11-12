@@ -17,52 +17,35 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Fields
 
         private readonly ITileBuilder tileBuilder;
-        private readonly IRoomRepository roomRepository;
 
         #endregion
 
         #region Constructors
 
-        public RoomBuilder(ITileBuilder tileBuilder, IRoomRepository roomRepository)
+        public RoomBuilder(ITileBuilder tileBuilder)
         {
             this.tileBuilder = tileBuilder;
-            this.roomRepository = roomRepository;
         }
 
         #endregion
 
         #region Methods
 
-        public void Build(RoomInChunk roomInChunk)
+        public void Build(RoomTiles tiles, ChunkPosition chunkPosition)
         {
-            var roomData = roomRepository.Load(roomInChunk.RoomId);
-            var offset = roomInChunk.Position.GetTileOffset();
+            var offset = chunkPosition.GetTileOffset();
 
-            var room = Build(roomData, offset);
-
+            Build(tiles, offset);
             OnRoomBuilt?.Invoke(this, new RoomBuiltEventArgs());
         }
 
 
-        private IRoom Build(RoomData roomData, TileOffset offset)
+        private void Build(RoomTiles tiles, TileOffset offset)
         {
-            BuildWalls(roomData.WallPositions, offset);
-            BuildGround(roomData.GroundPositions, offset);
-
-            return null;
+            BuildGround(tiles.GroundPositions, offset);
         }
 
-        private void BuildWalls(TilePosition[] wallPositions, TileOffset offset)
-        {
-            foreach (var wallPosition in wallPositions)
-            {
-                var offsetPosition = wallPosition + offset;
-
-                tileBuilder.PlaceWall(offsetPosition);
-            }
-        }
-
-        private void BuildGround(TilePosition[] groundPositions, TileOffset offset)
+        private void BuildGround(PositionList groundPositions, TileOffset offset)
         {
             foreach (var wallPosition in groundPositions)
             {

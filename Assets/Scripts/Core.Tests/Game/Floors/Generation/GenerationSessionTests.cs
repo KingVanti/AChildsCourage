@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Data
 
-        private static RoomInfo StartRoom { get; } = new RoomInfo(0, ChunkPassages.All);
+        private static RoomPassages StartRoom { get; } = new RoomPassages(0, ChunkPassages.All, RoomType.Start);
 
         #endregion
 
@@ -22,8 +22,8 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomInfoRepository = new Mock<IRoomInfoRepository>();
-            mockRoomInfoRepository.SetupGet(r => r.StartRoom).Returns(StartRoom);
+            var mockRoomInfoRepository = new Mock<IRoomPassagesRepository>();
+            mockRoomInfoRepository.Setup(r => r.GetStartRooms()).Returns(new FilteredRoomPassages(new[] { StartRoom }));
 
             var chunkGrid = new ChunkGrid();
 

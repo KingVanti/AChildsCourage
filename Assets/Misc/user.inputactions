@@ -27,7 +27,7 @@
                     "id": "7d2e1401-9d8c-4294-a8e3-44f8e67d8311",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold(duration=1),Press(behavior=2)"
                 },
                 {
                     "name": "Item2",
@@ -35,10 +35,10 @@
                     "id": "918a9149-4af6-48b2-9095-084b814f9be4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold(duration=1),Press(behavior=2)"
                 },
                 {
-                    "name": "Pickup",
+                    "name": "Swap",
                     "type": "Button",
                     "id": "2b242a65-6c96-479c-a9fa-2ddc1c888fce",
                     "expectedControlType": "Button",
@@ -115,34 +115,12 @@
                 },
                 {
                     "name": "",
-                    "id": "33368ea9-735e-4a1a-8c39-6a42b097fd4f",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Item1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1a884d1f-bec2-4aab-b1e0-aaa01daae1ea",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Item1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bbe9227d-585e-4365-a233-701a0dbb7430",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Item2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -159,23 +137,12 @@
                 },
                 {
                     "name": "",
-                    "id": "f0de1a4d-7dc0-446d-8aa5-f6cea3e7f4a8",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Pickup",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b9b019a4-d0c7-4942-a4b5-a164d83e3721",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Pickup",
+                    "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

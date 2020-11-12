@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Floors.Generation;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Persistance
 {
@@ -9,16 +10,10 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Fields
 
-#pragma warning disable 649
-
         [SerializeField] private int _id;
-        [SerializeField] private Vector2Int[] _groundPositions;
-        [SerializeField] private Vector2Int[] _wallPositions;
-        [SerializeField] private Vector2Int[] _itemPositions;
-        [SerializeField] private Vector2Int[] _smallCouragePositions;
-        [SerializeField] private Vector2Int[] _bigCouragePositions;
-
-#pragma warning restore 649
+        [SerializeField] private RoomType type;
+        [SerializeField] private SerializableRoomTiles _roomTiles;
+        [SerializeField] private SerializablePassages _passages;
 
         #endregion
 
@@ -26,15 +21,11 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         public int Id { get { return _id; } }
 
-        public Vector2Int[] GroundPositions { get { return _groundPositions; } set { _groundPositions = value; } }
+        public RoomType Type { get { return type; } }
 
-        public Vector2Int[] WallPositions { get { return _wallPositions; } set { _wallPositions = value; } }
+        public RoomTiles RoomTiles { get { return _roomTiles.Deserialize(); } set { _roomTiles = new SerializableRoomTiles(value); } }
 
-        public Vector2Int[] ItemPositions { get { return _itemPositions; } set { _itemPositions = value; } }
-
-        public Vector2Int[] SmallCouragePositions { get { return _smallCouragePositions; } set { _smallCouragePositions = value; } }
-
-        public Vector2Int[] BigCouragePositions { get { return _bigCouragePositions; } set { _bigCouragePositions = value; } }
+        public ChunkPassages Passages { get { return _passages.Deserialize(); } set { _passages = new SerializablePassages(value); } }
 
         #endregion
 

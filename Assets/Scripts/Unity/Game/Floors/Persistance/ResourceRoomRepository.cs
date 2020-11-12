@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using AChildsCourage.Game.Floors.Generation;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -16,43 +17,38 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Methods
 
-        public RoomData Load(int id)
+        public FloorRooms LoadRoomsFor(FloorPlan floorPlan)
         {
-            var asset = GetRoomAsset(id);
+            var assets = LoadAssets();
 
-            if (asset != null)
-                return CreateRoomFrom(asset);
-            else
-                throw new FileNotFoundException($"Could not find room with the id {id}!");
+            return GetFloorRooms(assets, floorPlan.Rooms);
         }
 
-        private RoomData CreateRoomFrom(RoomAsset asset)
+        private IEnumerable<RoomAsset> LoadAssets()
         {
-            return new RoomData(
-                Deserialize(asset.GroundPositions),
-                Deserialize(asset.WallPositions),
-                Deserialize(asset.ItemPositions),
-                Deserialize(asset.SmallCouragePositions),
-                Deserialize(asset.BigCouragePositions));
+            return Resources.LoadAll<RoomAsset>(RoomResourcePath);
         }
 
-        private TilePosition[] Deserialize(Vector2Int[] positions)
+        private FloorRooms GetFloorRooms(IEnumerable<RoomAsset> assets, IEnumerable<RoomInChunk> roomsInChunks)
         {
-            return positions
-                .Select(p => new TilePosition(p.x, p.y))
-                .ToArray();
+            var floorRooms = new FloorRooms();
+
+            foreach (var roomInChunk in roomsInChunks)
+            {
+                var roomTiles = GetRoomTiles(assets, roomInChunk.RoomId);
+                var room = new FloorRoom(roomInChunk.Position, roomTiles);
+
+                floorRooms.Add(room);
+            }
+
+            return floorRooms;
         }
 
-
-        public bool Contains(int id)
+        private RoomTiles GetRoomTiles(IEnumerable<RoomAsset> assets, int id)
         {
-            return GetRoomAsset(id) != null;
-        }
+            var asset = assets.First(a => a.Id == id);
 
-
-        protected RoomAsset GetRoomAsset(int id)
-        {
-            return Resources.LoadAll<RoomAsset>(RoomResourcePath).FirstOrDefault(r => r.Id == id);
+            return asset.RoomTiles;
         }
 
         #endregion

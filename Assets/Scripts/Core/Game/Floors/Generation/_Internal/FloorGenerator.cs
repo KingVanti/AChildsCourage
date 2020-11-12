@@ -10,14 +10,14 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Fields
 
-        private readonly IRoomInfoRepository roomInfoRepository;
+        private readonly IRoomPassagesRepository roomInfoRepository;
         private readonly IKernel kernel;
 
         #endregion
 
         #region Constructors
 
-        public FloorGenerator(IRoomInfoRepository roomInfoRepository, IKernel kernel)
+        public FloorGenerator(IRoomPassagesRepository roomInfoRepository, IKernel kernel)
         {
             this.roomInfoRepository = roomInfoRepository;
             this.kernel = kernel;

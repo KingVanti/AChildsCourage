@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 namespace AChildsCourage.Game.Floors.Generation.Editor
 {
 
-    public class TestRoomInfoRespository : IRoomInfoRepository
+    public class TestRoomInfoRespository : IRoomPassagesRepository
     {
 
         #region Fields
 
         private int currentId = 0;
-        private readonly Dictionary<int, RoomInfo> roomInfos = new Dictionary<int, RoomInfo>();
+        private readonly Dictionary<int, RoomPassages> roomInfos = new Dictionary<int, RoomPassages>();
         private readonly ChunkPassages[] allBasePassages = new[]
         {
             new ChunkPassages(true, false, false, false),
@@ -24,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Properties
 
-        public RoomInfo StartRoom { get; private set; }
+        private RoomPassages StartRoom { get; set; }
 
         #endregion
 
@@ -39,7 +40,13 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Methods
 
-        public RoomInfo GetById(int roomId)
+        public FilteredRoomPassages GetStartRooms()
+        {
+            return new FilteredRoomPassages(new[] { StartRoom });
+        }
+
+
+        public RoomPassages GetById(int roomId)
         {
             return roomInfos[roomId];
         }
@@ -53,15 +60,14 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             StartRoom = CreateNew(ChunkPassages.All);
         }
 
-
-        public IEnumerable<RoomInfo> FindFittingRoomsFor(ChunkPassageFilter filter, int remainingRoomCount)
+        public FilteredRoomPassages GetNormalRooms(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return FindFittingPassagesFor(filter, remainingRoomCount).Select(CreateNew);
+            return new FilteredRoomPassages(FindFittingPassagesFor(filter, maxLooseEnds).Select(CreateNew));
         }
 
-        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int remainingRoomCount)
+        private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= remainingRoomCount);
+            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= maxLooseEnds);
         }
 
         private IEnumerable<ChunkPassages> GetAllPassages()
@@ -79,9 +85,9 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             yield return passages.Rotated.Rotated.Rotated;
         }
 
-        private RoomInfo CreateNew(ChunkPassages roomPassages)
+        private RoomPassages CreateNew(ChunkPassages roomPassages)
         {
-            var info = new RoomInfo(currentId, roomPassages);
+            var info = new RoomPassages(currentId, roomPassages);
 
             roomInfos.Add(currentId, info);
 
@@ -89,10 +95,9 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             return info;
         }
 
-
-        public RoomInfo GetEndRoomFor(ChunkPassageFilter filter)
+        public FilteredRoomPassages GetEndRooms(ChunkPassageFilter filter)
         {
-            return FindFittingRoomsFor(filter, 0).First();
+            return GetNormalRooms(filter, 0);
         }
 
         #endregion

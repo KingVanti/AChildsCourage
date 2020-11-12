@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using AChildsCourage.Game.Floors.Persistance;
+using Moq;
 using NUnit.Framework;
 
 namespace AChildsCourage.Game.Floors.Generation
@@ -15,14 +16,25 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var mockRoomBuilder = new Mock<IRoomBuilder>();
-
             var floorPlan = new FloorPlan(new[]
             {
                 new RoomInChunk(0, new ChunkPosition(0, 0)),
                 new RoomInChunk(1, new ChunkPosition(1, 1))
             });
-            var floorBuilder = new FloorBuilder(mockRoomBuilder.Object);
+
+            var floorRooms = new FloorRooms()
+            {
+                new FloorRoom(new ChunkPosition(0, 0), null),
+                new FloorRoom(new ChunkPosition(1, 1), null)
+            };
+
+            var mockRoomRepository = new Mock<IRoomRepository>();
+
+            mockRoomRepository.Setup(r => r.LoadRoomsFor(floorPlan)).Returns(floorRooms);
+
+            var mockRoomBuilder = new Mock<IRoomBuilder>();
+
+            var floorBuilder = new FloorBuilder(mockRoomRepository.Object, mockRoomBuilder.Object);
 
             // When
 
@@ -30,8 +42,8 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            foreach (var roomPosition in floorPlan.Rooms)
-                mockRoomBuilder.Verify(b => b.Build(roomPosition), Times.Once, $"Room position {roomPosition} was not built!");
+            foreach (var room in floorRooms)
+                mockRoomBuilder.Verify(b => b.Build(room.Tiles, room.Position), Times.Once, $"Room position { room.Position } was not built!");
         }
 
         #endregion

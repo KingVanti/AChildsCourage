@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,95 +10,69 @@ namespace AChildsCourage.RoomEditor
     public class GridManager : MonoBehaviour
     {
 
-        #region Constants
-
-        private const string PlaceMouseButton = "leftButton";
-        private const string DeleteMouseButton = "rightButton";
-
-        #endregion
-
         #region Fields
 
-        private LayerManager selectedLayer;
-        private Dictionary<string, LayerManager> layersByName = new Dictionary<string, LayerManager>();
-
-        #endregion
-
-        #region Properties
-
-        public string[] LayerNames { get { return layersByName.Keys.ToArray(); } }
-
-        public string SelectedLayerName { get { return selectedLayer.name; } }
-
-        public string SelectedTileName { get { return selectedLayer.SelectedTileName; } }
-
-        public string[] TileNames { get { return selectedLayer.TileNames; } }
+        [SerializeField] private TileTypeLayer[] layers;
 
         #endregion
 
         #region Methods
 
-        public void OnMouseDown(MouseDownEventArgs eventArgs)
+        public void PlaceTiles(RoomTiles roomTiles)
         {
-            if (eventArgs.MouseButtonName == PlaceMouseButton)
-                selectedLayer.PlaceTileAt(eventArgs.Position);
-            else if (eventArgs.MouseButtonName == DeleteMouseButton)
-                selectedLayer.DeleteTile(eventArgs.Position);
+            GetLayerForTileOfType(TileType.Ground).PlaceTilesAt(roomTiles.GroundPositions);
+            GetLayerForTileOfType(TileType.Item).PlaceTilesAt(roomTiles.ItemPositions);
+            GetLayerForTileOfType(TileType.CourageSmall).PlaceTilesAt(roomTiles.SmallCouragePositions);
+            GetLayerForTileOfType(TileType.CourageBig).PlaceTilesAt(roomTiles.BigCouragePositions);
         }
 
 
-        public void SelectLayer(string layerName)
+        public void PlaceTileOfType(Vector2Int position, TileType tileType)
         {
-            selectedLayer = layersByName[layerName];
+            var category = GetTileTypeCategory(tileType);
+
+            foreach (var layer in GetAllLayersOfCategory(category))
+                if (layer.Type == tileType)
+                    layer.PlaceTileAt(position);
+                else
+                    layer.DeleteTileAt(position);
         }
 
 
-        public void SelectTile(string tileName)
+        public void DeleteTileOfType(Vector2Int position, TileType tileType)
         {
-            selectedLayer.SelectTile(tileName);
+            var category = GetTileTypeCategory(tileType);
+
+            foreach (var layer in GetAllLayersOfCategory(category))
+                layer.DeleteTileAt(position);
         }
 
 
-        public void ApplyGridTo(RoomAsset roomAsset)
+        private TileTypeLayer GetLayerForTileOfType(TileType tileType)
         {
-            roomAsset.GroundPositions = GetPositionsFor("Ground", "Ground");
-            roomAsset.WallPositions = GetPositionsFor("Static", "Wall");
-            roomAsset.ItemPositions = GetPositionsFor("Static", "Item");
-            roomAsset.SmallCouragePositions = GetPositionsFor("Static", "Courage_Small");
-            roomAsset.BigCouragePositions = GetPositionsFor("Static", "Courage_Big");
+            return layers.Where(l => l.Type == tileType).FirstOrDefault();
         }
 
-        private Vector2Int[] GetPositionsFor(string layerName, string tileName)
+        private IEnumerable<TileTypeLayer> GetAllLayersOfCategory(TileTypeCategory category)
         {
-            return layersByName[layerName].GetPositionsWithTile(tileName);
+            return layers.Where(l => l.Category == category);
         }
 
-        public void ApplyAssetToGrid(RoomAsset roomAsset)
+        private TileTypeCategory GetTileTypeCategory(TileType tileType)
         {
-            foreach (var layer in layersByName.Values)
-                layer.Clear();
+            switch (tileType)
+            {
+                case TileType.Ground:
+                    return TileTypeCategory.Ground;
+                case TileType.Item:
+                case TileType.CourageSmall:
+                case TileType.CourageBig:
+                case TileType.StartPoint:
+                case TileType.EndPoint:
+                    return TileTypeCategory.Static;
+            }
 
-            WritePositionsTo(roomAsset.GroundPositions, "Ground", "Ground");
-            WritePositionsTo(roomAsset.WallPositions, "Static", "Wall");
-            WritePositionsTo(roomAsset.ItemPositions, "Static", "Item");
-            WritePositionsTo(roomAsset.SmallCouragePositions, "Static", "Courage_Small");
-            WritePositionsTo(roomAsset.BigCouragePositions, "Static", "Courage_Big");
-        }
-
-        private void WritePositionsTo(Vector2Int[] positions, string layerName, string tileName)
-        {
-            var layer = layersByName[layerName];
-
-            layer.PlaceTiles(tileName, positions);
-        }
-
-
-        private void Awake()
-        {
-            foreach (var layer in FindObjectsOfType<LayerManager>())
-                layersByName.Add(layer.name, layer);
-
-            SelectLayer(layersByName.Keys.First());
+            throw new Exception("Invalid tile type!");
         }
 
         #endregion

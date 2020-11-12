@@ -3,9 +3,9 @@
 
     internal enum PassageFilter
     {
-        MustHave,
-        MustNotHave,
-        Either
+        Passage,
+        NoPassage,
+        Open
     }
 
 }
