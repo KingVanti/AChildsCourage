@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.Input
                     ""id"": ""7d2e1401-9d8c-4294-a8e3-44f8e67d8311"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1),Press(behavior=2)""
+                    ""interactions"": ""Hold(duration=0.6),Press(behavior=2)""
                 },
                 {
                     ""name"": ""Item2"",
@@ -50,7 +50,7 @@ namespace AChildsCourage.Game.Input
                     ""id"": ""918a9149-4af6-48b2-9095-084b814f9be4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1),Press(behavior=2)""
+                    ""interactions"": ""Hold(duration=0.6),Press(behavior=2)""
                 },
                 {
                     ""name"": ""Swap"",

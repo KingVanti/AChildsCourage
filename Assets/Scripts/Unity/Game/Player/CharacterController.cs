@@ -31,11 +31,10 @@ namespace AChildsCourage.Game.Player {
         [Header("Events")]
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
-        public IntEvent OnLMBHeld;
-        public IntEvent OnRMBHeld;
-        public UnityEvent OnLMBClicked;
-        public UnityEvent OnRMBClicked;
+
         public UnityEvent OnPickUp;
+        public IntEvent OnUseItem;
+        public PickUpEvent OnPickUpItem;
 
         #endregion
 
@@ -199,36 +198,18 @@ namespace AChildsCourage.Game.Player {
 
 
         public void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs) {
-
-            switch (eventArgs.SlotId) {
-                case 0:
-                    OnLMBClicked?.Invoke();
-                    break;
-                case 1:
-                    OnRMBClicked?.Invoke();
-                    break;
-            }
-
+            OnUseItem?.Invoke(eventArgs.SlotId);
         }
 
 
         public void OnItemPickedUp(ItemPickedUpEventArgs eventArgs) {
 
             if (IsInPickupRange) {
-                switch (eventArgs.SlotId) {
-
-                    case 0:
-                        OnLMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
-                        break;
-                    case 1:
-                        OnRMBHeld?.Invoke(CurrentItemInRange.GetComponent<ItemPickup>().Id);
-                        break;
-
-                }
-
+                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
                 Destroy(CurrentItemInRange);
                 OnPickUp?.Invoke();
             }
+
 
         }
 
@@ -265,6 +246,9 @@ namespace AChildsCourage.Game.Player {
 
         [Serializable]
         public class IntEvent : UnityEvent<int> { }
+
+        [Serializable]
+        public class PickUpEvent : UnityEvent<int, int> { }
 
         #endregion
 

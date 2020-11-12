@@ -1,7 +1,9 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Player {
     public class Bag : MonoBehaviour {
@@ -10,44 +12,30 @@ namespace AChildsCourage.Game.Player {
 
         [SerializeField] List<GameObject> availableItems = new List<GameObject>();
 
-        private int slotOneId;
-        private int slotTwoId;
+        private Item[] currentItems = new Item[2];
+        private float[] currentItemCooldown = new float[2];
 
-        private bool itemSlotOneFilled = false;
-        private bool itemSlotTwoFilled = false;
+        public CooldownEvent cooldownEvent;
+        public ItemUsedEvent itemUsedEvent;
 
         #endregion
 
         #region Methods
 
-        public void ActivateItemOne() {
+        public void UseItem(int usedSlotId) {
 
-            if (itemSlotOneFilled) {
-                availableItems[slotOneId].GetComponent<Item>().Toggle();
-            }
-
-
-        }
-
-        public void ActivateItemTwo() {
-
-            if (itemSlotTwoFilled) {
-                availableItems[slotTwoId].GetComponent<Item>().Toggle();
+            if (currentItems[usedSlotId] != null && currentItemCooldown[usedSlotId] == 0) {
+                currentItems[usedSlotId].Toggle();
+                StartCoroutine(Cooldown(usedSlotId));
+                itemUsedEvent?.Invoke(currentItems[usedSlotId].Id);
             }
 
         }
 
-        public void OnItemOnePickup(int itemId) {
+        public void PickUpItem(int slotId, int itemId) {
 
-            slotOneId = itemId;
-            itemSlotOneFilled = true;
-
-        }
-
-        public void OnItemTwoPickup(int itemId) {
-
-            slotTwoId = itemId;
-            itemSlotTwoFilled = true;
+            availableItems[itemId].GetComponent<Item>().IsInBag = true;
+            currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
 
         }
 
@@ -58,11 +46,30 @@ namespace AChildsCourage.Game.Player {
             throw new NotImplementedException();
         }
 
-        IEnumerator Cooldown(float time) {
 
-            yield return null;
+        IEnumerator Cooldown(int usedSlotId) {
+             
+            while (currentItemCooldown[usedSlotId] < currentItems[usedSlotId].Cooldown) {
+
+                currentItemCooldown[usedSlotId] = Mathf.MoveTowards(currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown, Time.deltaTime);
+                cooldownEvent?.Invoke(usedSlotId, currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown);
+                yield return null;
+
+            }
+
+            currentItemCooldown[usedSlotId] = 0;
 
         }
+
+        #endregion
+
+        #region Subclasses
+
+        [Serializable]
+        public class CooldownEvent : UnityEvent<int,float,float> { }
+
+        [Serializable]
+        public class ItemUsedEvent : UnityEvent<int> { }
 
         #endregion
 
