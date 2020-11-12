@@ -1,5 +1,7 @@
 ﻿using AChildsCourage.Game;
 using AChildsCourage.Game.Floors.Persistance;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -46,6 +48,26 @@ namespace AChildsCourage.RoomEditor
         public void DeleteTileAt(Vector2Int position)
         {
             tilemap.SetTile((Vector3Int)position, null);
+        }
+
+
+        public PositionList GetOccupiedPositions()
+        {
+            return new PositionList(GetTilePositions().Select(p => new TilePosition(p.x, p.y)));
+        }
+
+        private IEnumerable<Vector3Int> GetTilePositions()
+        {
+            var bounds = tilemap.cellBounds;
+
+            for (var x = bounds.xMin; x <= bounds.xMax; x++)
+                for (var y = bounds.yMin; y <= bounds.yMax; y++)
+                {
+                    var position = new Vector3Int(x, y, 0);
+
+                    if (tilemap.GetTile(position) != null)
+                        yield return position;
+                }
         }
 
         #endregion

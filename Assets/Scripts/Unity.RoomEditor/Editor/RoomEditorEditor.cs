@@ -58,6 +58,8 @@ namespace AChildsCourage.RoomEditor.Editor
             DrawTileTypeSelectionGUI();
 
             DrawPassageEditorGUI();
+
+            DrawSaveAssetGUI();
         }
 
         private void DrawTileTypeSelectionGUI()
@@ -98,6 +100,17 @@ namespace AChildsCourage.RoomEditor.Editor
                 EditorGUILayout.Toggle("South", RoomEditor.CurrentPassages.HasSouth),
                 EditorGUILayout.Toggle("West", RoomEditor.CurrentPassages.HasWest));
             EditorGUILayout.Space();
+        }
+
+        private void DrawSaveAssetGUI()
+        {
+            if (GUILayout.Button("Save asset"))
+            {
+                RoomEditor.SaveChanges();
+                AssetDatabase.SaveAssets();
+
+                Debug.Log("Successfully saved room. Dont forget to push!");
+            }
         }
 
         #endregion

@@ -48,15 +48,34 @@ namespace AChildsCourage.RoomEditor
         }
 
 
+        public RoomTiles ReadTiles()
+        {
+            return new RoomTiles(
+                GetPositionsOfTileType(TileType.Ground),
+                GetPositionsOfTileType(TileType.Item),
+                GetPositionsOfTileType(TileType.CourageSmall),
+                GetPositionsOfTileType(TileType.CourageBig));
+        }
+
+        private PositionList GetPositionsOfTileType(TileType tileType)
+        {
+            var layer = GetLayerForTileOfType(tileType);
+
+            return layer.GetOccupiedPositions();
+        }
+
+
         private TileTypeLayer GetLayerForTileOfType(TileType tileType)
         {
             return layers.Where(l => l.Type == tileType).FirstOrDefault();
         }
 
+
         private IEnumerable<TileTypeLayer> GetAllLayersOfCategory(TileTypeCategory category)
         {
             return layers.Where(l => l.Category == category);
         }
+
 
         private TileTypeCategory GetTileTypeCategory(TileType tileType)
         {
