@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Floors.Persistance;
+using UnityEditor;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -74,6 +75,13 @@ namespace AChildsCourage.RoomEditor
         private void DeleteTileAt(Vector2Int position)
         {
             gridManager.DeleteTileOfType(position, SelectedTileType);
+        }
+
+
+        public void SaveChanges()
+        {
+            loadedAsset.Passages = CurrentPassages;
+            loadedAsset.RoomTiles = gridManager.ReadTiles();
         }
 
         #endregion
