@@ -31,8 +31,6 @@ namespace AChildsCourage.Game.Player {
         [Header("Events")]
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
-
-        public UnityEvent OnPickUp;
         public IntEvent OnUseItem;
         public PickUpEvent OnPickUpItem;
 
@@ -208,7 +206,6 @@ namespace AChildsCourage.Game.Player {
             if (IsInPickupRange) {
                 OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
                 Destroy(CurrentItemInRange);
-                OnPickUp?.Invoke();
             }
 
 

@@ -21,6 +21,8 @@ namespace AChildsCourage.Game.Player {
         public CooldownEvent cooldownEvent;
         public ItemUsedEvent itemUsedEvent;
         public UnityEvent itemDroppedEvent;
+        public UnityEvent itemSwappedEvent;
+        public UnityEvent itemPickUpEvent;
 
         #endregion
 
@@ -50,16 +52,19 @@ namespace AChildsCourage.Game.Player {
             if (currentItems[slotId] == null) {
                 availableItems[itemId].GetComponent<Item>().IsInBag = true;
                 currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+                itemPickUpEvent?.Invoke();
             } else {
                 GameObject droppedItem = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
                 droppedItem.GetComponent<ItemPickup>().SetItemData(pickupRepository.GetSpecificItem(currentItems[slotId].Id));
                 itemDroppedEvent?.Invoke();
                 currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+                itemPickUpEvent?.Invoke();
             }
 
         }
 
         public void OnItemSwapInventory() {
+            itemSwappedEvent?.Invoke();
             throw new NotImplementedException();
         }
 
