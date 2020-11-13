@@ -51,9 +51,9 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void BuildGround(Tiles<GroundTile> groundPositions, TileOffset offset)
         {
-            foreach (var wallPosition in groundPositions)
+            foreach (var groundPosition in groundPositions)
             {
-                var offsetPosition = wallPosition.Position + offset;
+                var offsetPosition = groundPosition.Position + offset;
 
                 tileBuilder.PlaceGround(offsetPosition);
             }
