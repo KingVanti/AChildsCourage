@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors
+﻿using Newtonsoft.Json;
+
+namespace AChildsCourage.Game.Floors
 {
 
     public readonly struct GroundTile
@@ -23,6 +25,7 @@
             AOIIndex = aoiIndex;
         }
 
+        [JsonConstructor]
         public GroundTile(TilePosition position, int distanceToWall, int aoiIndex)
         {
             Position = position;
