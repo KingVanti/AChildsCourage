@@ -14,11 +14,11 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private GroundTileLayer groundLayer;
         [SerializeField] private DataTileLayer dataLayer;
 
-        private RoomAsset loadedAsset;
-
         #endregion
 
         #region Properties
+
+        public RoomAsset LoadedAsset { get; private set; }
 
         public TileCategory SelectedTileCategory { get; set; }
 
@@ -29,10 +29,10 @@ namespace AChildsCourage.RoomEditor
         public RoomType CurrentRoomType { get; set; }
 
 
-        public int CurrentAssetId { get { return loadedAsset.Id; } }
+        public int CurrentAssetId { get { return LoadedAsset.Id; } }
 
 
-        public bool HasLoadedAsset { get { return loadedAsset != null; } }
+        public bool HasLoadedAsset { get { return LoadedAsset != null; } }
 
 
         public bool CurrentRoomIsStartRoom { get { return CurrentRoomType == RoomType.Start; } }
@@ -46,7 +46,7 @@ namespace AChildsCourage.RoomEditor
 
         public void OnAssetSelected(RoomAsset asset)
         {
-            loadedAsset = asset;
+            LoadedAsset = asset;
 
             Load(asset.Room);
         }
@@ -114,7 +114,7 @@ namespace AChildsCourage.RoomEditor
                 ReadRoomTiles(),
                 CurrentPassages);
 
-            loadedAsset.Room = room;
+            LoadedAsset.Room = room;
         }
 
         private RoomTiles ReadRoomTiles()

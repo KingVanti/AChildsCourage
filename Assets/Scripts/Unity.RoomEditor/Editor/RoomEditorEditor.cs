@@ -132,6 +132,7 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Save asset"))
             {
                 RoomEditor.SaveChanges();
+                EditorUtility.SetDirty(RoomEditor.LoadedAsset);
                 AssetDatabase.SaveAssets();
 
                 Debug.Log("Successfully saved room. Dont forget to push!");
