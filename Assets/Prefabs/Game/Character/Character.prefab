@@ -139,6 +139,8 @@ MonoBehaviour:
   availableItems:
   - {fileID: 788487156}
   - {fileID: 8573944650217283424}
+  pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
+  pickupContainer: {fileID: 0}
   cooldownEvent:
     m_PersistentCalls:
       m_Calls:
@@ -155,6 +157,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemUsedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemDroppedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemSwappedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemPickUpEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1928652341
@@ -476,21 +487,6 @@ MonoBehaviour:
   OnPickupReachChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnPickUp:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnUseItem:
     m_PersistentCalls:
       m_Calls:
