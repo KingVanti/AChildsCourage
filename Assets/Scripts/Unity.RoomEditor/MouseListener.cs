@@ -59,12 +59,9 @@ namespace AChildsCourage.RoomEditor
         {
             var position = GetCurrentMousePosition();
 
-            if (!position.Equals(lastTilePosition) || buttonName != lastButtonName)
-            {
-                lastTilePosition = position;
-                lastButtonName = buttonName;
-                onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
-            }
+            lastTilePosition = position;
+            lastButtonName = buttonName;
+            onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
         }
 
         private Vector2Int GetCurrentMousePosition()

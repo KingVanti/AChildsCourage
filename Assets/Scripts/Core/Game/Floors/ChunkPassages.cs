@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.Generation
+﻿using Newtonsoft.Json;
+
+namespace AChildsCourage.Game.Floors
 {
 
     public readonly struct ChunkPassages
@@ -23,16 +25,16 @@
         public bool HasWest { get; }
 
 
-        public int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
+        [JsonIgnore] public int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
 
 
-        public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
+        [JsonIgnore] public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
 
 
-        public ChunkPassages XMirrored { get { return new ChunkPassages(HasNorth, HasWest, HasSouth, HasEast); } }
+        [JsonIgnore] public ChunkPassages XMirrored { get { return new ChunkPassages(HasNorth, HasWest, HasSouth, HasEast); } }
 
 
-        public ChunkPassages YMirrored { get { return new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest); } }
+        [JsonIgnore] public ChunkPassages YMirrored { get { return new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest); } }
 
         #endregion
 

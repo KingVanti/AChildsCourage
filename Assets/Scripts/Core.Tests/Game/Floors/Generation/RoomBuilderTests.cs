@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Persistance;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using PADEAH.Tabs;
 
@@ -17,11 +16,11 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var tiles = new RoomTiles(
-                new PositionList(new TilePosition(0, 0), new TilePosition(1, 1)),
-                PositionList.Empty,
-                PositionList.Empty,
-                PositionList.Empty);
+            var room = new Room(
+                RoomType.Normal,
+                new Tiles<GroundTile>(new GroundTile(new TilePosition(0, 0)), new GroundTile(new TilePosition(0, 0))),
+                Tiles<DataTile>.None,
+                ChunkPassages.None);
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 
@@ -29,7 +28,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            roombuilder.Build(tiles, new ChunkPosition(0, 0));
+            roombuilder.Build(room, new ChunkPosition(0, 0));
 
             // Then
 
@@ -41,7 +40,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
-            var tiles = new RoomTiles();
+            var room = Room.Empty;
 
             var mockTileBuilder = new Mock<ITileBuilder>();
 
@@ -52,7 +51,7 @@ namespace AChildsCourage.Game.Floors.Generation
             var raisedArgs = ListenFor
                 .First<RoomBuiltEventArgs>()
                 .From(roombuilder)
-                .During(() => roombuilder.Build(tiles, new ChunkPosition(0, 0)));
+                .During(() => roombuilder.Build(room, new ChunkPosition(0, 0)));
 
             // Then
 

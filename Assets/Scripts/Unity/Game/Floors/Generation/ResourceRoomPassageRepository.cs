@@ -76,9 +76,9 @@ namespace AChildsCourage.Game.Floors.Generation
         private IEnumerable<RoomPassages> GetPassages(RoomAsset asset)
         {
             return
-                GetPassageVariations(asset.Passages)
+                GetPassageVariations(asset.Room.Passages)
                 .Distinct()
-                .Select(p => new RoomPassages(asset.Id, p, asset.Type));
+                .Select(p => new RoomPassages(asset.Id, p, asset.Room.Type));
         }
 
         private IEnumerable<ChunkPassages> GetPassageVariations(ChunkPassages passages)
