@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Methods
 
-        public FloorRooms LoadRoomsFor(FloorPlan floorPlan)
+        public RoomsInChunks LoadRoomsFor(FloorPlan floorPlan)
         {
             var assets = LoadAssets();
 
@@ -29,14 +29,14 @@ namespace AChildsCourage.Game.Floors.Persistance
             return Resources.LoadAll<RoomAsset>(RoomResourcePath);
         }
 
-        private FloorRooms GetFloorRooms(IEnumerable<RoomAsset> assets, IEnumerable<RoomInChunk> roomsInChunks)
+        private RoomsInChunks GetFloorRooms(IEnumerable<RoomAsset> assets, IEnumerable<RoomIdInChunk> roomsInChunks)
         {
-            var floorRooms = new FloorRooms();
+            var floorRooms = new RoomsInChunks();
 
             foreach (var roomInChunk in roomsInChunks)
             {
-                var roomTiles = GetRoomTiles(assets, roomInChunk.RoomId);
-                var room = new FloorRoom(roomInChunk.Position, roomTiles);
+                var roomTiles = GetRoom(assets, roomInChunk.RoomId);
+                var room = new RoomInChunk(roomInChunk.Position, roomTiles);
 
                 floorRooms.Add(room);
             }
@@ -44,11 +44,11 @@ namespace AChildsCourage.Game.Floors.Persistance
             return floorRooms;
         }
 
-        private RoomTiles GetRoomTiles(IEnumerable<RoomAsset> assets, int id)
+        private Room GetRoom(IEnumerable<RoomAsset> assets, int id)
         {
             var asset = assets.First(a => a.Id == id);
 
-            return asset.RoomTiles;
+            return asset.Room;
         }
 
         #endregion

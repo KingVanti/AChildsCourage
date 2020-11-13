@@ -24,13 +24,7 @@ namespace AChildsCourage.RoomEditor
 
 #pragma warning restore 649
 
-        private string lastButtonName;
-        private Vector2Int lastTilePosition;
         private RoomEditorInput input;
-
-        #endregion
-
-        #region Properties
 
         #endregion
 
@@ -59,12 +53,7 @@ namespace AChildsCourage.RoomEditor
         {
             var position = GetCurrentMousePosition();
 
-            if (!position.Equals(lastTilePosition) || buttonName != lastButtonName)
-            {
-                lastTilePosition = position;
-                lastButtonName = buttonName;
-                onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
-            }
+            onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
         }
 
         private Vector2Int GetCurrentMousePosition()

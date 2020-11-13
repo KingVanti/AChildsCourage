@@ -1,25 +1,30 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
+using System;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
 
     [Singleton]
-    internal class FloorBuilder : IFloorBuilder
+    internal class FloorBuilder : IFloorBuilder, IEagerActivation
     {
+
+        #region Events
+
+        public event EventHandler<FloorBuiltEventArgs> OnFloorBuilt;
+
+        #endregion
 
         #region Fields
 
         private readonly IRoomRepository roomRepository;
-        private readonly IRoomBuilder roomBuilder;
 
         #endregion
 
         #region Constructors
 
-        public FloorBuilder(IRoomRepository roomRepository, IRoomBuilder roomBuilder)
+        public FloorBuilder(IRoomRepository roomRepository)
         {
             this.roomRepository = roomRepository;
-            this.roomBuilder = roomBuilder;
         }
 
         #endregion
@@ -28,15 +33,39 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public void Build(FloorPlan floorPlan)
         {
-            var floorRooms = roomRepository.LoadRoomsFor(floorPlan);
+            var floor = BuildFrom(roomRepository.LoadRoomsFor(floorPlan));
 
-            BuildRooms(floorRooms);
+            OnFloorBuilt?.Invoke(this, new FloorBuiltEventArgs(floor));
         }
 
-        private void BuildRooms(FloorRooms rooms)
+        internal Floor BuildFrom(RoomsInChunks roomsInChunks)
         {
-            foreach (var room in rooms)
-                roomBuilder.Build(room.Tiles, room.Position);
+            var floor = new Floor();
+
+            foreach (var roomInChunk in roomsInChunks)
+                BuildInto(roomInChunk, floor);
+
+            floor.GenerateWalls();
+
+            return floor;
+        }
+
+        private void BuildInto(RoomInChunk roomInChunk, Floor floor)
+        {
+            var tileOffset = roomInChunk.Position.GetTileOffset();
+
+            PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, floor);
+        }
+
+        private void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, Floor floor)
+        {
+            PlaceGroundInto(roomTiles.GroundTiles, tileOffset, floor);
+        }
+
+        private void PlaceGroundInto(Tiles<GroundTile> groundTiles, TileOffset tileOffset, Floor floor)
+        {
+            foreach (var groundTile in groundTiles)
+                floor.PlaceGround(groundTile, tileOffset);
         }
 
         #endregion

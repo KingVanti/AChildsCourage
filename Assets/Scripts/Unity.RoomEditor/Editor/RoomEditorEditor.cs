@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Persistance;
 using UnityEditor;
 using UnityEngine;
@@ -55,37 +55,64 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
             EditorGUILayout.Space();
 
-            DrawTileTypeSelectionGUI();
+            DrawRoomTypeSelectionGUI();
+
+            DrawTileCategorySelectionGUI();
+
+            if (RoomEditor.SelectedTileCategory == TileCategory.Data)
+                DrawDataTileSelectionGUI();
 
             DrawPassageEditorGUI();
+
+            DrawSaveAssetGUI();
         }
 
-        private void DrawTileTypeSelectionGUI()
+        private void DrawRoomTypeSelectionGUI()
         {
-            EditorGUILayout.LabelField($"Current selected tile type: {RoomEditor.SelectedTileType}");
+            RoomEditor.CurrentRoomType = (RoomType)EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
+        }
 
+        private void DrawTileCategorySelectionGUI()
+        {
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Ground"))
-                RoomEditor.SelectedTileType = TileType.Ground;
+                RoomEditor.SelectedTileCategory = TileCategory.Ground;
 
-            if (GUILayout.Button("Item"))
-                RoomEditor.SelectedTileType = TileType.Item;
-
-            if (GUILayout.Button("Courage Small"))
-                RoomEditor.SelectedTileType = TileType.CourageSmall;
-
-            if (GUILayout.Button("Courage Big"))
-                RoomEditor.SelectedTileType = TileType.CourageBig;
-
-            if (RoomEditor.CurrentRoomIsStartRoom && GUILayout.Button("Start point"))
-                RoomEditor.SelectedTileType = TileType.StartPoint;
-
-            if (RoomEditor.CurrentRoomIsEndRoom && GUILayout.Button("End point"))
-                RoomEditor.SelectedTileType = TileType.EndPoint;
+            if (GUILayout.Button("Data"))
+                RoomEditor.SelectedTileCategory = TileCategory.Data;
 
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.Space();
+        }
+
+        private void DrawDataTileSelectionGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Item"))
+                RoomEditor.SelectedDataTileType = DataTileType.Item;
+
+            if (GUILayout.Button("Spark"))
+                RoomEditor.SelectedDataTileType = DataTileType.CourageSpark;
+
+            if (GUILayout.Button("Orb"))
+                RoomEditor.SelectedDataTileType = DataTileType.CourageOrb;
+
+            GUI.enabled = RoomEditor.CurrentRoomIsStartRoom;
+
+            if (GUILayout.Button("Start-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.StartPoint;
+
+            GUI.enabled = RoomEditor.CurrentRoomIsEndRoom;
+
+            if (GUILayout.Button("End-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.EndPoint;
+
+            GUI.enabled = true;
+
+            EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
         }
 
@@ -98,6 +125,18 @@ namespace AChildsCourage.RoomEditor.Editor
                 EditorGUILayout.Toggle("South", RoomEditor.CurrentPassages.HasSouth),
                 EditorGUILayout.Toggle("West", RoomEditor.CurrentPassages.HasWest));
             EditorGUILayout.Space();
+        }
+
+        private void DrawSaveAssetGUI()
+        {
+            if (GUILayout.Button("Save asset"))
+            {
+                RoomEditor.SaveChanges();
+                EditorUtility.SetDirty(RoomEditor.LoadedAsset);
+                AssetDatabase.SaveAssets();
+
+                Debug.Log("Successfully saved room. Dont forget to push!");
+            }
         }
 
         #endregion

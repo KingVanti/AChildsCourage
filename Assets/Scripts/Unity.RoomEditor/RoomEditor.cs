@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Floors.Persistance;
 using UnityEngine;
 
@@ -10,29 +11,34 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-        [SerializeField] private GridManager gridManager;
-
-        private RoomAsset loadedAsset;
+        [SerializeField] private GroundTileLayer groundLayer;
+        [SerializeField] private DataTileLayer dataLayer;
 
         #endregion
 
         #region Properties
 
+        public RoomAsset LoadedAsset { get; private set; }
+
+        public TileCategory SelectedTileCategory { get; set; }
+
+        public DataTileType SelectedDataTileType { get; set; }
+
         public ChunkPassages CurrentPassages { get; set; }
 
-        public TileType SelectedTileType { get; set; }
+        public RoomType CurrentRoomType { get; set; }
 
 
-        public int CurrentAssetId { get { return loadedAsset.Id; } }
+        public int CurrentAssetId { get { return LoadedAsset.Id; } }
 
 
-        public bool HasLoadedAsset { get { return loadedAsset != null; } }
+        public bool HasLoadedAsset { get { return LoadedAsset != null; } }
 
 
-        public bool CurrentRoomIsStartRoom { get { return loadedAsset.Type == RoomType.Start; } }
+        public bool CurrentRoomIsStartRoom { get { return CurrentRoomType == RoomType.Start; } }
 
 
-        public bool CurrentRoomIsEndRoom { get { return loadedAsset.Type == RoomType.End; } }
+        public bool CurrentRoomIsEndRoom { get { return CurrentRoomType == RoomType.End; } }
 
         #endregion
 
@@ -40,15 +46,23 @@ namespace AChildsCourage.RoomEditor
 
         public void OnAssetSelected(RoomAsset asset)
         {
-            loadedAsset = asset;
+            LoadedAsset = asset;
 
-            LoadFromAsset(asset);
+            Load(asset.Room);
         }
 
-        private void LoadFromAsset(RoomAsset asset)
+        private void Load(Room room)
         {
-            CurrentPassages = asset.Passages;
-            gridManager.PlaceTiles(asset.RoomTiles);
+            CurrentPassages = room.Passages;
+            CurrentRoomType = room.Type;
+
+            PlaceRoomTiles(room.Tiles);
+        }
+
+        private void PlaceRoomTiles(RoomTiles roomTiles)
+        {
+            groundLayer.PlaceAll(roomTiles.GroundTiles);
+            dataLayer.PlaceAll(roomTiles.DataTiles);
         }
 
 
@@ -68,12 +82,44 @@ namespace AChildsCourage.RoomEditor
 
         private void PlaceTileAt(Vector2Int position)
         {
-            gridManager.PlaceTileOfType(position, SelectedTileType);
+            switch (SelectedTileCategory)
+            {
+                case TileCategory.Ground:
+                    groundLayer.PlaceAt(position);
+                    break;
+                case TileCategory.Data:
+                    dataLayer.PlaceAt(position, SelectedDataTileType);
+                    break;
+            }
         }
 
         private void DeleteTileAt(Vector2Int position)
         {
-            gridManager.DeleteTileOfType(position, SelectedTileType);
+            switch (SelectedTileCategory)
+            {
+                case TileCategory.Ground:
+                    groundLayer.DeleteTileAt(position);
+                    break;
+                case TileCategory.Data:
+                    dataLayer.DeleteTileAt(position);
+                    break;
+            }
+        }
+
+
+        public void SaveChanges()
+        {
+            var room = new Room(
+                CurrentRoomType,
+                ReadRoomTiles(),
+                CurrentPassages);
+
+            LoadedAsset.Room = room;
+        }
+
+        private RoomTiles ReadRoomTiles()
+        {
+            return new RoomTiles(groundLayer.ReadAll(), dataLayer.ReadAll(), Tiles<AOIMarker>.None);
         }
 
         #endregion

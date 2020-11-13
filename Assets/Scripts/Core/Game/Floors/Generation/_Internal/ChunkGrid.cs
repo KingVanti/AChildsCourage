@@ -154,7 +154,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         public FloorPlan BuildPlan()
         {
-            var roomsInChunks = roomsByChunks.Select(kvP => new RoomInChunk(kvP.Value.RoomId, kvP.Key)).ToArray();
+            var roomsInChunks = roomsByChunks.Select(kvP => new RoomIdInChunk(kvP.Value.RoomId, kvP.Key)).ToArray();
 
             return new FloorPlan(roomsInChunks);
         }
