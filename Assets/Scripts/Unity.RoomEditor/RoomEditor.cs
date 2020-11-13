@@ -119,7 +119,7 @@ namespace AChildsCourage.RoomEditor
 
         private RoomTiles ReadRoomTiles()
         {
-            return new RoomTiles(groundLayer.ReadAll(), dataLayer.ReadAll());
+            return new RoomTiles(groundLayer.ReadAll(), dataLayer.ReadAll(), Tiles<AOIMarker>.None);
         }
 
         #endregion
