@@ -126,6 +126,7 @@ namespace AChildsCourage.Game.Player {
             get { return _currentPickupInRange; }
             set { _currentPickupInRange = value; }
         }
+
         #endregion
 
         #region Methods

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using AChildsCourage.Game.Pickups;
+using Ninject.Extensions.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,13 +11,25 @@ namespace AChildsCourage.Game.Player {
 
         #region Fields
 
-        [SerializeField] List<GameObject> availableItems = new List<GameObject>();
+        [SerializeField] private List<GameObject> availableItems = new List<GameObject>();
+        [SerializeField] private GameObject pickupPrefab;
+        [SerializeField] private Transform pickupContainer;
 
         private Item[] currentItems = new Item[2];
         private float[] currentItemCooldown = new float[2];
 
         public CooldownEvent cooldownEvent;
         public ItemUsedEvent itemUsedEvent;
+        public UnityEvent itemDroppedEvent;
+
+        #endregion
+
+        #region Properties
+
+        [AutoInject]
+        public IItemPickupRepository pickupRepository {
+            get; set;
+        }
 
         #endregion
 
@@ -34,15 +47,19 @@ namespace AChildsCourage.Game.Player {
 
         public void PickUpItem(int slotId, int itemId) {
 
-            availableItems[itemId].GetComponent<Item>().IsInBag = true;
-            currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+            if (currentItems[slotId] == null) {
+                availableItems[itemId].GetComponent<Item>().IsInBag = true;
+                currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+            } else {
+                GameObject droppedItem = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
+                droppedItem.GetComponent<ItemPickup>().SetItemData(pickupRepository.GetSpecificItem(currentItems[slotId].Id));
+                itemDroppedEvent?.Invoke();
+                currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+            }
 
         }
 
         public void OnItemSwapInventory() {
-        }
-
-        public void OnItemSwapGround() {
             throw new NotImplementedException();
         }
 
