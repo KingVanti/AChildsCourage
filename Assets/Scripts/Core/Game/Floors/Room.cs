@@ -1,7 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
-using System;
-
-namespace AChildsCourage.Game.Floors
+﻿namespace AChildsCourage.Game.Floors
 {
 
     public class Room
@@ -9,7 +6,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Static Properties
 
-        public static Room Empty { get { return new Room(RoomType.Normal, Tiles<GroundTile>.None, Tiles<DataTile>.None, ChunkPassages.None); } }
+        public static Room Empty { get { return new Room(RoomType.Normal, RoomTiles.None, ChunkPassages.None); } }
 
         #endregion
 
@@ -17,9 +14,7 @@ namespace AChildsCourage.Game.Floors
 
         public RoomType Type { get; }
 
-        public Tiles<GroundTile> GroundTiles { get; }
-
-        public Tiles<DataTile> DataTiles { get; }
+        public RoomTiles Tiles { get; }
 
         public ChunkPassages Passages { get; }
 
@@ -27,11 +22,10 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        public Room(RoomType type, Tiles<GroundTile> groundTiles, Tiles<DataTile> dataTiles, ChunkPassages passages)
+        public Room(RoomType type, RoomTiles tiles, ChunkPassages passages)
         {
             Type = type;
-            GroundTiles = groundTiles;
-            DataTiles = dataTiles;
+            Tiles = tiles;
             Passages = passages;
         }
 

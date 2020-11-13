@@ -56,8 +56,13 @@ namespace AChildsCourage.RoomEditor
             CurrentPassages = room.Passages;
             CurrentRoomType = room.Type;
 
-            groundLayer.PlaceAll(room.GroundTiles);
-            dataLayer.PlaceAll(room.DataTiles);
+            PlaceRoomTiles(room.Tiles);
+        }
+
+        private void PlaceRoomTiles(RoomTiles roomTiles)
+        {
+            groundLayer.PlaceAll(roomTiles.GroundTiles);
+            dataLayer.PlaceAll(roomTiles.DataTiles);
         }
 
 
@@ -106,11 +111,15 @@ namespace AChildsCourage.RoomEditor
         {
             var room = new Room(
                 CurrentRoomType,
-                groundLayer.ReadAll(),
-                dataLayer.ReadAll(),
+                ReadRoomTiles(),
                 CurrentPassages);
 
             loadedAsset.Room = room;
+        }
+
+        private RoomTiles ReadRoomTiles()
+        {
+            return new RoomTiles(groundLayer.ReadAll(), dataLayer.ReadAll());
         }
 
         #endregion

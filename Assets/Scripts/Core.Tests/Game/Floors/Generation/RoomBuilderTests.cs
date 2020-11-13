@@ -16,10 +16,12 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // Given
 
+            var roomTiles = new RoomTiles(
+                new Tiles<GroundTile>(new GroundTile(new TilePosition(0, 0)), new GroundTile(new TilePosition(0, 0))),
+                Tiles<DataTile>.None);
             var room = new Room(
                 RoomType.Normal,
-                new Tiles<GroundTile>(new GroundTile(new TilePosition(0, 0)), new GroundTile(new TilePosition(0, 0))),
-                Tiles<DataTile>.None,
+                roomTiles,
                 ChunkPassages.None);
 
             var mockTileBuilder = new Mock<ITileBuilder>();

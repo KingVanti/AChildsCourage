@@ -41,7 +41,12 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void Build(Room room, TileOffset offset)
         {
-            BuildGround(room.GroundTiles, offset);
+            BuildTiles(room.Tiles, offset);
+        }
+
+        private void BuildTiles(RoomTiles roomTiles, TileOffset offset)
+        {
+            BuildGround(roomTiles.GroundTiles, offset);
         }
 
         private void BuildGround(Tiles<GroundTile> groundPositions, TileOffset offset)
