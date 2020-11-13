@@ -3,6 +3,6 @@
 namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class FloorRooms : List<FloorRoom> { }
+    public class RoomsAtPositions : List<RoomAtPosition> { }
 
 }

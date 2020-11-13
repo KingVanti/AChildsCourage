@@ -1,6 +1,6 @@
 ﻿namespace AChildsCourage.Game.Floors.Generation
 {
-    public class FloorRoom
+    public class RoomAtPosition
     {
 
         #region Properties
@@ -13,7 +13,7 @@
 
         #region Constructors
 
-        public FloorRoom(ChunkPosition position, Room room)
+        public RoomAtPosition(ChunkPosition position, Room room)
         {
             Position = position;
             Room = room;

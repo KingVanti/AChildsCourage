@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Methods
 
-        FloorRooms LoadRoomsFor(FloorPlan floorPlan);
+        RoomsAtPositions LoadRoomsFor(FloorPlan floorPlan);
 
         #endregion
 

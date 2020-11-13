@@ -22,10 +22,10 @@ namespace AChildsCourage.Game.Floors.Generation
                 new RoomInChunk(1, new ChunkPosition(1, 1))
             });
 
-            var floorRooms = new FloorRooms()
+            var floorRooms = new RoomsAtPositions()
             {
-                new FloorRoom(new ChunkPosition(0, 0), null),
-                new FloorRoom(new ChunkPosition(1, 1), null)
+                new RoomAtPosition(new ChunkPosition(0, 0), null),
+                new RoomAtPosition(new ChunkPosition(1, 1), null)
             };
 
             var mockRoomRepository = new Mock<IRoomRepository>();

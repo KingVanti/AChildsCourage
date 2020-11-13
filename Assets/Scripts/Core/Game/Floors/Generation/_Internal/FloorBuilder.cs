@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Floors.Generation
             BuildRooms(floorRooms);
         }
 
-        private void BuildRooms(FloorRooms rooms)
+        private void BuildRooms(RoomsAtPositions rooms)
         {
             foreach (var room in rooms)
                 roomBuilder.Build(room.Room, room.Position);
