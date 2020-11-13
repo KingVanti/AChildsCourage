@@ -17,8 +17,9 @@ namespace AChildsCourage.Game.Floors.Generation
             // Given
 
             var roomTiles = new RoomTiles(
-                new Tiles<GroundTile>(new GroundTile(new TilePosition(0, 0)), new GroundTile(new TilePosition(0, 0))),
-                Tiles<DataTile>.None);
+                new Tiles<GroundTile>(new GroundTile(0, 0, 1, 0), new GroundTile(0, 0, 1, 0)),
+                Tiles<DataTile>.None,
+                Tiles<AOIMarker>.None);
             var room = new Room(
                 RoomType.Normal,
                 roomTiles,

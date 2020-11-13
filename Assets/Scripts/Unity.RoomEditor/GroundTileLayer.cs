@@ -42,7 +42,7 @@ namespace AChildsCourage.RoomEditor
         {
             return new Tiles<GroundTile>(
                 GetTiles()
-                .Select(t => new GroundTile(t.Position)));
+                .Select(t => new GroundTile(t.Position, 1, 0)));
         }
 
         #endregion

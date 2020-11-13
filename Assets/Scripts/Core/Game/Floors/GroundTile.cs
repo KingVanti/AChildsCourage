@@ -8,13 +8,26 @@
 
         public TilePosition Position { get; }
 
+        public int DistanceToWall { get; }
+
+        public int AOIIndex { get; }
+
         #endregion
 
         #region Constructors
 
-        public GroundTile(TilePosition position)
+        public GroundTile(int x, int y, int distanceToWall, int aoiIndex)
+        {
+            Position = new TilePosition(x, y);
+            DistanceToWall = distanceToWall;
+            AOIIndex = aoiIndex;
+        }
+
+        public GroundTile(TilePosition position, int distanceToWall, int aoiIndex)
         {
             Position = position;
+            DistanceToWall = distanceToWall;
+            AOIIndex = aoiIndex;
         }
 
         #endregion
