@@ -13,14 +13,6 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #endregion
 
-        #region Methods
-
-        void PlaceWall(TilePosition position);
-
-        void PlaceGround(TilePosition position);
-
-        #endregion
-
     }
 
 }

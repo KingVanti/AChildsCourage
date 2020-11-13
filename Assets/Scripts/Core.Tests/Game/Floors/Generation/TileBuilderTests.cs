@@ -52,6 +52,51 @@ namespace AChildsCourage.Game.Floors.Generation
             Assert.That(eventArgs.Position, Is.EqualTo(position), "Event raised with incorrect position!");
         }
 
+        [Test]
+        public void When_The_Tiles_For_A_Floor_Are_Built_Then_All_Ground_Tiles_Are_Placed()
+        {
+            // Given
+
+            var tileBuilder = new TileBuilder();
+            var floor = new Floor();
+            floor.PlaceGround(new GroundTile(0, 0, 0, 0), new TileOffset(0, 0));
+
+            // When
+
+            var eventArgs = 
+                ListenFor
+                .All<GroundPlacedEventArgs>()
+                .From(tileBuilder)
+                .During(() => tileBuilder.PlacesTilesFor(floor));
+
+            // Assert
+
+            Assert.That(eventArgs.Length, Is.EqualTo(1), "Incorrect number of tiles placed!");
+        }
+
+        [Test]
+        public void When_The_Tiles_For_A_Floor_Are_Built_Then_All_Wall_Tiles_Are_Placed()
+        {
+            // Given
+
+            var tileBuilder = new TileBuilder();
+            var floor = new Floor();
+            floor.PlaceGround(new GroundTile(0, 0, 0, 0), new TileOffset(0, 0));
+            floor.GenerateWalls();
+
+            // When
+
+            var eventArgs =
+                ListenFor
+                .All<WallPlacedEventArgs>()
+                .From(tileBuilder)
+                .During(() => tileBuilder.PlacesTilesFor(floor));
+
+            // Assert
+
+            Assert.That(eventArgs.Length, Is.EqualTo(14), "Incorrect number of tiles placed!");
+        }
+
         #endregion
 
     }

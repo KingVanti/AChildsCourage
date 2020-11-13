@@ -4,9 +4,15 @@
     public class FloorPlan
     {
 
+        #region Static Properties
+
+        public static FloorPlan Empty { get { return new FloorPlan(new RoomIdInChunk[0]); } }
+
+        #endregion
+
         #region Properties
 
-        public RoomInChunk[] Rooms { get; }
+        public RoomIdInChunk[] Rooms { get; }
 
         #endregion
 
@@ -14,10 +20,10 @@
 
         internal FloorPlan()
         {
-            Rooms = new RoomInChunk[0];
+            Rooms = new RoomIdInChunk[0];
         }
 
-        internal FloorPlan(RoomInChunk[] rooms)
+        internal FloorPlan(RoomIdInChunk[] rooms)
         {
             Rooms = rooms;
         }
