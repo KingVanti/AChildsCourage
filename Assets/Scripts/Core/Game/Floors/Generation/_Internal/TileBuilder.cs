@@ -29,8 +29,8 @@ namespace AChildsCourage.Game.Floors.Generation
             foreach (var groundTilePosition in floor.GroundTilePositions)
                 PlaceGround(groundTilePosition);
 
-            foreach (var wallTilePosition in floor.WallTilePositions)
-                PlaceWall(wallTilePosition);
+            foreach (var wall in floor.Walls)
+                PlaceWall(wall);
         }
 
         internal void PlaceGround(TilePosition position)
@@ -38,9 +38,9 @@ namespace AChildsCourage.Game.Floors.Generation
             OnGroundPlaced?.Invoke(this, new GroundPlacedEventArgs(position));
         }
 
-        internal void PlaceWall(TilePosition position)
+        internal void PlaceWall(Wall wall)
         {
-            OnWallPlaced?.Invoke(this, new WallPlacedEventArgs(position));
+            OnWallPlaced?.Invoke(this, new WallPlacedEventArgs(wall));
         }
 
         #endregion

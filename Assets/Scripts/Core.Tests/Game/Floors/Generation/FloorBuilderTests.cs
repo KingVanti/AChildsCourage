@@ -76,7 +76,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // Then
 
-            Assert.That(floor.WallTileCount, Is.Not.Zero, "No walls were genereated!");
+            Assert.That(floor.WallCount, Is.Not.Zero, "No walls were genereated!");
         }
 
         #endregion

@@ -19,13 +19,13 @@ namespace AChildsCourage.Game.Floors
         public int GroundTileCount { get { return groundTilePositions.Count; } }
 
 
-        public int WallTileCount { get { return wallTilePositions.Count; } }
+        public int WallCount { get { return wallTilePositions.Count; } }
 
 
         public IEnumerable<TilePosition> GroundTilePositions { get { return groundTilePositions; } }
 
 
-        public IEnumerable<TilePosition> WallTilePositions { get { return wallTilePositions; } }
+        public IEnumerable<Wall> Walls { get { return wallTilePositions.Select(ToWall); } }
 
         #endregion
 
@@ -62,6 +62,14 @@ namespace AChildsCourage.Game.Floors
         private bool IsEmpty(TilePosition position)
         {
             return !groundTilePositions.Contains(position);
+        }
+
+
+        private Wall ToWall(TilePosition wallPosition)
+        {
+            bool isSide = groundTilePositions.Contains(wallPosition + new TileOffset(0, -1)) || groundTilePositions.Contains(wallPosition + new TileOffset(0, -2));
+
+            return new Wall(wallPosition, isSide ? WallType.Side : WallType.Top);
         }
 
         #endregion

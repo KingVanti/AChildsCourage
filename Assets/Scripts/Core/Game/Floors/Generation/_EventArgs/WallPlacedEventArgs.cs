@@ -8,15 +8,15 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Properties
 
-        public TilePosition Position { get; }
+        public Wall Wall { get; }
 
         #endregion
 
         #region Constructors
 
-        public WallPlacedEventArgs(TilePosition position)
+        public WallPlacedEventArgs(Wall wall)
         {
-            Position = position;
+            Wall = wall;
         }
 
         #endregion

@@ -19,16 +19,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var position = new TilePosition(0, 0);
+            var wall = new Wall(new TilePosition(0, 0), WallType.Side);
             var eventArgs = ListenFor
                 .First<WallPlacedEventArgs>()
                 .From(tileBuilder)
-                .During(() => tileBuilder.PlaceWall(position));
+                .During(() => tileBuilder.PlaceWall(wall));
 
             // Then
 
             Assert.That(eventArgs, Is.Not.Null, "No event was raised!");
-            Assert.That(eventArgs.Position, Is.EqualTo(position), "Event raised with incorrect position!");
+            Assert.That(eventArgs.Wall.Position, Is.EqualTo(wall.Position), "Event raised with incorrect position!");
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var eventArgs = 
+            var eventArgs =
                 ListenFor
                 .All<GroundPlacedEventArgs>()
                 .From(tileBuilder)
