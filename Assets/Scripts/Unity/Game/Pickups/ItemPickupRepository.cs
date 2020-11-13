@@ -37,6 +37,10 @@ namespace AChildsCourage.Game.Pickups {
 
         }
 
+        public ItemData GetSpecificItem(int id) {
+            return availableItems[id];
+        }
+
         #endregion
     }
 }
