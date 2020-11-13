@@ -100,6 +100,18 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Orb"))
                 RoomEditor.SelectedDataTileType = DataTileType.CourageOrb;
 
+            GUI.enabled = RoomEditor.CurrentRoomIsStartRoom;
+
+            if (GUILayout.Button("Start-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.StartPoint;
+
+            GUI.enabled = RoomEditor.CurrentRoomIsEndRoom;
+
+            if (GUILayout.Button("End-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.EndPoint;
+
+            GUI.enabled = true;
+
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
         }

@@ -5,7 +5,9 @@
     {
         Item,
         CourageSpark,
-        CourageOrb
+        CourageOrb,
+        StartPoint,
+        EndPoint
     }
 
 }

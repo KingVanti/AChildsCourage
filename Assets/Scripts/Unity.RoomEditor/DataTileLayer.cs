@@ -16,6 +16,8 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private Tile itemTile;
         [SerializeField] private Tile courageSparkTile;
         [SerializeField] private Tile courageOrbTile;
+        [SerializeField] private Tile startPointTile;
+        [SerializeField] private Tile endPointTile;
 
         #endregion
 
@@ -76,6 +78,10 @@ namespace AChildsCourage.RoomEditor
                     return courageSparkTile;
                 case DataTileType.CourageOrb:
                     return courageOrbTile;
+                case DataTileType.StartPoint:
+                    return startPointTile;
+                case DataTileType.EndPoint:
+                    return endPointTile;
             }
 
             throw new System.Exception("Invalid tile-type!");
