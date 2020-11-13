@@ -46,14 +46,14 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void BuildTiles(RoomTiles roomTiles, TileOffset offset)
         {
-            BuildGround(roomTiles.GroundTiles, offset);
+            BuildGroundTiles(roomTiles.GroundTiles, offset);
         }
 
-        private void BuildGround(Tiles<GroundTile> groundPositions, TileOffset offset)
+        private void BuildGroundTiles(Tiles<GroundTile> groundTiles, TileOffset offset)
         {
-            foreach (var groundPosition in groundPositions)
+            foreach (var groundTile in groundTiles)
             {
-                var offsetPosition = groundPosition.Position + offset;
+                var offsetPosition = groundTile.Position + offset;
 
                 tileBuilder.PlaceGround(offsetPosition);
             }
