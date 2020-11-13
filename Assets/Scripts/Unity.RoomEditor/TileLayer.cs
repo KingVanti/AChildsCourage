@@ -9,6 +9,12 @@ namespace AChildsCourage.RoomEditor
     public abstract class TileLayer : MonoBehaviour
     {
 
+        #region Constants
+
+        private const int ChunkCenterOffset = ((ChunkPosition.ChunkTileSize - 1) / 2) + 1;
+
+        #endregion
+
         #region Fields
 
         [SerializeField] private Tilemap tilemap;
@@ -31,7 +37,7 @@ namespace AChildsCourage.RoomEditor
 
         protected void PlaceTileAt(Tile tile, TilePosition position)
         {
-            tilemap.SetTile(position.ToVector3Int(), tile);
+            tilemap.SetTile(ToGlobalPosition(position), tile);
         }
 
 
@@ -47,12 +53,28 @@ namespace AChildsCourage.RoomEditor
             for (var x = bounds.xMin; x <= bounds.xMax; x++)
                 for (var y = bounds.yMin; y <= bounds.yMax; y++)
                 {
-                    var position = new Vector3Int(x, y, 0);
-                    var tile = tilemap.GetTile<Tile>(position);
+                    var globalTilePos = new Vector3Int(x, y, 0);
+                    var tile = tilemap.GetTile<Tile>(globalTilePos);
 
                     if (tile != null)
-                        yield return new TileAtPos(tile, position);
+                        yield return new TileAtPos(tile, GetLocalTilePos(globalTilePos));
                 }
+        }
+
+        private TilePosition GetLocalTilePos(Vector3Int global)
+        {
+            return new TilePosition(
+                global.x + ChunkCenterOffset,
+                global.y + ChunkCenterOffset);
+        }
+
+
+        private Vector3Int ToGlobalPosition(TilePosition position)
+        {
+            return new Vector3Int(
+                position.X - ChunkCenterOffset,
+                position.Y - ChunkCenterOffset,
+                0);
         }
 
         #endregion
@@ -66,13 +88,13 @@ namespace AChildsCourage.RoomEditor
 
             public Tile Tile { get; }
 
-            public Vector3Int Position { get; }
+            public TilePosition Position { get; }
 
             #endregion
 
             #region Constructors
 
-            public TileAtPos(Tile tile, Vector3Int position)
+            public TileAtPos(Tile tile, TilePosition position)
             {
                 Tile = tile;
                 Position = position;

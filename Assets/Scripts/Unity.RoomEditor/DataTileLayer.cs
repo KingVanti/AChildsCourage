@@ -56,7 +56,7 @@ namespace AChildsCourage.RoomEditor
 
         private DataTile ToDataTile(TileAtPos tileAtPos)
         {
-            var position = new TilePosition(tileAtPos.Position.x, tileAtPos.Position.y);
+            var position = tileAtPos.Position;
             var tileType = GetTypeOf(tileAtPos.Tile);
 
             return new DataTile(position, tileType);
