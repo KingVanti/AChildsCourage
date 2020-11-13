@@ -55,6 +55,8 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
             EditorGUILayout.Space();
 
+            DrawRoomTypeSelectionGUI();
+
             DrawTileCategorySelectionGUI();
 
             if (RoomEditor.SelectedTileCategory == TileCategory.Data)
@@ -63,6 +65,11 @@ namespace AChildsCourage.RoomEditor.Editor
             DrawPassageEditorGUI();
 
             DrawSaveAssetGUI();
+        }
+
+        private void DrawRoomTypeSelectionGUI()
+        {
+            RoomEditor.CurrentRoomType = (RoomType)EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
         }
 
         private void DrawTileCategorySelectionGUI()
