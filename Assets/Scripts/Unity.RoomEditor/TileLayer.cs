@@ -17,7 +17,11 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
+#pragma warning disable 649
+
         [SerializeField] private Tilemap tilemap;
+
+#pragma warning restore 649
 
         #endregion
 

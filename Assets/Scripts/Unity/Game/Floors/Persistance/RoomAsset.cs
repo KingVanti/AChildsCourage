@@ -10,8 +10,12 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         #region Fields
 
+#pragma warning disable 649
+
         [SerializeField] private int _id;
         [SerializeField] [HideInInspector] private string roomJson;
+
+#pragma warning restore 649
 
         #endregion
 
