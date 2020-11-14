@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game;
-using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;

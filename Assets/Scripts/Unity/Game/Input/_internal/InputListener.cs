@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
-namespace AChildsCourage.Game.Input {
+namespace AChildsCourage.Game.Input
+{
 
     [Singleton]
     internal class InputListener : IInputListener, IEagerActivation {

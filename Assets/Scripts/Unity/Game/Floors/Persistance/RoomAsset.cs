@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.Persistance
 
         private Room Read()
         {
-            if(string.IsNullOrEmpty(roomJson))
+            if (string.IsNullOrEmpty(roomJson))
             {
                 var newRoom = Room.Empty;
 
