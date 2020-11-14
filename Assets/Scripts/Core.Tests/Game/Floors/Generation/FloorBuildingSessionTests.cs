@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 
-namespace AChildsCourage.Game.Floors
+namespace AChildsCourage.Game.Floors.Generation
 {
 
     [TestFixture]
-    public class FloorTests
+    public class FloorBuildingSessionTests
     {
 
         #region Tests
@@ -15,12 +15,12 @@ namespace AChildsCourage.Game.Floors
         {
             // Given
 
-            var floor = new Floor();
-            floor.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
+            var buildingSession = new FloorBuildingSession();
+            buildingSession.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
 
             // When
 
-            floor.GenerateWalls();
+            buildingSession.GenerateWalls();
 
             // Then
 
@@ -42,9 +42,9 @@ namespace AChildsCourage.Game.Floors
                 new TilePosition(1, 3)
             };
 
-            Assert.That(floor.WallCount, Is.EqualTo(expectedWallTilePositions.Length), "Incorrect number of walls placed!");
+            Assert.That(buildingSession.WallCount, Is.EqualTo(expectedWallTilePositions.Length), "Incorrect number of walls placed!");
 
-            var actualWallPositions = floor.Walls.Select(w => w.Position).ToArray();
+            var actualWallPositions = buildingSession.Walls.Select(w => w.Position).ToArray();
             foreach (var expectedWallPosition in expectedWallTilePositions)
                 Assert.That(actualWallPositions.Contains(expectedWallPosition), $"Wall position {expectedWallPosition} not found!");
         }
@@ -54,17 +54,17 @@ namespace AChildsCourage.Game.Floors
         {
             // Given
 
-            var floor = new Floor();
-            floor.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
-            floor.PlaceGround(new GroundTile(1, 0, 1, 0), new TileOffset(0, 0));
+            var buildingSession = new FloorBuildingSession();
+            buildingSession.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
+            buildingSession.PlaceGround(new GroundTile(1, 0, 1, 0), new TileOffset(0, 0));
 
             // When
 
-            floor.GenerateWalls();
+            buildingSession.GenerateWalls();
 
             // Then
 
-            Assert.That(floor.WallCount, Is.EqualTo(18), "Incorrect number of walls!");
+            Assert.That(buildingSession.WallCount, Is.EqualTo(18), "Incorrect number of walls!");
         }
 
         [Test]
@@ -72,12 +72,12 @@ namespace AChildsCourage.Game.Floors
         {
             // Given
 
-            var floor = new Floor();
-            floor.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
+            var buildingSession = new FloorBuildingSession();
+            buildingSession.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
 
             // When
 
-            floor.GenerateWalls();
+            buildingSession.GenerateWalls();
 
             // Then
 
@@ -88,7 +88,7 @@ namespace AChildsCourage.Game.Floors
             };
 
 
-            var actualSidePositions = floor.Walls.Where(w => w.Type == WallType.Side).Select(w => w.Position).ToArray();
+            var actualSidePositions = buildingSession.Walls.Where(w => w.Type == WallType.Side).Select(w => w.Position).ToArray();
 
             Assert.That(actualSidePositions.Length, Is.EqualTo(2), "Incorrect number of positions found!");
 
@@ -101,12 +101,12 @@ namespace AChildsCourage.Game.Floors
         {
             // Given
 
-            var floor = new Floor();
-            floor.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
+            var buildingSession = new FloorBuildingSession();
+            buildingSession.PlaceGround(new GroundTile(0, 0, 1, 0), new TileOffset(0, 0));
 
             // When
 
-            floor.GenerateWalls();
+            buildingSession.GenerateWalls();
 
             // Then
 
@@ -126,7 +126,7 @@ namespace AChildsCourage.Game.Floors
                 new TilePosition(1, 3)
             };
 
-            var actualTopPositions = floor.Walls.Where(w => w.Type == WallType.Top).Select(w => w.Position).ToArray();
+            var actualTopPositions = buildingSession.Walls.Where(w => w.Type == WallType.Top).Select(w => w.Position).ToArray();
 
             Assert.That(actualTopPositions.Length, Is.EqualTo(12), "Incorrect number of positions found!");
 

@@ -42,21 +42,21 @@ namespace AChildsCourage.Game.Floors.Generation
 
         internal Floor BuildFrom(RoomsInChunks roomsInChunks)
         {
-            var floor = new Floor();
+            var buildingSession = new FloorBuildingSession();
 
             foreach (var roomInChunk in roomsInChunks)
-                BuildInto(roomInChunk, floor);
+                BuildInto(roomInChunk, buildingSession);
 
-            floor.GenerateWalls();
+            buildingSession.GenerateWalls();
 
-            return floor;
+            return buildingSession.BuildFloor();
         }
 
-        private void BuildInto(RoomInChunk roomInChunk, Floor floor)
+        private void BuildInto(RoomInChunk roomInChunk, FloorBuildingSession buildingSession)
         {
             var tileOffset = GetTileOffset(roomInChunk);
 
-            PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, floor);
+            PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, buildingSession);
         }
 
         private TileOffset GetTileOffset(RoomInChunk roomInChunk)
@@ -64,15 +64,15 @@ namespace AChildsCourage.Game.Floors.Generation
             return GetTileOffsetFor(roomInChunk.Position); 
         }
 
-        private void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, Floor floor)
+        private void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
         {
-            PlaceGroundInto(roomTiles.GroundTiles, tileOffset, floor);
+            PlaceGroundInto(roomTiles.GroundTiles, tileOffset, buildingSession);
         }
 
-        private void PlaceGroundInto(Tiles<GroundTile> groundTiles, TileOffset tileOffset, Floor floor)
+        private void PlaceGroundInto(Tiles<GroundTile> groundTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
         {
             foreach (var groundTile in groundTiles)
-                floor.PlaceGround(groundTile, tileOffset);
+                buildingSession.PlaceGround(groundTile, tileOffset);
         }
 
         #endregion
