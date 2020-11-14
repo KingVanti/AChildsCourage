@@ -2,3 +2,4 @@
 
 [assembly: InternalsVisibleTo("AChildsCourage.Core.Tests")]
 [assembly: InternalsVisibleTo("AChildsCourage.Unity.TestGenerator")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
