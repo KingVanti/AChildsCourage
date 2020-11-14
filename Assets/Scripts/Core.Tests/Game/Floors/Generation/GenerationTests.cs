@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors.Generation
 {
 
     [TestFixture]
-    public class GenerationUtilityTests
+    public class GenerationTests
     {
 
         #region Tests
