@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Numerics;
 
-using static AChildsCourage.Game.Floors.Generation.Generation;
+using static AChildsCourage.Game.Floors.Generation.GenerationModule;
 
 namespace AChildsCourage.Game.Floors.Generation
 {
