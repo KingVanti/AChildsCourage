@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using static AChildsCourage.CustomMathModule;
+
 namespace AChildsCourage.Game.UI
 {
 
@@ -39,7 +41,7 @@ namespace AChildsCourage.Game.UI
 
         public void UpdateCooldown(int slotId, float currentCooldown, float Cooldown)
         {
-            itemCooldownFills[slotId].fillAmount = Utils.Map(currentCooldown, 0, Cooldown, 0, maxFill);
+            itemCooldownFills[slotId].fillAmount = Map(currentCooldown, 0, Cooldown, 0, maxFill);
 
             if (itemCooldownFills[slotId].fillAmount < 1)
             {

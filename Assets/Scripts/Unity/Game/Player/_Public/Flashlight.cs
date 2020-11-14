@@ -3,6 +3,8 @@ using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+using static AChildsCourage.CustomMathModule;
+
 namespace AChildsCourage.Game.Player
 {
     public class Flashlight : Item
@@ -68,7 +70,7 @@ namespace AChildsCourage.Game.Player
 
         private void ChangeLightIntensity()
         {
-            lightComponent.intensity = Mathf.Clamp(Utils.Map(Mathf.Abs(Vector2.Distance(transform.position, characterPosition)), 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
+            lightComponent.intensity = Mathf.Clamp(Map(Mathf.Abs(Vector2.Distance(transform.position, characterPosition)), 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
         }
 
         private void BindTo(IInputListener listener)

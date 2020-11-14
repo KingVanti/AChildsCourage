@@ -1,6 +1,6 @@
 ﻿namespace AChildsCourage
 {
-    public static class Utils
+    public static class CustomMathModule
     {
 
         #region Methods
@@ -16,10 +16,7 @@
         /// <returns></returns>
         public static float Map(float x, float begin1, float end1, float begin2, float end2)
         {
-
-            float value = begin2 + (end2 - begin2) * ((x - begin1) / (end1 - begin1));
-            return value;
-
+            return begin2 + (end2 - begin2) * ((x - begin1) / (end1 - begin1));
         }
 
         #endregion
