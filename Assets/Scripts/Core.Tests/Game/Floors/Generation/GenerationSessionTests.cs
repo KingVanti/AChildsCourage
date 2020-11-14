@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Then
 
             var floorPlan = chunkGrid.BuildPlan();
-            var originRoom = floorPlan.Rooms.FirstOrDefault(r => r.Position == new ChunkPosition(0, 0));
+            var originRoom = floorPlan.Rooms.FirstOrDefault(r => r.Position.Equals(new ChunkPosition(0, 0)));
 
             Assert.That(originRoom, Is.Not.Null, "No room placed at origin");
             Assert.That(originRoom.RoomId, Is.Zero, "Incorrect room placed at origin!");
