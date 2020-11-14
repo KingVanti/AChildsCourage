@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors.Generation
 {
 
-    internal static class GenerationUtility
+    internal static class Generation
     {
 
         #region Fields

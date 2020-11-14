@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             // When
 
-            var actual = GenerationUtility.CanConnect(first, second);
+            var actual = Generation.CanConnect(first, second);
 
             // Then
 
@@ -51,7 +51,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var surrounding = GenerationUtility.GetSurroundingPositions(position).ToArray();
+            var surrounding = Generation.GetSurroundingPositions(position).ToArray();
 
             // Then
 

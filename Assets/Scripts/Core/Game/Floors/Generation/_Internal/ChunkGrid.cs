@@ -75,7 +75,7 @@ namespace AChildsCourage.Game.Floors.Generation
         private IEnumerable<ChunkPosition> GetReservablePositionsAround(ChunkPosition position)
         {
             return
-                GenerationUtility.GetSurroundingPositions(position)
+                Generation.GetSurroundingPositions(position)
                 .Where(CanReserve);
         }
 
