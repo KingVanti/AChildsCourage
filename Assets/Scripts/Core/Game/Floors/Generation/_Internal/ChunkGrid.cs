@@ -118,7 +118,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private bool HasPassage(ChunkPosition position, Passage passage)
         {
-            var positionInDirection = position + passage;
+            var positionInDirection = Generation.MoveToAdjacentChunk(position, passage);
 
             if (IsEmpty(positionInDirection))
                 return false;
@@ -140,7 +140,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private PassageFilter GetFilterFor(ChunkPosition position, Passage passage)
         {
-            var positionInDirection = position + passage;
+            var positionInDirection = Generation.MoveToAdjacentChunk(position, passage);
 
             if (IsEmpty(positionInDirection))
                 return PassageFilter.Open;

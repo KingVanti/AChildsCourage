@@ -54,6 +54,28 @@ namespace AChildsCourage.Game.Floors.Generation
             }
         }
 
+        [Test]
+        public void Moving_To_Adjacent_Chunk_Returns_Correct_Chunk()
+        {
+            // Given
+
+            var chunkPosition = new ChunkPosition(0, 0);
+
+            // When
+
+            var toNorth = Generation.MoveToAdjacentChunk(chunkPosition, Passage.North);
+            var toEast = Generation.MoveToAdjacentChunk(chunkPosition, Passage.East);
+            var toSouth = Generation.MoveToAdjacentChunk(chunkPosition, Passage.South);
+            var toWest = Generation.MoveToAdjacentChunk(chunkPosition, Passage.West);
+
+            // Then
+
+            Assert.That(toNorth, Is.EqualTo(new ChunkPosition(0, 1)), "Moving north produced incorrect result!");
+            Assert.That(toEast, Is.EqualTo(new ChunkPosition(1, 0)), "Moving east produced incorrect result!");
+            Assert.That(toSouth, Is.EqualTo(new ChunkPosition(0, -1)), "Moving south produced incorrect result!");
+            Assert.That(toWest, Is.EqualTo(new ChunkPosition(-1, 0)), "Moving west produced incorrect result!");
+        }
+
         #endregion
 
     }
