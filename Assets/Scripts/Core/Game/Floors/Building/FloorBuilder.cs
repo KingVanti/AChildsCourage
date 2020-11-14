@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
 using System;
 
-using static AChildsCourage.Game.Floors.Generation.Generation;
+using static AChildsCourage.Game.Floors.Building.FloorBuildingModule;
 
 namespace AChildsCourage.Game.Floors.Building
 {
@@ -38,41 +38,6 @@ namespace AChildsCourage.Game.Floors.Building
             var floor = BuildFrom(roomRepository.LoadRoomsFor(floorPlan));
 
             OnFloorBuilt?.Invoke(this, new FloorBuiltEventArgs(floor));
-        }
-
-        internal Floor BuildFrom(RoomsInChunks roomsInChunks)
-        {
-            var buildingSession = new FloorBuildingSession();
-
-            foreach (var roomInChunk in roomsInChunks)
-                BuildInto(roomInChunk, buildingSession);
-
-            buildingSession.GenerateWalls();
-
-            return buildingSession.BuildFloor();
-        }
-
-        private void BuildInto(RoomInChunk roomInChunk, FloorBuildingSession buildingSession)
-        {
-            var tileOffset = GetTileOffset(roomInChunk);
-
-            PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, buildingSession);
-        }
-
-        private TileOffset GetTileOffset(RoomInChunk roomInChunk)
-        {
-            return GetTileOffsetFor(roomInChunk.Position); 
-        }
-
-        private void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
-        {
-            PlaceGroundInto(roomTiles.GroundTiles, tileOffset, buildingSession);
-        }
-
-        private void PlaceGroundInto(Tiles<GroundTile> groundTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
-        {
-            foreach (var groundTile in groundTiles)
-                buildingSession.PlaceGround(groundTile, tileOffset);
         }
 
         #endregion
