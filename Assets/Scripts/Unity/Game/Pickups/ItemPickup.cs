@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Pickups {
+namespace AChildsCourage.Game.Pickups
+{
     public class ItemPickup : MonoBehaviour {
 
         #region Fields

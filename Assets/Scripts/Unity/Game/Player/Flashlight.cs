@@ -3,7 +3,8 @@ using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public class Flashlight : Item {
 
         #region Fields

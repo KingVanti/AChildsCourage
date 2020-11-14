@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace AChildsCourage.Game {
+﻿namespace AChildsCourage.Game
+{
 
     public static class EntityTags {
 

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Pickups {
+namespace AChildsCourage.Game.Pickups
+{
     public class ItemPickupRepository : IItemPickupRepository {
 
         #region Constants

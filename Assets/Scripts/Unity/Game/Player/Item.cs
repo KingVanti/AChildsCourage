@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public abstract class Item : MonoBehaviour {
 
         #region Fields

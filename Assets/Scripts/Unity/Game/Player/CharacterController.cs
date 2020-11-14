@@ -5,7 +5,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public class CharacterController : MonoBehaviour {
 
         #region Fields

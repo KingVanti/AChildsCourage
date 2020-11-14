@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game;
-using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -13,11 +12,15 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
+#pragma warning disable 649
+
         [SerializeField] private Tile itemTile;
         [SerializeField] private Tile courageSparkTile;
         [SerializeField] private Tile courageOrbTile;
         [SerializeField] private Tile startPointTile;
         [SerializeField] private Tile endPointTile;
+
+#pragma warning restore 649
 
         #endregion
 
