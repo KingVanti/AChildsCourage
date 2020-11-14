@@ -48,6 +48,11 @@ namespace AChildsCourage
             return rng.Next(max);
         }
 
+        public bool Prob(float variantProb)
+        {
+            return GetValueBetween(float.Epsilon, 100f) <= variantProb;
+        }
+
         #endregion
 
     }

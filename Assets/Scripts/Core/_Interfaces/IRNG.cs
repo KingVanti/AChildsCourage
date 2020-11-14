@@ -16,6 +16,8 @@
 
         int GetValueBetween(int min, int max);
 
+        bool Prob(float variantProb);
+
         #endregion
 
     }
