@@ -52,9 +52,14 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void BuildInto(RoomInChunk roomInChunk, Floor floor)
         {
-            var tileOffset = roomInChunk.Position.GetTileOffset();
+            var tileOffset = GetTileOffsetFor(roomInChunk);
 
             PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, floor);
+        }
+
+        private TileOffset GetTileOffsetFor(RoomInChunk roomInChunk)
+        {
+            return Generation.GetTileOffsetFor(roomInChunk.Position); 
         }
 
         private void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, Floor floor)

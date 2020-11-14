@@ -12,6 +12,23 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Tests
 
         [Test]
+        public void Tile_Offset_Is_Chunk_Position_Times_Chunk_Size()
+        {
+            // Given
+
+            var chunkPosition = new ChunkPosition(1, -1);
+
+            // When
+
+            var offset = Generation.GetTileOffsetFor(chunkPosition);
+
+            // Then
+
+            Assert.That(offset.X, Is.EqualTo(41), "X coordinate incorrect!");
+            Assert.That(offset.Y, Is.EqualTo(-41), "Y coordinate incorrect!");
+        }
+
+        [Test]
         public void Get_Correct_Surrounding_Positions()
         {
             // Given

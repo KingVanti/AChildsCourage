@@ -8,6 +8,14 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
+        internal static TileOffset GetTileOffsetFor(ChunkPosition chunkPosition)
+        {
+            return new TileOffset(
+                chunkPosition.X * ChunkPosition.ChunkTileSize,
+                chunkPosition.Y * ChunkPosition.ChunkTileSize);
+        }
+
+
         internal static IEnumerable<ChunkPosition> GetSurroundingPositions(ChunkPosition position)
         {
             yield return new ChunkPosition(position.X, position.Y + 1);

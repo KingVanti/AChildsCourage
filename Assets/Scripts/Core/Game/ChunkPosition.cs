@@ -33,14 +33,6 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        internal TileOffset GetTileOffset()
-        {
-            return new TileOffset(
-                ChunkTileSize * X,
-                ChunkTileSize * Y);
-        }
-
-
         public override string ToString()
         {
             return $"({X}, {Y})";
