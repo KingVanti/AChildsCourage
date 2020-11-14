@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AChildsCourage.Game.Floors.Generation
 {
 
-    public class ResourceRoomPassageRepository : IRoomPassagesRepository
+    internal class ResourceRoomPassageRepository : IRoomPassagesRepository
     {
 
         #region Constants
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        public ResourceRoomPassageRepository()
+        internal ResourceRoomPassageRepository()
         {
             var allRooms = GetAllPassages();
 

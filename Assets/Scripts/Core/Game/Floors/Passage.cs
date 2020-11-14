@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public enum Passage
+    internal enum Passage
     {
         North,
         East,

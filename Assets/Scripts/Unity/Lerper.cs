@@ -6,12 +6,12 @@ using UnityEngine;
 namespace AChildsCourage
 {
 
-    public static class Lerper
+    internal static class Lerper
     {
 
         #region Methods
 
-        public static IEnumerator StepLerp(Action<float> stepFunction, float stepSize)
+        internal static IEnumerator StepLerp(Action<float> stepFunction, float stepSize)
         {
             var t = 0f;
 
@@ -27,7 +27,7 @@ namespace AChildsCourage
         }
 
 
-        public static IEnumerator TimeLerp(Action<float> stepFunction, float time, Action onLerpCompleted = null)
+        internal static IEnumerator TimeLerp(Action<float> stepFunction, float time, Action onLerpCompleted = null)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();

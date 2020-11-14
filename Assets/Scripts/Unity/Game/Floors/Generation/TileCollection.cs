@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors.Generation
 {
 
     [Serializable]
-    public class TileCollection
+    internal class TileCollection
     {
 
         #region Fields
@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Methods
 
-        public Tile GetTile(IRNG rng)
+        internal Tile GetTile(IRNG rng)
         {
             var getVariant = rng.Prob(_variantProb);
 

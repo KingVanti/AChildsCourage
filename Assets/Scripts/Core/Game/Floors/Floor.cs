@@ -4,7 +4,7 @@ using System.Linq;
 namespace AChildsCourage.Game.Floors
 {
 
-    public class Floor
+    internal class Floor
     {
 
         #region Fields
@@ -16,22 +16,22 @@ namespace AChildsCourage.Game.Floors
 
         #region Properties
 
-        public int GroundTileCount { get { return groundTilePositions.Count; } }
+        internal int GroundTileCount { get { return groundTilePositions.Count; } }
 
 
-        public int WallCount { get { return wallTilePositions.Count; } }
+        internal int WallCount { get { return wallTilePositions.Count; } }
 
 
-        public IEnumerable<TilePosition> GroundTilePositions { get { return groundTilePositions; } }
+        internal IEnumerable<TilePosition> GroundTilePositions { get { return groundTilePositions; } }
 
 
-        public IEnumerable<Wall> Walls { get { return wallTilePositions.Select(ToWall); } }
+        internal IEnumerable<Wall> Walls { get { return wallTilePositions.Select(ToWall); } }
 
         #endregion
 
         #region Methods
 
-        public void PlaceGround(GroundTile groundTile, TileOffset tileOffset)
+        internal void PlaceGround(GroundTile groundTile, TileOffset tileOffset)
         {
             var position = groundTile.Position + tileOffset;
 
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        public void GenerateWalls()
+        internal void GenerateWalls()
         {
             var filteredWallPositions =
                 GetUnfilteredWallPositions()

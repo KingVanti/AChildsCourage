@@ -45,41 +45,6 @@ namespace AChildsCourage.Game.Floors.Generation
 
 
         [Test]
-        public void YMirroring_Switches_North_And_South()
-        {
-            // Given
-
-            var passages = new ChunkPassages(true, false, false, false);
-
-            // When
-
-            var mirrored = passages.YMirrored;
-
-            // Then
-
-            Assert.That(mirrored.HasNorth, Is.EqualTo(passages.HasSouth), "North not mirrored correctly!");
-            Assert.That(mirrored.HasSouth, Is.EqualTo(passages.HasNorth), "South not mirrored correctly!");
-        }
-
-        [Test]
-        public void YMirroring_Has_No_Effect_On_East_And_West()
-        {
-            // Given
-
-            var passages = new ChunkPassages(false, true, false, false);
-
-            // When
-
-            var mirrored = passages.YMirrored;
-
-            // Then
-
-            Assert.That(mirrored.HasEast, Is.EqualTo(passages.HasEast), "East was effected!");
-            Assert.That(mirrored.HasWest, Is.EqualTo(passages.HasWest), "West was effected!");
-        }
-
-
-        [Test]
         public void Rotating_Moves_Each_Passage_Clockwise_90_Degrees()
         {
             // Given

@@ -3,12 +3,12 @@
 namespace AChildsCourage.Game
 {
 
-    public static class Extensions
+    internal static class Extensions
     {
 
         #region Methods
 
-        public static Vector3Int ToVector3Int(this TilePosition tilePosition)
+        internal static Vector3Int ToVector3Int(this TilePosition tilePosition)
         {
             return new Vector3Int(
                 tilePosition.X,
