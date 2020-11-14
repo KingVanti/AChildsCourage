@@ -12,9 +12,13 @@ namespace AChildsCourage.Game.Player
 
         #region Fields
 
+#pragma warning disable 649
+
         [SerializeField] private List<GameObject> availableItems = new List<GameObject>();
         [SerializeField] private GameObject pickupPrefab;
         [SerializeField] private Transform pickupContainer;
+
+#pragma warning restore 649
 
         private Item[] currentItems = new Item[2];
         private float[] currentItemCooldown = new float[2];
