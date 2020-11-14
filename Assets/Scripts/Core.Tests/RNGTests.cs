@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage
 {
 
     [TestFixture]
