@@ -55,7 +55,7 @@ namespace AChildsCourage.Game.Floors.Generation
             // Then
 
             Assert.That(floor.GroundTileCount, Is.EqualTo(2), "Incorrect number of ground-tiles placed!");
-            Assert.That(floor.GroundTilePositions.First(), Is.EqualTo(new TilePosition(2, 2)), "Positions not offset correctly!");
+            Assert.That(floor.GroundTilePositions.First(), Is.EqualTo(new TilePosition(1, 1)), "Positions not offset correctly!");
         }
 
         [Test]
