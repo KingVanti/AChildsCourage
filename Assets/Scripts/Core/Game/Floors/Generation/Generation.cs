@@ -25,6 +25,7 @@ namespace AChildsCourage.Game.Floors.Generation
             yield return new ChunkPosition(position.X - 1, position.Y);
         }
 
+
         internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, Passage direction)
         {
             switch (direction)
