@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors.Building;
 
 namespace AChildsCourage.Game.Floors.Persistance
 {

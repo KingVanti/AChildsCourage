@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using PADEAH.Tabs;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage.Game.Floors.Building
 {
 
     [TestFixture]

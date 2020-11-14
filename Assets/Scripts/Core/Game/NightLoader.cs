@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.Generation;
+﻿using AChildsCourage.Game.Floors.Building;
+using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Persistance;
 
 namespace AChildsCourage.Game

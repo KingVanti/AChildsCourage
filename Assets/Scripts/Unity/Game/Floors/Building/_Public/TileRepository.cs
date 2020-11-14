@@ -4,7 +4,7 @@ using Ninject.Parameters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage.Game.Floors.Building
 {
 
     public class TileRepository : MonoBehaviour

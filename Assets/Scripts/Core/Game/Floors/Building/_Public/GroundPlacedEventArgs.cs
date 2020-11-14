@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage.Game.Floors.Building
 {
 
     public class GroundPlacedEventArgs : EventArgs

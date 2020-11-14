@@ -3,7 +3,7 @@ using System;
 
 using static AChildsCourage.Game.Floors.Generation.Generation;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage.Game.Floors.Building
 {
 
     [Singleton]
