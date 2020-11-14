@@ -10,7 +10,6 @@ namespace AChildsCourage.Game
         #region Constants
 
         public const int ChunkTileSize = 41;
-        public const int PaddingThickness = 1;
 
         #endregion
 
@@ -37,8 +36,8 @@ namespace AChildsCourage.Game
         internal TileOffset GetTileOffset()
         {
             return new TileOffset(
-                ChunkTileSize * X + PaddingThickness,
-                ChunkTileSize * Y + PaddingThickness);
+                ChunkTileSize * X,
+                ChunkTileSize * Y);
         }
 
 
