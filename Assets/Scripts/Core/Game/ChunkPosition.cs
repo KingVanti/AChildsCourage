@@ -11,7 +11,6 @@ namespace AChildsCourage.Game
 
         public const int ChunkTileSize = 41;
         public const int PaddingThickness = 1;
-        public const int MaxCoordinate = 5;
 
         #endregion
 
