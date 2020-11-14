@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Pickups
 
         #region Constructors
 
-        internal ItemPickupRepository()
+        public ItemPickupRepository()
         {
             availableItems.AddRange(Resources.LoadAll<ItemData>(ItemDataResourcePath));
         }
