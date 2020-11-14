@@ -51,7 +51,7 @@ namespace AChildsCourage.Game.Floors.Building
         internal static IEnumerable<TilePosition> GenerateWallsFor(HashSet<TilePosition> groundPositions)
         {
             var unfilteredPositions = GetUnfilteredWallPositions(groundPositions);
-            Func<TilePosition, bool> isEmpty = p => IsEmpty(p, groundPositions);
+            Func<TilePosition, bool> isEmpty = p => !groundPositions.Contains(p);
 
             return unfilteredPositions.Where(isEmpty);
         }
@@ -63,11 +63,6 @@ namespace AChildsCourage.Game.Floors.Building
                     for (var dY = -1; dY <= 3; dY++)
                         if (dX != 0 || dY != 0)
                             yield return groundPosition + new TileOffset(dX, dY);
-        }
-
-        private static bool IsEmpty(TilePosition position, HashSet<TilePosition> groundPositions)
-        {
-            return !groundPositions.Contains(position);
         }
 
         #endregion
