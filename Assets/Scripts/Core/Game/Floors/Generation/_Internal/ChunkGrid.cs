@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
+using static AChildsCourage.Game.Floors.Generation.Generation;
+
 namespace AChildsCourage.Game.Floors.Generation
 {
 
@@ -75,7 +77,7 @@ namespace AChildsCourage.Game.Floors.Generation
         private IEnumerable<ChunkPosition> GetReservablePositionsAround(ChunkPosition position)
         {
             return
-                Generation.GetSurroundingPositions(position)
+                GetSurroundingPositions(position)
                 .Where(CanReserve);
         }
 
@@ -118,7 +120,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private bool HasPassage(ChunkPosition position, Passage passage)
         {
-            var positionInDirection = Generation.MoveToAdjacentChunk(position, passage);
+            var positionInDirection = MoveToAdjacentChunk(position, passage);
 
             if (IsEmpty(positionInDirection))
                 return false;
@@ -140,7 +142,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private PassageFilter GetFilterFor(ChunkPosition position, Passage passage)
         {
-            var positionInDirection = Generation.MoveToAdjacentChunk(position, passage);
+            var positionInDirection = MoveToAdjacentChunk(position, passage);
 
             if (IsEmpty(positionInDirection))
                 return PassageFilter.Open;

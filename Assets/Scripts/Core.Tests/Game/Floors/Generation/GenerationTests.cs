@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Numerics;
 
+using static AChildsCourage.Game.Floors.Generation.Generation;
+
 namespace AChildsCourage.Game.Floors.Generation
 {
 
@@ -20,7 +22,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var offset = Generation.GetTileOffsetFor(chunkPosition);
+            var offset = GetTileOffsetFor(chunkPosition);
 
             // Then
 
@@ -37,7 +39,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var surrounding = Generation.GetSurroundingPositions(position).ToArray();
+            var surrounding = GetSurroundingPositions(position).ToArray();
 
             // Then
 
@@ -63,10 +65,10 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var toNorth = Generation.MoveToAdjacentChunk(chunkPosition, Passage.North);
-            var toEast = Generation.MoveToAdjacentChunk(chunkPosition, Passage.East);
-            var toSouth = Generation.MoveToAdjacentChunk(chunkPosition, Passage.South);
-            var toWest = Generation.MoveToAdjacentChunk(chunkPosition, Passage.West);
+            var toNorth = MoveToAdjacentChunk(chunkPosition, Passage.North);
+            var toEast = MoveToAdjacentChunk(chunkPosition, Passage.East);
+            var toSouth = MoveToAdjacentChunk(chunkPosition, Passage.South);
+            var toWest = MoveToAdjacentChunk(chunkPosition, Passage.West);
 
             // Then
 
