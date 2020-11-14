@@ -4,7 +4,7 @@ namespace AChildsCourage.Game
 {
 
     [Singleton]
-    public class NightManager : INightManager
+    internal class NightManager : INightManager
     {
 
         #region Fields
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, INightLoader nightLoader)
+        internal NightManager(IRunStorage runStorage, INightLoader nightLoader)
         {
             this.runStorage = runStorage;
             this.nightLoader = nightLoader;
