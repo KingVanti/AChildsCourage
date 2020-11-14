@@ -5,7 +5,7 @@ namespace AChildsCourage.Game
 {
 
     [Singleton]
-    public class NightLoader : INightLoader
+    internal class NightLoader : INightLoader
     {
 
         #region Fields
@@ -17,7 +17,7 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightLoader(IFloorGenerator floorGenerator, IFloorBuilder floorBuilder)
+        internal NightLoader(IFloorGenerator floorGenerator, IFloorBuilder floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;
