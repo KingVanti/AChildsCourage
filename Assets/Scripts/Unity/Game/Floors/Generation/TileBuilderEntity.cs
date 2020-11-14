@@ -12,9 +12,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
 #pragma warning disable 649
 
-        [SerializeField] private Tile groundTile;
-        [SerializeField] private Tile wallSideTile;
-        [SerializeField] private Tile wallTopTile;
+        [SerializeField] private TileRepository tileRepository;
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
 
@@ -38,7 +36,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void OnGroundPlaced(GroundPlacedEventArgs eventArgs)
         {
-            var tile = groundTile;
+            var tile = tileRepository.GetGroundTile() ;
             var position = eventArgs.Position.ToVector3Int();
 
             groundTilemap.SetTile(position, tile);
@@ -51,7 +49,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         private void PlaceWallTile(Wall wall)
         {
-            var tile = wall.Type == WallType.Top ? wallTopTile : wallSideTile;
+            var tile = tileRepository.GetWallTileFor(wall);
             var position = wall.Position.ToVector3Int();
 
             staticTilemap.SetTile(position, tile);
