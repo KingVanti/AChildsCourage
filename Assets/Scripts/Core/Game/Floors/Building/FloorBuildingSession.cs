@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using static AChildsCourage.Game.Floors.Building.FloorBuildingModule;
+
 namespace AChildsCourage.Game.Floors.Building
 {
 
@@ -45,26 +47,8 @@ namespace AChildsCourage.Game.Floors.Building
 
         internal void GenerateWalls()
         {
-            var filteredWallPositions =
-                GetUnfilteredWallPositions()
-                .Where(IsEmpty);
-
-            foreach (var wallPosition in filteredWallPositions)
+            foreach (var wallPosition in GenerateWallsFor(groundTilePositions))
                 wallTilePositions.Add(wallPosition);
-        }
-
-        private IEnumerable<TilePosition> GetUnfilteredWallPositions()
-        {
-            foreach (var groundPosition in GroundTilePositions)
-                for (var dX = -1; dX <= 1; dX++)
-                    for (var dY = -1; dY <= 3; dY++)
-                        if (dX != 0 || dY != 0)
-                            yield return groundPosition + new TileOffset(dX, dY);
-        }
-
-        private bool IsEmpty(TilePosition position)
-        {
-            return !groundTilePositions.Contains(position);
         }
 
 

@@ -1,9 +1,13 @@
-﻿using static AChildsCourage.Game.Floors.Generation.GenerationModule;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using static AChildsCourage.Game.Floors.Generation.GenerationModule;
 
 namespace AChildsCourage.Game.Floors.Building
 {
 
-    public static class FloorBuildingModule
+    internal static class FloorBuildingModule
     {
 
         #region Methods
@@ -41,6 +45,29 @@ namespace AChildsCourage.Game.Floors.Building
         {
             foreach (var groundTile in groundTiles)
                 buildingSession.PlaceGround(groundTile, tileOffset);
+        }
+
+
+        internal static IEnumerable<TilePosition> GenerateWallsFor(HashSet<TilePosition> groundPositions)
+        {
+            var unfilteredPositions = GetUnfilteredWallPositions(groundPositions);
+            Func<TilePosition, bool> isEmpty = p => IsEmpty(p, groundPositions);
+
+            return unfilteredPositions.Where(isEmpty);
+        }
+
+        private static IEnumerable<TilePosition> GetUnfilteredWallPositions(HashSet<TilePosition> groundPositions)
+        {
+            foreach (var groundPosition in groundPositions)
+                for (var dX = -1; dX <= 1; dX++)
+                    for (var dY = -1; dY <= 3; dY++)
+                        if (dX != 0 || dY != 0)
+                            yield return groundPosition + new TileOffset(dX, dY);
+        }
+
+        private static bool IsEmpty(TilePosition position, HashSet<TilePosition> groundPositions)
+        {
+            return !groundPositions.Contains(position);
         }
 
         #endregion
