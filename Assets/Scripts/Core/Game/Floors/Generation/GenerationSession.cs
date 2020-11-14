@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomPassagesRepository roomInfoRepository)
+        public GenerationSession(IRNG rng, IChunkGrid chunkGrid, IRoomPassagesRepository roomInfoRepository)
         {
             this.rng = rng;
             this.chunkGrid = chunkGrid;

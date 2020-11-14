@@ -14,7 +14,7 @@ namespace AChildsCourage
 
         #region Constructors
 
-        internal RNG(int seed)
+        public RNG(int seed)
         {
             rng = new Random(seed);
         }

@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Input
 
         #region Constructors
 
-        internal InputListener()
+        public InputListener()
         {
 
             UserControls userControls = new UserControls();

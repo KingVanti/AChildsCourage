@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.Building;
+﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Building;
 using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Persistance;
 
@@ -18,7 +19,7 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        internal NightLoader(IFloorGenerator floorGenerator, IFloorBuilder floorBuilder)
+        public NightLoader(IFloorGenerator floorGenerator, IFloorBuilder floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;

@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal FloorGenerator(IRoomPassagesRepository roomInfoRepository, IKernel kernel)
+        public FloorGenerator(IRoomPassagesRepository roomInfoRepository, IKernel kernel)
         {
             this.roomInfoRepository = roomInfoRepository;
             this.kernel = kernel;

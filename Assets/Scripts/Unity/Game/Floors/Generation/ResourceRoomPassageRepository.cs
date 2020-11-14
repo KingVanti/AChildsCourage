@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
         #region Constructors
 
-        internal ResourceRoomPassageRepository()
+        public ResourceRoomPassageRepository()
         {
             var allRooms = GetAllPassages();
 

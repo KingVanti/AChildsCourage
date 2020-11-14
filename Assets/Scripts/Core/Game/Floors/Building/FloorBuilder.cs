@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.Building
 
         #region Constructors
 
-        internal FloorBuilder(IRoomRepository roomRepository)
+        public FloorBuilder(IRoomRepository roomRepository)
         {
             this.roomRepository = roomRepository;
         }
