@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static AChildsCourage.Game.Floors.Generation.GenerationModule;
 
 namespace AChildsCourage.Game.Floors.Building
 {
@@ -62,6 +61,14 @@ namespace AChildsCourage.Game.Floors.Building
                     for (var dY = -1; dY <= 3; dY++)
                         if (dX != 0 || dY != 0)
                             yield return groundPosition + new TileOffset(dX, dY);
+        }
+
+
+        internal static TileOffset GetTileOffsetFor(ChunkPosition chunkPosition)
+        {
+            return new TileOffset(
+                chunkPosition.X * ChunkPosition.ChunkTileSize,
+                chunkPosition.Y * ChunkPosition.ChunkTileSize);
         }
 
         #endregion

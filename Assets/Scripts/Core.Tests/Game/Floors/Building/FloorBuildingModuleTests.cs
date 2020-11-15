@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using System.Linq;
 
+using static AChildsCourage.Game.Floors.Building.FloorBuildingModule;
+
 namespace AChildsCourage.Game.Floors.Building
 {
 
@@ -9,6 +11,24 @@ namespace AChildsCourage.Game.Floors.Building
     {
 
         #region Tests
+
+
+        [Test]
+        public void Tile_Offset_Is_Chunk_Position_Times_Chunk_Size()
+        {
+            // Given
+
+            var chunkPosition = new ChunkPosition(1, -1);
+
+            // When
+
+            var offset = GetTileOffsetFor(chunkPosition);
+
+            // Then
+
+            Assert.That(offset.X, Is.EqualTo(41), "X coordinate incorrect!");
+            Assert.That(offset.Y, Is.EqualTo(-41), "Y coordinate incorrect!");
+        }
 
         [Test]
         public void When_A_Floor_Is_Built_Then_All_Ground_Tiles_In_The_FloorPlan_Are_Placed()
@@ -23,7 +43,7 @@ namespace AChildsCourage.Game.Floors.Building
 
             // When
 
-            var floor = FloorBuildingModule.BuildFrom(new RoomsInChunks(roomsInChunks));
+            var floor = BuildFrom(new RoomsInChunks(roomsInChunks));
 
             // Then
 
@@ -43,7 +63,7 @@ namespace AChildsCourage.Game.Floors.Building
 
             // When
 
-            var floor = FloorBuildingModule.BuildFrom(new RoomsInChunks(roomsInChunks));
+            var floor = BuildFrom(new RoomsInChunks(roomsInChunks));
 
             // Then
 

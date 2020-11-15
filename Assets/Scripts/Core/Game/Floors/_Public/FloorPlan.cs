@@ -18,12 +18,12 @@
 
         #region Constructors
 
-        internal FloorPlan()
+        public FloorPlan()
         {
             Rooms = new RoomIdInChunk[0];
         }
 
-        internal FloorPlan(RoomIdInChunk[] rooms)
+        public FloorPlan(RoomIdInChunk[] rooms)
         {
             Rooms = rooms;
         }

@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         private int seed;
         private Texture2D floorImage;
         private readonly TestRoomInfoRespository roomInfoRepo = new TestRoomInfoRespository();
-        private IFloorGenerator _floorGenerator;
+        private FloorGenerator _floorGenerator;
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         private bool HasFloorImage { get { return floorImage != null; } }
 
-        private IFloorGenerator FloorGenerator
+        private FloorGenerator FloorGenerator
         {
             get
             {
@@ -79,21 +79,22 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         }
 
 
-        private IFloorGenerator GetFloorGenerator()
+        private FloorGenerator GetFloorGenerator()
         {
             var kernel = new StandardKernel();
 
             kernel.Bind<IRNG>().To<RNG>();
-            kernel.Bind<IChunkGrid>().To<ChunkGrid>();
+            kernel.Bind<IRoomPassagesRepository>().ToConstant(roomInfoRepo);
+            kernel.Bind<FloorGenerator>().ToMethod(FloorGenerationModule.GetFloorGenerator);
 
-            return new FloorGenerator(roomInfoRepo, kernel);
+            return kernel.Get<FloorGenerator>();
         }
 
 
         private void GenerateFloorImage()
         {
             roomInfoRepo.Reset();
-            var floorPlan = FloorGenerator.GenerateNew(seed);
+            var floorPlan = FloorGenerator(seed);
 
             floorImage = GenerateTexture.From(floorPlan, roomInfoRepo);
         }
