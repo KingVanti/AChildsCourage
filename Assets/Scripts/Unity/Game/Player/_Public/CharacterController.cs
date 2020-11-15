@@ -30,6 +30,8 @@ namespace AChildsCourage.Game.Player
         private bool _isInPickupRange = false;
         private GameObject _currentPickupInRange;
 
+        private bool _hasFlashlightEquipped = false;
+
         [Header("Events")]
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
@@ -135,6 +137,14 @@ namespace AChildsCourage.Game.Player
                 _isInPickupRange = value;
                 OnPickupReachChanged.Invoke(_isInPickupRange);
             }
+        }
+
+        public bool HasFlashlightEquipped { 
+            get { return _hasFlashlightEquipped; } 
+            set { 
+                _hasFlashlightEquipped = value;
+                animator.SetBool("HasFlashlightEquipped", _hasFlashlightEquipped);
+            } 
         }
 
         public GameObject CurrentItemInRange
@@ -243,6 +253,9 @@ namespace AChildsCourage.Game.Player
             if (IsInPickupRange)
             {
                 OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                if(CurrentItemInRange.GetComponent<ItemPickup>().Id == 0) {
+                    HasFlashlightEquipped = true;
+                }
                 Destroy(CurrentItemInRange);
             }
 
