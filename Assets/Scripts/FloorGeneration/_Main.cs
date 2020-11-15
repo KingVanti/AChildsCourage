@@ -8,8 +8,6 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorGenerationModule
     {
 
-        #region Methods
-
         private static FloorPlan Generate(ChunkChooser chunkChooser, RoomChooser roomChooser)
         {
             var builder = new FloorPlanBuilder();
@@ -24,8 +22,6 @@ namespace AChildsCourage.Game.Floors
 
             return builder.GetFloorPlan();
         }
-
-        #endregion
 
     }
 
