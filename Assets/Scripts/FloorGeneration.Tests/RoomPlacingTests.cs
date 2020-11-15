@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Game.Floors.FloorGenerationModule;
+using static AChildsCourage.Game.Floors.FloorGeneration;
 
 namespace AChildsCourage.Game.Floors
 {

@@ -85,7 +85,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
             kernel.Bind<IRNG>().To<RNG>();
             kernel.Bind<IRoomPassagesRepository>().ToConstant(roomInfoRepo);
-            kernel.Bind<FloorGenerator>().ToMethod(FloorGenerationModule.GetFloorGenerator);
+            kernel.Bind<FloorGenerator>().ToMethod(FloorGeneration.GetFloorGenerator);
 
             return kernel.Get<FloorGenerator>();
         }

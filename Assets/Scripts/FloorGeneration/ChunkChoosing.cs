@@ -4,7 +4,7 @@ using System.Numerics;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorGenerationModule
+    public static partial class FloorGeneration
     {
 
         private const float BaseWeight = 1;

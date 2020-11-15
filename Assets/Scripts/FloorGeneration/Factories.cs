@@ -5,7 +5,7 @@ using Ninject.Parameters;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorGenerationModule
+    public static partial class FloorGeneration
     {
 
         private delegate ChunkPosition ChunkChooser(FloorPlanBuilder builder);

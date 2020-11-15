@@ -4,7 +4,7 @@ using System.Linq;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorGenerationModule
+    public static partial class FloorGeneration
     {
 
         internal const int GoalRoomCount = 15;

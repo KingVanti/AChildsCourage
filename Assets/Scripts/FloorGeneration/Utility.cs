@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorGenerationModule
+    public static partial class FloorGeneration
     {
 
         #region Methods
