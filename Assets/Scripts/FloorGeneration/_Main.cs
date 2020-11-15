@@ -1,6 +1,10 @@
-﻿namespace AChildsCourage.Game.Floors
-{
+﻿using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("AChildsCourage.FloorGeneration.Tests")]
+
+namespace AChildsCourage.Game.Floors
+{
+       
     public static partial class FloorGenerationModule
     {
 
