@@ -8,9 +8,9 @@ namespace AChildsCourage.Game.Floors
 
         #region Static Properties
 
-        internal static ChunkPassages None { get { return new ChunkPassages(false, false, false, false); } }
+        public static ChunkPassages None { get { return new ChunkPassages(false, false, false, false); } }
 
-        internal static ChunkPassages All { get { return new ChunkPassages(true, true, true, true); } }
+        public static ChunkPassages All { get { return new ChunkPassages(true, true, true, true); } }
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Floors
         public bool HasWest { get; }
 
 
-        [JsonIgnore] internal int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
+        [JsonIgnore] public int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
 
 
         [JsonIgnore] public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
@@ -49,7 +49,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Methods
 
-        internal bool Has(Passage passage)
+        public bool Has(Passage passage)
         {
             switch (passage)
             {

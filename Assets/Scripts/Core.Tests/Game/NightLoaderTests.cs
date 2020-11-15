@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Building;
-using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Persistance;
 using Moq;
 using NUnit.Framework;
@@ -24,11 +23,10 @@ namespace AChildsCourage.Game
             var mockFloorBuilder = new Mock<IFloorBuilder>();
 
             var floorPlan = new FloorPlan();
-            var mockFloorGenerator = new Mock<IFloorGenerator>();
-            mockFloorGenerator.Setup(g => g.GenerateNew(seed)).Returns(floorPlan);
+            FloorGenerator floorGenerator = s => floorPlan;
 
             var nightData = new NightData(seed);
-            var nightLoader = new NightLoader(mockFloorGenerator.Object, mockFloorBuilder.Object);
+            var nightLoader = new NightLoader(floorGenerator, mockFloorBuilder.Object);
 
             // When
 

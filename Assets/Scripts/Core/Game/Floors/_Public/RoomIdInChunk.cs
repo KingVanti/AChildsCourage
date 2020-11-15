@@ -14,7 +14,7 @@
 
         #region Constructors
 
-        internal RoomIdInChunk(int roomId, ChunkPosition position)
+        public RoomIdInChunk(int roomId, ChunkPosition position)
         {
             RoomId = roomId;
             Position = position;

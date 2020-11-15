@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Building;
-using AChildsCourage.Game.Floors.Generation;
 using AChildsCourage.Game.Persistance;
 
 namespace AChildsCourage.Game
@@ -12,14 +11,14 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        private readonly IFloorGenerator floorGenerator;
+        private readonly FloorGenerator floorGenerator;
         private readonly IFloorBuilder floorBuilder;
 
         #endregion
 
         #region Constructors
 
-        public NightLoader(IFloorGenerator floorGenerator, IFloorBuilder floorBuilder)
+        public NightLoader(FloorGenerator floorGenerator, IFloorBuilder floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;
@@ -31,7 +30,7 @@ namespace AChildsCourage.Game
 
         public void Load(NightData nightData)
         {
-            var floor = floorGenerator.GenerateNew(nightData.Seed);
+            var floor = floorGenerator(nightData.Seed);
 
             floorBuilder.Build(floor);
         }

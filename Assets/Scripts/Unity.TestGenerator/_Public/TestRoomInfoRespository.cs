@@ -39,7 +39,22 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         #region Methods
 
-        public FilteredRoomPassages GetStartRooms()
+        public FilteredRoomPassages GetRooms(RoomPassageFilter filter)
+        {
+            switch (filter.RoomType)
+            {
+                case RoomType.Start:
+                    return GetStartRooms();
+                case RoomType.Normal:
+                    return GetNormalRooms(filter.PassageFilter, filter.MaxLooseEnds);
+                case RoomType.End:
+                    return GetEndRooms(filter.PassageFilter);
+                default:
+                    throw new System.Exception("Invalid room type!");
+            }
+        }
+
+        private FilteredRoomPassages GetStartRooms()
         {
             return new FilteredRoomPassages(new[] { StartRoom });
         }
@@ -59,7 +74,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             StartRoom = CreateNew(ChunkPassages.All);
         }
 
-        public FilteredRoomPassages GetNormalRooms(ChunkPassageFilter filter, int maxLooseEnds)
+        private FilteredRoomPassages GetNormalRooms(ChunkPassageFilter filter, int maxLooseEnds)
         {
             return new FilteredRoomPassages(FindFittingPassagesFor(filter, maxLooseEnds).Select(CreateNew));
         }
@@ -96,7 +111,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
             return info;
         }
 
-        public FilteredRoomPassages GetEndRooms(ChunkPassageFilter filter)
+        private FilteredRoomPassages GetEndRooms(ChunkPassageFilter filter)
         {
             return GetNormalRooms(filter, 0);
         }
