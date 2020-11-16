@@ -8,10 +8,6 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorGeneration
     {
 
-        private delegate ChunkPosition ChooseChunk(FloorPlanBuilder builder);
-
-        private delegate RoomPassages ChooseRoom(FloorPlanBuilder builder, ChunkPosition chunkPosition);
-
         public static GenerateFloor GetFloorGenerator(IContext context)
         {
             var kernel = context.Kernel;

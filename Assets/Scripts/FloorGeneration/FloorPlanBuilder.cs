@@ -10,16 +10,6 @@ namespace AChildsCourage.Game.Floors
         internal const int GoalRoomCount = 15;
 
 
-        internal class FloorPlanBuilder
-        {
-
-            internal Dictionary<ChunkPosition, RoomPassages> RoomsByChunks { get; } = new Dictionary<ChunkPosition, RoomPassages>();
-
-            internal List<ChunkPosition> ReservedChunks { get; } = new List<ChunkPosition>();
-
-        }
-
-
         internal static bool NeedsMoreRooms(this FloorPlanBuilder builder)
         {
             return builder.CountRooms() < GoalRoomCount;
