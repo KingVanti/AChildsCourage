@@ -5,12 +5,12 @@ using Ninject.Activation;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
         private delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
-        public static Floors.FloorBuilder GetFloorBuilder(IContext context)
+        public static Floors.FloorTilesBuilder GetFloorBuilder(IContext context)
         {
             var kernel = context.Kernel;
 

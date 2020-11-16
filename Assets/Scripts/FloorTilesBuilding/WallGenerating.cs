@@ -4,10 +4,10 @@ using System.Linq;
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
-        private static void GenerateWalls(this FloorBuilder builder)
+        private static void GenerateWalls(this FloorTilesBuilder builder)
         {
             bool IsEmpty(TilePosition position) => builder.IsEmpty(position);
 
@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Floors
                         yield return groundPosition + new TileOffset(dX, dY);
         }
 
-        private static bool IsEmpty(this FloorBuilder builder, TilePosition position)
+        private static bool IsEmpty(this FloorTilesBuilder builder, TilePosition position)
         {
             return builder.GroundPositions.Contains(position);
         }

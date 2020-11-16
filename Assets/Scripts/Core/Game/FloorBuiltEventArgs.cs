@@ -9,13 +9,13 @@ namespace AChildsCourage.Game
 
         #region Properties
 
-        internal Floor Floor { get; }
+        internal FloorTiles Floor { get; }
 
         #endregion
 
         #region Constructors
 
-        internal FloorBuiltEventArgs(Floor floor)
+        internal FloorBuiltEventArgs(FloorTiles floor)
         {
             Floor = floor;
         }

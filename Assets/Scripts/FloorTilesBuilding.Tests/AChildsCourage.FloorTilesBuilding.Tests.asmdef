@@ -1,10 +1,10 @@
 {
-    "name": "AChildsCourage.FloorBuilding.Tests",
+    "name": "AChildsCourage.FloorTilesBuilding.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "AChildsCourage.Core",
-        "AChildsCourage.FloorBuilding"
+        "AChildsCourage.FloorTilesBuilding"
     ],
     "includePlatforms": [
         "Editor"

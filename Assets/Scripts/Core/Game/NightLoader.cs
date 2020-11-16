@@ -18,13 +18,13 @@ namespace AChildsCourage.Game
         #region Fields
 
         private readonly FloorGenerator floorGenerator;
-        private readonly FloorBuilder floorBuilder;
+        private readonly FloorTilesBuilder floorBuilder;
 
         #endregion
 
         #region Constructors
 
-        public NightLoader(FloorGenerator floorGenerator, FloorBuilder floorBuilder)
+        public NightLoader(FloorGenerator floorGenerator, FloorTilesBuilder floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;
@@ -41,7 +41,7 @@ namespace AChildsCourage.Game
             OnFloorBuilt.Invoke(this, new FloorBuiltEventArgs(floor));
         }
 
-        private Floor BuildFloor(int seed)
+        private FloorTiles BuildFloor(int seed)
         {
             //var floorPlan = floorGenerator(seed);
             var floorPlan = new FloorPlan(new[]

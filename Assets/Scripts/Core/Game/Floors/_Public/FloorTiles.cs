@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public class Floor
+    public class FloorTiles
     {
 
         #region Fields
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        public Floor(IEnumerable<TilePosition> groundTilePositions, IEnumerable<Wall> walls)
+        public FloorTiles(IEnumerable<TilePosition> groundTilePositions, IEnumerable<Wall> walls)
         {
             this.groundTilePositions = new HashSet<TilePosition>(groundTilePositions);
             this.walls = new HashSet<Wall>(walls);

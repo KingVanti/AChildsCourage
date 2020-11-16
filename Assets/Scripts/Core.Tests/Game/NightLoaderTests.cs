@@ -22,7 +22,7 @@ namespace AChildsCourage.Game
             FloorGenerator floorGenerator = s => expected;
 
             var actual = (FloorPlan)null;
-            FloorBuilder builder = p => { actual = p; return null; };
+            FloorTilesBuilder builder = p => { actual = p; return null; };
 
             var nightData = new NightData(seed);
             var nightLoader = new NightLoader(floorGenerator, builder);

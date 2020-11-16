@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.Building
             PlacesTilesFor(eventArgs.Floor);
         }
 
-        internal void PlacesTilesFor(Floor floor)
+        internal void PlacesTilesFor(FloorTiles floor)
         {
             foreach (var groundTilePosition in floor.GroundTilePositions)
                 PlaceGround(groundTilePosition);

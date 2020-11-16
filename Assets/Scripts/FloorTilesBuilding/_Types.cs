@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
         private class RoomsForFloor : List<RoomInChunk>
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Floors
 
         }
 
-        internal class FloorBuilder
+        internal class FloorTilesBuilder
         {
 
             internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();

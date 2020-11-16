@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
         internal static TilePositionTransformer CreateTransformerFor(RoomInChunk room)

@@ -3,10 +3,10 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
-        private static Floor GetFloor(this FloorBuilder builder)
+        private static FloorTiles GetFloor(this FloorTilesBuilder builder)
         {
             Wall ToWall(TilePosition wallPosition) => builder.ToWall(wallPosition);
 
@@ -15,10 +15,10 @@ namespace AChildsCourage.Game.Floors
                 builder.WallTilePositions
                 .Select(ToWall);
 
-            return new Floor(groundTilePosition, walls);
+            return new FloorTiles(groundTilePosition, walls);
         }
 
-        private static Wall ToWall(this FloorBuilder builder, TilePosition wallPosition)
+        private static Wall ToWall(this FloorTilesBuilder builder, TilePosition wallPosition)
         {
             bool isSide = builder.GroundPositions.Contains(wallPosition + new TileOffset(0, -1)) || builder.GroundPositions.Contains(wallPosition + new TileOffset(0, -2));
 

@@ -5,19 +5,19 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public static partial class FloorBuilding
+    public static partial class FloorTilesBuilding
     {
 
-        private static Floor Build(FloorPlan floorPlan, RoomLoader roomLoader)
+        private static FloorTiles Build(FloorPlan floorPlan, RoomLoader roomLoader)
         {
             var rooms = roomLoader(floorPlan);
 
             return BuildFloorFrom(rooms);
         }
 
-        private static Floor BuildFloorFrom(RoomsForFloor rooms)
+        private static FloorTiles BuildFloorFrom(RoomsForFloor rooms)
         {
-            var builder = new FloorBuilder();
+            var builder = new FloorTilesBuilder();
 
             foreach (var room in rooms)
                 builder.Build(room);
