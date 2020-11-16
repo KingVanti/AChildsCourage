@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors
         {
             var roomsInChunks =
                 builder.RoomsByChunks
-                .Select(kvp => new RoomIdInChunk(kvp.Value.RoomId, kvp.Key))
+                .Select(kvp => new RoomPlan(kvp.Value.RoomId, kvp.Key))
                 .ToArray();
 
             return new FloorPlan(roomsInChunks);
