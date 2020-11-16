@@ -262,6 +262,10 @@ namespace AChildsCourage.Game.Player
 
         }
 
+        private void OnItemSwapped() {
+            throw new NotImplementedException();
+        }
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
