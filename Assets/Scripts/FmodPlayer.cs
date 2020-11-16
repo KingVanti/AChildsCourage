@@ -82,7 +82,7 @@ public class FmodPlayer : MonoBehaviour
     {
         bool blankie_status = false;
 
-        if (status)
+        if (blankie_status)
         {
             FMODUnity.RuntimeManager.PlayOneShot(Blankie_ON_Path, GetComponent<Transform>().position);
             blankie_status = !blankie_status;
@@ -99,7 +99,7 @@ public class FmodPlayer : MonoBehaviour
     {
         bool Flashlight_status = false;
 
-        if (status)
+        if (Flashlight_status)
         {
             FMODUnity.RuntimeManager.PlayOneShot(Flashlight_ON_Path, GetComponent<Transform>().position);
             Flashlight_status = !Flashlight_status;
