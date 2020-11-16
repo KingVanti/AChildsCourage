@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using AChildsCourage.Game.Pickups;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,10 @@ public class FmodPlayer : MonoBehaviour
     const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
     const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
     const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
+    const string ItemSwap_Path = "event:/UI/ItemSwap";
 
+    bool Flashlight_status = false;
+    bool blankie_status = false;
 
     /*   private void FixedUpdate()
        {
@@ -54,9 +58,9 @@ public class FmodPlayer : MonoBehaviour
         // FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);  
     }
 
-    public void PlayItems(int itemID)
+    public void PlayItems(ItemData itemData)
     {
-        switch (itemID)
+        switch (itemData.Id)
         {
             case 0:             //flashlight
                 PlayFlashlight();
@@ -80,7 +84,7 @@ public class FmodPlayer : MonoBehaviour
 
     public void PlayBlankie()
     {
-        bool blankie_status = false;
+
 
         if (blankie_status)
         {
@@ -97,7 +101,7 @@ public class FmodPlayer : MonoBehaviour
 
     public void PlayFlashlight()
     {
-        bool Flashlight_status = false;
+
 
         if (Flashlight_status)
         {
@@ -112,7 +116,10 @@ public class FmodPlayer : MonoBehaviour
 
     }
 
-
+    public void PlayItemSwap()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
+    }
 
 }
 
