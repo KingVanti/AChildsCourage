@@ -81,7 +81,19 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         private IEnumerable<ChunkPassages> FindFittingPassagesFor(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return GetAllPassages().Where(p => filter.Matches(p) && filter.FindLooseEnds(p) <= maxLooseEnds);
+            bool MatchesFilter(ChunkPassages passages) => PassagesMatchesFilter(passages, filter, maxLooseEnds);
+
+            return GetAllPassages().Where(MatchesFilter);
+        }
+
+        private bool PassagesMatchesFilter(ChunkPassages passages, ChunkPassageFilter filter, int maxLooseEnds)
+        {
+            var looseEnds = filter.FindLooseEnds(passages);
+
+            var passagesMatch = filter.Matches(passages);
+            var looseEndsMatch = looseEnds <= maxLooseEnds && (maxLooseEnds > 0 ? looseEnds > 0 : true);
+
+            return passagesMatch && looseEndsMatch;
         }
 
         private IEnumerable<ChunkPassages> GetAllPassages()
