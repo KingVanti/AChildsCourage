@@ -1,13 +1,13 @@
-﻿namespace AChildsCourage.Game.Floors.Building
+﻿namespace AChildsCourage.Game.Floors
 {
     public class RoomInChunk
     {
 
         #region Properties
 
-        internal ChunkPosition Position { get; }
+        public ChunkPosition Position { get; }
 
-        internal Room Room { get; }
+        public Room Room { get; }
 
         #endregion
 

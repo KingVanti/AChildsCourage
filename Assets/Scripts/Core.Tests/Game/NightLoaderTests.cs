@@ -1,7 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.Building;
 using AChildsCourage.Game.Persistance;
-using Moq;
 using NUnit.Framework;
 
 namespace AChildsCourage.Game
@@ -20,13 +18,14 @@ namespace AChildsCourage.Game
 
             var seed = 0;
 
-            var mockFloorBuilder = new Mock<IFloorBuilder>();
+            var expected = new FloorPlan();
+            FloorGenerator floorGenerator = s => expected;
 
-            var floorPlan = new FloorPlan();
-            FloorGenerator floorGenerator = s => floorPlan;
+            var actual = (FloorPlan)null;
+            FloorBuilder builder = p => { actual = p; return null; };
 
             var nightData = new NightData(seed);
-            var nightLoader = new NightLoader(floorGenerator, mockFloorBuilder.Object);
+            var nightLoader = new NightLoader(floorGenerator, builder);
 
             // When
 
@@ -34,7 +33,8 @@ namespace AChildsCourage.Game
 
             // Then
 
-            mockFloorBuilder.Verify(b => b.Build(floorPlan), Times.Once, "No or a different floor was built!");
+            Assert.That(actual, Is.Not.Null, "No floorplan was built!");
+            Assert.That(actual, Is.EqualTo(expected), "A different floorplan was built!");
         }
 
         #endregion

@@ -10,9 +10,9 @@ namespace AChildsCourage.Game.Floors
 
         public TilePosition Position { get; }
 
-        internal int DistanceToWall { get; }
+        public int DistanceToWall { get; }
 
-        internal int AOIIndex { get; }
+        public int AOIIndex { get; }
 
         #endregion
 

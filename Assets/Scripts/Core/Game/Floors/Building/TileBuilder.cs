@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.Building
 
         #region Methods
 
-        [EventSubscription(nameof(IFloorBuilder.OnFloorBuilt), typeof(OnPublisher))]
+        [EventSubscription(nameof(INightLoader.OnFloorBuilt), typeof(OnPublisher))]
         public void OnFloorBuilt(FloorBuiltEventArgs eventArgs)
         {
             PlacesTilesFor(eventArgs.Floor);

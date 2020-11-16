@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AChildsCourage.Game.Floors;
+using System;
 
-namespace AChildsCourage.Game.Floors.Building
+namespace AChildsCourage.Game
 {
 
     internal class FloorBuiltEventArgs : EventArgs
