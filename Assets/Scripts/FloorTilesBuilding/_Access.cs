@@ -8,8 +8,6 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private delegate RoomsForFloor LoadRoomsFor(FloorPlan floorPlan);
-
         public static BuildRoomTiles GetFloorBuilder(IContext context)
         {
             var kernel = context.Kernel;

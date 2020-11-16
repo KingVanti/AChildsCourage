@@ -6,6 +6,8 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
+        private delegate RoomsForFloor LoadRoomsFor(FloorPlan floorPlan);
+
         private class RoomsForFloor : List<RoomInChunk>
         {
 
