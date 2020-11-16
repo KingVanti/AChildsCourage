@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player
-{
-    public class Bag : MonoBehaviour
-    {
+namespace AChildsCourage.Game.Player {
+    public class Bag : MonoBehaviour {
 
         #region Fields
 
@@ -40,30 +38,23 @@ namespace AChildsCourage.Game.Player
 
         #region Methods
 
-        public void UseItem(int usedSlotId)
-        {
+        public void UseItem(int usedSlotId) {
 
-            if (currentItems[usedSlotId] != null && currentItemCooldown[usedSlotId] == 0)
-            {
+            if (currentItems[usedSlotId] != null && currentItemCooldown[usedSlotId] == 0) {
                 currentItems[usedSlotId].Toggle();
                 StartCoroutine(Cooldown(usedSlotId));
-                Debug.Log(pickupRepository.GetSpecificItem(currentItems[usedSlotId].Id));
                 itemUsedEvent?.Invoke(pickupRepository.GetSpecificItem(currentItems[usedSlotId].Id));
             }
 
         }
 
-        public void PickUpItem(int slotId, int itemId)
-        {
+        public void PickUpItem(int slotId, int itemId) {
 
-            if (currentItems[slotId] == null)
-            {
-                availableItems[itemId].GetComponent<Item>().IsInBag = true;
+            if (currentItems[slotId] == null) {
+                //availableItems[itemId].GetComponent<Item>().IsInBag = true;
                 currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
                 itemPickUpEvent?.Invoke();
-            }
-            else
-            {
+            } else {
                 GameObject droppedItem = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
                 droppedItem.GetComponent<ItemPickup>().SetItemData(pickupRepository.GetSpecificItem(currentItems[slotId].Id));
                 itemDroppedEvent?.Invoke();
@@ -73,18 +64,22 @@ namespace AChildsCourage.Game.Player
 
         }
 
-        public void OnItemSwapInventory()
-        {
-            itemSwappedEvent?.Invoke();
-            throw new NotImplementedException();
+        public void OnItemSwapInventory() {
+            if (currentItemCooldown[0] != 0 || currentItemCooldown[1] != 0) {
+                Debug.Log("Can't Swap items when on cooldown!");
+            } else {
+                Item tempItem = currentItems[0];
+                currentItems[0] = currentItems[1];
+                currentItems[1] = tempItem;
+                itemSwappedEvent?.Invoke();
+            }
+
         }
 
 
-        IEnumerator Cooldown(int usedSlotId)
-        {
+        IEnumerator Cooldown(int usedSlotId) {
 
-            while (currentItemCooldown[usedSlotId] < currentItems[usedSlotId].Cooldown)
-            {
+            while (currentItemCooldown[usedSlotId] < currentItems[usedSlotId].Cooldown) {
 
                 currentItemCooldown[usedSlotId] = Mathf.MoveTowards(currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown, Time.deltaTime);
                 cooldownEvent?.Invoke(usedSlotId, currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown);

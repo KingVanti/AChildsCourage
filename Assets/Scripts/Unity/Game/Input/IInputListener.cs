@@ -9,6 +9,7 @@ namespace AChildsCourage.Game.Input
         event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
         event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
         event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
+        event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
 
     }
 
