@@ -36,12 +36,10 @@ namespace AChildsCourage.Game.Floors.Building
         }
 
 
-        internal void PlaceGround(GroundTile groundTile, TileOffset tileOffset)
+        internal void PlaceGround(GroundTile groundTile)
         {
-            var position = groundTile.Position + tileOffset;
-
-            if (!groundTilePositions.Contains(position))
-                groundTilePositions.Add(position);
+            if (!groundTilePositions.Contains(groundTile.Position))
+                groundTilePositions.Add(groundTile.Position);
         }
 
 

@@ -25,8 +25,9 @@ namespace AChildsCourage.Game.Floors.Building
         private static void BuildInto(RoomInChunk roomInChunk, FloorBuildingSession buildingSession)
         {
             var tileOffset = GetTileOffset(roomInChunk);
+            var transformer = new TilePositionTransformer(tileOffset);
 
-            PlaceRoomTilesInto(roomInChunk.Room.Tiles, tileOffset, buildingSession);
+            PlaceRoomTilesInto(roomInChunk.Room.Tiles, transformer, buildingSession);
         }
 
         private static TileOffset GetTileOffset(RoomInChunk roomInChunk)
@@ -34,15 +35,18 @@ namespace AChildsCourage.Game.Floors.Building
             return GetTileOffsetFor(roomInChunk.Position);
         }
 
-        private static void PlaceRoomTilesInto(RoomTiles roomTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
+        private static void PlaceRoomTilesInto(RoomTiles roomTiles, TilePositionTransformer transformer, FloorBuildingSession buildingSession)
         {
-            PlaceGroundInto(roomTiles.GroundTiles, tileOffset, buildingSession);
+            PlaceGroundInto(roomTiles.GroundTiles, transformer, buildingSession);
         }
 
-        private static void PlaceGroundInto(Tiles<GroundTile> groundTiles, TileOffset tileOffset, FloorBuildingSession buildingSession)
+        private static void PlaceGroundInto(Tiles<GroundTile> groundTiles, TilePositionTransformer transformer, FloorBuildingSession buildingSession)
         {
             foreach (var groundTile in groundTiles)
-                buildingSession.PlaceGround(groundTile, tileOffset);
+            {
+                var transformed = new GroundTile(transformer.Transform(groundTile.Position), groundTile.DistanceToWall, groundTile.AOIIndex);
+                buildingSession.PlaceGround(transformed);
+            }
         }
 
 

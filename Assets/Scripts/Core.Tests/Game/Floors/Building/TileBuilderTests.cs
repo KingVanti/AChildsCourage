@@ -60,7 +60,7 @@ namespace AChildsCourage.Game.Floors.Building
             var tileBuilder = new TileBuilder();
 
             var buildingSession = new FloorBuildingSession();
-            buildingSession.PlaceGround(new GroundTile(0, 0, 0, 0), new TileOffset(0, 0));
+            buildingSession.PlaceGround(new GroundTile(0, 0, 0, 0));
             var floor = buildingSession.BuildFloor();
 
             // When
@@ -84,7 +84,7 @@ namespace AChildsCourage.Game.Floors.Building
             var tileBuilder = new TileBuilder();
 
             var buildingSession = new FloorBuildingSession();
-            buildingSession.PlaceGround(new GroundTile(0, 0, 0, 0), new TileOffset(0, 0));
+            buildingSession.PlaceGround(new GroundTile(0, 0, 0, 0));
             buildingSession.GenerateWalls();
             var floor = buildingSession.BuildFloor();
 
