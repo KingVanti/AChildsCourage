@@ -36,6 +36,7 @@ namespace AChildsCourage.Game.Player
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
         public IntEvent OnUseItem;
+        public UnityEvent OnSwapItem;
         public PickUpEvent OnPickUpItem;
 
         #endregion
@@ -168,6 +169,7 @@ namespace AChildsCourage.Game.Player
             listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
             listener.OnItemPickedUp += (_, e) => OnItemPickedUp(e);
             listener.OnEquippedItemUsed += (_, e) => OnEquippedItemUsed(e);
+            listener.OnItemSwapped += (_, e) => OnItemSwapped(e);
         }
 
         private void UpdateAnimator()
@@ -260,6 +262,10 @@ namespace AChildsCourage.Game.Player
             }
 
 
+        }
+
+        private void OnItemSwapped(ItemSwappedEventArgs eventArgs) {
+            OnSwapItem?.Invoke();
         }
 
 
