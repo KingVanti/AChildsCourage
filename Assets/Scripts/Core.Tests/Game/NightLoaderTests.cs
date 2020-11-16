@@ -19,10 +19,10 @@ namespace AChildsCourage.Game
             var seed = 0;
 
             var expected = new FloorPlan();
-            FloorGenerator floorGenerator = s => expected;
+            GenerateFloor floorGenerator = s => expected;
 
             var actual = (FloorPlan)null;
-            FloorTilesBuilder builder = p => { actual = p; return null; };
+            BuildRoomTiles builder = p => { actual = p; return null; };
 
             var nightData = new NightData(seed);
             var nightLoader = new NightLoader(floorGenerator, builder);

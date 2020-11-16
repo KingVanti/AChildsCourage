@@ -17,14 +17,14 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        private readonly FloorGenerator floorGenerator;
-        private readonly FloorTilesBuilder floorBuilder;
+        private readonly GenerateFloor floorGenerator;
+        private readonly BuildRoomTiles floorBuilder;
 
         #endregion
 
         #region Constructors
 
-        public NightLoader(FloorGenerator floorGenerator, FloorTilesBuilder floorBuilder)
+        public NightLoader(GenerateFloor floorGenerator, BuildRoomTiles floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;

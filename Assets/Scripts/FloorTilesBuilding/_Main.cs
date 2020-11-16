@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private static FloorTiles Build(FloorPlan floorPlan, RoomLoader roomLoader)
+        private static FloorTiles Build(FloorPlan floorPlan, LoadRoomsFor roomLoader)
         {
             var rooms = roomLoader(floorPlan);
 

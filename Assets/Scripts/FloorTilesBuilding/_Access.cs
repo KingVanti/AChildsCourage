@@ -8,24 +8,24 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
+        private delegate RoomsForFloor LoadRoomsFor(FloorPlan floorPlan);
 
-        public static Floors.FloorTilesBuilder GetFloorBuilder(IContext context)
+        public static BuildRoomTiles GetFloorBuilder(IContext context)
         {
             var kernel = context.Kernel;
 
             IRoomRepository GetRoomRepository() =>
                kernel.Get<IRoomRepository>();
 
-            RoomLoader GetRoomLoader(IRoomRepository roomRepository) =>
+            LoadRoomsFor LoadRoomsFrom(IRoomRepository roomRepository) =>
                 floorPlan => new RoomsForFloor(roomRepository.LoadRoomsFor(floorPlan));
 
             return floorPlan =>
             {
                 var roomRepository = GetRoomRepository();
-                var roomLoader = GetRoomLoader(roomRepository);
+                var loadRoomsFor = LoadRoomsFrom(roomRepository);
 
-                return Build(floorPlan, roomLoader);
+                return Build(floorPlan, loadRoomsFor);
             };
         }
 
