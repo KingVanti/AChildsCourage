@@ -1,26 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿namespace AChildsCourage.Game
+{
 
-namespace AChildsCourage.Game {
-
-    public static class EntityTags {
+    internal static class EntityTags
+    {
 
         /// <summary>
         /// Unity tag for enemy entities
         /// </summary>
-        public const string Enemy = "Enemy";
+        internal const string Enemy = "Enemy";
 
         /// <summary>
         /// Unity tag for item entities
         /// </summary>
-        public const string Item = "Item";
+        internal const string Item = "Item";
 
         /// <summary>
         /// Unity tag for player entities
         /// </summary>
-        public const string Player = "Player";
-
+        internal const string Player = "Player";
 
     }
 

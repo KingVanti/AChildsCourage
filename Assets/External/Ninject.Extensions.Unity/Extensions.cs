@@ -48,7 +48,7 @@ namespace Ninject.Extensions.Unity
 
         private static PropertyInfo[] GetAutoInjectProperties(Type type)
         {
-            var properties = type.GetProperties();
+            var properties = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             var autoInjectProperties = properties.Where(IsAutoInjectProperty);
 
             return autoInjectProperties.ToArray();

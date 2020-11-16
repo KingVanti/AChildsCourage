@@ -1,0 +1,15 @@
+{
+    "name": "AChildsCourage.FloorGeneration",
+    "references": [
+        "GUID:64b37223ed8a9824e8f41a193d4826b5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

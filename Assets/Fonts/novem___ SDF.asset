@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: novem___ SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -571827311
   material: {fileID: 512608796327164621}
-  materialHashCode: 0
+  materialHashCode: 2054316945
   m_Version: 1.1.0
   m_SourceFontFileGUID: 45eff4ee2ec3ea54bb30647c525d54ed
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 45eff4ee2ec3ea54bb30647c525d54ed, type: 3}
@@ -2521,9 +2521,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

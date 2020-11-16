@@ -55,6 +55,8 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
             EditorGUILayout.Space();
 
+            DrawRoomTypeSelectionGUI();
+
             DrawTileCategorySelectionGUI();
 
             if (RoomEditor.SelectedTileCategory == TileCategory.Data)
@@ -63,6 +65,11 @@ namespace AChildsCourage.RoomEditor.Editor
             DrawPassageEditorGUI();
 
             DrawSaveAssetGUI();
+        }
+
+        private void DrawRoomTypeSelectionGUI()
+        {
+            RoomEditor.CurrentRoomType = (RoomType)EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
         }
 
         private void DrawTileCategorySelectionGUI()
@@ -93,6 +100,18 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Orb"))
                 RoomEditor.SelectedDataTileType = DataTileType.CourageOrb;
 
+            GUI.enabled = RoomEditor.CurrentRoomIsStartRoom;
+
+            if (GUILayout.Button("Start-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.StartPoint;
+
+            GUI.enabled = RoomEditor.CurrentRoomIsEndRoom;
+
+            if (GUILayout.Button("End-point"))
+                RoomEditor.SelectedDataTileType = DataTileType.EndPoint;
+
+            GUI.enabled = true;
+
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
         }
@@ -113,6 +132,7 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Save asset"))
             {
                 RoomEditor.SaveChanges();
+                EditorUtility.SetDirty(RoomEditor.LoadedAsset);
                 AssetDatabase.SaveAssets();
 
                 Debug.Log("Successfully saved room. Dont forget to push!");

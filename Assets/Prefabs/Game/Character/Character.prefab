@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.5
-  id: 0
+  _cooldown: 0.2
+  _id: 0
   mainCamera: {fileID: 0}
   lightComponent: {fileID: 788487158}
   maxFlashlightDistance: 4
@@ -139,6 +139,35 @@ MonoBehaviour:
   availableItems:
   - {fileID: 788487156}
   - {fileID: 8573944650217283424}
+  pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
+  pickupContainer: {fileID: 0}
+  cooldownEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
+        m_MethodName: UpdateCooldown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  itemUsedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemDroppedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemSwappedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  itemPickUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1928652341
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3107136780777176524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928652342}
@@ -353,7 +382,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7114108144791067237, guid: 069c3dd225271344cb7dfd4000e2655a, type: 3}
-  m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -458,12 +487,12 @@ MonoBehaviour:
   OnPickupReachChanged:
     m_PersistentCalls:
       m_Calls: []
-  OnLMBHeld:
+  OnUseItem:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1668216621}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: OnItemOnePickup
+        m_MethodName: UseItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -473,12 +502,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnRMBHeld:
+  OnPickUpItem:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1668216621}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: OnItemTwoPickup
+        m_MethodName: PickUpItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -488,13 +517,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnLMBClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: ActivateItemOne
-        m_Mode: 1
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
+        m_MethodName: UpdateItems
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -503,24 +529,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnRMBClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: ActivateItemTwo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPickUp:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &1266752489
 Animator:
   serializedVersion: 3

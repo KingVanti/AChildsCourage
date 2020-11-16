@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.RoomEditor
 {
 
-    public enum TileCategory
+    internal enum TileCategory
     {
         Ground,
         Data
