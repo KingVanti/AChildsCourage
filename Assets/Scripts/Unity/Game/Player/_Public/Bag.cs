@@ -47,7 +47,8 @@ namespace AChildsCourage.Game.Player
             {
                 currentItems[usedSlotId].Toggle();
                 StartCoroutine(Cooldown(usedSlotId));
-                itemUsedEvent?.Invoke(currentItems[usedSlotId].Id);
+                Debug.Log(pickupRepository.GetSpecificItem(currentItems[usedSlotId].Id));
+                itemUsedEvent?.Invoke(pickupRepository.GetSpecificItem(currentItems[usedSlotId].Id));
             }
 
         }
@@ -103,7 +104,7 @@ namespace AChildsCourage.Game.Player
         public class CooldownEvent : UnityEvent<int, float, float> { }
 
         [Serializable]
-        public class ItemUsedEvent : UnityEvent<int> { }
+        public class ItemUsedEvent : UnityEvent<ItemData> { }
 
         #endregion
 
