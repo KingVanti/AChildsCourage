@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Floors
             bool IsEmpty(TilePosition position) => builder.IsEmpty(position);
 
             var wallPositions =
-                builder.GroundTilePositions
+                builder.GroundPositions
                 .SelectMany(GetUnfilteredWallPositions)
                 .Where(IsEmpty);
 
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors
 
         private static bool IsEmpty(this FloorBuilder builder, TilePosition position)
         {
-            return builder.GroundTilePositions.Contains(position);
+            return builder.GroundPositions.Contains(position);
         }
 
     }

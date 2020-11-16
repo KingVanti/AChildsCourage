@@ -35,7 +35,7 @@
 
         internal static void PlaceGroundTile(this FloorBuilder builder, GroundTile groundTile)
         {
-            builder.GroundTilePositions.Add(groundTile.Position);
+            builder.GroundPositions.Add(groundTile.Position);
         }
 
     }

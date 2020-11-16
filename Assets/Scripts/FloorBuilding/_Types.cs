@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Floors
         internal class FloorBuilder
         {
 
-            internal HashSet<TilePosition> GroundTilePositions { get; } = new HashSet<TilePosition>();
+            internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
 
             internal HashSet<TilePosition> WallTilePositions { get; } = new HashSet<TilePosition>();
 

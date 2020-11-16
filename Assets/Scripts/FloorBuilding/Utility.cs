@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         {
             Wall ToWall(TilePosition wallPosition) => builder.ToWall(wallPosition);
 
-            var groundTilePosition = builder.GroundTilePositions;
+            var groundTilePosition = builder.GroundPositions;
             var walls =
                 builder.WallTilePositions
                 .Select(ToWall);
@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors
 
         private static Wall ToWall(this FloorBuilder builder, TilePosition wallPosition)
         {
-            bool isSide = builder.GroundTilePositions.Contains(wallPosition + new TileOffset(0, -1)) || builder.GroundTilePositions.Contains(wallPosition + new TileOffset(0, -2));
+            bool isSide = builder.GroundPositions.Contains(wallPosition + new TileOffset(0, -1)) || builder.GroundPositions.Contains(wallPosition + new TileOffset(0, -2));
 
             return new Wall(wallPosition, isSide ? WallType.Side : WallType.Top);
         }
