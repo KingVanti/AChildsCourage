@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{7807b00f-1361-42ad-ba11-12d4fb6fd696}">
 		<property name="name">
-			<value>Blankie</value>
+			<value>Blankie_ON</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{09a482c0-c430-47fe-9ec7-479144621eaa}</destination>
+			<destination>{38a93b26-5b12-4d1c-99fe-f050ad4f90fa}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{2cc826b9-154a-45cd-bf40-336c9a3b3047}</destination>

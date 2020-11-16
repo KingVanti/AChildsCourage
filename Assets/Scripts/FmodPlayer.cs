@@ -9,16 +9,18 @@ public class FmodPlayer : MonoBehaviour
 
     const string Footsteps_Path = "event:/char/steps";
     const string PickUp_Path = "event:/UI/ItemPickup";
-    const string Flashlight_Path = "event:/UI/Flashlight";
-    const string Blankie_Path = "event:/UI/Blankie";
+    const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
+    const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
+    const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
+    const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
 
 
-    private void FixedUpdate()
-    {
-        MaterialCheck();
-        Debug.DrawRay(transform.position, Vector2.down * distance, Color.blue);
-    }
-
+    /*   private void FixedUpdate()
+       {
+           MaterialCheck();
+           Debug.DrawRay(transform.position, Vector2.down * distance, Color.blue);
+       }
+    */
     void MaterialCheck()
     {
         RaycastHit2D hit;
@@ -51,35 +53,66 @@ public class FmodPlayer : MonoBehaviour
         Footsteps.release();
         // FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);  
     }
-    public void PlayPickUp(string path)
-    {
-         FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
-    }
 
-    public void PlayBlankie(string path)
+    public void PlayItems(int itemID)
     {
-        FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
-    }
+        switch (itemID)
+        {
+            case 0:             //flashlight
+                PlayFlashlight();
+                break;
 
-    public void PlayFlashlight(string path)
-    {
-        FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
+            case 1:             //Blankie
+                PlayBlankie();
+                break;
+            default:
+                Debug.Log("ItemID wrong");
+                break;
+
+        }
+
     }
 
     public void PlayPickUp()
     {
-         FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);  
+        FMODUnity.RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
     }
 
     public void PlayBlankie()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(Blankie_Path, GetComponent<Transform>().position);
+        bool blankie_status = false;
+
+        if (status)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Blankie_ON_Path, GetComponent<Transform>().position);
+            blankie_status = !blankie_status;
+        }
+        else
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Blankie_OFF_Path, GetComponent<Transform>().position);
+            blankie_status = !blankie_status;
+        }
+
     }
 
     public void PlayFlashlight()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(Flashlight_Path, GetComponent<Transform>().position);
+        bool Flashlight_status = false;
+
+        if (status)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Flashlight_ON_Path, GetComponent<Transform>().position);
+            Flashlight_status = !Flashlight_status;
+        }
+        else
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(Flashlight_OFF_Path, GetComponent<Transform>().position);
+            Flashlight_status = !Flashlight_status;
+        }
+
     }
+
+
 
 }
 
