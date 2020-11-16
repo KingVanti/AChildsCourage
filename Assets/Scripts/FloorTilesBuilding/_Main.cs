@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("AChildsCourage.FloorBuilding.Tests")]
+[assembly: InternalsVisibleTo("AChildsCourage.FloorTilesBuilding.Tests")]
 
 namespace AChildsCourage.Game.Floors
 {
