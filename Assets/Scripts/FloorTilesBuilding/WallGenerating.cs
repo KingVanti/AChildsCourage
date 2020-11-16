@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors
                 .Where(IsEmpty);
 
             foreach (var wallPosition in wallPositions)
-                builder.WallTilePositions.Add(wallPosition);
+                builder.WallPositions.Add(wallPosition);
         }
 
         private static IEnumerable<TilePosition> GetUnfilteredWallPositions(TilePosition groundPosition)

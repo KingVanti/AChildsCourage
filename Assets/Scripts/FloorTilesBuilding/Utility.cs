@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Floors
 
             var groundTilePosition = builder.GroundPositions;
             var walls =
-                builder.WallTilePositions
+                builder.WallPositions
                 .Select(ToWall);
 
             return new FloorTiles(groundTilePosition, walls);
