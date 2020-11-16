@@ -2,6 +2,6 @@
 
 namespace AChildsCourage.Game.Input
 {
-    public class ItemSwappedEventArgs : EventArgs { }
+    internal class ItemSwappedEventArgs : EventArgs { }
 
 }
