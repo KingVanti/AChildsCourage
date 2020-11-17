@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CourageBar
-  m_Shader: {fileID: -6465566751694194690, guid: d338da2cc5beee04b9dae62a08686de7, type: 3}
+  m_Name: Courage
+  m_Shader: {fileID: -6465566751694194690, guid: 67fa809bf02f50a459ef253edbcb15dd, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,7 +19,7 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AlphaTex:
+    - _Emission:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -27,22 +27,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_7A57ACC5: 0.5
-    - Vector1_851B8137: 0
-    - _EnableExternalAlpha: 0
+    - Vector1_9D1722C: 0.2
     m_Colors:
-    - Color_D45C07F1: {r: 1.5388225, g: 0.8958751, b: 0, a: 0}
-    - Vector2_A13A9F40: {r: -0.05, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - Color_7839E1C: {r: 1.490268, g: 0.4673495, b: 0, a: 0}
+    - Vector2_6F6CEC33: {r: 0, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []
