@@ -1,23 +1,23 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public readonly struct Wall
+    public readonly struct RoomPlan
     {
 
         #region Properties
 
-        public TilePosition Position { get; }
+        public int RoomId { get; }
 
-        public WallType Type { get; }
+        public ChunkPosition Position { get; }
 
         #endregion
 
         #region Constructors
 
-        public Wall(TilePosition position, WallType type)
+        public RoomPlan(int roomId, ChunkPosition position)
         {
+            RoomId = roomId;
             Position = position;
-            Type = type;
         }
 
         #endregion

@@ -62,7 +62,8 @@ namespace AChildsCourage
 
             _ = kernel.GetAll<IEagerActivation>().ToArray();
 
-            kernel.Bind<FloorGenerator>().ToMethod(FloorGeneration.GetFloorGenerator);
+            kernel.Bind<GenerateFloor>().ToMethod(FloorGeneration.GetFloorGenerator);
+            kernel.Bind<BuildRoomTiles>().ToMethod(FloorTilesBuilding.GetFloorBuilder);
 
             kernel.AutoInjectSceneServices(assemblies.Where(a => a.FullName.Contains("Unity")));
 
