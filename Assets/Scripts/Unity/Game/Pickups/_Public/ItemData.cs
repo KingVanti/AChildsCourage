@@ -13,6 +13,7 @@ namespace AChildsCourage.Game.Pickups
         [SerializeField] private int _id;
         [SerializeField] private string _itemName;
         [SerializeField] private Sprite _sprite;
+        [SerializeField] private Sprite _activatedSprite;
         [SerializeField] private Vector3 _scale;
         [SerializeField] [Range(0, 360)] private float _rotation;
 #pragma warning restore 649
@@ -26,6 +27,8 @@ namespace AChildsCourage.Game.Pickups
         public string ItemName { get { return _itemName; } }
 
         public Sprite Sprite { get { return _sprite; } }
+
+        public Sprite ActivatedSprite { get { return _activatedSprite; } }
 
         public Vector3 Scale { get { return _scale; } }
 

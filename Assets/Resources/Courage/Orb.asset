@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3ca9672b6835164daf1cb9cfb89b9c0, type: 3}
-  m_Name: Spark
+  m_Name: Orb
   m_EditorClassIdentifier: 
-  _value: 1
-  _courageName: Spark
-  _variant: 0
-  _sprite: {fileID: 21300000, guid: 0f477bf9662440c43a6fe44d42739000, type: 3}
-  _scale: {x: 0.4, y: 0.4, z: 0}
+  _value: 5
+  _courageName: Orb
+  _variant: 1
+  _sprite: {fileID: 0}
+  _scale: {x: 0, y: 0, z: 0}

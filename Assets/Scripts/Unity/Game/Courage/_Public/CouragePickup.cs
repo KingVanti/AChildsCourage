@@ -12,8 +12,9 @@ namespace AChildsCourage.Game.Courage {
         [SerializeField] private CouragePickupData testPickup;
 #pragma warning restore 649
 
-        private int value;
-        private int id;
+        private int value = 0;
+        private CourageVariant variant;
+        private string courageName = "";
 
         #endregion
 
@@ -23,15 +24,16 @@ namespace AChildsCourage.Game.Courage {
         /// REMOVE LATER
         /// </summary>
         private void Start() {
-            SetCourageData(testPickup);
+            SetCouragePickupData(testPickup);
         }
 
-        public void SetCourageData(CouragePickupData courageData) {
+        public void SetCouragePickupData(CouragePickupData courageData) {
 
-            id = courageData.Id;
+            variant = courageData.Variant;
             value = courageData.Value;
             spriteRenderer.sprite = courageData.Sprite;
             spriteRenderer.transform.localScale = courageData.Scale;
+            courageName = courageData.CourageName;
 
         }
 

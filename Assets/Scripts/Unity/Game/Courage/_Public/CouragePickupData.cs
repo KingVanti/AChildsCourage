@@ -10,7 +10,8 @@ namespace AChildsCourage.Game.Courage {
 
 #pragma warning disable 649
         [SerializeField] private int _value;
-        [SerializeField] private int _id;
+        [SerializeField] private string _courageName;
+        [SerializeField] private CourageVariant _variant;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Vector3 _scale;
 #pragma warning restore 649
@@ -19,9 +20,11 @@ namespace AChildsCourage.Game.Courage {
 
         #region Properties
 
-        public int Id { get { return _id; } }
+        public CourageVariant Variant { get { return _variant; } }
 
         public int Value { get { return _value; } }
+
+        public string CourageName { get { return _courageName; } }
 
         public Sprite Sprite { get { return _sprite; } }
 
