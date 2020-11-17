@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 4
+  _cooldown: 0.3
   _id: 0
   mainCamera: {fileID: 0}
   lightComponent: {fileID: 788487158}
