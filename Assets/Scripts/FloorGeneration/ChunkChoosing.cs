@@ -9,15 +9,6 @@ namespace AChildsCourage.Game.Floors
 
         private const float BaseWeight = 1;
 
-
-        public enum GenerationPhase
-        {
-            StartRoom,
-            NormalRooms,
-            EndRoom
-        }
-
-
         private static ChunkPosition ChooseNextChunk(FloorPlanBuilder builder, IRNG rng)
         {
             var phase = builder.GetCurrentPhase();
