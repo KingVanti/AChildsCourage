@@ -25,12 +25,21 @@ namespace AChildsCourage.Game.Floors
 
         internal class TilePositionTransformer
         {
+           
+            internal int RotationCount { get; }
 
-            internal TileOffset TileOffset { get; }
+            internal bool IsMirrored { get; }
 
-            internal TilePositionTransformer(TileOffset tileOffset)
+            internal TilePosition ChunkCorner { get; }
+
+            internal TilePosition ChunkCenter { get; }
+
+            internal TilePositionTransformer(int rotationCount, bool isMirrored,TilePosition chunkCorner, TilePosition chunkCenter)
             {
-                this.TileOffset = tileOffset;
+                RotationCount = rotationCount;
+                IsMirrored = isMirrored;
+                ChunkCorner = chunkCorner;
+                ChunkCenter = chunkCenter;
             }
 
         }

@@ -8,16 +8,16 @@
 
         public int RoomId { get; }
 
-        public ChunkPosition Position { get; }
+        public RoomTransform Transform { get; }
 
         #endregion
 
         #region Constructors
 
-        public RoomPlan(int roomId, ChunkPosition position)
+        public RoomPlan(int roomId, RoomTransform transform)
         {
             RoomId = roomId;
-            Position = position;
+            Transform = transform;
         }
 
         #endregion

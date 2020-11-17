@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public class Bag : MonoBehaviour {
 
         #region Fields

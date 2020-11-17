@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors.Generation
         #region Tests
 
         [Test]
-        public void XMirroring_Switches_East_And_West()
+        public void YMirroring_Has_No_Effect_On_East_And_West()
         {
             // Given
 
@@ -18,16 +18,16 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var mirrored = passages.XMirrored;
+            var mirrored = passages.YMirrored;
 
             // Then
 
-            Assert.That(mirrored.HasEast, Is.EqualTo(passages.HasWest), "East not mirrored correctly!");
-            Assert.That(mirrored.HasWest, Is.EqualTo(passages.HasEast), "West not mirrored correctly!");
+            Assert.That(mirrored.HasEast, Is.EqualTo(passages.HasEast), "East was incorrectly effected!");
+            Assert.That(mirrored.HasWest, Is.EqualTo(passages.HasWest), "East was incorrectly effected!");
         }
 
         [Test]
-        public void XMirroring_Has_No_Effect_On_North_And_South()
+        public void YMirroring_Switches_North_And_South()
         {
             // Given
 
@@ -35,12 +35,12 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var mirrored = passages.XMirrored;
+            var mirrored = passages.YMirrored;
 
             // Then
 
-            Assert.That(mirrored.HasNorth, Is.EqualTo(passages.HasNorth), "North was effected!");
-            Assert.That(mirrored.HasSouth, Is.EqualTo(passages.HasSouth), "South was effected!");
+            Assert.That(mirrored.HasNorth, Is.EqualTo(passages.HasSouth), "North was not mirrored!");
+            Assert.That(mirrored.HasSouth, Is.EqualTo(passages.HasNorth), "South was not mirrored!");
         }
 
 
@@ -90,7 +90,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var has = passages.Has(Passage.North);
+            var has = passages.Has(PassageDirection.North);
 
             // Then
 
@@ -106,7 +106,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var has = passages.Has(Passage.East);
+            var has = passages.Has(PassageDirection.East);
 
             // Then
 

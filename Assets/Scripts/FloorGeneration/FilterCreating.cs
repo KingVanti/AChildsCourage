@@ -28,18 +28,18 @@
 
         private static ChunkPassageFilter GetPassageFilterFor(this FloorPlanBuilder builder, ChunkPosition position)
         {
-            PassageFilter GetPassageFilter(Passage p) => GetFilterFor(builder, position, p);
+            PassageFilter GetPassageFilter(PassageDirection p) => GetFilterFor(builder, position, p);
 
-            var north = GetPassageFilter(Passage.North);
-            var east = GetPassageFilter(Passage.East);
-            var south = GetPassageFilter(Passage.South);
-            var west = GetPassageFilter(Passage.West);
+            var north = GetPassageFilter(PassageDirection.North);
+            var east = GetPassageFilter(PassageDirection.East);
+            var south = GetPassageFilter(PassageDirection.South);
+            var west = GetPassageFilter(PassageDirection.West);
 
             return new ChunkPassageFilter(north, east, south, west);
         }
 
 
-        private static PassageFilter GetFilterFor(this FloorPlanBuilder builder, ChunkPosition position, Passage passage)
+        private static PassageFilter GetFilterFor(this FloorPlanBuilder builder, ChunkPosition position, PassageDirection passage)
         {
             var positionInDirection = MoveToAdjacentChunk(position, passage);
 

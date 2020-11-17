@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         private static void Build(this FloorTilesBuilder builder, RoomInChunk room)
         {
             var tiles = room.Room.Tiles;
-            var transformer = CreateTransformerFor(room);
+            var transformer = CreateTransformerFor(room.Transform);
 
             tiles.Build(transformer.Transform, builder.Place);
         }

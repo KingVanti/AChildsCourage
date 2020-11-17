@@ -104,13 +104,13 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         private IEnumerable<ChunkPassages> GetVariations(ChunkPassages passages)
         {
             yield return passages;
-            yield return passages.XMirrored;
+            yield return passages.YMirrored;
             yield return passages.Rotated;
-            yield return passages.Rotated.XMirrored;
+            yield return passages.Rotated.YMirrored;
             yield return passages.Rotated.Rotated;
-            yield return passages.Rotated.Rotated.XMirrored;
+            yield return passages.Rotated.Rotated.YMirrored;
             yield return passages.Rotated.Rotated.Rotated;
-            yield return passages.Rotated.Rotated.Rotated.XMirrored;
+            yield return passages.Rotated.Rotated.Rotated.YMirrored;
         }
 
         private RoomPassages CreateNew(ChunkPassages roomPassages)

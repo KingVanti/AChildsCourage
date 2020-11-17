@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Linq;
-using static AChildsCourage.Game.Floors.FloorTilesBuilding;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -12,20 +10,55 @@ namespace AChildsCourage.Game.Floors
         #region Tests
 
         [Test]
-        public void Transforming_A_Position_Offsets_It()
+        public void Position_Is_Correctly_Transformed_Around_Chunk_Center()
         {
             // Given
 
-            var transformer = new TilePositionTransformer(new TileOffset(1, -1));
+            var position = new TilePosition(-1, 1);
 
             // When
 
-            var transformed = transformer.Transform(new TilePosition(0, 0));
+            var offset = position.OffsetAround(new TilePosition(21, 21));
 
-            // When
+            // Then
 
-            Assert.That(transformed, Is.EqualTo(new TilePosition(1, -1)));
+            Assert.That(offset, Is.EqualTo(new TilePosition(20, 22)), "Position incorrectly offset!");
         }
+
+
+        [Test]
+        public void Position_Is_Correctly_YMirrored_Around_Chunk_Center()
+        {
+            // Given
+
+            var position = new TilePosition(22, 10);
+
+            // When
+
+            var mirrored = position.YMirrorOver(new TilePosition(21, 21));
+
+            // Then
+
+            Assert.That(mirrored, Is.EqualTo(new TilePosition(22, 32)), "Position incorrectly mirrored!");
+        }
+
+
+        [Test]
+        public void Position_Is_Correctly_Rotated_Around_Chunk_Center()
+        {
+            // Given
+
+            var position = new TilePosition(22, 22);
+
+            // When
+
+            var rotated = position.RotateClockwiseAround(new TilePosition(21, 21));
+
+            // Then
+
+            Assert.That(rotated, Is.EqualTo(new TilePosition(22, 20)), "Position incorrectly cotated!");
+        }
+
 
         [Test]
         public void Creating_A_Ground_Tile_With_A_New_Position_Changes_Its_Position()

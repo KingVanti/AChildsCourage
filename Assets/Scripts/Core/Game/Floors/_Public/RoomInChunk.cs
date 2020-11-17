@@ -5,18 +5,18 @@
 
         #region Properties
 
-        public ChunkPosition Position { get; }
-
         public Room Room { get; }
+
+        public RoomTransform Transform { get; }
 
         #endregion
 
         #region Constructors
 
-        public RoomInChunk(ChunkPosition position, Room room)
+        public RoomInChunk(Room room, RoomTransform transform)
         {
-            Position = position;
             Room = room;
+            Transform = transform;
         }
 
         #endregion

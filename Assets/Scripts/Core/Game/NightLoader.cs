@@ -46,7 +46,8 @@ namespace AChildsCourage.Game
             //var floorPlan = floorGenerator(seed);
             var floorPlan = new FloorPlan(new[]
             {
-                new RoomPlan(0, new ChunkPosition(0,0))
+                new RoomPlan(0, new RoomTransform(new ChunkPosition(0, 0), false, 0)),
+                new RoomPlan(0, new RoomTransform(new ChunkPosition(0, -1), true, 0))
             });
 
             return floorBuilder(floorPlan);
