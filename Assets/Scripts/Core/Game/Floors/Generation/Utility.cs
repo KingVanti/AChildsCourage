@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace AChildsCourage.Game.Floors
 {
 
     public static partial class FloorGeneration
     {
-
-        internal static IEnumerable<ChunkPosition> GetSurroundingPositions(ChunkPosition position)
-        {
-            yield return new ChunkPosition(position.X, position.Y + 1);
-            yield return new ChunkPosition(position.X + 1, position.Y);
-            yield return new ChunkPosition(position.X, position.Y - 1);
-            yield return new ChunkPosition(position.X - 1, position.Y);
-        }
-
-
-        internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, PassageDirection direction)
+  
+        internal static ChunkPosition MoveToAdjacentChunk(this ChunkPosition position, PassageDirection direction)
         {
             switch (direction)
             {
@@ -49,6 +39,20 @@ namespace AChildsCourage.Game.Floors
             }
 
             throw new Exception("Invalid direction");
+        }
+
+
+        internal static GenerationPhase GetCurrentPhase(this int currentRoomCount)
+        {
+            switch (currentRoomCount)
+            {
+                case 0:
+                    return GenerationPhase.StartRoom;
+                case GoalRoomCount - 1:
+                    return GenerationPhase.EndRoom;
+                default:
+                    return GenerationPhase.NormalRooms;
+            }
         }
 
     }

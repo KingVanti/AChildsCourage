@@ -6,13 +6,18 @@
 
         private static RoomPassages ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanBuilder builder, IRoomPassagesRepository roomPassagesRepository, IRNG rng)
         {
-            var filter = builder.CreateFilterFor(chunkPosition);
-            var filteredRooms = roomPassagesRepository.GetRooms(filter);
-
-            return ChooseRoomFrom(filteredRooms, rng);
+            return chunkPosition
+                .CreateFilter(builder)
+                .FilterRoomsIn(roomPassagesRepository)
+                .ChooseRandom(rng);
         }
 
-        private static RoomPassages ChooseRoomFrom(FilteredRoomPassages roomPassages, IRNG rng)
+        private static FilteredRoomPassages FilterRoomsIn(this RoomPassageFilter filter, IRoomPassagesRepository roomPassagesRepository)
+        {
+            return roomPassagesRepository.GetRooms(filter);
+        }
+
+        private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, IRNG rng)
         {
             return roomPassages.GetRandom(rng);
         }

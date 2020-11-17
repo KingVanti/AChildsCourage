@@ -4,9 +4,9 @@
     public static partial class FloorGeneration
     {
 
-        private static RoomPassageFilter CreateFilterFor(this FloorPlanBuilder builder, ChunkPosition position)
+        private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanBuilder builder)
         {
-            var roomType = GetFilteredRoomTypeFor(builder.GetCurrentPhase());
+            var roomType = GetFilteredRoomTypeFor(builder.CountRooms().GetCurrentPhase());
             var remainingRooms = builder.GetRemainingRoomCount();
             var passageFilter = builder.GetPassageFilterFor(position);
 

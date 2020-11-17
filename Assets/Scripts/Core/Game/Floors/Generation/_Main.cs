@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("AChildsCourage.FloorGeneration.Tests")]
 
@@ -12,15 +13,29 @@ namespace AChildsCourage.Game.Floors
         {
             var builder = new FloorPlanBuilder();
 
-            while (builder.NeedsMoreRooms())
-            {
-                var nextChunk = chunkChooser(builder);
-                var nextRoom = roomChooser(builder, nextChunk);
+            Action buildRoom = () => builder.BuildRoom(chunkChooser, roomChooser);
 
-                builder.PlaceRoom(nextChunk, nextRoom);
-            }
+            buildRoom.While(builder.NeedsMoreRooms);
 
             return builder.GetFloorPlan();
+        }
+
+        private static void BuildRoom(this FloorPlanBuilder builder, ChooseChunk chunkChooser, ChooseRoom roomChooser)
+        {
+            var nextChunk = chunkChooser(builder);
+            var nextRoom = roomChooser(builder, nextChunk);
+
+            builder.PlaceRoom(nextChunk, nextRoom);
+        }
+
+        private static bool NeedsMoreRooms(this FloorPlanBuilder builder)
+        {
+            return !builder.CountRooms().IsEnough();
+        }
+
+        internal static bool IsEnough(this int currentRoomCount)
+        {
+            return currentRoomCount >= GoalRoomCount;
         }
 
     }

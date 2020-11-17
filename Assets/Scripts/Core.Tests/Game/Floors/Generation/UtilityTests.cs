@@ -14,33 +14,6 @@ namespace AChildsCourage.Game.Floors
         #region Tests
 
         [Test]
-        public void Get_Correct_Surrounding_Positions()
-        {
-            // Given
-
-            var position = new ChunkPosition(0, 0);
-
-            // When
-
-            var surrounding = GetSurroundingPositions(position).ToArray();
-
-            // Then
-
-            Assert.That(surrounding.Length, Is.EqualTo(4), "Wrong number of positions!");
-            Assert.That(surrounding.Distinct().Count(), Is.EqualTo(surrounding.Length), "Positions should be destinct!");
-
-            for (var i = 0; i < 4; i++)
-            {
-                var p = surrounding[i];
-
-                var diff = new Vector2(p.X - position.X, p.Y - position.Y);
-
-                Assert.That(diff.Length(), Is.EqualTo(1), "Distance of position to origin should be 1!");
-            }
-        }
-
-
-        [Test]
         public void Moving_To_Adjacent_Chunk_Returns_Correct_Chunk()
         {
             // Given
@@ -49,10 +22,10 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var toNorth = MoveToAdjacentChunk(chunkPosition, PassageDirection.North);
-            var toEast = MoveToAdjacentChunk(chunkPosition, PassageDirection.East);
-            var toSouth = MoveToAdjacentChunk(chunkPosition, PassageDirection.South);
-            var toWest = MoveToAdjacentChunk(chunkPosition, PassageDirection.West);
+            var toNorth = chunkPosition.MoveToAdjacentChunk(PassageDirection.North);
+            var toEast = chunkPosition.MoveToAdjacentChunk(PassageDirection.East);
+            var toSouth = chunkPosition.MoveToAdjacentChunk(PassageDirection.South);
+            var toWest = chunkPosition.MoveToAdjacentChunk(PassageDirection.West);
 
             // Then
 
@@ -78,6 +51,46 @@ namespace AChildsCourage.Game.Floors
 
             Assert.That(actual, Is.EqualTo(expected), "Passage inverted incorrectly!");
         }
+
+
+        [Test]
+        public void When_A_Builder_Has_No_Rooms_Built_Then_It_Is_In_The_StartRoom_Phase()
+        {
+            // When
+
+            var phase = 0.GetCurrentPhase();
+
+            // Then
+
+            Assert.That(phase, Is.EqualTo(GenerationPhase.StartRoom), "Builder should be in StartRoom phase!");
+        }
+
+        [Test]
+        public void When_A_Builder_Has_All_But_One_Rooms_Built_Then_It_Is_In_The_EndRoom_Phase()
+        {
+            // When
+
+            var phase = (GoalRoomCount - 1).GetCurrentPhase();
+
+            // Then
+
+            Assert.That(phase, Is.EqualTo(GenerationPhase.EndRoom), "Builder should be in EndRoom phase!");
+        }
+
+        [Test]
+        public void When_A_Builder_Is_Neither_In_The_StartRoom_Nor_EndRoom_Phase_Then_It_Is_In_The_NormalRooms_Phase()
+        {
+            // When
+
+            var phases =
+                Enumerable.Range(1, GoalRoomCount - 2)
+                .Select(currentRoomCount => currentRoomCount.GetCurrentPhase());
+
+            // Then
+
+            Assert.That(phases, Is.All.EqualTo(GenerationPhase.NormalRooms), "Builder should be in NormalRoom phase!");
+        }
+
 
         #endregion
 
