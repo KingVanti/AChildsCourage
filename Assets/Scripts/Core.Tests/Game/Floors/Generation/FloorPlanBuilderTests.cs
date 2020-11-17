@@ -290,7 +290,7 @@ namespace AChildsCourage.Game.Floors
 
             Assert.That(floorPlan.Rooms.Length, Is.EqualTo(1), "Incorrect number of rooms!");
             Assert.That(floorPlan.Rooms.First().RoomId, Is.EqualTo(room.RoomId), "Room id incorrectly copied!");
-            Assert.That(floorPlan.Rooms.First().Transform, Is.EqualTo(position), "Position incorrectly copied!");
+            Assert.That(floorPlan.Rooms.First().Transform.Position, Is.EqualTo(position), "Position incorrectly copied!");
         }
 
         #endregion
