@@ -7,8 +7,6 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorGeneration
     {
 
-        #region Methods
-
         internal static IEnumerable<ChunkPosition> GetSurroundingPositions(ChunkPosition position)
         {
             yield return new ChunkPosition(position.X, position.Y + 1);
@@ -52,8 +50,6 @@ namespace AChildsCourage.Game.Floors
 
             throw new Exception("Invalid direction");
         }
-
-        #endregion
 
     }
 

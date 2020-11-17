@@ -10,15 +10,15 @@ namespace AChildsCourage.Game.Floors
 
         public TilePosition Position { get; }
 
-        internal int DistanceToWall { get; }
+        public int DistanceToWall { get; }
 
-        internal int AOIIndex { get; }
+        public int AOIIndex { get; }
 
         #endregion
 
         #region Constructors
 
-        internal GroundTile(int x, int y, int distanceToWall, int aoiIndex)
+        public GroundTile(int x, int y, int distanceToWall, int aoiIndex)
         {
             Position = new TilePosition(x, y);
             DistanceToWall = distanceToWall;

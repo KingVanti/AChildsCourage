@@ -77,7 +77,7 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
                 -floorPlan.Rooms.Select(r => r.Position.Y).Min());
         }
 
-        private static void PrintRoom(RoomType type, RoomIdInChunk room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
+        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
         {
             var position = GetPixelPos(room.Position, offset);
             var passages = roomInfoRespository.GetById(room.RoomId).Passages;

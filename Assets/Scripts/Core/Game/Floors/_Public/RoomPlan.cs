@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public readonly struct RoomIdInChunk
+    public readonly struct RoomPlan
     {
 
         #region Properties
@@ -14,7 +14,7 @@
 
         #region Constructors
 
-        public RoomIdInChunk(int roomId, ChunkPosition position)
+        public RoomPlan(int roomId, ChunkPosition position)
         {
             RoomId = roomId;
             Position = position;

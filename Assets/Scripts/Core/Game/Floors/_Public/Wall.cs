@@ -14,7 +14,7 @@
 
         #region Constructors
 
-        internal Wall(TilePosition position, WallType type)
+        public Wall(TilePosition position, WallType type)
         {
             Position = position;
             Type = type;

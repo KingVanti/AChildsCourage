@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AChildsCourage.Game.Floors;
+using System;
 
-namespace AChildsCourage.Game.Floors.Building
+namespace AChildsCourage.Game
 {
 
     internal class FloorBuiltEventArgs : EventArgs
@@ -8,13 +9,13 @@ namespace AChildsCourage.Game.Floors.Building
 
         #region Properties
 
-        internal Floor Floor { get; }
+        internal FloorTiles Floor { get; }
 
         #endregion
 
         #region Constructors
 
-        internal FloorBuiltEventArgs(Floor floor)
+        internal FloorBuiltEventArgs(FloorTiles floor)
         {
             Floor = floor;
         }
