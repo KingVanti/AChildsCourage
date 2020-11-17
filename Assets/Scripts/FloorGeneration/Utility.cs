@@ -16,17 +16,17 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, Passage direction)
+        internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, PassageDirection direction)
         {
             switch (direction)
             {
-                case Passage.North:
+                case PassageDirection.North:
                     return new ChunkPosition(position.X, position.Y + 1);
-                case Passage.East:
+                case PassageDirection.East:
                     return new ChunkPosition(position.X + 1, position.Y);
-                case Passage.South:
+                case PassageDirection.South:
                     return new ChunkPosition(position.X, position.Y - 1);
-                case Passage.West:
+                case PassageDirection.West:
                     return new ChunkPosition(position.X - 1, position.Y);
             }
 
@@ -34,18 +34,18 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        internal static Passage Invert(this Passage passage)
+        internal static PassageDirection Invert(this PassageDirection passage)
         {
             switch (passage)
             {
-                case Passage.North:
-                    return Passage.South;
-                case Passage.East:
-                    return Passage.West;
-                case Passage.South:
-                    return Passage.North;
-                case Passage.West:
-                    return Passage.East;
+                case PassageDirection.North:
+                    return PassageDirection.South;
+                case PassageDirection.East:
+                    return PassageDirection.West;
+                case PassageDirection.South:
+                    return PassageDirection.North;
+                case PassageDirection.West:
+                    return PassageDirection.East;
             }
 
             throw new Exception("Invalid direction");

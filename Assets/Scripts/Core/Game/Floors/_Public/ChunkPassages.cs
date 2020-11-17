@@ -49,17 +49,17 @@ namespace AChildsCourage.Game.Floors
 
         #region Methods
 
-        public bool Has(Passage passage)
+        public bool Has(PassageDirection passage)
         {
             switch (passage)
             {
-                case Passage.North:
+                case PassageDirection.North:
                     return HasNorth;
-                case Passage.East:
+                case PassageDirection.East:
                     return HasEast;
-                case Passage.South:
+                case PassageDirection.South:
                     return HasSouth;
-                case Passage.West:
+                case PassageDirection.West:
                     return HasWest;
             }
 

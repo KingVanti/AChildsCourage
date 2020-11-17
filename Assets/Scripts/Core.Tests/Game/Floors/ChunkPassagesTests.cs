@@ -90,7 +90,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var has = passages.Has(Passage.North);
+            var has = passages.Has(PassageDirection.North);
 
             // Then
 
@@ -106,7 +106,7 @@ namespace AChildsCourage.Game.Floors.Generation
 
             // When
 
-            var has = passages.Has(Passage.East);
+            var has = passages.Has(PassageDirection.East);
 
             // Then
 

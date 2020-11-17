@@ -72,15 +72,15 @@ namespace AChildsCourage.Game.Floors
 
         private static ChunkPassages GetPassagesInto(this FloorPlanBuilder builder, ChunkPosition position)
         {
-            var hasNorth = builder.HasPassage(position, Passage.North);
-            var hasEast = builder.HasPassage(position, Passage.East);
-            var hasSouth = builder.HasPassage(position, Passage.South);
-            var hasWest = builder.HasPassage(position, Passage.West);
+            var hasNorth = builder.HasPassage(position, PassageDirection.North);
+            var hasEast = builder.HasPassage(position, PassageDirection.East);
+            var hasSouth = builder.HasPassage(position, PassageDirection.South);
+            var hasWest = builder.HasPassage(position, PassageDirection.West);
 
             return new ChunkPassages(hasNorth, hasEast, hasSouth, hasWest);
         }
 
-        private static bool HasPassage(this FloorPlanBuilder builder, ChunkPosition position, Passage passage)
+        private static bool HasPassage(this FloorPlanBuilder builder, ChunkPosition position, PassageDirection passage)
         {
             var positionInDirection = MoveToAdjacentChunk(position, passage);
 
