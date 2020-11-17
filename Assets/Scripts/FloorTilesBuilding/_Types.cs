@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors
 
             internal TilePositionTransformer(TileOffset tileOffset)
             {
-                this.TileOffset = tileOffset;
+                TileOffset = tileOffset;
             }
 
         }
