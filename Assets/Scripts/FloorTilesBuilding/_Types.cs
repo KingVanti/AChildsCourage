@@ -42,6 +42,19 @@ namespace AChildsCourage.Game.Floors
 
             internal HashSet<TilePosition> WallPositions { get; }
 
+
+            internal FloorTilesBuilder()
+            {
+                GroundPositions = new HashSet<TilePosition>();
+                WallPositions = new HashSet<TilePosition>();
+            }
+
+            internal FloorTilesBuilder(IEnumerable<TilePosition> groundPositions, IEnumerable<TilePosition> wallPositions)
+            {
+                GroundPositions = new HashSet<TilePosition>(groundPositions);
+                WallPositions = new HashSet<TilePosition>(wallPositions);
+            }
+
         }
 
     }

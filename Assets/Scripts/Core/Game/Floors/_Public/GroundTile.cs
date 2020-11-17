@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        internal GroundTile(int x, int y, int distanceToWall, int aoiIndex)
+        public GroundTile(int x, int y, int distanceToWall, int aoiIndex)
         {
             Position = new TilePosition(x, y);
             DistanceToWall = distanceToWall;

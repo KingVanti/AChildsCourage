@@ -4,14 +4,14 @@
     public static partial class FloorTilesBuilding
     {
 
-        internal static TilePositionTransformer CreateTransformerFor(RoomInChunk room)
+        private static TilePositionTransformer CreateTransformerFor(RoomInChunk room)
         {
             var tileOffset = GetTileOffsetFor(room);
 
             return new TilePositionTransformer(tileOffset);
         }
 
-        internal static TileOffset GetTileOffsetFor(RoomInChunk room)
+        private static TileOffset GetTileOffsetFor(RoomInChunk room)
         {
             return GetTileOffsetFor(room.Position);
         }
