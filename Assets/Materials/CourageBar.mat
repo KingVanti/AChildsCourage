@@ -40,7 +40,7 @@ Material:
     - Vector1_851B8137: 0
     - _EnableExternalAlpha: 0
     m_Colors:
-    - Color_D45C07F1: {r: 1.5388225, g: 0.8958751, b: 0, a: 0}
+    - Color_D45C07F1: {r: 2.7428508, g: 2.7428508, b: 2.7428508, a: 0}
     - Vector2_A13A9F40: {r: -0.05, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
