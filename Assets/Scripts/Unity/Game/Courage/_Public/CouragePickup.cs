@@ -19,6 +19,9 @@ namespace AChildsCourage.Game.Courage {
 
         #region Methods
 
+        /// <summary>
+        /// REMOVE LATER
+        /// </summary>
         private void Start() {
             SetCourageData(testPickup);
         }
