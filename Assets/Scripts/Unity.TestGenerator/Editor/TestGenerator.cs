@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.Generation.Editor
+namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
     public class TestGenerator : EditorWindow

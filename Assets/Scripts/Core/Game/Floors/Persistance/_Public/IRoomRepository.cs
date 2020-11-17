@@ -1,6 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Building;
-
-namespace AChildsCourage.Game.Floors.Persistance
+﻿namespace AChildsCourage.Game.Floors.Persistance
 {
 
     public interface IRoomRepository

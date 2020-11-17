@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.Generation.Editor
+namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
     internal static class GenerateTexture
