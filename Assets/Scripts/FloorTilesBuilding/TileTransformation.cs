@@ -4,11 +4,21 @@
     public static partial class FloorTilesBuilding
     {
 
-        internal static GroundTile Transform(this TilePositionTransformer transformer, GroundTile groundTile)
+        private static GroundTile Transform(this TilePositionTransformer transformer, GroundTile groundTile)
         {
-            var newPosition = groundTile.Position + transformer.TileOffset;
+            var newPosition = transformer.Transform(groundTile.Position);
 
-            return new GroundTile(newPosition, groundTile.DistanceToWall, groundTile.AOIIndex);
+            return groundTile.With(newPosition);
+        }
+
+        internal static TilePosition Transform(this TilePositionTransformer transformer,TilePosition position)
+        {
+            return position + transformer.TileOffset;
+        }
+
+        internal static GroundTile With(this GroundTile groundTile, TilePosition position)
+        {
+            return new GroundTile(position, groundTile.DistanceToWall, groundTile.AOIIndex);
         }
 
     }

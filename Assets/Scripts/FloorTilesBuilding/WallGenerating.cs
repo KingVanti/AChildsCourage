@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AChildsCourage.Game.Floors
@@ -9,18 +10,16 @@ namespace AChildsCourage.Game.Floors
 
         private static void GenerateWalls(this FloorTilesBuilder builder)
         {
-            bool IsEmpty(TilePosition position) => builder.IsEmpty(position);
+            bool IsEmpty(TilePosition position) => !builder.HasGroundAt(position);
 
-            var wallPositions =
-                builder.GroundPositions
-                .SelectMany(GetUnfilteredWallPositions)
-                .Where(IsEmpty);
+            void AddToWallPositions(TilePosition position) => _ = builder.WallPositions.Add(position);
 
-            foreach (var wallPosition in wallPositions)
-                builder.WallPositions.Add(wallPosition);
+            builder.GroundPositions
+                .GenerateWallPositionsFor(IsEmpty)
+                .ForEach(AddToWallPositions);
         }
 
-        private static IEnumerable<TilePosition> GetUnfilteredWallPositions(TilePosition groundPosition)
+        private static IEnumerable<TilePosition> GetSurroundingWallPositions(TilePosition groundPosition)
         {
             for (var dX = -1; dX <= 1; dX++)
                 for (var dY = -1; dY <= 3; dY++)
@@ -28,9 +27,11 @@ namespace AChildsCourage.Game.Floors
                         yield return groundPosition + new TileOffset(dX, dY);
         }
 
-        private static bool IsEmpty(this FloorTilesBuilder builder, TilePosition position)
+        private static IEnumerable<TilePosition> GenerateWallPositionsFor(this IEnumerable<TilePosition> groundPositions, Func<TilePosition, bool> isEmpty)
         {
-            return builder.GroundPositions.Contains(position);
+            return groundPositions
+                .SelectMany(GetSurroundingWallPositions)
+                .Where(isEmpty);
         }
 
     }

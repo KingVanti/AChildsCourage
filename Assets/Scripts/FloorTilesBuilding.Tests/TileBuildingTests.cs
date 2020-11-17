@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Floors
             // When
 
             var tile = new GroundTile(0, 0, 0, 0);
-            builder.PlaceGroundTile(tile);
+            builder.Place(tile);
 
             // Then
 

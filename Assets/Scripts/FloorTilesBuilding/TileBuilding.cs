@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -11,22 +12,22 @@ namespace AChildsCourage.Game.Floors
             var tiles = room.Room.Tiles;
             var transformer = CreateTransformerFor(room);
 
-            builder.Build(tiles, transformer);
+            tiles.Build(transformer.Transform, builder.Place);
         }
 
-        private static void Build(this FloorTilesBuilder builder, RoomTiles tiles, TilePositionTransformer transformer)
+        private static void Build(this RoomTiles tiles, Func<GroundTile, GroundTile> transform, Action<GroundTile> place)
         {
-            builder.BuildGroundTiles(tiles.GroundTiles, transformer);
+            tiles.GroundTiles.Build(transform, place);
         }
 
-        private static void BuildGroundTiles(this FloorTilesBuilder builder, Tiles<GroundTile> groundTiles, TilePositionTransformer transformer)
+        private static void Build(this Tiles<GroundTile> groundTiles, Func<GroundTile, GroundTile> transform, Action<GroundTile> place)
         {
             groundTiles
-                .Select(transformer.Transform)
-                .ForEach(builder.PlaceGroundTile);
+                .Select(transform)
+                .ForEach(place);
         }
 
-        internal static void PlaceGroundTile(this FloorTilesBuilder builder, GroundTile groundTile)
+        internal static void Place(this FloorTilesBuilder builder, GroundTile groundTile)
         {
             builder.GroundPositions.Add(groundTile.Position);
         }
