@@ -18,9 +18,23 @@ namespace AChildsCourage.Game.Floors
 
         internal static FloorPlan GetFloorPlan(this FloorPlanBuilder builder)
         {
+            return builder.RoomsByChunks.GetFloorPlan();
+        }
+
+        internal static FloorPlan GetFloorPlan(this IDictionary<ChunkPosition, RoomPassages> roomsByChunks)
+        {
+            RoomPlan GetRoomAt(ChunkPosition position)
+            {
+                var passages = roomsByChunks[position];
+                var transform = new RoomTransform(position, passages.IsMirrored, passages.RotationCount);
+
+                return new RoomPlan(passages.RoomId, transform);
+            };
+
             var roomsInChunks =
-                builder.RoomsByChunks
-                .Select(kvp => new RoomPlan(kvp.Value.RoomId, kvp.Key))
+                roomsByChunks
+                .Keys
+                .Select(GetRoomAt)
                 .ToArray();
 
             return new FloorPlan(roomsInChunks);

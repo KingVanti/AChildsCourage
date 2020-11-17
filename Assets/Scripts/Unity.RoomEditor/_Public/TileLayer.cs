@@ -11,7 +11,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Constants
 
-        private const int ChunkCenterOffset = (ChunkPosition.ChunkTileSize - 1) / 2;
+        private const int ChunkCenterOffset = (ChunkPosition.ChunkSize - 1) / 2;
 
         #endregion
 

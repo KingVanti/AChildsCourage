@@ -4,7 +4,7 @@
 
 namespace AChildsCourage.Game.Floors
 {
-       
+
     public static partial class FloorGeneration
     {
 

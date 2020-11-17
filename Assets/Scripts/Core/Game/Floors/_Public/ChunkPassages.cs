@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors
         [JsonIgnore] public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
 
 
-        [JsonIgnore] public ChunkPassages XMirrored { get { return new ChunkPassages(HasNorth, HasWest, HasSouth, HasEast); } }
+        [JsonIgnore] public ChunkPassages YMirrored { get { return new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest); } }
 
         #endregion
 

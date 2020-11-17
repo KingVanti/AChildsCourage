@@ -1,10 +1,9 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.Generation
+namespace AChildsCourage.Game.Floors
 {
 
     internal class ResourceRoomPassageRepository : IRoomPassagesRepository
@@ -87,39 +86,16 @@ namespace AChildsCourage.Game.Floors.Generation
         {
             var assets = LoadAssets();
 
-            return assets.SelectMany(GetPassages);
+            return
+                assets
+                .SelectMany(a => a.GetPassages());
         }
 
         private IEnumerable<RoomAsset> LoadAssets()
         {
             return Resources.LoadAll<RoomAsset>(RoomResourcePath).OrderBy(a => a.Id);
         }
-
-        private IEnumerable<RoomPassages> GetPassages(RoomAsset asset)
-        {
-            return
-                GetPassageVariations(asset.Room.Passages)
-                .Distinct()
-                .Select(p => new RoomPassages(asset.Id, p, asset.Room.Type));
-        }
-
-        private IEnumerable<ChunkPassages> GetPassageVariations(ChunkPassages passages)
-        {
-            foreach (var passage in GetRotations(passages))
-                yield return passage;
-            foreach (var passage in GetRotations(passages.XMirrored))
-                yield return passage;
-        }
-
-        private IEnumerable<ChunkPassages> GetRotations(ChunkPassages passages)
-        {
-            yield return passages;
-            yield return passages.Rotated;
-            yield return passages.Rotated.Rotated;
-            yield return passages.Rotated.Rotated.Rotated;
-        }
-
-
+    
         private bool RoomMatchesFilter(RoomPassages roomPassages, ChunkPassageFilter filter, int maxLooseEnds)
         {
             var looseEnds = filter.FindLooseEnds(roomPassages.Passages);

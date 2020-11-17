@@ -6,9 +6,13 @@
 
         #region Properties
 
-        internal int RoomId { get; }
+        public int RoomId { get; }
 
         public ChunkPassages Passages { get; }
+
+        public int RotationCount { get; }
+
+        public bool IsMirrored { get; }
 
         public RoomType Type { get; }
 
@@ -20,14 +24,18 @@
         {
             RoomId = -1;
             Passages = ChunkPassages.None;
+            RotationCount = 0;
+            IsMirrored = false;
             Type = RoomType.Normal;
         }
 
-        public RoomPassages(int roomId, ChunkPassages passages, RoomType type = RoomType.Normal)
+        public RoomPassages(int roomId, ChunkPassages passages, int rotationCount = 0, bool isMirrored = false, RoomType type = RoomType.Normal)
         {
             RoomId = roomId;
             Passages = passages;
             Type = type;
+            RotationCount = rotationCount;
+            IsMirrored = IsMirrored;
         }
 
         #endregion 

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Game.Floors.FloorTilesBuilding;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -11,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         #region Tests
 
         [Test]
-        public void Tile_Offset_For_Chunk_Positions_Are_Calculated_Correctly()
+        public void Center_For_Chunks_Are_Calculated_Correctly()
         {
             // Given
 
@@ -19,11 +18,11 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var tileOffset = GetTileOffsetFor(chunkPosition);
+            var center = chunkPosition.GetChunkCenter();
 
             // Then
 
-            Assert.That(tileOffset, Is.EqualTo(new TileOffset(41, -41)), "Tile-offset calculated incorrectly!");
+            Assert.That(center, Is.EqualTo(new TilePosition(61, -21)), "Center calculated incorrectly!");
         }
 
         #endregion
