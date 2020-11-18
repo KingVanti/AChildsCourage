@@ -9,6 +9,7 @@ namespace AChildsCourage.Game.Courage {
 
 #pragma warning disable 649
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private float speed;
         [SerializeField] private CouragePickupData testPickup;
         [SerializeField] private CouragePickupData testPickup2;
 #pragma warning restore 649
@@ -25,17 +26,7 @@ namespace AChildsCourage.Game.Courage {
         /// REMOVE LATER
         /// </summary>
         private void Start() {
-
-            float rand = Random.Range(0f, 1f);
-            Debug.Log(rand);
-
-            if (rand > 0.2f) {
-                SetCouragePickupData(testPickup2);
-            }
-            else{
-                SetCouragePickupData(testPickup);
-            }
-
+            SetCouragePickupData(testPickup);
         }
 
         public void SetCouragePickupData(CouragePickupData courageData) {
@@ -47,6 +38,12 @@ namespace AChildsCourage.Game.Courage {
             spriteRenderer.material.SetTexture("_Emission", courageData.Emission);
             courageName = courageData.CourageName;
 
+        }
+
+        private void OnTriggerStay2D(Collider2D collision) {
+            if (collision.CompareTag(EntityTags.Player)) {
+                transform.position = Vector2.MoveTowards(transform.position, collision.transform.position, Time.fixedDeltaTime * speed);
+            }
         }
 
         #endregion

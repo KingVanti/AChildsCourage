@@ -19,6 +19,11 @@
         /// </summary>
         internal const string Player = "Player";
 
+        /// <summary>
+        /// Unity tag for courage entities
+        /// </summary>
+        internal const string Courage = "Courage";
+
     }
 
 }

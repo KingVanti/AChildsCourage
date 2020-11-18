@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7978117671522099882}
+  speed: 0.1
   testPickup: {fileID: 11400000, guid: 6344af12112a8cd4cab64f8fc911dfed, type: 2}
   testPickup2: {fileID: 11400000, guid: 7a1979b789401df47ab5931b86dd640e, type: 2}
 --- !u!198 &1745441868050171075
@@ -4926,9 +4927,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.1
 --- !u!1 &7978117672213814817
 GameObject:
   m_ObjectHideFlags: 0
