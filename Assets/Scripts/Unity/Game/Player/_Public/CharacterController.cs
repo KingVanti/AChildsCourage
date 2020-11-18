@@ -191,8 +191,6 @@ namespace AChildsCourage.Game.Player
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            Debug.Log(LookAngle);
-
             if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f)
             {
                 ChangeLookDirection(RelativeMousePos);
@@ -257,9 +255,11 @@ namespace AChildsCourage.Game.Player
             if (IsInPickupRange)
             {
                 OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
+
                 if(CurrentItemInRange.GetComponent<ItemPickup>().Id == 0) {
                     HasFlashlightEquipped = true;
                 }
+
                 Destroy(CurrentItemInRange);
             }
 
