@@ -1,7 +1,9 @@
-﻿using AChildsCourage.Game.Input;
+﻿using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,6 +38,7 @@ namespace AChildsCourage.Game.Player
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
         public IntEvent OnUseItem;
+        public IntEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
         public PickUpEvent OnPickUpItem;
 
@@ -270,7 +273,6 @@ namespace AChildsCourage.Game.Player
             OnSwapItem?.Invoke();
         }
 
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
@@ -279,6 +281,11 @@ namespace AChildsCourage.Game.Player
                 IsInPickupRange = true;
                 CurrentItemInRange = collision.gameObject;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
+            }
+
+            if (collision.CompareTag(EntityTags.Courage)) {
+                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickup>().Value);
+                Destroy(collision.gameObject);
             }
 
         }

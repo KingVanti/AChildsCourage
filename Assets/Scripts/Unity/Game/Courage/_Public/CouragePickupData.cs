@@ -14,6 +14,7 @@ namespace AChildsCourage.Game.Courage {
         [SerializeField] private CourageVariant _variant;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Vector3 _scale;
+        [SerializeField] private Texture2D _emission;
 #pragma warning restore 649
 
         #endregion
@@ -29,6 +30,8 @@ namespace AChildsCourage.Game.Courage {
         public Sprite Sprite { get { return _sprite; } }
 
         public Vector3 Scale { get { return _scale; } }
+
+        public Texture2D Emission { get { return _emission; } }
 
         #endregion
 

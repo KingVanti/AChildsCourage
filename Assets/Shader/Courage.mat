@@ -8,11 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Courage
-  m_Shader: {fileID: -6465566751694194690, guid: 4cfdafea9ecc8bf43b1823c851703706, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 67fa809bf02f50a459ef253edbcb15dd, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -32,10 +32,10 @@ Material:
     - Vector1_BADB0986: 1
     - Vector1_F20A9559: 1
     m_Colors:
-    - Color_7839E1C: {r: 2.270603, g: 1.183545, b: 0, a: 0}
+    - Color_7839E1C: {r: 1.4980392, g: 0.9019608, b: 0, a: 1}
     - Vector2_6F6CEC33: {r: 0, g: 0.1, b: 0, a: 0}
     - Vector2_96C9080B: {r: 0, g: 0.2, b: 0, a: 0}
-    - Vector3_349C7C12: {r: 0, g: 0.2, b: 0, a: 0}
+    - Vector3_349C7C12: {r: 0, g: 0.05, b: 0, a: 0}
     - Vector3_65527213: {r: 0, g: 0, b: 0, a: 0}
     - Vector3_C6E9AB03: {r: 0, g: 0.04, b: 0, a: 0}
   m_BuildTextureStacks: []
