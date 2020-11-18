@@ -24,6 +24,12 @@ namespace AChildsCourage
                 return input;
         }
 
+        public static void While(this Action action, Func<bool> predecate)
+        {
+            while (predecate())
+                action();
+        }
+
 
     }
 

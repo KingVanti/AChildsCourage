@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors
 
         private static ChunkPosition ChooseNextChunk(FloorPlanBuilder builder, IRNG rng)
         {
-            var phase = builder.GetCurrentPhase();
+            var phase = builder.CountRooms().GetCurrentPhase();
 
             switch (phase)
             {
@@ -26,6 +26,7 @@ namespace AChildsCourage.Game.Floors
                     throw new Exception("Invalid building phase!");
             }
         }
+
 
         internal static ChunkPosition GetStartRoomChunk()
         {

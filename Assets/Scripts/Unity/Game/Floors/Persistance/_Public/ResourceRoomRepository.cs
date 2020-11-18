@@ -1,9 +1,9 @@
-﻿using AChildsCourage.Game.Floors.Building;
+﻿using AChildsCourage.Game.Floors.Persistance;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.Persistance
+namespace AChildsCourage.Game.Floors
 {
 
     public class ResourceRoomRepository : IRoomRepository

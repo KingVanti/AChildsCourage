@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AChildsCourage.Game.Floors.Building
+namespace AChildsCourage.Game.Floors
 {
 
     public class RoomsInChunks : List<RoomInChunk>
