@@ -7,17 +7,17 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private static void Build(this FloorTilesBuilder builder, RoomInChunk room)
+        private static void BuildInto(this RoomInChunk room, FloorTilesBuilder builder)
         {
             var tiles = room.Room.Tiles;
             var transformer = CreateTransformerFor(room.Transform);
 
-            tiles.Build(transformer.Transform, builder.Place);
+            tiles.BuildInto(builder, transformer);
         }
 
-        private static void Build(this RoomTiles tiles, Func<GroundTile, GroundTile> transform, Action<GroundTile> place)
+        private static void BuildInto(this RoomTiles tiles, FloorTilesBuilder builder, TilePositionTransformer transformer)
         {
-            tiles.GroundTiles.Build(transform, place);
+            tiles.GroundTiles.Build(transformer.TransformGroundTile, builder.PlaceGround);
         }
 
         private static void Build(this Tiles<GroundTile> groundTiles, Func<GroundTile, GroundTile> transform, Action<GroundTile> place)
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.Floors
                 .ForEach(place);
         }
 
-        internal static void Place(this FloorTilesBuilder builder, GroundTile groundTile)
+        internal static void PlaceGround(this FloorTilesBuilder builder, GroundTile groundTile)
         {
             builder.GroundPositions.Add(groundTile.Position);
         }

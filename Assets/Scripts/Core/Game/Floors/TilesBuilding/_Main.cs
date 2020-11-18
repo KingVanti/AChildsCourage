@@ -19,8 +19,7 @@ namespace AChildsCourage.Game.Floors
         {
             var builder = new FloorTilesBuilder();
 
-            foreach (var room in rooms)
-                builder.Build(room);
+            rooms.ForEach(r => r.BuildInto(builder));
 
             builder.GenerateWalls();
 

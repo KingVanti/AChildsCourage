@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private static GroundTile Transform(this TilePositionTransformer transformer, GroundTile groundTile)
+        private static GroundTile TransformGroundTile(this TilePositionTransformer transformer, GroundTile groundTile)
         {
             var newPosition = transformer.Transform(groundTile.Position);
 
