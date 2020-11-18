@@ -4,11 +4,11 @@
 
 namespace AChildsCourage.Game.Floors
 {
-       
+
     public static partial class FloorGeneration
     {
 
-        private static FloorPlan Generate(ChunkChooser chunkChooser, RoomChooser roomChooser)
+        private static FloorPlan Generate(ChooseChunk chunkChooser, ChooseRoom roomChooser)
         {
             var builder = new FloorPlanBuilder();
 

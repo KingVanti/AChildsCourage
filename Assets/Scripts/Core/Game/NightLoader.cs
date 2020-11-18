@@ -1,6 +1,6 @@
 ﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.Building;
 using AChildsCourage.Game.Persistance;
+using System;
 
 namespace AChildsCourage.Game
 {
@@ -9,16 +9,22 @@ namespace AChildsCourage.Game
     internal class NightLoader : INightLoader
     {
 
+        #region Events
+
+        public event EventHandler<FloorBuiltEventArgs> OnFloorBuilt;
+
+        #endregion
+
         #region Fields
 
-        private readonly FloorGenerator floorGenerator;
-        private readonly IFloorBuilder floorBuilder;
+        private readonly GenerateFloor floorGenerator;
+        private readonly BuildRoomTiles floorBuilder;
 
         #endregion
 
         #region Constructors
 
-        public NightLoader(FloorGenerator floorGenerator, IFloorBuilder floorBuilder)
+        public NightLoader(GenerateFloor floorGenerator, BuildRoomTiles floorBuilder)
         {
             this.floorGenerator = floorGenerator;
             this.floorBuilder = floorBuilder;
@@ -30,9 +36,21 @@ namespace AChildsCourage.Game
 
         public void Load(NightData nightData)
         {
-            var floor = floorGenerator(nightData.Seed);
+            var floor = BuildFloor(nightData.Seed);
 
-            floorBuilder.Build(floor);
+            OnFloorBuilt.Invoke(this, new FloorBuiltEventArgs(floor));
+        }
+
+        private FloorTiles BuildFloor(int seed)
+        {
+            //var floorPlan = floorGenerator(seed);
+            var floorPlan = new FloorPlan(new[]
+            {
+                new RoomPlan(0, new RoomTransform(new ChunkPosition(0, 0), false, 0)),
+                new RoomPlan(0, new RoomTransform(new ChunkPosition(0, -1), true, 0))
+            });
+
+            return floorBuilder(floorPlan);
         }
 
         #endregion

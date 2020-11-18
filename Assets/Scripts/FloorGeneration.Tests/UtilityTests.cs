@@ -49,10 +49,10 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var toNorth = MoveToAdjacentChunk(chunkPosition, Passage.North);
-            var toEast = MoveToAdjacentChunk(chunkPosition, Passage.East);
-            var toSouth = MoveToAdjacentChunk(chunkPosition, Passage.South);
-            var toWest = MoveToAdjacentChunk(chunkPosition, Passage.West);
+            var toNorth = MoveToAdjacentChunk(chunkPosition, PassageDirection.North);
+            var toEast = MoveToAdjacentChunk(chunkPosition, PassageDirection.East);
+            var toSouth = MoveToAdjacentChunk(chunkPosition, PassageDirection.South);
+            var toWest = MoveToAdjacentChunk(chunkPosition, PassageDirection.West);
 
             // Then
 
@@ -64,11 +64,11 @@ namespace AChildsCourage.Game.Floors
 
 
         [Test]
-        [TestCase(Passage.North, Passage.South)]
-        [TestCase(Passage.East, Passage.West)]
-        [TestCase(Passage.South, Passage.North)]
-        [TestCase(Passage.West, Passage.East)]
-        public void Passages_Are_Inverted_Correctly(Passage passage, Passage expected)
+        [TestCase(PassageDirection.North, PassageDirection.South)]
+        [TestCase(PassageDirection.East, PassageDirection.West)]
+        [TestCase(PassageDirection.South, PassageDirection.North)]
+        [TestCase(PassageDirection.West, PassageDirection.East)]
+        public void Passages_Are_Inverted_Correctly(PassageDirection passage, PassageDirection expected)
         {
             // When
 

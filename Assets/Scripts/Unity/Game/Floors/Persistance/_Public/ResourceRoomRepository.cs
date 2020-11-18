@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors.Building;
-using AChildsCourage.Game.Floors.Generation;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,19 +29,19 @@ namespace AChildsCourage.Game.Floors.Persistance
             return Resources.LoadAll<RoomAsset>(RoomResourcePath);
         }
 
-        private RoomsInChunks GetFloorRooms(IEnumerable<RoomAsset> assets, IEnumerable<RoomIdInChunk> roomsInChunks)
+        private RoomsInChunks GetFloorRooms(IEnumerable<RoomAsset> assets, IEnumerable<RoomPlan> roomPlans)
         {
-            var floorRooms = new RoomsInChunks();
+            var roomsInChunks = new RoomsInChunks();
 
-            foreach (var roomInChunk in roomsInChunks)
+            foreach (var roomPlan in roomPlans)
             {
-                var roomTiles = GetRoom(assets, roomInChunk.RoomId);
-                var room = new RoomInChunk(roomInChunk.Position, roomTiles);
+                var room = GetRoom(assets, roomPlan.RoomId);
+                var roomInChunk = new RoomInChunk(room, roomPlan.Transform);
 
-                floorRooms.Add(room);
+                roomsInChunks.Add(roomInChunk);
             }
 
-            return floorRooms;
+            return roomsInChunks;
         }
 
         private Room GetRoom(IEnumerable<RoomAsset> assets, int id)

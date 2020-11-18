@@ -7,6 +7,7 @@ namespace AChildsCourage.Game.Player
 
         #region Methods
 
+
         public void UpdatePosition(Vector2 newPosition)
         {
 

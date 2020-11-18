@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 using static AChildsCourage.CustomMathModule;
 
-namespace AChildsCourage.Game.UI {
+namespace AChildsCourage.Game.UI
+{
 
     public class ItemSlots : MonoBehaviour {
 

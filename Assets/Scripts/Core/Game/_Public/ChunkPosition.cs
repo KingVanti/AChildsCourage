@@ -6,7 +6,8 @@
 
         #region Constants
 
-        public const int ChunkTileSize = 41;
+        public const int ChunkSize = 41;
+        public const int ChunkExtent = (ChunkSize - 1) / 2;
 
         #endregion
 

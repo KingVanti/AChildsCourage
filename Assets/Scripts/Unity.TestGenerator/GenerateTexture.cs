@@ -56,16 +56,16 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
 
         private static int GetFloorPlanWidth(FloorPlan floorPlan)
         {
-            var minX = floorPlan.Rooms.Select(r => r.Position.X).Min();
-            var maxX = floorPlan.Rooms.Select(r => r.Position.X).Max();
+            var minX = floorPlan.Rooms.Select(r => r.Transform.Position.X).Min();
+            var maxX = floorPlan.Rooms.Select(r => r.Transform.Position.X).Max();
 
             return Mathf.Abs(minX - maxX) + 1;
         }
 
         private static int GetFloorPlanHeight(FloorPlan floorPlan)
         {
-            var minY = floorPlan.Rooms.Select(r => r.Position.Y).Min();
-            var maxY = floorPlan.Rooms.Select(r => r.Position.Y).Max();
+            var minY = floorPlan.Rooms.Select(r => r.Transform.Position.Y).Min();
+            var maxY = floorPlan.Rooms.Select(r => r.Transform.Position.Y).Max();
 
             return Mathf.Abs(minY - maxY) + 1;
         }
@@ -73,13 +73,13 @@ namespace AChildsCourage.Game.Floors.Generation.Editor
         private static Vector2Int CalculateChunkOffset(FloorPlan floorPlan)
         {
             return new Vector2Int(
-                -floorPlan.Rooms.Select(r => r.Position.X).Min(),
-                -floorPlan.Rooms.Select(r => r.Position.Y).Min());
+                -floorPlan.Rooms.Select(r => r.Transform.Position.X).Min(),
+                -floorPlan.Rooms.Select(r => r.Transform.Position.Y).Min());
         }
 
-        private static void PrintRoom(RoomType type, RoomIdInChunk room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
+        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
         {
-            var position = GetPixelPos(room.Position, offset);
+            var position = GetPixelPos(room.Transform.Position, offset);
             var passages = roomInfoRespository.GetById(room.RoomId).Passages;
 
             PrintPassages(type, position, passages, pixels);
