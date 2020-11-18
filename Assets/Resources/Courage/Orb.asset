@@ -15,5 +15,5 @@ MonoBehaviour:
   _value: 5
   _courageName: Orb
   _variant: 1
-  _sprite: {fileID: 0}
-  _scale: {x: 0, y: 0, z: 0}
+  _sprite: {fileID: 21300000, guid: cb39509ea25a46e43adea09dc232b47d, type: 3}
+  _scale: {x: 1, y: 1, z: 1}
