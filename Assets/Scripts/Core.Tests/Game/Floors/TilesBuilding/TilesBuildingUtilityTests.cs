@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Floors
 {
 
     [TestFixture]
-    public class UtilityTests
+    public class TilesBuildingUtilityTests
     {
 
         #region Tests
