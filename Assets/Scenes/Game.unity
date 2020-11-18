@@ -1687,6 +1687,7 @@ MonoBehaviour:
   tileRepository: {fileID: 1801230826}
   groundTilemap: {fileID: 338818585}
   staticTilemap: {fileID: 1574125015}
+  couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
 --- !u!156049354 &1801230828
 Grid:
   m_ObjectHideFlags: 0
