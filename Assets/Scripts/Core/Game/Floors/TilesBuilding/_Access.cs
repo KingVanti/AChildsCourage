@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Floors.Persistance;
 using Ninject;
 using Ninject.Activation;
+using Ninject.Parameters;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -15,6 +16,9 @@ namespace AChildsCourage.Game.Floors
             IRoomRepository GetRoomRepository() =>
                kernel.Get<IRoomRepository>();
 
+            IRNG GetRNG() =>
+                kernel.Get<IRNG>(new ConstructorArgument("seed", 0));
+
             LoadRoomsFor LoadRoomsFrom(IRoomRepository roomRepository) =>
                 floorPlan => new RoomsForFloor(roomRepository.LoadRoomsFor(floorPlan));
 
@@ -23,7 +27,9 @@ namespace AChildsCourage.Game.Floors
                 var roomRepository = GetRoomRepository();
                 var loadRoomsFor = LoadRoomsFrom(roomRepository);
 
-                return Build(floorPlan, loadRoomsFor);
+                var rng = GetRNG();
+
+                return Build(floorPlan, loadRoomsFor, rng);
             };
         }
 

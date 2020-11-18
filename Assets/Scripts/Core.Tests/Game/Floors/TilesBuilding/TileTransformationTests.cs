@@ -93,6 +93,39 @@ namespace AChildsCourage.Game.Floors
             Assert.That(newtile.AOIIndex, Is.EqualTo(tile.AOIIndex), "AOI index should not change!");
         }
 
+
+        [Test]
+        public void Creating_A_Data_Tile_With_A_New_Position_Changes_Its_Position()
+        {
+            // Given
+
+            var tile = new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb);
+
+            // When
+
+            var newtile = tile.With(new TilePosition(1, 1));
+
+            // When
+
+            Assert.That(newtile.Position, Is.EqualTo(new TilePosition(1, 1)), "Position should change!");
+        }
+
+        [Test]
+        public void Creating_A_Data_Tile_With_A_New_Position_Does_Not_Change_Its_Other_Properties()
+        {
+            // Given
+
+            var tile = new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb);
+
+            // When
+
+            var newtile = tile.With(new TilePosition(1, 1));
+
+            // When
+
+            Assert.That(newtile.Type, Is.EqualTo(tile.Type), "Type should not change!");
+        }
+
         #endregion
 
     }

@@ -8,14 +8,14 @@ namespace AChildsCourage.Game.Floors
     public static partial class FloorTilesBuilding
     {
 
-        private static FloorTiles Build(FloorPlan floorPlan, LoadRoomsFor roomLoader)
+        private static FloorTiles Build(FloorPlan floorPlan, LoadRoomsFor roomLoader, IRNG rng)
         {
             var rooms = roomLoader(floorPlan);
 
-            return BuildFloorFrom(rooms);
+            return BuildFloorFrom(rooms, rng);
         }
 
-        private static FloorTiles BuildFloorFrom(RoomsForFloor rooms)
+        private static FloorTiles BuildFloorFrom(RoomsForFloor rooms, IRNG rng)
         {
             var builder = new FloorTilesBuilder();
 
@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Floors
 
             builder.GenerateWalls();
 
-            return builder.GetFloor();
+            return builder.GetFloor(rng);
         }
 
     }

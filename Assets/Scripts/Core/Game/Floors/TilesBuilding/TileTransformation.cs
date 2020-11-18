@@ -19,6 +19,19 @@ namespace AChildsCourage.Game.Floors
         }
 
 
+        private static DataTile TransformDataTile(this TilePositionTransformer transformer, DataTile dataTile)
+        {
+            var newPosition = transformer.Transform(dataTile.Position);
+
+            return dataTile.With(newPosition);
+        }
+
+        internal static DataTile With(this DataTile dataTile, TilePosition position)
+        {
+            return new DataTile(position, dataTile.Type);
+        }
+
+
         private static TilePosition Transform(this TilePositionTransformer transformer, TilePosition position)
         {
             Func<TilePosition, TilePosition> rotate = p => RotateClockwiseAround(p, transformer.ChunkCenter);

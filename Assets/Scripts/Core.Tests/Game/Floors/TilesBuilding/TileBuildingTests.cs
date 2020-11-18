@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors
         {
             // Given
 
-            var builder = new FloorTilesBuilder(Enumerable.Empty<TilePosition>(), Enumerable.Empty<TilePosition>());
+            var builder = new FloorTilesBuilder();
 
             // When
 

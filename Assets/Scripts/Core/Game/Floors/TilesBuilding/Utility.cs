@@ -10,12 +10,13 @@ namespace AChildsCourage.Game.Floors
 
         private const int WallHeight = 2;
 
-        private static FloorTiles GetFloor(this FloorTilesBuilder builder)
+        private static FloorTiles GetFloor(this FloorTilesBuilder builder, IRNG rng)
         {
             var groundTilePosition = builder.GroundPositions;
             var walls = builder.GetWalls();
+            var courageOrbPositions = builder.ChooseCourageOrbPositions(rng);
 
-            return new FloorTiles(groundTilePosition, walls);
+            return new FloorTiles(groundTilePosition, walls, courageOrbPositions);
         }
 
         private static IEnumerable<Wall> GetWalls(this FloorTilesBuilder builder)
