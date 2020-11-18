@@ -735,20 +735,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1208414691}
     - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: characterVision
-      value: 
-      objectReference: {fileID: 661201357}
-    - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: OnPickUpItem.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: AddItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
---- !u!4 &661201357 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1624709431971907045, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 603369704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &736621884
 GameObject:
   m_ObjectHideFlags: 0
