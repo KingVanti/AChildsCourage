@@ -1,4 +1,6 @@
-﻿using Ninject.Extensions.Unity;
+﻿using AChildsCourage.Game.Courage;
+using Ninject.Extensions.Unity;
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,6 +17,7 @@ namespace AChildsCourage.Game.Floors.Building
         [SerializeField] private TileRepository tileRepository;
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
+        [SerializeField] private GameObject couragePickupPrefab;
 
 #pragma warning restore 649
 
@@ -24,6 +27,8 @@ namespace AChildsCourage.Game.Floors.Building
 
         [AutoInject] public ITileBuilder TileBuilder { set { BindTo(value); } }
 
+        [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
+
         #endregion
 
         #region Methods
@@ -32,11 +37,12 @@ namespace AChildsCourage.Game.Floors.Building
         {
             tileBuilder.OnGroundPlaced += (_, e) => OnGroundPlaced(e);
             tileBuilder.OnWallPlaced += (_, e) => OnWallPlaced(e);
+            tileBuilder.OnCouragePlaced += (_, e) => OnCouragePlaced(e);
         }
 
         private void OnGroundPlaced(GroundPlacedEventArgs eventArgs)
         {
-            var tile = tileRepository.GetGroundTile() ;
+            var tile = tileRepository.GetGroundTile();
             var position = eventArgs.Position.ToVector3Int();
 
             groundTilemap.SetTile(position, tile);
@@ -53,6 +59,19 @@ namespace AChildsCourage.Game.Floors.Building
             var position = wall.Position.ToVector3Int();
 
             staticTilemap.SetTile(position, tile);
+        }
+
+        private void OnCouragePlaced(CouragePlacedEventArgs eventArgs)
+        {
+            var pickupData = CouragePickupRepository.GetCouragePickupData(eventArgs.Variant);
+            var pickup = SpawnCouragePickup(eventArgs.Position);
+
+            pickup.SetCouragePickupData(pickupData);
+        }
+
+        private CouragePickup SpawnCouragePickup(TilePosition tilePosition)
+        {
+            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity).GetComponent<CouragePickup>();
         }
 
         #endregion
