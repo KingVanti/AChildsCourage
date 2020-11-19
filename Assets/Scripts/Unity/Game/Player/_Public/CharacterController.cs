@@ -36,7 +36,6 @@ namespace AChildsCourage.Game.Player
 
         [Header("Events")]
         public Vector2Event OnPositionChanged;
-        public BoolEvent OnPickupReachChanged;
         public IntEvent OnUseItem;
         public CouragePickUpEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
@@ -139,7 +138,6 @@ namespace AChildsCourage.Game.Player
             set
             {
                 _isInPickupRange = value;
-                OnPickupReachChanged.Invoke(_isInPickupRange);
             }
         }
 
@@ -280,7 +278,7 @@ namespace AChildsCourage.Game.Player
             {
                 IsInPickupRange = true;
                 CurrentItemInRange = collision.gameObject;
-                OnPickupReachChanged.Invoke(IsInPickupRange);
+                CurrentItemInRange.GetComponent<ItemPickup>().ShowInfo(IsInPickupRange);
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
@@ -296,8 +294,8 @@ namespace AChildsCourage.Game.Player
             if (collision.CompareTag(EntityTags.Item))
             {
                 IsInPickupRange = false;
+                CurrentItemInRange.GetComponent<ItemPickup>().ShowInfo(IsInPickupRange);
                 CurrentItemInRange = null;
-                OnPickupReachChanged.Invoke(IsInPickupRange);
             }
 
         }
