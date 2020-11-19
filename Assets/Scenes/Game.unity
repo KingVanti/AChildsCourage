@@ -670,10 +670,6 @@ PrefabInstance:
       propertyPath: itemSwappedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SwapItems
       objectReference: {fileID: 0}
-    - target: {fileID: 1928652341, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: m_Name
-      value: CharacterVision
-      objectReference: {fileID: 0}
     - target: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: mainCamera
       value: 
@@ -738,10 +734,6 @@ PrefabInstance:
       propertyPath: OnPickUpItem.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1208414691}
-    - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: characterVision
-      value: 
-      objectReference: {fileID: 1124683649}
     - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: OnPickUpItem.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: AddItem
@@ -967,11 +959,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1124683649 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1928652342, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 603369704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1208414689
 GameObject:
   m_ObjectHideFlags: 0
