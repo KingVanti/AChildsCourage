@@ -17,13 +17,29 @@ namespace AChildsCourage.Game.UI {
 
         #region Methods
 
-        public void UpdateCourageBar(int newValue, int maxValue) {
-            courageBarFill.fillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
+        public void UpdateCourage(int newValue, int maxValue) {
+            UpdateCourageBar(newValue, maxValue);
+            UpdateCourageCounter(newValue, maxValue);
+        }
+
+        private void UpdateCourageBar(int newValue, int maxValue) {
+            float newFillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
+            StartCoroutine(FillLerp(newFillAmount));
+            
+        }
+
+        private void UpdateCourageCounter(int newValue, int maxValue) {
             courageCounterTextMesh.text = newValue + " / " + maxValue;
         }
 
-        IEnumerator FillLerp() {
-            yield return null;
+        IEnumerator FillLerp(float destination) {
+
+            while(courageBarFill.fillAmount < destination) {
+                courageBarFill.fillAmount = Mathf.Lerp(courageBarFill.fillAmount, destination, Time.deltaTime * 2);
+                yield return new WaitForEndOfFrame();
+            }
+
+            
         }
 
         #endregion
