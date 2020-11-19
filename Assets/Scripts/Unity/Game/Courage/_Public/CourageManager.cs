@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Courage {
         private int _neededNightCourage;
 
         public CourageChangedEvent OnCourageChanged;
-        public InitializeEvent OnInitialize;
+        public CourageChangedEvent OnInitialize;
 
         #endregion
 
@@ -93,8 +93,6 @@ namespace AChildsCourage.Game.Courage {
         [Serializable]
         public class CourageChangedEvent : UnityEvent<int, int> { }
 
-        [Serializable]
-        public class InitializeEvent : UnityEvent<int, int> { }
 
         #endregion
 
