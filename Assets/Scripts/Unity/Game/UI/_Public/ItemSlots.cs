@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AChildsCourage.Game.Pickups;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,7 @@ namespace AChildsCourage.Game.UI
 
 
         public void UpdateCooldown(int slotId, float currentCooldown, float Cooldown) {
+
             itemCooldownFills[slotId].fillAmount = Map(currentCooldown, 0, Cooldown, 0, MaxFillAmount);
 
             if (itemCooldownFills[slotId].fillAmount < 1) {
@@ -51,6 +53,7 @@ namespace AChildsCourage.Game.UI
                 itemSlotsImages[slotId].color = new Color(itemSlotsImages[slotId].color.r, itemSlotsImages[slotId].color.g, itemSlotsImages[slotId].color.b, 1);
                 itemCooldownFills[slotId].fillAmount = 0;
             }
+
         }
 
         #endregion
