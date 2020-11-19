@@ -1,6 +1,8 @@
-﻿namespace AChildsCourage.Game.Courage {
+﻿namespace AChildsCourage.Game.Courage
+{
 
-    internal interface ICouragePickupRepository {
+    public interface ICouragePickupRepository
+    {
 
         #region Methods
 

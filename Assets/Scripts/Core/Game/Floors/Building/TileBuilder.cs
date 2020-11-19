@@ -13,6 +13,7 @@ namespace AChildsCourage.Game.Floors.Building
 
         public event EventHandler<GroundPlacedEventArgs> OnGroundPlaced;
         public event EventHandler<WallPlacedEventArgs> OnWallPlaced;
+        public event EventHandler<CouragePlacedEventArgs> OnCouragePlaced;
 
         #endregion
 
@@ -26,11 +27,9 @@ namespace AChildsCourage.Game.Floors.Building
 
         internal void PlacesTilesFor(FloorTiles floor)
         {
-            foreach (var groundTilePosition in floor.GroundTilePositions)
-                PlaceGround(groundTilePosition);
-
-            foreach (var wall in floor.Walls)
-                PlaceWall(wall);
+            floor.GroundTilePositions.ForEach(PlaceGround);
+            floor.Walls.ForEach(PlaceWall);
+            floor.CourageOrbPositions.ForEach(PlaceCourageOrb);
         }
 
         internal void PlaceGround(TilePosition position)
@@ -41,6 +40,11 @@ namespace AChildsCourage.Game.Floors.Building
         internal void PlaceWall(Wall wall)
         {
             OnWallPlaced?.Invoke(this, new WallPlacedEventArgs(wall));
+        }
+
+        internal void PlaceCourageOrb(TilePosition position)
+        {
+            OnCouragePlaced.Invoke(this, new CouragePlacedEventArgs(position, Courage.CourageVariant.Orb));
         }
 
         #endregion

@@ -48,8 +48,8 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.75
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.4
-  m_LightVolumeOpacity: 0.162
+  m_Intensity: 0.5
+  m_LightVolumeOpacity: 0.2
   m_ApplyToSortingLayers: 00000000cbf16821afacebfaa9f37c4e
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
@@ -457,7 +457,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -474,7 +474,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022131115, y: 0.22300729}
+  m_Offset: {x: 0.02786696, y: 0.22109541}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -485,7 +485,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45573777, y: 0.6872758}
+  m_Size: {x: 0.31425333, y: 0.6069736}
   m_EdgeRadius: 0
 --- !u!114 &8820627343415363625
 MonoBehaviour:
@@ -541,6 +541,21 @@ MonoBehaviour:
       - m_Target: {fileID: 1668216621}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
         m_MethodName: UseItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCouragePickedUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageManager, AChildsCourage.Unity
+        m_MethodName: Add
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

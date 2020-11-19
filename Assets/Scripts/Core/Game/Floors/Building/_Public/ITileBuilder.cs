@@ -10,6 +10,7 @@ namespace AChildsCourage.Game.Floors.Building
 
         event EventHandler<GroundPlacedEventArgs> OnGroundPlaced;
         event EventHandler<WallPlacedEventArgs> OnWallPlaced;
+        event EventHandler<CouragePlacedEventArgs> OnCouragePlaced;
 
         #endregion
 

@@ -1,7 +1,9 @@
-﻿using AChildsCourage.Game.Input;
+﻿using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,6 +38,7 @@ namespace AChildsCourage.Game.Player
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
         public IntEvent OnUseItem;
+        public IntEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
         public PickUpEvent OnPickUpItem;
 
@@ -191,8 +194,6 @@ namespace AChildsCourage.Game.Player
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            //Debug.Log(LookAngle);
-
             if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f)
             {
                 ChangeLookDirection(RelativeMousePos);
@@ -257,9 +258,11 @@ namespace AChildsCourage.Game.Player
             if (IsInPickupRange)
             {
                 OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
+
                 if(CurrentItemInRange.GetComponent<ItemPickup>().Id == 0) {
                     HasFlashlightEquipped = true;
                 }
+
                 Destroy(CurrentItemInRange);
             }
 
@@ -270,7 +273,6 @@ namespace AChildsCourage.Game.Player
             OnSwapItem?.Invoke();
         }
 
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
@@ -279,6 +281,11 @@ namespace AChildsCourage.Game.Player
                 IsInPickupRange = true;
                 CurrentItemInRange = collision.gameObject;
                 OnPickupReachChanged.Invoke(IsInPickupRange);
+            }
+
+            if (collision.CompareTag(EntityTags.Courage)) {
+                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickup>().Value);
+                Destroy(collision.gameObject);
             }
 
         }

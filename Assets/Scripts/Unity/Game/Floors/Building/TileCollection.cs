@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace AChildsCourage.Game.Floors.Building
+namespace AChildsCourage.Game.Floors
 {
 
     [Serializable]

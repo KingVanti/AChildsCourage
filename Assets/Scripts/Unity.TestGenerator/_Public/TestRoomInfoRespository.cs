@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AChildsCourage.Game.Floors.Generation.Editor
+namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
     public class TestRoomInfoRespository : IRoomPassagesRepository
