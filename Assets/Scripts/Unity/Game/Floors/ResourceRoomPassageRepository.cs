@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.Floors
 
             var filteredRooms = endRooms.Where(MatchesFilter).ToArray();
 
-            return new FilteredRoomPassages(endRooms);
+            return new FilteredRoomPassages(filteredRooms);
         }
 
 
