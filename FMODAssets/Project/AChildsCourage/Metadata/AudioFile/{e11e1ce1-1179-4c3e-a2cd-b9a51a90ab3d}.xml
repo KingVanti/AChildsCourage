@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{e11e1ce1-1179-4c3e-a2cd-b9a51a90ab3d}">
+		<property name="assetPath">
+			<value>459999__florianreichelt__swoosh.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.4889795918367348</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2cab07a3-fcf7-450b-8f2e-4283b75c88b1}</destination>
+		</relationship>
+	</object>
+</objects>

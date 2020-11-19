@@ -13,24 +13,26 @@ public class testing_spacial : MonoBehaviour
     private void Start()
     {
 
-
-        // FMODUnity.RuntimeManager.PlayOneShot("event:/test/test_spacial", GetComponent<Transform>().position);
     }
 
     private void FixedUpdate()
     {
         test_spacial = FMODUnity.RuntimeManager.CreateInstance("event:/test/test_spacial");
+        //FMODUnity.RuntimeManager.AttachInstanceToGameObject(test_spacial, gameObject);
+        Vector2 item = transform.position;
+        Vector2 playerpos = player.transform.position;
 
-        distance = Vector3.Distance(player.transform.position, transform.position);   
-        dir = Mathf.Atan2(player.transform.position.y, player.transform.position.x) * Mathf.Rad2Deg;
+        distance = Mathf.Abs(Vector2.Distance(playerpos, item));
 
-        test_spacial.setParameterByName("Distance", distance);
+        dir = Mathf.Atan2(playerpos.y, playerpos.x) * Mathf.Rad2Deg;
+
+        //test_spacial.setParameterByName("Distance", distance);
         test_spacial.setParameterByName("Direction", dir);
-        test_spacial.start();
-        test_spacial.release();
 
-       // Debug.Log(distance);
-        Debug.Log(dir);
+
+        // Debug.Log(dir);
+        Debug.Log(distance);
+        //Debug.Log(transform.position);
 
     }
 

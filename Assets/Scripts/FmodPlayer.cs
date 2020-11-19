@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Pickups;
+﻿using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Pickups;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,22 +10,20 @@ public class FmodPlayer : MonoBehaviour
     private float Material;
 
     const string Footsteps_Path = "event:/char/steps";
-    const string PickUp_Path = "event:/UI/ItemPickup";
+    const string PickUp_Path = "event:/UI/Item/ItemPickup";
     const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
     const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
     const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
     const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
-    const string ItemSwap_Path = "event:/UI/ItemSwap";
+    const string ItemSwap_Path = "event:/UI/Item/ItemSwap";
+    const string CourageSpark_Path = "event:/Courage/CurageSpark";
+    const string CourageOrb_Path = "event:/Courage/CurageOrb";
+
 
     bool Flashlight_status = false;
     bool blankie_status = false;
 
-    /*   private void FixedUpdate()
-       {
-           MaterialCheck();
-           Debug.DrawRay(transform.position, Vector2.down * distance, Color.blue);
-       }
-    */
+    /*
     void MaterialCheck()
     {
         RaycastHit2D hit;
@@ -47,7 +46,7 @@ public class FmodPlayer : MonoBehaviour
             }
         }
     }
-
+    */
 
     public void PlayFootstepsEvent()
     {
@@ -121,6 +120,25 @@ public class FmodPlayer : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
     }
 
+    public void PlayCouragePickUp(CouragePickup couragePickup)
+    {
+        
+        switch (couragePickup.Variant)
+        {
+            case CourageVariant.Orb:
+                FMODUnity.RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
+                break;
+
+            case CourageVariant.Spark:
+                FMODUnity.RuntimeManager.PlayOneShot(CourageOrb_Path, GetComponent<Transform>().position);
+                break;
+
+            default:
+                Debug.Log("doesnt exist");
+                break;
+
+        }
+    }
 }
 
 
