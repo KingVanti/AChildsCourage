@@ -3,7 +3,6 @@ using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 

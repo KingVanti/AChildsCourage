@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
-using Ninject;
+﻿using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Unity;
@@ -60,9 +59,6 @@ namespace AChildsCourage
                .Configure(b => b.RegisterOnEventBroker("Default")));
 
             _ = kernel.GetAll<IEagerActivation>().ToArray();
-
-            kernel.Bind<GenerateFloor>().ToMethod(FloorGeneration.GetFloorGenerator);
-            kernel.Bind<BuildRoomTiles>().ToMethod(FloorTilesBuilding.GetFloorBuilder);
 
             kernel.AutoInjectSceneServices(assemblies.Where(a => a.FullName.Contains("Unity")));
 

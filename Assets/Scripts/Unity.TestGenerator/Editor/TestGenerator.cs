@@ -1,4 +1,4 @@
-﻿using Ninject;
+﻿using AChildsCourage.Game.NightManagement.Loading;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         private int seed;
         private Texture2D floorImage;
         private readonly TestRoomInfoRespository roomInfoRepo = new TestRoomInfoRespository();
-        private GenerateFloor _floorGenerator;
+        private FloorPlanGenerator _floorGenerator;
 
         #endregion
 
@@ -31,12 +31,12 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private bool HasFloorImage { get { return floorImage != null; } }
 
-        private GenerateFloor FloorGenerator
+        private FloorPlanGenerator FloorGenerator
         {
             get
             {
                 if (_floorGenerator == null)
-                    _floorGenerator = GetFloorGenerator();
+                    _floorGenerator = GetFloorPlanGenerator();
 
                 return _floorGenerator;
             }
@@ -79,15 +79,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         }
 
 
-        private GenerateFloor GetFloorGenerator()
+        private FloorPlanGenerator GetFloorPlanGenerator()
         {
-            var kernel = new StandardKernel();
-
-            kernel.Bind<IRNG>().To<RNG>();
-            kernel.Bind<IRoomPassagesRepository>().ToConstant(roomInfoRepo);
-            kernel.Bind<GenerateFloor>().ToMethod(FloorGeneration.GetFloorGenerator);
-
-            return kernel.Get<GenerateFloor>();
+            return FloorPlanGenerating.GetDefault(roomInfoRepo, seed => new RNG(seed));
         }
 
 

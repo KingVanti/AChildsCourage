@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Persistance
+﻿using AChildsCourage.Game.NightManagement;
+
+namespace AChildsCourage.Game.Persistance
 {
 
     public class JsonRunStorage : IRunStorage

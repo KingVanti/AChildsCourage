@@ -1,8 +1,8 @@
-﻿using Castle.Core.Internal;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Courage {
+namespace AChildsCourage.Game.Courage
+{
     internal class CouragePickupRepository : ICouragePickupRepository {
 
         #region Constants
