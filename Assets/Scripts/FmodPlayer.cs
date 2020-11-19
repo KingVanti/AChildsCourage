@@ -1,8 +1,7 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Pickups;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class FmodPlayer : MonoBehaviour
 {
@@ -22,6 +21,8 @@ public class FmodPlayer : MonoBehaviour
 
     bool Flashlight_status = false;
     bool blankie_status = false;
+
+    private EventInstance Footsteps;
 
     /*
     void MaterialCheck()
@@ -50,11 +51,11 @@ public class FmodPlayer : MonoBehaviour
 
     public void PlayFootstepsEvent()
     {
-        FMOD.Studio.EventInstance Footsteps = FMODUnity.RuntimeManager.CreateInstance(Footsteps_Path);
+        Footsteps = FMODUnity.RuntimeManager.CreateInstance(Footsteps_Path);
+        Footsteps.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         Footsteps.setParameterByName("Material", Material);
         Footsteps.start();
         Footsteps.release();
-        // FMODUnity.RuntimeManager.PlayOneShot(path, GetComponent<Transform>().position);  
     }
 
     public void PlayItems(ItemData itemData)
