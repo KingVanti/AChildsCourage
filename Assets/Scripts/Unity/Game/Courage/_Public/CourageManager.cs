@@ -66,9 +66,9 @@ namespace AChildsCourage.Game.Courage {
 
         }
 
-        public void Add(int value) {
+        public void Add(CouragePickup pickedUpCourage) {
 
-            CurrentNightCourage += value;
+            CurrentNightCourage += pickedUpCourage.Value;
 
             if(CurrentNightCourage > MaxNightCourage) {
                 CurrentNightCourage = MaxNightCourage;
@@ -76,8 +76,8 @@ namespace AChildsCourage.Game.Courage {
 
         }
 
-        public void Subtract(int value) {
-            CurrentNightCourage -= value;
+        public void Subtract(CouragePickup pickedUpCourage) {
+            CurrentNightCourage -= pickedUpCourage.Value;
 
             if (CurrentNightCourage < 0) {
                 CurrentNightCourage = 0;
