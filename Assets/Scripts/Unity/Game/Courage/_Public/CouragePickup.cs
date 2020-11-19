@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Courage {
     public class CouragePickup : MonoBehaviour {
@@ -9,9 +7,6 @@ namespace AChildsCourage.Game.Courage {
 
 #pragma warning disable 649
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private float speed;
-        [SerializeField] private CouragePickupData testPickup;
-        [SerializeField] private CouragePickupData testPickup2;
 #pragma warning restore 649
 
         private int _value = 0;
@@ -27,13 +22,6 @@ namespace AChildsCourage.Game.Courage {
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// REMOVE LATER
-        /// </summary>
-        private void Start() {
-            SetCouragePickupData(testPickup);
-        }
 
         public void SetCouragePickupData(CouragePickupData courageData) {
 
