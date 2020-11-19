@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors.Persistance;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -61,7 +60,9 @@ namespace AChildsCourage.Game.Floors
 
         public FilteredRoomPassages GetNormalRooms(ChunkPassageFilter filter, int maxLooseEnds)
         {
-            return new FilteredRoomPassages(FilterRoomsFor(filter, maxLooseEnds));
+            var filteredRooms = FilterRoomsFor(filter, maxLooseEnds);
+
+            return new FilteredRoomPassages(filteredRooms);
         }
 
         private IEnumerable<RoomPassages> FilterRoomsFor(ChunkPassageFilter filter, int maxLooseEnds)
@@ -78,7 +79,12 @@ namespace AChildsCourage.Game.Floors
         {
             bool MatchesFilter(RoomPassages room) => RoomMatchesFilter(room, filter, 0);
 
-            return new FilteredRoomPassages(endRooms.Where(MatchesFilter));
+            var filteredRooms = endRooms.Where(MatchesFilter).ToArray();
+
+            return new FilteredRoomPassages(startRooms);
+
+            // TODO: Use end rooms
+            // return new FilteredRoomPassages(filteredRooms);
         }
 
 
@@ -95,7 +101,7 @@ namespace AChildsCourage.Game.Floors
         {
             return Resources.LoadAll<RoomAsset>(RoomResourcePath).OrderBy(a => a.Id);
         }
-    
+
         private bool RoomMatchesFilter(RoomPassages roomPassages, ChunkPassageFilter filter, int maxLooseEnds)
         {
             var looseEnds = filter.FindLooseEnds(roomPassages.Passages);

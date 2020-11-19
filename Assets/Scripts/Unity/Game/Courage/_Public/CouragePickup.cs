@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Courage {
+namespace AChildsCourage.Game.Courage
+{
     public class CouragePickup : MonoBehaviour {
 
         #region Fields

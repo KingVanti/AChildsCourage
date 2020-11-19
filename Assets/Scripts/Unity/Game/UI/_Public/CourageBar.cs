@@ -3,7 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Game.UI {
+namespace AChildsCourage.Game.UI
+{
     public class CourageBar : MonoBehaviour {
 
         #region Fields

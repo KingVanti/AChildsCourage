@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 
-namespace AChildsCourage.Game.Courage {
+namespace AChildsCourage.Game.Courage
+{
 
     [CreateAssetMenu(fileName = "Courage", menuName = "A Child's Courage/Courage", order = 3)]
     public class CouragePickupData : ScriptableObject {

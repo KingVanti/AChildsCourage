@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public class GameCameraController : MonoBehaviour {
 
         #region Methods
