@@ -53,7 +53,8 @@ namespace AChildsCourage.RoomEditor
         {
             var position = GetCurrentMousePosition();
 
-            onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
+            if (MouseIsOverGameView())
+                onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
         }
 
         private Vector2Int GetCurrentMousePosition()
@@ -63,6 +64,14 @@ namespace AChildsCourage.RoomEditor
             return new Vector2Int(
                 Mathf.FloorToInt(pos.x),
                 Mathf.FloorToInt(pos.y));
+        }
+
+        private bool MouseIsOverGameView()
+        {
+            var mousePos = Mouse.current.position.ReadValue();
+            var view = cam.ScreenToViewportPoint(mousePos);
+
+            return !(view.x < 0 || view.x > 1 || view.y < 0 || view.y > 1);
         }
 
         #endregion
