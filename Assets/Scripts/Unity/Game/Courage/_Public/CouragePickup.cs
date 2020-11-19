@@ -9,7 +9,6 @@ namespace AChildsCourage.Game.Courage {
 
 #pragma warning disable 649
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private float speed;
 #pragma warning restore 649
 
         private int _value = 0;
