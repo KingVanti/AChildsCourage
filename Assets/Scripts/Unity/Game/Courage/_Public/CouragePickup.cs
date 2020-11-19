@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Courage {
     public class CouragePickup : MonoBehaviour {
