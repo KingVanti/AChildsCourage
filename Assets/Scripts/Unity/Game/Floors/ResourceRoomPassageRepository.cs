@@ -81,10 +81,7 @@ namespace AChildsCourage.Game.Floors
 
             var filteredRooms = endRooms.Where(MatchesFilter).ToArray();
 
-            return new FilteredRoomPassages(startRooms);
-
-            // TODO: Use end rooms
-            // return new FilteredRoomPassages(filteredRooms);
+            return new FilteredRoomPassages(endRooms);
         }
 
 
