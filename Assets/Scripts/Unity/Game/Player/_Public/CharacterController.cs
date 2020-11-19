@@ -191,7 +191,7 @@ namespace AChildsCourage.Game.Player
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            Debug.Log(LookAngle);
+            //Debug.Log(LookAngle);
 
             if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f)
             {
