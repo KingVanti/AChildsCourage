@@ -54,11 +54,11 @@ namespace AChildsCourage.Game.Courage {
 
         public void Initialize(int maxNightCourage) {
 
-            MaxNightCourage = maxNightCourage; 
+            MaxNightCourage = maxNightCourage;
 
             StartNightCourage = StartNightCourage + OverfilledNightCourage;
 
-            if(StartNightCourage < 1) {
+            if (StartNightCourage < 1) {
                 StartNightCourage = 1;
             }
 
@@ -70,13 +70,14 @@ namespace AChildsCourage.Game.Courage {
 
             CurrentNightCourage += pickedUpCourage.Value;
 
-            if(CurrentNightCourage > MaxNightCourage) {
+            if (CurrentNightCourage > MaxNightCourage) {
                 CurrentNightCourage = MaxNightCourage;
             }
 
         }
 
         public void Subtract(CouragePickup pickedUpCourage) {
+
             CurrentNightCourage -= pickedUpCourage.Value;
 
             if (CurrentNightCourage < 0) {
@@ -87,7 +88,7 @@ namespace AChildsCourage.Game.Courage {
 
         #endregion
 
-        #region Subclasses+
+        #region Subclasses
 
         [Serializable]
         public class CourageChangedEvent : UnityEvent<int, int> { }
