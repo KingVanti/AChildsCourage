@@ -25,11 +25,10 @@ namespace AChildsCourage.Game.UI {
         private void UpdateCourageBar(int newValue, int maxValue) {
             float newFillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
             StartCoroutine(FillLerp(newFillAmount));
-            
         }
 
-        private void UpdateCourageCounter(int newValue, int maxValue) {
-            courageCounterTextMesh.text = newValue + " / " + maxValue;
+        public void UpdateCourageCounter(int newValue, int neededValue) {
+            courageCounterTextMesh.text = newValue + " / " + neededValue;
         }
 
         IEnumerator FillLerp(float destination) {
