@@ -35,7 +35,7 @@
             Passages = passages;
             Type = type;
             RotationCount = rotationCount;
-            IsMirrored = IsMirrored;
+            IsMirrored = isMirrored;
         }
 
         #endregion 
