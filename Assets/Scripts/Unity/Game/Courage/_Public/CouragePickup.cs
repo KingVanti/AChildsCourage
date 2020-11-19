@@ -10,14 +10,22 @@ namespace AChildsCourage.Game.Courage {
 #pragma warning restore 649
 
         private int _value = 0;
-        private CourageVariant variant;
+        private CourageVariant _variant;
         private string courageName = "";
 
         #endregion
 
         #region Properties
 
-        public int Value { get { return _value; } set { _value = value; } }
+        public int Value {
+            get { return _value; }
+            set { _value = value; }
+        }
+
+        public CourageVariant Variant {
+            get { return _variant; }
+            set { _variant = value; }
+        }
 
         #endregion
 
@@ -25,7 +33,7 @@ namespace AChildsCourage.Game.Courage {
 
         public void SetCouragePickupData(CouragePickupData courageData) {
 
-            variant = courageData.Variant;
+            _variant = courageData.Variant;
             Value = courageData.Value;
             spriteRenderer.sprite = courageData.Sprite;
             spriteRenderer.transform.localScale = courageData.Scale;

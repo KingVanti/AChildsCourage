@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Courage {
         private int _neededNightCourage;
 
         public CourageChangedEvent OnCourageChanged;
-        public InitializeEvent OnInitialize;
+        public CourageChangedEvent OnInitialize;
 
         #endregion
 
@@ -54,11 +54,11 @@ namespace AChildsCourage.Game.Courage {
 
         public void Initialize(int maxNightCourage) {
 
-            MaxNightCourage = maxNightCourage; 
+            MaxNightCourage = maxNightCourage;
 
             StartNightCourage = StartNightCourage + OverfilledNightCourage;
 
-            if(StartNightCourage < 1) {
+            if (StartNightCourage < 1) {
                 StartNightCourage = 1;
             }
 
@@ -66,18 +66,19 @@ namespace AChildsCourage.Game.Courage {
 
         }
 
-        public void Add(int value) {
+        public void Add(CouragePickup pickedUpCourage) {
 
-            CurrentNightCourage += value;
+            CurrentNightCourage += pickedUpCourage.Value;
 
-            if(CurrentNightCourage > MaxNightCourage) {
+            if (CurrentNightCourage > MaxNightCourage) {
                 CurrentNightCourage = MaxNightCourage;
             }
 
         }
 
-        public void Subtract(int value) {
-            CurrentNightCourage -= value;
+        public void Subtract(CouragePickup pickedUpCourage) {
+
+            CurrentNightCourage -= pickedUpCourage.Value;
 
             if (CurrentNightCourage < 0) {
                 CurrentNightCourage = 0;
@@ -87,13 +88,11 @@ namespace AChildsCourage.Game.Courage {
 
         #endregion
 
-        #region Subclasses+
+        #region Subclasses
 
         [Serializable]
         public class CourageChangedEvent : UnityEvent<int, int> { }
 
-        [Serializable]
-        public class InitializeEvent : UnityEvent<int, int> { }
 
         #endregion
 

@@ -38,7 +38,7 @@ namespace AChildsCourage.Game.Player
         public Vector2Event OnPositionChanged;
         public BoolEvent OnPickupReachChanged;
         public IntEvent OnUseItem;
-        public IntEvent OnCouragePickedUp;
+        public CouragePickUpEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
         public PickUpEvent OnPickUpItem;
 
@@ -284,7 +284,7 @@ namespace AChildsCourage.Game.Player
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
-                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickup>().Value);
+                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickup>());
                 Destroy(collision.gameObject);
             }
 
@@ -317,6 +317,9 @@ namespace AChildsCourage.Game.Player
 
         [Serializable]
         public class PickUpEvent : UnityEvent<int, int> { }
+
+        [Serializable]
+        public class CouragePickUpEvent : UnityEvent<CouragePickup> { }
 
         #endregion
 

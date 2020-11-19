@@ -6,8 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player
-{
+namespace AChildsCourage.Game.Player {
     public class Bag : MonoBehaviour {
 
         #region Fields
@@ -24,7 +23,7 @@ namespace AChildsCourage.Game.Player
         private float[] currentItemCooldown = new float[2];
 
         public CooldownEvent cooldownEvent;
-        public ItemUsedEvent itemUsedEvent;
+        public ItemDataEvent itemUsedEvent;
         public UnityEvent itemDroppedEvent;
         public UnityEvent itemSwappedEvent;
         public UnityEvent itemPickUpEvent;
@@ -52,7 +51,6 @@ namespace AChildsCourage.Game.Player
         public void PickUpItem(int slotId, int itemId) {
 
             if (currentItems[slotId] == null) {
-                //availableItems[itemId].GetComponent<Item>().IsInBag = true;
                 currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
                 itemPickUpEvent?.Invoke();
             } else {
@@ -66,7 +64,9 @@ namespace AChildsCourage.Game.Player
         }
 
         public void OnItemSwapInventory() {
+
             if (currentItemCooldown[0] != 0 || currentItemCooldown[1] != 0) {
+                // Maybe do an animation when trying to use?? 
                 Debug.Log("Can't Swap items when on cooldown!");
             } else {
                 Item tempItem = currentItems[0];
@@ -100,7 +100,7 @@ namespace AChildsCourage.Game.Player
         public class CooldownEvent : UnityEvent<int, float, float> { }
 
         [Serializable]
-        public class ItemUsedEvent : UnityEvent<ItemData> { }
+        public class ItemDataEvent : UnityEvent<ItemData> { }
 
         #endregion
 
