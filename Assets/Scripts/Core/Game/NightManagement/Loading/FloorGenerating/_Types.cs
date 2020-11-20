@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
-    internal delegate FloorBuilder RoomBuilder(FloorBuilder builder, RoomInChunk rooms);
+    internal delegate FloorBuilder RoomBuilder(FloorBuilder builder, RoomInChunk room);
 
     internal delegate TilePosition TileTransformer(TilePosition position);
 
