@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Floors
             foreach (var roomPlan in roomPlans)
             {
                 var room = GetRoom(assets, roomPlan.RoomId);
-                var roomInChunk = new RoomInChunk(room, roomPlan.Transform);
+                var roomInChunk = new RoomForFloor(room, roomPlan.Transform);
 
                 roomsInChunks.Add(roomInChunk);
             }

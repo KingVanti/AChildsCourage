@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
-    internal delegate FloorBuilder RoomBuilder(FloorBuilder builder, RoomInChunk room);
+    internal delegate FloorBuilder RoomBuilder(FloorBuilder builder, RoomForFloor room);
 
     internal delegate TilePosition TileTransformer(TilePosition position);
 
@@ -22,20 +22,24 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate Floor FloorCreator(FloorBuilder builder);
 
-    public class RoomsForFloor : List<RoomInChunk>
+
+    public class RoomForFloor
     {
 
-        public RoomsForFloor()
-           : base() { }
+        public Room Room { get; }
 
-        internal RoomsForFloor(IEnumerable<RoomInChunk> roomsInChunks)
-            : base()
+        public RoomTransform Transform { get; }
+
+
+        public RoomForFloor(Room room, RoomTransform transform)
         {
-            foreach (var roomInChunk in roomsInChunks)
-                Add(roomInChunk);
+            Room = room;
+            Transform = transform;
         }
 
     }
+
+    public class RoomsForFloor : List<RoomForFloor> { }
 
     internal class ChunkTransform
     {
@@ -47,6 +51,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         internal TilePosition ChunkCorner { get; }
 
         internal TilePosition ChunkCenter { get; }
+
 
         internal ChunkTransform(int rotationCount, bool isMirrored, TilePosition chunkCorner, TilePosition chunkCenter)
         {

@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        private static FloorBuilder BuildRoom(FloorBuilder builder, RoomInChunk room, TileBuilder tileBuilder, TileTransformer transformer)
+        private static FloorBuilder BuildRoom(FloorBuilder builder, RoomForFloor room, TileBuilder tileBuilder, TileTransformer transformer)
         {
             return tileBuilder(builder, room.Room.Tiles, transformer);
         }
