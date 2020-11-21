@@ -12,6 +12,7 @@ namespace AChildsCourage.Game.UI
 #pragma warning disable 649
         [SerializeField] private Image courageBarFill;
         [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
+        [SerializeField] private Animator courageBarAnimator;
 #pragma warning restore 649
 
         #endregion
@@ -21,6 +22,7 @@ namespace AChildsCourage.Game.UI
         public void UpdateCourage(int newValue, int maxValue) {
             UpdateCourageBar(newValue, maxValue);
             UpdateCourageCounter(newValue, maxValue);
+            courageBarAnimator.SetTrigger("CollectedCourage");
         }
 
         private void UpdateCourageBar(int newValue, int maxValue) {
@@ -38,9 +40,9 @@ namespace AChildsCourage.Game.UI
                 courageBarFill.fillAmount = Mathf.Lerp(courageBarFill.fillAmount, destination, Time.deltaTime * 2);
                 yield return new WaitForEndOfFrame();
             }
-
             
         }
+
 
         #endregion
 
