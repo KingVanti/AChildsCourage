@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(1, 0)
             };
             var floorInProgress = new FloorInProgress();
-            positions.AllInto(floorInProgress.GroundPositions.Add);
+            positions.ForEach(floorInProgress.GroundPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
             CouragePositionChooser couragePositionChooser = _ => Enumerable.Empty<TilePosition>();
@@ -48,7 +48,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(1, 0)
             };
             var floorInProgress = new FloorInProgress();
-            positions.AllInto(floorInProgress.WallPositions.Add);
+            positions.Select(floorInProgress.WallPositions.Add);
 
             var expected = new[]
             {
@@ -78,7 +78,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(1, 0)
             };
             var floorInProgress = new FloorInProgress();
-            positions.AllInto(floorInProgress.CourageOrbPositions.Add);
+            positions.Select(floorInProgress.CourageOrbPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
             CouragePositionChooser couragePositionChooser = _ => positions;

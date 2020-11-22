@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            BuildGroundTiles(floor, tiles, transformer);
+            BuildGroundTiles(transformer, tiles, floor);
 
             // Then
 

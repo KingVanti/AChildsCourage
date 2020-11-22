@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             };
 
             return
-                Pipe(new List<TilePosition>())
+                Take(new List<TilePosition>())
                 .RepeatFor(addNext, orbCount);
         }
 
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             Func<TilePosition, float> weight = p => CalculateCourageOrbWeight(p, taken);
 
             return
-                Pipe(positions)
+                Take(positions)
                 .Where(isNotTaken)
                 .OrderByDescending(weight)
                 .First();

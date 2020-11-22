@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using System.Linq;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightManagement.Loading
@@ -22,12 +23,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
 
         internal static Floor Generate(FloorInProgress floor, FloorPlan floorPlan, RoomLoader roomLoader, RoomBuilder roomBuilder, FloorCreator floorCreator) =>
-            Pipe(floorPlan)
-            .Into(roomLoader.Invoke)
-            .Then().AllInto(room => roomBuilder(floor, room))
-
-            .ThenPipe(floor)
-            .Into(floorCreator.Invoke);
+            Take(floorPlan)
+            .Map(roomLoader.Invoke)
+            .Select(room => roomBuilder(floor, room))
+            .ThenTake(floor)
+            .Map(floorCreator.Invoke);
 
     }
 

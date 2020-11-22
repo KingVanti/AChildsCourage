@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             chunkPosition
                 .GetSurroundingPositions()
                 .Where(canReserve)
-                .AllInto(reserve);
+                .ForEach(reserve);
         }
 
         internal static IEnumerable<ChunkPosition> GetSurroundingPositions(this ChunkPosition position)
@@ -84,9 +84,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
             var roomAtPosition = floorPlan.GetPassagesAt(positionInDirection);
 
             return
-                Pipe(direction)
-                .Into(Invert)
-                .Then().Into(roomAtPosition.Passages.Has);
+                Take(direction)
+                .Map(Invert)
+                .Map(roomAtPosition.Passages.Has);
         }
 
         private static RoomPassages GetPassagesAt(this FloorPlanInProgress floorPlan, ChunkPosition position)

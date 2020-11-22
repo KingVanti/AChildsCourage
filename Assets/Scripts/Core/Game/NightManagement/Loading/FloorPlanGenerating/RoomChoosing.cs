@@ -36,9 +36,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
         private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanInProgress floorPlan)
         {
             var phase =
-                Pipe(floorPlan)
-                .Into(CountRooms)
-                .Then().Into(GetCurrentPhase);
+                Take(floorPlan)
+                .Map(CountRooms)
+                .Map(GetCurrentPhase);
 
             var roomType = GetFilteredRoomTypeFor(phase);
             var remainingRooms = floorPlan.GetRemainingRoomCount();
@@ -78,9 +78,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             var roomAtPosition = floorPlan.RoomsByChunks[positionInDirection];
             var hasPassage =
-                Pipe(direction)
-               .Into(Invert)
-               .Then().Into(roomAtPosition.Passages.Has);
+                Take(direction)
+               .Map(Invert)
+               .Map(roomAtPosition.Passages.Has);
 
             return hasPassage ? PassageFilter.Passage : PassageFilter.NoPassage;
         }

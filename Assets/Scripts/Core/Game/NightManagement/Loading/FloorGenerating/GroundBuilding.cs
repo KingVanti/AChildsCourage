@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using System;
 using System.Linq;
-
+using System.Net.Http.Headers;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightManagement.Loading
@@ -10,22 +10,22 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class GroundBuilding
     {
 
-        internal static GroundBuilder GetDefault()
+        internal static GroundBuilder GetDefault(TileTransformer transformer)
         {
-            return BuildGroundTiles;
+            return (tiles, floor) => BuildGroundTiles(transformer, tiles, floor);
         }
 
 
-        internal static FloorInProgress BuildGroundTiles(FloorInProgress floor, GroundTileData[] tiles, TileTransformer transformer)
+        internal static FloorInProgress BuildGroundTiles(TileTransformer transformer, GroundTileData[] tiles, FloorInProgress floor)
         {
             Func<GroundTileData, GroundTileData> transformed = tile => TransformGroundTile(tile, transformer);
             Action<GroundTileData> place = tile => PlaceGroundTile(tile, floor);
 
-            return
-                Pipe(tiles)
-                .Select(transformed)
-                .AllInto(place)
-                .FinallyReturn(floor);
+            Take(tiles)
+            .Select(transformed)
+            .ForEach(place);
+
+            return floor;
         }
 
         internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TileTransformer transformer)

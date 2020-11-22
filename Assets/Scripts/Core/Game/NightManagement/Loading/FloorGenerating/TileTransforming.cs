@@ -23,10 +23,10 @@ namespace AChildsCourage.Game.NightManagement.Loading
             Func<TilePosition, TilePosition> mirror = p => YMirrorOver(p, transform.ChunkCenter);
 
             return
-                Pipe(position)
+                Take(position)
                 .IntoWith(OffsetAround, transform.ChunkCorner)
-                .Then().RepeatFor(rotate, transform.RotationCount)
-                .Then().DoIf(mirror, transform.IsMirrored);
+                .RepeatFor(rotate, transform.RotationCount)
+                .DoIf(mirror, transform.IsMirrored);
         }
 
         internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner)

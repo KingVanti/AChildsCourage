@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             // Given
 
             var floorPlan = new FloorPlanInProgress();
-            Enumerable.Range(0, GoalRoomCount).AllInto(i => floorPlan.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
+            Enumerable.Range(0, GoalRoomCount).ForEach(i => floorPlan.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
 
             // When
 

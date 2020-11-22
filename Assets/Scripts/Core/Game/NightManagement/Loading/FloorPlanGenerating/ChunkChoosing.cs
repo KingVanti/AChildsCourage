@@ -25,9 +25,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
 
             var phase =
-                Pipe(floorPlan)
-                .Into(CountRooms)
-                .Then().Into(GetCurrentPhase);
+                Take(floorPlan)
+                .Map(CountRooms)
+                .Map(GetCurrentPhase);
 
             switch (phase)
             {

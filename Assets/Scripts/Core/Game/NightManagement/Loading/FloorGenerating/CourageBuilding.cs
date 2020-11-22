@@ -11,20 +11,23 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class CourageBuilding
     {
 
-        internal static CourageBuilder GetDefault()
+        internal static CourageBuilder GetDefault(TileTransformer transformer)
         {
-            return BuildCourage;
+            return (pickups, floor) =>
+            {
+                return BuildCourage(transformer, pickups, floor);
+            };
         }
 
 
-        internal static FloorInProgress BuildCourage(FloorInProgress floor, CouragePickupData[] pickups, TileTransformer transformer)
+        internal static FloorInProgress BuildCourage(TileTransformer transformer,CouragePickupData[] pickups, FloorInProgress floor)
         {
             Func<CouragePickupData, CouragePickupData> transformed = pickup => TransformCouragePickup(pickup, transformer);
             Action<CouragePickupData> place = pickup => PlacePickup(pickup, floor);
 
-            Pipe(pickups)
+            Take(pickups)
             .Select(transformed)
-            .AllInto(place);
+            .ForEach(place);
 
             return floor;
         }

@@ -11,11 +11,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate TilePosition TileTransformer(TilePosition position);
 
-    internal delegate FloorInProgress ContentBuilder(FloorInProgress floor, RoomContentData content, TileTransformer transformer);
+    internal delegate FloorInProgress ContentBuilder(RoomContentData content, FloorInProgress floor);
 
-    internal delegate FloorInProgress GroundBuilder(FloorInProgress floor, GroundTileData[] tiles, TileTransformer transformer);
+    internal delegate FloorInProgress GroundBuilder(GroundTileData[] tiles, FloorInProgress floor);
 
-    internal delegate FloorInProgress CourageBuilder(FloorInProgress floor, CouragePickupData[] pickups, TileTransformer transformer);
+    internal delegate FloorInProgress CourageBuilder(CouragePickupData[] pickups, FloorInProgress floor);
 
     internal delegate IEnumerable<Wall> WallGenerator(FloorInProgress floor);
 
@@ -67,22 +67,13 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal class FloorInProgress
     {
 
-        internal HashSet<TilePosition> GroundPositions { get; }
+        internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> WallPositions { get; }
+        internal HashSet<TilePosition> WallPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageOrbPositions { get; }
+        internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageSparkPositions { get; }
-
-
-        internal FloorInProgress()
-        {
-            GroundPositions = new HashSet<TilePosition>();
-            WallPositions = new HashSet<TilePosition>();
-            CourageOrbPositions = new HashSet<TilePosition>();
-            CourageSparkPositions = new HashSet<TilePosition>();
-        }
+        internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
 
     }
 

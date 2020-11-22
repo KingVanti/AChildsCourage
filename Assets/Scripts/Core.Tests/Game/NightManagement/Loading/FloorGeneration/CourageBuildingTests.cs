@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            BuildCourage(floor, pickups, transformer);
+            BuildCourage(transformer, pickups, floor);
 
             // Then
 
