@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Courage
             set { _startNightCourage = value; }
         }
 
-        public int MaxNightCourage { get; set; } = 10;
+        public int MaxNightCourage { get; set; } = 25;
 
         public int NeededNightCourage {
             get { return Mathf.CeilToInt((float)MaxNightCourage / 100 * 72.5f); }
