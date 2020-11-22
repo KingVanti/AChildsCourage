@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Courage;
-using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors;
 using System;
 
 namespace AChildsCourage.Game.NightManagement.Loading

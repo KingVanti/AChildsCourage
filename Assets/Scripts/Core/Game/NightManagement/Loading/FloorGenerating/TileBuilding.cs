@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using System;
 
 using static AChildsCourage.F;
@@ -9,22 +9,22 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class TileBuilding
     {
 
-        internal static TileBuilder GetDefault()
+        internal static ContentBuilder GetDefault()
         {
-            return (builder, tiles, transformer) =>
+            return (builder, content, transformer) =>
             {
                 var groundBuilder = GroundBuilding.GetDefault();
-                var dataBuilder = DataBuilding.GetDefault();
+                var courageBuilder = CourageBuilding.GetDefault();
 
-                return Build(builder, tiles, transformer, groundBuilder, dataBuilder);
+                return Build(builder, content, transformer, groundBuilder, courageBuilder);
             };
         }
 
 
-        private static FloorBuilder Build(FloorBuilder builder, RoomTiles tiles, TileTransformer transformer, GroundBuilder groundBuilder, DataBuilder dataBuilder)
+        private static FloorBuilder Build(FloorBuilder builder, RoomContentData content, TileTransformer transformer, GroundBuilder groundBuilder, CourageBuilder courageBuilder)
         {
-            Func<FloorBuilder, FloorBuilder> buildGround = b => groundBuilder(b, tiles.GroundTiles, transformer);
-            Func<FloorBuilder, FloorBuilder> buildData = b => dataBuilder(b, tiles.DataTiles, transformer);
+            Func<FloorBuilder, FloorBuilder> buildGround = b => groundBuilder(b, content.GroundData, transformer);
+            Func<FloorBuilder, FloorBuilder> buildData = b => courageBuilder(b, content.CourageData, transformer);
 
             return
                 Pipe(builder)

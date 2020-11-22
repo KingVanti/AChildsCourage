@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundLayer: {fileID: 624658610}
-  dataLayer: {fileID: 1927221013}
+  courageLayer: {fileID: 1927221013}
 --- !u!4 &1136378060
 Transform:
   m_ObjectHideFlags: 0
@@ -19166,7 +19166,7 @@ GameObject:
   - component: {fileID: 1927221014}
   - component: {fileID: 1927221013}
   m_Layer: 0
-  m_Name: Data
+  m_Name: Courage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19195,15 +19195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1927221011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a9e6bfdf883ba348b481f388de44ad8, type: 3}
+  m_Script: {fileID: 11500000, guid: d0fca602f6c299345aff554ebf27c096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1927221015}
-  itemTile: {fileID: 11400000, guid: 18785e6c7efab6443bccf250d86e8d3d, type: 2}
   courageSparkTile: {fileID: 11400000, guid: 53ed7d4cac232f54db55440a04c41a51, type: 2}
   courageOrbTile: {fileID: 11400000, guid: 0fac7df1dc46e774a829481836112eac, type: 2}
-  startPointTile: {fileID: 11400000, guid: bcb78a8058e94794d9ee9ce016b9b279, type: 2}
-  endPointTile: {fileID: 11400000, guid: b599e528c5ed27c41a77c66135be5991, type: 2}
 --- !u!483693784 &1927221014
 TilemapRenderer:
   m_ObjectHideFlags: 0

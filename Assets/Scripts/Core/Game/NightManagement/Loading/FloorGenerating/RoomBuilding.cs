@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             {
                 var transform = ToChunkTransform(room.Transform);
 
-                TileBuilder tileBuilder = TileBuilding.GetDefault();
+                ContentBuilder tileBuilder = TileBuilding.GetDefault();
                 TileTransformer transformer = TileTransforming.GetDefault(transform);
 
                 return BuildRoom(builder, room, tileBuilder, transformer);
@@ -20,9 +20,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        private static FloorBuilder BuildRoom(FloorBuilder builder, RoomForFloor room, TileBuilder tileBuilder, TileTransformer transformer)
+        private static FloorBuilder BuildRoom(FloorBuilder builder, RoomForFloor room, ContentBuilder tileBuilder, TileTransformer transformer)
         {
-            return tileBuilder(builder, room.Room.Tiles, transformer);
+            return tileBuilder(builder, room.Content, transformer);
         }
 
         internal static ChunkTransform ToChunkTransform(RoomTransform transform)

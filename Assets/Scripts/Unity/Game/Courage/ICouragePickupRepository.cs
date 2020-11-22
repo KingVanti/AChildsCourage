@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Courage
+﻿using AChildsCourage.Game.Floors;
+
+namespace AChildsCourage.Game.Courage
 {
 
     public interface ICouragePickupRepository

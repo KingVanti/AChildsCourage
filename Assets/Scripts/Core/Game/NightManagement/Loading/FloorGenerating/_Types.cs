@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using System.Collections.Generic;
 
 namespace AChildsCourage.Game.NightManagement.Loading
@@ -10,11 +11,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate TilePosition TileTransformer(TilePosition position);
 
-    internal delegate FloorBuilder TileBuilder(FloorBuilder builder, RoomTiles tiles, TileTransformer transformer);
+    internal delegate FloorBuilder ContentBuilder(FloorBuilder builder, RoomContentData content, TileTransformer transformer);
 
-    internal delegate FloorBuilder GroundBuilder(FloorBuilder builder, Tiles<GroundTile> tiles, TileTransformer transformer);
+    internal delegate FloorBuilder GroundBuilder(FloorBuilder builder, GroundTileData[] tiles, TileTransformer transformer);
 
-    internal delegate FloorBuilder DataBuilder(FloorBuilder builder, Tiles<DataTile> tiles, TileTransformer transformer);
+    internal delegate FloorBuilder CourageBuilder(FloorBuilder builder, CouragePickupData[] pickups, TileTransformer transformer);
 
     internal delegate IEnumerable<Wall> WallGenerator(FloorBuilder builder);
 
@@ -26,14 +27,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
     public class RoomForFloor
     {
 
-        public Room Room { get; }
+        public RoomContentData Content { get; }
 
         public RoomTransform Transform { get; }
 
 
-        public RoomForFloor(Room room, RoomTransform transform)
+        public RoomForFloor(RoomContentData content, RoomTransform transform)
         {
-            Room = room;
+            Content = content;
             Transform = transform;
         }
 

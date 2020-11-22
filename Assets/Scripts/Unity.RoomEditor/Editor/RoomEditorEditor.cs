@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using UnityEditor;
 using UnityEngine;
 
@@ -58,8 +59,8 @@ namespace AChildsCourage.RoomEditor.Editor
 
             DrawTileCategorySelectionGUI();
 
-            if (RoomEditor.SelectedTileCategory == TileCategory.Data)
-                DrawDataTileSelectionGUI();
+            if (RoomEditor.SelectedTileCategory == TileCategory.Courage)
+                DrawCourageSelectionGUI();
 
             DrawPassageEditorGUI();
 
@@ -78,38 +79,23 @@ namespace AChildsCourage.RoomEditor.Editor
             if (GUILayout.Button("Ground"))
                 RoomEditor.SelectedTileCategory = TileCategory.Ground;
 
-            if (GUILayout.Button("Data"))
-                RoomEditor.SelectedTileCategory = TileCategory.Data;
+            if (GUILayout.Button("Courage"))
+                RoomEditor.SelectedTileCategory = TileCategory.Courage;
 
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();
         }
 
-        private void DrawDataTileSelectionGUI()
+        private void DrawCourageSelectionGUI()
         {
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Item"))
-                RoomEditor.SelectedDataTileType = DataTileType.Item;
-
             if (GUILayout.Button("Spark"))
-                RoomEditor.SelectedDataTileType = DataTileType.CourageSpark;
+                RoomEditor.SelectedCourageVariant = CourageVariant.Spark;
 
             if (GUILayout.Button("Orb"))
-                RoomEditor.SelectedDataTileType = DataTileType.CourageOrb;
-
-            GUI.enabled = RoomEditor.CurrentRoomIsStartRoom;
-
-            if (GUILayout.Button("Start-point"))
-                RoomEditor.SelectedDataTileType = DataTileType.StartPoint;
-
-            GUI.enabled = RoomEditor.CurrentRoomIsEndRoom;
-
-            if (GUILayout.Button("End-point"))
-                RoomEditor.SelectedDataTileType = DataTileType.EndPoint;
-
-            GUI.enabled = true;
+                RoomEditor.SelectedCourageVariant = CourageVariant.Orb;
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();

@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -12,7 +13,7 @@ namespace AChildsCourage.RoomEditor
 #pragma warning disable 649
 
         [SerializeField] private GroundTileLayer groundLayer;
-        [SerializeField] private DataTileLayer dataLayer;
+        [SerializeField] private CouragePickupLayer courageLayer;
 
 #pragma warning restore 649
 
@@ -24,7 +25,7 @@ namespace AChildsCourage.RoomEditor
 
         internal TileCategory SelectedTileCategory { get; set; }
 
-        internal DataTileType SelectedDataTileType { get; set; }
+        internal CourageVariant SelectedCourageVariant { get; set; }
 
         internal ChunkPassages CurrentPassages { get; set; }
 
@@ -49,22 +50,16 @@ namespace AChildsCourage.RoomEditor
         internal void OnAssetSelected(RoomAsset asset)
         {
             LoadedAsset = asset;
+            CurrentPassages = asset.Passages;
+            CurrentRoomType = asset.Type;
 
-            Load(asset.Room);
+            LoadContent(asset.Content);
         }
 
-        private void Load(Room room)
+        private void LoadContent(RoomContentData content)
         {
-            CurrentPassages = room.Passages;
-            CurrentRoomType = room.Type;
-
-            PlaceRoomTiles(room.Tiles);
-        }
-
-        private void PlaceRoomTiles(RoomTiles roomTiles)
-        {
-            groundLayer.PlaceAll(roomTiles.GroundTiles);
-            dataLayer.PlaceAll(roomTiles.DataTiles);
+            groundLayer.PlaceAll(content.GroundData);
+            courageLayer.PlaceAll(content.CourageData);
         }
 
 
@@ -89,8 +84,8 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Ground:
                     groundLayer.PlaceAt(position);
                     break;
-                case TileCategory.Data:
-                    dataLayer.PlaceAt(position, SelectedDataTileType);
+                case TileCategory.Courage:
+                    courageLayer.PlaceAt(position, SelectedCourageVariant);
                     break;
             }
         }
@@ -102,8 +97,8 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Ground:
                     groundLayer.DeleteTileAt(position);
                     break;
-                case TileCategory.Data:
-                    dataLayer.DeleteTileAt(position);
+                case TileCategory.Courage:
+                    courageLayer.DeleteTileAt(position);
                     break;
             }
         }
@@ -111,17 +106,15 @@ namespace AChildsCourage.RoomEditor
 
         internal void SaveChanges()
         {
-            var room = new Room(
-                CurrentRoomType,
-                ReadRoomTiles(),
-                CurrentPassages);
-
-            LoadedAsset.Room = room;
+            LoadedAsset.Passages = CurrentPassages;
+            LoadedAsset.Content = ReadContent();
         }
 
-        private RoomTiles ReadRoomTiles()
+        private RoomContentData ReadContent()
         {
-            return new RoomTiles(groundLayer.ReadAll(), dataLayer.ReadAll(), Tiles<AOIMarker>.None);
+            return new RoomContentData(
+                groundLayer.ReadAll(),
+                courageLayer.ReadAll());
         }
 
         #endregion

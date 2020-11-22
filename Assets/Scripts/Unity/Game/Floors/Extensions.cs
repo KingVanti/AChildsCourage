@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
+using System.Collections.Generic;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -15,7 +16,7 @@ namespace AChildsCourage.Game.Floors
 
         private static RoomPassages GetBasePassages(this RoomAsset asset)
         {
-            return new RoomPassages(asset.Id, asset.Room.Passages, 0, false, asset.Room.Type);
+            return new RoomPassages(asset.Id, asset.Passages, 0, false, asset.Type);
         }
 
         private static IEnumerable<RoomPassages> GetVariations(this RoomPassages room)
