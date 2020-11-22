@@ -59,15 +59,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        internal static bool IsEmpty(FloorPlanBuilder builder, ChunkPosition position)
+        internal static bool IsEmpty(FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return !builder.RoomsByChunks.ContainsKey(position);
+            return !floorPlan.RoomsByChunks.ContainsKey(position);
         }
 
 
-        internal static int CountRooms(FloorPlanBuilder builder)
+        internal static int CountRooms(FloorPlanInProgress floorPlan)
         {
-            return builder.RoomsByChunks.Count;
+            return floorPlan.RoomsByChunks.Count;
         }
 
     }

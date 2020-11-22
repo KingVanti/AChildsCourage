@@ -29,12 +29,12 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
-            builder.ReservedChunks.Add(new ChunkPosition(0, 0));
+            var floorPlan = new FloorPlanInProgress();
+            floorPlan.ReservedChunks.Add(new ChunkPosition(0, 0));
 
             // When
 
-            var hasReserver = HasReservedChunks(builder);
+            var hasReserver = HasReservedChunks(floorPlan);
 
             // Then
 
@@ -46,11 +46,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
+            var floorPlan = new FloorPlanInProgress();
 
             // When
 
-            var hasReserver = HasReservedChunks(builder);
+            var hasReserver = HasReservedChunks(floorPlan);
 
             // Then
 

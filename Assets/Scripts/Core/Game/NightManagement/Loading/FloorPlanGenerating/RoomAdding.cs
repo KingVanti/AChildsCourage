@@ -8,22 +8,22 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static RoomAdder GetDefault(IRoomPassagesRepository roomPassagesRepository, IRNG rng)
         {
-            return builder =>
+            return floorPlan =>
             {
                 var chunkChooser = ChunkChoosing.GetDefault(rng);
                 var roomChooser = RoomChoosing.GetDefault(roomPassagesRepository, rng);
-                var roomPlacer = RoomPlacing.GetDefault(builder);
+                var roomPlacer = RoomPlacing.GetDefault(floorPlan);
 
-                AddRoomTo(builder, chunkChooser, roomChooser, roomPlacer);
-                return builder;
+                AddRoomTo(floorPlan, chunkChooser, roomChooser, roomPlacer);
+                return floorPlan;
             };
         }
 
 
-        internal static void AddRoomTo(FloorPlanBuilder builder, ChunkChooser chunkCooser, RoomChooser roomChooser, RoomPlacer roomPlacer)
+        internal static void AddRoomTo(FloorPlanInProgress floorPlan, ChunkChooser chunkCooser, RoomChooser roomChooser, RoomPlacer roomPlacer)
         {
-            var chunk = chunkCooser(builder);
-            var room = roomChooser(builder, chunk);
+            var chunk = chunkCooser(floorPlan);
+            var room = roomChooser(floorPlan, chunk);
 
             roomPlacer.Invoke(chunk, room);
         }

@@ -18,15 +18,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        private static IEnumerable<Wall> GenerateWalls(FloorBuilder builder)
+        private static IEnumerable<Wall> GenerateWalls(FloorInProgress floor)
         {
-            bool IsEmpty(TilePosition position) => !builder.HasGroundAt(position);
+            bool IsEmpty(TilePosition position) => !floor.HasGroundAt(position);
 
-            Func<TilePosition, bool> hasGroundBelow = pos => HasGroundBelow(pos, builder.HasGroundAt);
+            Func<TilePosition, bool> hasGroundBelow = pos => HasGroundBelow(pos, floor.HasGroundAt);
             Func<TilePosition, Wall> toWall = pos => CreateWall(pos, hasGroundBelow(pos));
 
             return
-                builder.GroundPositions
+                floor.GroundPositions
                 .GenerateWallPositionsFor(IsEmpty)
                 .IntoWith(GetWalls, toWall);
         }
@@ -81,9 +81,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 .Select(y => new TileOffset(0, y));
         }
 
-        internal static bool HasGroundAt(this FloorBuilder builder, TilePosition position)
+        internal static bool HasGroundAt(this FloorInProgress floor, TilePosition position)
         {
-            return builder.GroundPositions.Contains(position);
+            return floor.GroundPositions.Contains(position);
         }
 
     }

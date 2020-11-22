@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
             var tiles = new[]
             {
                 new GroundTileData(new TilePosition(0, 0)),
@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            BuildGroundTiles(builder, tiles, transformer);
+            BuildGroundTiles(floor, tiles, transformer);
 
             // Then
 
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(0, 1),
                 new TilePosition(1, 1)
             };
-            Assert.That(builder.GroundPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
+            Assert.That(floor.GroundPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
 
@@ -95,15 +95,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
 
             // When
 
-            PlaceGroundTile(new GroundTileData(), builder);
+            PlaceGroundTile(new GroundTileData(), floor);
 
             // Then
 
-            Assert.That(builder.GroundPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to ground list!");
+            Assert.That(floor.GroundPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to ground list!");
         }
 
         #endregion

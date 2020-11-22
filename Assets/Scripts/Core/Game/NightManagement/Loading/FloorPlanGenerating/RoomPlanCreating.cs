@@ -6,9 +6,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class RoomPlanCreating
     {
 
-        internal static RoomPlanCreator GetDefault(FloorPlanBuilder builder)
+        internal static RoomPlanCreator GetDefault(FloorPlanInProgress floorPlan)
         {
-            var roomPassageLookup = RoomPassageUplooking.GetDefault(builder);
+            var roomPassageLookup = RoomPassageUplooking.GetDefault(floorPlan);
 
             return position => CreateRoomPlan(position, roomPassageLookup);
         }

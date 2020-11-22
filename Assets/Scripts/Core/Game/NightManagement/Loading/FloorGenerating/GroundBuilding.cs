@@ -16,16 +16,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        internal static FloorBuilder BuildGroundTiles(FloorBuilder builder, GroundTileData[] tiles, TileTransformer transformer)
+        internal static FloorInProgress BuildGroundTiles(FloorInProgress floor, GroundTileData[] tiles, TileTransformer transformer)
         {
             Func<GroundTileData, GroundTileData> transformed = tile => TransformGroundTile(tile, transformer);
-            Action<GroundTileData> place = tile => PlaceGroundTile(tile, builder);
+            Action<GroundTileData> place = tile => PlaceGroundTile(tile, floor);
 
             return
                 Pipe(tiles)
                 .Select(transformed)
                 .AllInto(place)
-                .FinallyReturn(builder);
+                .FinallyReturn(floor);
         }
 
         internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TileTransformer transformer)
@@ -40,9 +40,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return new GroundTileData(position);
         }
 
-        internal static void PlaceGroundTile(GroundTileData groundTile, FloorBuilder builder)
+        internal static void PlaceGroundTile(GroundTileData groundTile, FloorInProgress floor)
         {
-            builder.GroundPositions.Add(groundTile.Position);
+            floor.GroundPositions.Add(groundTile.Position);
         }
 
     }

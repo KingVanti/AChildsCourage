@@ -11,23 +11,23 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static ContentBuilder GetDefault()
         {
-            return (builder, content, transformer) =>
+            return (floor, content, transformer) =>
             {
                 var groundBuilder = GroundBuilding.GetDefault();
                 var courageBuilder = CourageBuilding.GetDefault();
 
-                return Build(builder, content, transformer, groundBuilder, courageBuilder);
+                return Build(floor, content, transformer, groundBuilder, courageBuilder);
             };
         }
 
 
-        private static FloorBuilder Build(FloorBuilder builder, RoomContentData content, TileTransformer transformer, GroundBuilder groundBuilder, CourageBuilder courageBuilder)
+        private static FloorInProgress Build(FloorInProgress floor, RoomContentData content, TileTransformer transformer, GroundBuilder groundBuilder, CourageBuilder courageBuilder)
         {
-            Func<FloorBuilder, FloorBuilder> buildGround = b => groundBuilder(b, content.GroundData, transformer);
-            Func<FloorBuilder, FloorBuilder> buildData = b => courageBuilder(b, content.CourageData, transformer);
+            Func<FloorInProgress, FloorInProgress> buildGround = b => groundBuilder(b, content.GroundData, transformer);
+            Func<FloorInProgress, FloorInProgress> buildData = b => courageBuilder(b, content.CourageData, transformer);
 
             return
-                Pipe(builder)
+                Pipe(floor)
                 .Into(buildGround)
                 .Then().Into(buildData);
         }

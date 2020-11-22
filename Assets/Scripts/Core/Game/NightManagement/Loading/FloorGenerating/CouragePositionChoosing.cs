@@ -16,9 +16,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static CouragePositionChooser GetDefault()
         {
-            return builder =>
+            return floor =>
             {
-                return ChooseCourageOrbPositions(builder.CourageOrbPositions, CourageOrbCount);
+                return ChooseCourageOrbPositions(floor.CourageOrbPositions, CourageOrbCount);
             };
         }
 

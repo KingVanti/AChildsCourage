@@ -16,16 +16,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static ChunkChooser GetDefault(IRNG rng)
         {
-            return builder => ChooseNextChunk(builder, rng);
+            return floorPlan => ChooseNextChunk(floorPlan, rng);
         }
 
 
-        private static ChunkPosition ChooseNextChunk(FloorPlanBuilder builder, IRNG rng)
+        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, IRNG rng)
         {
 
 
             var phase =
-                Pipe(builder)
+                Pipe(floorPlan)
                 .Into(CountRooms)
                 .Then().Into(GetCurrentPhase);
 
@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
                 case GenerationPhase.NormalRooms:
                 case GenerationPhase.EndRoom:
-                    return GetNextChunk(builder, rng);
+                    return GetNextChunk(floorPlan, rng);
 
                 default:
                     throw new Exception("Invalid building phase!");
@@ -48,17 +48,17 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return new ChunkPosition(0, 0);
         }
 
-        private static ChunkPosition GetNextChunk(FloorPlanBuilder builder, IRNG rng)
+        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, IRNG rng)
         {
-            if (HasReservedChunks(builder))
-                return builder.ReservedChunks.GetWeightedRandom(GetChunkWeight, rng);
+            if (HasReservedChunks(floorPlan))
+                return floorPlan.ReservedChunks.GetWeightedRandom(GetChunkWeight, rng);
 
             throw new Exception("Could not find any more possible chunks!");
         }
 
-        internal static bool HasReservedChunks(FloorPlanBuilder builder)
+        internal static bool HasReservedChunks(FloorPlanInProgress floorPlan)
         {
-            return builder.ReservedChunks.Any();
+            return floorPlan.ReservedChunks.Any();
         }
 
         internal static float GetChunkWeight(ChunkPosition position)

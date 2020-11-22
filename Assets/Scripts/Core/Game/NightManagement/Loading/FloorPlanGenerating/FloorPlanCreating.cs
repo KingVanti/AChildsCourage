@@ -10,11 +10,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static FloorPlanCreator GetDefault()
         {
-            return builder =>
+            return floorPlan =>
             {
-                var roomPlanCreator = RoomPlanCreating.GetDefault(builder);
+                var roomPlanCreator = RoomPlanCreating.GetDefault(floorPlan);
 
-                return CreateFloorPlan(builder.RoomsByChunks.Keys, roomPlanCreator);
+                return CreateFloorPlan(floorPlan.RoomsByChunks.Keys, roomPlanCreator);
             };
         }
 

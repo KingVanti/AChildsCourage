@@ -26,12 +26,12 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
 
         private static FloorPlan Generate(RoomAdder roomBuilder, FloorPlanCreator floorPlanCreator) =>
-            Pipe(new FloorPlanBuilder())
+            Pipe(new FloorPlanInProgress())
             .RepeatWhile(roomBuilder.Invoke, NeedsMoreRooms)
             .Then().Into(floorPlanCreator.Invoke);
         
-        internal static bool NeedsMoreRooms(FloorPlanBuilder builder) =>
-            Pipe(builder)
+        internal static bool NeedsMoreRooms(FloorPlanInProgress floorPlan) =>
+            Pipe(floorPlan)
             .Into(CountRooms)
             .Then().Into(IsEnough)
             .Then().Negate();

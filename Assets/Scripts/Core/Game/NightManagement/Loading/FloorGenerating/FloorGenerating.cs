@@ -11,22 +11,22 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             return floorPlan =>
             {
-                var builder = new FloorBuilder();
+                var floor = new FloorInProgress();
 
                 var roomBuilder = RoomBuilding.GetDefault();
                 var floorCreator = FloorCreating.GetDefault();
 
-                return Generate(builder, floorPlan, roomLoader, roomBuilder, floorCreator);
+                return Generate(floor, floorPlan, roomLoader, roomBuilder, floorCreator);
             };
         }
 
 
-        internal static Floor Generate(FloorBuilder builder, FloorPlan floorPlan, RoomLoader roomLoader, RoomBuilder roomBuilder, FloorCreator floorCreator) =>
+        internal static Floor Generate(FloorInProgress floor, FloorPlan floorPlan, RoomLoader roomLoader, RoomBuilder roomBuilder, FloorCreator floorCreator) =>
             Pipe(floorPlan)
             .Into(roomLoader.Invoke)
-            .Then().AllInto(room => roomBuilder(builder, room))
+            .Then().AllInto(room => roomBuilder(floor, room))
 
-            .ThenPipe(builder)
+            .ThenPipe(floor)
             .Into(floorCreator.Invoke);
 
     }
