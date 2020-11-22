@@ -1,7 +1,8 @@
 ﻿using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Pickups;
-using UnityEngine;
 using FMOD.Studio;
+using UnityEngine;
 
 public class FmodPlayer : MonoBehaviour
 {

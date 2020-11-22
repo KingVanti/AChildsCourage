@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using NUnit.Framework;
 using static AChildsCourage.Game.NightManagement.Loading.GroundBuilding;
 
@@ -17,11 +17,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
             // Given
 
             var builder = new FloorBuilder();
-            var tiles = new Tiles<GroundTile>(new[]
+            var tiles = new[]
             {
-                new GroundTile(0, 0, 0, 0),
-                new GroundTile(1, 0, 0, 0)
-            });
+                new GroundTileData(new TilePosition(0, 0)),
+                new GroundTileData(new TilePosition(1, 0))
+            };
             TileTransformer transformer = pos => new TilePosition(pos.X, 1);
 
             // When
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var tile = new GroundTile(0, 0, 0, 0);
+            var tile = new GroundTileData();
             TileTransformer transformer = position => new TilePosition(1, 1);
 
             // When
@@ -62,7 +62,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var tile = new GroundTile(0, 0, 0, 0);
+            var tile = new GroundTileData();
 
             // When
 
@@ -78,7 +78,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var tile = new GroundTile(0, 0, 0, 0);
+            var tile = new GroundTileData();
 
             // When
 
@@ -86,8 +86,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            Assert.That(newtile.DistanceToWall, Is.EqualTo(tile.DistanceToWall), "Distance to wall should not change!");
-            Assert.That(newtile.AOIIndex, Is.EqualTo(tile.AOIIndex), "AOI index should not change!");
+            
         }
 
 
@@ -100,7 +99,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            PlaceGroundTile(new GroundTile(0, 0, 0, 0), builder);
+            PlaceGroundTile(new GroundTileData(), builder);
 
             // Then
 

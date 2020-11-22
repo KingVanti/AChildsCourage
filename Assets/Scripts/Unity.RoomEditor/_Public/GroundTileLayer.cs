@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -21,7 +21,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(Tiles<GroundTile> groundTiles)
+        public void PlaceAll(GroundTileData[] groundTiles)
         {
             Clear();
 
@@ -29,7 +29,7 @@ namespace AChildsCourage.RoomEditor
                 Place(groundTile);
         }
 
-        private void Place(GroundTile groundTile)
+        private void Place(GroundTileData groundTile)
         {
             PlaceTileAt(tile, groundTile.Position);
         }
@@ -41,11 +41,12 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        public Tiles<GroundTile> ReadAll()
+        public GroundTileData[] ReadAll()
         {
-            return new Tiles<GroundTile>(
+            return
                 GetTiles()
-                .Select(t => new GroundTile(t.Position, 1, 0)));
+                .Select(t => new GroundTileData(t.Position))
+                .ToArray();
         }
 
         #endregion

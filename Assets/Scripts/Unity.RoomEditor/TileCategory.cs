@@ -4,7 +4,7 @@
     internal enum TileCategory
     {
         Ground,
-        Data
+        Courage
     }
 
 }

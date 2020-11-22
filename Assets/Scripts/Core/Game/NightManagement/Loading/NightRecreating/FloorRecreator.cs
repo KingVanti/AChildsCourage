@@ -37,7 +37,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal void PlaceCourageOrb(TilePosition position)
         {
-            OnCouragePlaced.Invoke(this, new CouragePlacedEventArgs(position, Courage.CourageVariant.Orb));
+            OnCouragePlaced.Invoke(this, new CouragePlacedEventArgs(position, CourageVariant.Orb));
         }
 
         #endregion

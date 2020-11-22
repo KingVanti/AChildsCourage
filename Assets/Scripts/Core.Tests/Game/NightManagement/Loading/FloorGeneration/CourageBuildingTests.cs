@@ -1,32 +1,33 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using NUnit.Framework;
-using static AChildsCourage.Game.NightManagement.Loading.DataBuilding;
+using static AChildsCourage.Game.NightManagement.Loading.CourageBuilding;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {
 
     [TestFixture]
-    public class DataBuildingTests
+    public class CourageBuildingTests
     {
 
         #region Tests
 
         [Test]
-        public void Building_Transforms_All_Tiles_And_Places_Them()
+        public void Building_Transforms_All_Pickups_And_Places_Them()
         {
             // Given
 
             var builder = new FloorBuilder();
-            var tiles = new Tiles<DataTile>(new[]
+            var pickups = new[]
             {
-                new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb),
-                new DataTile(new TilePosition(1, 0), DataTileType.CourageOrb)
-            });
+                new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb),
+                new CouragePickupData(new TilePosition(1, 0), CourageVariant.Orb)
+            };
             TileTransformer transformer = pos => new TilePosition(pos.X, 1);
 
             // When
 
-            BuildDataTiles(builder, tiles, transformer);
+            BuildCourage(builder, pickups, transformer);
 
             // Then
 
@@ -40,16 +41,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
 
         [Test]
-        public void Transforming_A_Data_Tile_Changes_Its_Position()
+        public void Transforming_A_Pickup_Changes_Its_Position()
         {
             // Given
 
-            var tile = new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb);
+            var pickup = new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb);
             TileTransformer transformer = position => new TilePosition(1, 1);
 
             // When
 
-            var transformed = TransformDataTile(tile, transformer);
+            var transformed = TransformCouragePickup(pickup, transformer);
 
             // Then
 
@@ -58,15 +59,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
 
         [Test]
-        public void Creating_A_Data_Tile_With_A_New_Position_Changes_Its_Position()
+        public void Creating_A_Pickup_With_A_New_Position_Changes_Its_Position()
         {
             // Given
 
-            var tile = new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb);
+            var pickup = new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb);
 
             // When
 
-            var newtile = tile.With(new TilePosition(1, 1));
+            var newtile = pickup.With(new TilePosition(1, 1));
 
             // When
 
@@ -74,19 +75,19 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
         [Test]
-        public void Creating_A_Data_Tile_With_A_New_Position_Does_Not_Change_Its_Other_Properties()
+        public void Creating_A_Pickup_With_A_New_Position_Does_Not_Change_Its_Other_Properties()
         {
             // Given
 
-            var tile = new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb);
+            var pickup = new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb);
 
             // When
 
-            var newtile = tile.With(new TilePosition(1, 1));
+            var newtile = pickup.With(new TilePosition(1, 1));
 
             // When
 
-            Assert.That(newtile.Type, Is.EqualTo(tile.Type), "Type should not change!");
+
         }
 
 
@@ -99,7 +100,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            PlaceDataTile(new DataTile(new TilePosition(0, 0), DataTileType.CourageOrb), builder);
+            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb), builder);
 
             // Then
 
@@ -116,7 +117,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            PlaceDataTile(new DataTile(new TilePosition(0, 0), DataTileType.CourageSpark), builder);
+            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Spark), builder);
 
             // Then
 

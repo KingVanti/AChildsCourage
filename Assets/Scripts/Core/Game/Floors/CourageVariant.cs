@@ -1,6 +1,6 @@
-﻿
-namespace AChildsCourage.Game.Courage
+﻿namespace AChildsCourage.Game.Floors
 {
+
     public enum CourageVariant
     {
         Spark,
