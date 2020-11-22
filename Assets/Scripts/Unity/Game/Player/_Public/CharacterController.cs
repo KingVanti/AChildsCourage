@@ -3,6 +3,7 @@ using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Pickups;
 using Ninject.Extensions.Unity;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +21,8 @@ namespace AChildsCourage.Game.Player
         [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
         [SerializeField] private Bag itemBag;
+        [SerializeField] private ParticleSystem courageCollectParticleSystem;
+        [SerializeField] private SpriteRenderer spriteRenderer;
 
 #pragma warning restore 649
 
@@ -263,6 +266,23 @@ namespace AChildsCourage.Game.Player
                 Destroy(CurrentItemInRange);
             }
 
+
+        }
+
+        public void OnCouragePickUp(CouragePickup courage) {
+
+            var emission = courageCollectParticleSystem.emission;
+
+            switch (courage.Variant) {
+                case Floors.CourageVariant.Orb:
+                    emission.rateOverTime = 25;
+                    break;
+                case Floors.CourageVariant.Spark:
+                    emission.rateOverTime = 10;
+                    break;
+            }
+
+            courageCollectParticleSystem.Play();
 
         }
 
