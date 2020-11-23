@@ -127,13 +127,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7978117672004816450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c945581de0b70a24c9b1d472e375418b, type: 3}
+  m_Script: {fileID: 11500000, guid: 212b5941691835640a5af80167b25c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7978117671522099882}
-  testData1: {fileID: 11400000, guid: 6344af12112a8cd4cab64f8fc911dfed, type: 2}
-  testData2: {fileID: 11400000, guid: 7a1979b789401df47ab5931b86dd640e, type: 2}
-  isOrb: 1
 --- !u!198 &1745441868050171075
 ParticleSystem:
   m_ObjectHideFlags: 0
