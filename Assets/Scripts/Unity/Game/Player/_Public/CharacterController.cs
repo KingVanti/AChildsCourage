@@ -94,7 +94,7 @@ namespace AChildsCourage.Game.Player {
         /// True if the character is currently moving.
         /// </summary>
         public bool IsMoving {
-            get { return (MovingDirection != Vector2.zero) && !gettingKnockedBack; }
+            get { return (MovingDirection != Vector2.zero); }
         }
 
         private bool IsMovingBackwards {
@@ -269,11 +269,20 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Shade)) {
 
-                if (!isInvincible) {
-                    int damage = 1;
-                    StartCoroutine(Knockback(damage * _movementSpeed * 5, 0.08f));
-                    StartCoroutine(DamageTaken(2f));
-                    OnDamageReceived?.Invoke(damage);
+                if (!gettingKnockedBack) {
+                    TakingDamage(1);
+                }
+
+            }
+
+        }
+
+        private void OnTriggerStay2D(Collider2D collision) {
+
+            if (collision.CompareTag(EntityTags.Shade)) {
+
+                if (!gettingKnockedBack) {
+                    TakingDamage(1);
                 }
 
             }
@@ -287,6 +296,18 @@ namespace AChildsCourage.Game.Player {
                 CurrentItemInRange.GetComponent<ItemPickup>().ShowInfo(IsInPickupRange);
                 CurrentItemInRange = null;
             }
+
+        }
+
+        private void TakingDamage(int damage) {
+
+            StartCoroutine(Knockback(damage * _movementSpeed * 5, 0.08f));
+
+            if (!isInvincible) {
+                StartCoroutine(DamageTaken(2f));
+            }
+
+            OnDamageReceived?.Invoke(damage);
 
         }
 
@@ -312,19 +333,20 @@ namespace AChildsCourage.Game.Player {
         IEnumerator Knockback(float strength, float duration) {
 
             gettingKnockedBack = true;
-            Vector2 previousMovingDirection = MovingDirection;
+            //Vector2 previousMovingDirection = MovingDirection;
 
             if (IsMoving) {
+                Debug.Log("Hit while moving");
                 rigidbody.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
                 MovingDirection = Vector2.zero;
             } else {
-                rigidbody.AddForce(new Vector2(UnityEngine.Random.Range(-1,1), UnityEngine.Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
             }
 
             yield return new WaitForSeconds(duration);
 
             rigidbody.velocity = Vector2.zero;
-            MovingDirection = previousMovingDirection;
+            //MovingDirection = previousMovingDirection;
             gettingKnockedBack = false;
 
         }
