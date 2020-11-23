@@ -197,11 +197,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3021571848086110469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6b1d519a485dc746a513fbce2726de5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1525c85f072fd374cac4e9c22ce2c80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3021571848133841465}
-  testItem: {fileID: 11400000, guid: 48a1e5bed72fe4b4cb707f3a76aeccee, type: 2}
+  testItem: {fileID: 0}
   tutorialInfo: {fileID: 5011577725855833242}
 --- !u!114 &6331907839828243817
 MonoBehaviour:

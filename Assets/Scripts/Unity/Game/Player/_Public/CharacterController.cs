@@ -218,9 +218,9 @@ namespace AChildsCourage.Game.Player {
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs) {
 
             if (IsInPickupRange) {
-                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickup>().Id);
+                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickupEntity>().Id);
 
-                if (CurrentItemInRange.GetComponent<ItemPickup>().Id == 0) {
+                if (CurrentItemInRange.GetComponent<ItemPickupEntity>().Id == 0) {
                     HasFlashlightEquipped = true;
                 }
 
@@ -256,7 +256,7 @@ namespace AChildsCourage.Game.Player {
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = true;
                 CurrentItemInRange = collision.gameObject;
-                CurrentItemInRange.GetComponent<ItemPickup>().ShowInfo(IsInPickupRange);
+                CurrentItemInRange.GetComponent<ItemPickupEntity>().ShowInfo(IsInPickupRange);
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
@@ -281,7 +281,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = false;
-                CurrentItemInRange.GetComponent<ItemPickup>().ShowInfo(IsInPickupRange);
+                CurrentItemInRange.GetComponent<ItemPickupEntity>().ShowInfo(IsInPickupRange);
                 CurrentItemInRange = null;
             }
 

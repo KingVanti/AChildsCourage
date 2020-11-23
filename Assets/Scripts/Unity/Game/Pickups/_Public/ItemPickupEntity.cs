@@ -2,7 +2,7 @@
 
 namespace AChildsCourage.Game.Pickups
 {
-    public class ItemPickup : MonoBehaviour {
+    public class ItemPickupEntity : MonoBehaviour {
 
         #region Fields
 
