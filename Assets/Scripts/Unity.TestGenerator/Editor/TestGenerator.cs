@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.NightManagement.Loading;
+﻿using AChildsCourage.Game.NightManagement;
+using AChildsCourage.Game.NightManagement.Loading;
 using UnityEditor;
 using UnityEngine;
 

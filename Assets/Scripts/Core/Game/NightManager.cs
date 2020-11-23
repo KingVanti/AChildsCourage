@@ -1,6 +1,8 @@
-﻿using AChildsCourage.Game.NightManagement;
+﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.NightManagement;
 using AChildsCourage.Game.NightManagement.Loading;
 using AChildsCourage.Game.Persistance;
+using Ninject;
 
 namespace AChildsCourage.Game
 {
@@ -12,13 +14,19 @@ namespace AChildsCourage.Game
         #region Fields
 
         private readonly IRunStorage runStorage;
-        private readonly INightLoader nightLoader;
+        private readonly NightLoader nightLoader;
 
         #endregion
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, INightLoader nightLoader)
+        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator, IKernel kernel)
+        {
+            this.runStorage = runStorage;
+            nightLoader = NightLoading.GetDefault(roomPassagesRepository, roomRepository, floorRecreator, kernel);
+        }
+
+        public NightManager(IRunStorage runStorage, NightLoader nightLoader)
         {
             this.runStorage = runStorage;
             this.nightLoader = nightLoader;
@@ -32,7 +40,7 @@ namespace AChildsCourage.Game
         {
             var nightData = GetCurrentNightData();
 
-            nightLoader.Load(nightData);
+            nightLoader(nightData);
         }
 
         private NightData GetCurrentNightData()

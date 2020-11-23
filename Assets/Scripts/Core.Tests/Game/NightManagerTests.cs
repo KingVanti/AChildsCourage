@@ -22,9 +22,10 @@ namespace AChildsCourage.Game
             var mockRunStorage = new Mock<IRunStorage>();
             mockRunStorage.Setup(s => s.LoadCurrent()).Returns(new RunData(nightData));
 
-            var mockNightLoader = new Mock<INightLoader>();
+            var calledTimes = 0;
+            NightLoader nightLoader = _ => calledTimes++;
 
-            var nightManager = new NightManager(mockRunStorage.Object, mockNightLoader.Object);
+            var nightManager = new NightManager(mockRunStorage.Object, nightLoader);
 
             // When
 
@@ -32,7 +33,7 @@ namespace AChildsCourage.Game
 
             // Then
 
-            mockNightLoader.Verify(s => s.Load(nightData), Times.Once, "No or incorrect night-data was loaded!");
+            Assert.That(calledTimes, Is.EqualTo(1), "No or incorrect night-data was loaded!");
         }
 
         #endregion
