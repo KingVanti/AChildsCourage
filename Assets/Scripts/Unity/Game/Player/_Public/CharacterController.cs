@@ -21,6 +21,7 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Bag itemBag;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Rigidbody2D rigidbody;
 
 #pragma warning restore 649
 
@@ -264,13 +265,17 @@ namespace AChildsCourage.Game.Player {
             }
 
             if (collision.CompareTag(EntityTags.Shade)) {
-                int damage = 1;
-                StartCoroutine(DamageTaken(2f));
-                OnDamageReceived?.Invoke(damage);
+
+                if (!isInvincible) {
+                    int damage = 1;
+                    StartCoroutine(Knockback(7, 0.16f));
+                    StartCoroutine(DamageTaken(2f));
+                    OnDamageReceived?.Invoke(damage);
+                }
+
             }
 
         }
-
 
         private void OnTriggerExit2D(Collider2D collision) {
 
@@ -299,6 +304,12 @@ namespace AChildsCourage.Game.Player {
 
             isInvincible = false;
             
+        }
+
+        IEnumerator Knockback(float strength, float duration) {
+            rigidbody.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(duration);
+            rigidbody.velocity = Vector2.zero;
         }
 
         #endregion
