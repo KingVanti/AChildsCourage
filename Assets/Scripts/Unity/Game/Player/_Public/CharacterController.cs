@@ -35,6 +35,7 @@ namespace AChildsCourage.Game.Player {
 
         private bool _hasFlashlightEquipped = false;
         private bool isInvincible = false;
+        private bool gettingKnockedBack = false;
 
         [Header("Events")]
         public Vector2Event OnPositionChanged;
@@ -93,7 +94,7 @@ namespace AChildsCourage.Game.Player {
         /// True if the character is currently moving.
         /// </summary>
         public bool IsMoving {
-            get { return MovingDirection != Vector2.zero; }
+            get { return (MovingDirection != Vector2.zero) && !gettingKnockedBack; }
         }
 
         private bool IsMovingBackwards {
@@ -207,7 +208,9 @@ namespace AChildsCourage.Game.Player {
         }
 
         private void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs) {
-            MovingDirection = eventArgs.MoveDirection;
+            if (!gettingKnockedBack) {
+                MovingDirection = eventArgs.MoveDirection;
+            }
         }
 
 
@@ -268,7 +271,7 @@ namespace AChildsCourage.Game.Player {
 
                 if (!isInvincible) {
                     int damage = 1;
-                    StartCoroutine(Knockback(7, 0.16f));
+                    StartCoroutine(Knockback(damage * _movementSpeed * 5, 0.08f));
                     StartCoroutine(DamageTaken(2f));
                     OnDamageReceived?.Invoke(damage);
                 }
@@ -295,7 +298,7 @@ namespace AChildsCourage.Game.Player {
             Color f = spriteRenderer.color;
             Color g = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
 
-            for (int i = 0; i<steps; i++) {
+            for (int i = 0; i < steps; i++) {
                 spriteRenderer.color = g;
                 yield return new WaitForSeconds(duration / 2 / steps);
                 spriteRenderer.color = f;
@@ -303,13 +306,27 @@ namespace AChildsCourage.Game.Player {
             }
 
             isInvincible = false;
-            
+
         }
 
         IEnumerator Knockback(float strength, float duration) {
-            rigidbody.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
+
+            gettingKnockedBack = true;
+            Vector2 previousMovingDirection = MovingDirection;
+
+            if (IsMoving) {
+                rigidbody.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
+                MovingDirection = Vector2.zero;
+            } else {
+                rigidbody.AddForce(new Vector2(UnityEngine.Random.Range(-1,1), UnityEngine.Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
+            }
+
             yield return new WaitForSeconds(duration);
+
             rigidbody.velocity = Vector2.zero;
+            MovingDirection = previousMovingDirection;
+            gettingKnockedBack = false;
+
         }
 
         #endregion
