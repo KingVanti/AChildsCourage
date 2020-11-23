@@ -6,15 +6,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class RoomPassageUplooking
     {
 
-        internal static RoomPassageLookup GetDefault(FloorPlanBuilder builder)
+        internal static RoomPassageLookup GetDefault(FloorPlanInProgress floorPlan)
         {
-            return position => RoomPassageUplooking.Lookup(builder, position);
+            return position => Lookup(floorPlan, position);
         }
 
 
-        internal static RoomPassages Lookup(FloorPlanBuilder builder, ChunkPosition position)
+        internal static RoomPassages Lookup(FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return builder.RoomsByChunks[position];
+            return floorPlan.RoomsByChunks[position];
         }
 
     }

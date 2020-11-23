@@ -12,19 +12,19 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class RoomPlacing
     {
 
-        internal static RoomPlacer GetDefault(FloorPlanBuilder builder)
+        internal static RoomPlacer GetDefault(FloorPlanInProgress floorPlan)
         {
-            return (position, room) => PlaceRoom(builder, position, room);
+            return (position, room) => PlaceRoom(floorPlan, position, room);
         }
 
 
-        internal static void PlaceRoom(FloorPlanBuilder builder, ChunkPosition chunkPosition, RoomPassages roomPassages)
+        internal static void PlaceRoom(FloorPlanInProgress floorPlan, ChunkPosition chunkPosition, RoomPassages roomPassages)
         {
-            builder.RoomsByChunks.Add(chunkPosition, roomPassages);
-            builder.ReservedChunks.Remove(chunkPosition);
+            floorPlan.RoomsByChunks.Add(chunkPosition, roomPassages);
+            floorPlan.ReservedChunks.Remove(chunkPosition);
 
-            Func<ChunkPosition, bool> canReserve = p => builder.CanReserve(p);
-            Action<ChunkPosition> reserve = p => builder.ReservedChunks.Add(p);
+            Func<ChunkPosition, bool> canReserve = p => floorPlan.CanReserve(p);
+            Action<ChunkPosition> reserve = p => floorPlan.ReservedChunks.Add(p);
 
             chunkPosition.ReserveChunksAround(canReserve, reserve);
         }
@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             chunkPosition
                 .GetSurroundingPositions()
                 .Where(canReserve)
-                .AllInto(reserve);
+                .ForEach(reserve);
         }
 
         internal static IEnumerable<ChunkPosition> GetSurroundingPositions(this ChunkPosition position)
@@ -45,53 +45,53 @@ namespace AChildsCourage.Game.NightManagement.Loading
             yield return new ChunkPosition(position.X - 1, position.Y);
         }
 
-        internal static bool CanReserve(this FloorPlanBuilder builder, ChunkPosition position)
+        internal static bool CanReserve(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            var isReserved = builder.HasReserved(position);
-            var isEmpty = IsEmpty(builder, position);
-            var isConnected = builder.AnyPassagesLeadInto(position);
+            var isReserved = floorPlan.HasReserved(position);
+            var isEmpty = IsEmpty(floorPlan, position);
+            var isConnected = floorPlan.AnyPassagesLeadInto(position);
 
             return !isReserved && isEmpty && isConnected;
         }
 
-        internal static bool HasReserved(this FloorPlanBuilder builder, ChunkPosition position)
+        internal static bool HasReserved(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return builder.ReservedChunks.Contains(position);
+            return floorPlan.ReservedChunks.Contains(position);
         }
 
-        internal static bool AnyPassagesLeadInto(this FloorPlanBuilder builder, ChunkPosition position)
+        internal static bool AnyPassagesLeadInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return builder.GetPassagesInto(position).Count > 0;
+            return floorPlan.GetPassagesInto(position).Count > 0;
         }
 
-        private static ChunkPassages GetPassagesInto(this FloorPlanBuilder builder, ChunkPosition position)
+        private static ChunkPassages GetPassagesInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            var hasNorth = builder.HasPassage(position, PassageDirection.North);
-            var hasEast = builder.HasPassage(position, PassageDirection.East);
-            var hasSouth = builder.HasPassage(position, PassageDirection.South);
-            var hasWest = builder.HasPassage(position, PassageDirection.West);
+            var hasNorth = floorPlan.HasPassage(position, PassageDirection.North);
+            var hasEast = floorPlan.HasPassage(position, PassageDirection.East);
+            var hasSouth = floorPlan.HasPassage(position, PassageDirection.South);
+            var hasWest = floorPlan.HasPassage(position, PassageDirection.West);
 
             return new ChunkPassages(hasNorth, hasEast, hasSouth, hasWest);
         }
 
-        private static bool HasPassage(this FloorPlanBuilder builder, ChunkPosition position, PassageDirection direction)
+        private static bool HasPassage(this FloorPlanInProgress floorPlan, ChunkPosition position, PassageDirection direction)
         {
             var positionInDirection = MoveToAdjacentChunk(position, direction);
 
-            if (IsEmpty(builder, positionInDirection))
+            if (IsEmpty(floorPlan, positionInDirection))
                 return false;
 
-            var roomAtPosition = builder.GetPassagesAt(positionInDirection);
+            var roomAtPosition = floorPlan.GetPassagesAt(positionInDirection);
 
             return
-                Pipe(direction)
-                .Into(Invert)
-                .Then().Into(roomAtPosition.Passages.Has);
+                Take(direction)
+                .Map(Invert)
+                .Map(roomAtPosition.Passages.Has);
         }
 
-        private static RoomPassages GetPassagesAt(this FloorPlanBuilder builder, ChunkPosition position)
+        private static RoomPassages GetPassagesAt(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return builder.RoomsByChunks[position];
+            return floorPlan.RoomsByChunks[position];
         }
 
     }

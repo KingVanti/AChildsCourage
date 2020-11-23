@@ -10,11 +10,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static FloorPlanCreator GetDefault()
         {
-            return builder =>
+            return floorPlan =>
             {
-                var roomPlanCreator = RoomPlanCreating.GetDefault(builder);
+                var roomPlanCreator = RoomPlanCreating.GetDefault(floorPlan);
 
-                return CreateFloorPlan(builder.RoomsByChunks.Keys, roomPlanCreator);
+                return CreateFloorPlan(floorPlan.RoomsByChunks.Keys, roomPlanCreator);
             };
         }
 
@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         internal static FloorPlan CreateFloorPlan(IEnumerable<ChunkPosition> chunkPositions, RoomPlanCreator roomPlanCreator) =>
             chunkPositions
             .Select(roomPlanCreator.Invoke)
-            .Into(ConvertToFloorPlan);
+            .Map(ConvertToFloorPlan);
 
         internal static FloorPlan ConvertToFloorPlan(IEnumerable<RoomPlan> roomPlans) =>
             new FloorPlan(roomPlans.ToArray());

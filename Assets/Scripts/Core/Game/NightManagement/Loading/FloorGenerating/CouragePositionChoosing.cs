@@ -16,9 +16,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static CouragePositionChooser GetDefault()
         {
-            return builder =>
+            return floor =>
             {
-                return ChooseCourageOrbPositions(builder.CourageOrbPositions, CourageOrbCount);
+                return ChooseCourageOrbPositions(floor.CourageOrbPositions, CourageOrbCount);
             };
         }
 
@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             };
 
             return
-                Pipe(new List<TilePosition>())
+                Take(new List<TilePosition>())
                 .RepeatFor(addNext, orbCount);
         }
 
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             Func<TilePosition, float> weight = p => CalculateCourageOrbWeight(p, taken);
 
             return
-                Pipe(positions)
+                Take(positions)
                 .Where(isNotTaken)
                 .OrderByDescending(weight)
                 .First();

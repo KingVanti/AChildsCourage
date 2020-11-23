@@ -22,15 +22,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(0, 0),
                 new TilePosition(1, 0)
             };
-            var builder = new FloorBuilder();
-            positions.AllInto(builder.GroundPositions.Add);
+            var floorInProgress = new FloorInProgress();
+            positions.ForEach(floorInProgress.GroundPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
             CouragePositionChooser couragePositionChooser = _ => Enumerable.Empty<TilePosition>();
 
             // When
 
-            var floor = CreateFloor(builder, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
 
             // Then
 
@@ -47,8 +47,8 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(0, 0),
                 new TilePosition(1, 0)
             };
-            var builder = new FloorBuilder();
-            positions.AllInto(builder.WallPositions.Add);
+            var floorInProgress = new FloorInProgress();
+            positions.Select(floorInProgress.WallPositions.Add);
 
             var expected = new[]
             {
@@ -60,7 +60,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            var floor = CreateFloor(builder, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
 
             // Then
 
@@ -77,15 +77,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(0, 0),
                 new TilePosition(1, 0)
             };
-            var builder = new FloorBuilder();
-            positions.AllInto(builder.CourageOrbPositions.Add);
+            var floorInProgress = new FloorInProgress();
+            positions.Select(floorInProgress.CourageOrbPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
             CouragePositionChooser couragePositionChooser = _ => positions;
 
             // When
 
-            var floor = CreateFloor(builder, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
 
             // Then
 

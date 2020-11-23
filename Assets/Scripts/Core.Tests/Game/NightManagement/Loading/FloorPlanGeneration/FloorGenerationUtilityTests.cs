@@ -97,11 +97,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
+            var floorPlan = new FloorPlanInProgress();
 
             // When
 
-            var isEmpty = IsEmpty(builder, new ChunkPosition(0, 0));
+            var isEmpty = IsEmpty(floorPlan, new ChunkPosition(0, 0));
 
             // Then
 
@@ -114,12 +114,12 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
-            builder.RoomsByChunks.Add(new ChunkPosition(0, 0), new RoomPassages());
+            var floorPlan = new FloorPlanInProgress();
+            floorPlan.RoomsByChunks.Add(new ChunkPosition(0, 0), new RoomPassages());
 
             // When
 
-            var isEmpty = IsEmpty(builder, new ChunkPosition(0, 0));
+            var isEmpty = IsEmpty(floorPlan, new ChunkPosition(0, 0));
 
             // Then
 
@@ -132,14 +132,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
+            var floorPlan = new FloorPlanInProgress();
 
-            builder.RoomsByChunks.Add(new ChunkPosition(0, 0), new RoomPassages());
-            builder.RoomsByChunks.Add(new ChunkPosition(1, 0), new RoomPassages());
+            floorPlan.RoomsByChunks.Add(new ChunkPosition(0, 0), new RoomPassages());
+            floorPlan.RoomsByChunks.Add(new ChunkPosition(1, 0), new RoomPassages());
 
             // When
 
-            var roomCount = CountRooms(builder);
+            var roomCount = CountRooms(floorPlan);
 
             // Then
 

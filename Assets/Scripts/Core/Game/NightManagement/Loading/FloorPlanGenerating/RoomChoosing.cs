@@ -11,14 +11,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static RoomChooser GetDefault(IRoomPassagesRepository roomPassagesRepository, IRNG rng)
         {
-            return (builder, position) => ChooseNextRoom(position, builder, roomPassagesRepository, rng);
+            return (floorPlan, position) => ChooseNextRoom(position, floorPlan, roomPassagesRepository, rng);
         }
 
 
-        internal static RoomPassages ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanBuilder builder, IRoomPassagesRepository roomPassagesRepository, IRNG rng)
+        internal static RoomPassages ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IRoomPassagesRepository roomPassagesRepository, IRNG rng)
         {
             return chunkPosition
-                .CreateFilter(builder)
+                .CreateFilter(floorPlan)
                 .FilterRoomsIn(roomPassagesRepository)
                 .ChooseRandom(rng);
         }
@@ -33,16 +33,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return roomPassages.GetRandom(rng);
         }
 
-        private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanBuilder builder)
+        private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanInProgress floorPlan)
         {
             var phase =
-                Pipe(builder)
-                .Into(CountRooms)
-                .Then().Into(GetCurrentPhase);
+                Take(floorPlan)
+                .Map(CountRooms)
+                .Map(GetCurrentPhase);
 
             var roomType = GetFilteredRoomTypeFor(phase);
-            var remainingRooms = builder.GetRemainingRoomCount();
-            var passageFilter = builder.GetPassageFilterFor(position);
+            var remainingRooms = floorPlan.GetRemainingRoomCount();
+            var passageFilter = floorPlan.GetPassageFilterFor(position);
 
             return new RoomPassageFilter(roomType, remainingRooms, passageFilter);
         }
@@ -52,14 +52,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return (RoomType)(int)buildingPhase;
         }
 
-        internal static int GetRemainingRoomCount(this FloorPlanBuilder builder)
+        internal static int GetRemainingRoomCount(this FloorPlanInProgress floorPlan)
         {
-            return GoalRoomCount - (CountRooms(builder) + builder.ReservedChunks.Count);
+            return GoalRoomCount - (CountRooms(floorPlan) + floorPlan.ReservedChunks.Count);
         }
 
-        private static ChunkPassageFilter GetPassageFilterFor(this FloorPlanBuilder builder, ChunkPosition position)
+        private static ChunkPassageFilter GetPassageFilterFor(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            PassageFilter GetPassageFilter(PassageDirection p) => GetFilterFor(builder, position, p);
+            PassageFilter GetPassageFilter(PassageDirection p) => GetFilterFor(floorPlan, position, p);
 
             var north = GetPassageFilter(PassageDirection.North);
             var east = GetPassageFilter(PassageDirection.East);
@@ -69,18 +69,18 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return new ChunkPassageFilter(north, east, south, west);
         }
 
-        private static PassageFilter GetFilterFor(this FloorPlanBuilder builder, ChunkPosition position, PassageDirection direction)
+        private static PassageFilter GetFilterFor(this FloorPlanInProgress floorPlan, ChunkPosition position, PassageDirection direction)
         {
             var positionInDirection = MoveToAdjacentChunk(position, direction);
 
-            if (IsEmpty(builder, positionInDirection))
+            if (IsEmpty(floorPlan, positionInDirection))
                 return PassageFilter.Open;
 
-            var roomAtPosition = builder.RoomsByChunks[positionInDirection];
+            var roomAtPosition = floorPlan.RoomsByChunks[positionInDirection];
             var hasPassage =
-                Pipe(direction)
-               .Into(Invert)
-               .Then().Into(roomAtPosition.Passages.Has);
+                Take(direction)
+               .Map(Invert)
+               .Map(roomAtPosition.Passages.Has);
 
             return hasPassage ? PassageFilter.Passage : PassageFilter.NoPassage;
         }

@@ -152,12 +152,12 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
-            builder.GroundPositions.Add(new TilePosition(0, 0));
+            var floor = new FloorInProgress();
+            floor.GroundPositions.Add(new TilePosition(0, 0));
 
             // When
 
-            var hasGround = builder.HasGroundAt(new TilePosition(0, 0));
+            var hasGround = floor.HasGroundAt(new TilePosition(0, 0));
 
             // Then
 
@@ -169,11 +169,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
 
             // When
 
-            var hasGround = builder.HasGroundAt(new TilePosition(0, 0));
+            var hasGround = floor.HasGroundAt(new TilePosition(0, 0));
 
             // Then
 

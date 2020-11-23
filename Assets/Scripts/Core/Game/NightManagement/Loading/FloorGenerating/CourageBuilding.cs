@@ -11,22 +11,25 @@ namespace AChildsCourage.Game.NightManagement.Loading
     internal static class CourageBuilding
     {
 
-        internal static CourageBuilder GetDefault()
+        internal static CourageBuilder GetDefault(TileTransformer transformer)
         {
-            return BuildCourage;
+            return (pickups, floor) =>
+            {
+                return BuildCourage(transformer, pickups, floor);
+            };
         }
 
 
-        internal static FloorBuilder BuildCourage(FloorBuilder builder, CouragePickupData[] pickups, TileTransformer transformer)
+        internal static FloorInProgress BuildCourage(TileTransformer transformer,CouragePickupData[] pickups, FloorInProgress floor)
         {
             Func<CouragePickupData, CouragePickupData> transformed = pickup => TransformCouragePickup(pickup, transformer);
-            Action<CouragePickupData> place = pickup => PlacePickup(pickup, builder);
+            Action<CouragePickupData> place = pickup => PlacePickup(pickup, floor);
 
-            Pipe(pickups)
+            Take(pickups)
             .Select(transformed)
-            .AllInto(place);
+            .ForEach(place);
 
-            return builder;
+            return floor;
         }
 
         internal static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TileTransformer transformer)
@@ -41,15 +44,15 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return new CouragePickupData(position, pickup.Variant);
         }
 
-        internal static void PlacePickup(CouragePickupData pickup, FloorBuilder builder)
+        internal static void PlacePickup(CouragePickupData pickup, FloorInProgress floor)
         {
             switch (pickup.Variant)
             {
                 case CourageVariant.Orb:
-                    builder.CourageOrbPositions.Add(pickup.Position);
+                    floor.CourageOrbPositions.Add(pickup.Position);
                     break;
                 case CourageVariant.Spark:
-                    builder.CourageSparkPositions.Add(pickup.Position);
+                    floor.CourageSparkPositions.Add(pickup.Position);
                     break;
             }
         }

@@ -37,10 +37,10 @@ namespace AChildsCourage.Game.NightManagement.Loading
         #region Methods
 
         public void Load(NightData nightData) =>
-            Pipe(nightData.Seed)
-            .Into(floorPlanGenerator.Invoke)
-            .Into(floorGenerator.Invoke)
-            .Into(nightRecreator.Invoke);
+            Take(nightData.Seed)
+            .Map(floorPlanGenerator.Invoke)
+            .Map(floorGenerator.Invoke)
+            .Do(nightRecreator.Invoke);
 
         #endregion
 

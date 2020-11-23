@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
             var pickups = new[]
             {
                 new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb),
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // When
 
-            BuildCourage(builder, pickups, transformer);
+            BuildCourage(transformer, pickups, floor);
 
             // Then
 
@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new TilePosition(0, 1),
                 new TilePosition(1, 1)
             };
-            Assert.That(builder.CourageOrbPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
+            Assert.That(floor.CourageOrbPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
 
@@ -96,16 +96,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
 
             // When
 
-            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb), builder);
+            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb), floor);
 
             // Then
 
-            Assert.That(builder.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to spark list!");
-            Assert.That(builder.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to orb list!");
+            Assert.That(floor.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to spark list!");
+            Assert.That(floor.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to orb list!");
         }
 
         [Test]
@@ -113,16 +113,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorBuilder();
+            var floor = new FloorInProgress();
 
             // When
 
-            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Spark), builder);
+            PlacePickup(new CouragePickupData(new TilePosition(0, 0), CourageVariant.Spark), floor);
 
             // Then
 
-            Assert.That(builder.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to spark list!");
-            Assert.That(builder.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to orb list!");
+            Assert.That(floor.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to spark list!");
+            Assert.That(floor.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to orb list!");
         }
 
         #endregion

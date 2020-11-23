@@ -7,21 +7,21 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
-    internal delegate FloorBuilder RoomBuilder(FloorBuilder builder, RoomForFloor room);
+    internal delegate FloorInProgress RoomBuilder(FloorInProgress floor, RoomForFloor room);
 
     internal delegate TilePosition TileTransformer(TilePosition position);
 
-    internal delegate FloorBuilder ContentBuilder(FloorBuilder builder, RoomContentData content, TileTransformer transformer);
+    internal delegate FloorInProgress ContentBuilder(RoomContentData content, FloorInProgress floor);
 
-    internal delegate FloorBuilder GroundBuilder(FloorBuilder builder, GroundTileData[] tiles, TileTransformer transformer);
+    internal delegate FloorInProgress GroundBuilder(GroundTileData[] tiles, FloorInProgress floor);
 
-    internal delegate FloorBuilder CourageBuilder(FloorBuilder builder, CouragePickupData[] pickups, TileTransformer transformer);
+    internal delegate FloorInProgress CourageBuilder(CouragePickupData[] pickups, FloorInProgress floor);
 
-    internal delegate IEnumerable<Wall> WallGenerator(FloorBuilder builder);
+    internal delegate IEnumerable<Wall> WallGenerator(FloorInProgress floor);
 
-    internal delegate IEnumerable<TilePosition> CouragePositionChooser(FloorBuilder builder);
+    internal delegate IEnumerable<TilePosition> CouragePositionChooser(FloorInProgress floor);
 
-    internal delegate Floor FloorCreator(FloorBuilder builder);
+    internal delegate Floor FloorCreator(FloorInProgress floor);
 
 
     public class RoomForFloor
@@ -64,25 +64,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     }
 
-    internal class FloorBuilder
+    internal class FloorInProgress
     {
 
-        internal HashSet<TilePosition> GroundPositions { get; }
+        internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> WallPositions { get; }
+        internal HashSet<TilePosition> WallPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageOrbPositions { get; }
+        internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageSparkPositions { get; }
-
-
-        internal FloorBuilder()
-        {
-            GroundPositions = new HashSet<TilePosition>();
-            WallPositions = new HashSet<TilePosition>();
-            CourageOrbPositions = new HashSet<TilePosition>();
-            CourageSparkPositions = new HashSet<TilePosition>();
-        }
+        internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
 
     }
 

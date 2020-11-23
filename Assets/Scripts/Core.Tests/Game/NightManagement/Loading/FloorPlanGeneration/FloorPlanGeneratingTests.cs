@@ -14,11 +14,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
+            var floorPlan = new FloorPlanInProgress();
 
             // When
 
-            var needsMoreRooms = NeedsMoreRooms(builder);
+            var needsMoreRooms = NeedsMoreRooms(floorPlan);
 
             // Then
 
@@ -30,12 +30,12 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             // Given
 
-            var builder = new FloorPlanBuilder();
-            Enumerable.Range(0, GoalRoomCount).AllInto(i => builder.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
+            var floorPlan = new FloorPlanInProgress();
+            Enumerable.Range(0, GoalRoomCount).ForEach(i => floorPlan.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
 
             // When
 
-            var needsMoreRooms = NeedsMoreRooms(builder);
+            var needsMoreRooms = NeedsMoreRooms(floorPlan);
 
             // Then
 
