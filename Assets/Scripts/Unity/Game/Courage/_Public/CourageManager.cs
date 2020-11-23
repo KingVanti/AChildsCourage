@@ -77,9 +77,9 @@ namespace AChildsCourage.Game.Courage
 
         }
 
-        public void Subtract(CouragePickup pickedUpCourage) {
+        public void Subtract(int value) {
 
-            CurrentNightCourage -= pickedUpCourage.Value;
+            CurrentNightCourage -= value;
 
             if (CurrentNightCourage < 0) {
                 CurrentNightCourage = 0;
