@@ -24,6 +24,11 @@
         /// </summary>
         internal const string Courage = "Courage";
 
+        /// <summary>
+        /// Unity tag for the Shade entity
+        /// </summary>
+        internal const string Shade = "Shade";
+
     }
 
 }
