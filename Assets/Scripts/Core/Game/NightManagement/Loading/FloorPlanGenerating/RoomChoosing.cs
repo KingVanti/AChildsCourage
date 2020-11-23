@@ -1,6 +1,6 @@
 ﻿using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightManagement.Loading.FloorGenerationUtility;
+using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightManagement.Loading

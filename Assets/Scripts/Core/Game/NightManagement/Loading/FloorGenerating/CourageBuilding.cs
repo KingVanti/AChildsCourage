@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        internal static FloorInProgress BuildCourage(TileTransformer transformer,CouragePickupData[] pickups, FloorInProgress floor)
+        internal static FloorInProgress BuildCourage(TileTransformer transformer, CouragePickupData[] pickups, FloorInProgress floor)
         {
             Func<CouragePickupData, CouragePickupData> transformed = pickup => TransformCouragePickup(pickup, transformer);
             Action<CouragePickupData> place = pickup => PlacePickup(pickup, floor);

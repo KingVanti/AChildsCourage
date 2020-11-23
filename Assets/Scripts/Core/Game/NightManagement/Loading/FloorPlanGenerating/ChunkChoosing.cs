@@ -3,7 +3,7 @@ using System.Linq;
 using System.Numerics;
 
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightManagement.Loading.FloorGenerationUtility;
+using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {

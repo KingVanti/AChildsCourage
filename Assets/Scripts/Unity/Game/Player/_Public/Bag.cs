@@ -56,7 +56,7 @@ namespace AChildsCourage.Game.Player
                 itemPickUpEvent?.Invoke();
             } else {
                 GameObject droppedItem = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
-                droppedItem.GetComponent<ItemPickup>().SetItemData(pickupRepository.GetSpecificItem(currentItems[slotId].Id));
+                droppedItem.GetComponent<ItemPickupEntity>().SetItemData(pickupRepository.GetSpecificItem(currentItems[slotId].Id));
                 itemDroppedEvent?.Invoke();
                 currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
                 itemPickUpEvent?.Invoke();
