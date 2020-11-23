@@ -122,7 +122,7 @@ public class FmodPlayer : MonoBehaviour
         FMODUnity.RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
     }
 
-    public void PlayCouragePickUp(CouragePickup couragePickup)
+    public void PlayCouragePickUp(CouragePickupEntity couragePickup)
     {
         
         switch (couragePickup.Variant)

@@ -69,9 +69,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
             pickup.SetCouragePickupData(pickupData);
         }
 
-        private CouragePickup SpawnCouragePickup(TilePosition tilePosition)
+        private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition)
         {
-            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity).GetComponent<CouragePickup>();
+            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity).GetComponent<CouragePickupEntity>();
         }
 
         #endregion

@@ -67,7 +67,7 @@ namespace AChildsCourage.Game.Courage
 
         }
 
-        public void Add(CouragePickup pickedUpCourage) {
+        public void Add(CouragePickupEntity pickedUpCourage) {
 
             CurrentNightCourage += pickedUpCourage.Value;
 

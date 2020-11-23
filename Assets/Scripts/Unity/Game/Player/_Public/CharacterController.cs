@@ -230,7 +230,7 @@ namespace AChildsCourage.Game.Player {
 
         }
 
-        public void OnCouragePickUp(CouragePickup courage) {
+        public void OnCouragePickUp(CouragePickupEntity courage) {
 
             var emission = courageCollectParticleSystem.emission;
 
@@ -260,7 +260,7 @@ namespace AChildsCourage.Game.Player {
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
-                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickup>());
+                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
                 Destroy(collision.gameObject);
             }
 
@@ -329,7 +329,7 @@ namespace AChildsCourage.Game.Player {
         public class PickUpEvent : UnityEvent<int, int> { }
 
         [Serializable]
-        public class CouragePickUpEvent : UnityEvent<CouragePickup> { }
+        public class CouragePickUpEvent : UnityEvent<CouragePickupEntity> { }
 
         #endregion
 
