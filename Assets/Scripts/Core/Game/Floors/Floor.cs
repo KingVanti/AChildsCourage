@@ -8,19 +8,19 @@ namespace AChildsCourage.Game.Floors
 
         #region Properties
 
-        internal IEnumerable<TilePosition> GroundTilePositions { get; }
+        internal HashSet<GroundTile> GroundTiles { get; }
 
-        internal IEnumerable<Wall> Walls { get; }
+        internal HashSet<Wall> Walls { get; }
 
-        internal IEnumerable<TilePosition> CourageOrbPositions { get; }
+        internal HashSet<TilePosition> CourageOrbPositions { get; }
 
         #endregion
 
         #region Constructors
 
-        public Floor(IEnumerable<TilePosition> groundTilePositions, IEnumerable<Wall> walls, IEnumerable<TilePosition> courageOrbPositions)
+        public Floor(IEnumerable<GroundTile> groundTiles, IEnumerable<Wall> walls, IEnumerable<TilePosition> courageOrbPositions)
         {
-            GroundTilePositions = new HashSet<TilePosition>(groundTilePositions);
+            GroundTiles = new HashSet<GroundTile>(groundTiles);
             Walls = new HashSet<Wall>(walls);
             CourageOrbPositions = new HashSet<TilePosition>(courageOrbPositions);
         }

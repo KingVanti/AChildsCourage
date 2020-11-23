@@ -20,14 +20,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         public void Recreate(Floor floor)
         {
-            floor.GroundTilePositions.ForEach(PlaceGround);
+            floor.GroundTiles.ForEach(PlaceGround);
             floor.Walls.ForEach(PlaceWall);
             floor.CourageOrbPositions.ForEach(PlaceCourageOrb);
         }
 
-        internal void PlaceGround(TilePosition position)
+        internal void PlaceGround(GroundTile groundTile)
         {
-            OnGroundPlaced?.Invoke(this, new GroundPlacedEventArgs(position));
+            OnGroundPlaced?.Invoke(this, new GroundPlacedEventArgs(groundTile.Position));
         }
 
         internal void PlaceWall(Wall wall)

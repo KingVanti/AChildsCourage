@@ -42,10 +42,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
             // When
 
             var position = new TilePosition(0, 0);
+            var groundTile = new GroundTile(position);
             var eventArgs = ListenFor
                 .First<GroundPlacedEventArgs>()
                 .From(recreator)
-                .During(() => recreator.PlaceGround(position));
+                .During(() => recreator.PlaceGround(groundTile));
 
             // Then
 

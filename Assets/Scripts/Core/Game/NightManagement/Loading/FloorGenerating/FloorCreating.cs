@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using System.Linq;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {
@@ -20,11 +21,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
         internal static Floor CreateFloor(FloorInProgress floor, WallGenerator generateWalls, CouragePositionChooser chooseCouragePositions)
         {
-            var groundTilePosition = floor.GroundPositions;
+            var groundTiles = floor.GroundPositions.Select(p => new GroundTile(p));
             var walls = generateWalls(floor);
             var courageOrbPositions = chooseCouragePositions(floor);
 
-            return new Floor(groundTilePosition, walls, courageOrbPositions);
+            return new Floor(groundTiles, walls, courageOrbPositions);
         }
 
     }

@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
             // Then
 
-            Assert.That(floor.GroundTilePositions, Is.EqualTo(positions), "Positions incorrectly copied!");
+            Assert.That(floor.GroundTiles.Select(t => t.Position), Is.EqualTo(positions), "Positions incorrectly copied!");
         }
 
         [Test]
