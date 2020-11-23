@@ -22,12 +22,16 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        internal static Floor Generate(FloorInProgress floor, FloorPlan floorPlan, RoomLoader roomLoader, RoomBuilder roomBuilder, FloorCreator floorCreator) =>
+        internal static Floor Generate(FloorInProgress floor, FloorPlan floorPlan, RoomLoader loadRooms, RoomBuilder buildRoom, FloorCreator createFloor)
+        {
             Take(floorPlan)
-            .Map(roomLoader.Invoke)
-            .Select(room => roomBuilder(floor, room))
-            .ThenTake(floor)
-            .Map(floorCreator.Invoke);
+            .Map(loadRooms.Invoke)
+            .ForEach(room => buildRoom(floor, room));
+
+            return
+                Take(floor)
+                .Map(createFloor.Invoke);
+        }
 
     }
 
