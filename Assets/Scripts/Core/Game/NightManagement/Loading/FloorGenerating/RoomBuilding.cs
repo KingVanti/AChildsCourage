@@ -20,9 +20,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        private static FloorInProgress BuildRoom(ContentBuilder tileBuilder, FloorInProgress floor, RoomForFloor room)
+        private static FloorInProgress BuildRoom(ContentBuilder contentBuilder, FloorInProgress floor, RoomForFloor room)
         {
-            return tileBuilder(room.Content, floor);
+            return contentBuilder(room.Content, floor);
         }
 
         internal static ChunkTransform ToChunkTransform(RoomTransform transform)

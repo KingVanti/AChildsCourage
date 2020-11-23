@@ -18,11 +18,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
 
-        internal static Floor CreateFloor(FloorInProgress floor, WallGenerator wallGenerator, CouragePositionChooser couragePositionChooser)
+        internal static Floor CreateFloor(FloorInProgress floor, WallGenerator generateWalls, CouragePositionChooser chooseCouragePositions)
         {
             var groundTilePosition = floor.GroundPositions;
-            var walls = wallGenerator(floor);
-            var courageOrbPositions = couragePositionChooser(floor);
+            var walls = generateWalls(floor);
+            var courageOrbPositions = chooseCouragePositions(floor);
 
             return new Floor(groundTilePosition, walls, courageOrbPositions);
         }
