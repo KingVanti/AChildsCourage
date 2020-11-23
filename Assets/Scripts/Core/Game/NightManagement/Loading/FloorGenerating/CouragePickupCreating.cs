@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
+using static AChildsCourage.Game.NightManagement.Loading.FloorGeneratingUtility;
+
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightManagement.Loading
@@ -101,20 +103,6 @@ namespace AChildsCourage.Game.NightManagement.Loading
             var distanceToClosestWeight = distanceToClosest > 0 ? 1f / distanceToClosest : 0;
 
             return (float)(distanceOriginWeight + distanceToClosestWeight);
-        }
-
-
-        internal static float GetDistanceFromOrigin(TilePosition position)
-        {
-            return (float)new Vector2(position.X, position.Y).Length();
-        }
-
-
-        internal static float GetDistanceBetween(TilePosition p1, TilePosition p2)
-        {
-            return Vector2.Distance(
-                new Vector2(p1.X, p1.Y),
-                new Vector2(p2.X, p2.Y));
         }
 
     }

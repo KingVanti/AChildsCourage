@@ -21,6 +21,10 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate IEnumerable<CouragePickup> CouragePickupCreator(FloorInProgress floor);
 
+    internal delegate IEnumerable<int> ItemIdLoader();
+
+    internal delegate IEnumerable<ItemPickup> ItemPickupCreator(FloorInProgress floor);
+
     internal delegate Floor FloorCreator(FloorInProgress floor);
 
 
@@ -74,6 +78,8 @@ namespace AChildsCourage.Game.NightManagement.Loading
         internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
 
         internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
+
+        internal HashSet<TilePosition> ItemPickupPositions { get; } = new HashSet<TilePosition>();
 
     }
 
