@@ -177,9 +177,9 @@ MonoBehaviour:
   itemSwappedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: OnItemSwapInventory
+      - m_Target: {fileID: 703323583}
+        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
+        m_MethodName: PlayItemSwap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -189,9 +189,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlayItemSwap
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
+        m_MethodName: SwapItems
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -432,7 +432,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7114108144791067237, guid: 069c3dd225271344cb7dfd4000e2655a, type: 3}
-  m_Color: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
+  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -958,7 +958,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.045
+      scalar: 0.025
       minScalar: 1
       maxCurve:
         serializedVersion: 2

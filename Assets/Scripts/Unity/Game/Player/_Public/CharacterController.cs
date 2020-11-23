@@ -251,7 +251,6 @@ namespace AChildsCourage.Game.Player
             OnUseItem?.Invoke(eventArgs.SlotId);
         }
 
-
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs)
         {
 
