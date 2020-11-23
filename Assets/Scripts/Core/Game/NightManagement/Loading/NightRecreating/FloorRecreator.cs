@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         {
             floor.GroundTiles.ForEach(PlaceGround);
             floor.Walls.ForEach(PlaceWall);
-            floor.CourageOrbPositions.ForEach(PlaceCourageOrb);
+            floor.CouragePickups.ForEach(PlaceCouragePickup);
         }
 
         internal void PlaceGround(GroundTile groundTile)
@@ -35,9 +35,9 @@ namespace AChildsCourage.Game.NightManagement.Loading
             OnWallPlaced?.Invoke(this, new WallPlacedEventArgs(wall));
         }
 
-        internal void PlaceCourageOrb(TilePosition position)
+        internal void PlaceCouragePickup(CouragePickup pickup)
         {
-            OnCouragePlaced.Invoke(this, new CouragePlacedEventArgs(position, CourageVariant.Orb));
+            OnCouragePlaced.Invoke(this, new CouragePlacedEventArgs(pickup.Position, pickup.Variant));
         }
 
         #endregion

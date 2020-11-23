@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate IEnumerable<Wall> WallGenerator(FloorInProgress floor);
 
-    internal delegate IEnumerable<TilePosition> CouragePositionChooser(FloorInProgress floor);
+    internal delegate IEnumerable<CouragePickup> CouragePickupChooser(FloorInProgress floor);
 
     internal delegate Floor FloorCreator(FloorInProgress floor);
 

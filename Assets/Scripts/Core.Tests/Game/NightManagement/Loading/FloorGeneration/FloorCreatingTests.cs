@@ -26,11 +26,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
             positions.ForEach(floorInProgress.GroundPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
-            CouragePositionChooser couragePositionChooser = _ => Enumerable.Empty<TilePosition>();
+            CouragePickupChooser couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
 
             // When
 
-            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePickupChooser);
 
             // Then
 
@@ -56,11 +56,11 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new Wall(new TilePosition(1, 0), WallType.Side)
             };
             WallGenerator wallGenerator = _ => expected;
-            CouragePositionChooser couragePositionChooser = _ => Enumerable.Empty<TilePosition>();
+            CouragePickupChooser couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
 
             // When
 
-            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePickupChooser);
 
             // Then
 
@@ -68,7 +68,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
         }
 
         [Test]
-        public void Creating_A_Floor_Chooses_And_Stored_Courage_Orb_Positions()
+        public void Creating_A_Floor_Chooses_And_Stored_Courage_Orb_Pickups()
         {
             // Given
 
@@ -81,15 +81,40 @@ namespace AChildsCourage.Game.NightManagement.Loading
             positions.Select(floorInProgress.CourageOrbPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
-            CouragePositionChooser couragePositionChooser = _ => positions;
+            CouragePickupChooser couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Orb));
 
             // When
 
-            var floor = CreateFloor(floorInProgress, wallGenerator, couragePositionChooser);
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePickupChooser);
 
             // Then
 
-            Assert.That(floor.CourageOrbPositions, Is.EqualTo(positions), "Positions incorrectly copied!");
+            Assert.That(floor.CouragePickups.Where(p => p.Variant == CourageVariant.Orb).Select(p => p.Position), Is.EqualTo(positions), "Positions incorrectly copied!");
+        }
+
+        [Test]
+        public void Creating_A_Floor_Chooses_And_Stored_Courage_Spark_Pickups()
+        {
+            // Given
+
+            var positions = new[]
+            {
+                new TilePosition(0, 0),
+                new TilePosition(1, 0)
+            };
+            var floorInProgress = new FloorInProgress();
+            positions.Select(floorInProgress.CourageSparkPositions.Add);
+
+            WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
+            CouragePickupChooser couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Spark));
+
+            // When
+
+            var floor = CreateFloor(floorInProgress, wallGenerator, couragePickupChooser);
+
+            // Then
+
+            Assert.That(floor.CouragePickups.Where(p => p.Variant == CourageVariant.Spark).Select(p => p.Position), Is.EqualTo(positions), "Positions incorrectly copied!");
         }
 
         #endregion
