@@ -14,6 +14,7 @@ namespace AChildsCourage.RoomEditor
 
         [SerializeField] private GroundTileLayer groundLayer;
         [SerializeField] private CouragePickupLayer courageLayer;
+        [SerializeField] private ItemPickupLayer itemLayer;
 
 #pragma warning restore 649
 
@@ -60,6 +61,7 @@ namespace AChildsCourage.RoomEditor
         {
             groundLayer.PlaceAll(content.GroundData);
             courageLayer.PlaceAll(content.CourageData);
+            itemLayer.PlaceAll(content.ItemData);
         }
 
 
@@ -87,6 +89,9 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Courage:
                     courageLayer.PlaceAt(position, SelectedCourageVariant);
                     break;
+                case TileCategory.Item:
+                    itemLayer.PlaceAt(position);
+                    break;
             }
         }
 
@@ -99,6 +104,9 @@ namespace AChildsCourage.RoomEditor
                     break;
                 case TileCategory.Courage:
                     courageLayer.DeleteTileAt(position);
+                    break;
+                case TileCategory.Item:
+                    itemLayer.DeleteTileAt(position);
                     break;
             }
         }
@@ -115,7 +123,7 @@ namespace AChildsCourage.RoomEditor
             return new RoomContentData(
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
-                new ItemPickupData[0]);
+                itemLayer.ReadAll());
         }
 
         #endregion

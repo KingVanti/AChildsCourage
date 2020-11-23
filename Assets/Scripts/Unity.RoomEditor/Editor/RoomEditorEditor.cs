@@ -1,5 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
+using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -76,11 +78,10 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Ground"))
-                RoomEditor.SelectedTileCategory = TileCategory.Ground;
-
-            if (GUILayout.Button("Courage"))
-                RoomEditor.SelectedTileCategory = TileCategory.Courage;
+            var tileCategories = Enum.GetValues(typeof(TileCategory)).Cast<TileCategory>();
+            foreach (var tileCategory in tileCategories)
+                if (GUILayout.Button(tileCategory.ToString()))
+                    RoomEditor.SelectedTileCategory = tileCategory;
 
             EditorGUILayout.EndHorizontal();
 
@@ -91,11 +92,10 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Spark"))
-                RoomEditor.SelectedCourageVariant = CourageVariant.Spark;
-
-            if (GUILayout.Button("Orb"))
-                RoomEditor.SelectedCourageVariant = CourageVariant.Orb;
+            var variants = Enum.GetValues(typeof(CourageVariant)).Cast<CourageVariant>();
+            foreach (var variant in variants)
+                if (GUILayout.Button(variant.ToString()))
+                    RoomEditor.SelectedCourageVariant = variant;
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
