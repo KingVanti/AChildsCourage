@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightManagement.Loading.FloorGenerationUtility;
+using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {

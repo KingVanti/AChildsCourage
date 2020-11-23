@@ -1,14 +1,14 @@
 ﻿using AChildsCourage.Game.Floors;
 using NUnit.Framework;
 using System.Linq;
-using static AChildsCourage.Game.NightManagement.Loading.FloorGenerationUtility;
+using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {
 
     [TestFixture]
-    public class FloorGenerationUtilityTests
+    public class FloorPlanGeneratingUtilityTests
     {
 
         #region Tests
