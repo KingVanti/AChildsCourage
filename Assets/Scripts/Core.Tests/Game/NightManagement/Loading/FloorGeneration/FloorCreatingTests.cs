@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             positions.ForEach(floorInProgress.GroundPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
-            CouragePickupChooser couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
+            CouragePickupCreator couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
 
             // When
 
@@ -56,7 +56,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
                 new Wall(new TilePosition(1, 0), WallType.Side)
             };
             WallGenerator wallGenerator = _ => expected;
-            CouragePickupChooser couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
+            CouragePickupCreator couragePickupChooser = _ => Enumerable.Empty<CouragePickup>();
 
             // When
 
@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             positions.Select(floorInProgress.CourageOrbPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
-            CouragePickupChooser couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Orb));
+            CouragePickupCreator couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Orb));
 
             // When
 
@@ -106,7 +106,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             positions.Select(floorInProgress.CourageSparkPositions.Add);
 
             WallGenerator wallGenerator = _ => Enumerable.Empty<Wall>();
-            CouragePickupChooser couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Spark));
+            CouragePickupCreator couragePickupChooser = _ => positions.Select(p => new CouragePickup(p, CourageVariant.Spark));
 
             // When
 

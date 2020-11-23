@@ -12,14 +12,14 @@ namespace AChildsCourage.Game.NightManagement.Loading
             return floor =>
             {
                 var wallGenerator = WallGenerating.GetDefault();
-                var couragePositionChooser = CouragePickupChoosing.GetDefault();
+                var couragePositionChooser = CouragePickupCreating.GetDefault();
 
                 return CreateFloor(floor, wallGenerator, couragePositionChooser);
             };
         }
 
 
-        internal static Floor CreateFloor(FloorInProgress floor, WallGenerator generateWalls, CouragePickupChooser chooseCouragePickups)
+        internal static Floor CreateFloor(FloorInProgress floor, WallGenerator generateWalls, CouragePickupCreator chooseCouragePickups)
         {
             var groundTiles = floor.GroundPositions.Select(p => new GroundTile(p));
             var walls = generateWalls(floor);

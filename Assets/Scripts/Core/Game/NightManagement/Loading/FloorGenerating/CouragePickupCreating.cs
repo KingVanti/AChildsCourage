@@ -9,14 +9,14 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game.NightManagement.Loading
 {
 
-    internal static class CouragePickupChoosing
+    internal static class CouragePickupCreating
     {
 
         internal const int CourageOrbCount = 10;
         internal const int CourageSparkCount = 25;
 
 
-        internal static CouragePickupChooser GetDefault()
+        internal static CouragePickupCreator GetDefault()
         {
             return floor =>
             {

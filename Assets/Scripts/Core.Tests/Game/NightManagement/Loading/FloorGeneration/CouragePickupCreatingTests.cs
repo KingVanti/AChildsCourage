@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
 using System.Linq;
-using static AChildsCourage.Game.NightManagement.Loading.CouragePickupChoosing;
+using static AChildsCourage.Game.NightManagement.Loading.CouragePickupCreating;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {
 
     [TestFixture]
-    public class CouragePickupChoosingTests
+    public class CouragePickupCreatingTests
     {
 
         #region Tests
