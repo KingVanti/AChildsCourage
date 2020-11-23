@@ -114,7 +114,8 @@ namespace AChildsCourage.RoomEditor
         {
             return new RoomContentData(
                 groundLayer.ReadAll(),
-                courageLayer.ReadAll());
+                courageLayer.ReadAll(),
+                new ItemPickupData[0]);
         }
 
         #endregion

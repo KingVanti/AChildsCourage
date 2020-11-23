@@ -17,6 +17,8 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
     internal delegate FloorInProgress CourageBuilder(CouragePickupData[] pickups, FloorInProgress floor);
 
+    internal delegate FloorInProgress ItemPickupBuilder(ItemPickupData[] pickups, FloorInProgress floor);
+
     internal delegate IEnumerable<Wall> WallGenerator(FloorInProgress floor);
 
     internal delegate IEnumerable<CouragePickup> CouragePickupCreator(FloorInProgress floor);
