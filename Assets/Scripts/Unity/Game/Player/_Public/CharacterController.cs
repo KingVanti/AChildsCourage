@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Bag itemBag;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Rigidbody2D rigidbody;
+        [SerializeField] private new Rigidbody2D rigidbody;
 
 #pragma warning restore 649
 
