@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.NightLoading
                 FloorGenerating.RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);
 
-                var nightRecreator = NightRecreating.GetDefault(floorRecreator);
+                var nightRecreator = NightRecreating.Make(floorRecreator);
 
                 Load(data, floorPlanGenerator, floorGenerator, nightRecreator);
             };

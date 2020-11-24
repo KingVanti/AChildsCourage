@@ -1,23 +1,15 @@
-﻿using AChildsCourage.Game.Floors;
-
-namespace AChildsCourage.Game.NightLoading
+﻿namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class NightRecreating
+    internal static partial class NightRecreating
     {
 
-        internal static NightRecreator GetDefault(IFloorRecreator floorRecreator)
+        internal static NightRecreator Make(IFloorRecreator floorRecreator)
         {
             return floor =>
             {
-                Recreate(floor, floorRecreator);
+                floorRecreator.Recreate(floor);
             };
-        }
-
-
-        internal static void Recreate(Floor floor, IFloorRecreator floorRecreator)
-        {
-            floorRecreator.Recreate(floor);
         }
 
     }
