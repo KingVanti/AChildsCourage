@@ -1,6 +1,4 @@
 ﻿using AChildsCourage.Game.Floors;
-using Ninject;
-using Ninject.Parameters;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -10,29 +8,25 @@ namespace AChildsCourage.Game.NightLoading
     internal static class NightLoading
     {
 
-        internal static NightLoader GetDefault(IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator, IKernel kernel)
+        internal static NightLoader Make(IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator)
         {
-            return data =>
+            return nightData =>
             {
 
                 RNGInitializer rngInitializer = SeedBasedRNG;
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 
-                RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
+                RoomLoader roomLoader = floorPlan => roomRepository.LoadRoomsFor(floorPlan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);
 
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 
-                Load(data, floorPlanGenerator, floorGenerator, nightRecreator);
+                Take(nightData.Seed)
+                .Map(floorPlanGenerator.Invoke)
+                .Map(floorGenerator.Invoke)
+                .Do(nightRecreator.Invoke);
             };
         }
-
-
-        internal static void Load(NightData nightData, FloorPlanGenerator floorPlanGenerator, FloorGenerator floorGenerator, NightRecreator nightRecreator) =>
-          Take(nightData.Seed)
-          .Map(floorPlanGenerator.Invoke)
-          .Map(floorGenerator.Invoke)
-          .Do(nightRecreator.Invoke);
 
     }
 
