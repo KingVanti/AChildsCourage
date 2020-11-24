@@ -5,8 +5,6 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
-
     public class RoomForFloor
     {
 

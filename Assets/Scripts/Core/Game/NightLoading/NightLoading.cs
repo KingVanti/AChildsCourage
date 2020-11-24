@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -8,14 +9,13 @@ namespace AChildsCourage.Game.NightLoading
     internal static class NightLoading
     {
 
-        internal static NightLoader Make(IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator)
+        internal static NightLoader Make(IRoomPassagesRepository roomPassagesRepository, RoomLoader roomLoader, IFloorRecreator floorRecreator)
         {
             return nightData =>
             {
                 RNGInitializer rngInitializer = SeedBasedRNG;
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 
-                RoomLoader roomLoader = floorPlan => roomRepository.LoadRoomsFor(floorPlan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);
 
                 var nightRecreator = NightRecreating.Make(floorRecreator);

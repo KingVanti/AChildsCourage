@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using AChildsCourage.Game.NightLoading;
 using AChildsCourage.Game.Persistance;
 
@@ -18,11 +19,11 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator)
+        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, RoomLoader roomLoader, IFloorRecreator floorRecreator)
         {
             this.runStorage = runStorage;
 
-            nightLoader = NightLoading.NightLoading.Make(roomPassagesRepository, roomRepository, floorRecreator);
+            nightLoader = NightLoading.NightLoading.Make(roomPassagesRepository, roomLoader, floorRecreator);
         }
 
         public NightManager(IRunStorage runStorage, NightLoader nightLoader)
