@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Linq;
-using static AChildsCourage.Game.NightLoading.WallGenerating;
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

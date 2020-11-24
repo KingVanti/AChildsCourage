@@ -1,12 +1,12 @@
 ﻿using AChildsCourage.Game.Floors;
 using NUnit.Framework;
-using static AChildsCourage.Game.NightLoading.RoomBuilding;
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {
 
     [TestFixture]
-    public class RoomBuildingTests
+    public class TransformCreatingTests
     {
 
         #region Tests

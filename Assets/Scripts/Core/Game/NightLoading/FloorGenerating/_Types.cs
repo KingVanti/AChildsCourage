@@ -5,31 +5,6 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
-
-    internal delegate FloorInProgress RoomBuilder(FloorInProgress floor, RoomForFloor room);
-
-    internal delegate TilePosition TileTransformer(TilePosition position);
-
-    internal delegate FloorInProgress ContentBuilder(RoomContentData content, FloorInProgress floor);
-
-    internal delegate FloorInProgress GroundBuilder(GroundTileData[] tiles, FloorInProgress floor);
-
-    internal delegate FloorInProgress CourageBuilder(CouragePickupData[] pickups, FloorInProgress floor);
-
-    internal delegate FloorInProgress ItemPickupBuilder(ItemPickupData[] pickups, FloorInProgress floor);
-
-    internal delegate IEnumerable<Wall> WallGenerator(FloorInProgress floor);
-
-    internal delegate IEnumerable<CouragePickup> CouragePickupCreator(FloorInProgress floor);
-
-    internal delegate IEnumerable<int> ItemIdLoader();
-
-    internal delegate IEnumerable<ItemPickup> ItemPickupCreator(FloorInProgress floor);
-
-    internal delegate Floor FloorCreator(FloorInProgress floor);
-
-
     public class RoomForFloor
     {
 
@@ -48,40 +23,52 @@ namespace AChildsCourage.Game.NightLoading
 
     public class RoomsForFloor : List<RoomForFloor> { }
 
-    internal class ChunkTransform
+
+    internal static partial class FloorGenerating
     {
 
-        internal int RotationCount { get; }
+        internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
-        internal bool IsMirrored { get; }
+        internal delegate IEnumerable<int> ItemIdLoader();
 
-        internal TilePosition ChunkCorner { get; }
+        internal delegate TilePosition TileTransformer(TilePosition position);
 
-        internal TilePosition ChunkCenter { get; }
-
-
-        internal ChunkTransform(int rotationCount, bool isMirrored, TilePosition chunkCorner, TilePosition chunkCenter)
+        internal class ChunkTransform
         {
-            RotationCount = rotationCount;
-            IsMirrored = isMirrored;
-            ChunkCorner = chunkCorner;
-            ChunkCenter = chunkCenter;
+
+            internal int RotationCount { get; }
+
+            internal bool IsMirrored { get; }
+
+            internal TilePosition ChunkCorner { get; }
+
+            internal TilePosition ChunkCenter { get; }
+
+
+            internal ChunkTransform(int rotationCount, bool isMirrored, TilePosition chunkCorner, TilePosition chunkCenter)
+            {
+                RotationCount = rotationCount;
+                IsMirrored = isMirrored;
+                ChunkCorner = chunkCorner;
+                ChunkCenter = chunkCenter;
+            }
+
         }
 
-    }
+        internal class FloorInProgress
+        {
 
-    internal class FloorInProgress
-    {
+            internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
+            internal HashSet<TilePosition> WallPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> WallPositions { get; } = new HashSet<TilePosition>();
+            internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
+            internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
+            internal HashSet<TilePosition> ItemPickupPositions { get; } = new HashSet<TilePosition>();
 
-        internal HashSet<TilePosition> ItemPickupPositions { get; } = new HashSet<TilePosition>();
+        }
 
     }
 

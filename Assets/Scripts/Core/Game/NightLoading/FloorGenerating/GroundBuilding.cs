@@ -6,14 +6,8 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class GroundBuilding
+    internal static partial class FloorGenerating
     {
-
-        internal static GroundBuilder GetDefault(TileTransformer transformer)
-        {
-            return (tiles, floor) => BuildGroundTiles(transformer, tiles, floor);
-        }
-
 
         internal static FloorInProgress BuildGroundTiles(TileTransformer transformer, GroundTileData[] tiles, FloorInProgress floor)
         {

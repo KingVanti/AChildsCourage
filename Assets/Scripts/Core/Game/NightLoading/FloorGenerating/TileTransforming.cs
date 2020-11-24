@@ -5,17 +5,8 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class TileTransforming
+    internal static partial class FloorGenerating
     {
-
-        internal static TileTransformer GetDefault(ChunkTransform transform)
-        {
-            return position =>
-            {
-                return Transform(position, transform);
-            };
-        }
-
 
         internal static TilePosition Transform(TilePosition position, ChunkTransform transform)
         {

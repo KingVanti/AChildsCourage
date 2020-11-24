@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Game.NightLoading.TileTransforming;
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

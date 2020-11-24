@@ -3,27 +3,8 @@
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class RoomBuilding
+    internal static partial class FloorGenerating
     {
-
-        internal static RoomBuilder GetDefault()
-        {
-            return (floor, room) =>
-            {
-                var transform = ToChunkTransform(room.Transform);
-
-                TileTransformer transformer = TileTransforming.GetDefault(transform);
-                ContentBuilder tileBuilder = ContentBuilding.GetDefault(transformer);
-
-                return BuildRoom(tileBuilder, floor, room);
-            };
-        }
-
-
-        private static FloorInProgress BuildRoom(ContentBuilder contentBuilder, FloorInProgress floor, RoomForFloor room)
-        {
-            return contentBuilder(room.Content, floor);
-        }
 
         internal static ChunkTransform ToChunkTransform(RoomTransform transform)
         {

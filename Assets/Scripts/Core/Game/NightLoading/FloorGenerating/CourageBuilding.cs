@@ -8,17 +8,8 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class CourageBuilding
+    internal static partial class FloorGenerating
     {
-
-        internal static CourageBuilder GetDefault(TileTransformer transformer)
-        {
-            return (pickups, floor) =>
-            {
-                return BuildCourage(transformer, pickups, floor);
-            };
-        }
-
 
         internal static FloorInProgress BuildCourage(TileTransformer transformer, CouragePickupData[] pickups, FloorInProgress floor)
         {

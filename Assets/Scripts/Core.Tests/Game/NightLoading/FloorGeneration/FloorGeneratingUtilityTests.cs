@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
-using System.Linq;
-using static AChildsCourage.Game.NightLoading.FloorGeneratingUtility;
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

@@ -6,16 +6,10 @@ using System.Linq;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class WallGenerating
+    internal static partial class FloorGenerating
     {
 
         internal const int WallHeight = 2;
-
-
-        internal static WallGenerator GetDefault()
-        {
-            return GenerateWalls;
-        }
 
 
         private static IEnumerable<Wall> GenerateWalls(FloorInProgress floor)

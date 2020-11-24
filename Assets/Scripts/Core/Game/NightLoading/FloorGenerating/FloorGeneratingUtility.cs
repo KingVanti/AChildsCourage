@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class FloorGeneratingUtility
+    internal static partial class FloorGenerating
     {
 
         internal static float GetDistanceFromOrigin(TilePosition position)

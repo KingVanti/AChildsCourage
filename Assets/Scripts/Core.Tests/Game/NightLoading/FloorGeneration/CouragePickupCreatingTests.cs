@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Linq;
-using static AChildsCourage.Game.NightLoading.CouragePickupCreating;
+
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

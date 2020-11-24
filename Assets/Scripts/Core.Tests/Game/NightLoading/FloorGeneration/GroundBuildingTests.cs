@@ -1,6 +1,6 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using NUnit.Framework;
-using static AChildsCourage.Game.NightLoading.GroundBuilding;
+using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

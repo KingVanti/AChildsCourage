@@ -3,24 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using static AChildsCourage.Game.NightLoading.FloorGeneratingUtility;
-
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class ItemPickupCreating
+    internal static partial class FloorGenerating
     {
-
-        internal static ItemPickupCreator GetDefault(ItemIdLoader loadItemIds)
-        {
-            return floor =>
-            {
-                var itemIds = loadItemIds();
-
-                return ChoosePickups(itemIds, floor.ItemPickupPositions);
-            };
-        }
-
 
         internal static IEnumerable<ItemPickup> ChoosePickups(IEnumerable<int> itemIds, IEnumerable<TilePosition> itemPositions)
         {

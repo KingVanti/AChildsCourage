@@ -3,27 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightLoading.FloorGeneratingUtility;
 
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class CouragePickupCreating
+    internal static partial class FloorGenerating
     {
 
         internal const int CourageOrbCount = 10;
         internal const int CourageSparkCount = 25;
-
-
-        internal static CouragePickupCreator GetDefault()
-        {
-            return floor =>
-            {
-                return Enumerable.Concat(
-                    ChooseCourageOrbs(floor.CourageOrbPositions, CourageOrbCount),
-                    ChooseCourageSparks(floor.CourageSparkPositions, CourageSparkCount));
-            };
-        }
 
 
         internal static IEnumerable<CouragePickup> ChooseCourageOrbs(IEnumerable<TilePosition> positions, int count)

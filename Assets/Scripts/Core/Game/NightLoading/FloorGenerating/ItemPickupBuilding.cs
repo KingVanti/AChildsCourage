@@ -7,17 +7,8 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class ItemPickupBuilding
+    internal static partial class FloorGenerating
     {
-
-        internal static ItemPickupBuilder GetDefault(TileTransformer transformer)
-        {
-            return (pickups, floor) =>
-            {
-                return BuildItemPickups(transformer, pickups, floor);
-            };
-        }
-
 
         internal static FloorInProgress BuildItemPickups(TileTransformer transformer, ItemPickupData[] pickups, FloorInProgress floor)
         {
