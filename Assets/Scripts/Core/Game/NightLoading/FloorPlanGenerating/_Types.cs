@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.NightLoading
 
         internal struct RoomInChunk
         {
-           
+
             internal RoomPassages Room { get; }
 
             internal ChunkPosition Position { get; }

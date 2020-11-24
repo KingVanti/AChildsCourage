@@ -12,7 +12,6 @@ namespace AChildsCourage.Game.NightLoading
         {
             return nightData =>
             {
-
                 RNGInitializer rngInitializer = SeedBasedRNG;
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 

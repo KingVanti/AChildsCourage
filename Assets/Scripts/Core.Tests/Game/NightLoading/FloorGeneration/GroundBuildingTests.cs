@@ -86,7 +86,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // When
 
-            
+
         }
 
 

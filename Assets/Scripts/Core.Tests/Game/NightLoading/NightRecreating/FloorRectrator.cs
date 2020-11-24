@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.NightLoading
     {
 
         #region Tests
-        
+
         [Test]
         public void When_A_Wall_Is_Placed_Then_An_Event_With_The_Correct_Information_Is_Raised()
         {
@@ -53,7 +53,7 @@ namespace AChildsCourage.Game.NightLoading
             Assert.That(eventArgs, Is.Not.Null, "No event was raised!");
             Assert.That(eventArgs.Position, Is.EqualTo(position), "Event raised with incorrect position!");
         }
-        
+
         #endregion
 
     }
