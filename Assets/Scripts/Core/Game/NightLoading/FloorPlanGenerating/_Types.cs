@@ -6,34 +6,43 @@ namespace AChildsCourage.Game.NightLoading
 
     internal delegate IRNG RNGSource(int seed);
 
-    internal delegate FloorPlanInProgress RoomAdder(FloorPlanInProgress floorPlan);
-
-    internal delegate ChunkPosition ChunkChooser(FloorPlanInProgress floorPlan);
-
-    internal delegate RoomPassages RoomChooser(FloorPlanInProgress floorPlan, ChunkPosition position);
-
-    internal delegate FloorPlan FloorPlanCreator(FloorPlanInProgress floorPlan);
-
-    internal delegate RoomPlan RoomPlanCreator(ChunkPosition position);
-
-    internal delegate RoomPassages RoomPassageLookup(ChunkPosition position);
-
-    internal delegate void RoomPlacer(ChunkPosition position, RoomPassages room);
-
-    internal class FloorPlanInProgress
+    internal static partial class FloorPlanGenerating
     {
 
-        internal Dictionary<ChunkPosition, RoomPassages> RoomsByChunks { get; } = new Dictionary<ChunkPosition, RoomPassages>();
+        internal class FloorPlanInProgress
+        {
 
-        internal List<ChunkPosition> ReservedChunks { get; } = new List<ChunkPosition>();
+            internal Dictionary<ChunkPosition, RoomPassages> RoomsByChunks { get; } = new Dictionary<ChunkPosition, RoomPassages>();
 
-    }
+            internal List<ChunkPosition> ReservedChunks { get; } = new List<ChunkPosition>();
 
-    public enum GenerationPhase
-    {
-        StartRoom,
-        NormalRooms,
-        EndRoom
+        }
+
+
+        internal struct RoomInChunk
+        {
+           
+            internal RoomPassages Room { get; }
+
+            internal ChunkPosition Position { get; }
+
+
+            internal RoomInChunk(RoomPassages room, ChunkPosition position)
+            {
+                Room = room;
+                Position = position;
+            }
+
+        }
+
+
+        public enum GenerationPhase
+        {
+            StartRoom,
+            NormalRooms,
+            EndRoom
+        }
+
     }
 
 }

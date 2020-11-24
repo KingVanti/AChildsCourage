@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.NightLoading
             {
 
                 RNGSource rngSource = seed => kernel.Get<IRNG>(new ConstructorArgument("seed", seed));
-                var floorPlanGenerator = FloorPlanGenerating.GetDefault(roomPassagesRepository, rngSource);
+                var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngSource);
 
                 FloorGenerating.RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);

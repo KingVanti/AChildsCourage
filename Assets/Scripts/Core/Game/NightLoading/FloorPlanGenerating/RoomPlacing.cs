@@ -4,29 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightLoading.FloorPlanGeneratingUtility;
 
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class RoomPlacing
+    internal static partial class FloorPlanGenerating
     {
 
-        internal static RoomPlacer GetDefault(FloorPlanInProgress floorPlan)
+        internal static FloorPlanInProgress PlaceRoom(FloorPlanInProgress floorPlan, RoomInChunk roomInChunk)
         {
-            return (position, room) => PlaceRoom(floorPlan, position, room);
-        }
-
-
-        internal static void PlaceRoom(FloorPlanInProgress floorPlan, ChunkPosition chunkPosition, RoomPassages roomPassages)
-        {
-            floorPlan.RoomsByChunks.Add(chunkPosition, roomPassages);
-            floorPlan.ReservedChunks.Remove(chunkPosition);
+            floorPlan.RoomsByChunks.Add(roomInChunk.Position, roomInChunk.Room);
+            floorPlan.ReservedChunks.Remove(roomInChunk.Position);
 
             Func<ChunkPosition, bool> canReserve = p => floorPlan.CanReserve(p);
             Action<ChunkPosition> reserve = p => floorPlan.ReservedChunks.Add(p);
 
-            chunkPosition.ReserveChunksAround(canReserve, reserve);
+            roomInChunk.Position.ReserveChunksAround(canReserve, reserve);
+
+            return floorPlan;
         }
 
         private static void ReserveChunksAround(this ChunkPosition chunkPosition, Func<ChunkPosition, bool> canReserve, Action<ChunkPosition> reserve)

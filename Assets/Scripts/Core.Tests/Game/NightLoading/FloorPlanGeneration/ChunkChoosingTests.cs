@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-using static AChildsCourage.Game.NightLoading.ChunkChoosing;
+using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightLoading
 {

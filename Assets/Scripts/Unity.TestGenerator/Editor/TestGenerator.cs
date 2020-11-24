@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private FloorPlanGenerator GetFloorPlanGenerator()
         {
-            return FloorPlanGenerating.GetDefault(roomInfoRepo, seed => new RNG(seed));
+            return FloorPlanGenerating.Make(roomInfoRepo, seed => new RNG(seed));
         }
 
 

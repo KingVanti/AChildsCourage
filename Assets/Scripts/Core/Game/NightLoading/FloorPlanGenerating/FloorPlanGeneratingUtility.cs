@@ -6,7 +6,7 @@ using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class FloorPlanGeneratingUtility
+    internal static partial class FloorPlanGenerating
     {
 
         internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, PassageDirection direction)

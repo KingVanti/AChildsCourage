@@ -3,21 +3,14 @@ using System.Linq;
 using System.Numerics;
 
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightLoading.FloorPlanGeneratingUtility;
 
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class ChunkChoosing
+    internal static partial class FloorPlanGenerating
     {
 
         private const float BaseWeight = 1;
-
-
-        internal static ChunkChooser GetDefault(IRNG rng)
-        {
-            return floorPlan => ChooseNextChunk(floorPlan, rng);
-        }
 
 
         private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, IRNG rng)
