@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 
+using static AChildsCourage.RNG;
+
 namespace AChildsCourage
 {
 
@@ -15,8 +17,8 @@ namespace AChildsCourage
             // Given
 
             var seed = 31482823;
-            var rng1 = new RNG(seed);
-            var rng2 = new RNG(seed);
+            var rng1 = FromSeed(seed);
+            var rng2 = FromSeed(seed);
 
             // When/Then
 

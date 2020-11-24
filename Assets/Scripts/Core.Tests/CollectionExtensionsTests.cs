@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System.Linq;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage
 {
@@ -16,7 +17,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            var rng = new RNG(0);
+            RNGSource rng = () => 0;
 
             // When
 
@@ -33,7 +34,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            var rng = new RNG(0);
+            RNGSource rng = () => 0;
 
             // When
 
@@ -50,7 +51,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new[] { 1, 2 };
-            var rng = new RNG(0);
+            var rng = FromSeed(0);
 
             // When
 

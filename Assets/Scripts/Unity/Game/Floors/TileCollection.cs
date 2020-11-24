@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -23,7 +24,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Methods
 
-        internal Tile GetTile(IRNG rng)
+        internal Tile GetTile(RNGSource rng)
         {
             var getVariant = rng.Prob(_variantProb);
 

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal delegate IRNG RNGSource(int seed);
-
     internal static partial class FloorPlanGenerating
     {
 

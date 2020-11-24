@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using System.Collections.Generic;
 using UnityEngine;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -42,7 +43,7 @@ namespace AChildsCourage.Game.Courage
 
         }
 
-        public CouragePickupData GetRandomPickupData(IRNG rng) {
+        public CouragePickupData GetRandomPickupData(RNGSource rng) {
             return couragePickups.GetRandom(rng);
         }
 

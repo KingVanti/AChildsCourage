@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -10,7 +11,7 @@ namespace AChildsCourage.Game.Courage
 
         CouragePickupData GetCouragePickupData(CourageVariant variant);
 
-        CouragePickupData GetRandomPickupData(IRNG rng);
+        CouragePickupData GetRandomPickupData(RNGSource rng);
 
         #endregion
 

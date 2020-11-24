@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
+using static AChildsCourage.RNG;
+
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
@@ -81,7 +83,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private FloorPlanGenerator GetFloorPlanGenerator()
         {
-            return FloorPlanGenerating.Make(roomInfoRepo, seed => new RNG(seed));
+            return FloorPlanGenerating.Make(roomInfoRepo, SeedBasedRNG);
         }
 
 

@@ -2,6 +2,7 @@
 using Ninject;
 using Ninject.Parameters;
 using static AChildsCourage.F;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -14,8 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             return data =>
             {
 
-                RNGSource rngSource = seed => kernel.Get<IRNG>(new ConstructorArgument("seed", seed));
-                var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngSource);
+                RNGInitializer rngInitializer = SeedBasedRNG;
+                var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 
                 FloorGenerating.RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);

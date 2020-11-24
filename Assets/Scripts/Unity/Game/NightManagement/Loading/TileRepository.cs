@@ -4,6 +4,7 @@ using Ninject.Extensions.Unity;
 using Ninject.Parameters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -21,13 +22,7 @@ namespace AChildsCourage.Game.NightLoading
 
 #pragma warning restore 649
 
-        private IRNG rng;
-
-        #endregion
-
-        #region Properties
-
-        [AutoInject] public IKernel Kernel { set { rng = value.Get<IRNG>(new ConstructorArgument("seed", 0, true)); } }
+        private RNGSource rng = FromSeed(0);
 
         #endregion
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static AChildsCourage.F;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -13,11 +14,11 @@ namespace AChildsCourage.Game.NightLoading
         internal const int GoalRoomCount = 15;
 
 
-        internal static FloorPlanGenerator Make(IRoomPassagesRepository roomPassagesRepository, RNGSource rngSource)
+        internal static FloorPlanGenerator Make(IRoomPassagesRepository roomPassagesRepository, RNGInitializer rngInitializer)
         {
             return seed =>
             {
-                var rng = rngSource(seed);
+                var rng = rngInitializer(seed);
 
                 Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip =>
                 {

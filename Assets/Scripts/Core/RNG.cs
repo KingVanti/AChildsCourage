@@ -3,65 +3,61 @@
 namespace AChildsCourage
 {
 
-    internal class RNG : IRNG
+    public static class RNG
     {
 
-        #region Fields
+        public delegate float RNGSource();
 
-        private readonly Random rng;
+        public delegate RNGSource RNGInitializer(int seed);
 
-        #endregion
 
-        #region Constructors
+        public static RNGInitializer SeedBasedRNG { get; } = FromSeed;
 
-        public RNG(int seed)
+        public static RNGSource FromSeed(int seed)
         {
-            rng = new Random(seed);
-        }
+            var random = new Random(seed);
 
-        #endregion
-
-        #region Methods
-
-        public float GetValue01()
-        {
-            return (float)rng.NextDouble();
+            return () => (float)random.NextDouble();
         }
 
 
-        public float GetValueBetween(float min, float max)
+        public static float GetValue01(this RNGSource source)
+        {
+            return source();
+        }
+
+
+        public static float GetValueBetween(this RNGSource source, float min, float max)
         {
             var diff = max - min;
-            var dist = diff * GetValue01();
+            var dist = diff * GetValue01(source);
 
             return min + dist;
         }
 
 
-        public int GetValueBetween(int min, int max)
+        public static int GetValueBetween(this RNGSource source, int min, int max)
         {
-            return (int)GetValueBetween((float)min, (float)max);
+            return (int)GetValueBetween(source, (float)min, (float)max);
         }
 
 
-        public float GetValueUnder(float max)
+        public static float GetValueUnder(this RNGSource source, float max)
         {
-            return GetValue01() * max;
+            return GetValue01(source) * max;
         }
 
 
-        public int GetValueUnder(int max)
+        public static int GetValueUnder(this RNGSource source, int max)
         {
-            return (int)GetValueUnder((float)max);
+            return (int)GetValueUnder(source, (float)max);
         }
 
 
-        public bool Prob(float variantProb)
+        public static bool Prob(this RNGSource source, float variantProb)
         {
-            return GetValueBetween(float.Epsilon, 100f) <= variantProb;
+            return GetValueBetween(source, float.Epsilon, 100f) <= variantProb;
         }
-
-        #endregion
 
     }
 

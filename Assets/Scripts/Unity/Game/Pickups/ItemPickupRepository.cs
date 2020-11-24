@@ -1,6 +1,7 @@
 ﻿using Castle.Core.Internal;
 using System.Collections.Generic;
 using UnityEngine;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Pickups
 {
@@ -30,7 +31,7 @@ namespace AChildsCourage.Game.Pickups
 
         #region Methods
 
-        public ItemData GetNextItem(IRNG rng)
+        public ItemData GetNextItem(RNGSource rng)
         {
 
             if (!availableItems.IsNullOrEmpty())

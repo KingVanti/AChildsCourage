@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 
 using static AChildsCourage.F;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -13,7 +14,7 @@ namespace AChildsCourage.Game.NightLoading
         private const float BaseWeight = 1;
 
 
-        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, IRNG rng)
+        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, RNGSource rng)
         {
 
 
@@ -41,7 +42,7 @@ namespace AChildsCourage.Game.NightLoading
             return new ChunkPosition(0, 0);
         }
 
-        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, IRNG rng)
+        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, RNGSource rng)
         {
             if (HasReservedChunks(floorPlan))
                 return floorPlan.ReservedChunks.GetWeightedRandom(GetChunkWeight, rng);

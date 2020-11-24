@@ -1,6 +1,9 @@
-﻿using System;
+﻿using AChildsCourage.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage
 {
@@ -21,7 +24,7 @@ namespace AChildsCourage
         }
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, IRNG rng)
+        public static T GetWeightedRandom<T>(this IEnumerable<T> collection, Func<T, float> weightFunction, RNGSource rng)
         {
             if (collection.Count() == 0)
                 return default(T);
@@ -44,7 +47,7 @@ namespace AChildsCourage
         }
 
 
-        public static T GetRandom<T>(this IEnumerable<T> collection, IRNG rng)
+        public static T GetRandom<T>(this IEnumerable<T> collection, RNGSource rng)
         {
             if (collection.Count() == 0)
                 return default(T);
