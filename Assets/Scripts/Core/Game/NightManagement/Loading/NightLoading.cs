@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
           .Map(floorPlanGenerator.Invoke)
           .Map(floorGenerator.Invoke)
           .Do(nightRecreator.Invoke);
-   
+
     }
 
 }

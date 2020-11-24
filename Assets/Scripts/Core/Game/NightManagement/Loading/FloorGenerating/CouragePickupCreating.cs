@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-
-using static AChildsCourage.Game.NightManagement.Loading.FloorGeneratingUtility;
-
 using static AChildsCourage.F;
+using static AChildsCourage.Game.NightManagement.Loading.FloorGeneratingUtility;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {

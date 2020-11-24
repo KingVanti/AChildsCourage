@@ -3,7 +3,7 @@
 
     public readonly struct GroundTile
     {
-       
+
         #region Properties
 
         public TilePosition Position { get; }

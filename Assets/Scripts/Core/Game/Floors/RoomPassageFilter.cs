@@ -3,7 +3,7 @@
 
     public readonly struct RoomPassageFilter
     {
-        
+
         #region Properties
 
         public RoomType RoomType { get; }

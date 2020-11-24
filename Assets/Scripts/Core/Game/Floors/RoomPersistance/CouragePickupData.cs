@@ -3,7 +3,7 @@
 
     public readonly struct CouragePickupData
     {
-        
+
         public TilePosition Position { get; }
 
         public CourageVariant Variant { get; }

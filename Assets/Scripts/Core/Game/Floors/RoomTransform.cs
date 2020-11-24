@@ -3,7 +3,7 @@
 
     public readonly struct RoomTransform
     {
-      
+
         #region Properties
 
         public ChunkPosition Position { get; }

@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors;
-using System.Linq;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightManagement.Loading

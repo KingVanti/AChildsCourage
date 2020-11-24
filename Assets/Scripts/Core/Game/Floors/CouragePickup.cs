@@ -3,7 +3,7 @@
 
     public readonly struct CouragePickup
     {
-        
+
         #region Properties
 
         public TilePosition Position { get; }

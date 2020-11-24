@@ -3,7 +3,7 @@
 
     public readonly struct GroundTileData
     {
-       
+
         public TilePosition Position { get; }
 
 

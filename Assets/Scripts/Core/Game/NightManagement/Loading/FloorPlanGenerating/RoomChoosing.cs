@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGenerating;
+using static AChildsCourage.Game.NightManagement.Loading.FloorPlanGeneratingUtility;
 
 namespace AChildsCourage.Game.NightManagement.Loading
 {

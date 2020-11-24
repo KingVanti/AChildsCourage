@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
 
                 TileTransformer transformer = TileTransforming.GetDefault(transform);
                 ContentBuilder tileBuilder = ContentBuilding.GetDefault(transformer);
-                
+
                 return BuildRoom(tileBuilder, floor, room);
             };
         }

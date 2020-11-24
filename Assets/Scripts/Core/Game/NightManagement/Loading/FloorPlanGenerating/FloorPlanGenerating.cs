@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.NightManagement.Loading
             Take(new FloorPlanInProgress())
             .RepeatWhile(roomBuilder.Invoke, NeedsMoreRooms)
             .Map(floorPlanCreator.Invoke);
-        
+
         internal static bool NeedsMoreRooms(FloorPlanInProgress floorPlan) =>
             Take(floorPlan)
             .Map(CountRooms)
