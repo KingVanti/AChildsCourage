@@ -5,6 +5,8 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.NightLoading
 {
 
+    internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
+
     public class RoomForFloor
     {
 
@@ -26,8 +28,6 @@ namespace AChildsCourage.Game.NightLoading
 
     internal static partial class FloorGenerating
     {
-
-        internal delegate RoomsForFloor RoomLoader(FloorPlan floorPlan);
 
         internal delegate IEnumerable<int> ItemIdLoader();
 

@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.NightLoading
                 RNGInitializer rngInitializer = SeedBasedRNG;
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 
-                FloorGenerating.RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
+                RoomLoader roomLoader = plan => roomRepository.LoadRoomsFor(plan);
                 var floorGenerator = FloorGenerating.Make(roomLoader);
 
                 var nightRecreator = NightRecreating.Make(floorRecreator);
