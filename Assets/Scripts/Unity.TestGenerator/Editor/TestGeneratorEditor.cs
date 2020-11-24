@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
-    public class TestGenerator : EditorWindow
+    public class TestGeneratorEditor : EditorWindow
     {
 
         #region Static Methods
@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         [MenuItem("Window/A Child's Courage/Test Generator")]
         public static void Open()
         {
-            GetWindow<TestGenerator>().Show();
+            GetWindow<TestGeneratorEditor>().Show();
         }
 
         #endregion
