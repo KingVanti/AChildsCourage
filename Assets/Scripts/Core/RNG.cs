@@ -40,7 +40,7 @@ namespace AChildsCourage
 
         public int GetValueBetween(int min, int max)
         {
-            return rng.Next(min, max);
+            return (int)GetValueBetween((float)min, (float)max);
         }
 
 
@@ -52,7 +52,7 @@ namespace AChildsCourage
 
         public int GetValueUnder(int max)
         {
-            return rng.Next(max);
+            return (int)GetValueUnder((float)max);
         }
 
 
