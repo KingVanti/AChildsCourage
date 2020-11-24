@@ -59,7 +59,7 @@ namespace AChildsCourage
                .BindAllInterfaces()
                .Configure(b => b.RegisterOnEventBroker("Default")));
 
-            kernel.Bind<RoomLoader>().ToConstant(RoomLoading.Make());
+            kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
 
             _ = kernel.GetAll<IEagerActivation>().ToArray();
 

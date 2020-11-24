@@ -11,11 +11,11 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorGenerator Make(RoomLoader loadRooms)
+        internal static FloorGenerator Make(IEnumerable<RoomData> roomData)
         {
             return floorPlan =>
             {
-                Func<FloorPlan, RoomsForFloor> chooseRooms = fp => ChooseRoomsFor(fp, loadRooms());
+                Func<FloorPlan, RoomsForFloor> chooseRooms = fp => ChooseRoomsFor(fp, roomData);
 
                 Func<FloorInProgress, RoomForFloor, FloorInProgress> buildRoom = (floorInProgress, room) =>
                 {

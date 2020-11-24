@@ -9,14 +9,16 @@ namespace AChildsCourage.Game.NightLoading
     internal static class NightLoading
     {
 
-        internal static NightLoader Make(IRoomPassagesRepository roomPassagesRepository, RoomLoader roomLoader, IFloorRecreator floorRecreator)
+        internal static NightLoader Make(IRoomPassagesRepository roomPassagesRepository, RoomDataLoader roomDataLoader, IFloorRecreator floorRecreator)
         {
             return nightData =>
             {
+                var roomData = roomDataLoader();
+
                 RNGInitializer rngInitializer = SeedBasedRNG;
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomPassagesRepository, rngInitializer);
 
-                var floorGenerator = FloorGenerating.Make(roomLoader);
+                var floorGenerator = FloorGenerating.Make(roomData);
 
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 

@@ -19,7 +19,7 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, RoomLoader roomLoader, IFloorRecreator floorRecreator)
+        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
         {
             this.runStorage = runStorage;
 

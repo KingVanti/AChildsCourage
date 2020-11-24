@@ -5,13 +5,13 @@ using UnityEngine;
 namespace AChildsCourage.Game.Floors.RoomPersistance
 {
 
-    internal static class RoomLoading
+    internal static class RoomDataLoading
     {
 
         internal const string RoomResourcePath = "Rooms/";
 
 
-        internal static RoomLoader Make()
+        internal static RoomDataLoader Make()
         {
             return () =>
                 LoadAssets()

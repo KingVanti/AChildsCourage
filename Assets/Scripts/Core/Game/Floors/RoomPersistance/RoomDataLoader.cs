@@ -3,6 +3,6 @@
 namespace AChildsCourage.Game.Floors.RoomPersistance
 {
 
-    public delegate IEnumerable<RoomData> RoomLoader();
+    public delegate IEnumerable<RoomData> RoomDataLoader();
 
 }
