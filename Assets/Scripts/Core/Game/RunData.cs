@@ -1,6 +1,4 @@
-﻿using AChildsCourage.Game.NightManagement;
-
-namespace AChildsCourage.Game.Persistance
+﻿namespace AChildsCourage.Game.Persistance
 {
 
     public class RunData

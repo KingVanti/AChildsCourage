@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.NightManagement.Loading;
+﻿using AChildsCourage.Game.NightLoading;
 
 namespace AChildsCourage.Game.Floors
 {

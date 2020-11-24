@@ -4,7 +4,7 @@ using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace AChildsCourage.Game.NightManagement.Loading
+namespace AChildsCourage.Game.NightLoading
 {
 
     public class FloorRecreatorEntity : MonoBehaviour

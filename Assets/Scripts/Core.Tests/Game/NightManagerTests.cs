@@ -1,6 +1,4 @@
-﻿using AChildsCourage.Game.NightManagement;
-using AChildsCourage.Game.NightManagement.Loading;
-using AChildsCourage.Game.Persistance;
+﻿using AChildsCourage.Game.Persistance;
 using Moq;
 using NUnit.Framework;
 

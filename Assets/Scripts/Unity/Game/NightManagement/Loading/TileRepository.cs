@@ -5,7 +5,7 @@ using Ninject.Parameters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace AChildsCourage.Game.NightManagement.Loading
+namespace AChildsCourage.Game.NightLoading
 {
 
     public class TileRepository : MonoBehaviour

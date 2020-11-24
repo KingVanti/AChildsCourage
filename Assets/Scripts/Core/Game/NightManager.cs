@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.NightManagement;
-using AChildsCourage.Game.NightManagement.Loading;
+using AChildsCourage.Game.NightLoading;
 using AChildsCourage.Game.Persistance;
 using Ninject;
 
@@ -23,7 +22,7 @@ namespace AChildsCourage.Game
         public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, IRoomRepository roomRepository, IFloorRecreator floorRecreator, IKernel kernel)
         {
             this.runStorage = runStorage;
-            nightLoader = NightLoading.GetDefault(roomPassagesRepository, roomRepository, floorRecreator, kernel);
+            nightLoader = NightLoading.NightLoading.GetDefault(roomPassagesRepository, roomRepository, floorRecreator, kernel);
         }
 
         public NightManager(IRunStorage runStorage, NightLoader nightLoader)
