@@ -5,9 +5,11 @@ using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace AChildsCourage
 {
@@ -25,15 +27,17 @@ namespace AChildsCourage
         {
             var kernel = CreateDefaultKernel();
             var assemblies = GetAssemblies().ToArray();
+            var unityAssembly = assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
+            var monoBehaviourTypes = unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
 
-            BindSingletons(kernel, assemblies);
-            BindNonSingletons(kernel, assemblies);
+            BindSingletons(kernel, assemblies, monoBehaviourTypes);
+            BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
             BindConstants(kernel);
             kernel.BindUnityEntities();
-            
+
             ActivateEagerServices(kernel);
 
-            kernel.AutoInjectSceneServices(assemblies.First(a => a.FullName.Contains(UnityAssemblyName)));
+            kernel.AutoInjectSceneServices(unityAssembly);
         }
 
         private static IKernel CreateDefaultKernel()
@@ -51,20 +55,20 @@ namespace AChildsCourage
             yield return Assembly.Load("AChildsCourage.Unity");
         }
 
-        private static void BindSingletons(IKernel kernel, IEnumerable<Assembly> assemblies)
+        private static void BindSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
             kernel.Bind(x => x
-                .From(assemblies)
-               .IncludingNonPublicTypes().SelectAllClasses().WithAttribute<SingletonAttribute>()
+               .From(assemblies)
+               .IncludingNonPublicTypes().SelectAllClasses().WithAttribute<SingletonAttribute>().Excluding(monoBehaviourTypes)
                .BindAllInterfaces()
                .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
-        private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies)
+        private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
             kernel.Bind(x => x
                 .From(assemblies)
-                .IncludingNonPublicTypes().SelectAllClasses().WithoutAttribute<SingletonAttribute>()
+                .IncludingNonPublicTypes().SelectAllClasses().WithoutAttribute<SingletonAttribute>().Excluding(monoBehaviourTypes)
                 .BindAllInterfaces()
                 .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
         }
