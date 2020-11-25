@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    public class FloorRecreatorEntity : MonoBehaviour
+    [UnityEntity(typeof(IFloorRecreator))]
+    public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
 
         #region Fields
@@ -25,35 +26,28 @@ namespace AChildsCourage.Game.NightLoading
 
         #region Properties
 
-        [AutoInject] public IFloorRecreator FloorRecreator { set { BindTo(value); } }
-
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
 
         #endregion
 
         #region Methods
 
-        private void BindTo(IFloorRecreator floorRecreator)
+        public void Recreate(Floor floor)
         {
-            floorRecreator.OnGroundPlaced += (_, e) => OnGroundPlaced(e);
-            floorRecreator.OnWallPlaced += (_, e) => OnWallPlaced(e);
-            floorRecreator.OnCouragePlaced += (_, e) => OnCouragePlaced(e);
+            floor.GroundTiles.ForEach(PlaceGround);
+            floor.Walls.ForEach(PlaceWall);
+            floor.CouragePickups.ForEach(PlaceCouragePickup);
         }
 
-        private void OnGroundPlaced(GroundPlacedEventArgs eventArgs)
+        private void PlaceGround(GroundTile groundTile)
         {
             var tile = tileRepository.GetGroundTile();
-            var position = eventArgs.Position.ToVector3Int();
+            var position = groundTile.Position.ToVector3Int();
 
             groundTilemap.SetTile(position, tile);
         }
 
-        private void OnWallPlaced(WallPlacedEventArgs eventArgs)
-        {
-            PlaceWallTile(eventArgs.Wall);
-        }
-
-        private void PlaceWallTile(Wall wall)
+        private void PlaceWall(Wall wall)
         {
             var tile = tileRepository.GetWallTileFor(wall);
             var position = wall.Position.ToVector3Int();
@@ -61,12 +55,12 @@ namespace AChildsCourage.Game.NightLoading
             staticTilemap.SetTile(position, tile);
         }
 
-        private void OnCouragePlaced(CouragePlacedEventArgs eventArgs)
+        private void PlaceCouragePickup(CouragePickup pickup)
         {
-            var pickupData = CouragePickupRepository.GetCouragePickupData(eventArgs.Variant);
-            var pickup = SpawnCouragePickup(eventArgs.Position);
+            var pickupData = CouragePickupRepository.GetCouragePickupData(pickup.Variant);
+            var entity = SpawnCouragePickup(pickup.Position);
 
-            pickup.SetCouragePickupData(pickupData);
+            entity.SetCouragePickupData(pickupData);
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition)

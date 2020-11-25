@@ -8,11 +8,11 @@ namespace AChildsCourage.Game.Floors
 
         #region Properties
 
-        internal HashSet<GroundTile> GroundTiles { get; }
+        public HashSet<GroundTile> GroundTiles { get; }
 
-        internal HashSet<Wall> Walls { get; }
+        public HashSet<Wall> Walls { get; }
 
-        internal HashSet<CouragePickup> CouragePickups { get; }
+        public HashSet<CouragePickup> CouragePickups { get; }
 
         #endregion
 
