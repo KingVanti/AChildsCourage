@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Player {
         private int _rotationIndex = 0;
 
         private bool _isInPickupRange = false;
-        private GameObject _currentPickupInRange;
+        private ItemPickupEntity _currentPickupInRange;
 
         private bool _hasFlashlightEquipped = false;
         private bool isInvincible = false;
@@ -135,7 +135,7 @@ namespace AChildsCourage.Game.Player {
             }
         }
 
-        public GameObject CurrentItemInRange {
+        public ItemPickupEntity CurrentItemInRange {
             get { return _currentPickupInRange; }
             set { _currentPickupInRange = value; }
         }
@@ -226,13 +226,13 @@ namespace AChildsCourage.Game.Player {
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs) {
 
             if (IsInPickupRange) {
-                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.GetComponent<ItemPickupEntity>().Id);
+                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
 
-                if (CurrentItemInRange.GetComponent<ItemPickupEntity>().Id == 0) {
+                if (CurrentItemInRange.Id == 0) {
                     HasFlashlightEquipped = true;
                 }
 
-                Destroy(CurrentItemInRange);
+                Destroy(CurrentItemInRange.gameObject);
             }
 
 
@@ -263,8 +263,8 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Item)) {
                 IsInPickupRange = true;
-                CurrentItemInRange = collision.gameObject;
-                CurrentItemInRange.GetComponent<ItemPickupEntity>().ShowInfo(IsInPickupRange);
+                CurrentItemInRange = collision.gameObject.GetComponent<ItemPickupEntity>();
+                CurrentItemInRange.ShowInfo(IsInPickupRange);
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
@@ -274,7 +274,7 @@ namespace AChildsCourage.Game.Player {
 
             if (collision.CompareTag(EntityTags.Shade)) {
 
-                if (!gettingKnockedBack) {
+                if (!gettingKnockedBack && !isInvincible) {
                     TakingDamage(1);
                 }
 
@@ -282,17 +282,6 @@ namespace AChildsCourage.Game.Player {
 
         }
 
-        private void OnTriggerStay2D(Collider2D collision) {
-
-            if (collision.CompareTag(EntityTags.Shade)) {
-
-                if (!gettingKnockedBack) {
-                    TakingDamage(1);
-                }
-
-            }
-
-        }
 
         private void OnTriggerExit2D(Collider2D collision) {
 
@@ -306,11 +295,8 @@ namespace AChildsCourage.Game.Player {
 
         private void TakingDamage(int damage) {
 
-            StartCoroutine(Knockback(damage * _movementSpeed * 5, 0.08f));
-
-            if (!isInvincible) {
-                StartCoroutine(DamageTaken(2f));
-            }
+            StartCoroutine(Knockback(damage * _movementSpeed * 3, 0.08f));
+            StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
 
