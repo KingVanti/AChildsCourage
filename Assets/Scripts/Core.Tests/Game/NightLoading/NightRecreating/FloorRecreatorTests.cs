@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.NightLoading
 {
 
     [TestFixture]
-    public class FloorRectrator
+    public class FloorRecreatorTests
     {
 
         #region Tests
