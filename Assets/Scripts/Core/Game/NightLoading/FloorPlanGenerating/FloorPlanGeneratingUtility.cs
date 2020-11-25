@@ -1,8 +1,6 @@
 ﻿using AChildsCourage.Game.Floors;
 using System;
 
-using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
-
 namespace AChildsCourage.Game.NightLoading
 {
 

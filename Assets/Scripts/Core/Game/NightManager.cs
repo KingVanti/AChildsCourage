@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using AChildsCourage.Game.NightLoading;
 using AChildsCourage.Game.Persistance;
 
