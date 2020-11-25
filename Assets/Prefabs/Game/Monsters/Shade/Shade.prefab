@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 1496831347808597378}
   - component: {fileID: 994853314461636515}
   - component: {fileID: 462774780128903143}
+  - component: {fileID: 2006490757}
   m_Layer: 10
   m_Name: Shade
   m_TagString: Shade
@@ -4996,3 +4997,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2006490757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchDamage: 2
+  attackDamage: 5
+  movementSpeed: 2

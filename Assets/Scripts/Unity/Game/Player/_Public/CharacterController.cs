@@ -131,7 +131,7 @@ namespace AChildsCourage.Game.Player {
             get { return _hasFlashlightEquipped; }
             set {
                 _hasFlashlightEquipped = value;
-                animator.SetBool("HasFlashlightEquipped", _hasFlashlightEquipped);
+                UpdateAnimator();
             }
         }
 
@@ -160,6 +160,11 @@ namespace AChildsCourage.Game.Player {
             animator.SetFloat("RotationIndex", RotationIndex);
             animator.SetBool("IsMoving", IsMoving);
             animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+
+            if (HasFlashlightEquipped) {
+                animator.SetBool("HasFlashlightEquipped", _hasFlashlightEquipped);
+            }
+
         }
 
         private void Rotate() {
