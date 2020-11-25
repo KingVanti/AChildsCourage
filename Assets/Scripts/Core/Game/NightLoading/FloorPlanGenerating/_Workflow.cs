@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace AChildsCourage.Game.NightLoading
         internal const int GoalRoomCount = 15;
 
 
-        internal static FloorPlanGenerator Make(IRoomPassagesRepository roomPassagesRepository, RNGInitializer rngInitializer)
+        internal static FloorPlanGenerator Make(IEnumerable<RoomData> roomData, RNGInitializer rngInitializer)
         {
+            var allPassages = roomData.SelectMany(r => r.GetPassageVariations());
+
             return seed =>
             {
                 var rng = rngInitializer(seed);
@@ -23,7 +26,7 @@ namespace AChildsCourage.Game.NightLoading
                 Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip =>
                 {
                     Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(fpip, rng);
-                    Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, fpip, roomPassagesRepository, rng);
+                    Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, fpip, allPassages, rng);
                     Func<RoomInChunk, FloorPlanInProgress> placeRoom = roomInChunk => PlaceRoom(fpip, roomInChunk);
 
                     return

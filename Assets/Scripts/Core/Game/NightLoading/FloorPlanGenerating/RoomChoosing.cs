@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using System.Collections.Generic;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -8,18 +9,13 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorPlanGenerating
     {
 
-        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IRoomPassagesRepository roomPassagesRepository, RNGSource rng)
+        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, RNGSource rng)
         {
             return chunkPosition
                 .CreateFilter(floorPlan)
-                .FilterRoomsIn(roomPassagesRepository)
+                .FilterPassagesMatching(allPassages)
                 .ChooseRandom(rng)
                 .Map(room => new RoomInChunk(room, chunkPosition));
-        }
-
-        private static FilteredRoomPassages FilterRoomsIn(this RoomPassageFilter filter, IRoomPassagesRepository roomPassagesRepository)
-        {
-            return roomPassagesRepository.GetRooms(filter);
         }
 
         private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, RNGSource rng)

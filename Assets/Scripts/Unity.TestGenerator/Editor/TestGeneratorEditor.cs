@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private int seed;
         private Texture2D floorImage;
-        private readonly TestRoomInfoRespository roomInfoRepo = new TestRoomInfoRespository();
+        private readonly CompleteRoomLoader completeRoomLoader = new CompleteRoomLoader();
         private FloorPlanGenerator _floorGenerator;
 
         #endregion
@@ -58,7 +58,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 GenerateFloorImage();
             if (GUILayout.Button("Generate Random"))
             {
-                seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+                seed = Random.Range(int.MinValue, int.MaxValue);
                 GenerateFloorImage();
             }
 
@@ -83,16 +83,15 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private FloorPlanGenerator GetFloorPlanGenerator()
         {
-            return FloorPlanGenerating.Make(roomInfoRepo, SeedBasedRNG);
+            return FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedRNG);
         }
 
 
         private void GenerateFloorImage()
         {
-            roomInfoRepo.Reset();
             var floorPlan = FloorGenerator(seed);
 
-            floorImage = GenerateTexture.From(floorPlan, roomInfoRepo);
+            floorImage = GenerateTexture.From(floorPlan, completeRoomLoader);
         }
 
         #endregion

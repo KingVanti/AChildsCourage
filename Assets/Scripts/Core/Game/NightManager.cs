@@ -19,11 +19,11 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, IRoomPassagesRepository roomPassagesRepository, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
+        public NightManager(IRunStorage runStorage, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
         {
             this.runStorage = runStorage;
 
-            nightLoader = NightLoading.NightLoading.Make(roomPassagesRepository, roomLoader, floorRecreator);
+            nightLoader = NightLoading.NightLoading.Make(roomLoader, floorRecreator);
         }
 
         public NightManager(IRunStorage runStorage, NightLoader nightLoader)
