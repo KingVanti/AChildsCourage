@@ -1,4 +1,6 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using AChildsCourage.Game;
+using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Persistance;
 using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
@@ -60,6 +62,7 @@ namespace AChildsCourage
                .Configure(b => b.RegisterOnEventBroker("Default")));
 
             kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
+            kernel.Bind<RunDataLoader>().ToConstant(JsonRunDataLoading.Make());
 
             _ = kernel.GetAll<IEagerActivation>().ToArray();
 

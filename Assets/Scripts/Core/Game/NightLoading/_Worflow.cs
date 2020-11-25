@@ -5,10 +5,10 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static class NightLoading
+    public static class NightLoading
     {
 
-        internal static NightLoader Make(RoomDataLoader roomDataLoader, IFloorRecreator floorRecreator)
+        public static NightLoader Make(RoomDataLoader roomDataLoader, IFloorRecreator floorRecreator)
         {
             return nightData =>
             {

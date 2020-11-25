@@ -1,12 +1,15 @@
 ﻿namespace AChildsCourage.Game.Persistance
 {
 
-    public class JsonRunStorage : IRunStorage
+    internal static class JsonRunDataLoading
     {
 
-        #region Methods
+        internal static RunDataLoader Make()
+        {
+            return LoadCurrent;
+        }
 
-        public RunData LoadCurrent()
+        private static RunData LoadCurrent()
         {
             // TODO: Load current run data
 
@@ -14,8 +17,6 @@
 
             return new RunData(nightData);
         }
-
-        #endregion
 
     }
 

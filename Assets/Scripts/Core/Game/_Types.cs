@@ -1,6 +1,10 @@
-﻿namespace AChildsCourage.Game
+﻿using AChildsCourage.Game.Persistance;
+
+namespace AChildsCourage.Game
 {
 
-    internal delegate void NightLoader(NightData data);
+    public delegate RunData RunDataLoader();
+
+    public delegate void NightLoader(NightData data);
 
 }
