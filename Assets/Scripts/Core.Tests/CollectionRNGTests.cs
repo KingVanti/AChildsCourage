@@ -6,7 +6,7 @@ namespace AChildsCourage
 {
 
     [TestFixture]
-    public class CollectionExtensionsTests
+    public class CollectionRNGTests
     {
 
         #region Methods

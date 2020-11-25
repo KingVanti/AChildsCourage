@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -14,12 +13,10 @@ namespace AChildsCourage.Game.NightLoading
             return nightData =>
             {
                 var roomData = roomDataLoader();
-
                 RNGInitializer rngInitializer = SeedBasedRNG;
+
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomData, rngInitializer);
-
                 var floorGenerator = FloorGenerating.Make(roomData);
-
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 
                 Take(nightData.Seed)

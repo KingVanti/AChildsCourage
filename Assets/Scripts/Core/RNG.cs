@@ -38,7 +38,7 @@ namespace AChildsCourage
 
         public static int GetValueBetween(this RNGSource source, int min, int max)
         {
-            return (int)GetValueBetween(source, (float)min, (float)max);
+            return (int)GetValueBetween(source, (float)min, max);
         }
 
 
