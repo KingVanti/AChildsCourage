@@ -12,14 +12,14 @@ namespace Ninject.Extensions.Unity
     public static class UnityEntityBinding
     {
 
-        public static void BindUnityEntities(this IKernel kernel, string eventBrokerName)
+        public static void BindUnityEntities(this IKernel kernel)
         {
             var entities =
                 GetAllMonoBehaviours()
                 .Where(IsEntity);
 
             foreach (var entity in entities)
-                BindEntity(kernel, entity, eventBrokerName);
+                BindEntity(kernel, entity);
         }
 
         private static IEnumerable<MonoBehaviour> GetAllMonoBehaviours()
@@ -34,11 +34,11 @@ namespace Ninject.Extensions.Unity
             return type.HasAttribute<UnityEntityAttribute>();
         }
 
-        private static void BindEntity(IKernel kernel, MonoBehaviour entity, string eventBrokerName)
+        private static void BindEntity(IKernel kernel, MonoBehaviour entity)
         {
             var interfaceType = GetInterfaceType(entity);
 
-            kernel.Bind(interfaceType).ToConstant(entity).RegisterOnEventBroker(eventBrokerName);
+            kernel.Bind(interfaceType).ToConstant(entity);
         }
 
         private static Type GetInterfaceType(MonoBehaviour entity)
