@@ -18,6 +18,7 @@ namespace AChildsCourage
     {
 
         private const string DefaultEventBrokerName = "Default";
+        private const string UnityAssemblyName = "Unity";
 
 
         internal static void InjectServices()
@@ -29,7 +30,7 @@ namespace AChildsCourage
             BindNonSingletons(kernel, assemblies);
             BindConstants(kernel);
             ActivateEagerServices(kernel);
-            InjectSceneServices(kernel, assemblies.First(a => a.FullName.Contains("Unity")));
+            InjectSceneServices(kernel, assemblies.First(a => a.FullName.Contains(UnityAssemblyName)));
         }
 
         private static IKernel CreateDefaultKernel()
