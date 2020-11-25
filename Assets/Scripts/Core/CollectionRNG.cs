@@ -73,6 +73,7 @@ namespace AChildsCourage
             return GetRandom(rng, elements);
         }
 
+
         public static T GetRandom<T>(RNGSource rng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
