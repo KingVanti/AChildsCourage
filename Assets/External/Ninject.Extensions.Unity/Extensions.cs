@@ -17,7 +17,7 @@ namespace Ninject.Extensions.Unity
                 AutoInjectSceneServices(kernel, injectionAssembly);
         }
 
-        private static void AutoInjectSceneServices(IKernel kernel, Assembly injectionAssembly)
+        public static void AutoInjectSceneServices(this IKernel kernel, Assembly injectionAssembly)
         {
             var types = GetAllTypes(injectionAssembly);
 
