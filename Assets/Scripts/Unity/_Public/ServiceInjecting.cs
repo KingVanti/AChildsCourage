@@ -29,8 +29,11 @@ namespace AChildsCourage
             BindSingletons(kernel, assemblies);
             BindNonSingletons(kernel, assemblies);
             BindConstants(kernel);
+            kernel.BindUnityEntities();
+            
             ActivateEagerServices(kernel);
-            InjectSceneServices(kernel, assemblies.First(a => a.FullName.Contains(UnityAssemblyName)));
+
+            kernel.AutoInjectSceneServices(assemblies.First(a => a.FullName.Contains(UnityAssemblyName)));
         }
 
         private static IKernel CreateDefaultKernel()
@@ -75,11 +78,6 @@ namespace AChildsCourage
         private static void ActivateEagerServices(IKernel kernel)
         {
             _ = kernel.GetAll<IEagerActivation>().ToArray();
-        }
-
-        private static void InjectSceneServices(IKernel kernel, Assembly unityAssembly)
-        {
-            kernel.AutoInjectSceneServices(unityAssembly);
         }
 
     }

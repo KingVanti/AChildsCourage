@@ -6,10 +6,8 @@ using System.Reflection;
 namespace Ninject.Extensions.Unity
 {
 
-    public static class Extensions
+    public static class PropertyServiceInjection
     {
-
-        #region Methods
 
         public static void AutoInjectSceneServices(this IKernel kernel, IEnumerable<Assembly> injectionAssemblies)
         {
@@ -65,8 +63,6 @@ namespace Ninject.Extensions.Unity
 
             return kernel.Get(propertyType);
         }
-
-        #endregion
 
     }
 
