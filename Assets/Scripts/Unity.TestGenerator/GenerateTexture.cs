@@ -9,9 +9,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         #region Methods
 
-        internal static Texture2D From(FloorPlan floorPlan, TestRoomInfoRespository roomInfoRespository)
+        internal static Texture2D From(FloorPlan floorPlan, CompleteRoomLoader roomLoader)
         {
-            var pixels = ConvertToColorArray(floorPlan, roomInfoRespository);
+            var pixels = ConvertToColorArray(floorPlan, roomLoader);
             var texture = new Texture2D(pixels[0].Length, pixels.Length)
             {
                 filterMode = FilterMode.Point
@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             return texture;
         }
 
-        private static Color[][] ConvertToColorArray(FloorPlan floorPlan, TestRoomInfoRespository roomInfoRespository)
+        private static Color[][] ConvertToColorArray(FloorPlan floorPlan, CompleteRoomLoader roomLoader)
         {
             var pixels = CreateColorArray(floorPlan);
             var offset = CalculateChunkOffset(floorPlan);
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 if (i == 0) type = RoomType.Start;
                 if (i == floorPlan.Rooms.Length - 1) type = RoomType.End;
 
-                PrintRoom(type,floorPlan.Rooms[i], offset, roomInfoRespository, pixels);
+                PrintRoom(type,floorPlan.Rooms[i], offset, roomLoader, pixels);
             }
 
             return pixels;
@@ -77,10 +77,10 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 -floorPlan.Rooms.Select(r => r.Transform.Position.Y).Min());
         }
 
-        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, TestRoomInfoRespository roomInfoRespository, Color[][] pixels)
+        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, CompleteRoomLoader roomLoader, Color[][] pixels)
         {
             var position = GetPixelPos(room.Transform.Position, offset);
-            var passages = roomInfoRespository.GetById(room.RoomId).Passages;
+            var passages = roomLoader.GetPassagesFor(room);
 
             PrintPassages(type, position, passages, pixels);
         }

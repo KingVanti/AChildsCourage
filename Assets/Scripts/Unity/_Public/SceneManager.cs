@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
+using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Unity;
@@ -57,6 +58,8 @@ namespace AChildsCourage
                .IncludingNonPublicTypes().SelectAllClasses().WithoutAttribute<SingletonAttribute>()
                .BindAllInterfaces()
                .Configure(b => b.RegisterOnEventBroker("Default")));
+
+            kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
 
             _ = kernel.GetAll<IEagerActivation>().ToArray();
 

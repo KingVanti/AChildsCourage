@@ -4,22 +4,24 @@ using System.Collections.Generic;
 namespace AChildsCourage.Game.Floors
 {
 
-    internal static class Extensions
+    public static class PassageGenerating
     {
-        internal static IEnumerable<RoomPassages> GetPassages(this RoomAsset asset)
+
+        public static IEnumerable<RoomPassages> GetPassageVariations(this RoomData roomData)
         {
             return
-                asset
+                roomData
                 .GetBasePassages()
                 .GetVariations();
         }
 
-        private static RoomPassages GetBasePassages(this RoomAsset asset)
+        public static RoomPassages GetBasePassages(this RoomData roomData)
         {
-            return new RoomPassages(asset.Id, asset.Passages, 0, false, asset.Type);
+            return new RoomPassages(roomData.Id, roomData.Passages, 0, false, roomData.Type);
         }
 
-        private static IEnumerable<RoomPassages> GetVariations(this RoomPassages room)
+
+        public static IEnumerable<RoomPassages> GetVariations(this RoomPassages room)
         {
             for (var _ = 0; _ < 4; _++)
             {
@@ -30,16 +32,15 @@ namespace AChildsCourage.Game.Floors
             }
         }
 
-        private static RoomPassages Mirror(this RoomPassages passages)
+        public static RoomPassages Mirror(this RoomPassages passages)
         {
             return new RoomPassages(passages.RoomId, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
         }
 
-        private static RoomPassages Rotate(this RoomPassages passages)
+        public static RoomPassages Rotate(this RoomPassages passages)
         {
             return new RoomPassages(passages.RoomId, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
         }
-
 
     }
 

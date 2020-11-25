@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorGenerator Make(RoomLoader loadRooms)
+        internal static FloorGenerator Make(IEnumerable<RoomData> roomData)
         {
             return floorPlan =>
             {
+                Func<FloorPlan, RoomsForFloor> chooseRooms = fp => ChooseRoomsFor(fp, roomData);
+
                 Func<FloorInProgress, RoomForFloor, FloorInProgress> buildRoom = (floorInProgress, room) =>
                 {
                     var transform = ToChunkTransform(room.Transform);
@@ -48,7 +51,7 @@ namespace AChildsCourage.Game.NightLoading
 
                 return
                     Take(floorPlan)
-                    .Map(loadRooms.Invoke)
+                    .Map(chooseRooms.Invoke)
                     .Aggregate(new FloorInProgress(), buildRoom)
                     .Map(createFloor);
             };
