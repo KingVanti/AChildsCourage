@@ -14,12 +14,10 @@ namespace AChildsCourage.Game.NightLoading
             return nightData =>
             {
                 var roomData = roomDataLoader();
-
                 RNGInitializer rngInitializer = SeedBasedRNG;
+
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomData, rngInitializer);
-
                 var floorGenerator = FloorGenerating.Make(roomData);
-
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 
                 Take(nightData.Seed)
