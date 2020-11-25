@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Internal;
+using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Infrastructure.Language;
 using System;
 using System.Collections.Generic;

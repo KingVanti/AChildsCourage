@@ -34,6 +34,7 @@ namespace AChildsCourage
             BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
             BindConstants(kernel);
             kernel.BindUnityEntities();
+            kernel.RegisterEventBrokers(DefaultEventBrokerName);
 
             ActivateEagerServices(kernel);
 

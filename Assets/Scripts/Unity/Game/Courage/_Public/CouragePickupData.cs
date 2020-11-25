@@ -6,17 +6,20 @@ namespace AChildsCourage.Game.Courage
 {
 
     [CreateAssetMenu(fileName = "Courage", menuName = "A Child's Courage/Courage", order = 3)]
-    public class CouragePickupData : ScriptableObject {
+    public class CouragePickupData : ScriptableObject
+    {
 
         #region Fields
 
 #pragma warning disable 649
+
         [SerializeField] private int _value;
         [SerializeField] private string _courageName;
         [SerializeField] private CourageVariant _variant;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Vector3 _scale;
         [SerializeField] private Texture2D _emission;
+
 #pragma warning restore 649
 
         #endregion
@@ -36,8 +39,6 @@ namespace AChildsCourage.Game.Courage
         public Texture2D Emission { get { return _emission; } }
 
         #endregion
-
-
 
     }
 }
