@@ -10,12 +10,14 @@ namespace AChildsCourage.Game.Pickups
         #region Fields
 
 #pragma warning disable 649
+
         [SerializeField] private int _id;
         [SerializeField] private string _itemName;
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Sprite _activatedSprite;
         [SerializeField] private Vector3 _scale;
         [SerializeField] [Range(0, 360)] private float _rotation;
+
 #pragma warning restore 649
 
         #endregion
