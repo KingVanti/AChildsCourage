@@ -1,7 +1,4 @@
 ﻿using AChildsCourage.Game.Floors;
-using Ninject;
-using Ninject.Extensions.Unity;
-using Ninject.Parameters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.RNG;

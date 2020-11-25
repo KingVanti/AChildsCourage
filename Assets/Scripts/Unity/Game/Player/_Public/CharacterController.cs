@@ -9,7 +9,8 @@ using UnityEngine.Events;
 
 using static AChildsCourage.CustomMathModule;
 
-namespace AChildsCourage.Game.Player {
+namespace AChildsCourage.Game.Player
+{
     public class CharacterController : MonoBehaviour {
 
         #region Fields

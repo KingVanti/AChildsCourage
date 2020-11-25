@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Monsters {
+namespace AChildsCourage.Game.Monsters
+{
     public class Shade : Monster {
 
         bool isMovingRight = true;
