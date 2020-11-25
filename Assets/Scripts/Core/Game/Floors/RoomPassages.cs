@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
+
+namespace AChildsCourage.Game.Floors
 {
 
     public class RoomPassages
@@ -6,7 +8,7 @@
 
         #region Properties
 
-        public int RoomId { get; }
+        public RoomId Id { get; }
 
         public ChunkPassages Passages { get; }
 
@@ -22,16 +24,16 @@
 
         public RoomPassages()
         {
-            RoomId = -1;
+            Id = (RoomId)(-1);
             Passages = ChunkPassages.None;
             RotationCount = 0;
             IsMirrored = false;
             Type = RoomType.Normal;
         }
 
-        public RoomPassages(int roomId, ChunkPassages passages, int rotationCount = 0, bool isMirrored = false, RoomType type = RoomType.Normal)
+        public RoomPassages(RoomId id, ChunkPassages passages, int rotationCount = 0, bool isMirrored = false, RoomType type = RoomType.Normal)
         {
-            RoomId = roomId;
+            Id = id;
             Passages = passages;
             Type = type;
             RotationCount = rotationCount;
