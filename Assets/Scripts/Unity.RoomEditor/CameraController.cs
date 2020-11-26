@@ -16,6 +16,7 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private float zoomSpeed;
         [SerializeField] private float minZoom;
         [SerializeField] private float maxZoom;
+        [SerializeField] private float focusZoom;
         [SerializeField] private new Camera camera;
 
 #pragma warning restore 649
@@ -45,6 +46,8 @@ namespace AChildsCourage.RoomEditor
 
             input.Zoom.Scroll.performed += c => OnScroll(c.ReadValue<float>());
 
+            input.Zoom.Focus.started += _ => FocusZoom();
+
             input.Enable();
         }
 
@@ -73,6 +76,11 @@ namespace AChildsCourage.RoomEditor
             var normalized = delta / Mathf.Abs(delta);
 
             Zoom += -normalized * zoomSpeed;
+        }
+
+        private void FocusZoom()
+        {
+            Zoom = focusZoom;
         }
 
         private void Update()

@@ -182,6 +182,14 @@ namespace AChildsCourage.RoomEditor
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Focus"",
+                    ""type"": ""Button"",
+                    ""id"": ""80f6d094-4b52-4d6f-b3e9-5203b24a617a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -193,6 +201,17 @@ namespace AChildsCourage.RoomEditor
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc482a09-c260-4708-bf66-160048fe02fd"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Focus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -213,6 +232,7 @@ namespace AChildsCourage.RoomEditor
             // Zoom
             m_Zoom = asset.FindActionMap("Zoom", throwIfNotFound: true);
             m_Zoom_Scroll = m_Zoom.FindAction("Scroll", throwIfNotFound: true);
+            m_Zoom_Focus = m_Zoom.FindAction("Focus", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -353,11 +373,13 @@ namespace AChildsCourage.RoomEditor
         private readonly InputActionMap m_Zoom;
         private IZoomActions m_ZoomActionsCallbackInterface;
         private readonly InputAction m_Zoom_Scroll;
+        private readonly InputAction m_Zoom_Focus;
         public struct ZoomActions
         {
             private @RoomEditorInput m_Wrapper;
             public ZoomActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Scroll => m_Wrapper.m_Zoom_Scroll;
+            public InputAction @Focus => m_Wrapper.m_Zoom_Focus;
             public InputActionMap Get() { return m_Wrapper.m_Zoom; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -370,6 +392,9 @@ namespace AChildsCourage.RoomEditor
                     @Scroll.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
                     @Scroll.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
                     @Scroll.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Focus.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    @Focus.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    @Focus.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
                 }
                 m_Wrapper.m_ZoomActionsCallbackInterface = instance;
                 if (instance != null)
@@ -377,6 +402,9 @@ namespace AChildsCourage.RoomEditor
                     @Scroll.started += instance.OnScroll;
                     @Scroll.performed += instance.OnScroll;
                     @Scroll.canceled += instance.OnScroll;
+                    @Focus.started += instance.OnFocus;
+                    @Focus.performed += instance.OnFocus;
+                    @Focus.canceled += instance.OnFocus;
                 }
             }
         }
@@ -395,6 +423,7 @@ namespace AChildsCourage.RoomEditor
         public interface IZoomActions
         {
             void OnScroll(InputAction.CallbackContext context);
+            void OnFocus(InputAction.CallbackContext context);
         }
     }
 }

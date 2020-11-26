@@ -508,8 +508,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   zoomSpeed: 1
-  minZoom: 5
+  minZoom: 4
   maxZoom: 20
+  focusZoom: 4
   camera: {fileID: 1366718033}
 --- !u!1 &1885557431
 GameObject:
