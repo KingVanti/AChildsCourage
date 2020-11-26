@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.NightLoading;
+using ICSharpCode.NRefactory.Visitors;
+using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -11,11 +13,21 @@ namespace AChildsCourage.RoomEditor
 #pragma warning disable 649
 
         [SerializeField] private float speed;
+        [SerializeField] private float zoomSpeed;
+        [SerializeField] private float minZoom;
+        [SerializeField] private float maxZoom;
+        [SerializeField] private new Camera camera;
 
 #pragma warning restore 649
 
         private Vector2 currentMovement;
         private RoomEditorInput input;
+
+        #endregion
+
+        #region Properties
+
+        private float Zoom { get { return camera.orthographicSize; } set { camera.orthographicSize = Mathf.Clamp(value, minZoom, maxZoom); } }
 
         #endregion
 
@@ -30,6 +42,8 @@ namespace AChildsCourage.RoomEditor
 
             input.Movement.Vertical.started += c => StartVerticalMovement(c.ReadValue<float>());
             input.Movement.Vertical.canceled += _ => StopVerticalMovement();
+
+            input.Zoom.Scroll.performed += c => OnScroll(c.ReadValue<float>());
 
             input.Enable();
         }
@@ -52,6 +66,13 @@ namespace AChildsCourage.RoomEditor
         private void StopVerticalMovement()
         {
             currentMovement.y = 0;
+        }
+
+        private void OnScroll(float delta)
+        {
+            var normalized = delta / Mathf.Abs(delta);
+
+            Zoom += -normalized * zoomSpeed;
         }
 
         private void Update()

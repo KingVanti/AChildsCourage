@@ -170,6 +170,33 @@ namespace AChildsCourage.RoomEditor
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Zoom"",
+            ""id"": ""190a35c5-ec46-40d0-80ae-d73c7e490554"",
+            ""actions"": [
+                {
+                    ""name"": ""Scroll"",
+                    ""type"": ""Value"",
+                    ""id"": ""7446b1ed-4d17-4492-b4d4-27c7313f529a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f7f54864-e115-4bad-8711-a56d098a76e1"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -183,6 +210,9 @@ namespace AChildsCourage.RoomEditor
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Horizontal = m_Movement.FindAction("Horizontal", throwIfNotFound: true);
             m_Movement_Vertical = m_Movement.FindAction("Vertical", throwIfNotFound: true);
+            // Zoom
+            m_Zoom = asset.FindActionMap("Zoom", throwIfNotFound: true);
+            m_Zoom_Scroll = m_Zoom.FindAction("Scroll", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -318,6 +348,39 @@ namespace AChildsCourage.RoomEditor
             }
         }
         public MovementActions @Movement => new MovementActions(this);
+
+        // Zoom
+        private readonly InputActionMap m_Zoom;
+        private IZoomActions m_ZoomActionsCallbackInterface;
+        private readonly InputAction m_Zoom_Scroll;
+        public struct ZoomActions
+        {
+            private @RoomEditorInput m_Wrapper;
+            public ZoomActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Scroll => m_Wrapper.m_Zoom_Scroll;
+            public InputActionMap Get() { return m_Wrapper.m_Zoom; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ZoomActions set) { return set.Get(); }
+            public void SetCallbacks(IZoomActions instance)
+            {
+                if (m_Wrapper.m_ZoomActionsCallbackInterface != null)
+                {
+                    @Scroll.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Scroll.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Scroll.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                }
+                m_Wrapper.m_ZoomActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Scroll.started += instance.OnScroll;
+                    @Scroll.performed += instance.OnScroll;
+                    @Scroll.canceled += instance.OnScroll;
+                }
+            }
+        }
+        public ZoomActions @Zoom => new ZoomActions(this);
         public interface IMouseActions
         {
             void OnPlace(InputAction.CallbackContext context);
@@ -328,6 +391,10 @@ namespace AChildsCourage.RoomEditor
         {
             void OnHorizontal(InputAction.CallbackContext context);
             void OnVertical(InputAction.CallbackContext context);
+        }
+        public interface IZoomActions
+        {
+            void OnScroll(InputAction.CallbackContext context);
         }
     }
 }
