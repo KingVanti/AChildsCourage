@@ -45,7 +45,7 @@ namespace AChildsCourage.RoomEditor
         {
             return
                 GetTiles()
-                .Select(t => new GroundTileData(t.Position))
+                .Select(t => new GroundTileData(t.Position, 0, 0))
                 .ToArray();
         }
 
