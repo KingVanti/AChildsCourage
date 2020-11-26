@@ -57,6 +57,13 @@ namespace AChildsCourage.RoomEditor.Editor
             EditorGUILayout.LabelField($"Editing room \"{RoomEditor.CurrentAssetName}\" (id: {RoomEditor.CurrentAssetId})");
             EditorGUILayout.Space();
 
+            DrawTileSelectionGUI();
+            DrawSaveAssetGUI();
+            DrawUnloadAssetGUI();
+        }
+
+        private void DrawTileSelectionGUI()
+        {
             DrawRoomTypeSelectionGUI();
 
             DrawTileCategorySelectionGUI();
@@ -65,8 +72,6 @@ namespace AChildsCourage.RoomEditor.Editor
                 DrawCourageSelectionGUI();
 
             DrawPassageEditorGUI();
-
-            DrawSaveAssetGUI();
         }
 
         private void DrawRoomTypeSelectionGUI()
@@ -122,6 +127,14 @@ namespace AChildsCourage.RoomEditor.Editor
 
                 Debug.Log("Successfully saved room. Dont forget to push!");
             }
+        }
+
+        private void DrawUnloadAssetGUI()
+        {
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Unload asset"))
+                RoomEditor.Unload();
         }
 
         #endregion

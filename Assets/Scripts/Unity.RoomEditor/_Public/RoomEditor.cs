@@ -54,7 +54,7 @@ namespace AChildsCourage.RoomEditor
         internal void OnAssetSelected(RoomAsset asset)
         {
             LoadedAsset = asset;
-            CurrentPassages = asset.Passages;
+            CurrentPassages = asset.Passages ;
             CurrentRoomType = asset.Type;
 
             LoadContent(asset.Content);
@@ -127,6 +127,16 @@ namespace AChildsCourage.RoomEditor
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
                 itemLayer.ReadAll());
+        }
+
+
+        internal void Unload()
+        {
+            LoadedAsset = null;
+
+            groundLayer.Clear();
+            courageLayer.Clear();
+            itemLayer.Clear();
         }
 
         #endregion

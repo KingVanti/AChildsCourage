@@ -33,7 +33,7 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        protected void Clear()
+        public void Clear()
         {
             tilemap.ClearAllTiles();
         }
