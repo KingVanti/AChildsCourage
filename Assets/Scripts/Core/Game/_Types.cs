@@ -1,6 +1,14 @@
-﻿namespace AChildsCourage.Game
+﻿using AChildsCourage.Game.Items;
+using AChildsCourage.Game.Persistance;
+using System.Collections.Generic;
+
+namespace AChildsCourage.Game
 {
 
-    internal delegate void NightLoader(NightData data);
+    public delegate RunData RunDataLoader();
+
+    public delegate IEnumerable<ItemId> ItemIdLoader();
+
+    public delegate void NightLoader(NightData data);
 
 }

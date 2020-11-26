@@ -5,7 +5,8 @@ using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Courage
 {
-    internal class CouragePickupRepository : ICouragePickupRepository {
+    internal class CouragePickupRepository : ICouragePickupRepository
+    {
 
         #region Constants
 
@@ -21,29 +22,30 @@ namespace AChildsCourage.Game.Courage
 
         #region Constructors
 
-        public CouragePickupRepository() {
-
+        public CouragePickupRepository()
+        {
             couragePickups.AddRange(Resources.LoadAll<CouragePickupData>(CouragePickupDataPath));
-
         }
 
         #endregion
 
         #region Methods
 
-        public CouragePickupData GetCouragePickupData(CourageVariant variant) {
-
-            foreach (CouragePickupData cpd in couragePickups) {
-                if (cpd.Variant == variant) {
+        public CouragePickupData GetCouragePickupData(CourageVariant variant)
+        {
+            foreach (CouragePickupData cpd in couragePickups)
+            {
+                if (cpd.Variant == variant)
+                {
                     return cpd;
                 }
             }
 
             throw new System.Exception("Could not find Courage variant!");
-
         }
 
-        public CouragePickupData GetRandomPickupData(RNGSource rng) {
+        public CouragePickupData GetRandomPickupData(RNGSource rng)
+        {
             return couragePickups.GetRandom(rng);
         }
 

@@ -16,6 +16,14 @@ namespace AChildsCourage.Game
                 0);
         }
 
+        internal static Vector3 ToVector3(this TilePosition tilePosition)
+        {
+            return new Vector3(
+                tilePosition.X,
+                tilePosition.Y,
+                0);
+        }
+
         #endregion
 
     }

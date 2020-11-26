@@ -1,7 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Items;
 using AChildsCourage.Game.NightLoading;
-using AChildsCourage.Game.Persistance;
 
 namespace AChildsCourage.Game
 {
@@ -12,23 +11,23 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        private readonly IRunStorage runStorage;
+        private readonly RunDataLoader runDataLoader;
         private readonly NightLoader nightLoader;
 
         #endregion
 
         #region Constructors
 
-        public NightManager(IRunStorage runStorage, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
+        public NightManager(RunDataLoader runDataLoader, ItemIdLoader itemIdLoader, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
         {
-            this.runStorage = runStorage;
+            this.runDataLoader = runDataLoader;
 
-            nightLoader = NightLoading.NightLoading.Make(roomLoader, floorRecreator);
+            nightLoader = NightLoading.NightLoading.Make(roomLoader, itemIdLoader, floorRecreator);
         }
 
-        public NightManager(IRunStorage runStorage, NightLoader nightLoader)
+        public NightManager(RunDataLoader runDataLoader, NightLoader nightLoader)
         {
-            this.runStorage = runStorage;
+            this.runDataLoader = runDataLoader;
             this.nightLoader = nightLoader;
         }
 
@@ -38,16 +37,9 @@ namespace AChildsCourage.Game
 
         public void PrepareNight()
         {
-            var nightData = GetCurrentNightData();
-
-            nightLoader(nightData);
-        }
-
-        private NightData GetCurrentNightData()
-        {
-            var runData = runStorage.LoadCurrent();
-
-            return runData.CurrentNight;
+            runDataLoader()
+                .Map(d => d.CurrentNight)
+                .Do(nightLoader.Invoke);
         }
 
         #endregion

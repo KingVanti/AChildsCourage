@@ -1,6 +1,6 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Pickups;
+using AChildsCourage.Game.Items;
 using FMOD.Studio;
 using UnityEngine;
 
@@ -125,7 +125,7 @@ public class FmodPlayer : MonoBehaviour
 
     public void PlayCouragePickUp(CouragePickupEntity couragePickup)
     {
-        
+
         switch (couragePickup.Variant)
         {
             case CourageVariant.Orb:

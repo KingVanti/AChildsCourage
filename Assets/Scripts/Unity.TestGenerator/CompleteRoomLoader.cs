@@ -23,13 +23,13 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         internal CompleteRoomLoader()
         {       
-            var startRoom = new RoomData(0, RoomType.Start, ChunkPassages.All, new RoomContentData(null, null, null));
+            var startRoom = new RoomData((RoomId)0, RoomType.Start, ChunkPassages.All, new RoomContentData(null, null, null));
 
             var id = 1;
             var query =
                 from basePassage in basePassages
                 from type in new[] { RoomType.Normal, RoomType.End }
-                select new RoomData(id++, type, basePassage, new RoomContentData(null, null, null));
+                select new RoomData((RoomId)id++, type, basePassage, new RoomContentData(null, null, null));
 
             allData = query.Prepend(startRoom).ToArray();
         }

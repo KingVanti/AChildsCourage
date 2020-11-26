@@ -1,21 +1,28 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AChildsCourage.Game.Monsters {
+namespace AChildsCourage.Game.Monsters
+{
     public class Shade : Monster {
 
-        public void Start() {
-            StartCoroutine(Walk());
+        bool isMovingRight = true;
+
+        public void FixedUpdate() {
+
+            if (transform.position.x >= 5f)
+                isMovingRight = false;
+
+            if (transform.position.x <= -3f)
+                isMovingRight = true;
+
+            if (isMovingRight)
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(5f, transform.position.y), Time.deltaTime * movementSpeed);
+
+            if (!isMovingRight)
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(-3f, transform.position.y), Time.deltaTime * movementSpeed);
+
         }
 
-        IEnumerator Walk() {
 
-            while(transform.position.x < 5) {
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(5, transform.position.y), Time.deltaTime * movementSpeed);
-                yield return null;
-            }
-
-        }
 
     }
 

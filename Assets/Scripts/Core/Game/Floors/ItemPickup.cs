@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors
+﻿using AChildsCourage.Game.Items;
+
+namespace AChildsCourage.Game.Floors
 {
 
     public readonly struct ItemPickup
@@ -8,13 +10,13 @@
 
         public TilePosition Position { get; }
 
-        public int ItemId { get; }
+        public ItemId ItemId { get; }
 
         #endregion
 
         #region Constructors
 
-        public ItemPickup(TilePosition position, int itemId)
+        public ItemPickup(TilePosition position, ItemId itemId)
         {
             Position = position;
             ItemId = itemId;

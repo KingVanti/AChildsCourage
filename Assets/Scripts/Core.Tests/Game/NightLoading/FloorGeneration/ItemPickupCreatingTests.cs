@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AChildsCourage.Game.Items;
+using NUnit.Framework;
 using System.Linq;
 using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
@@ -16,7 +17,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var itemIds = new[] { 0, 1 };
+            var itemIds = new[] { (ItemId)0, (ItemId)1 };
             var positions = new[]
             {
                 new TilePosition(0, 0),
@@ -38,7 +39,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var itemIds = new[] { 0, 1 };
+            var itemIds = new[] { (ItemId)0, (ItemId)1 };
             var positions = new[]
             {
                 new TilePosition(0, 0),

@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage
+﻿using UnityEngine;
+
+namespace AChildsCourage
 {
     public static class CustomMathModule
     {
@@ -17,6 +19,10 @@
         public static float Map(float x, float begin1, float end1, float begin2, float end2)
         {
             return begin2 + (end2 - begin2) * ((x - begin1) / (end1 - begin1));
+        }
+
+        public static float CalculateAngle(float yPos, float xPos) {
+            return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
         #endregion

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-namespace AChildsCourage.Game.Monsters {
+namespace AChildsCourage.Game.Monsters
+{
 
     public abstract class Monster : MonoBehaviour {
 

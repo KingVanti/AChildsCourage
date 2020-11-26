@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorGenerator Make(IEnumerable<RoomData> roomData)
+        internal static FloorGenerator Make(IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
         {
             return floorPlan =>
             {
@@ -35,7 +36,7 @@ namespace AChildsCourage.Game.NightLoading
 
                 Func<FloorInProgress, Floor> createFloor = floorInProgress =>
                 {
-                    Func<FloorInProgress, IEnumerable<CouragePickup>> createPickups = fip =>
+                    Func<FloorInProgress, IEnumerable<CouragePickup>> createCouragePickups = fip =>
                     {
                         return Enumerable.Concat(
                             ChooseCourageOrbs(fip.CourageOrbPositions, CourageOrbCount),
@@ -44,9 +45,10 @@ namespace AChildsCourage.Game.NightLoading
 
                     var groundTiles = floorInProgress.GroundPositions.Select(p => new GroundTile(p));
                     var walls = GenerateWalls(floorInProgress);
-                    var couragePickups = createPickups(floorInProgress);
+                    var couragePickups = createCouragePickups(floorInProgress);
+                    var itemPickups = ChoosePickups(itemIds, floorInProgress.ItemPickupPositions);
 
-                    return new Floor(groundTiles, walls, couragePickups);
+                    return new Floor(groundTiles, walls, couragePickups, itemPickups);
                 };
 
                 return

@@ -1,13 +1,16 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Input;
-using AChildsCourage.Game.Pickups;
+using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player {
+using static AChildsCourage.CustomMathModule;
+
+namespace AChildsCourage.Game.Player
+{
     public class CharacterController : MonoBehaviour {
 
         #region Fields
@@ -203,9 +206,6 @@ namespace AChildsCourage.Game.Player {
             OnPositionChanged.Invoke(transform.position);
         }
 
-        private float CalculateAngle(float yPos, float xPos) {
-            return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
-        }
 
         private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs) {
             MousePos = eventArgs.MousePosition;
@@ -238,6 +238,10 @@ namespace AChildsCourage.Game.Player {
 
         }
 
+        private void OnItemSwapped(ItemSwappedEventArgs eventArgs) {
+            OnSwapItem?.Invoke();
+        }
+
         public void OnCouragePickUp(CouragePickupEntity courage) {
 
             var emission = courageCollectParticleSystem.emission;
@@ -255,9 +259,7 @@ namespace AChildsCourage.Game.Player {
 
         }
 
-        private void OnItemSwapped(ItemSwappedEventArgs eventArgs) {
-            OnSwapItem?.Invoke();
-        }
+
 
         private void OnTriggerEnter2D(Collider2D collision) {
 

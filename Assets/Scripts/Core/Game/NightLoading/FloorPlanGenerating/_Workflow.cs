@@ -23,43 +23,25 @@ namespace AChildsCourage.Game.NightLoading
             {
                 var rng = rngInitializer(seed);
 
-                Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip =>
-                {
-                    Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(fpip, rng);
-                    Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, fpip, allPassages, rng);
-                    Func<RoomInChunk, FloorPlanInProgress> placeRoom = roomInChunk => PlaceRoom(fpip, roomInChunk);
-
-                    return
-                        chooseChunk()
-                        .Map(chooseRoom.Invoke)
-                        .Map(placeRoom.Invoke);
-                };
-
-                Func<FloorPlanInProgress, FloorPlan> buildFloorPlan = (fpip) =>
-                {
-                    Func<ChunkPosition, RoomInChunk> lookupRoom = position => new RoomInChunk(fpip.RoomsByChunks[position], position);
-                    Func<RoomInChunk, RoomPlan> createRoomPlan = roomInChunk =>
-                    {
-                        var position = roomInChunk.Position;
-                        var passages = roomInChunk.Room;
-                        var transform = new RoomTransform(position, passages.IsMirrored, passages.RotationCount);
-
-                        return new RoomPlan(passages.RoomId, transform);
-                    };
-                    Func<IEnumerable<RoomPlan>, FloorPlan> createFloorPlan = roomPlans => new FloorPlan(roomPlans.ToArray());
-
-                    return
-                        Take(fpip.RoomsByChunks.Keys)
-                        .Select(lookupRoom.Invoke)
-                        .Select(createRoomPlan.Invoke)
-                        .Map(createFloorPlan);
-                };
+                Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, allPassages, fpip);
 
                 return
                     Take(new FloorPlanInProgress())
-                    .RepeatWhile(addRoom.Invoke, NeedsMoreRooms)
-                    .Map(buildFloorPlan.Invoke);
+                    .RepeatWhile(addRoom, NeedsMoreRooms)
+                    .Map(BuildFloorPlan);
             };
+        }
+
+        internal static FloorPlanInProgress AddRoom(RNGSource rng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
+        {
+            Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(floorPlanInprogress, rng);
+            Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, floorPlanInprogress, allPassages, rng);
+            Func<RoomInChunk, FloorPlanInProgress> placeRoom = roomInChunk => PlaceRoom(floorPlanInprogress, roomInChunk);
+
+            return
+                chooseChunk()
+                .Map(chooseRoom.Invoke)
+                .Map(placeRoom.Invoke);
         }
 
         internal static bool NeedsMoreRooms(FloorPlanInProgress fpip) =>
@@ -69,6 +51,26 @@ namespace AChildsCourage.Game.NightLoading
             .Negate();
 
         internal static bool IsEnough(int currentRoomCount) => currentRoomCount >= GoalRoomCount;
+
+        internal static FloorPlan BuildFloorPlan(FloorPlanInProgress floorPlanInProgress)
+        {
+            Func<ChunkPosition, RoomInChunk> lookupRoom = position => new RoomInChunk(floorPlanInProgress.RoomsByChunks[position], position);
+            Func<RoomInChunk, RoomPlan> createRoomPlan = roomInChunk =>
+            {
+                var position = roomInChunk.Position;
+                var passages = roomInChunk.Room;
+                var transform = new RoomTransform(position, passages.IsMirrored, passages.RotationCount);
+
+                return new RoomPlan(passages.Id, transform);
+            };
+            Func<IEnumerable<RoomPlan>, FloorPlan> createFloorPlan = roomPlans => new FloorPlan(roomPlans.ToArray());
+
+            return
+                Take(floorPlanInProgress.RoomsByChunks.Keys)
+                .Select(lookupRoom.Invoke)
+                .Select(createRoomPlan.Invoke)
+                .Map(createFloorPlan);
+        }
 
     }
 

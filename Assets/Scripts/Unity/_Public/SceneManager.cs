@@ -1,12 +1,6 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using Ninject;
-using Ninject.Extensions.AppccelerateEventBroker;
-using Ninject.Extensions.Conventions;
-using Ninject.Extensions.Unity;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using static AChildsCourage.ServiceInjecting;
 
 namespace AChildsCourage
 {
@@ -29,43 +23,8 @@ namespace AChildsCourage
 
         private void SetupScene()
         {
-            AutoInjectServices();
+            InjectServices();
             onSceneLoaded.Invoke();
-        }
-
-        private void AutoInjectServices()
-        {
-#pragma warning disable 1701, 1702
-
-            var kernel = new StandardKernel();
-
-            kernel.AddGlobalEventBroker("Default");
-
-            var assemblies = new[]
-            {
-                Assembly.Load("AChildsCourage.Core"),
-                Assembly.Load("AChildsCourage.Unity")
-            };
-
-            kernel.Bind(x => x
-                .From(assemblies)
-                .IncludingNonPublicTypes().SelectAllClasses().WithAttribute<SingletonAttribute>()
-                .BindAllInterfaces()
-                .Configure(b => b.InSingletonScope().RegisterOnEventBroker("Default")));
-
-            kernel.Bind(x => x
-               .From(assemblies)
-               .IncludingNonPublicTypes().SelectAllClasses().WithoutAttribute<SingletonAttribute>()
-               .BindAllInterfaces()
-               .Configure(b => b.RegisterOnEventBroker("Default")));
-
-            kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
-
-            _ = kernel.GetAll<IEagerActivation>().ToArray();
-
-            kernel.AutoInjectSceneServices(assemblies.Where(a => a.FullName.Contains("Unity")));
-
-#pragma warning restore 1701, 1702
         }
 
         #endregion

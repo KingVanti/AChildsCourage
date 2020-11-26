@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Persistance;
-using Moq;
 using NUnit.Framework;
 
 namespace AChildsCourage.Game
@@ -17,13 +16,12 @@ namespace AChildsCourage.Game
             // Given
 
             var nightData = new NightData();
-            var mockRunStorage = new Mock<IRunStorage>();
-            mockRunStorage.Setup(s => s.LoadCurrent()).Returns(new RunData(nightData));
+            RunDataLoader runDataLoader = () => new RunData(nightData);
 
             var calledTimes = 0;
             NightLoader nightLoader = _ => calledTimes++;
 
-            var nightManager = new NightManager(mockRunStorage.Object, nightLoader);
+            var nightManager = new NightManager(runDataLoader, nightLoader);
 
             // When
 
