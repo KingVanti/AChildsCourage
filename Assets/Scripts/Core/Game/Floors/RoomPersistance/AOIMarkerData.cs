@@ -8,10 +8,10 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         public TilePosition Position { get; }
 
-        public AOIIndex Index { get; }
+        public int Index { get; }
 
 
-        public AOIMarkerData(TilePosition position, AOIIndex index)
+        public AOIMarkerData(TilePosition position, int index)
         {
             Position = position;
             Index = index;

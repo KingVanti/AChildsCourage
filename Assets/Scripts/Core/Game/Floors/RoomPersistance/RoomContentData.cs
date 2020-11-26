@@ -21,7 +21,7 @@
             GroundData = groundData ?? new GroundTileData[0];
             CourageData = courageData ?? new CouragePickupData[0];
             ItemData = itemData ?? new ItemPickupData[0];
-            AOIMarkers = aoiMarkers ?? new AOIMarkerData[0];
+            AOIMarkers = aoiMarkers ?? new[] { new AOIMarkerData(new TilePosition(0, 0), 0) };
         }
 
     }
