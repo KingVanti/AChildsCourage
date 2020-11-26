@@ -201,7 +201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3021571848133841465}
-  testItem: {fileID: 0}
   tutorialInfo: {fileID: 5011577725855833242}
 --- !u!114 &6331907839828243817
 MonoBehaviour:

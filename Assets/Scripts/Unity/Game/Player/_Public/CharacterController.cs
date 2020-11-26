@@ -1,6 +1,6 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Input;
-using AChildsCourage.Game.Pickups;
+using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using System;
 using System.Collections;
