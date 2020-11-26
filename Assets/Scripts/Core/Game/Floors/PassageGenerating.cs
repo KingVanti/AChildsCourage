@@ -34,12 +34,12 @@ namespace AChildsCourage.Game.Floors
 
         public static RoomPassages Mirror(this RoomPassages passages)
         {
-            return new RoomPassages(passages.RoomId, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
+            return new RoomPassages(passages.Id, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
         }
 
         public static RoomPassages Rotate(this RoomPassages passages)
         {
-            return new RoomPassages(passages.RoomId, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
+            return new RoomPassages(passages.Id, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
         }
 
     }

@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         #region Properties
 
-        public int Id { get { return _id; } }
+        public RoomId Id { get { return (RoomId)_id; } }
 
         public RoomType Type { get { return _type; } }
 

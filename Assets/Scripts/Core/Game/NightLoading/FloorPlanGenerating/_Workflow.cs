@@ -61,7 +61,7 @@ namespace AChildsCourage.Game.NightLoading
                 var passages = roomInChunk.Room;
                 var transform = new RoomTransform(position, passages.IsMirrored, passages.RotationCount);
 
-                return new RoomPlan(passages.RoomId, transform);
+                return new RoomPlan(passages.Id, transform);
             };
             Func<IEnumerable<RoomPlan>, FloorPlan> createFloorPlan = roomPlans => new FloorPlan(roomPlans.ToArray());
 

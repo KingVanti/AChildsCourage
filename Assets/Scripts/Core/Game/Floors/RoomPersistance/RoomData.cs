@@ -6,7 +6,7 @@
        
         #region Properties
 
-        public int Id { get; }
+        public RoomId Id { get; }
 
         public RoomType Type { get; }
 
@@ -18,7 +18,7 @@
 
         #region Constructors
 
-        public RoomData(int id, RoomType type, ChunkPassages passages, RoomContentData content)
+        public RoomData(RoomId id, RoomType type, ChunkPassages passages, RoomContentData content)
         {
             Id = id;
             Type = type;
