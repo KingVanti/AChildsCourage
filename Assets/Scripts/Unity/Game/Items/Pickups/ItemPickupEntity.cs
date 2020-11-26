@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Properties
 
-        public int Id { get; private set; }
+        public ItemId Id { get; private set; }
 
         #endregion
 
