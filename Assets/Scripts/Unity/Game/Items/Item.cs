@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Items;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Player
+namespace AChildsCourage.Game.Items
 {
 
     public abstract class Item : MonoBehaviour

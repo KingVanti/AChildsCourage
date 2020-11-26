@@ -5,7 +5,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 using static AChildsCourage.CustomMathModule;
 
-namespace AChildsCourage.Game.Player
+namespace AChildsCourage.Game.Items
 {
     public class Flashlight : Item
     {
