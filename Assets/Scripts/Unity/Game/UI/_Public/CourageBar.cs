@@ -36,8 +36,8 @@ namespace AChildsCourage.Game.UI
 
         IEnumerator FillLerp(float destination) {
 
-            while(courageBarFill.fillAmount < destination) {
-                courageBarFill.fillAmount = Mathf.Lerp(courageBarFill.fillAmount, destination, Time.deltaTime * 2);
+            while(courageBarFill.fillAmount != destination) {
+                courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 2.0f);
                 yield return new WaitForEndOfFrame();
             }
             

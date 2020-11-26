@@ -457,7 +457,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2974c05eaf94e4a4dbf28a015687072f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -507,7 +507,8 @@ MonoBehaviour:
   itemBag: {fileID: 1668216621}
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
-  rigidbody: {fileID: 3546636511749136385}
+  rb: {fileID: 3546636511749136385}
+  characterGlowingLight: {fileID: 1604705283}
   OnPositionChanged:
     m_PersistentCalls:
       m_Calls:
