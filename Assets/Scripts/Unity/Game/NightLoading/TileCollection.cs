@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.RNG;
 
-namespace AChildsCourage.Game.Floors
+namespace AChildsCourage.Game.NightLoading
 {
 
     [Serializable]
