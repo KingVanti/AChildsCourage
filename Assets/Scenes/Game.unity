@@ -154,6 +154,10 @@ PrefabInstance:
       propertyPath: itemIcons.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 0098f7c911cdea641bd16bf392dc1581, type: 2}
+    - target: {fileID: 1668216621, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: pickupSpawner
+      value: 
+      objectReference: {fileID: 1932617547}
     - target: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: mainCamera
       value: 
@@ -1937,6 +1941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1932617546}
+  - component: {fileID: 1932617547}
   m_Layer: 0
   m_Name: -- PickupContainer --
   m_TagString: Untagged
@@ -1958,6 +1963,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1932617547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932617545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce059bac5870be41863700509fd7800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
+  pickupContainer: {fileID: 1932617546}
+  itemIcons:
+  - {fileID: 11400000, guid: 0098f7c911cdea641bd16bf392dc1581, type: 2}
 --- !u!1 &2001367418
 GameObject:
   m_ObjectHideFlags: 0

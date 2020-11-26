@@ -17,10 +17,8 @@ namespace AChildsCourage.Game.Player
 
 #pragma warning disable 649
 
+        [SerializeField] private ItemPickupSpawner pickupSpawner;
         [SerializeField] private List<GameObject> availableItems = new List<GameObject>();
-        [SerializeField] private GameObject pickupPrefab;
-        [SerializeField] private Transform pickupContainer;
-        [SerializeField] private ItemIcon[] itemIcons;
 
 #pragma warning restore 649
 
@@ -70,19 +68,10 @@ namespace AChildsCourage.Game.Player
 
         private void DropItem(int slotId)
         {
-            var pickupEntity = SpawnItemPickup();
-            var itemData = FindItemData(currentItems[slotId].Id);
-            var icon = itemIcons.First(i => i.ItemId == itemData.Id);
-
-            pickupEntity.SetItemData(itemData, icon);
+            var itemId = currentItems[slotId].Id;
+            pickupSpawner.SpawnPickupFor(itemId);
 
             itemDroppedEvent?.Invoke();
-        }
-
-        private ItemPickupEntity SpawnItemPickup()
-        {
-            var itemGameObject = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
-            return itemGameObject.GetComponent<ItemPickupEntity>();
         }
 
 

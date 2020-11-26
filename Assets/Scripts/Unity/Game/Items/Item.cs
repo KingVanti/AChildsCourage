@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Items;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Items
 {

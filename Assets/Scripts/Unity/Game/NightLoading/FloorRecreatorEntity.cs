@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
