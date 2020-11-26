@@ -79,7 +79,8 @@ namespace AChildsCourage
         {
             kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
             kernel.Bind<RunDataLoader>().ToConstant(JsonRunDataLoading.Make());
-            kernel.Bind<ItemDataFinder>().ToConstant(ItemDataFinding.Make());
+            kernel.Bind<ItemDataFinder>().ToConstant(ItemDataRepository.GetItemDataFinder());
+            kernel.Bind<ItemIdLoader>().ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 
         private static void ActivateEagerServices(IKernel kernel)

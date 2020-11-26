@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Items;
 using AChildsCourage.Game.NightLoading;
 
 namespace AChildsCourage.Game
@@ -17,11 +18,11 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(RunDataLoader runDataLoader, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
+        public NightManager(RunDataLoader runDataLoader, ItemIdLoader itemIdLoader, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
         {
             this.runDataLoader = runDataLoader;
 
-            nightLoader = NightLoading.NightLoading.Make(roomLoader, floorRecreator);
+            nightLoader = NightLoading.NightLoading.Make(roomLoader, itemIdLoader, floorRecreator);
         }
 
         public NightManager(RunDataLoader runDataLoader, NightLoader nightLoader)

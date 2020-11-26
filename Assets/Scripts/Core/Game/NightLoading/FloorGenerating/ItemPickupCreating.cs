@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static IEnumerable<ItemPickup> ChoosePickups(IEnumerable<int> itemIds, IEnumerable<TilePosition> itemPositions)
+        internal static IEnumerable<ItemPickup> ChoosePickups(IEnumerable<ItemId> itemIds, IEnumerable<TilePosition> itemPositions)
         {
             var remainingPositions = itemPositions.ToList();
             var takenPositions = new List<TilePosition>();

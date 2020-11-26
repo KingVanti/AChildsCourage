@@ -8,15 +8,17 @@ namespace AChildsCourage.Game.NightLoading
     public static class NightLoading
     {
 
-        public static NightLoader Make(RoomDataLoader roomDataLoader, IFloorRecreator floorRecreator)
+        public static NightLoader Make(RoomDataLoader roomDataLoader, ItemIdLoader itemIdLoader, IFloorRecreator floorRecreator)
         {
             return nightData =>
             {
                 var roomData = roomDataLoader();
-                RNGInitializer rngInitializer = SeedBasedRNG;
+                var itemIds = itemIdLoader();
+
+                var rngInitializer = SeedBasedRNG;
 
                 var floorPlanGenerator = FloorPlanGenerating.Make(roomData, rngInitializer);
-                var floorGenerator = FloorGenerating.Make(roomData);
+                var floorGenerator = FloorGenerating.Make(itemIds, roomData);
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 
                 Take(nightData.Seed)
