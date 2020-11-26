@@ -19,8 +19,8 @@ namespace AChildsCourage.Game.NightLoading
             var floor = new FloorInProgress();
             var tiles = new[]
             {
-                new GroundTileData(new TilePosition(0, 0)),
-                new GroundTileData(new TilePosition(1, 0))
+                new GroundTileData(new TilePosition(0, 0), 0, 0),
+                new GroundTileData(new TilePosition(1, 0), 0, 0)
             };
             TileTransformer transformer = pos => new TilePosition(pos.X, 1);
 

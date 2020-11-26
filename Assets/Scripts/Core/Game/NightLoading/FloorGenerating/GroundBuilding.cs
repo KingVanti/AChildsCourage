@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static GroundTileData With(this GroundTileData groundTile, TilePosition position)
         {
-            return new GroundTileData(position);
+            return new GroundTileData(position, groundTile.DistanceToWall, groundTile.AOIIndex);
         }
 
         internal static void PlaceGroundTile(GroundTileData groundTile, FloorInProgress floor)

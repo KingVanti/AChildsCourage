@@ -1,15 +1,23 @@
-﻿namespace AChildsCourage.Game.Floors.RoomPersistance
+﻿using AChildsCourage.Game.Monsters.Navigation;
+
+namespace AChildsCourage.Game.Floors.RoomPersistance
 {
 
     public readonly struct GroundTileData
     {
-
+       
         public TilePosition Position { get; }
 
+        public int DistanceToWall { get; }
 
-        public GroundTileData(TilePosition position)
+        public int AOIIndex { get; }
+
+
+        public GroundTileData(TilePosition position, int distanceToWall, int aOIIndex)
         {
             Position = position;
+            DistanceToWall = distanceToWall;
+            AOIIndex = aOIIndex;
         }
 
     }
