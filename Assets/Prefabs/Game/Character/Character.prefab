@@ -136,11 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26f6392eec67064e9a31176355d41f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSpawner: {fileID: 0}
   availableItems:
   - {fileID: 788487156}
   - {fileID: 8573944650217283424}
-  pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
-  pickupContainer: {fileID: 0}
   cooldownEvent:
     m_PersistentCalls:
       m_Calls:
@@ -472,11 +471,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 8820627343415363622}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2974c05eaf94e4a4dbf28a015687072f, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02786696, y: 0.22109541}
+  m_Offset: {x: 0.035851866, y: 0.22109541}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -487,7 +486,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31425333, y: 0.6069736}
+  m_Size: {x: 0.29828352, y: 0.6069736}
   m_EdgeRadius: 0
 --- !u!114 &8820627343415363625
 MonoBehaviour:
