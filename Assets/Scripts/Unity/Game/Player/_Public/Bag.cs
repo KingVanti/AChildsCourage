@@ -69,7 +69,7 @@ namespace AChildsCourage.Game.Player
         private void DropItem(int slotId)
         {
             var itemId = currentItems[slotId].Id;
-            pickupSpawner.SpawnPickupFor(itemId);
+            pickupSpawner.SpawnPickupFor(itemId, transform.position);
 
             itemDroppedEvent?.Invoke();
         }

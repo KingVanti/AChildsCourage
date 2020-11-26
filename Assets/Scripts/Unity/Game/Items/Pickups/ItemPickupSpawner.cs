@@ -28,18 +28,18 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Methods
 
-        public void SpawnPickupFor(ItemId itemId)
+        public void SpawnPickupFor(ItemId itemId, Vector3 position)
         {
-            var pickupEntity = SpawnItemPickup();
+            var pickupEntity = SpawnItemPickup(position);
             var itemData = FindItemData(itemId);
             var icon = itemIcons.First(i => i.ItemId == itemData.Id);
 
             pickupEntity.SetItemData(itemData, icon);
         }
 
-        private ItemPickupEntity SpawnItemPickup()
+        private ItemPickupEntity SpawnItemPickup(Vector3 position)
         {
-            var itemGameObject = Instantiate(pickupPrefab, transform.position, Quaternion.identity, pickupContainer);
+            var itemGameObject = Instantiate(pickupPrefab, position, Quaternion.identity, pickupContainer);
             return itemGameObject.GetComponent<ItemPickupEntity>();
         }
 
