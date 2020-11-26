@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Items;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Player
 {
@@ -8,14 +9,18 @@ namespace AChildsCourage.Game.Player
 
         #region Fields
 
+#pragma warning disable 649
+
         [SerializeField] [Range(0, 120)] private float _cooldown;
         [SerializeField] private int _id;
+
+#pragma warning restore 649
 
         #endregion
 
         #region Properties
 
-        public int Id { get; private set; }
+        public ItemId Id { get { return (ItemId)_id; } }
 
         public float Cooldown { get { return _cooldown; } set { _cooldown = value; } }
 

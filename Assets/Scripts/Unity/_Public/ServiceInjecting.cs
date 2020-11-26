@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game;
 using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Persistance;
 using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
@@ -78,6 +79,7 @@ namespace AChildsCourage
         {
             kernel.Bind<RoomDataLoader>().ToConstant(RoomDataLoading.Make());
             kernel.Bind<RunDataLoader>().ToConstant(JsonRunDataLoading.Make());
+            kernel.Bind<ItemDataFinder>().ToConstant(ItemDataFinding.Make());
         }
 
         private static void ActivateEagerServices(IKernel kernel)
