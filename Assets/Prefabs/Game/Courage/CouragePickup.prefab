@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7978117671522099883}
   - component: {fileID: 7978117671522099882}
   m_Layer: 10
-  m_Name: Icon
+  m_Name: Courage Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7978117671522099882}
+  courageLight: {fileID: 7978117672213814819}
 --- !u!198 &1745441868050171075
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4938,7 +4939,7 @@ GameObject:
   - component: {fileID: 7978117672213814816}
   - component: {fileID: 7978117672213814819}
   m_Layer: 10
-  m_Name: Point Light 2D
+  m_Name: Courage Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

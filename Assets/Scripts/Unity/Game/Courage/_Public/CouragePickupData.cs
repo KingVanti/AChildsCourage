@@ -19,6 +19,8 @@ namespace AChildsCourage.Game.Courage
         [SerializeField] private Sprite _sprite;
         [SerializeField] private Vector3 _scale;
         [SerializeField] private Texture2D _emission;
+        [SerializeField] private float _lightOuterRadius;
+        [SerializeField] private float _lightIntensity;
 
 #pragma warning restore 649
 
@@ -38,6 +40,9 @@ namespace AChildsCourage.Game.Courage
 
         public Texture2D Emission { get { return _emission; } }
 
+        public float LightOuterRadius { get { return _lightOuterRadius; } }
+
+        public float LightIntensity { get { return _lightIntensity; } }
         #endregion
 
     }
