@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Items
 {
 
-    public abstract class Item : MonoBehaviour
+    public abstract class ItemBehaviour : MonoBehaviour
     {
 
         #region Fields

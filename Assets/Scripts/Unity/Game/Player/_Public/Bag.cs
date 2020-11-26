@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Player
 
 #pragma warning restore 649
 
-        private Item[] currentItems = new Item[2];
+        private ItemBehaviour[] currentItems = new ItemBehaviour[2];
         private float[] currentItemCooldown = new float[2];
 
         public CooldownEvent cooldownEvent;
@@ -74,7 +74,7 @@ namespace AChildsCourage.Game.Player
 
         private void PutItemInSlot(int slotId, int itemId)
         {
-            currentItems[slotId] = availableItems[itemId].GetComponent<Item>();
+            currentItems[slotId] = availableItems[itemId].GetComponent<ItemBehaviour>();
             itemPickUpEvent?.Invoke();
         }
 
@@ -89,7 +89,7 @@ namespace AChildsCourage.Game.Player
             }
             else
             {
-                Item tempItem = currentItems[0];
+                ItemBehaviour tempItem = currentItems[0];
                 currentItems[0] = currentItems[1];
                 currentItems[1] = tempItem;
                 itemSwappedEvent?.Invoke();

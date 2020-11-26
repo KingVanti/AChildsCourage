@@ -7,7 +7,7 @@ using static AChildsCourage.CustomMathModule;
 
 namespace AChildsCourage.Game.Items
 {
-    public class Flashlight : Item
+    public class Flashlight : ItemBehaviour
     {
 
         #region Fields
