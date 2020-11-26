@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Courage
             get { return _currentNightCourage; }
             set {
                 _currentNightCourage = value;
-                OnCourageChanged?.Invoke(_currentNightCourage, MaxNightCourage);
+                OnCourageChanged?.Invoke(_currentNightCourage, NeededNightCourage, MaxNightCourage);
             }
         }
 
@@ -53,6 +53,10 @@ namespace AChildsCourage.Game.Courage
 
         #region Methods
 
+        private void Start() {
+            Initialize(MaxNightCourage);
+        }
+
         public void Initialize(int maxNightCourage) {
 
             MaxNightCourage = maxNightCourage;
@@ -63,7 +67,7 @@ namespace AChildsCourage.Game.Courage
                 StartNightCourage = 1;
             }
 
-            OnInitialize?.Invoke(StartNightCourage, MaxNightCourage);
+            OnInitialize?.Invoke(StartNightCourage, NeededNightCourage, MaxNightCourage);
 
         }
 
@@ -92,7 +96,7 @@ namespace AChildsCourage.Game.Courage
         #region Subclasses
 
         [Serializable]
-        public class CourageChangedEvent : UnityEvent<int, int> { }
+        public class CourageChangedEvent : UnityEvent<int, int, int> { }
 
 
         #endregion

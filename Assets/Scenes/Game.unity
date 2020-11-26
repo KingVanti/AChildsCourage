@@ -172,7 +172,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1446311492}
         m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
-        m_MethodName: UpdateCourageCounter
+        m_MethodName: UpdateCourage
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -366,11 +366,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537825537936044895, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: 12.22
       objectReference: {fileID: 0}
     - target: {fileID: 537825537936044895, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.41
+      value: 6.47
       objectReference: {fileID: 0}
     - target: {fileID: 537825537936044895, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1408,7 +1408,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   courageBarFill: {fileID: 1940514336}
   courageCounterTextMesh: {fileID: 953866106}
-  courageBarAnimator: {fileID: 1940514335}
 --- !u!1001 &1540394725
 PrefabInstance:
   m_ObjectHideFlags: 0
