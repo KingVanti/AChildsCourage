@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 32
+  m_AssetsPPU: 24
   m_RefResolutionX: 432
   m_RefResolutionY: 243
   m_UpscaleRT: 0
