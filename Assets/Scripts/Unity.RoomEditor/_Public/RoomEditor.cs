@@ -39,6 +39,9 @@ namespace AChildsCourage.RoomEditor
         internal bool HasLoadedAsset { get { return LoadedAsset != null; } }
 
 
+        internal string CurrentAssetName { get { return LoadedAsset.name; } }
+
+
         internal bool CurrentRoomIsStartRoom { get { return CurrentRoomType == RoomType.Start; } }
 
 

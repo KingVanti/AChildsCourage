@@ -54,7 +54,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void DrawEditingGUI()
         {
-            EditorGUILayout.LabelField($"Editing room with id {RoomEditor.CurrentAssetId}.");
+            EditorGUILayout.LabelField($"Editing room \"{RoomEditor.CurrentAssetName}\" (id: {RoomEditor.CurrentAssetId})");
             EditorGUILayout.Space();
 
             DrawRoomTypeSelectionGUI();
