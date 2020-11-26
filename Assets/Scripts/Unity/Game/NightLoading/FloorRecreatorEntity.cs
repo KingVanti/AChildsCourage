@@ -21,6 +21,7 @@ namespace AChildsCourage.Game.NightLoading
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GameObject couragePickupPrefab;
+        [SerializeField] private ItemPickupSpawner itemPickupSpawner;
 
 #pragma warning restore 649
 
@@ -39,6 +40,7 @@ namespace AChildsCourage.Game.NightLoading
             floor.GroundTiles.ForEach(PlaceGround);
             floor.Walls.ForEach(PlaceWall);
             floor.CouragePickups.ForEach(PlaceCouragePickup);
+            floor.ItemPickups.ForEach(PlaceItemPickups);
         }
 
         private void PlaceGround(GroundTile groundTile)
@@ -69,6 +71,14 @@ namespace AChildsCourage.Game.NightLoading
         {
             return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity).GetComponent<CouragePickupEntity>();
         }
+
+        private void PlaceItemPickups(ItemPickup pickup)
+        {
+            var position = pickup.Position.ToVector3();
+            
+            itemPickupSpawner.SpawnPickupFor(pickup.ItemId, position);
+        }
+
 
         #endregion
 
