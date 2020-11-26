@@ -16,8 +16,8 @@ namespace AChildsCourage.Game.Items
 
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Light2D lightComponent;
-        [SerializeField] [Range(1.0f, 5.0f)] private float maxFlashlightDistance;
-        [SerializeField] [Range(0.1f, 1.0f)] private float maxFlashlightIntensity;
+        [SerializeField] [Range(0.25f, 10.0f)] private float maxFlashlightDistance;
+        [SerializeField] [Range(0.05f, 1.0f)] private float maxFlashlightIntensity;
 
 #pragma warning restore 649
 
