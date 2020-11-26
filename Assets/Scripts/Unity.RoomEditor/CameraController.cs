@@ -28,7 +28,6 @@ namespace AChildsCourage.RoomEditor
             input.Movement.Horizontal.started += c => StartHorizontalMovement(c.ReadValue<float>());
             input.Movement.Horizontal.canceled += _ => StopHorizontalMovement();
 
-
             input.Movement.Vertical.started += c => StartVerticalMovement(c.ReadValue<float>());
             input.Movement.Vertical.canceled += _ => StopVerticalMovement();
 
