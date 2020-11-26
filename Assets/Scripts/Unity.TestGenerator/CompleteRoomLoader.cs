@@ -1,8 +1,6 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using static AChildsCourage.Game.Floors.PassageGenerating;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
@@ -22,14 +20,14 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
 
         internal CompleteRoomLoader()
-        {       
-            var startRoom = new RoomData((RoomId)0, RoomType.Start, ChunkPassages.All, new RoomContentData(null, null, null));
+        {
+            var startRoom = new RoomData((RoomId)0, RoomType.Start, ChunkPassages.All, RoomContentData.Empty);
 
             var id = 1;
             var query =
                 from basePassage in basePassages
                 from type in new[] { RoomType.Normal, RoomType.End }
-                select new RoomData((RoomId)id++, type, basePassage, new RoomContentData(null, null, null));
+                select new RoomData((RoomId)id++, type, basePassage, RoomContentData.Empty);
 
             allData = query.Prepend(startRoom).ToArray();
         }

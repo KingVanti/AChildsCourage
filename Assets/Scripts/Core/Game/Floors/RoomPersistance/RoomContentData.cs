@@ -4,18 +4,24 @@
     public class RoomContentData
     {
 
+        public static RoomContentData Empty { get { return new RoomContentData(null, null, null, null); } }
+
+
         public GroundTileData[] GroundData { get; }
 
         public CouragePickupData[] CourageData { get; }
 
         public ItemPickupData[] ItemData { get; }
 
+        public AOIMarkerData[] AOIMarkers { get; }
 
-        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData)
+
+        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, AOIMarkerData[] aoiMarkers)
         {
             GroundData = groundData ?? new GroundTileData[0];
             CourageData = courageData ?? new CouragePickupData[0];
             ItemData = itemData ?? new ItemPickupData[0];
+            AOIMarkers = aoiMarkers ?? new AOIMarkerData[0];
         }
 
     }
