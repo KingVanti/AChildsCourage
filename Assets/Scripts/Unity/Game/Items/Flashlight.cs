@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.Items
 
         private Vector2 ProjectedMousePos { get { return mainCamera.ScreenToWorldPoint(MousePos); } }
 
-        private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition)); } }
+        private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition + Vector2.up/2)); } }
 
         private RaycastHit2D RaycastMouseToCharacter
         {

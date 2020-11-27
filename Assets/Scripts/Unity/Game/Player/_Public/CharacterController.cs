@@ -6,11 +6,10 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.CustomMathModule;
 
-namespace AChildsCourage.Game.Player
-{
+namespace AChildsCourage.Game.Player {
     public class CharacterController : MonoBehaviour {
 
         #region Fields
@@ -24,7 +23,8 @@ namespace AChildsCourage.Game.Player
         [SerializeField] private Bag itemBag;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private new Rigidbody2D rigidbody;
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Light2D characterGlowingLight;
 
 #pragma warning restore 649
 
@@ -330,15 +330,15 @@ namespace AChildsCourage.Game.Player
 
             if (IsMoving) {
                 Debug.Log("Hit while moving");
-                rigidbody.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
+                rb.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
                 MovingDirection = Vector2.zero;
             } else {
-                rigidbody.AddForce(new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
             }
 
             yield return new WaitForSeconds(duration);
 
-            rigidbody.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero;
             //MovingDirection = previousMovingDirection;
             gettingKnockedBack = false;
 

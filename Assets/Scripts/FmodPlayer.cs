@@ -18,7 +18,8 @@ public class FmodPlayer : MonoBehaviour
     const string ItemSwap_Path = "event:/UI/Item/ItemSwap";
     const string CourageSpark_Path = "event:/Courage/CurageSpark";
     const string CourageOrb_Path = "event:/Courage/CurageOrb";
-
+    const string Char_getHit_Path = "event:/char/getHit";
+    const string Char_Death_Path = "event:/char/death";
 
     bool Flashlight_status = false;
     bool blankie_status = false;
@@ -140,6 +141,16 @@ public class FmodPlayer : MonoBehaviour
                 break;
 
         }
+    }
+
+    public void PlayChar_GetHit()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Char_getHit_Path, GetComponent<Transform>().position);
+    }
+
+    public void PlayChar_Death()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
     }
 }
 
