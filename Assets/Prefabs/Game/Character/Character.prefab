@@ -476,7 +476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
-  mainCamera: {fileID: 0}
   _movementSpeed: 2
   itemBag: {fileID: 1668216621}
   courageCollectParticleSystem: {fileID: 6250614698386667104}

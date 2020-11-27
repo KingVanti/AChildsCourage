@@ -18,7 +18,6 @@ namespace AChildsCourage.Game.Player {
 
         [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
-        [SerializeField] private Camera mainCamera;
         [SerializeField] private float _movementSpeed;
         [SerializeField] private Bag itemBag;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
@@ -27,6 +26,8 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Light2D characterGlowingLight;
 
 #pragma warning restore 649
+
+        private Camera mainCamera;
 
         private Vector2 _movingDirection;
         private Vector2 _mousePos;
@@ -146,6 +147,10 @@ namespace AChildsCourage.Game.Player {
         #endregion
 
         #region Methods
+
+        private void Start() {
+            mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
 
         private void FixedUpdate() {
             Move();
