@@ -128,6 +128,7 @@
 		<relationship name="effects">
 			<destination>{e927f876-fe7d-4c15-9f2d-a765b8755931}</destination>
 			<destination>{f273d329-2810-49bf-ba02-c6325e04ef6e}</destination>
+			<destination>{acbcbb3a-61a3-449f-b0cd-6e114239b384}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f30755dc-0764-4ebe-85e5-c95213286394}" />
@@ -143,6 +144,11 @@
 		</property>
 		<property name="highGain">
 			<value>-12.5</value>
+		</property>
+	</object>
+	<object class="PitchShifterEffect" id="{acbcbb3a-61a3-449f-b0cd-6e114239b384}">
+		<property name="pitch">
+			<value>0.950000048</value>
 		</property>
 	</object>
 </objects>
