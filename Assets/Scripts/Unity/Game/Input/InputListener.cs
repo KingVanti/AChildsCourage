@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
@@ -8,6 +9,12 @@ namespace AChildsCourage.Game.Input
 
     [Singleton]
     internal class InputListener : IInputListener, IEagerActivation {
+
+        #region Fields
+
+        UserControls userControls;
+
+        #endregion
 
         #region Events
 
@@ -23,31 +30,12 @@ namespace AChildsCourage.Game.Input
 
         public InputListener() {
 
-            UserControls userControls = new UserControls();
+            userControls = new UserControls();
 
             userControls.Player.Look.performed += OnLook;
             userControls.Player.Move.performed += OnMove;
-
-            userControls.Player.Item1.performed += ctx => {
-
-                if (ctx.interaction is HoldInteraction) {
-                    OnItemPickedUpTo(0, ctx);
-                } else {
-                    OnEquippedItemUsedIn(0, ctx);
-                }
-
-            };
-
-            userControls.Player.Item2.performed += ctx => {
-
-                if (ctx.interaction is HoldInteraction) {
-                    OnItemPickedUpTo(1, ctx);
-                } else {
-                    OnEquippedItemUsedIn(1, ctx);
-                }
-
-            };
-
+            userControls.Player.Item1.performed += OnItem1KeyPress;
+            userControls.Player.Item2.performed += OnItem2KeyPress;
             userControls.Player.Swap.performed += OnItemSwap;
 
             userControls.Player.Enable();
@@ -71,6 +59,25 @@ namespace AChildsCourage.Game.Input
             OnMoveDirectionChanged?.Invoke(this, eventArgs);
         }
 
+        private void OnItem1KeyPress(Context context) {
+
+            if (context.interaction is HoldInteraction) {
+                OnItemPickedUpTo(0, context);
+            } else {
+                OnEquippedItemUsedIn(0, context);
+            }
+
+        }
+
+        private void OnItem2KeyPress(Context context) {
+
+            if (context.interaction is HoldInteraction) {
+                OnItemPickedUpTo(1, context);
+            } else {
+                OnEquippedItemUsedIn(1, context);
+            }
+
+        }
 
         private void OnEquippedItemUsedIn(int slotId, Context context) {
             EquippedItemUsedEventArgs eventArgs = new EquippedItemUsedEventArgs(slotId);
@@ -86,6 +93,14 @@ namespace AChildsCourage.Game.Input
         private void OnItemSwap(Context context) {
             ItemSwappedEventArgs eventArgs = new ItemSwappedEventArgs();
             OnItemSwapped?.Invoke(this, eventArgs);
+        }
+
+        public void UnsubscribeFromInputs() {
+            userControls.Player.Look.performed -= OnLook;
+            userControls.Player.Move.performed -= OnMove;
+            userControls.Player.Swap.performed -= OnItemSwap;
+            userControls.Player.Item1.performed -= OnItem1KeyPress;
+            userControls.Player.Item2.performed -= OnItem2KeyPress;
         }
 
         #endregion

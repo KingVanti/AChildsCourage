@@ -14,12 +14,13 @@ namespace AChildsCourage.Game.Items
 
 #pragma warning disable 649
 
-        [SerializeField] private Camera mainCamera;
         [SerializeField] private Light2D lightComponent;
         [SerializeField] [Range(0.25f, 10.0f)] private float maxFlashlightDistance;
         [SerializeField] [Range(0.05f, 1.0f)] private float maxFlashlightIntensity;
 
 #pragma warning restore 649
+
+        private Camera mainCamera;
 
         private Vector2 characterPosition;
         private LayerMask wallLayer;
@@ -48,6 +49,10 @@ namespace AChildsCourage.Game.Items
         #endregion
 
         #region Methods
+
+        private void Start() {
+            mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
 
         private void OnEnable()
         {

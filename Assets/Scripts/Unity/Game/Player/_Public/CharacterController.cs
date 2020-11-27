@@ -177,7 +177,12 @@ namespace AChildsCourage.Game.Player {
 
         private void Rotate() {
 
-            Vector2 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
+            Vector2 projectedMousePosition = Vector2.zero;
+
+            if (mainCamera != null) {
+                 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
+            }
+
             Vector2 playerPos = transform.position;
 
             RelativeMousePos = (projectedMousePosition - playerPos).normalized;
