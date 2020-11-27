@@ -15,6 +15,7 @@ namespace AChildsCourage.Game.Courage
 
         public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
+        public UnityEvent OnCourageDepleted;
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace AChildsCourage.Game.Courage
             get { return _currentNightCourage; }
             set {
                 _currentNightCourage = value;
-                OnCourageChanged?.Invoke(_currentNightCourage, NeededNightCourage, MaxNightCourage);
+                OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
             }
         }
 
@@ -87,6 +88,7 @@ namespace AChildsCourage.Game.Courage
 
             if (CurrentNightCourage < 0) {
                 CurrentNightCourage = 0;
+                OnCourageDepleted?.Invoke();
             }
 
         }
