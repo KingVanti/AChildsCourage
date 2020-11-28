@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Appccelerate.EventBroker;
+using Appccelerate.EventBroker.Handlers;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -95,7 +97,12 @@ namespace AChildsCourage.Game.Input
             OnItemSwapped?.Invoke(this, eventArgs);
         }
 
-        public void UnsubscribeFromInputs() {
+        [EventSubscription(nameof(Player.CharacterController.OnPlayerDeath), typeof(OnPublisher))]
+        public void OnPlayerDeath(EventArgs _) {
+            UnsubscribeFromInputs();
+        }
+
+        private void UnsubscribeFromInputs() {
             userControls.Player.Look.performed -= OnLook;
             userControls.Player.Move.performed -= OnMove;
             userControls.Player.Swap.performed -= OnItemSwap;
