@@ -1,0 +1,17 @@
+{
+    "name": "FMOD.Editor",
+    "references": [
+        "GUID:75af71f3efdb7d743b8a8578ecf6e557"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
