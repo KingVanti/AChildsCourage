@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.NightLoading
 {
 
     [UnityEntity(typeof(IFloorRecreator))]
-    [UseEventBroker]
+    [UseDI]
     public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
 

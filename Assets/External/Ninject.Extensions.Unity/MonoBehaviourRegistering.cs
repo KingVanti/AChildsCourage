@@ -7,10 +7,10 @@ using UnityEngine;
 namespace Ninject.Extensions.Unity
 {
 
-    public static class ServiceEventBrokerRegistering
+    public static class MonoBehaviourRegistering
     {
 
-        public static void RegisterEventBrokers(this IKernel kernel, string eventBrokerName)
+        public static void RegisterMonoBehaviours(this IKernel kernel, string eventBrokerName)
         {
             var behaviours =
                 GetAllMonoBehaviours()
@@ -29,7 +29,7 @@ namespace Ninject.Extensions.Unity
         {
             var type = monoBehaviour.GetType();
 
-            return type.HasAttribute<UseEventBrokerAttribute>();
+            return type.HasAttribute<UseDIAttribute>();
         }
 
         private static void Register(IKernel kernel, MonoBehaviour behaviour, string eventBrokerName)
