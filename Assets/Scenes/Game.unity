@@ -197,6 +197,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1921070151}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
+          AChildsCourage.Unity
+        m_MethodName: KillPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCouragePickupableChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1921070151}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
+          AChildsCourage.Unity
+        m_MethodName: SwitchCourageCollectable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &18185542
 Transform:
   m_ObjectHideFlags: 0
@@ -507,6 +536,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 788487158, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 1.55
+      objectReference: {fileID: 0}
     - target: {fileID: 1668216621, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: cooldownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -515,10 +548,26 @@ PrefabInstance:
       propertyPath: itemSwappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1420808003}
+    - target: {fileID: 1928652343, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_Intensity
+      value: 0.145
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928652343, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_PointLightOuterAngle
+      value: 170
+      objectReference: {fileID: 0}
     - target: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1540394727}
+    - target: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: maxFlashlightIntensity
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: maxFlashlightDistance
+      value: 6.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Character
@@ -2020,6 +2069,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905331147}
   m_CullTransparentMesh: 0
+--- !u!114 &1921070151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 606217117}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932617545
 GameObject:
   m_ObjectHideFlags: 0

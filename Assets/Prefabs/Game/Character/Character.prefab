@@ -60,7 +60,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.55
-  m_PointLightOuterRadius: 1.45
+  m_PointLightOuterRadius: 1.55
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -87,10 +87,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cooldown: 0.3
   _id: 0
-  mainCamera: {fileID: 0}
   lightComponent: {fileID: 788487158}
-  maxFlashlightDistance: 6.5
-  maxFlashlightIntensity: 0.35
+  maxFlashlightDistance: 6.75
+  maxFlashlightIntensity: 0.4
 --- !u!1 &1668216619
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26f6392eec67064e9a31176355d41f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSpawner: {fileID: 0}
   availableItems:
   - {fileID: 788487156}
   - {fileID: 8573944650217283424}
@@ -262,7 +260,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.55
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.125
+  m_Intensity: 0.145
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000cbf16821afacebfaa9f37c4e
   m_LightCookieSprite: {fileID: 0}
@@ -272,7 +270,7 @@ MonoBehaviour:
   m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 0
-  m_PointLightOuterAngle: 150
+  m_PointLightOuterAngle: 170
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 4.8
   m_PointLightDistance: 3
@@ -477,7 +475,6 @@ MonoBehaviour:
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
   _movementSpeed: 2
-  itemBag: {fileID: 1668216621}
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
   rb: {fileID: 3546636511749136385}

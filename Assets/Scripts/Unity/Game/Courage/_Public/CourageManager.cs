@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Courage
-{
+namespace AChildsCourage.Game.Courage {
 
     public class CourageManager : MonoBehaviour {
 
@@ -16,6 +15,7 @@ namespace AChildsCourage.Game.Courage
         public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
         public UnityEvent OnCourageDepleted;
+        public CanCollectCourageEvent OnCouragePickupableChanged;
 
         #endregion
 
@@ -26,6 +26,7 @@ namespace AChildsCourage.Game.Courage
             set {
                 _currentNightCourage = value;
                 OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
+                OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
             }
         }
 
@@ -99,6 +100,9 @@ namespace AChildsCourage.Game.Courage
 
         [Serializable]
         public class CourageChangedEvent : UnityEvent<int, int, int> { }
+
+        [Serializable]
+        public class CanCollectCourageEvent : UnityEvent<bool> { }
 
 
         #endregion

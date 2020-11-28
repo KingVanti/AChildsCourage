@@ -42,6 +42,7 @@ namespace AChildsCourage.Game.Player {
         private bool _hasFlashlightEquipped = false;
         private bool isInvincible = false;
         private bool gettingKnockedBack = false;
+        private bool canCollectCourage = true;
 
         [EventPublication(nameof(OnPlayerDeath))]
         public event EventHandler OnPlayerDeath;
@@ -180,7 +181,7 @@ namespace AChildsCourage.Game.Player {
 
         }
 
-        
+
         public void KillPlayer() {
             OnPlayerDeath?.Invoke(this, EventArgs.Empty);
         }
@@ -190,7 +191,7 @@ namespace AChildsCourage.Game.Player {
             Vector2 projectedMousePosition = Vector2.zero;
 
             if (mainCamera != null) {
-                 projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
+                projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
             }
 
             Vector2 playerPos = transform.position;
@@ -278,6 +279,10 @@ namespace AChildsCourage.Game.Player {
 
         }
 
+        public void SwitchCourageCollectable(bool canCollect) {
+            canCollectCourage = !canCollect;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision) {
 
             if (collision.CompareTag(EntityTags.Item)) {
@@ -287,8 +292,10 @@ namespace AChildsCourage.Game.Player {
             }
 
             if (collision.CompareTag(EntityTags.Courage)) {
-                OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
-                Destroy(collision.gameObject);
+                if (canCollectCourage) {
+                    OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
+                    Destroy(collision.gameObject);
+                }
             }
 
             if (collision.CompareTag(EntityTags.Shade)) {
