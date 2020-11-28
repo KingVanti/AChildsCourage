@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AChildsCourage.Game.Items.Pickups
 {
-
+    [UseDI]
     public class ItemPickupSpawner : MonoBehaviour
     {
 

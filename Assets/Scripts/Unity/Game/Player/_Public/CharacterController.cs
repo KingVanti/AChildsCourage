@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
+using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using System;
 using System.Collections;
@@ -10,6 +11,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.CustomMathModule;
 
 namespace AChildsCourage.Game.Player {
+
+    [UseDI]
     public class CharacterController : MonoBehaviour {
 
         #region Fields
@@ -19,7 +22,6 @@ namespace AChildsCourage.Game.Player {
         [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
         [SerializeField] private float _movementSpeed;
-        [SerializeField] private Bag itemBag;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
@@ -40,6 +42,9 @@ namespace AChildsCourage.Game.Player {
         private bool _hasFlashlightEquipped = false;
         private bool isInvincible = false;
         private bool gettingKnockedBack = false;
+
+        [EventPublication(nameof(OnPlayerDeath))]
+        public event EventHandler OnPlayerDeath;
 
         [Header("Events")]
         public Vector2Event OnPositionChanged;
@@ -175,6 +180,11 @@ namespace AChildsCourage.Game.Player {
 
         }
 
+        
+        public void KillPlayer() {
+            OnPlayerDeath?.Invoke(this, EventArgs.Empty);
+        }
+
         private void Rotate() {
 
             Vector2 projectedMousePosition = Vector2.zero;
@@ -245,7 +255,6 @@ namespace AChildsCourage.Game.Player {
                 Destroy(CurrentItemInRange.gameObject);
             }
 
-
         }
 
         private void OnItemSwapped(ItemSwappedEventArgs eventArgs) {
@@ -269,8 +278,6 @@ namespace AChildsCourage.Game.Player {
 
         }
 
-
-
         private void OnTriggerEnter2D(Collider2D collision) {
 
             if (collision.CompareTag(EntityTags.Item)) {
@@ -293,7 +300,6 @@ namespace AChildsCourage.Game.Player {
             }
 
         }
-
 
         private void OnTriggerExit2D(Collider2D collision) {
 

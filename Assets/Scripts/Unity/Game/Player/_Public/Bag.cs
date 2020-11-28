@@ -17,7 +17,6 @@ namespace AChildsCourage.Game.Player
 
 #pragma warning disable 649
 
-        [SerializeField] private ItemPickupSpawner pickupSpawner;
         [SerializeField] private List<GameObject> availableItems = new List<GameObject>();
 
 #pragma warning restore 649
@@ -36,6 +35,7 @@ namespace AChildsCourage.Game.Player
         #region Properties
 
         [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
+        [AutoInject] private ItemPickupSpawner PickupSpawner { get; set; }
 
         #endregion
 
@@ -67,7 +67,7 @@ namespace AChildsCourage.Game.Player
         private void DropItem(int slotId)
         {
             var itemId = currentItems[slotId].Id;
-            pickupSpawner.SpawnPickupFor(itemId, transform.position);
+            PickupSpawner.SpawnPickupFor(itemId, transform.position);
 
             itemDroppedEvent?.Invoke();
         }
