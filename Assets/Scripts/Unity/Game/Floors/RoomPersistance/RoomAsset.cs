@@ -24,21 +24,13 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         #region Properties
 
-        public RoomId Id { get { return (RoomId)_id; } }
+        public RoomId Id => (RoomId) _id;
 
-        public RoomType Type { get { return _type; } }
+        public RoomType Type => _type;
 
-        public ChunkPassages Passages
-        {
-            get { return JsonConvert.DeserializeObject<ChunkPassages>(passageJson); }
-            set { passageJson = JsonConvert.SerializeObject(value); }
-        }
+        public ChunkPassages Passages { get => JsonConvert.DeserializeObject<ChunkPassages>(passageJson); set => passageJson = JsonConvert.SerializeObject(value); }
 
-        public RoomContentData Content
-        {
-            get { return JsonConvert.DeserializeObject<RoomContentData>(contentJson); }
-            set { contentJson = JsonConvert.SerializeObject(value); }
-        }
+        public RoomContentData Content { get => JsonConvert.DeserializeObject<RoomContentData>(contentJson); set => contentJson = JsonConvert.SerializeObject(value); }
 
         #endregion
 

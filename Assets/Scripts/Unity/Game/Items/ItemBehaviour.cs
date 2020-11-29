@@ -6,6 +6,12 @@ namespace AChildsCourage.Game.Items
     public abstract class ItemBehaviour : MonoBehaviour
     {
 
+        #region Methods
+
+        public abstract void Toggle();
+
+        #endregion
+
         #region Fields
 
 #pragma warning disable 649
@@ -19,17 +25,11 @@ namespace AChildsCourage.Game.Items
 
         #region Properties
 
-        public ItemId Id { get { return (ItemId)_id; } }
+        public ItemId Id => (ItemId) _id;
 
-        public float Cooldown { get { return _cooldown; } set { _cooldown = value; } }
+        public float Cooldown { get => _cooldown; set => _cooldown = value; }
 
         public bool IsInBag { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        public abstract void Toggle();
 
         #endregion
 

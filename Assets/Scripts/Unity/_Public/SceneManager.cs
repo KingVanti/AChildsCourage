@@ -2,7 +2,8 @@
 using UnityEngine.Events;
 using static AChildsCourage.ServiceInjecting;
 
-namespace AChildsCourage {
+namespace AChildsCourage
+{
 
     public class SceneManager : MonoBehaviour
     {
@@ -26,7 +27,8 @@ namespace AChildsCourage {
             onSceneLoaded.Invoke();
         }
 
-        public void LoadSceneWith(string name) {
+        public void LoadSceneWith(string name)
+        {
             UnityEngine.SceneManagement.SceneManager.LoadScene(name);
         }
 

@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Items;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Persistance;
-using System.Collections.Generic;
 
 namespace AChildsCourage.Game
 {

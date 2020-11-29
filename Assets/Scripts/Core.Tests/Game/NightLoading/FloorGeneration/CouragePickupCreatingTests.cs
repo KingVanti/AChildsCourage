@@ -1,6 +1,5 @@
-﻿using NUnit.Framework;
-using System.Linq;
-
+﻿using System.Linq;
+using NUnit.Framework;
 using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -10,22 +9,12 @@ namespace AChildsCourage.Game.NightLoading
     public class CouragePickupCreatingTests
     {
 
-        #region Tests
-
         [Test]
         public void The_Correct_Number_Of_Orb_Pickups_Are_Chosen()
         {
             // Given
 
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0),
-                new TilePosition(2, 0),
-                new TilePosition(3, 0),
-                new TilePosition(4, 0),
-                new TilePosition(5, 0)
-            };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0), new TilePosition(3, 0), new TilePosition(4, 0), new TilePosition(5, 0) };
 
             // When
 
@@ -41,11 +30,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0)
-            };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0) };
 
             // When
 
@@ -53,11 +38,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-           {
-                new TilePosition(1, 0),
-                new TilePosition(0, 0)
-            };
+            var expected = new[] { new TilePosition(1, 0), new TilePosition(0, 0) };
             Assert.That(chosen.Select(p => p.Position), Is.EqualTo(expected), "Positions incorrectly ordered!");
         }
 
@@ -121,15 +102,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0),
-                new TilePosition(2, 0),
-                new TilePosition(3, 0),
-                new TilePosition(4, 0),
-                new TilePosition(5, 0)
-            };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0), new TilePosition(3, 0), new TilePosition(4, 0), new TilePosition(5, 0) };
 
             // When
 
@@ -145,11 +118,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0)
-            };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0) };
 
             // When
 
@@ -157,11 +126,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-           {
-                new TilePosition(1, 0),
-                new TilePosition(0, 0)
-            };
+            var expected = new[] { new TilePosition(1, 0), new TilePosition(0, 0) };
             Assert.That(chosen.Select(p => p.Position), Is.EqualTo(expected), "Positions incorrectly ordered!");
         }
 
@@ -218,8 +183,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(weight1, Is.GreaterThan(weight2), "Weight 1 should be larger than weight 2!");
         }
-
-        #endregion
 
     }
 

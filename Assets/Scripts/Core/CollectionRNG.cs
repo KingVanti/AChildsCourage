@@ -12,23 +12,6 @@ namespace AChildsCourage
         public delegate float WeightFunction<T>(T element);
 
 
-        private class Weighted<T>
-        {
-
-            internal T Element { get; }
-
-            internal float Weight { get; }
-
-
-            internal Weighted(T element, float weight)
-            {
-                Element = element;
-                Weight = weight;
-            }
-
-        }
-
-
         public static T GetWeightedRandom<T>(this IEnumerable<T> elements, WeightFunction<T> weightFunction, RNGSource rng)
         {
             return GetWeightedRandom(weightFunction, rng, elements);
@@ -38,7 +21,7 @@ namespace AChildsCourage
         public static T GetWeightedRandom<T>(WeightFunction<T> weightFunction, RNGSource rng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
-                return default(T);
+                return default;
 
             var weightedElements = elements.AttachWeights(weightFunction);
 
@@ -77,11 +60,28 @@ namespace AChildsCourage
         public static T GetRandom<T>(RNGSource rng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
-                return default(T);
+                return default;
 
             var index = rng.GetValueUnder(elements.Count());
 
             return elements.ElementAt(index);
+        }
+
+
+        private class Weighted<T>
+        {
+
+            internal T Element { get; }
+
+            internal float Weight { get; }
+
+
+            internal Weighted(T element, float weight)
+            {
+                Element = element;
+                Weight = weight;
+            }
+
         }
 
     }

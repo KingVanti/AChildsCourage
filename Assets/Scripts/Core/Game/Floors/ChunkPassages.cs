@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -8,9 +9,9 @@ namespace AChildsCourage.Game.Floors
 
         #region Static Properties
 
-        public static ChunkPassages None { get { return new ChunkPassages(false, false, false, false); } }
+        public static ChunkPassages None => new ChunkPassages(false, false, false, false);
 
-        public static ChunkPassages All { get { return new ChunkPassages(true, true, true, true); } }
+        public static ChunkPassages All => new ChunkPassages(true, true, true, true);
 
         #endregion
 
@@ -25,13 +26,13 @@ namespace AChildsCourage.Game.Floors
         public bool HasWest { get; }
 
 
-        [JsonIgnore] public int Count { get { return (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0); } }
+        [JsonIgnore] public int Count => (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0);
 
 
-        [JsonIgnore] public ChunkPassages Rotated { get { return new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth); } }
+        [JsonIgnore] public ChunkPassages Rotated => new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth);
 
 
-        [JsonIgnore] public ChunkPassages YMirrored { get { return new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest); } }
+        [JsonIgnore] public ChunkPassages YMirrored => new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest);
 
         #endregion
 
@@ -63,7 +64,7 @@ namespace AChildsCourage.Game.Floors
                     return HasWest;
             }
 
-            throw new System.Exception("Invalid passage!");
+            throw new Exception("Invalid passage!");
         }
 
 
@@ -79,7 +80,7 @@ namespace AChildsCourage.Game.Floors
 
         public override int GetHashCode()
         {
-            int hashCode = 1909415112;
+            var hashCode = 1909415112;
             hashCode = hashCode * -1521134295 + HasNorth.GetHashCode();
             hashCode = hashCode * -1521134295 + HasEast.GetHashCode();
             hashCode = hashCode * -1521134295 + HasSouth.GetHashCode();

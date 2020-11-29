@@ -1,8 +1,8 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -27,8 +27,8 @@ namespace AChildsCourage.Game.NightLoading
 
                 return
                     Take(new FloorPlanInProgress())
-                    .RepeatWhile(addRoom, NeedsMoreRooms)
-                    .Map(BuildFloorPlan);
+                        .RepeatWhile(addRoom, NeedsMoreRooms)
+                        .Map(BuildFloorPlan);
             };
         }
 
@@ -40,17 +40,22 @@ namespace AChildsCourage.Game.NightLoading
 
             return
                 chooseChunk()
-                .Map(chooseRoom.Invoke)
-                .Map(placeRoom.Invoke);
+                    .Map(chooseRoom.Invoke)
+                    .Map(placeRoom.Invoke);
         }
 
-        internal static bool NeedsMoreRooms(FloorPlanInProgress fpip) =>
-            Take(fpip)
-            .Map(CountRooms)
-            .Map(IsEnough)
-            .Negate();
+        internal static bool NeedsMoreRooms(FloorPlanInProgress fpip)
+        {
+            return Take(fpip)
+                   .Map(CountRooms)
+                   .Map(IsEnough)
+                   .Negate();
+        }
 
-        internal static bool IsEnough(int currentRoomCount) => currentRoomCount >= GoalRoomCount;
+        internal static bool IsEnough(int currentRoomCount)
+        {
+            return currentRoomCount >= GoalRoomCount;
+        }
 
         internal static FloorPlan BuildFloorPlan(FloorPlanInProgress floorPlanInProgress)
         {
@@ -67,9 +72,9 @@ namespace AChildsCourage.Game.NightLoading
 
             return
                 Take(floorPlanInProgress.RoomsByChunks.Keys)
-                .Select(lookupRoom.Invoke)
-                .Select(createRoomPlan.Invoke)
-                .Map(createFloorPlan);
+                    .Select(lookupRoom.Invoke)
+                    .Select(createRoomPlan.Invoke)
+                    .Map(createFloorPlan);
         }
 
     }

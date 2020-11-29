@@ -7,8 +7,6 @@ namespace AChildsCourage.Game
     public class TilePositionTests
     {
 
-        #region Tests
-
         [Test]
         public void Given_Any_Coordinates_When_A_TilePosition_Is_Created_From_Them_Then_It_Has_These_Coordinates()
         {
@@ -44,8 +42,6 @@ namespace AChildsCourage.Game
             Assert.That(actual.X, Is.EqualTo(position.X + offset.X), "X coordinate incorrectly added!");
             Assert.That(actual.Y, Is.EqualTo(position.Y + offset.Y), "Y coordinate incorrectly added!");
         }
-
-        #endregion
 
     }
 

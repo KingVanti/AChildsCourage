@@ -10,6 +10,19 @@ namespace AChildsCourage.Game.NightLoading
     internal class TileCollection
     {
 
+        #region Methods
+
+        internal Tile GetTile(RNGSource rng)
+        {
+            var getVariant = rng.Prob(_variantProb);
+
+            if (getVariant)
+                return _variants.GetRandom(rng);
+            return _baseTile;
+        }
+
+        #endregion
+
         #region Fields
 
 #pragma warning disable 649
@@ -19,20 +32,6 @@ namespace AChildsCourage.Game.NightLoading
         [SerializeField] private Tile[] _variants;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Methods
-
-        internal Tile GetTile(RNGSource rng)
-        {
-            var getVariant = rng.Prob(_variantProb);
-
-            if (getVariant)
-                return _variants.GetRandom(rng);
-            else
-                return _baseTile;
-        }
 
         #endregion
 

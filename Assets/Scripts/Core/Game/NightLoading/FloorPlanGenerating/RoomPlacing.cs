@@ -1,8 +1,7 @@
-﻿using AChildsCourage.Game.Floors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -56,7 +55,9 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static bool AnyPassagesLeadInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            return floorPlan.GetPassagesInto(position).Count > 0;
+            return floorPlan.GetPassagesInto(position)
+                            .Count >
+                   0;
         }
 
         private static ChunkPassages GetPassagesInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
@@ -80,8 +81,8 @@ namespace AChildsCourage.Game.NightLoading
 
             return
                 Take(direction)
-                .Map(Invert)
-                .Map(roomAtPosition.Passages.Has);
+                    .Map(Invert)
+                    .Map(roomAtPosition.Passages.Has);
         }
 
         private static RoomPassages GetPassagesAt(this FloorPlanInProgress floorPlan, ChunkPosition position)

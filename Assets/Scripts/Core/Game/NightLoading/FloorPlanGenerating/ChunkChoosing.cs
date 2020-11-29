@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Numerics;
-
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -16,12 +15,10 @@ namespace AChildsCourage.Game.NightLoading
 
         private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, RNGSource rng)
         {
-
-
             var phase =
                 Take(floorPlan)
-                .Map(CountRooms)
-                .Map(GetCurrentPhase);
+                    .Map(CountRooms)
+                    .Map(GetCurrentPhase);
 
             switch (phase)
             {
@@ -66,7 +63,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             var distance = new Vector2(position.X, position.Y).Length();
 
-            return (float)Math.Pow(1f / distance, 2);
+            return (float) Math.Pow(1f / distance, 2);
         }
 
     }

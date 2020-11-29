@@ -6,9 +6,9 @@ namespace AChildsCourage
     public static class RNG
     {
 
-        public delegate float RNGSource();
-
         public delegate RNGSource RNGInitializer(int seed);
+
+        public delegate float RNGSource();
 
 
         public static RNGInitializer SeedBasedRNG { get; } = FromSeed;
@@ -17,7 +17,7 @@ namespace AChildsCourage
         {
             var random = new Random(seed);
 
-            return () => (float)random.NextDouble();
+            return () => (float) random.NextDouble();
         }
 
 
@@ -38,7 +38,7 @@ namespace AChildsCourage
 
         public static int GetValueBetween(this RNGSource source, int min, int max)
         {
-            return (int)GetValueBetween(source, (float)min, max);
+            return (int) GetValueBetween(source, (float) min, max);
         }
 
 
@@ -50,7 +50,7 @@ namespace AChildsCourage
 
         public static int GetValueUnder(this RNGSource source, int max)
         {
-            return (int)GetValueUnder(source, (float)max);
+            return (int) GetValueUnder(source, (float) max);
         }
 
 

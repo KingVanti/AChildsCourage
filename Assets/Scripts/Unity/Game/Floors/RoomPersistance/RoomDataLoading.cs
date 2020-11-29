@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
         {
             return () =>
                 LoadAssets()
-                .Select(ReadData);
+                    .Select(ReadData);
         }
 
         private static IEnumerable<RoomAsset> LoadAssets()

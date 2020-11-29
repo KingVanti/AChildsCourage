@@ -19,9 +19,15 @@
         }
 
 
-        public static explicit operator ItemId(int id) => new ItemId(id);
+        public static explicit operator ItemId(int id)
+        {
+            return new ItemId(id);
+        }
 
-        public static implicit operator int(ItemId id) => id.value;
+        public static implicit operator int(ItemId id)
+        {
+            return id.value;
+        }
 
     }
 

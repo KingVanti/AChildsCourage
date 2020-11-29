@@ -1,5 +1,5 @@
-﻿using AChildsCourage.Game;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,11 +25,38 @@ namespace AChildsCourage.RoomEditor
 
         #endregion
 
+        #region SubTypes
+
+        protected readonly struct TileAtPos
+        {
+
+            #region Properties
+
+            public Tile Tile { get; }
+
+            public TilePosition Position { get; }
+
+            #endregion
+
+            #region Constructors
+
+            public TileAtPos(Tile tile, TilePosition position)
+            {
+                Tile = tile;
+                Position = position;
+            }
+
+            #endregion
+
+        }
+
+        #endregion
+
         #region Methods
 
         public void DeleteTileAt(Vector2Int position)
         {
-            tilemap.SetTile((Vector3Int)position, null);
+            tilemap.SetTile((Vector3Int) position, null);
         }
 
 
@@ -47,7 +74,7 @@ namespace AChildsCourage.RoomEditor
 
         protected void PlaceTileAt(Tile tile, Vector2Int position)
         {
-            tilemap.SetTile((Vector3Int)position, tile);
+            tilemap.SetTile((Vector3Int) position, tile);
         }
 
         protected IEnumerable<TileAtPos> GetTiles()
@@ -79,33 +106,6 @@ namespace AChildsCourage.RoomEditor
                 position.X - ChunkCenterOffset,
                 position.Y - ChunkCenterOffset,
                 0);
-        }
-
-        #endregion
-
-        #region SubTypes
-
-        protected readonly struct TileAtPos
-        {
-
-            #region Properties
-
-            public Tile Tile { get; }
-
-            public TilePosition Position { get; }
-
-            #endregion
-
-            #region Constructors
-
-            public TileAtPos(Tile tile, TilePosition position)
-            {
-                Tile = tile;
-                Position = position;
-            }
-
-            #endregion
-
         }
 
         #endregion

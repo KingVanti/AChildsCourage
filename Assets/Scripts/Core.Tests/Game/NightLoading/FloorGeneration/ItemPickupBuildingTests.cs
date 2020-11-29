@@ -9,19 +9,13 @@ namespace AChildsCourage.Game.NightLoading
     public class ItemPickupBuildingTests
     {
 
-        #region Tests
-
         [Test]
         public void Building_Transforms_All_Pickups_And_Places_Them()
         {
             // Given
 
             var floor = new FloorInProgress();
-            var pickups = new[]
-            {
-                new ItemPickupData(new TilePosition(0, 0)),
-                new ItemPickupData(new TilePosition(1, 0))
-            };
+            var pickups = new[] { new ItemPickupData(new TilePosition(0, 0)), new ItemPickupData(new TilePosition(1, 0)) };
             TileTransformer transformer = pos => new TilePosition(pos.X, 1);
 
             // When
@@ -30,11 +24,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-            {
-                new TilePosition(0, 1),
-                new TilePosition(1, 1)
-            };
+            var expected = new[] { new TilePosition(0, 1), new TilePosition(1, 1) };
             Assert.That(floor.ItemPickupPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
@@ -89,8 +79,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(floor.ItemPickupPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to item-pickup list!");
         }
-
-        #endregion
 
     }
 

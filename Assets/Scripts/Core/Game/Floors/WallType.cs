@@ -3,8 +3,10 @@
 
     public enum WallType
     {
+
         Side,
         Top
+
     }
 
 }

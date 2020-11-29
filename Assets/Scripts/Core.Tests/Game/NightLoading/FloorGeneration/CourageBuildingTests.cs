@@ -10,19 +10,13 @@ namespace AChildsCourage.Game.NightLoading
     public class CourageBuildingTests
     {
 
-        #region Tests
-
         [Test]
         public void Building_Transforms_All_Pickups_And_Places_Them()
         {
             // Given
 
             var floor = new FloorInProgress();
-            var pickups = new[]
-            {
-                new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb),
-                new CouragePickupData(new TilePosition(1, 0), CourageVariant.Orb)
-            };
+            var pickups = new[] { new CouragePickupData(new TilePosition(0, 0), CourageVariant.Orb), new CouragePickupData(new TilePosition(1, 0), CourageVariant.Orb) };
             TileTransformer transformer = pos => new TilePosition(pos.X, 1);
 
             // When
@@ -31,11 +25,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-            {
-                new TilePosition(0, 1),
-                new TilePosition(1, 1)
-            };
+            var expected = new[] { new TilePosition(0, 1), new TilePosition(1, 1) };
             Assert.That(floor.CourageOrbPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
@@ -86,8 +76,6 @@ namespace AChildsCourage.Game.NightLoading
             var newtile = pickup.With(new TilePosition(1, 1));
 
             // When
-
-
         }
 
 
@@ -124,8 +112,6 @@ namespace AChildsCourage.Game.NightLoading
             Assert.That(floor.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to spark list!");
             Assert.That(floor.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to orb list!");
         }
-
-        #endregion
 
     }
 

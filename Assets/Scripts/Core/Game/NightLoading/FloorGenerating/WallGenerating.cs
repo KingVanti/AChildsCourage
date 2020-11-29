@@ -1,7 +1,7 @@
-﻿using AChildsCourage.Game.Floors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Floors;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -14,15 +14,18 @@ namespace AChildsCourage.Game.NightLoading
 
         private static IEnumerable<Wall> GenerateWalls(FloorInProgress floor)
         {
-            bool IsEmpty(TilePosition position) => !floor.HasGroundAt(position);
+            bool IsEmpty(TilePosition position)
+            {
+                return !floor.HasGroundAt(position);
+            }
 
             Func<TilePosition, bool> hasGroundBelow = pos => HasGroundBelow(pos, floor.HasGroundAt);
             Func<TilePosition, Wall> toWall = pos => CreateWall(pos, hasGroundBelow(pos));
 
             return
                 floor.GroundPositions
-                .GenerateWallPositionsFor(IsEmpty)
-                .IntoWith(GetWalls, toWall);
+                     .GenerateWallPositionsFor(IsEmpty)
+                     .IntoWith(GetWalls, toWall);
         }
 
         private static IEnumerable<TilePosition> GetSurroundingWallPositions(TilePosition groundPosition)
@@ -37,8 +40,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             return
                 groundPositions
-                .SelectMany(GetSurroundingWallPositions)
-                .Where(isEmpty);
+                    .SelectMany(GetSurroundingWallPositions)
+                    .Where(isEmpty);
         }
 
         private static IEnumerable<Wall> GetWalls(IEnumerable<TilePosition> wallPositions, Func<TilePosition, Wall> toWall)
@@ -48,10 +51,11 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static bool HasGroundBelow(TilePosition wallPosition, Func<TilePosition, bool> hasGroundAt)
         {
-            var p = GetCheckGroundPositions(wallPosition).ToArray();
+            var p = GetCheckGroundPositions(wallPosition)
+                .ToArray();
             return
                 GetCheckGroundPositions(wallPosition)
-                .Any(hasGroundAt);
+                    .Any(hasGroundAt);
         }
 
         internal static Wall CreateWall(TilePosition wallPosition, bool hasGroundBelow)
@@ -65,14 +69,14 @@ namespace AChildsCourage.Game.NightLoading
         {
             return
                 GetGroundOffsets()
-                .Select(offset => wallPosition + offset);
+                    .Select(offset => wallPosition + offset);
         }
 
         internal static IEnumerable<TileOffset> GetGroundOffsets()
         {
             return
                 Enumerable.Range(-WallHeight, WallHeight)
-                .Select(y => new TileOffset(0, y));
+                          .Select(y => new TileOffset(0, y));
         }
 
         internal static bool HasGroundAt(this FloorInProgress floor, TilePosition position)

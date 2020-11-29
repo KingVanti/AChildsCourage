@@ -1,15 +1,12 @@
 ﻿namespace AChildsCourage.Game.NightLoading
 {
 
-    internal static partial class NightRecreating
+    internal static class NightRecreating
     {
 
         internal static NightRecreator Make(IFloorRecreator floorRecreator)
         {
-            return floor =>
-            {
-                floorRecreator.Recreate(floor);
-            };
+            return floor => { floorRecreator.Recreate(floor); };
         }
 
     }

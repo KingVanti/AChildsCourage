@@ -34,9 +34,9 @@ namespace AChildsCourage.RoomEditor
         {
             input = new RoomEditorInput();
 
-            input.Mouse.Place.started += (_) => UpdateTilePosition(LeftButtonName);
-            input.Mouse.Delete.started += (_) => UpdateTilePosition(RightButtonName);
-            input.Mouse.Move.performed += (_) => OnMouseMoved();
+            input.Mouse.Place.started += _ => UpdateTilePosition(LeftButtonName);
+            input.Mouse.Delete.started += _ => UpdateTilePosition(RightButtonName);
+            input.Mouse.Move.performed += _ => OnMouseMoved();
 
             input.Enable();
         }

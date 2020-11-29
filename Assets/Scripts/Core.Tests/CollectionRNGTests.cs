@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using System.Linq;
+﻿using System.Linq;
+using NUnit.Framework;
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage
@@ -8,8 +8,6 @@ namespace AChildsCourage
     [TestFixture]
     public class CollectionRNGTests
     {
-
-        #region Methods
 
         [Test]
         public void Getting_A_Random_Element_From_Empty_Collection_Returns_Default()
@@ -57,7 +55,7 @@ namespace AChildsCourage
 
             var numbers = new int[1000];
 
-            for (int i = 0; i < numbers.Length; i++)
+            for (var i = 0; i < numbers.Length; i++)
                 numbers[i] = elements.GetWeightedRandom(e => e, rng);
 
             // Then
@@ -65,10 +63,9 @@ namespace AChildsCourage
             var element1Count = numbers.Count(n => n == 1);
             var element2Count = numbers.Count(n => n == 2);
 
-            Assert.That(element2Count, Is.EqualTo(element1Count * 2).Within(100), "Element not selected approximately double as often!");
+            Assert.That(element2Count, Is.EqualTo(element1Count * 2)
+                                         .Within(100), "Element not selected approximately double as often!");
         }
-
-        #endregion
 
     }
 

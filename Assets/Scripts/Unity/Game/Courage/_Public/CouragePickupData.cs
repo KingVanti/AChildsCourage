@@ -1,7 +1,6 @@
 ﻿using AChildsCourage.Game.Floors;
 using UnityEngine;
 
-
 namespace AChildsCourage.Game.Courage
 {
 
@@ -28,22 +27,24 @@ namespace AChildsCourage.Game.Courage
 
         #region Properties
 
-        public CourageVariant Variant { get { return _variant; } }
+        public CourageVariant Variant => _variant;
 
-        public int Value { get { return _value; } }
+        public int Value => _value;
 
-        public string CourageName { get { return _courageName; } }
+        public string CourageName => _courageName;
 
-        public Sprite Sprite { get { return _sprite; } }
+        public Sprite Sprite => _sprite;
 
-        public Vector3 Scale { get { return _scale; } }
+        public Vector3 Scale => _scale;
 
-        public Texture2D Emission { get { return _emission; } }
+        public Texture2D Emission => _emission;
 
-        public float LightOuterRadius { get { return _lightOuterRadius; } }
+        public float LightOuterRadius => _lightOuterRadius;
 
-        public float LightIntensity { get { return _lightIntensity; } }
+        public float LightIntensity => _lightIntensity;
+
         #endregion
 
     }
+
 }

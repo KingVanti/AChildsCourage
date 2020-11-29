@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Items;
+﻿using System.Linq;
+using AChildsCourage.Game.Items;
 using NUnit.Framework;
-using System.Linq;
 using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -10,20 +10,13 @@ namespace AChildsCourage.Game.NightLoading
     public class ItemPickupCreatingTests
     {
 
-        #region Tests
-
         [Test]
         public void Each_Item_Is_Chosen_Exactly_Once()
         {
             // Given
 
-            var itemIds = new[] { (ItemId)0, (ItemId)1 };
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0),
-                new TilePosition(2, 0)
-            };
+            var itemIds = new[] { (ItemId) 0, (ItemId) 1 };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0) };
 
             // When
 
@@ -39,13 +32,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var itemIds = new[] { (ItemId)0, (ItemId)1 };
-            var positions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(1, 0),
-                new TilePosition(2, 0)
-            };
+            var itemIds = new[] { (ItemId) 0, (ItemId) 1 };
+            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0) };
 
             // When
 
@@ -53,11 +41,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expectedPositions = new[]
-            {
-                new TilePosition(0, 0),
-                new TilePosition(2, 0)
-            };
+            var expectedPositions = new[] { new TilePosition(0, 0), new TilePosition(2, 0) };
             Assert.That(items.Select(i => i.Position), Is.EqualTo(expectedPositions), "Did not choose correct item positions!");
         }
 
@@ -97,8 +81,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(weight1, Is.GreaterThan(weight2), "Weight 1 should be greater than weight 2!");
         }
-
-        #endregion
 
     }
 

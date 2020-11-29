@@ -3,9 +3,11 @@
 
     internal enum TileCategory
     {
+
         Ground,
         Courage,
         Item
+
     }
 
 }

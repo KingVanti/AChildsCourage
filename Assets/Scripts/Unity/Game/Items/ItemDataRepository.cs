@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game;
 using AChildsCourage.Game.Items;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemDataRepository
@@ -12,7 +12,7 @@ public class ItemDataRepository
     private static readonly Dictionary<ItemId, ItemData> cachedItemData = new Dictionary<ItemId, ItemData>();
 
 
-    private static bool HasCache { get { return cachedItemData.Count > 0; } }
+    private static bool HasCache => cachedItemData.Count > 0;
 
 
     public static ItemIdLoader GetItemIdLoader()

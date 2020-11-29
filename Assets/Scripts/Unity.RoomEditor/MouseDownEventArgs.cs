@@ -3,16 +3,8 @@
 namespace AChildsCourage.RoomEditor
 {
 
-    public class MouseDownEventArgs 
+    public class MouseDownEventArgs
     {
-
-        #region Properties
-
-        public Vector2Int Position { get; }
-
-        public string MouseButtonName { get; }
-
-        #endregion
 
         #region Constructors
 
@@ -21,6 +13,14 @@ namespace AChildsCourage.RoomEditor
             Position = position;
             MouseButtonName = mouseButtonName;
         }
+
+        #endregion
+
+        #region Properties
+
+        public Vector2Int Position { get; }
+
+        public string MouseButtonName { get; }
 
         #endregion
 

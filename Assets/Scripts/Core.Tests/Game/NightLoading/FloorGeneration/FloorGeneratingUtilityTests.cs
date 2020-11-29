@@ -8,8 +8,6 @@ namespace AChildsCourage.Game.NightLoading
     public class FloorGeneratingUtilityTests
     {
 
-        #region Tests
-
         [Test]
         public void Distance_From_Origin_Is_Caluclated_Correctly()
         {
@@ -43,8 +41,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(distance, Is.EqualTo(2), "Incorrect distance calculated!");
         }
-
-        #endregion
 
     }
 

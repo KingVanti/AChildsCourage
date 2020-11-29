@@ -1,7 +1,6 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using System;
+﻿using System;
 using System.Linq;
-
+using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -16,8 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             Action<ItemPickupData> place = pickup => PlaceItemPickup(pickup, floor);
 
             Take(pickups)
-            .Select(transformed)
-            .ForEach(place);
+                .Select(transformed)
+                .ForEach(place);
 
             return floor;
         }

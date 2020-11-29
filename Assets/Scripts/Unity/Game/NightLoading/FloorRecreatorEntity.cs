@@ -13,6 +13,12 @@ namespace AChildsCourage.Game.NightLoading
     public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
 
+        #region Properties
+
+        [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
+
+        #endregion
+
         #region Fields
 
 #pragma warning disable 649
@@ -24,12 +30,6 @@ namespace AChildsCourage.Game.NightLoading
         [SerializeField] private ItemPickupSpawner itemPickupSpawner;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Properties
-
-        [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
 
         #endregion
 
@@ -69,16 +69,16 @@ namespace AChildsCourage.Game.NightLoading
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition)
         {
-            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity).GetComponent<CouragePickupEntity>();
+            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity)
+                .GetComponent<CouragePickupEntity>();
         }
 
         private void PlaceItemPickups(ItemPickup pickup)
         {
             var position = pickup.Position.ToVector3();
-            
+
             itemPickupSpawner.SpawnPickupFor(pickup.ItemId, position);
         }
-
 
         #endregion
 

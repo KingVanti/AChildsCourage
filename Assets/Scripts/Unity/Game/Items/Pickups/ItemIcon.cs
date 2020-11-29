@@ -23,15 +23,15 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Properties
 
-        public ItemId ItemId { get { return (ItemId)_itemId; } }
+        public ItemId ItemId => (ItemId) _itemId;
 
-        public Sprite InactiveIcon { get { return _inactiveIcon; } }
+        public Sprite InactiveIcon => _inactiveIcon;
 
-        public Sprite ActiveIcon { get { return _activeIcon; } }
+        public Sprite ActiveIcon => _activeIcon;
 
-        public Vector3 Scale { get { return _scale; } }
+        public Vector3 Scale => _scale;
 
-        public float RotationAngles { get { return _rotationAngles; } }
+        public float RotationAngles => _rotationAngles;
 
         #endregion
 

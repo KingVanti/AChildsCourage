@@ -13,9 +13,15 @@
         }
 
 
-        public static explicit operator AOIIndex(int index) => new AOIIndex(index);
+        public static explicit operator AOIIndex(int index)
+        {
+            return new AOIIndex(index);
+        }
 
-        public static implicit operator int(AOIIndex index) => index.value;
+        public static implicit operator int(AOIIndex index)
+        {
+            return index.value;
+        }
 
     }
 

@@ -52,8 +52,7 @@ namespace AChildsCourage
         {
             if (predecate)
                 return function(input);
-            else
-                return input;
+            return input;
         }
 
         public static void While(this Action action, Func<bool> predecate)

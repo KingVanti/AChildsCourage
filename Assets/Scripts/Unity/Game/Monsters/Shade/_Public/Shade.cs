@@ -2,28 +2,33 @@
 
 namespace AChildsCourage.Game.Monsters
 {
-    public class Shade : Monster {
 
-        bool isMovingRight = true;
+    public class Shade : Monster
+    {
 
-        public void FixedUpdate() {
+        private bool isMovingRight = true;
 
-            if (transform.position.x >= 18f) {
+        public void FixedUpdate()
+        {
+            if (transform.position.x >= 18f)
+            {
                 isMovingRight = false;
-                GetComponent<SpriteRenderer>().flipX = true;
+                GetComponent<SpriteRenderer>()
+                    .flipX = true;
             }
 
-            if (transform.position.x <= 3f) {
+            if (transform.position.x <= 3f)
+            {
                 isMovingRight = true;
-                GetComponent<SpriteRenderer>().flipX = false;
+                GetComponent<SpriteRenderer>()
+                    .flipX = false;
             }
 
             if (isMovingRight)
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(18f, transform.position.y), Time.deltaTime * movementSpeed);
 
-            if (!isMovingRight) 
+            if (!isMovingRight)
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(3f, transform.position.y), Time.deltaTime * movementSpeed);
-
         }
 
     }

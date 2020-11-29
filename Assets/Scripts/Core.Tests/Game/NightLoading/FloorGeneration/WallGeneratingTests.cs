@@ -1,7 +1,7 @@
-﻿using AChildsCourage.Game.Floors;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using NUnit.Framework;
 using static AChildsCourage.Game.NightLoading.FloorGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -10,8 +10,6 @@ namespace AChildsCourage.Game.NightLoading
     [TestFixture]
     public class WallGeneratingTests
     {
-
-        #region Tests
 
         [Test]
         public void Wall_Is_Above_Ground_If_There_Is_Floor_One_Tile_Below()
@@ -112,11 +110,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-            {
-                new TilePosition(0, -1),
-                new TilePosition(0, -2)
-            };
+            var expected = new[] { new TilePosition(0, -1), new TilePosition(0, -2) };
 
             Assert.That(positions.Count(), Is.EqualTo(expected.Length), "Found incorrect number of positions!");
 
@@ -134,11 +128,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[]
-            {
-                new TileOffset(0, -1),
-                new TileOffset(0, -2)
-            };
+            var expected = new[] { new TileOffset(0, -1), new TileOffset(0, -2) };
 
             Assert.That(offsets.Count(), Is.EqualTo(expected.Length), "Found incorrect number of offsets!");
 
@@ -179,8 +169,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(hasGround, Is.False, "Should not find ground!");
         }
-
-        #endregion
 
     }
 

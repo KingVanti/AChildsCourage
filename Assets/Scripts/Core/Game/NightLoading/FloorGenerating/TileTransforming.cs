@@ -1,5 +1,4 @@
 ﻿using System;
-
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -15,9 +14,9 @@ namespace AChildsCourage.Game.NightLoading
 
             return
                 Take(position)
-                .IntoWith(OffsetAround, transform.ChunkCorner)
-                .RepeatFor(rotate, transform.RotationCount)
-                .DoIf(mirror, transform.IsMirrored);
+                    .IntoWith(OffsetAround, transform.ChunkCorner)
+                    .RepeatFor(rotate, transform.RotationCount)
+                    .DoIf(mirror, transform.IsMirrored);
         }
 
         internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner)

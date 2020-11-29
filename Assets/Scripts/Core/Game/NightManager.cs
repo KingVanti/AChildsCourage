@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using AChildsCourage.Game.Items;
 using AChildsCourage.Game.NightLoading;
 
 namespace AChildsCourage.Game
@@ -8,6 +7,17 @@ namespace AChildsCourage.Game
     [Singleton]
     internal class NightManager : INightManager
     {
+
+        #region Methods
+
+        public void PrepareNight()
+        {
+            runDataLoader()
+                .Map(d => d.CurrentNight)
+                .Do(nightLoader.Invoke);
+        }
+
+        #endregion
 
         #region Fields
 
@@ -29,17 +39,6 @@ namespace AChildsCourage.Game
         {
             this.runDataLoader = runDataLoader;
             this.nightLoader = nightLoader;
-        }
-
-        #endregion
-
-        #region Methods
-
-        public void PrepareNight()
-        {
-            runDataLoader()
-                .Map(d => d.CurrentNight)
-                .Do(nightLoader.Invoke);
         }
 
         #endregion

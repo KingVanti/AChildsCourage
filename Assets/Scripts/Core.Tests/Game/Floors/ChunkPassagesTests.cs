@@ -7,8 +7,6 @@ namespace AChildsCourage.Game.Floors
     public class ChunkPassagesTests
     {
 
-        #region Tests
-
         [Test]
         public void YMirroring_Has_No_Effect_On_East_And_West()
         {
@@ -112,8 +110,6 @@ namespace AChildsCourage.Game.Floors
 
             Assert.That(has, Is.False, "Passage does not have east!");
         }
-
-        #endregion
 
     }
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using static AChildsCourage.CustomMathModule;
 
 namespace AChildsCourage.Game.UI
 {
 
-    public class ItemSlots : MonoBehaviour {
+    public class ItemSlots : MonoBehaviour
+    {
 
         #region Constants
 
@@ -29,30 +29,49 @@ namespace AChildsCourage.Game.UI
 
         #region Methods
 
-        public void AddItem(int slotId, int itemId) {
-            itemSlotsImages[slotId].sprite = availableItemSprites[itemId];
+        public void AddItem(int slotId, int itemId)
+        {
+            itemSlotsImages[slotId]
+                .sprite = availableItemSprites[itemId];
         }
 
-        public void SwapItems() {
-
-            Sprite tempSprite = itemSlotsImages[0].sprite;
-            itemSlotsImages[0].sprite = itemSlotsImages[1].sprite;
-            itemSlotsImages[1].sprite = tempSprite;
-
+        public void SwapItems()
+        {
+            var tempSprite = itemSlotsImages[0]
+                .sprite;
+            itemSlotsImages[0]
+                .sprite = itemSlotsImages[1]
+                .sprite;
+            itemSlotsImages[1]
+                .sprite = tempSprite;
         }
 
 
-        public void UpdateCooldown(int slotId, float currentCooldown, float Cooldown) {
+        public void UpdateCooldown(int slotId, float currentCooldown, float Cooldown)
+        {
+            itemCooldownFills[slotId]
+                .fillAmount = Map(currentCooldown, 0, Cooldown, 0, MaxFillAmount);
 
-            itemCooldownFills[slotId].fillAmount = Map(currentCooldown, 0, Cooldown, 0, MaxFillAmount);
-
-            if (itemCooldownFills[slotId].fillAmount < 1) {
-                itemSlotsImages[slotId].color = new Color(itemSlotsImages[slotId].color.r, itemSlotsImages[slotId].color.g, itemSlotsImages[slotId].color.b, 0.5f);
-            } else {
-                itemSlotsImages[slotId].color = new Color(itemSlotsImages[slotId].color.r, itemSlotsImages[slotId].color.g, itemSlotsImages[slotId].color.b, 1);
-                itemCooldownFills[slotId].fillAmount = 0;
+            if (itemCooldownFills[slotId]
+                    .fillAmount <
+                1)
+            {
+                itemSlotsImages[slotId]
+                    .color = new Color(itemSlotsImages[slotId]
+                                       .color.r, itemSlotsImages[slotId]
+                                                 .color.g, itemSlotsImages[slotId]
+                                                           .color.b, 0.5f);
             }
-
+            else
+            {
+                itemSlotsImages[slotId]
+                    .color = new Color(itemSlotsImages[slotId]
+                                       .color.r, itemSlotsImages[slotId]
+                                                 .color.g, itemSlotsImages[slotId]
+                                                           .color.b, 1);
+                itemCooldownFills[slotId]
+                    .fillAmount = 0;
+            }
         }
 
         #endregion

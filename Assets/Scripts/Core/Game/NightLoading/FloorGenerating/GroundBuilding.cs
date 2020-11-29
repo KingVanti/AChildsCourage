@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using System;
+﻿using System;
 using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -15,8 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             Action<GroundTileData> place = tile => PlaceGroundTile(tile, floor);
 
             Take(tiles)
-            .Select(transformed)
-            .ForEach(place);
+                .Select(transformed)
+                .ForEach(place);
 
             return floor;
         }

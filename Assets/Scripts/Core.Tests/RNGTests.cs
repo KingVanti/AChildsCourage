@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage
@@ -8,8 +7,6 @@ namespace AChildsCourage
     [TestFixture]
     public class RNGTests
     {
-
-        #region Tests
 
         [Test]
         public void Two_RNGs_With_Same_Seed_Yield_Same_Values()
@@ -30,9 +27,6 @@ namespace AChildsCourage
                 Assert.That(value1, Is.EqualTo(value2), $"Values differed after {i} queries!");
             }
         }
-
-
-        #endregion
 
     }
 

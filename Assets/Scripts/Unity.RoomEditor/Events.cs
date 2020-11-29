@@ -1,9 +1,10 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using UnityEngine.Events;
 
 namespace AChildsCourage.RoomEditor
 {
 
-    [System.Serializable]
+    [Serializable]
     public class MouseDownEvent : UnityEvent<MouseDownEventArgs> { }
 
 }

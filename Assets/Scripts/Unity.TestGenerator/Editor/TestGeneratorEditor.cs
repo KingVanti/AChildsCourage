@@ -1,7 +1,6 @@
 ﻿using AChildsCourage.Game.NightLoading;
 using UnityEditor;
 using UnityEngine;
-
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
@@ -15,7 +14,8 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         [MenuItem("Window/A Child's Courage/Test Generator")]
         public static void Open()
         {
-            GetWindow<TestGeneratorEditor>().Show();
+            GetWindow<TestGeneratorEditor>()
+                .Show();
         }
 
         #endregion
@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         #region Properties
 
-        private bool HasFloorImage { get { return floorImage != null; } }
+        private bool HasFloorImage => floorImage != null;
 
         private FloorPlanGenerator FloorGenerator
         {

@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using System.Linq;
+using AChildsCourage.Game.Floors;
 using NUnit.Framework;
-using System.Linq;
 using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -9,8 +9,6 @@ namespace AChildsCourage.Game.NightLoading
     [TestFixture]
     public class FloorPlanGeneratingUtilityTests
     {
-
-        #region Tests
 
         [Test]
         public void Moving_To_Adjacent_Chunk_Returns_Correct_Chunk()
@@ -83,7 +81,7 @@ namespace AChildsCourage.Game.NightLoading
 
             var phases =
                 Enumerable.Range(1, GoalRoomCount - 2)
-                .Select(currentRoomCount => GetCurrentPhase(currentRoomCount));
+                          .Select(currentRoomCount => GetCurrentPhase(currentRoomCount));
 
             // Then
 
@@ -144,8 +142,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(roomCount, Is.EqualTo(2), "Room-count calculated incorrectly!");
         }
-
-        #endregion
 
     }
 

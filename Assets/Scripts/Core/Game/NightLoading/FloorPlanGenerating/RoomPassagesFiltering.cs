@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Floors;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             var filteredPassages =
                 allPassages
-                .Where(p => RoomMatchesFilter(p, filter));
+                    .Where(p => RoomMatchesFilter(p, filter));
 
             return new FilteredRoomPassages(filteredPassages);
         }

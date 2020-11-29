@@ -1,12 +1,16 @@
-﻿using AChildsCourage.Game.NightLoading;
-using ICSharpCode.NRefactory.Visitors;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
 {
 
     public class CameraController : MonoBehaviour
     {
+
+        #region Properties
+
+        private float Zoom { get => camera.orthographicSize; set => camera.orthographicSize = Mathf.Clamp(value, minZoom, maxZoom); }
+
+        #endregion
 
         #region Fields
 
@@ -23,12 +27,6 @@ namespace AChildsCourage.RoomEditor
 
         private Vector2 currentMovement;
         private RoomEditorInput input;
-
-        #endregion
-
-        #region Properties
-
-        private float Zoom { get { return camera.orthographicSize; } set { camera.orthographicSize = Mathf.Clamp(value, minZoom, maxZoom); } }
 
         #endregion
 
@@ -85,7 +83,7 @@ namespace AChildsCourage.RoomEditor
 
         private void Update()
         {
-            transform.position += (Vector3)currentMovement * Time.deltaTime;
+            transform.position += (Vector3) currentMovement * Time.deltaTime;
         }
 
         #endregion

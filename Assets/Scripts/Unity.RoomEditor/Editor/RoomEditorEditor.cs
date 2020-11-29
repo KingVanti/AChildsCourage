@@ -1,7 +1,7 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
-using System;
+﻿using System;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
         #region Properties
 
-        private RoomEditor RoomEditor { get { return target as RoomEditor; } }
+        private RoomEditor RoomEditor => target as RoomEditor;
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace AChildsCourage.RoomEditor.Editor
         private void DrawLoadAssetGUI()
         {
             EditorGUILayout.LabelField("Drop in a room-asset to load it");
-            var selectedAsset = (RoomAsset)EditorGUILayout.ObjectField(null, typeof(RoomAsset), false);
+            var selectedAsset = (RoomAsset) EditorGUILayout.ObjectField(null, typeof(RoomAsset), false);
 
             EditorGUILayout.Space();
 
@@ -76,14 +76,15 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void DrawRoomTypeSelectionGUI()
         {
-            RoomEditor.CurrentRoomType = (RoomType)EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
+            RoomEditor.CurrentRoomType = (RoomType) EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
         }
 
         private void DrawTileCategorySelectionGUI()
         {
             EditorGUILayout.BeginHorizontal();
 
-            var tileCategories = Enum.GetValues(typeof(TileCategory)).Cast<TileCategory>();
+            var tileCategories = Enum.GetValues(typeof(TileCategory))
+                                     .Cast<TileCategory>();
             foreach (var tileCategory in tileCategories)
                 if (GUILayout.Button(tileCategory.ToString()))
                     RoomEditor.SelectedTileCategory = tileCategory;
@@ -97,7 +98,8 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.BeginHorizontal();
 
-            var variants = Enum.GetValues(typeof(CourageVariant)).Cast<CourageVariant>();
+            var variants = Enum.GetValues(typeof(CourageVariant))
+                               .Cast<CourageVariant>();
             foreach (var variant in variants)
                 if (GUILayout.Button(variant.ToString()))
                     RoomEditor.SelectedCourageVariant = variant;

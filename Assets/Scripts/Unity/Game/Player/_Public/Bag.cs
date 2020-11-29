@@ -1,15 +1,15 @@
-﻿using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Items.Pickups;
-using Ninject.Extensions.Unity;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using AChildsCourage.Game.Items;
+using AChildsCourage.Game.Items.Pickups;
+using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Player
 {
+
     public class Bag : MonoBehaviour
     {
 
@@ -21,8 +21,8 @@ namespace AChildsCourage.Game.Player
 
 #pragma warning restore 649
 
-        private ItemBehaviour[] currentItems = new ItemBehaviour[2];
-        private float[] currentItemCooldown = new float[2];
+        private readonly ItemBehaviour[] currentItems = new ItemBehaviour[2];
+        private readonly float[] currentItemCooldown = new float[2];
 
         public CooldownEvent cooldownEvent;
         public ItemDataEvent itemUsedEvent;
@@ -35,6 +35,7 @@ namespace AChildsCourage.Game.Player
         #region Properties
 
         [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
+
         [AutoInject] private ItemPickupSpawner PickupSpawner { get; set; }
 
         #endregion
@@ -45,9 +46,11 @@ namespace AChildsCourage.Game.Player
         {
             if (currentItems[usedSlotId] != null && currentItemCooldown[usedSlotId] == 0)
             {
-                currentItems[usedSlotId].Toggle();
+                currentItems[usedSlotId]
+                    .Toggle();
                 StartCoroutine(Cooldown(usedSlotId));
-                itemUsedEvent?.Invoke(FindItemData(currentItems[usedSlotId].Id));
+                itemUsedEvent?.Invoke(FindItemData(currentItems[usedSlotId]
+                                                       .Id));
             }
         }
 
@@ -66,7 +69,8 @@ namespace AChildsCourage.Game.Player
 
         private void DropItem(int slotId)
         {
-            var itemId = currentItems[slotId].Id;
+            var itemId = currentItems[slotId]
+                .Id;
             PickupSpawner.SpawnPickupFor(itemId, transform.position);
 
             itemDroppedEvent?.Invoke();
@@ -74,14 +78,14 @@ namespace AChildsCourage.Game.Player
 
         private void PutItemInSlot(int slotId, int itemId)
         {
-            currentItems[slotId] = availableItems[itemId].GetComponent<ItemBehaviour>();
+            currentItems[slotId] = availableItems[itemId]
+                .GetComponent<ItemBehaviour>();
             itemPickUpEvent?.Invoke();
         }
 
 
         public void OnItemSwapInventory()
         {
-
             if (currentItemCooldown[0] != 0 || currentItemCooldown[1] != 0)
             {
                 // Maybe do an animation when trying to use?? 
@@ -89,29 +93,28 @@ namespace AChildsCourage.Game.Player
             }
             else
             {
-                ItemBehaviour tempItem = currentItems[0];
+                var tempItem = currentItems[0];
                 currentItems[0] = currentItems[1];
                 currentItems[1] = tempItem;
                 itemSwappedEvent?.Invoke();
             }
-
         }
 
 
         private IEnumerator Cooldown(int usedSlotId)
         {
-
-            while (currentItemCooldown[usedSlotId] < currentItems[usedSlotId].Cooldown)
+            while (currentItemCooldown[usedSlotId] <
+                   currentItems[usedSlotId]
+                       .Cooldown)
             {
-
-                currentItemCooldown[usedSlotId] = Mathf.MoveTowards(currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown, Time.deltaTime);
-                cooldownEvent?.Invoke(usedSlotId, currentItemCooldown[usedSlotId], currentItems[usedSlotId].Cooldown);
+                currentItemCooldown[usedSlotId] = Mathf.MoveTowards(currentItemCooldown[usedSlotId], currentItems[usedSlotId]
+                                                                        .Cooldown, Time.deltaTime);
+                cooldownEvent?.Invoke(usedSlotId, currentItemCooldown[usedSlotId], currentItems[usedSlotId]
+                                          .Cooldown);
                 yield return null;
-
             }
 
             currentItemCooldown[usedSlotId] = 0;
-
         }
 
         #endregion

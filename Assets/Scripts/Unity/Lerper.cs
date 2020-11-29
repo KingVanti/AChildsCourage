@@ -37,7 +37,7 @@ namespace AChildsCourage
 
             while (stopwatch.Elapsed.TotalSeconds < time)
             {
-                var t = Mathf.Clamp((float)(stopwatch.Elapsed.TotalSeconds / time), 0, 1);
+                var t = Mathf.Clamp((float) (stopwatch.Elapsed.TotalSeconds / time), 0, 1);
 
                 stepFunction?.Invoke(t);
                 yield return t;

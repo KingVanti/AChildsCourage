@@ -3,7 +3,7 @@
 
     public class ItemData
     {
-        
+
         public ItemId Id { get; }
 
         public string Name { get; }

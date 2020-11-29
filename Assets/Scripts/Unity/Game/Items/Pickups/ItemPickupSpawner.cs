@@ -1,12 +1,19 @@
-﻿using Ninject.Extensions.Unity;
-using System.Linq;
+﻿using System.Linq;
+using Ninject.Extensions.Unity;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Items.Pickups
 {
+
     [UseDI]
     public class ItemPickupSpawner : MonoBehaviour
     {
+
+        #region Properties
+
+        [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
+
+        #endregion
 
         #region Fields
 
@@ -17,12 +24,6 @@ namespace AChildsCourage.Game.Items.Pickups
         [SerializeField] private ItemIcon[] itemIcons;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Properties
-
-        [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
 
         #endregion
 

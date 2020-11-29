@@ -8,8 +8,6 @@ namespace AChildsCourage.Game
     public class NightManagerTests
     {
 
-        #region Tests
-
         [Test]
         public void When_Preparing_Then_The_Current_NightData_Is_Loaded()
         {
@@ -31,8 +29,6 @@ namespace AChildsCourage.Game
 
             Assert.That(calledTimes, Is.EqualTo(1), "No or incorrect night-data was loaded!");
         }
-
-        #endregion
 
     }
 

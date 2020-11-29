@@ -1,5 +1,5 @@
-﻿using AChildsCourage.Game.Floors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -12,10 +12,10 @@ namespace AChildsCourage.Game.NightLoading
         internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, RNGSource rng)
         {
             return chunkPosition
-                .CreateFilter(floorPlan)
-                .FilterPassagesMatching(allPassages)
-                .ChooseRandom(rng)
-                .Map(room => new RoomInChunk(room, chunkPosition));
+                   .CreateFilter(floorPlan)
+                   .FilterPassagesMatching(allPassages)
+                   .ChooseRandom(rng)
+                   .Map(room => new RoomInChunk(room, chunkPosition));
         }
 
         private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, RNGSource rng)
@@ -27,8 +27,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             var phase =
                 Take(floorPlan)
-                .Map(CountRooms)
-                .Map(GetCurrentPhase);
+                    .Map(CountRooms)
+                    .Map(GetCurrentPhase);
 
             var roomType = GetFilteredRoomTypeFor(phase);
             var remainingRooms = floorPlan.GetRemainingRoomCount();
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static RoomType GetFilteredRoomTypeFor(GenerationPhase buildingPhase)
         {
-            return (RoomType)(int)buildingPhase;
+            return (RoomType) (int) buildingPhase;
         }
 
         internal static int GetRemainingRoomCount(this FloorPlanInProgress floorPlan)
@@ -49,7 +49,10 @@ namespace AChildsCourage.Game.NightLoading
 
         private static ChunkPassageFilter GetPassageFilterFor(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
-            PassageFilter GetPassageFilter(PassageDirection p) => GetFilterFor(floorPlan, position, p);
+            PassageFilter GetPassageFilter(PassageDirection p)
+            {
+                return GetFilterFor(floorPlan, position, p);
+            }
 
             var north = GetPassageFilter(PassageDirection.North);
             var east = GetPassageFilter(PassageDirection.East);
@@ -69,8 +72,8 @@ namespace AChildsCourage.Game.NightLoading
             var roomAtPosition = floorPlan.RoomsByChunks[positionInDirection];
             var hasPassage =
                 Take(direction)
-               .Map(Invert)
-               .Map(roomAtPosition.Passages.Has);
+                    .Map(Invert)
+                    .Map(roomAtPosition.Passages.Has);
 
             return hasPassage ? PassageFilter.Passage : PassageFilter.NoPassage;
         }

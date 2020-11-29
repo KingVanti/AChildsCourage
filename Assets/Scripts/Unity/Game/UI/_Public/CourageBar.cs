@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 namespace AChildsCourage.Game.UI
 {
-    public class CourageBar : MonoBehaviour {
+
+    public class CourageBar : MonoBehaviour
+    {
 
         #region Fields
 
@@ -18,29 +20,31 @@ namespace AChildsCourage.Game.UI
 
         #region Methods
 
-        public void UpdateCourage(int newValue, int neededValue, int maxValue) {
+        public void UpdateCourage(int newValue, int neededValue, int maxValue)
+        {
             UpdateCourageBar(newValue, maxValue);
             UpdateCourageCounter(newValue, neededValue);
         }
 
-        private void UpdateCourageBar(int newValue, int maxValue) {
-            float newFillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
+        private void UpdateCourageBar(int newValue, int maxValue)
+        {
+            var newFillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
             StartCoroutine(FillLerp(newFillAmount));
         }
 
-        public void UpdateCourageCounter(int newValue, int neededValue) {
+        public void UpdateCourageCounter(int newValue, int neededValue)
+        {
             courageCounterTextMesh.text = newValue + " / " + neededValue;
         }
 
-        IEnumerator FillLerp(float destination) {
-
-            while(courageBarFill.fillAmount != destination) {
+        private IEnumerator FillLerp(float destination)
+        {
+            while (courageBarFill.fillAmount != destination)
+            {
                 courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 2.0f);
                 yield return new WaitForEndOfFrame();
             }
-            
         }
-
 
         #endregion
 

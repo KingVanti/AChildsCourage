@@ -6,18 +6,6 @@ namespace AChildsCourage.Game.Floors
     public class Floor
     {
 
-        #region Properties
-
-        public HashSet<GroundTile> GroundTiles { get; }
-
-        public HashSet<Wall> Walls { get; }
-
-        public HashSet<CouragePickup> CouragePickups { get; }
-
-        public HashSet<ItemPickup> ItemPickups { get; }
-
-        #endregion
-
         #region Constructors
 
         public Floor(IEnumerable<GroundTile> groundTiles, IEnumerable<Wall> walls, IEnumerable<CouragePickup> couragePickups, IEnumerable<ItemPickup> itemPickups)
@@ -28,6 +16,17 @@ namespace AChildsCourage.Game.Floors
             ItemPickups = new HashSet<ItemPickup>(itemPickups);
         }
 
+        #endregion
+
+        #region Properties
+
+        public HashSet<GroundTile> GroundTiles { get; }
+
+        public HashSet<Wall> Walls { get; }
+
+        public HashSet<CouragePickup> CouragePickups { get; }
+
+        public HashSet<ItemPickup> ItemPickups { get; }
 
         #endregion
 

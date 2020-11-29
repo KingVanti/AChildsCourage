@@ -2,11 +2,11 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-
 using static AChildsCourage.CustomMathModule;
 
 namespace AChildsCourage.Game.Items
 {
+
     public class Flashlight : ItemBehaviour
     {
 
@@ -24,34 +24,30 @@ namespace AChildsCourage.Game.Items
 
         private Vector2 characterPosition;
         private LayerMask wallLayer;
-        private bool IsTurnedOn = false;
+        private bool IsTurnedOn;
 
         #endregion
 
         #region Properties
 
-        [AutoInject] internal IInputListener InputListener { set { BindTo(value); } }
+        [AutoInject] internal IInputListener InputListener { set => BindTo(value); }
 
         private Vector2 MousePos { get; set; }
 
-        private Vector2 ProjectedMousePos { get { return mainCamera.ScreenToWorldPoint(MousePos); } }
+        private Vector2 ProjectedMousePos => mainCamera.ScreenToWorldPoint(MousePos);
 
-        private float CharacterDistance { get { return Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition + Vector2.up/2)); } }
+        private float CharacterDistance => Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition + Vector2.up / 2));
 
-        private RaycastHit2D RaycastMouseToCharacter
-        {
-            get
-            {
-                return Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer);
-            }
-        }
+        private RaycastHit2D RaycastMouseToCharacter => Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer);
 
         #endregion
 
         #region Methods
 
-        private void Start() {
-            mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        private void Start()
+        {
+            mainCamera = GameObject.FindGameObjectWithTag("MainCamera")
+                                   .GetComponent<Camera>();
         }
 
         private void OnEnable()
@@ -61,16 +57,10 @@ namespace AChildsCourage.Game.Items
 
         private void FollowMousePosition()
         {
-
             if (RaycastMouseToCharacter.collider != null)
-            {
                 transform.position = new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0);
-            }
             else
-            {
                 transform.position = new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
-            }
-
         }
 
         private void ChangeLightIntensity()
@@ -85,13 +75,11 @@ namespace AChildsCourage.Game.Items
 
         private void UpdateFlashlight()
         {
-
             if (IsTurnedOn)
             {
                 FollowMousePosition();
                 ChangeLightIntensity();
             }
-
         }
 
         private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
@@ -108,14 +96,13 @@ namespace AChildsCourage.Game.Items
 
         public override void Toggle()
         {
-
             lightComponent.enabled = IsTurnedOn ? false : true;
             IsTurnedOn = IsTurnedOn ? false : true;
             UpdateFlashlight();
-
         }
 
         #endregion
 
     }
+
 }

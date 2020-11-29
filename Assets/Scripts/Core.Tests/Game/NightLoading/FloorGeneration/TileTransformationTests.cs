@@ -8,8 +8,6 @@ namespace AChildsCourage.Game.NightLoading
     public class TileTransformationTests
     {
 
-        #region Tests
-
         [Test]
         public void Transforming_A_Position_Offsets_It()
         {
@@ -145,8 +143,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(rotated, Is.EqualTo(new TilePosition(22, 20)), "Position incorrectly cotated!");
         }
-
-        #endregion
 
     }
 

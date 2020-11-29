@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-
 namespace AChildsCourage.Game.Monsters
 {
 
-    public abstract class Monster : MonoBehaviour {
+    public abstract class Monster : MonoBehaviour
+    {
 
-        [Header("Stats")]
-        public int touchDamage;
+        [Header("Stats")] public int touchDamage;
+
         public int attackDamage;
         public float movementSpeed;
 

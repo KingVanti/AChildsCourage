@@ -1,11 +1,21 @@
-﻿using AChildsCourage.Game.Floors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 
 namespace AChildsCourage.Game.NightLoading
 {
 
     internal static partial class FloorPlanGenerating
     {
+
+
+        public enum GenerationPhase
+        {
+
+            StartRoom,
+            NormalRooms,
+            EndRoom
+
+        }
 
         internal class FloorPlanInProgress
         {
@@ -31,14 +41,6 @@ namespace AChildsCourage.Game.NightLoading
                 Position = position;
             }
 
-        }
-
-
-        public enum GenerationPhase
-        {
-            StartRoom,
-            NormalRooms,
-            EndRoom
         }
 
     }

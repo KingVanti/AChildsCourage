@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors
 
         public RoomPassages()
         {
-            Id = (RoomId)(-1);
+            Id = (RoomId) (-1);
             Passages = ChunkPassages.None;
             RotationCount = 0;
             IsMirrored = false;
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game.Floors
             IsMirrored = isMirrored;
         }
 
-        #endregion 
+        #endregion
 
     }
 

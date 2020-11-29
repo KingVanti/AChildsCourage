@@ -2,6 +2,7 @@
 
 namespace AChildsCourage.Game.Input
 {
+
     internal class EquippedItemUsedEventArgs : EventArgs
     {
 

@@ -22,9 +22,9 @@ namespace AChildsCourage.Game.NightLoading
                 var nightRecreator = NightRecreating.Make(floorRecreator);
 
                 Take(nightData.Seed)
-                .Map(floorPlanGenerator.Invoke)
-                .Map(floorGenerator.Invoke)
-                .Do(nightRecreator.Invoke);
+                    .Map(floorPlanGenerator.Invoke)
+                    .Map(floorGenerator.Invoke)
+                    .Do(nightRecreator.Invoke);
             };
         }
 

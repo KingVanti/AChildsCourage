@@ -1,8 +1,8 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Items;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Items;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -32,8 +32,8 @@ namespace AChildsCourage.Game.NightLoading
 
             return
                 positions
-                .OrderByDescending(weight)
-                .First();
+                    .OrderByDescending(weight)
+                    .First();
         }
 
         internal static float CalculatePositionWeight(TilePosition position, IEnumerable<TilePosition> taken)

@@ -1,10 +1,12 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using System;
 using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Courage
 {
+
     internal class CouragePickupRepository : ICouragePickupRepository
     {
 
@@ -16,7 +18,7 @@ namespace AChildsCourage.Game.Courage
 
         #region Fields
 
-        private List<CouragePickupData> couragePickups = new List<CouragePickupData>();
+        private readonly List<CouragePickupData> couragePickups = new List<CouragePickupData>();
 
         #endregion
 
@@ -33,15 +35,11 @@ namespace AChildsCourage.Game.Courage
 
         public CouragePickupData GetCouragePickupData(CourageVariant variant)
         {
-            foreach (CouragePickupData cpd in couragePickups)
-            {
+            foreach (var cpd in couragePickups)
                 if (cpd.Variant == variant)
-                {
                     return cpd;
-                }
-            }
 
-            throw new System.Exception("Could not find Courage variant!");
+            throw new Exception("Could not find Courage variant!");
         }
 
         public CouragePickupData GetRandomPickupData(RNGSource rng)
@@ -50,7 +48,6 @@ namespace AChildsCourage.Game.Courage
         }
 
         #endregion
-
 
     }
 

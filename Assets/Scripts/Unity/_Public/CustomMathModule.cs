@@ -2,13 +2,14 @@
 
 namespace AChildsCourage
 {
+
     public static class CustomMathModule
     {
 
         #region Methods
 
         /// <summary>
-        /// Re-maps a number from one range to another.
+        ///     Re-maps a number from one range to another.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="begin1"></param>
@@ -21,12 +22,13 @@ namespace AChildsCourage
             return begin2 + (end2 - begin2) * ((x - begin1) / (end1 - begin1));
         }
 
-        public static float CalculateAngle(float yPos, float xPos) {
+        public static float CalculateAngle(float yPos, float xPos)
+        {
             return Mathf.Atan2(yPos, xPos) * Mathf.Rad2Deg;
         }
 
         #endregion
 
     }
-}
 
+}

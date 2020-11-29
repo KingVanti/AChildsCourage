@@ -1,9 +1,6 @@
 ﻿namespace AChildsCourage.Game
 {
 
-    public class NightState
-    {
-
-    }
+    public class NightState { }
 
 }

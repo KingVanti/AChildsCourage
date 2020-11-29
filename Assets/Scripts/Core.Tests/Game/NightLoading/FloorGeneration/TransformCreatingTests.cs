@@ -9,8 +9,6 @@ namespace AChildsCourage.Game.NightLoading
     public class TransformCreatingTests
     {
 
-        #region Tests
-
         [Test]
         public void Can_Get_Correct_Chunk_Transform_From_Room_Transform()
         {
@@ -63,8 +61,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(corner, Is.EqualTo(new TilePosition(21, -21)), "Corner calculated incorrectly!");
         }
-
-        #endregion
 
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace AChildsCourage.Game.Floors
             if (passages.Count() > 0)
                 this.passages = passages;
             else
-                throw new System.Exception("No passages in this filter");
+                throw new Exception("No passages in this filter");
         }
 
         #endregion

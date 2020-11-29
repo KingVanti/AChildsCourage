@@ -3,10 +3,12 @@
 
     public enum PassageDirection
     {
+
         North,
         East,
         South,
         West
-    };
+
+    }
 
 }

@@ -7,8 +7,6 @@ namespace AChildsCourage.Game
     public class ExtensionsTests
     {
 
-        #region Tests
-
         [Test]
         public void Given_Any_TilePosition_When_It_Is_Converted_To_A_Vector3Int_Then_Its_Coordinates_Are_Copied_Correctly()
         {
@@ -26,8 +24,6 @@ namespace AChildsCourage.Game
             Assert.That(vector.y, Is.EqualTo(tilePosition.Y), "Y coordinate not copied correctly!");
             Assert.That(vector.z, Is.Zero, "Z coordinate should be 0!");
         }
-
-        #endregion
 
     }
 

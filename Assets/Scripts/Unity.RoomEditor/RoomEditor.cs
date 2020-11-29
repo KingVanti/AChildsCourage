@@ -33,19 +33,19 @@ namespace AChildsCourage.RoomEditor
         internal RoomType CurrentRoomType { get; set; }
 
 
-        internal int CurrentAssetId { get { return LoadedAsset.Id; } }
+        internal int CurrentAssetId => LoadedAsset.Id;
 
 
-        internal bool HasLoadedAsset { get { return LoadedAsset != null; } }
+        internal bool HasLoadedAsset => LoadedAsset != null;
 
 
-        internal string CurrentAssetName { get { return LoadedAsset.name; } }
+        internal string CurrentAssetName => LoadedAsset.name;
 
 
-        internal bool CurrentRoomIsStartRoom { get { return CurrentRoomType == RoomType.Start; } }
+        internal bool CurrentRoomIsStartRoom => CurrentRoomType == RoomType.Start;
 
 
-        internal bool CurrentRoomIsEndRoom { get { return CurrentRoomType == RoomType.End; } }
+        internal bool CurrentRoomIsEndRoom => CurrentRoomType == RoomType.End;
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace AChildsCourage.RoomEditor
         internal void OnAssetSelected(RoomAsset asset)
         {
             LoadedAsset = asset;
-            CurrentPassages = asset.Passages ;
+            CurrentPassages = asset.Passages;
             CurrentRoomType = asset.Type;
 
             LoadContent(asset.Content);

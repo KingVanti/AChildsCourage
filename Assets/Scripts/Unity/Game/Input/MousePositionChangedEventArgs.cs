@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace AChildsCourage.Game.Input
 {
+
     internal class MousePositionChangedEventArgs : EventArgs
     {
 

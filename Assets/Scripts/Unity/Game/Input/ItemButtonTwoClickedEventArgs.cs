@@ -2,8 +2,7 @@
 
 namespace AChildsCourage.Game.Input
 {
-    public class ItemButtonTwoClickedEventArgs : EventArgs {
 
-    }
+    public class ItemButtonTwoClickedEventArgs : EventArgs { }
 
 }

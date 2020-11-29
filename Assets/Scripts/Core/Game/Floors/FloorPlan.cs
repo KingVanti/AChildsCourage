@@ -6,7 +6,7 @@
 
         #region Static Properties
 
-        internal static FloorPlan Empty { get { return new FloorPlan(new RoomPlan[0]); } }
+        internal static FloorPlan Empty => new FloorPlan(new RoomPlan[0]);
 
         #endregion
 

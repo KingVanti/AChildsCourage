@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using System.Linq;
+﻿using System.Linq;
+using NUnit.Framework;
 using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -31,7 +31,8 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var floorPlan = new FloorPlanInProgress();
-            Enumerable.Range(0, GoalRoomCount).ForEach(i => floorPlan.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
+            Enumerable.Range(0, GoalRoomCount)
+                      .ForEach(i => floorPlan.RoomsByChunks.Add(new ChunkPosition(i, 0), null));
 
             // When
 
@@ -50,10 +51,7 @@ namespace AChildsCourage.Game.NightLoading
 
             var isEnough =
                 Enumerable.Range(0, GoalRoomCount - 1)
-                .Select(roomCount =>
-                {
-                    return IsEnough(roomCount);
-                });
+                          .Select(roomCount => { return IsEnough(roomCount); });
 
             // Then
 

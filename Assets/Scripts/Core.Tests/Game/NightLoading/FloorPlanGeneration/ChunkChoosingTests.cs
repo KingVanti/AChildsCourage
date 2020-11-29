@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-
 using static AChildsCourage.Game.NightLoading.FloorPlanGenerating;
 
 namespace AChildsCourage.Game.NightLoading
@@ -8,8 +7,6 @@ namespace AChildsCourage.Game.NightLoading
     [TestFixture]
     public class ChunkChoosingTests
     {
-
-        #region Tests
 
         [Test]
         public void The_Start_Room_Is_Always_At_Origin()
@@ -75,8 +72,6 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(weight1, Is.GreaterThan(weight2), "Closer chunk should have greater weight!");
         }
-
-        #endregion
 
     }
 

@@ -5,27 +5,27 @@
     {
 
         /// <summary>
-        /// Unity tag for enemy entities
+        ///     Unity tag for enemy entities
         /// </summary>
         internal const string Enemy = "Enemy";
 
         /// <summary>
-        /// Unity tag for item entities
+        ///     Unity tag for item entities
         /// </summary>
         internal const string Item = "Item";
 
         /// <summary>
-        /// Unity tag for player entities
+        ///     Unity tag for player entities
         /// </summary>
         internal const string Player = "Player";
 
         /// <summary>
-        /// Unity tag for courage entities
+        ///     Unity tag for courage entities
         /// </summary>
         internal const string Courage = "Courage";
 
         /// <summary>
-        /// Unity tag for the Shade entity
+        ///     Unity tag for the Shade entity
         /// </summary>
         internal const string Shade = "Shade";
 

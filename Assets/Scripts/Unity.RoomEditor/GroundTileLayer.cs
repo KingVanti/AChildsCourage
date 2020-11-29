@@ -1,5 +1,5 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using System.Linq;
+﻿using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -45,8 +45,8 @@ namespace AChildsCourage.RoomEditor
         {
             return
                 GetTiles()
-                .Select(t => new GroundTileData(t.Position, 0, 0))
-                .ToArray();
+                    .Select(t => new GroundTileData(t.Position, 0, 0))
+                    .ToArray();
         }
 
         #endregion

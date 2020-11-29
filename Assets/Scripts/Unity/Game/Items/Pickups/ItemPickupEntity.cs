@@ -2,8 +2,15 @@
 
 namespace AChildsCourage.Game.Items.Pickups
 {
+
     public class ItemPickupEntity : MonoBehaviour
     {
+
+        #region Properties
+
+        public ItemId Id { get; private set; }
+
+        #endregion
 
         #region Fields
 
@@ -13,12 +20,6 @@ namespace AChildsCourage.Game.Items.Pickups
         [SerializeField] private CanvasGroup tutorialInfo;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Properties
-
-        public ItemId Id { get; private set; }
 
         #endregion
 
@@ -47,4 +48,5 @@ namespace AChildsCourage.Game.Items.Pickups
         #endregion
 
     }
+
 }

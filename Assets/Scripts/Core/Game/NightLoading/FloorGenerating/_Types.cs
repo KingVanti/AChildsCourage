@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
-using System.Collections.Generic;
 
 namespace AChildsCourage.Game.NightLoading
 {

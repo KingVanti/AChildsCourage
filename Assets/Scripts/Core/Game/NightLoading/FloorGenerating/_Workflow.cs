@@ -1,9 +1,9 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
-using AChildsCourage.Game.Items;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Items;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -29,18 +29,17 @@ namespace AChildsCourage.Game.NightLoading
 
                     return
                         Take(floorInProgress)
-                        .Map(buildGroundTiles)
-                        .Map(buildCouragePickups)
-                        .Map(buildItemPickups);
+                            .Map(buildGroundTiles)
+                            .Map(buildCouragePickups)
+                            .Map(buildItemPickups);
                 };
 
                 Func<FloorInProgress, Floor> createFloor = floorInProgress =>
                 {
                     Func<FloorInProgress, IEnumerable<CouragePickup>> createCouragePickups = fip =>
                     {
-                        return Enumerable.Concat(
-                            ChooseCourageOrbs(fip.CourageOrbPositions, CourageOrbCount),
-                            ChooseCourageSparks(fip.CourageSparkPositions, CourageSparkCount));
+                        return ChooseCourageOrbs(fip.CourageOrbPositions, CourageOrbCount)
+                            .Concat(ChooseCourageSparks(fip.CourageSparkPositions, CourageSparkCount));
                     };
 
                     var groundTiles = floorInProgress.GroundPositions.Select(p => new GroundTile(p));
@@ -53,9 +52,9 @@ namespace AChildsCourage.Game.NightLoading
 
                 return
                     Take(floorPlan)
-                    .Map(chooseRooms.Invoke)
-                    .Aggregate(new FloorInProgress(), buildRoom)
-                    .Map(createFloor);
+                        .Map(chooseRooms.Invoke)
+                        .Aggregate(new FloorInProgress(), buildRoom)
+                        .Map(createFloor);
             };
         }
 

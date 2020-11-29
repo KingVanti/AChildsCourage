@@ -17,8 +17,8 @@ namespace AChildsCourage.Game.NightLoading
         internal static TilePosition GetChunkCenter(ChunkPosition chunkPosition)
         {
             return new TilePosition(
-                (chunkPosition.X * ChunkPosition.ChunkSize) + ChunkPosition.ChunkExtent,
-                (chunkPosition.Y * ChunkPosition.ChunkSize) + ChunkPosition.ChunkExtent);
+                chunkPosition.X * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent,
+                chunkPosition.Y * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent);
         }
 
         internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition)

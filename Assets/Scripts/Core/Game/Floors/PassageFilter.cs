@@ -3,9 +3,11 @@
 
     public enum PassageFilter
     {
+
         Passage,
         NoPassage,
         Open
+
     }
 
 }

@@ -4,7 +4,7 @@
     public class RoomContentData
     {
 
-        public static RoomContentData Empty { get { return new RoomContentData(null, null, null, null); } }
+        public static RoomContentData Empty => new RoomContentData(null, null, null, null);
 
 
         public GroundTileData[] GroundData { get; }

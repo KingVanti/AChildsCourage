@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static float GetDistanceFromOrigin(TilePosition position)
         {
-            return (float)new Vector2(position.X, position.Y).Length();
+            return new Vector2(position.X, position.Y).Length();
         }
 
 

@@ -1,37 +1,28 @@
-﻿using Appccelerate.EventBroker;
+﻿using System;
+using Appccelerate.EventBroker;
 using Appccelerate.EventBroker.Handlers;
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using CharacterController = AChildsCourage.Game.Player.CharacterController;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace AChildsCourage.Game.Input
 {
 
     [Singleton]
-    internal class InputListener : IInputListener, IEagerActivation {
+    internal class InputListener : IInputListener, IEagerActivation
+    {
 
         #region Fields
 
-        UserControls userControls;
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
-        public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
-        public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
-        public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
-        public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
+        private readonly UserControls userControls;
 
         #endregion
 
         #region Constructors
 
-        public InputListener() {
-
+        public InputListener()
+        {
             userControls = new UserControls();
 
             userControls.Player.Look.performed += OnLook;
@@ -41,68 +32,84 @@ namespace AChildsCourage.Game.Input
             userControls.Player.Swap.performed += OnItemSwap;
 
             userControls.Player.Enable();
-
         }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
+
+        public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
+
+        public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
+
+        public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
+
+        public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
 
         #endregion
 
         #region Methods
 
-        private void OnLook(Context context) {
-            Vector2 mousePos = context.ReadValue<Vector2>();
-            MousePositionChangedEventArgs eventArgs = new MousePositionChangedEventArgs(mousePos);
+        private void OnLook(Context context)
+        {
+            var mousePos = context.ReadValue<Vector2>();
+            var eventArgs = new MousePositionChangedEventArgs(mousePos);
             OnMousePositionChanged?.Invoke(this, eventArgs);
         }
 
 
-        private void OnMove(Context context) {
-            Vector2 moveDirection = context.ReadValue<Vector2>();
-            MoveDirectionChangedEventArgs eventArgs = new MoveDirectionChangedEventArgs(moveDirection);
+        private void OnMove(Context context)
+        {
+            var moveDirection = context.ReadValue<Vector2>();
+            var eventArgs = new MoveDirectionChangedEventArgs(moveDirection);
             OnMoveDirectionChanged?.Invoke(this, eventArgs);
         }
 
-        private void OnItem1KeyPress(Context context) {
-
-            if (context.interaction is HoldInteraction) {
+        private void OnItem1KeyPress(Context context)
+        {
+            if (context.interaction is HoldInteraction)
                 OnItemPickedUpTo(0, context);
-            } else {
+            else
                 OnEquippedItemUsedIn(0, context);
-            }
-
         }
 
-        private void OnItem2KeyPress(Context context) {
-
-            if (context.interaction is HoldInteraction) {
+        private void OnItem2KeyPress(Context context)
+        {
+            if (context.interaction is HoldInteraction)
                 OnItemPickedUpTo(1, context);
-            } else {
+            else
                 OnEquippedItemUsedIn(1, context);
-            }
-
         }
 
-        private void OnEquippedItemUsedIn(int slotId, Context context) {
-            EquippedItemUsedEventArgs eventArgs = new EquippedItemUsedEventArgs(slotId);
+        private void OnEquippedItemUsedIn(int slotId, Context context)
+        {
+            var eventArgs = new EquippedItemUsedEventArgs(slotId);
             OnEquippedItemUsed?.Invoke(this, eventArgs);
         }
 
 
-        private void OnItemPickedUpTo(int slotId, Context context) {
-            ItemPickedUpEventArgs eventArgs = new ItemPickedUpEventArgs(slotId);
+        private void OnItemPickedUpTo(int slotId, Context context)
+        {
+            var eventArgs = new ItemPickedUpEventArgs(slotId);
             OnItemPickedUp?.Invoke(this, eventArgs);
         }
 
-        private void OnItemSwap(Context context) {
-            ItemSwappedEventArgs eventArgs = new ItemSwappedEventArgs();
+        private void OnItemSwap(Context context)
+        {
+            var eventArgs = new ItemSwappedEventArgs();
             OnItemSwapped?.Invoke(this, eventArgs);
         }
 
-        [EventSubscription(nameof(Player.CharacterController.OnPlayerDeath), typeof(OnPublisher))]
-        public void OnPlayerDeath(EventArgs _) {
+        [EventSubscription(nameof(CharacterController.OnPlayerDeath), typeof(OnPublisher))]
+        public void OnPlayerDeath(EventArgs _)
+        {
             UnsubscribeFromInputs();
         }
 
-        private void UnsubscribeFromInputs() {
+        private void UnsubscribeFromInputs()
+        {
             userControls.Player.Look.performed -= OnLook;
             userControls.Player.Move.performed -= OnMove;
             userControls.Player.Swap.performed -= OnItemSwap;
@@ -113,4 +120,5 @@ namespace AChildsCourage.Game.Input
         #endregion
 
     }
+
 }

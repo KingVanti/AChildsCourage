@@ -4,14 +4,6 @@ namespace AChildsCourage.Game
 {
 
     [TestFixture]
-    public class NightLoaderTests
-    {
-
-        #region Tests
-
-
-        #endregion
-
-    }
+    public class NightLoaderTests { }
 
 }

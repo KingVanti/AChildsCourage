@@ -3,9 +3,11 @@
 
     public enum RoomType
     {
+
         Start,
         Normal,
         End
+
     }
 
 }

@@ -13,9 +13,15 @@
         }
 
 
-        public static explicit operator RoomId(int id) => new RoomId(id);
+        public static explicit operator RoomId(int id)
+        {
+            return new RoomId(id);
+        }
 
-        public static implicit operator int(RoomId id) => id.value;
+        public static implicit operator int(RoomId id)
+        {
+            return id.value;
+        }
 
     }
 

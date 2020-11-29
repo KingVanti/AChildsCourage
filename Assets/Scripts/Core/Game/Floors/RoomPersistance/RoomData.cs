@@ -3,18 +3,6 @@
 
     public class RoomData
     {
-       
-        #region Properties
-
-        public RoomId Id { get; }
-
-        public RoomType Type { get; }
-
-        public ChunkPassages Passages { get; }
-
-        public RoomContentData Content { get; }
-
-        #endregion
 
         #region Constructors
 
@@ -25,6 +13,18 @@
             Passages = passages;
             Content = content;
         }
+
+        #endregion
+
+        #region Properties
+
+        public RoomId Id { get; }
+
+        public RoomType Type { get; }
+
+        public ChunkPassages Passages { get; }
+
+        public RoomContentData Content { get; }
 
         #endregion
 

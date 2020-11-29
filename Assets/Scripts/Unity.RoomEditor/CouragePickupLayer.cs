@@ -1,6 +1,7 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System;
 using System.Linq;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -51,8 +52,8 @@ namespace AChildsCourage.RoomEditor
         {
             return
                 GetTiles()
-                .Select(ToPickup)
-                .ToArray();
+                    .Select(ToPickup)
+                    .ToArray();
         }
 
         private CouragePickupData ToPickup(TileAtPos tileAtPos)
@@ -79,7 +80,7 @@ namespace AChildsCourage.RoomEditor
                     return courageOrbTile;
             }
 
-            throw new System.Exception("Invalid variant!");
+            throw new Exception("Invalid variant!");
         }
 
         #endregion
