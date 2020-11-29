@@ -12,33 +12,33 @@ namespace AChildsCourage.Game
 
         public void PrepareNight()
         {
-            runDataLoader()
+            _loadRunData()
                 .Map(d => d.CurrentNight)
-                .Do(nightLoader.Invoke);
+                .Do(_loadNight.Invoke);
         }
 
         #endregion
 
         #region Fields
 
-        private readonly RunDataLoader runDataLoader;
-        private readonly NightLoader nightLoader;
+        private readonly LoadRunData _loadRunData;
+        private readonly LoadNight _loadNight;
 
         #endregion
 
         #region Constructors
 
-        public NightManager(RunDataLoader runDataLoader, ItemIdLoader itemIdLoader, RoomDataLoader roomLoader, IFloorRecreator floorRecreator)
+        public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoom, IFloorRecreator floorRecreator)
         {
-            this.runDataLoader = runDataLoader;
+            this._loadRunData = loadRunData;
 
-            nightLoader = NightLoading.NightLoading.Make(roomLoader, itemIdLoader, floorRecreator);
+            _loadNight = NightLoading.NightLoading.Make(loadRoom, loadItemIds, floorRecreator);
         }
 
-        public NightManager(RunDataLoader runDataLoader, NightLoader nightLoader)
+        public NightManager(LoadRunData loadRunData, LoadNight loadNight)
         {
-            this.runDataLoader = runDataLoader;
-            this.nightLoader = nightLoader;
+            this._loadRunData = loadRunData;
+            this._loadNight = loadNight;
         }
 
         #endregion

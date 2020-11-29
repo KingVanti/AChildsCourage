@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Properties
 
-        [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
+        [AutoInject] internal FindItemData FindItemData { private get; set; }
 
         #endregion
 

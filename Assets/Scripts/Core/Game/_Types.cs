@@ -5,10 +5,10 @@ using AChildsCourage.Game.Persistance;
 namespace AChildsCourage.Game
 {
 
-    public delegate RunData RunDataLoader();
+    public delegate RunData LoadRunData();
 
-    public delegate IEnumerable<ItemId> ItemIdLoader();
+    public delegate IEnumerable<ItemId> LoadItemIds();
 
-    public delegate void NightLoader(NightData data);
+    public delegate void LoadNight(NightData data);
 
 }

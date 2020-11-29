@@ -15,7 +15,7 @@ public class ItemDataRepository
     private static bool HasCache => cachedItemData.Count > 0;
 
 
-    public static ItemIdLoader GetItemIdLoader()
+    public static LoadItemIds GetItemIdLoader()
     {
         return GetItemIds;
     }
@@ -29,7 +29,7 @@ public class ItemDataRepository
     }
 
 
-    public static ItemDataFinder GetItemDataFinder()
+    public static FindItemData GetItemDataFinder()
     {
         return GetItemDataBy;
     }

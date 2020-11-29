@@ -12,12 +12,12 @@ namespace AChildsCourage.Game.NightLoading
 
         #region Methods
 
-        internal Tile GetTile(RNGSource rng)
+        internal Tile GetTile(CreateRNG createRng)
         {
-            var getVariant = rng.Prob(_variantProb);
+            var getVariant = createRng.Prob(_variantProb);
 
             if (getVariant)
-                return _variants.GetRandom(rng);
+                return _variants.GetRandom(createRng);
             return _baseTile;
         }
 

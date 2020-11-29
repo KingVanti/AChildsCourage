@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorGenerator Make(IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
+        internal static GenerateFloor Make(IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
         {
             return floorPlan =>
             {
@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.NightLoading
         private static FloorInProgress BuildRoom(FloorInProgress floorInProgress, RoomForFloor room)
         {
             var transform = ToChunkTransform(room.Transform);
-            TileTransformer transformer = position => Transform(position, transform);
+            TransformTile transformer = position => Transform(position, transform);
 
             Func<FloorInProgress, FloorInProgress> buildGroundTiles = fip => BuildGroundTiles(transformer, room.Content.GroundData, fip);
             Func<FloorInProgress, FloorInProgress> buildCouragePickups = fip => BuildCourage(transformer, room.Content.CourageData, fip);

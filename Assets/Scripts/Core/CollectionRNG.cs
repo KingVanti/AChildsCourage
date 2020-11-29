@@ -9,24 +9,24 @@ namespace AChildsCourage
     public static class CollectionRNG
     {
 
-        public delegate float WeightFunction<T>(T element);
+        public delegate float CalculateWeight<T>(T element);
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, WeightFunction<T> weightFunction, RNGSource rng)
+        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRNG createRng)
         {
-            return GetWeightedRandom(weightFunction, rng, elements);
+            return GetWeightedRandom(calculateWeight, createRng, elements);
         }
 
 
-        public static T GetWeightedRandom<T>(WeightFunction<T> weightFunction, RNGSource rng, IEnumerable<T> elements)
+        public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRNG createRng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
                 return default;
 
-            var weightedElements = elements.AttachWeights(weightFunction);
+            var weightedElements = elements.AttachWeights(calculateWeight);
 
             var totalWeight = weightedElements.Sum(o => o.Weight);
-            var itemWeightIndex = rng.GetValueUnder(totalWeight);
+            var itemWeightIndex = createRng.GetValueUnder(totalWeight);
             var currentWeightIndex = 0f;
 
             foreach (var weightedElement in weightedElements)
@@ -40,29 +40,29 @@ namespace AChildsCourage
             throw new Exception("No element selected. This should not happen!");
         }
 
-        private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, WeightFunction<T> weightFunction)
+        private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight)
         {
-            return elements.Select(o => AttachWeight(o, weightFunction));
+            return elements.Select(o => AttachWeight(o, calculateWeight));
         }
 
-        private static Weighted<T> AttachWeight<T>(T element, WeightFunction<T> weightFunction)
+        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight)
         {
-            return new Weighted<T>(element, weightFunction(element));
-        }
-
-
-        public static T GetRandom<T>(this IEnumerable<T> elements, RNGSource rng)
-        {
-            return GetRandom(rng, elements);
+            return new Weighted<T>(element, calculateWeight(element));
         }
 
 
-        public static T GetRandom<T>(RNGSource rng, IEnumerable<T> elements)
+        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRNG createRng)
+        {
+            return GetRandom(createRng, elements);
+        }
+
+
+        public static T GetRandom<T>(CreateRNG createRng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
                 return default;
 
-            var index = rng.GetValueUnder(elements.Count());
+            var index = createRng.GetValueUnder(elements.Count());
 
             return elements.ElementAt(index);
         }

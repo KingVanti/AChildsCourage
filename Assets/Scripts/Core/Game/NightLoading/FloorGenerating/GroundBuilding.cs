@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorInProgress BuildGroundTiles(TileTransformer transformer, GroundTileData[] tiles, FloorInProgress floor)
+        internal static FloorInProgress BuildGroundTiles(TransformTile transformer, GroundTileData[] tiles, FloorInProgress floor)
         {
             Func<GroundTileData, GroundTileData> transformed = tile => TransformGroundTile(tile, transformer);
             Action<GroundTileData> place = tile => PlaceGroundTile(tile, floor);
@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.NightLoading
             return floor;
         }
 
-        internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TileTransformer transformer)
+        internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TransformTile transformer)
         {
             var newPosition = transformer(groundTile.Position);
 

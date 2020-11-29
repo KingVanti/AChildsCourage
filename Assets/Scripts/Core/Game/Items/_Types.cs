@@ -1,6 +1,6 @@
 ﻿namespace AChildsCourage.Game.Items
 {
 
-    public delegate ItemData ItemDataFinder(ItemId id);
+    public delegate ItemData FindItemData(ItemId id);
 
 }
