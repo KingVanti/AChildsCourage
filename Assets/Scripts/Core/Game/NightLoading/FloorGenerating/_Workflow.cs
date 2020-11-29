@@ -48,12 +48,12 @@ namespace AChildsCourage.Game.NightLoading
 
         private static CreateFloor CreateFloorWithItemIds(IEnumerable<ItemId> itemIds)
         {
-            return fpip =>
+            return floorInProgress =>
             {
-                var groundTiles = CreateGroundTiles(fpip);
-                var walls = GenerateWalls(fpip);
-                var couragePickups = CreateCouragePickups(fpip);
-                var itemPickups = ChoosePickups(itemIds, fpip.ItemPickupPositions);
+                var groundTiles = CreateGroundTiles(floorInProgress);
+                var walls = GenerateWalls(floorInProgress);
+                var couragePickups = CreateCouragePickups(floorInProgress);
+                var itemPickups = ChoosePickups(itemIds, floorInProgress.ItemPickupPositions);
 
                 return new Floor(groundTiles, walls, couragePickups, itemPickups);
             };
