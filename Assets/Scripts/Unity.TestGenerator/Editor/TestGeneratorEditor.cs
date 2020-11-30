@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         private int seed;
         private Texture2D floorImage;
         private readonly CompleteRoomLoader completeRoomLoader = new CompleteRoomLoader();
-        private FloorPlanGenerator _floorGenerator;
+        private FloorPlanGenerating.GenerateFloorPlan _generateFloor;
 
         #endregion
 
@@ -33,14 +33,14 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private bool HasFloorImage => floorImage != null;
 
-        private FloorPlanGenerator FloorGenerator
+        private FloorPlanGenerating.GenerateFloorPlan GenerateFloor
         {
             get
             {
-                if (_floorGenerator == null)
-                    _floorGenerator = GetFloorPlanGenerator();
+                if (_generateFloor == null)
+                    _generateFloor = GetFloorPlanGenerator();
 
-                return _floorGenerator;
+                return _generateFloor;
             }
         }
 
@@ -81,15 +81,15 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         }
 
 
-        private FloorPlanGenerator GetFloorPlanGenerator()
+        private FloorPlanGenerating.GenerateFloorPlan GetFloorPlanGenerator()
         {
-            return FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedRNG);
+            return FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedInitializeRng);
         }
 
 
         private void GenerateFloorImage()
         {
-            var floorPlan = FloorGenerator(seed);
+            var floorPlan = GenerateFloor(seed);
 
             floorImage = GenerateTexture.From(floorPlan, completeRoomLoader);
         }

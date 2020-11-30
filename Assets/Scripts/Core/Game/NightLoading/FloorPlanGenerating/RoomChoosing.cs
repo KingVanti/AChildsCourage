@@ -9,18 +9,18 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorPlanGenerating
     {
 
-        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, RNGSource rng)
+        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, CreateRNG createRng)
         {
             return chunkPosition
                    .CreateFilter(floorPlan)
                    .FilterPassagesMatching(allPassages)
-                   .ChooseRandom(rng)
+                   .ChooseRandom(createRng)
                    .Map(room => new RoomInChunk(room, chunkPosition));
         }
 
-        private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, RNGSource rng)
+        private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, CreateRNG createRng)
         {
-            return roomPassages.GetRandom(rng);
+            return roomPassages.GetRandom(createRng);
         }
 
         private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanInProgress floorPlan)

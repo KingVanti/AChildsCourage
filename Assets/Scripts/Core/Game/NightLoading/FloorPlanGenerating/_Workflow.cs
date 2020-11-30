@@ -15,13 +15,13 @@ namespace AChildsCourage.Game.NightLoading
         internal const int GoalRoomCount = 15;
 
 
-        internal static FloorPlanGenerator Make(IEnumerable<RoomData> roomData, RNGInitializer rngInitializer)
+        internal static GenerateFloorPlan Make(IEnumerable<RoomData> roomData, InitializeRNGSource initializeRngSource)
         {
             var allPassages = roomData.SelectMany(r => r.GetPassageVariations());
 
             return seed =>
             {
-                var rng = rngInitializer(seed);
+                var rng = initializeRngSource(seed);
 
                 Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, allPassages, fpip);
 
@@ -32,10 +32,10 @@ namespace AChildsCourage.Game.NightLoading
             };
         }
 
-        internal static FloorPlanInProgress AddRoom(RNGSource rng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
+        internal static FloorPlanInProgress AddRoom(CreateRNG createRng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
         {
-            Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(floorPlanInprogress, rng);
-            Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, floorPlanInprogress, allPassages, rng);
+            Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(floorPlanInprogress, createRng);
+            Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, floorPlanInprogress, allPassages, createRng);
             Func<RoomInChunk, FloorPlanInProgress> placeRoom = roomInChunk => PlaceRoom(floorPlanInprogress, roomInChunk);
 
             return

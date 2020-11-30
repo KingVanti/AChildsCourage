@@ -14,12 +14,12 @@ namespace AChildsCourage.Game
             // Given
 
             var nightData = new NightData();
-            RunDataLoader runDataLoader = () => new RunData(nightData);
+            LoadRunData loadRunData = () => new RunData(nightData);
 
             var calledTimes = 0;
-            NightLoader nightLoader = _ => calledTimes++;
+            LoadNight loadNight = _ => calledTimes++;
 
-            var nightManager = new NightManager(runDataLoader, nightLoader);
+            var nightManager = new NightManager(loadRunData, loadNight);
 
             // When
 

@@ -4,7 +4,7 @@
     internal static class JsonRunDataLoading
     {
 
-        internal static RunDataLoader Make()
+        internal static LoadRunData Make()
         {
             return LoadCurrent;
         }

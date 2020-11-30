@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Courage
 
         CouragePickupData GetCouragePickupData(CourageVariant variant);
 
-        CouragePickupData GetRandomPickupData(RNGSource rng);
+        CouragePickupData GetRandomPickupData(CreateRNG createRng);
 
         #endregion
 

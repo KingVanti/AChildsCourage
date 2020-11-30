@@ -7,7 +7,6 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorPlanGenerating
     {
 
-
         public enum GenerationPhase
         {
 
@@ -16,6 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             EndRoom
 
         }
+
+        internal delegate FloorPlan GenerateFloorPlan(int seed);
 
         internal class FloorPlanInProgress
         {

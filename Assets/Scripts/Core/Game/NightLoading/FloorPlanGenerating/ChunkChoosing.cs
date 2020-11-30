@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.NightLoading
         private const float BaseWeight = 1;
 
 
-        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, RNGSource rng)
+        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, CreateRNG createRng)
         {
             var phase =
                 Take(floorPlan)
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.NightLoading
 
                 case GenerationPhase.NormalRooms:
                 case GenerationPhase.EndRoom:
-                    return GetNextChunk(floorPlan, rng);
+                    return GetNextChunk(floorPlan, createRng);
 
                 default:
                     throw new Exception("Invalid building phase!");
@@ -39,10 +39,10 @@ namespace AChildsCourage.Game.NightLoading
             return new ChunkPosition(0, 0);
         }
 
-        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, RNGSource rng)
+        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, CreateRNG createRng)
         {
             if (HasReservedChunks(floorPlan))
-                return floorPlan.ReservedChunks.GetWeightedRandom(GetChunkWeight, rng);
+                return floorPlan.ReservedChunks.GetWeightedRandom(GetChunkWeight, createRng);
 
             throw new Exception("Could not find any more possible chunks!");
         }

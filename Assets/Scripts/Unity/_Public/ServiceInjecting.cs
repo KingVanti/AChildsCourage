@@ -86,13 +86,13 @@ namespace AChildsCourage
 
         private static void BindConstants(IKernel kernel)
         {
-            kernel.Bind<RoomDataLoader>()
+            kernel.Bind<LoadRoomData>()
                   .ToConstant(RoomDataLoading.Make());
-            kernel.Bind<RunDataLoader>()
+            kernel.Bind<LoadRunData>()
                   .ToConstant(JsonRunDataLoading.Make());
-            kernel.Bind<ItemDataFinder>()
+            kernel.Bind<FindItemData>()
                   .ToConstant(ItemDataRepository.GetItemDataFinder());
-            kernel.Bind<ItemIdLoader>()
+            kernel.Bind<LoadItemIds>()
                   .ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 

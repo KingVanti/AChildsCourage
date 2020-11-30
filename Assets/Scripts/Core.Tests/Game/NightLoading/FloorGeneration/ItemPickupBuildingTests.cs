@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.NightLoading
 
             var floor = new FloorInProgress();
             var pickups = new[] { new ItemPickupData(new TilePosition(0, 0)), new ItemPickupData(new TilePosition(1, 0)) };
-            TileTransformer transformer = pos => new TilePosition(pos.X, 1);
+            TransformTile transformer = pos => new TilePosition(pos.X, 1);
 
             // When
 
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var pickup = new ItemPickupData(new TilePosition(0, 0));
-            TileTransformer transformer = position => new TilePosition(1, 1);
+            TransformTile transformer = position => new TilePosition(1, 1);
 
             // When
 

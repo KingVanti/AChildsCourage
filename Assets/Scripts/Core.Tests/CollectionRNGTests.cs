@@ -15,11 +15,11 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            RNGSource rng = () => 0;
+            CreateRNG createRng = () => 0;
 
             // When
 
-            var element = elements.GetRandom(rng);
+            var element = elements.GetRandom(createRng);
 
             // Then
 
@@ -32,11 +32,11 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            RNGSource rng = () => 0;
+            CreateRNG createRng = () => 0;
 
             // When
 
-            var element = elements.GetWeightedRandom(e => e, rng);
+            var element = elements.GetWeightedRandom(e => e, createRng);
 
             // Then
 

@@ -42,9 +42,9 @@ namespace AChildsCourage.Game.Courage
             throw new Exception("Could not find Courage variant!");
         }
 
-        public CouragePickupData GetRandomPickupData(RNGSource rng)
+        public CouragePickupData GetRandomPickupData(CreateRNG createRng)
         {
-            return couragePickups.GetRandom(rng);
+            return couragePickups.GetRandom(createRng);
         }
 
         #endregion
