@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.NightLoading
 
 #pragma warning restore 649
 
-        private readonly RNGSource rng = FromSeed(0);
+        private readonly CreateRNG _createRng = FromSeed(0);
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.NightLoading
 
         public Tile GetGroundTile()
         {
-            return groundTiles.GetTile(rng);
+            return groundTiles.GetTile(_createRng);
         }
 
 
@@ -35,8 +35,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             return
                 wall.Type == WallType.Side
-                    ? wallSideTiles.GetTile(rng)
-                    : wallTopTiles.GetTile(rng);
+                    ? wallSideTiles.GetTile(_createRng)
+                    : wallTopTiles.GetTile(_createRng);
         }
 
         #endregion

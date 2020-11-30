@@ -1,14 +1,16 @@
-﻿namespace AChildsCourage.Game.Monsters.Navigation
+﻿using System.Collections.Generic;
+
+namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    internal delegate InvestigationInProgress StartInvestigation(FloorAOIs aois, MonsterState monsterState);
+    public delegate InvestigationInProgress StartInvestigation(FloorAOIs aois, MonsterState monsterState);
 
     internal delegate AOI ChooseNextAOI(FloorAOIs aois, MonsterState monsterState);
 
-    internal delegate InvestigationInProgress ProgressInvestigation(InvestigationInProgress investigation, TilePosition investigatedPosition);
+    public delegate InvestigationInProgress ProgressInvestigation(InvestigationInProgress investigation, IEnumerable<TilePosition> investigatedPositions);
 
-    internal delegate bool InvestigationIsComplete(InvestigationInProgress investigation);
+    public delegate bool InvestigationIsComplete(InvestigationInProgress investigation);
 
-    internal delegate CompletedInvestigation CompleteInvestigation(InvestigationInProgress investigation);
+    public delegate CompletedInvestigation CompleteInvestigation(InvestigationInProgress investigation);
 
 }

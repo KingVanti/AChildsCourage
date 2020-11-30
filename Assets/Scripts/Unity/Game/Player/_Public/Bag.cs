@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.Player
 
         #region Properties
 
-        [AutoInject] internal ItemDataFinder FindItemData { private get; set; }
+        [AutoInject] internal FindItemData FindItemData { private get; set; }
 
         [AutoInject] private ItemPickupSpawner PickupSpawner { get; set; }
 

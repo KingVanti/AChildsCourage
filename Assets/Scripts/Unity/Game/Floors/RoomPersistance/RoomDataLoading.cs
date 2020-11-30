@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
         internal const string RoomResourcePath = "Rooms/";
 
 
-        internal static RoomDataLoader Make()
+        internal static LoadRoomData Make()
         {
             return () =>
                 LoadAssets()

@@ -1,9 +1,17 @@
-﻿using System.Collections.Immutable;
-using static AChildsCourage.Aliasing;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    internal class FloorAOIs : Alias<ImmutableList<AOI>> { }
+    public class FloorAOIs : IEnumerable<AOI>
+    {
+
+        public IEnumerator<AOI> GetEnumerator() => throw new NotImplementedException();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    }
 
 }

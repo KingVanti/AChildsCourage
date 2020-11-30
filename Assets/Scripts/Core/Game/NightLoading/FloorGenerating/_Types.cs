@@ -27,9 +27,9 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal delegate IEnumerable<int> ItemIdLoader();
+        internal delegate IEnumerable<int> LoadItemIds();
 
-        internal delegate TilePosition TileTransformer(TilePosition position);
+        internal delegate TilePosition TransformTile(TilePosition position);
 
         internal class ChunkTransform
         {

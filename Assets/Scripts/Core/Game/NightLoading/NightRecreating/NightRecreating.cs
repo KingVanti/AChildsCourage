@@ -4,7 +4,7 @@
     internal static class NightRecreating
     {
 
-        internal static NightRecreator Make(IFloorRecreator floorRecreator)
+        internal static RecreateNight Make(IFloorRecreator floorRecreator)
         {
             return floor => { floorRecreator.Recreate(floor); };
         }

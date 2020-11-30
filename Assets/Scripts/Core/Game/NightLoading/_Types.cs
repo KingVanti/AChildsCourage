@@ -2,11 +2,9 @@
 
 namespace AChildsCourage.Game.NightLoading
 {
+    
+    internal delegate Floor GenerateFloor(FloorPlan floorPlan);
 
-    internal delegate FloorPlan FloorPlanGenerator(int seed);
-
-    internal delegate Floor FloorGenerator(FloorPlan floorPlan);
-
-    internal delegate void NightRecreator(Floor floor);
+    internal delegate void RecreateNight(Floor floor);
 
 }

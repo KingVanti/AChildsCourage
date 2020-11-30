@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    internal readonly struct CompletedInvestigation
+    public readonly struct CompletedInvestigation
     {
 
         private AOIIndex AOIIndex { get; }

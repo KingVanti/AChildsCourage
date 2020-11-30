@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.NightLoading
     internal static partial class FloorGenerating
     {
 
-        internal static FloorInProgress BuildItemPickups(TileTransformer transformer, ItemPickupData[] pickups, FloorInProgress floor)
+        internal static FloorInProgress BuildItemPickups(TransformTile transformer, ItemPickupData[] pickups, FloorInProgress floor)
         {
             Func<ItemPickupData, ItemPickupData> transformed = pickup => TransformItemPickup(pickup, transformer);
             Action<ItemPickupData> place = pickup => PlaceItemPickup(pickup, floor);
@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.NightLoading
             return floor;
         }
 
-        internal static ItemPickupData TransformItemPickup(ItemPickupData pickup, TileTransformer transformer)
+        internal static ItemPickupData TransformItemPickup(ItemPickupData pickup, TransformTile transformer)
         {
             var newPosition = transformer(pickup.Position);
 
