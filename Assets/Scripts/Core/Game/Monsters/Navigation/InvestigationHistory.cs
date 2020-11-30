@@ -12,7 +12,13 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         private readonly ImmutableList<CompletedInvestigation> completedInvestigations;
 
-        public static InvestigationHistory Empty => throw new NotImplementedException();
+        public static InvestigationHistory Empty => new InvestigationHistory(ImmutableList<CompletedInvestigation>.Empty);
+
+
+        private InvestigationHistory(ImmutableList<CompletedInvestigation> completedInvestigations)
+        {
+            this.completedInvestigations = completedInvestigations;
+        }
 
         public IEnumerator<CompletedInvestigation> GetEnumerator() => completedInvestigations.GetEnumerator();
 
