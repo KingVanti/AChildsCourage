@@ -10,16 +10,12 @@ namespace AChildsCourage.Game.Monsters
 
     public class Shade : MonoBehaviour
     {
-        
-#pragma warning disable 649
 
         [Header("Stats")] [SerializeField] private int touchDamage;
 
         [SerializeField] private int attackDamage;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
-
-#pragma warning restore 649
 
         private IEnumerable<TilePosition> currentTilesInVision;
         private InvestigationHistory investigationHistory = InvestigationHistory.Empty;
@@ -46,7 +42,7 @@ namespace AChildsCourage.Game.Monsters
         {
             StartInvestigation();
         }
-        
+
 
         private void StartInvestigation()
         {
@@ -77,7 +73,7 @@ namespace AChildsCourage.Game.Monsters
 
             var completed = Complete(investigation);
             investigationHistory = InvestigationHistory.Add(investigationHistory, completed);
-            
+
             StartInvestigation();
         }
 
