@@ -82,6 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4809530094449874113}
   - component: {fileID: 4809530094449874114}
+  - component: {fileID: 3739399925676272225}
   m_Layer: 0
   m_Name: CourageRift
   m_TagString: Untagged
@@ -145,7 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: -85218129
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1686776627161292258, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
+  m_Sprite: {fileID: 6444347497105302043, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,6 +157,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &3739399925676272225
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809530094449874115}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.04738903, y: -0.083844185}
+  m_Size: {x: 0.68881416, y: 1.5199604}
+  m_Direction: 0
 --- !u!1 &4809530095725248176
 GameObject:
   m_ObjectHideFlags: 0
