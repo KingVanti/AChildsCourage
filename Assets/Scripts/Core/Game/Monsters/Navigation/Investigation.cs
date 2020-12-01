@@ -52,10 +52,14 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>
+                UninvestigatedPOIs(investigation)
+                    .OrderBy(poi => TilePosition.GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
+                    .First().Position;
+
+        private static Func<Investigation, IEnumerable<POI>> UninvestigatedPOIs =>
+            investigation =>
                 investigation.AOI.POIs
-                             .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position))
-                             .OrderBy(poi => TilePosition.GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
-                             .First().Position;
+                             .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
         public static CompleteInvestigation Complete => investigation => throw new NotImplementedException();
 
