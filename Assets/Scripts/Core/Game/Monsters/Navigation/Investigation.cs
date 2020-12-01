@@ -71,7 +71,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
                 investigation.AOI.POIs
                              .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
-        public static CompleteInvestigation Complete => investigation => throw new NotImplementedException();
+        public static CompleteInvestigation Complete => investigation => new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
 
 
         private static ChooseInvestigationAOI ChooseAOI =>
