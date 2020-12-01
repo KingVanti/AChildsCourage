@@ -101,9 +101,13 @@ namespace AChildsCourage.Game.Monsters.Navigation
         // [0 .. 5]
         private static CalculateAOIWeight CalcDistanceWeight =>
             (aoi, monsterState) =>
-                GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position))
+                DistanceBetweenAOIAndMonster(aoi, monsterState)
                     .Clamp(MinDistance, MaxDistance)
                     .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
+
+        private static Func<AOI, MonsterState, float> DistanceBetweenAOIAndMonster =>
+            (aoi, monsterState) =>
+                GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position));
 
         // [0 .. 10]
         private static CalculateAOIWeight CalcTimeWeight =>
