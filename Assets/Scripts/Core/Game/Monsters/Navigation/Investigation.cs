@@ -48,7 +48,17 @@ namespace AChildsCourage.Game.Monsters.Navigation
         private static Func<Investigation, int> POIToInvestigateCount => investigation => investigation.AOI.POIs.Length;
 
 
-        public static ProgressInvestigation Progress => (investigation, positions) => throw new NotImplementedException();
+        public static ProgressInvestigation Progress =>
+            (investigation, positions) =>
+                new Investigation(
+                    investigation.AOI,
+                    investigation.InvestigatedPositions.Union(
+                        positions.Where(p => IsPartOfInvestigation(investigation, p))));
+
+        private static Func<Investigation, TilePosition, bool> IsPartOfInvestigation =>
+            (investigation, position) =>
+                investigation.AOI.POIs.Any(poi => poi.Position.Equals(position));
+
 
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
 using NUnit.Framework;
 
 namespace AChildsCourage.Game.Monsters.Navigation
@@ -111,6 +112,50 @@ namespace AChildsCourage.Game.Monsters.Navigation
             // Then
 
             Assert.That(completed, Is.False, "Investigation should not be complete!");
+        }
+
+
+        [Test]
+        public void Progressing_An_Investigation_Adds_The_Investigated_Positions()
+        {
+            // Given
+
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(
+                            new POI(new TilePosition(0, 0)),
+                            new POI(new TilePosition(1, 1)))),
+                ImmutableHashSet<TilePosition>.Empty);
+
+            // When
+
+            var position = new TilePosition(0, 0);
+            var progressed = Investigation.Progress(investigation, new[] { position });
+
+            // Then
+
+            Assert.That(progressed.InvestigatedPositions.Count, Is.EqualTo(1), "Incorrect number of positions added!");
+            Assert.That(progressed.InvestigatedPositions.First(), Is.EqualTo(position), "Incorrect positions added!");
+        }
+
+        [Test]
+        public void Progressing_An_Investigation_Does_Not_Add_Positions_That_Are_Not_Part_Of_The_Investigation()
+        {
+            // Given
+
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(
+                            new POI(new TilePosition(0, 0)),
+                            new POI(new TilePosition(1, 1)))),
+                ImmutableHashSet<TilePosition>.Empty);
+
+            // When
+
+            var position = new TilePosition(2, 2);
+            var progressed = Investigation.Progress(investigation, new[] { position });
+
+            // Then
+
+            Assert.That(progressed.InvestigatedPositions.Count, Is.EqualTo(0), "Should not add position!");
         }
 
 
