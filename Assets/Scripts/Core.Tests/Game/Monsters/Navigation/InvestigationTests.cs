@@ -73,6 +73,48 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
 
         [Test]
+        public void An_Investigation_Is_Complete_If_Half_Of_All_POIs_Were_Explored()
+        {
+            // Given
+
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(
+                            new POI(new TilePosition(0, 0)),
+                            new POI(new TilePosition(1, 1)))),
+                ImmutableHashSet.Create(new TilePosition(0, 0)));
+
+            // When
+
+            var completed = Investigation.IsComplete(investigation);
+
+            // Then
+
+            Assert.That(completed, Is.True, "Investigation should be complete!");
+        }
+
+        [Test]
+        public void An_Investigation_Is_Not_Complete_If_Less_Than_Half_Of_All_POIs_Were_Explored()
+        {
+            // Given
+
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(
+                            new POI(new TilePosition(0, 0)),
+                            new POI(new TilePosition(1, 1)),
+                            new POI(new TilePosition(2, 2)))),
+                ImmutableHashSet.Create(new TilePosition(0, 0)));
+
+            // When
+
+            var completed = Investigation.IsComplete(investigation);
+
+            // Then
+
+            Assert.That(completed, Is.False, "Investigation should not be complete!");
+        }
+
+
+        [Test]
         public void AOIs_That_Are_Closer_Are_Chosen_Over_Ones_That_Are_Far_Away()
         {
             // Given

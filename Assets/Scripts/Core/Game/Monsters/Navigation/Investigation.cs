@@ -15,6 +15,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         private const float MaxDistance = 100;
         private const float MinTime = 1;
         private const float MaxTime = 300;
+        private const float CompletionExplorationRation = 0.5f;
 
 
         public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
@@ -36,7 +37,16 @@ namespace AChildsCourage.Game.Monsters.Navigation
             (floorState, monsterState, rng) =>
                 new Investigation(ChooseAOI(floorState, monsterState, rng), ImmutableHashSet<TilePosition>.Empty);
 
-        public static InvestigationIsComplete IsComplete => investigation => throw new NotImplementedException();
+        public static InvestigationIsComplete IsComplete => investigation => ExplorationRatio(investigation) >= CompletionExplorationRation;
+
+        private static Func<Investigation, float> ExplorationRatio =>
+            investigation =>
+                InvestigatedPOICount(investigation) / (float) POIToInvestigateCount(investigation);
+
+        private static Func<Investigation, int> InvestigatedPOICount => investigation => investigation.InvestigatedPositions.Count;
+
+        private static Func<Investigation, int> POIToInvestigateCount => investigation => investigation.AOI.POIs.Length;
+
 
         public static ProgressInvestigation Progress => (investigation, positions) => throw new NotImplementedException();
 
