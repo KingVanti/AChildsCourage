@@ -2,7 +2,7 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using static AChildsCourage.CustomMathModule;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Items
 {

@@ -20,10 +20,11 @@ namespace AChildsCourage
 
         public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRNG createRng, IEnumerable<T> elements)
         {
-            if (elements.Count() == 0)
+            var elementsArray = elements as T[] ?? elements.ToArray();
+            if (!elementsArray.Any())
                 return default;
 
-            var weightedElements = elements.AttachWeights(calculateWeight);
+            var weightedElements = elementsArray.AttachWeights(calculateWeight).ToArray();
 
             var totalWeight = weightedElements.Sum(o => o.Weight);
             var itemWeightIndex = createRng.GetValueUnder(totalWeight);

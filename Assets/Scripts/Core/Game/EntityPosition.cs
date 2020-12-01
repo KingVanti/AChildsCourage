@@ -4,9 +4,19 @@
     public readonly struct EntityPosition
     {
 
-        private float X { get; }
+        public float X { get; }
 
-        private float Y { get; }
+        public float Y { get; }
+
+
+        public EntityPosition(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
+
+
+        public static TilePosition GetTilePosition(EntityPosition position) => new TilePosition((int) position.X, (int) position.Y);
 
     }
 

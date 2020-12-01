@@ -1,22 +1,34 @@
-﻿namespace AChildsCourage.Game.Monsters.Navigation
+﻿using System.Collections.Immutable;
+
+namespace AChildsCourage.Game.Monsters.Navigation
 {
 
     public readonly struct AOI
     {
 
-        private AOIIndex Index { get; }
+        internal AOIIndex Index { get; }
+
+        internal TilePosition Center { get; }
+        
+        internal ImmutableArray<POI> POIs { get; }
 
 
-        private AOI(AOIIndex index)
+        internal AOI(AOIIndex index, TilePosition center, ImmutableArray<POI> pois)
         {
             Index = index;
+            Center = center;
+            POIs = pois;
         }
-
-
-        public override string ToString()
+        
+        internal AOI(AOIIndex index, TilePosition center)
         {
-            return $"AOI {{ Id: {Index} }}";
+            Index = index;
+            Center = center;
+            POIs = ImmutableArray<POI>.Empty;
         }
+
+
+        public override string ToString() => $"AOI {{ Id: {Index} }}";
 
     }
 

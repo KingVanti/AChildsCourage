@@ -14,7 +14,8 @@
     "precompiledReferences": [
         "nunit.framework.dll",
         "Moq.dll",
-        "Tabs.dll"
+        "Tabs.dll",
+        "System.Collections.Immutable.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

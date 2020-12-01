@@ -9,7 +9,7 @@ using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering.Universal;
-using static AChildsCourage.CustomMathModule;
+using static AChildsCourage.CustomMath;
 using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Player
