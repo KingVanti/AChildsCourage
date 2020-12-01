@@ -12,27 +12,6 @@ namespace AChildsCourage.Game.Monsters.Navigation
     public static class MInvestigation
     {
 
-        #region Records
-
-        public readonly struct Investigation
-        {
-
-            internal AOI AOI { get; }
-
-            internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
-
-
-            internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
-            {
-                AOI = aoi;
-                InvestigatedPositions = investigatedPositions;
-            }
-
-        }
-
-        #endregion
-
-
         #region Functions
 
         public static StartInvestigation StartNew =>
@@ -135,7 +114,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         #endregion
 
-        #region Delegates
+        #region Types
 
         public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
 
@@ -150,6 +129,23 @@ namespace AChildsCourage.Game.Monsters.Navigation
         internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
 
         internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
+
+        
+        public readonly struct Investigation
+        {
+
+            internal AOI AOI { get; }
+
+            internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
+
+
+            internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
+            {
+                AOI = aoi;
+                InvestigatedPositions = investigatedPositions;
+            }
+
+        }
 
         #endregion
 

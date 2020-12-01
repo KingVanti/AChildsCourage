@@ -4,7 +4,9 @@ using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
 using AChildsCourage.Game.Items;
+using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.F;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -61,14 +63,21 @@ namespace AChildsCourage.Game.NightLoading
 
         private static IEnumerable<GroundTile> CreateGroundTiles(FloorInProgress floorInProgress)
         {
-            return floorInProgress.GroundPositions.Select(p => new GroundTile(p));
+            return floorInProgress.GroundPositions
+                                  .Select(p => new GroundTile(
+                                              GetAOIIndexFor(floorInProgress, p),
+                                              p));
         }
 
-        private static IEnumerable<CouragePickup> CreateCouragePickups(FloorInProgress floorInProgress)
-        {
-            return ChooseCourageOrbs(floorInProgress.CourageOrbPositions, CourageOrbCount)
+        private static AOIIndex GetAOIIndexFor(FloorInProgress floorInProgress, TilePosition position) =>
+
+            // TODO: Implement AOI mapping logic
+            AOIIndex.Zero;
+
+
+        private static IEnumerable<CouragePickup> CreateCouragePickups(FloorInProgress floorInProgress) =>
+            ChooseCourageOrbs(floorInProgress.CourageOrbPositions, CourageOrbCount)
                 .Concat(ChooseCourageSparks(floorInProgress.CourageSparkPositions, CourageSparkCount));
-        }
 
         private delegate Floor CreateFloor(FloorInProgress floorInProgress);
 

@@ -17,6 +17,8 @@ namespace AChildsCourage.Game.NightLoading
         #region Properties
 
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
+        
+        [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
         #endregion
 
@@ -50,6 +52,8 @@ namespace AChildsCourage.Game.NightLoading
             var position = groundTile.Position.ToVector3Int();
 
             groundTilemap.SetTile(position, tile);
+            
+            FloorStateKeeper.OnGroundTilePlaced(groundTile);
         }
 
         private void PlaceWall(Wall wall)

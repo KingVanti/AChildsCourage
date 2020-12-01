@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         internal ImmutableArray<POI> POIs { get; }
 
 
-        internal AOI(AOIIndex index, TilePosition center, ImmutableArray<POI> pois)
+        public AOI(AOIIndex index, TilePosition center, ImmutableArray<POI> pois)
         {
             Index = index;
             Center = center;
