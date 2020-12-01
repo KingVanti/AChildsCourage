@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using NUnit.Framework;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {
@@ -15,7 +16,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         {
             // Given
 
-            var started = Investigation.StartNew(
+            var started = StartNew(
                 new FloorState(new AOI()),
                 new MonsterState(new EntityPosition(), DateTime.MinValue, InvestigationHistory.Empty),
                 RNG.Always(0));
@@ -44,7 +45,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var next = Investigation.NextTarget(investigation, monsterPosition);
+            var next = NextTarget(investigation, monsterPosition);
 
             // Then
 
@@ -65,7 +66,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var next = Investigation.NextTarget(investigation, monsterPosition);
+            var next = NextTarget(investigation, monsterPosition);
 
             // Then
 
@@ -86,7 +87,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var completed = Investigation.IsComplete(investigation);
+            var completed = IsComplete(investigation);
 
             // Then
 
@@ -107,7 +108,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var completed = Investigation.IsComplete(investigation);
+            var completed = IsComplete(investigation);
 
             // Then
 
@@ -129,7 +130,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
             // When
 
             var position = new TilePosition(0, 0);
-            var progressed = Investigation.Progress(investigation, new[] { position });
+            var progressed = Progress(investigation, new[] { position });
 
             // Then
 
@@ -151,7 +152,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
             // When
 
             var position = new TilePosition(2, 2);
-            var progressed = Investigation.Progress(investigation, new[] { position });
+            var progressed = Progress(investigation, new[] { position });
 
             // Then
 
@@ -170,8 +171,8 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var weight1 = Investigation.CalcTotalWeight(aoi1, monsterState);
-            var weight2 = Investigation.CalcTotalWeight(aoi2, monsterState);
+            var weight1 = CalcTotalWeight(aoi1, monsterState);
+            var weight2 = CalcTotalWeight(aoi2, monsterState);
 
             // Then
 
@@ -191,8 +192,8 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var weight1 = Investigation.CalcTotalWeight(aoi1, monsterState);
-            var weight2 = Investigation.CalcTotalWeight(aoi2, monsterState);
+            var weight1 = CalcTotalWeight(aoi1, monsterState);
+            var weight2 = CalcTotalWeight(aoi2, monsterState);
 
             // Then
 
@@ -211,8 +212,8 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var weight1 = Investigation.CalcTotalWeight(aoi1, monsterState);
-            var weight2 = Investigation.CalcTotalWeight(aoi2, monsterState);
+            var weight1 = CalcTotalWeight(aoi1, monsterState);
+            var weight2 = CalcTotalWeight(aoi2, monsterState);
 
             // Then
 

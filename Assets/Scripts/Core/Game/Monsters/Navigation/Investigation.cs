@@ -8,44 +8,51 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    public readonly struct Investigation
+    public static class MInvestigation
     {
 
-        private const float MinDistance = 10;
-        private const float MaxDistance = 100;
-        private const float MinTime = 1;
-        private const float MaxTime = 300;
-        private const float CompletionExplorationRation = 0.5f;
+        #region Records
+
+        public readonly struct Investigation
+        {
+
+            internal AOI AOI { get; }
+
+            internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
 
 
-        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+            internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
+            {
+                AOI = aoi;
+                InvestigatedPositions = investigatedPositions;
+            }
 
-        public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
+        }
 
-        public delegate bool InvestigationIsComplete(Investigation investigation);
+        #endregion
 
-        public delegate CompletedInvestigation CompleteInvestigation(Investigation investigation);
 
-        public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
-
-        internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
-
-        internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
-
+        #region Functions
 
         public static StartInvestigation StartNew =>
             (floorState, monsterState, rng) =>
                 new Investigation(ChooseAOI(floorState, monsterState, rng), ImmutableHashSet<TilePosition>.Empty);
 
-        public static InvestigationIsComplete IsComplete => investigation => ExplorationRatio(investigation) >= CompletionExplorationRation;
+        public static InvestigationIsComplete IsComplete =>
+            investigation =>
+                ExplorationRatio(investigation) >= CompletionExplorationRation;
 
         private static Func<Investigation, float> ExplorationRatio =>
             investigation =>
                 InvestigatedPOICount(investigation) / (float) POIToInvestigateCount(investigation);
 
-        private static Func<Investigation, int> InvestigatedPOICount => investigation => investigation.InvestigatedPositions.Count;
+        private static Func<Investigation, int> InvestigatedPOICount =>
+            investigation =>
+                investigation.InvestigatedPositions.Count;
 
-        private static Func<Investigation, int> POIToInvestigateCount => investigation => investigation.AOI.POIs.Length;
+        private static Func<Investigation, int> POIToInvestigateCount =>
+            investigation =>
+                investigation.AOI.POIs.Length;
 
 
         public static ProgressInvestigation Progress =>
@@ -71,7 +78,9 @@ namespace AChildsCourage.Game.Monsters.Navigation
                 investigation.AOI.POIs
                              .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
-        public static CompleteInvestigation Complete => investigation => new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
+        public static CompleteInvestigation Complete =>
+            investigation =>
+                new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
 
 
         private static ChooseInvestigationAOI ChooseAOI =>
@@ -80,7 +89,9 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
 
         // [0 .. 15]
-        internal static CalculateAOIWeight CalcTotalWeight => (aoi, monsterState) => new[] { CalcDistanceWeight, CalcTimeWeight }.Sum(x => x(aoi, monsterState));
+        internal static CalculateAOIWeight CalcTotalWeight =>
+            (aoi, monsterState) =>
+                new[] { CalcDistanceWeight, CalcTimeWeight }.Sum(x => x(aoi, monsterState));
 
         // [0 .. 5]
         private static CalculateAOIWeight CalcDistanceWeight =>
@@ -98,16 +109,35 @@ namespace AChildsCourage.Game.Monsters.Navigation
                                     .Map(seconds => seconds.Clamp(MinTime, MaxTime))
                                     .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
 
-        internal AOI AOI { get; }
+        #endregion
 
-        internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
+        #region Values
 
+        private const float MinDistance = 10;
+        private const float MaxDistance = 100;
+        private const float MinTime = 1;
+        private const float MaxTime = 300;
+        private const float CompletionExplorationRation = 0.5f;
 
-        internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
-        {
-            AOI = aoi;
-            InvestigatedPositions = investigatedPositions;
-        }
+        #endregion
+
+        #region Delegates
+
+        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+
+        public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
+
+        public delegate bool InvestigationIsComplete(Investigation investigation);
+
+        public delegate CompletedInvestigation CompleteInvestigation(Investigation investigation);
+
+        public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
+
+        internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+
+        internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
+
+        #endregion
 
     }
 

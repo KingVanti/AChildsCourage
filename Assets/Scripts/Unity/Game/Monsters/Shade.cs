@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Monsters.Navigation;
 using UnityEngine;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 
 namespace AChildsCourage.Game.Monsters
 {
@@ -55,22 +56,22 @@ namespace AChildsCourage.Game.Monsters
 
         private IEnumerator Investigate()
         {
-            var investigation = Investigation.StartNew(FloorState, CurrentState, RNG.New());
-            var currentTarget = Investigation.NextTarget(investigation, Position);
+            var investigation = StartNew(FloorState, CurrentState, RNG.New());
+            var currentTarget = NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);
 
-            while (!Investigation.IsComplete(investigation))
+            while (!IsComplete(investigation))
             {
-                investigation = Investigation.Progress(investigation, currentTilesInVision);
+                investigation = Progress(investigation, currentTilesInVision);
 
-                var newTarget = Investigation.NextTarget(investigation, Position);
+                var newTarget = NextTarget(investigation, Position);
                 if (!newTarget.Equals(currentTarget))
                     SetPathFinderTarget(currentTarget);
 
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }
 
-            var completed = Investigation.Complete(investigation);
+            var completed = Complete(investigation);
             investigationHistory = InvestigationHistory.Add(investigationHistory, completed);
 
             StartInvestigation();
