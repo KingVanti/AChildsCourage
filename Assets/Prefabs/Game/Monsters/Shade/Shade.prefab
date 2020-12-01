@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436321326}
-  - component: {fileID: 1436321327}
+  - component: {fileID: 6734576686695532955}
   m_Layer: 10
-  m_Name: Eyes
+  m_Name: Vision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436321325}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.32, y: 1.859, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 537825537936044895}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1436321327
+--- !u!114 &6734576686695532955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,38 +40,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1436321325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Script: {fileID: 11500000, guid: d738ae569d6680d4bb56ff84a09aa382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 1
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 0.3
-  m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000a9f37c4e
-  m_LightCookieSprite: {fileID: 0}
-  m_UseNormalMap: 0
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
-  m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
-  m_PointLightDistance: 3
-  m_PointLightQuality: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.22904444, y: -0.10485661, z: 0}
-  - {x: 0.37957525, y: -0.16883218, z: 0}
-  - {x: 0.3344159, y: 0.13872588, z: 0}
-  - {x: -0.4510777, y: 0.14625251, z: 0}
+  visionRadius: 5
+  visionAngle: 90
+  updatesPerSecond: 2
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &537825537936044892
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +64,7 @@ GameObject:
   - component: {fileID: 1496831347808597378}
   - component: {fileID: 994853314461636515}
   - component: {fileID: 462774780128903143}
-  - component: {fileID: 2006490757}
+  - component: {fileID: 1246519846564227323}
   m_Layer: 10
   m_Name: Shade
   m_TagString: Shade
@@ -150,7 +127,7 @@ SpriteRenderer:
   m_SortingLayerID: 1316811689
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1118611544972295896, guid: 56c761f9993935d44bc727709fe2d1a5, type: 3}
+  m_Sprite: {fileID: -7709684470649373409, guid: 31a07f774a64d874e83180d59422776c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4997,7 +4974,7 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &2006490757
+--- !u!114 &1246519846564227323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5006,9 +4983,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 537825537936044892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 544cc20cc1ad3884c8a8697aa124f240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchDamage: 2
-  attackDamage: 5
+  touchDamage: 1
+  attackDamage: 2
   movementSpeed: 2
+  investigationUpdatesPerSecond: 3
