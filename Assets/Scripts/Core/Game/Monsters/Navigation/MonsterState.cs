@@ -1,28 +1,25 @@
-﻿namespace AChildsCourage.Game.Monsters.Navigation
+﻿using System;
+
+namespace AChildsCourage.Game.Monsters.Navigation
 {
 
     public readonly struct MonsterState
     {
 
-        
+        public EntityPosition Position { get; }
 
-        public static MonsterState Create(EntityPosition position, InvestigationHistory history)
-        {
-            return  new MonsterState(position, history);
-        }
-        
+        public DateTime CurrentTime { get; }
 
-        private EntityPosition Position { get; }
+        public InvestigationHistory InvestigationHistory { get; }
 
-        private InvestigationHistory InvestigationHistory { get; }
 
-        
-        private MonsterState(EntityPosition position, InvestigationHistory investigationHistory)
+        public MonsterState(EntityPosition position, DateTime currentTime, InvestigationHistory investigationHistory)
         {
             Position = position;
+            CurrentTime = currentTime;
             InvestigationHistory = investigationHistory;
         }
-        
+
     }
 
 }

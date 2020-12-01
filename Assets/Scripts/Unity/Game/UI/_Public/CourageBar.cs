@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.UI
 
         private void UpdateCourageBar(int newValue, int maxValue)
         {
-            var newFillAmount = CustomMathModule.Map(newValue, 0, maxValue, 0, 1);
+            var newFillAmount = CustomMath.Map(newValue, 0, maxValue, 0, 1);
             StartCoroutine(FillLerp(newFillAmount));
         }
 

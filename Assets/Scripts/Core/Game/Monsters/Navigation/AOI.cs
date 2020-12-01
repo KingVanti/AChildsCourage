@@ -4,12 +4,15 @@
     public readonly struct AOI
     {
 
-        private AOIIndex Index { get; }
+        internal AOIIndex Index { get; }
+        
+        internal  TilePosition Center { get; }
 
 
-        private AOI(AOIIndex index)
+        internal AOI(AOIIndex index, TilePosition center)
         {
             Index = index;
+            Center = center;
         }
 
 

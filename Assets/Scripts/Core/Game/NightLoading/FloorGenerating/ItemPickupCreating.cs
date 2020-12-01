@@ -38,8 +38,9 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static float CalculatePositionWeight(TilePosition position, IEnumerable<TilePosition> taken)
         {
-            var distanceToOrigin = GetDistanceFromOrigin(position);
-            var distanceToOther = taken.Count() > 0 ? taken.Min(p => GetDistanceBetween(position, p)) : 0;
+            var distanceToOrigin = TilePosition.GetDistanceFromOrigin(position);
+            var positions = taken as TilePosition[] ?? taken.ToArray();
+            var distanceToOther = positions.Any() ? positions.Min(p => TilePosition.GetDistanceBetween(position, p)) : 0;
 
             var distanceToOriginWeight = distanceToOrigin != 0 ? 1f / distanceToOrigin : 1.1f;
             var distanceToOtherWeight = distanceToOther;

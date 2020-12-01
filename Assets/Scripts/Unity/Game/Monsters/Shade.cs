@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Monsters.Navigation;
 using UnityEngine;
-using static AChildsCourage.Game.Monsters.Navigation.InvestigationInProgress;
 
 namespace AChildsCourage.Game.Monsters
 {
@@ -21,11 +20,11 @@ namespace AChildsCourage.Game.Monsters
         private InvestigationHistory investigationHistory = InvestigationHistory.Empty;
 
 
-        private MonsterState CurrentState => MonsterState.Create(Position, investigationHistory);
+        private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => throw new NotImplementedException();
 
-        private FloorAOIs FloorAOIs => throw new NotImplementedException();
+        private FloorState FloorState => throw new NotImplementedException();
 
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
@@ -56,22 +55,22 @@ namespace AChildsCourage.Game.Monsters
 
         private IEnumerator Investigate()
         {
-            var investigation = StartNew(FloorAOIs, CurrentState);
-            var currentTarget = investigation.TargetPosition;
+            var investigation = Investigation.StartNew(FloorState, CurrentState, RNG.New());
+            var currentTarget = Investigation.NextTarget(investigation);
             SetPathFinderTarget(currentTarget);
 
-            while (!IsComplete(investigation))
+            while (!Investigation.IsComplete(investigation))
             {
-                investigation = Progress(investigation, currentTilesInVision);
+                investigation = Investigation.Progress(investigation, currentTilesInVision);
 
-                var newTarget = investigation.TargetPosition;
+                var newTarget = Investigation.NextTarget(investigation);
                 if (!newTarget.Equals(currentTarget))
                     SetPathFinderTarget(currentTarget);
 
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }
 
-            var completed = Complete(investigation);
+            var completed = Investigation.Complete(investigation);
             investigationHistory = InvestigationHistory.Add(investigationHistory, completed);
 
             StartInvestigation();
