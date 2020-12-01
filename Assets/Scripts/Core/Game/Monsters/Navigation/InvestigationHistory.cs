@@ -37,12 +37,16 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public static InvestigationHistory Add(this InvestigationHistory history, CompletedInvestigation investigation) => AddToHistory(history, investigation);
 
-        public static AddInvestigation AddToHistory => (history, investigation) => new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
+        public static AddInvestigation AddToHistory =>
+            (history, investigation) =>
+                new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
 
 
         public static CompletedInvestigation? FindLastIn(this InvestigationHistory history, AOIIndex index) => FindInHistory(history, index);
 
-        public static FindMostRecentAOIInvestigation FindInHistory => (history, index) => history.CompletedInvestigations.FindLast(i => i.AOIIndex == index);
+        public static FindMostRecentAOIInvestigation FindInHistory =>
+            (history, index) =>
+                history.CompletedInvestigations.FindLast(i => i.AOIIndex == index);
 
 
         public static InvestigationHistory Empty => new InvestigationHistory();
