@@ -70,7 +70,7 @@ namespace AChildsCourage.Game.Monsters
 
                 var newTarget = NextTarget(investigation, Position);
                 if (!newTarget.Equals(currentTarget))
-                    SetPathFinderTarget(currentTarget);
+                    SetPathFinderTarget(newTarget);
 
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }
