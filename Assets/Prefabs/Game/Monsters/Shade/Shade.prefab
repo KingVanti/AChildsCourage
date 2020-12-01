@@ -43,12 +43,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d738ae569d6680d4bb56ff84a09aa382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 5
+  visionRadius: 6
   visionAngle: 90
-  updatesPerSecond: 2
+  updatesPerSecond: 5
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
+  OnObservingTilesChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246519846564227323}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
+        m_MethodName: OnTilesInVisionChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &537825537936044892
 GameObject:
   m_ObjectHideFlags: 0

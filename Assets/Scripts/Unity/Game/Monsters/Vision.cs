@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters {
@@ -8,13 +10,14 @@ namespace AChildsCourage.Game.Monsters {
 
         #region Fields
 
-
 #pragma warning disable 649
         [SerializeField] private int visionRadius;
         [Range(0, 360)] [SerializeField] private float visionAngle;
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private LayerMask wallLayer;
 #pragma warning restore 649
+
+        public TilePositionsEvent OnObservingTilesChanged;
 
         #endregion
 
@@ -38,10 +41,6 @@ namespace AChildsCourage.Game.Monsters {
 
         private void Start() {
             StartCoroutine(Observe(visionRadius));
-        }
-
-        private TilePosition GetCurrentTilePosition() {
-            return new TilePosition((int)CurrentVector3Position.x, (int)CurrentVector3Position.y);
         }
 
         private List<TilePosition> GetVisibleTilePositions(int radius) {
@@ -90,10 +89,18 @@ namespace AChildsCourage.Game.Monsters {
 
             while (IsObserving) {
                 CurrentlyObservingTilePositions = GetVisibleTilePositions(radius);
+                OnObservingTilesChanged?.Invoke(CurrentlyObservingTilePositions);
                 yield return new WaitForSeconds(1f / updatesPerSecond);
             }
 
         }
+
+        #endregion
+
+        #region Subclasses
+
+        [Serializable]
+        public class TilePositionsEvent : UnityEvent<List<TilePosition>> { }
 
         #endregion
 
