@@ -41,7 +41,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
                     ChooseAOI(floorState, monsterState, rng),
                     ImmutableHashSet<TilePosition>.Empty);
 
-        
+
         public static InvestigationIsComplete IsComplete =>
             investigation =>
                 ExplorationRatio(investigation) >= CompletionExplorationRation;
@@ -82,7 +82,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
                 investigation.AOI.POIs
                              .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
-        
+
         public static CompleteInvestigation Complete =>
             investigation =>
                 new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
@@ -108,11 +108,16 @@ namespace AChildsCourage.Game.Monsters.Navigation
         // [0 .. 10]
         private static CalculateAOIWeight CalcTimeWeight =>
             (aoi, monsterState) =>
+                SecondsSinceLastVisit(aoi, monsterState)
+                    .IfNull(MaxTime)
+                    .Map(seconds => seconds.Clamp(MinTime, MaxTime))
+                    .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
+
+        private static Func<AOI, MonsterState, float?> SecondsSinceLastVisit =>
+            (aoi, monsterState) =>
                 InvestigationHistory.FindInvestigation(monsterState.InvestigationHistory, aoi.Index)
                                     .Bind(i => monsterState.CurrentTime - i.CompletionTime)
-                                    .Bind(time => (float) time.TotalSeconds).IfNull(MaxTime)
-                                    .Map(seconds => seconds.Clamp(MinTime, MaxTime))
-                                    .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
+                                    .Bind(time => (float) time.TotalSeconds);
 
         #endregion
 
