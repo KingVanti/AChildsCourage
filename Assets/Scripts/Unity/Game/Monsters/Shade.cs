@@ -56,14 +56,14 @@ namespace AChildsCourage.Game.Monsters
         private IEnumerator Investigate()
         {
             var investigation = Investigation.StartNew(FloorState, CurrentState, RNG.New());
-            var currentTarget = Investigation.NextTarget(investigation);
+            var currentTarget = Investigation.NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);
 
             while (!Investigation.IsComplete(investigation))
             {
                 investigation = Investigation.Progress(investigation, currentTilesInVision);
 
-                var newTarget = Investigation.NextTarget(investigation);
+                var newTarget = Investigation.NextTarget(investigation, Position);
                 if (!newTarget.Equals(currentTarget))
                     SetPathFinderTarget(currentTarget);
 

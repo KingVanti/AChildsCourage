@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using NUnit.Framework;
 
 namespace AChildsCourage.Game.Monsters.Navigation
@@ -25,6 +26,49 @@ namespace AChildsCourage.Game.Monsters.Navigation
             // Then
 
             Assert.That(count, Is.Zero, "Should not have investigated positions!");
+        }
+
+
+        [Test]
+        public void POIs_That_Are_Closer_Are_Chosen_Over_Ones_That_Are_Far_Away()
+        {
+            // Given
+
+            var poi1 = new POI(new TilePosition(1, 0));
+            var poi2 = new POI(new TilePosition(2, 0));
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(poi1, poi2)),
+                ImmutableHashSet<TilePosition>.Empty);
+            var monsterPosition = new EntityPosition(0, 0);
+
+            // When
+
+            var next = Investigation.NextTarget(investigation, monsterPosition);
+
+            // Then
+
+            Assert.That(next, Is.EqualTo(poi1.Position), "Should choose closer POI!");
+        }
+
+        [Test]
+        public void POIs_That_Were_Already_Visited_Should_Not_Be_Chosen()
+        {
+            // Given
+
+            var poi1 = new POI(new TilePosition(1, 0));
+            var poi2 = new POI(new TilePosition(2, 0));
+            var investigation = new Investigation(
+                new AOI(AOIIndex.Zero, new TilePosition(), ImmutableArray.Create(poi1, poi2)),
+                ImmutableHashSet.Create(new TilePosition(1, 0)));
+            var monsterPosition = new EntityPosition(0, 0);
+
+            // When
+
+            var next = Investigation.NextTarget(investigation, monsterPosition);
+
+            // Then
+
+            Assert.That(next, Is.EqualTo(poi2.Position), "Should not choose visited POI!");
         }
 
 

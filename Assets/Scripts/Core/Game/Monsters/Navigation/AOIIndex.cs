@@ -4,6 +4,9 @@
     public readonly struct AOIIndex
     {
 
+        public static AOIIndex Zero => (AOIIndex) 0;
+        
+        
         private readonly int value;
 
 

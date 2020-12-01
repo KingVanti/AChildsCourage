@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public delegate CompletedInvestigation CompleteInvestigation(Investigation investigation);
 
-        public delegate TilePosition ChooseNextTarget(Investigation investigation);
+        public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
         internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
 
@@ -34,13 +34,18 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public static StartInvestigation StartNew =>
             (floorState, monsterState, rng) =>
-                new Investigation(ChooseAOI(floorState, monsterState, rng), ImmutableList<TilePosition>.Empty);
+                new Investigation(ChooseAOI(floorState, monsterState, rng), ImmutableHashSet<TilePosition>.Empty);
 
         public static InvestigationIsComplete IsComplete => investigation => throw new NotImplementedException();
 
         public static ProgressInvestigation Progress => (investigation, positions) => throw new NotImplementedException();
 
-        public static ChooseNextTarget NextTarget => investigation => throw new NotImplementedException();
+        public static ChooseNextTarget NextTarget =>
+            (investigation, monsterPosition) =>
+                investigation.AOI.POIs
+                             .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position))
+                             .OrderBy(poi => TilePosition.GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
+                             .First().Position;
 
         public static CompleteInvestigation Complete => investigation => throw new NotImplementedException();
 
@@ -71,10 +76,10 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         internal AOI AOI { get; }
 
-        internal ImmutableList<TilePosition> InvestigatedPositions { get; }
+        internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
 
 
-        private Investigation(AOI aoi, ImmutableList<TilePosition> investigatedPositions)
+        internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
         {
             AOI = aoi;
             InvestigatedPositions = investigatedPositions;
