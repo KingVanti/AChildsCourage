@@ -37,8 +37,11 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public static StartInvestigation StartNew =>
             (floorState, monsterState, rng) =>
-                new Investigation(ChooseAOI(floorState, monsterState, rng), ImmutableHashSet<TilePosition>.Empty);
+                new Investigation(
+                    ChooseAOI(floorState, monsterState, rng),
+                    ImmutableHashSet<TilePosition>.Empty);
 
+        
         public static InvestigationIsComplete IsComplete =>
             investigation =>
                 ExplorationRatio(investigation) >= CompletionExplorationRation;
@@ -79,6 +82,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
                 investigation.AOI.POIs
                              .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
+        
         public static CompleteInvestigation Complete =>
             investigation =>
                 new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
