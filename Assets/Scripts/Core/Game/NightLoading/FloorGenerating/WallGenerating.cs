@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {

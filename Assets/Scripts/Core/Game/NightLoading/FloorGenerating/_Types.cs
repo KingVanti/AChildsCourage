@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {

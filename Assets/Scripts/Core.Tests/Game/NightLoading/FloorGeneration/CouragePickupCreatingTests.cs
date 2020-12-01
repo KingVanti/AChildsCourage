@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0), new TilePosition(3, 0), new TilePosition(4, 0), new TilePosition(5, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(2, 0), new MTilePosition.TilePosition(3, 0), new MTilePosition.TilePosition(4, 0), new MTilePosition.TilePosition(5, 0) };
 
             // When
 
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0) };
 
             // When
 
@@ -38,7 +38,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[] { new TilePosition(1, 0), new TilePosition(0, 0) };
+            var expected = new[] { new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(0, 0) };
             Assert.That(chosen.Select(p => p.Position), Is.EqualTo(expected), "Positions incorrectly ordered!");
         }
 
@@ -48,15 +48,15 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(1, 1), new TilePosition(2, 2) };
+            var positions = new[] { new MTilePosition.TilePosition(1, 1), new MTilePosition.TilePosition(2, 2) };
 
             // When
 
-            var next = ChooseNextOrbPosition(positions, Enumerable.Empty<TilePosition>());
+            var next = ChooseNextOrbPosition(positions, Enumerable.Empty<MTilePosition.TilePosition>());
 
             // Then
 
-            Assert.That(next, Is.EqualTo(new TilePosition(2, 2)), "Chose incorrect position!");
+            Assert.That(next, Is.EqualTo(new MTilePosition.TilePosition(2, 2)), "Chose incorrect position!");
         }
 
 
@@ -65,13 +65,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(2, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(2, 0);
 
             // When
 
-            var weight1 = CalculateCourageOrbWeight(position1, Enumerable.Empty<TilePosition>());
-            var weight2 = CalculateCourageOrbWeight(position2, Enumerable.Empty<TilePosition>());
+            var weight1 = CalculateCourageOrbWeight(position1, Enumerable.Empty<MTilePosition.TilePosition>());
+            var weight2 = CalculateCourageOrbWeight(position2, Enumerable.Empty<MTilePosition.TilePosition>());
 
             // Then
 
@@ -83,13 +83,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(1, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(1, 0);
 
             // When
 
-            var weight1 = CalculateCourageOrbWeight(position1, new[] { new TilePosition(2, 0) });
-            var weight2 = CalculateCourageOrbWeight(position2, new[] { new TilePosition(3, 0) });
+            var weight1 = CalculateCourageOrbWeight(position1, new[] { new MTilePosition.TilePosition(2, 0) });
+            var weight2 = CalculateCourageOrbWeight(position2, new[] { new MTilePosition.TilePosition(3, 0) });
 
             // Then
 
@@ -102,7 +102,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0), new TilePosition(3, 0), new TilePosition(4, 0), new TilePosition(5, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(2, 0), new MTilePosition.TilePosition(3, 0), new MTilePosition.TilePosition(4, 0), new MTilePosition.TilePosition(5, 0) };
 
             // When
 
@@ -118,7 +118,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0) };
 
             // When
 
@@ -126,7 +126,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[] { new TilePosition(1, 0), new TilePosition(0, 0) };
+            var expected = new[] { new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(0, 0) };
             Assert.That(chosen.Select(p => p.Position), Is.EqualTo(expected), "Positions incorrectly ordered!");
         }
 
@@ -136,15 +136,15 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var positions = new[] { new TilePosition(1, 1), new TilePosition(2, 2) };
+            var positions = new[] { new MTilePosition.TilePosition(1, 1), new MTilePosition.TilePosition(2, 2) };
 
             // When
 
-            var next = ChooseNextSparkPosition(positions, Enumerable.Empty<TilePosition>());
+            var next = ChooseNextSparkPosition(positions, Enumerable.Empty<MTilePosition.TilePosition>());
 
             // Then
 
-            Assert.That(next, Is.EqualTo(new TilePosition(2, 2)), "Chose incorrect position!");
+            Assert.That(next, Is.EqualTo(new MTilePosition.TilePosition(2, 2)), "Chose incorrect position!");
         }
 
 
@@ -153,13 +153,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(2, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(2, 0);
 
             // When
 
-            var weight1 = CalculateCourageSparkWeight(position1, Enumerable.Empty<TilePosition>());
-            var weight2 = CalculateCourageSparkWeight(position2, Enumerable.Empty<TilePosition>());
+            var weight1 = CalculateCourageSparkWeight(position1, Enumerable.Empty<MTilePosition.TilePosition>());
+            var weight2 = CalculateCourageSparkWeight(position2, Enumerable.Empty<MTilePosition.TilePosition>());
 
             // Then
 
@@ -171,13 +171,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(1, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(1, 0);
 
             // When
 
-            var weight1 = CalculateCourageSparkWeight(position1, new[] { new TilePosition(2, 0) });
-            var weight2 = CalculateCourageSparkWeight(position2, new[] { new TilePosition(3, 0) });
+            var weight1 = CalculateCourageSparkWeight(position1, new[] { new MTilePosition.TilePosition(2, 0) });
+            var weight2 = CalculateCourageSparkWeight(position2, new[] { new MTilePosition.TilePosition(3, 0) });
 
             // Then
 

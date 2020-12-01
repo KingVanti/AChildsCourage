@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
 {
@@ -42,8 +43,8 @@ namespace AChildsCourage.Game
             Assert.That(actual.X, Is.EqualTo(position.X + offset.X), "X coordinate incorrectly added!");
             Assert.That(actual.Y, Is.EqualTo(position.Y + offset.Y), "Y coordinate incorrectly added!");
         }
-        
-        
+
+
         [Test]
         public void Distance_From_Origin_Is_Caluclated_Correctly()
         {
@@ -53,7 +54,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var distance = TilePosition.GetDistanceFromOrigin(position);
+            var distance = GetDistanceFromOrigin(position);
 
             // When
 
@@ -71,7 +72,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var distance = TilePosition.GetDistanceBetween(p1, p2);
+            var distance = GetDistanceBetween(p1, p2);
 
             // When
 

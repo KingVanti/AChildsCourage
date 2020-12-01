@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.NightLoading
@@ -44,12 +45,12 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static float CalculateCourageOrbWeight(TilePosition position, IEnumerable<TilePosition> taken)
         {
-            var distanceOrigin = TilePosition.GetDistanceFromOrigin(position);
-            
+            var distanceOrigin = GetDistanceFromOrigin(position);
+
             var positions = taken as TilePosition[] ?? taken.ToArray();
             var distanceToClosest = positions.Any()
-                ? positions.Select(p => TilePosition.GetDistanceBetween(position, p))
-                               .Min()
+                ? positions.Select(p => GetDistanceBetween(position, p))
+                           .Min()
                 : 0;
 
             return (float) Math.Pow(distanceOrigin + distanceToClosest, 2);
@@ -86,11 +87,11 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static float CalculateCourageSparkWeight(TilePosition position, IEnumerable<TilePosition> taken)
         {
-            var distanceOrigin = TilePosition.GetDistanceFromOrigin(position);
+            var distanceOrigin = GetDistanceFromOrigin(position);
             var positions = taken as TilePosition[] ?? taken.ToArray();
             var distanceToClosest = positions.Any()
-                ? positions.Select(p => TilePosition.GetDistanceBetween(position, p))
-                               .Min()
+                ? positions.Select(p => GetDistanceBetween(position, p))
+                           .Min()
                 : 0;
 
             var distanceOriginWeight = Math.Pow(distanceOrigin, 2);

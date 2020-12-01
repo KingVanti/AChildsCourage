@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors.RoomPersistance
+﻿using static AChildsCourage.Game.MTilePosition;
+
+namespace AChildsCourage.Game.Floors.RoomPersistance
 {
 
     public readonly struct AOIMarkerData

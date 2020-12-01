@@ -15,8 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var floor = new FloorInProgress();
-            var tiles = new[] { new GroundTileData(new TilePosition(0, 0), 0, 0), new GroundTileData(new TilePosition(1, 0), 0, 0) };
-            TransformTile transformer = pos => new TilePosition(pos.X, 1);
+            var tiles = new[] { new GroundTileData(new MTilePosition.TilePosition(0, 0), 0, 0), new GroundTileData(new MTilePosition.TilePosition(1, 0), 0, 0) };
+            TransformTile transformer = pos => new MTilePosition.TilePosition(pos.X, 1);
 
             // When
 
@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[] { new TilePosition(0, 1), new TilePosition(1, 1) };
+            var expected = new[] { new MTilePosition.TilePosition(0, 1), new MTilePosition.TilePosition(1, 1) };
             Assert.That(floor.GroundPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var tile = new GroundTileData();
-            TransformTile transformer = position => new TilePosition(1, 1);
+            TransformTile transformer = position => new MTilePosition.TilePosition(1, 1);
 
             // When
 
@@ -43,7 +43,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            Assert.That(transformed.Position, Is.EqualTo(new TilePosition(1, 1)), "Position incorrectly transformed!");
+            Assert.That(transformed.Position, Is.EqualTo(new MTilePosition.TilePosition(1, 1)), "Position incorrectly transformed!");
         }
 
 
@@ -56,11 +56,11 @@ namespace AChildsCourage.Game.NightLoading
 
             // When
 
-            var newtile = tile.With(new TilePosition(1, 1));
+            var newtile = tile.With(new MTilePosition.TilePosition(1, 1));
 
             // When
 
-            Assert.That(newtile.Position, Is.EqualTo(new TilePosition(1, 1)), "Position should change!");
+            Assert.That(newtile.Position, Is.EqualTo(new MTilePosition.TilePosition(1, 1)), "Position should change!");
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // When
 
-            var newtile = tile.With(new TilePosition(1, 1));
+            var newtile = tile.With(new MTilePosition.TilePosition(1, 1));
 
             // When
         }
@@ -91,7 +91,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            Assert.That(floor.GroundPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to ground list!");
+            Assert.That(floor.GroundPositions.Contains(new MTilePosition.TilePosition(0, 0)), Is.True, "Should be added to ground list!");
         }
 
     }

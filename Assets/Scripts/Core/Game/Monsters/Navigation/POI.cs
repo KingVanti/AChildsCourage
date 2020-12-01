@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Monsters.Navigation
+﻿using static AChildsCourage.Game.MTilePosition;
+
+namespace AChildsCourage.Game.Monsters.Navigation
 {
 
     public readonly struct POI

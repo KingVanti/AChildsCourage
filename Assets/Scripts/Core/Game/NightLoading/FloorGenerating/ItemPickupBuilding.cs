@@ -2,6 +2,7 @@
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {

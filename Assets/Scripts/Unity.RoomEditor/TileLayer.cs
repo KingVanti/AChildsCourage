@@ -2,6 +2,7 @@
 using AChildsCourage.Game;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.RoomEditor
 {

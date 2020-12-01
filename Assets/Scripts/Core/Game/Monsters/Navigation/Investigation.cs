@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.CustomMath;
 using static AChildsCourage.RNG;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {
@@ -70,7 +71,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>
                 UninvestigatedPOIs(investigation)
-                    .OrderBy(poi => TilePosition.GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
+                    .OrderBy(poi => GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
                     .First().Position;
 
         private static Func<Investigation, IEnumerable<POI>> UninvestigatedPOIs =>
@@ -96,9 +97,9 @@ namespace AChildsCourage.Game.Monsters.Navigation
         // [0 .. 5]
         private static CalculateAOIWeight CalcDistanceWeight =>
             (aoi, monsterState) =>
-                TilePosition.GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position))
-                            .Clamp(MinDistance, MaxDistance)
-                            .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
+                GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position))
+                    .Clamp(MinDistance, MaxDistance)
+                    .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
 
         // [0 .. 10]
         private static CalculateAOIWeight CalcTimeWeight =>

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using static AChildsCourage.Game.NightLoading.FloorGenerating;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {

@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Floors
+﻿using static AChildsCourage.Game.MTilePosition;
+
+namespace AChildsCourage.Game.Floors
 {
 
     public readonly struct CouragePickup

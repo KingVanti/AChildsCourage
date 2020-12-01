@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game
+﻿using static AChildsCourage.Game.MTilePosition;
+
+namespace AChildsCourage.Game
 {
 
     public readonly struct EntityPosition

@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var itemIds = new[] { (ItemId) 0, (ItemId) 1 };
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(2, 0) };
 
             // When
 
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var itemIds = new[] { (ItemId) 0, (ItemId) 1 };
-            var positions = new[] { new TilePosition(0, 0), new TilePosition(1, 0), new TilePosition(2, 0) };
+            var positions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(1, 0), new MTilePosition.TilePosition(2, 0) };
 
             // When
 
@@ -41,7 +41,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expectedPositions = new[] { new TilePosition(0, 0), new TilePosition(2, 0) };
+            var expectedPositions = new[] { new MTilePosition.TilePosition(0, 0), new MTilePosition.TilePosition(2, 0) };
             Assert.That(items.Select(i => i.Position), Is.EqualTo(expectedPositions), "Did not choose correct item positions!");
         }
 
@@ -51,13 +51,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(2, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(2, 0);
 
             // When
 
-            var weight1 = CalculatePositionWeight(position1, Enumerable.Empty<TilePosition>());
-            var weight2 = CalculatePositionWeight(position2, Enumerable.Empty<TilePosition>());
+            var weight1 = CalculatePositionWeight(position1, Enumerable.Empty<MTilePosition.TilePosition>());
+            var weight2 = CalculatePositionWeight(position2, Enumerable.Empty<MTilePosition.TilePosition>());
 
             // Then
 
@@ -69,13 +69,13 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position1 = new TilePosition(1, 0);
-            var position2 = new TilePosition(1, 0);
+            var position1 = new MTilePosition.TilePosition(1, 0);
+            var position2 = new MTilePosition.TilePosition(1, 0);
 
             // When
 
-            var weight1 = CalculatePositionWeight(position1, new[] { new TilePosition(3, 0) });
-            var weight2 = CalculatePositionWeight(position2, new[] { new TilePosition(2, 0) });
+            var weight1 = CalculatePositionWeight(position1, new[] { new MTilePosition.TilePosition(3, 0) });
+            var weight2 = CalculatePositionWeight(position2, new[] { new MTilePosition.TilePosition(2, 0) });
 
             // Then
 

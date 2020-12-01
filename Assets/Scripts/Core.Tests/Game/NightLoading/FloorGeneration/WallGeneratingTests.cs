@@ -16,11 +16,11 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            Func<TilePosition, bool> hasGroundAt = pos => pos.Equals(new TilePosition(0, -1));
+            Func<MTilePosition.TilePosition, bool> hasGroundAt = pos => pos.Equals(new MTilePosition.TilePosition(0, -1));
 
             // When
 
-            var hasGroundBelow = HasGroundBelow(new TilePosition(0, 0), hasGroundAt);
+            var hasGroundBelow = HasGroundBelow(new MTilePosition.TilePosition(0, 0), hasGroundAt);
 
             // Then
 
@@ -32,11 +32,11 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            Func<TilePosition, bool> hasGroundAt = pos => pos.Equals(new TilePosition(0, -2));
+            Func<MTilePosition.TilePosition, bool> hasGroundAt = pos => pos.Equals(new MTilePosition.TilePosition(0, -2));
 
             // When
 
-            var hasGroundBelow = HasGroundBelow(new TilePosition(0, 0), hasGroundAt);
+            var hasGroundBelow = HasGroundBelow(new MTilePosition.TilePosition(0, 0), hasGroundAt);
 
             // Then
 
@@ -48,11 +48,11 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            Func<TilePosition, bool> hasGroundAt = pos => pos.Equals(new TilePosition(0, -3));
+            Func<MTilePosition.TilePosition, bool> hasGroundAt = pos => pos.Equals(new MTilePosition.TilePosition(0, -3));
 
             // When
 
-            var hasGroundBelow = HasGroundBelow(new TilePosition(0, 0), hasGroundAt);
+            var hasGroundBelow = HasGroundBelow(new MTilePosition.TilePosition(0, 0), hasGroundAt);
 
             // Then
 
@@ -65,7 +65,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position = new TilePosition(0, 0);
+            var position = new MTilePosition.TilePosition(0, 0);
             var hasGroundBelow = false;
 
             // When
@@ -83,7 +83,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var position = new TilePosition(0, 0);
+            var position = new MTilePosition.TilePosition(0, 0);
             var hasGroundBelow = true;
 
             // When
@@ -102,7 +102,7 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var wallPosition = new TilePosition(0, 0);
+            var wallPosition = new MTilePosition.TilePosition(0, 0);
 
             // When
 
@@ -110,7 +110,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[] { new TilePosition(0, -1), new TilePosition(0, -2) };
+            var expected = new[] { new MTilePosition.TilePosition(0, -1), new MTilePosition.TilePosition(0, -2) };
 
             Assert.That(positions.Count(), Is.EqualTo(expected.Length), "Found incorrect number of positions!");
 
@@ -143,11 +143,11 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var floor = new FloorInProgress();
-            floor.GroundPositions.Add(new TilePosition(0, 0));
+            floor.GroundPositions.Add(new MTilePosition.TilePosition(0, 0));
 
             // When
 
-            var hasGround = floor.HasGroundAt(new TilePosition(0, 0));
+            var hasGround = floor.HasGroundAt(new MTilePosition.TilePosition(0, 0));
 
             // Then
 
@@ -163,7 +163,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // When
 
-            var hasGround = floor.HasGroundAt(new TilePosition(0, 0));
+            var hasGround = floor.HasGroundAt(new MTilePosition.TilePosition(0, 0));
 
             // Then
 

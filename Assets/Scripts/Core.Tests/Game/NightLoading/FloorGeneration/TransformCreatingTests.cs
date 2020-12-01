@@ -24,8 +24,8 @@ namespace AChildsCourage.Game.NightLoading
 
             Assert.That(chunkTransform.RotationCount, Is.EqualTo(1), "Rotation incorrectly copied!");
             Assert.That(chunkTransform.IsMirrored, Is.True, "IsMirrored incorrectly copied!");
-            Assert.That(chunkTransform.ChunkCenter, Is.EqualTo(new TilePosition(31, 31)), "Center incorrectly copied!");
-            Assert.That(chunkTransform.ChunkCorner, Is.EqualTo(new TilePosition(21, 21)), "Corner incorrectly copied!");
+            Assert.That(chunkTransform.ChunkCenter, Is.EqualTo(new MTilePosition.TilePosition(31, 31)), "Center incorrectly copied!");
+            Assert.That(chunkTransform.ChunkCorner, Is.EqualTo(new MTilePosition.TilePosition(21, 21)), "Corner incorrectly copied!");
         }
 
 
@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            Assert.That(center, Is.EqualTo(new TilePosition(31, -11)), "Center calculated incorrectly!");
+            Assert.That(center, Is.EqualTo(new MTilePosition.TilePosition(31, -11)), "Center calculated incorrectly!");
         }
 
 
@@ -59,7 +59,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            Assert.That(corner, Is.EqualTo(new TilePosition(21, -21)), "Corner calculated incorrectly!");
+            Assert.That(corner, Is.EqualTo(new MTilePosition.TilePosition(21, -21)), "Corner calculated incorrectly!");
         }
 
     }

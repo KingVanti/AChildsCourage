@@ -15,8 +15,8 @@ namespace AChildsCourage.Game.NightLoading
             // Given
 
             var floor = new FloorInProgress();
-            var pickups = new[] { new ItemPickupData(new TilePosition(0, 0)), new ItemPickupData(new TilePosition(1, 0)) };
-            TransformTile transformer = pos => new TilePosition(pos.X, 1);
+            var pickups = new[] { new ItemPickupData(new MTilePosition.TilePosition(0, 0)), new ItemPickupData(new MTilePosition.TilePosition(1, 0)) };
+            TransformTile transformer = pos => new MTilePosition.TilePosition(pos.X, 1);
 
             // When
 
@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            var expected = new[] { new TilePosition(0, 1), new TilePosition(1, 1) };
+            var expected = new[] { new MTilePosition.TilePosition(0, 1), new MTilePosition.TilePosition(1, 1) };
             Assert.That(floor.ItemPickupPositions, Is.EqualTo(expected), "Tiles incorrectly built!");
         }
 
@@ -34,8 +34,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var pickup = new ItemPickupData(new TilePosition(0, 0));
-            TransformTile transformer = position => new TilePosition(1, 1);
+            var pickup = new ItemPickupData(new MTilePosition.TilePosition(0, 0));
+            TransformTile transformer = position => new MTilePosition.TilePosition(1, 1);
 
             // When
 
@@ -43,7 +43,7 @@ namespace AChildsCourage.Game.NightLoading
 
             // Then
 
-            Assert.That(transformed.Position, Is.EqualTo(new TilePosition(1, 1)), "Position incorrectly transformed!");
+            Assert.That(transformed.Position, Is.EqualTo(new MTilePosition.TilePosition(1, 1)), "Position incorrectly transformed!");
         }
 
 
@@ -52,15 +52,15 @@ namespace AChildsCourage.Game.NightLoading
         {
             // Given
 
-            var pickup = new ItemPickupData(new TilePosition(0, 0));
+            var pickup = new ItemPickupData(new MTilePosition.TilePosition(0, 0));
 
             // When
 
-            var newPickup = pickup.With(new TilePosition(1, 1));
+            var newPickup = pickup.With(new MTilePosition.TilePosition(1, 1));
 
             // When
 
-            Assert.That(newPickup.Position, Is.EqualTo(new TilePosition(1, 1)), "Position should change!");
+            Assert.That(newPickup.Position, Is.EqualTo(new MTilePosition.TilePosition(1, 1)), "Position should change!");
         }
 
 
@@ -73,11 +73,11 @@ namespace AChildsCourage.Game.NightLoading
 
             // When
 
-            PlaceItemPickup(new ItemPickupData(new TilePosition(0, 0)), floor);
+            PlaceItemPickup(new ItemPickupData(new MTilePosition.TilePosition(0, 0)), floor);
 
             // Then
 
-            Assert.That(floor.ItemPickupPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to item-pickup list!");
+            Assert.That(floor.ItemPickupPositions.Contains(new MTilePosition.TilePosition(0, 0)), Is.True, "Should be added to item-pickup list!");
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.NightLoading
 {
@@ -38,9 +39,9 @@ namespace AChildsCourage.Game.NightLoading
 
         internal static float CalculatePositionWeight(TilePosition position, IEnumerable<TilePosition> taken)
         {
-            var distanceToOrigin = TilePosition.GetDistanceFromOrigin(position);
+            var distanceToOrigin = GetDistanceFromOrigin(position);
             var positions = taken as TilePosition[] ?? taken.ToArray();
-            var distanceToOther = positions.Any() ? positions.Min(p => TilePosition.GetDistanceBetween(position, p)) : 0;
+            var distanceToOther = positions.Any() ? positions.Min(p => GetDistanceBetween(position, p)) : 0;
 
             var distanceToOriginWeight = distanceToOrigin != 0 ? 1f / distanceToOrigin : 1.1f;
             var distanceToOtherWeight = distanceToOther;

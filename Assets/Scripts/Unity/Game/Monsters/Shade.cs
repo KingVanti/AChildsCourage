@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AChildsCourage.Game.Monsters.Navigation;
 using UnityEngine;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters
 {
