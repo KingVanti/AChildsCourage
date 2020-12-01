@@ -115,9 +115,9 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         private static Func<AOI, MonsterState, float?> SecondsSinceLastVisit =>
             (aoi, monsterState) =>
-                InvestigationHistory.FindInvestigation(monsterState.InvestigationHistory, aoi.Index)
-                                    .Bind(i => monsterState.CurrentTime - i.CompletionTime)
-                                    .Bind(time => (float) time.TotalSeconds);
+                monsterState.InvestigationHistory.FindLastIn(aoi.Index)
+                            .Bind(i => monsterState.CurrentTime - i.CompletionTime)
+                            .Bind(time => (float) time.TotalSeconds);
 
         #endregion
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AChildsCourage.Game.Monsters.Navigation;
 using UnityEngine;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters
@@ -19,7 +20,7 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private float investigationUpdatesPerSecond;
 
         private IEnumerable<TilePosition> currentTilesInVision;
-        private InvestigationHistory investigationHistory = InvestigationHistory.Empty;
+        private InvestigationHistory investigationHistory = Empty;
 
 
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
@@ -73,7 +74,7 @@ namespace AChildsCourage.Game.Monsters
             }
 
             var completed = Complete(investigation);
-            investigationHistory = InvestigationHistory.Add(investigationHistory, completed);
+            investigationHistory = investigationHistory.Add(completed);
 
             StartInvestigation();
         }

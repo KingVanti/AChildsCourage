@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Game.Monsters.Navigation.InvestigationHistory;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {
@@ -36,13 +36,13 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var added = Add(history, new CompletedInvestigation());
+            var added = history.Add(new CompletedInvestigation());
 
             // Then
 
             Assert.That(added.Count(), Is.EqualTo(1), "Investigation not added!");
         }
-        
+
         [Test]
         public void Adding_An_Investigation_To_A_History_Adds_The_Correct_Investigation()
         {
@@ -53,7 +53,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
             // When
 
             var investigation = new CompletedInvestigation((AOIIndex) 1, DateTime.Now);
-            var added = Add(history, investigation);
+            var added = history.Add(investigation);
 
             // Then
 

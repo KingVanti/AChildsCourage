@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using NUnit.Framework;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {
@@ -18,7 +19,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var started = StartNew(
                 new FloorState(new AOI()),
-                new MonsterState(new EntityPosition(), DateTime.MinValue, InvestigationHistory.Empty),
+                new MonsterState(new EntityPosition(), DateTime.MinValue, Empty),
                 RNG.Always(0));
 
             // When
@@ -167,7 +168,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var aoi1 = new AOI((AOIIndex) 1, new MTilePosition.TilePosition(10, 0));
             var aoi2 = new AOI((AOIIndex) 2, new MTilePosition.TilePosition(20, 0));
-            var monsterState = new MonsterState(new EntityPosition(0, 0), DateTime.MinValue, InvestigationHistory.Empty);
+            var monsterState = new MonsterState(new EntityPosition(0, 0), DateTime.MinValue, Empty);
 
             // When
 
