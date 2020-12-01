@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
 using UnityEngine;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
@@ -13,6 +14,7 @@ namespace AChildsCourage.Game.Monsters
     public class Shade : MonoBehaviour
     {
 
+        [SerializeField] private FloorStateKeeper floorStateKeeper;
         [Header("Stats")] [SerializeField] private int touchDamage;
 
         [SerializeField] private int attackDamage;
@@ -27,7 +29,7 @@ namespace AChildsCourage.Game.Monsters
 
         private EntityPosition Position => throw new NotImplementedException();
 
-        private FloorState FloorState => throw new NotImplementedException();
+        private FloorState FloorState => floorStateKeeper.CurrentFloorState;
 
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
