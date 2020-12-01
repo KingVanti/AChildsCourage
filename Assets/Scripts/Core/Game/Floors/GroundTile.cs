@@ -1,4 +1,5 @@
-﻿using static AChildsCourage.Game.MTilePosition;
+﻿using AChildsCourage.Game.Monsters.Navigation;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -8,15 +9,18 @@ namespace AChildsCourage.Game.Floors
 
         #region Properties
 
+        public AOIIndex AOIIndex { get; }
+
         public TilePosition Position { get; }
 
         #endregion
 
         #region Constructors
 
-        public GroundTile(TilePosition position)
+        public GroundTile(AOIIndex aoiIndex, TilePosition position)
         {
             Position = position;
+            AOIIndex = aoiIndex;
         }
 
         #endregion
