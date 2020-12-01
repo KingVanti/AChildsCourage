@@ -69,7 +69,6 @@ namespace AChildsCourage.Game.Monsters.Navigation
                                     .Map(seconds => seconds.Clamp(MinTime, MaxTime))
                                     .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
 
-
         internal AOI AOI { get; }
 
         internal ImmutableList<TilePosition> InvestigatedPositions { get; }
