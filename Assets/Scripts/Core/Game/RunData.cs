@@ -1,22 +1,38 @@
-﻿namespace AChildsCourage.Game.Persistance
+﻿using System;
+using static AChildsCourage.Game.MNightData;
+
+namespace AChildsCourage.Game.Persistance
 {
 
-    public class RunData
+    public static class MRunData
     {
 
-        #region Properties
+        public const int BaseCourage = 0;
 
-        public NightData CurrentNight { get; }
 
-        #endregion
+        public static RunData NewRun => new RunData(0, BaseCourage);
 
-        #region Constructors
 
-        public RunData() => CurrentNight = null;
+        public static Func<RunData, RNG.CreateRNG, NightData> StartNight =>
+            (runData, rng) =>
+                CreateNightWithRandomSeed(rng);
 
-        public RunData(NightData currentNight) => CurrentNight = currentNight;
 
-        #endregion
+        public readonly struct RunData
+        {
+
+            public int CompletedNightCount { get; }
+
+            public int TotalCollectedCourage { get; }
+
+
+            public RunData(int completedNightCount, int totalCollectedCourage)
+            {
+                CompletedNightCount = completedNightCount;
+                TotalCollectedCourage = totalCollectedCourage;
+            }
+
+        }
 
     }
 

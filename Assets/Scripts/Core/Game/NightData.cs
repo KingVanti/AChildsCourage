@@ -1,22 +1,26 @@
-﻿namespace AChildsCourage.Game
+﻿using System;
+
+namespace AChildsCourage.Game
 {
 
-    public class NightData
+    public static class MNightData
     {
 
-        #region Properties
+        public static Func<RNG.CreateRNG, NightData> CreateNightWithRandomSeed =>
+            rng =>
+                new NightData(rng.GetValueBetween(int.MinValue, int.MaxValue));
 
-        public int Seed { get; }
+        public class NightData
+        {
 
-        #endregion
+            public int Seed { get; }
 
-        #region Constructors
 
-        public NightData() => Seed = 0;
+            public NightData() => Seed = 0;
 
-        public NightData(int seed) => Seed = seed;
+            public NightData(int seed) => Seed = seed;
 
-        #endregion
+        }
 
     }
 

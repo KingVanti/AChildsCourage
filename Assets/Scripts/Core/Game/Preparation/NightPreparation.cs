@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
+using static AChildsCourage.Game.MNightData;
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game

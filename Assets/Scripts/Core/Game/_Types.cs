@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Persistance;
+using static AChildsCourage.Game.Persistance.MRunData;
 
 namespace AChildsCourage.Game
 {

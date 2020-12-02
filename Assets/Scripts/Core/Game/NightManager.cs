@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using  static  AChildsCourage.Game.MNightPreparation;
+using AChildsCourage.Game.Persistance;
+using static AChildsCourage.Game.MNightPreparation;
 
 namespace AChildsCourage.Game
 {
@@ -13,7 +14,7 @@ namespace AChildsCourage.Game
         public void PrepareNight()
         {
             loadRunData()
-                .Map(d => d.CurrentNight)
+                .Map(d => MRunData.StartNight(d, RNG.New()))
                 .Do(prepareNight.Invoke);
         }
 
