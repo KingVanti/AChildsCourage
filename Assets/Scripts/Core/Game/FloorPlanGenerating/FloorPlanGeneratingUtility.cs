@@ -4,7 +4,7 @@ using AChildsCourage.Game.Floors;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorPlanGenerating
+    public static partial class FloorPlanGenerating
     {
 
         internal static ChunkPosition MoveToAdjacentChunk(ChunkPosition position, PassageDirection direction)

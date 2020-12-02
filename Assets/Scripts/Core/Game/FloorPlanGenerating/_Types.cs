@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistance;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorPlanGenerating
+    public static partial class FloorPlanGenerating
     {
 
         public enum GenerationPhase
@@ -15,8 +17,6 @@ namespace AChildsCourage.Game
             EndRoom
 
         }
-
-        internal delegate FloorPlan GenerateFloorPlan(int seed);
 
         internal class FloorPlanInProgress
         {

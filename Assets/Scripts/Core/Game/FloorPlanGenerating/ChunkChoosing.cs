@@ -7,7 +7,7 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorPlanGenerating
+    public static partial class FloorPlanGenerating
     {
 
         private const float BaseWeight = 1;

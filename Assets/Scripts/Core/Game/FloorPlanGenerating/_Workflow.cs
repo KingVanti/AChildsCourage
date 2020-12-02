@@ -9,27 +9,22 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorPlanGenerating
+    public static partial class FloorPlanGenerating
     {
 
         internal const int GoalRoomCount = 15;
 
-
-        internal static GenerateFloorPlan Make(IEnumerable<RoomData> roomData, InitializeRNGSource initializeRngSource)
+        
+        public static FloorPlan GenerateFloorPlan(IEnumerable<RoomData> roomData, CreateRNG rng)
         {
             var allPassages = roomData.SelectMany(r => r.GetPassageVariations());
 
-            return seed =>
-            {
-                var rng = initializeRngSource(seed);
+            Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, allPassages, fpip);
 
-                Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, allPassages, fpip);
-
-                return
-                    Take(new FloorPlanInProgress())
-                        .RepeatWhile(addRoom, NeedsMoreRooms)
-                        .Map(BuildFloorPlan);
-            };
+            return
+                Take(new FloorPlanInProgress())
+                    .RepeatWhile(addRoom, NeedsMoreRooms)
+                    .Map(BuildFloorPlan);
         }
 
         internal static FloorPlanInProgress AddRoom(CreateRNG createRng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
@@ -44,18 +39,13 @@ namespace AChildsCourage.Game
                     .Map(placeRoom.Invoke);
         }
 
-        internal static bool NeedsMoreRooms(FloorPlanInProgress fpip)
-        {
-            return Take(fpip)
-                   .Map(CountRooms)
-                   .Map(IsEnough)
-                   .Negate();
-        }
+        internal static bool NeedsMoreRooms(FloorPlanInProgress fpip) =>
+            Take(fpip)
+                .Map(CountRooms)
+                .Map(IsEnough)
+                .Negate();
 
-        internal static bool IsEnough(int currentRoomCount)
-        {
-            return currentRoomCount >= GoalRoomCount;
-        }
+        internal static bool IsEnough(int currentRoomCount) => currentRoomCount >= GoalRoomCount;
 
         internal static FloorPlan BuildFloorPlan(FloorPlanInProgress floorPlanInProgress)
         {

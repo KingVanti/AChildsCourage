@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Persistance
+﻿using static AChildsCourage.Game.Persistance.MRunData;
+
+namespace AChildsCourage.Game.Persistance
 {
 
     internal static class JsonRunDataLoading
@@ -13,9 +15,7 @@
         {
             // TODO: Load current run data
 
-            var nightData = new NightData(123);
-
-            return new RunData(nightData);
+            return NewRun;
         }
 
     }

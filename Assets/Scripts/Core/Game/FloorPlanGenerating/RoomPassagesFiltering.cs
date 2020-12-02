@@ -5,7 +5,7 @@ using AChildsCourage.Game.Floors;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorPlanGenerating
+    public static partial class FloorPlanGenerating
     {
 
         internal static FilteredRoomPassages FilterPassagesMatching(this RoomPassageFilter filter, IEnumerable<RoomPassages> allPassages)

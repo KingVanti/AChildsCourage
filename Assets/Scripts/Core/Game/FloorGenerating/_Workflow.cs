@@ -14,20 +14,17 @@ namespace AChildsCourage.Game
     internal static partial class FloorGenerating
     {
 
-        internal static GenerateFloor Make(IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
+        internal static Floor GenerateFloor(FloorPlan floorPlan, IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
         {
-            return floorPlan =>
-            {
-                var chooseRooms = ChooseRoomsFrom(roomData);
-                var createFloor = CreateFloorWithItemIds(itemIds);
+            var chooseRooms = ChooseRoomsFrom(roomData);
+            var createFloor = CreateFloorWithItemIds(itemIds);
 
-                return Take(floorPlan)
-                       .Map(chooseRooms.Invoke)
-                       .Aggregate(new FloorInProgress(), BuildRoom)
-                       .Map(createFloor.Invoke);
-            };
+            return Take(floorPlan)
+                   .Map(chooseRooms.Invoke)
+                   .Aggregate(new FloorInProgress(), BuildRoom)
+                   .Map(createFloor.Invoke);
         }
-
+        
         private static ChooseRoomsForFloor ChooseRoomsFrom(IEnumerable<RoomData> roomData)
         {
             return floorPlan => ChooseRoomsFor(floorPlan, roomData);
