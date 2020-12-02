@@ -13,6 +13,7 @@ namespace AChildsCourage.Game.Monsters {
 #pragma warning disable 649
         [SerializeField] private int visionRadius;
         [Range(0, 360)] [SerializeField] private float visionAngle;
+        [Range(0, 360)] [SerializeField] private float rotationSpeed;
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private LayerMask wallLayer;
 #pragma warning restore 649

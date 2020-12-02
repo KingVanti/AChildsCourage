@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
-using Ninject.Extensions.Unity;
-using Pathfinding;
 using UnityEngine;
+using Pathfinding;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
@@ -16,50 +14,53 @@ namespace AChildsCourage.Game.Monsters
 
     public class Shade : MonoBehaviour
     {
-
         #region Fields
 
-        public Path path;
-        public AIBase aiBase;
-        public AIPath aiPath;
+        public AIPath ai;
 
 #pragma warning disable 649
+        [SerializeField] private FloorStateKeeper floorStateKeeper;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
-        [Header("Stats")] [SerializeField] private int touchDamage;
+        [Header("Stats")][SerializeField] private int touchDamage;
         [SerializeField] private int attackDamage;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private Transform targetTransform;
 #pragma warning restore 649
 
-        private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
+        private IEnumerable<TilePosition> currentTilesInVision;
         private InvestigationHistory investigationHistory = Empty;
 
         private Coroutine investigationCoroutine;
-        private int currentWaypoint = 0;
-        private float nextWaypointDistance = 1f;
-        private bool reachedEndOfPath = false;
 
         #endregion
 
         #region Properties
 
-        [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
-
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        private FloorState FloorState => FloorStateKeeper.CurrentFloorState;
+        private FloorState FloorState => floorStateKeeper.CurrentFloorState;
 
-        private Vector2 MoveVector => rb.velocity;
-
-        private Vector2 NextTargetDestination { get; set; }
+        private Vector2 MoveVector {
+            get {
+                return rb.velocity;
+            }
+        }
+        
+        private Vector2 NextTargetDestination {
+            get; set;
+        }
 
         #endregion
 
         #region Methods
+
+        private void Awake() {
+            Invoke(nameof(StartInvestigation), 1f);
+        }
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
         {
@@ -76,21 +77,21 @@ namespace AChildsCourage.Game.Monsters
             StartInvestigation();
         }
 
-        public void StartInvestigation()
+
+        private void StartInvestigation()
         {
             investigationCoroutine = StartCoroutine(Investigate());
         }
 
-
         private void CancelInvestigation()
         {
-            if (investigationCoroutine != null)
-                StopCoroutine(investigationCoroutine);
+            StopCoroutine(investigationCoroutine);
             investigationCoroutine = null;
         }
 
         private IEnumerator Investigate()
         {
+
             var investigation = StartNew(FloorState, CurrentState, RNG.New());
 
             var currentTarget = NextTarget(investigation, Position);
@@ -101,10 +102,8 @@ namespace AChildsCourage.Game.Monsters
                 investigation = Progress(investigation, currentTilesInVision);
 
                 var newTarget = NextTarget(investigation, Position);
-                if (!newTarget.Equals(currentTarget))
-                {
+                if (!newTarget.Equals(currentTarget)) {
                     SetPathFinderTarget(newTarget);
-                    aiPath.SearchPath();
                     currentTarget = newTarget;
                 }
 
@@ -120,16 +119,14 @@ namespace AChildsCourage.Game.Monsters
 
         private void SetPathFinderTarget(TilePosition tilePosition)
         {
-            //targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
-            aiPath.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
 
-            //Vector3 deltaPos = aiPath.desiredVelocity - transform.position;
-            //transform.GetChild(0).right = 
+            targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
+            ai.target = targetTransform;
+            transform.GetChild(0).right = ai.target.position - transform.position;
+
         }
 
-
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             CancelInvestigation();
         }
 

@@ -211,7 +211,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.75
 --- !u!198 &994853314461636515
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5050,9 +5050,9 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.6
-  pickNextWaypointDist: 2
+  pickNextWaypointDist: 1
   endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
+  alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
@@ -5068,8 +5068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiBase: {fileID: 3696624342232356208}
-  aiPath: {fileID: 3696624342232356208}
+  ai: {fileID: 3696624342232356208}
   floorStateKeeper: {fileID: 0}
   rb: {fileID: 3421516115218180208}
   seeker: {fileID: 5749346845843882517}
