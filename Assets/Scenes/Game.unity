@@ -339,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5279824009173731127, guid: 072202f857711464f808dae5c11ee1c4, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5279824009173731127, guid: 072202f857711464f808dae5c11ee1c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -569,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 537825537936044895, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 537825537936044895, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -583,10 +583,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8622197865602991348, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: floorStateKeeper
       value: 
       objectReference: {fileID: 503161867}
+    - target: {fileID: 8622197865602991348, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: floorStateKeeper
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &503161866
@@ -618,7 +622,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 503161866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4f7337afaef2e4f9d26563ba496240, type: 3}
+  m_Script: {fileID: 11500000, guid: 597cd2a8557f2354faf0f923cadbff1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &503161868
@@ -1182,7 +1186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1945,18 +1949,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1891232475}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.NavigationMap, AChildsCourage.Unity
-        m_MethodName: ScanLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &1462994261
 Transform:
   m_ObjectHideFlags: 0
@@ -2133,7 +2125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1891232474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8ea88908f425d4d9ec731cce5e12f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 30a2a5a15b5752945b38be9b9df620d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   astarPath: {fileID: 1891232476}
