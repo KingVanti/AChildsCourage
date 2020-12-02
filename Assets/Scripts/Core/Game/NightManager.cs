@@ -37,13 +37,10 @@ namespace AChildsCourage.Game
             var roomData = loadRoomData().ToArray();
             var itemIds = loadItemIds();
 
-            var rngInitializer = SeedBasedInitializeRng;
-
-            var generateFloorPlan = FloorPlanGenerating.Make(roomData, rngInitializer);
             var generateFloor = FloorGenerating.Make(itemIds, roomData);
             var recreateNight = NightRecreating.Make(floorRecreator);
 
-            prepareNight = PrepareNightWithRandomFloor(generateFloorPlan, generateFloor, recreateNight);
+            prepareNight = PrepareNightWithRandomFloor(roomData, generateFloor, recreateNight);
         }
 
         public NightManager(LoadRunData loadRunData, PrepareNight prepareNight)

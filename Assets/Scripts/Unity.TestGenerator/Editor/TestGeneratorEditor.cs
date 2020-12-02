@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using static AChildsCourage.Game.FloorPlanGenerating;
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
@@ -7,6 +8,12 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
     public class TestGeneratorEditor : EditorWindow
     {
+
+        #region Properties
+
+        private bool HasFloorImage => floorImage != null;
+
+        #endregion
 
         #region Static Methods
 
@@ -24,24 +31,6 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         private int seed;
         private Texture2D floorImage;
         private readonly CompleteRoomLoader completeRoomLoader = new CompleteRoomLoader();
-        private FloorPlanGenerating.GenerateFloorPlan _generateFloor;
-
-        #endregion
-
-        #region Properties
-
-        private bool HasFloorImage => floorImage != null;
-
-        private FloorPlanGenerating.GenerateFloorPlan GenerateFloor
-        {
-            get
-            {
-                if (_generateFloor == null)
-                    _generateFloor = GetFloorPlanGenerator();
-
-                return _generateFloor;
-            }
-        }
 
         #endregion
 
@@ -80,12 +69,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         }
 
 
-        private FloorPlanGenerating.GenerateFloorPlan GetFloorPlanGenerator() => FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedInitializeRng);
-
-
         private void GenerateFloorImage()
         {
-            var floorPlan = GenerateFloor(seed);
+            var floorPlan = GenerateFloorPlan(completeRoomLoader.All(), FromSeed(seed));
 
             floorImage = GenerateTexture.From(floorPlan, completeRoomLoader);
         }
