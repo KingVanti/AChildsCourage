@@ -40,8 +40,6 @@ namespace AChildsCourage.Game
 
             internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
 
-            internal HashSet<TilePosition> WallPositions { get; } = new HashSet<TilePosition>();
-
             internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
 
             internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
