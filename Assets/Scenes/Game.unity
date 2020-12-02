@@ -2259,11 +2259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileRepository: {fileID: 1954432596}
   groundTilemap: {fileID: 285969144}
   staticTilemap: {fileID: 687412597}
   couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
-  itemPickupSpawner: {fileID: 505810858}
+  couragePickupParent: {fileID: 505810859}
 --- !u!1 &1998610035
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ namespace AChildsCourage.Game
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GameObject couragePickupPrefab;
+        [SerializeField] private Transform couragePickupParent;
 
 #pragma warning restore 649
 
@@ -75,7 +76,7 @@ namespace AChildsCourage.Game
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
-            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity)
+            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity, couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
 
         private void PlaceItemPickups(ItemPickup pickup)
