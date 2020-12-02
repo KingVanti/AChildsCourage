@@ -20,6 +20,8 @@ namespace AChildsCourage.Game.Monsters {
 
         public TilePositionsEvent OnObservingTilesChanged;
 
+        private bool isWatching = false;
+
         #endregion
 
         #region Properties
@@ -89,10 +91,33 @@ namespace AChildsCourage.Game.Monsters {
         IEnumerator Observe(int radius) {
 
             while (IsObserving) {
+
+                if (!isWatching) {
+                    StartCoroutine(Watch(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 1.5f));
+                }
+
                 CurrentlyObservingTilePositions = GetVisibleTilePositions(radius);
                 OnObservingTilesChanged?.Invoke(CurrentlyObservingTilePositions);
                 yield return new WaitForSeconds(1f / updatesPerSecond);
             }
+
+        }
+
+        IEnumerator Watch(Vector3 endRotation, float completionTime) {
+
+            isWatching = true;
+            float elapsedTime = 0;
+            Quaternion startRotation = transform.rotation;
+
+            while (elapsedTime < completionTime) {
+
+                transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(endRotation), (elapsedTime / completionTime));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+
+            }
+
+            isWatching = false;
 
         }
 

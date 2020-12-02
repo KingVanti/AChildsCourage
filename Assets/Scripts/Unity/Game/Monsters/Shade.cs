@@ -124,7 +124,6 @@ namespace AChildsCourage.Game.Monsters
 
             targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
             ai.target = targetTransform;
-            transform.GetChild(0).right = ai.target.position - transform.position;
 
         }
 
