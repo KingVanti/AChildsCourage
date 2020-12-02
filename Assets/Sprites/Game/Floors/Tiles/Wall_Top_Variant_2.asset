@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Wall_Top_Variant_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -6021727649521424144, guid: 39f98de90d7cccb47bf67097f4d4d933, type: 3}
+  m_Sprite: {fileID: -6021727649521424144, guid: 5024cd40f1b571f4cabbca0556eaaaac, type: 3}
   m_Color: {r: 0.6226415, g: 0.55957353, b: 0.4728551, a: 1}
   m_Transform:
     e00: 1
