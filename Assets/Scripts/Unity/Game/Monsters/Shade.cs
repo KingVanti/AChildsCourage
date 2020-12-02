@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
-using UnityEngine;
+using Ninject.Extensions.Unity;
 using Pathfinding;
+using UnityEngine;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
@@ -12,6 +13,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Monsters
 {
 
+    [UseDI]
     public class Shade : MonoBehaviour
     {
         #region Fields
@@ -19,7 +21,6 @@ namespace AChildsCourage.Game.Monsters
         public AIPath ai;
 
 #pragma warning disable 649
-        [SerializeField] private FloorStateKeeper floorStateKeeper;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
         [Header("Stats")][SerializeField] private int touchDamage;
@@ -38,11 +39,13 @@ namespace AChildsCourage.Game.Monsters
 
         #region Properties
 
+        [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
+
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        private FloorState FloorState => floorStateKeeper.CurrentFloorState;
+        private FloorState FloorState => FloorStateKeeper.CurrentFloorState;
 
         private Vector2 MoveVector {
             get {
