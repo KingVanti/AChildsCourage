@@ -1,5 +1,5 @@
 ﻿using System;
-using  static  AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Monsters.Navigation
 {

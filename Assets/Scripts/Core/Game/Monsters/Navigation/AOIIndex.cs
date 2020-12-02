@@ -5,26 +5,17 @@
     {
 
         public static AOIIndex Zero => (AOIIndex) 0;
-        
-        
+
+
         private readonly int value;
 
 
-        private AOIIndex(int value)
-        {
-            this.value = value;
-        }
+        private AOIIndex(int value) => this.value = value;
 
 
-        public static explicit operator AOIIndex(int index)
-        {
-            return new AOIIndex(index);
-        }
+        public static explicit operator AOIIndex(int index) => new AOIIndex(index);
 
-        public static implicit operator int(AOIIndex index)
-        {
-            return index.value;
-        }
+        public static implicit operator int(AOIIndex index) => index.value;
 
     }
 

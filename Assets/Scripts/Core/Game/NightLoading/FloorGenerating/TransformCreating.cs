@@ -15,19 +15,15 @@ namespace AChildsCourage.Game.NightLoading
             return new ChunkTransform(transform.RotationCount, transform.IsMirrored, chunkCorner, chunkCenter);
         }
 
-        internal static TilePosition GetChunkCenter(ChunkPosition chunkPosition)
-        {
-            return new TilePosition(
+        internal static TilePosition GetChunkCenter(ChunkPosition chunkPosition) =>
+            new TilePosition(
                 chunkPosition.X * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent,
                 chunkPosition.Y * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent);
-        }
 
-        internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition)
-        {
-            return new TilePosition(
+        internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition) =>
+            new TilePosition(
                 chunkPosition.X * ChunkPosition.ChunkSize,
                 chunkPosition.Y * ChunkPosition.ChunkSize);
-        }
 
     }
 

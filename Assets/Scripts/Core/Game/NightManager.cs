@@ -30,15 +30,15 @@ namespace AChildsCourage.Game
 
         public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoom, IFloorRecreator floorRecreator)
         {
-            this._loadRunData = loadRunData;
+            _loadRunData = loadRunData;
 
             _loadNight = NightLoading.NightLoading.Make(loadRoom, loadItemIds, floorRecreator);
         }
 
         public NightManager(LoadRunData loadRunData, LoadNight loadNight)
         {
-            this._loadRunData = loadRunData;
-            this._loadNight = loadNight;
+            _loadRunData = loadRunData;
+            _loadNight = loadNight;
         }
 
         #endregion

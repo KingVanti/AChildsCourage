@@ -20,12 +20,10 @@ namespace AChildsCourage.Game.NightLoading
                     .DoIf(mirror, transform.IsMirrored);
         }
 
-        internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner)
-        {
-            return new TilePosition(
+        internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
+            new TilePosition(
                 chunkCorner.X + position.X,
                 chunkCorner.Y + position.Y);
-        }
 
         internal static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
         {

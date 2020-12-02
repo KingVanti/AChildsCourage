@@ -12,15 +12,9 @@
 
         #region Constructors
 
-        public NightData()
-        {
-            Seed = 0;
-        }
+        public NightData() => Seed = 0;
 
-        public NightData(int seed)
-        {
-            Seed = seed;
-        }
+        public NightData(int seed) => Seed = seed;
 
         #endregion
 

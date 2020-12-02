@@ -9,10 +9,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
         public TilePosition Position { get; }
 
 
-        public ItemPickupData(TilePosition position)
-        {
-            Position = position;
-        }
+        public ItemPickupData(TilePosition position) => Position = position;
 
     }
 

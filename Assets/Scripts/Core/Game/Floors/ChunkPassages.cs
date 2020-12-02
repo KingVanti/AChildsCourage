@@ -68,14 +68,12 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        public override bool Equals(object obj)
-        {
-            return obj is ChunkPassages passages &&
-                   HasNorth == passages.HasNorth &&
-                   HasEast == passages.HasEast &&
-                   HasSouth == passages.HasSouth &&
-                   HasWest == passages.HasWest;
-        }
+        public override bool Equals(object obj) =>
+            obj is ChunkPassages passages &&
+            HasNorth == passages.HasNorth &&
+            HasEast == passages.HasEast &&
+            HasSouth == passages.HasSouth &&
+            HasWest == passages.HasWest;
 
 
         public override int GetHashCode()

@@ -29,15 +29,9 @@ namespace AChildsCourage.Game.Floors
 
         #region Methods
 
-        public IEnumerator<RoomPassages> GetEnumerator()
-        {
-            return passages.GetEnumerator();
-        }
+        public IEnumerator<RoomPassages> GetEnumerator() => passages.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return passages.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => passages.GetEnumerator();
 
         #endregion
 

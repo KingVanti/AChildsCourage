@@ -12,10 +12,7 @@ namespace AChildsCourage
         public delegate float CalculateWeight<T>(T element);
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRNG createRng)
-        {
-            return GetWeightedRandom(calculateWeight, createRng, elements);
-        }
+        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRNG createRng) => GetWeightedRandom(calculateWeight, createRng, elements);
 
 
         public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRNG createRng, IEnumerable<T> elements)
@@ -46,16 +43,10 @@ namespace AChildsCourage
             return elements.Select(o => AttachWeight(o, calculateWeight));
         }
 
-        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight)
-        {
-            return new Weighted<T>(element, calculateWeight(element));
-        }
+        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => new Weighted<T>(element, calculateWeight(element));
 
 
-        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRNG createRng)
-        {
-            return GetRandom(createRng, elements);
-        }
+        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRNG createRng) => GetRandom(createRng, elements);
 
 
         public static T GetRandom<T>(CreateRNG createRng, IEnumerable<T> elements)

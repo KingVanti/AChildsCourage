@@ -7,18 +7,12 @@ namespace AChildsCourage.Game.Floors
     public static class PassageGenerating
     {
 
-        public static IEnumerable<RoomPassages> GetPassageVariations(this RoomData roomData)
-        {
-            return
-                roomData
-                    .GetBasePassages()
-                    .GetVariations();
-        }
+        public static IEnumerable<RoomPassages> GetPassageVariations(this RoomData roomData) =>
+            roomData
+                .GetBasePassages()
+                .GetVariations();
 
-        public static RoomPassages GetBasePassages(this RoomData roomData)
-        {
-            return new RoomPassages(roomData.Id, roomData.Passages, 0, false, roomData.Type);
-        }
+        public static RoomPassages GetBasePassages(this RoomData roomData) => new RoomPassages(roomData.Id, roomData.Passages, 0, false, roomData.Type);
 
 
         public static IEnumerable<RoomPassages> GetVariations(this RoomPassages room)
@@ -32,15 +26,9 @@ namespace AChildsCourage.Game.Floors
             }
         }
 
-        public static RoomPassages Mirror(this RoomPassages passages)
-        {
-            return new RoomPassages(passages.Id, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
-        }
+        public static RoomPassages Mirror(this RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
 
-        public static RoomPassages Rotate(this RoomPassages passages)
-        {
-            return new RoomPassages(passages.Id, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
-        }
+        public static RoomPassages Rotate(this RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
 
     }
 

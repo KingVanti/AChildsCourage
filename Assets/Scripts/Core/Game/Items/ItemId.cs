@@ -7,27 +7,15 @@
         private readonly int value;
 
 
-        private ItemId(int value)
-        {
-            this.value = value;
-        }
+        private ItemId(int value) => this.value = value;
 
 
-        public override string ToString()
-        {
-            return value.ToString();
-        }
+        public override string ToString() => value.ToString();
 
 
-        public static explicit operator ItemId(int id)
-        {
-            return new ItemId(id);
-        }
+        public static explicit operator ItemId(int id) => new ItemId(id);
 
-        public static implicit operator int(ItemId id)
-        {
-            return id.value;
-        }
+        public static implicit operator int(ItemId id) => id.value;
 
     }
 

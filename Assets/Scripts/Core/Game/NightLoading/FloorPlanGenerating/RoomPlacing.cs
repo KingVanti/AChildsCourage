@@ -48,17 +48,12 @@ namespace AChildsCourage.Game.NightLoading
             return !isReserved && isEmpty && isConnected;
         }
 
-        internal static bool HasReserved(this FloorPlanInProgress floorPlan, ChunkPosition position)
-        {
-            return floorPlan.ReservedChunks.Contains(position);
-        }
+        internal static bool HasReserved(this FloorPlanInProgress floorPlan, ChunkPosition position) => floorPlan.ReservedChunks.Contains(position);
 
-        internal static bool AnyPassagesLeadInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
-        {
-            return floorPlan.GetPassagesInto(position)
-                            .Count >
-                   0;
-        }
+        internal static bool AnyPassagesLeadInto(this FloorPlanInProgress floorPlan, ChunkPosition position) =>
+            floorPlan.GetPassagesInto(position)
+                     .Count >
+            0;
 
         private static ChunkPassages GetPassagesInto(this FloorPlanInProgress floorPlan, ChunkPosition position)
         {
@@ -85,10 +80,7 @@ namespace AChildsCourage.Game.NightLoading
                     .Map(roomAtPosition.Passages.Has);
         }
 
-        private static RoomPassages GetPassagesAt(this FloorPlanInProgress floorPlan, ChunkPosition position)
-        {
-            return floorPlan.RoomsByChunks[position];
-        }
+        private static RoomPassages GetPassagesAt(this FloorPlanInProgress floorPlan, ChunkPosition position) => floorPlan.RoomsByChunks[position];
 
     }
 

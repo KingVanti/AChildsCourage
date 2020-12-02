@@ -30,10 +30,7 @@ namespace AChildsCourage.Game.NightLoading
             return pickup.With(newPosition);
         }
 
-        internal static CouragePickupData With(this CouragePickupData pickup, TilePosition position)
-        {
-            return new CouragePickupData(position, pickup.Variant);
-        }
+        internal static CouragePickupData With(this CouragePickupData pickup, TilePosition position) => new CouragePickupData(position, pickup.Variant);
 
         internal static void PlacePickup(CouragePickupData pickup, FloorInProgress floor)
         {

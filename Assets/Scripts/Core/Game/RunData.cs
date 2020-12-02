@@ -12,15 +12,9 @@
 
         #region Constructors
 
-        public RunData()
-        {
-            CurrentNight = null;
-        }
+        public RunData() => CurrentNight = null;
 
-        public RunData(NightData currentNight)
-        {
-            CurrentNight = currentNight;
-        }
+        public RunData(NightData currentNight) => CurrentNight = currentNight;
 
         #endregion
 

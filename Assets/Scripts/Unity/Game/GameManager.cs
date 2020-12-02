@@ -9,7 +9,7 @@ namespace AChildsCourage.Unity
     {
 
         public UnityEvent onNightPrepared;
-        
+
         [AutoInject] public INightManager NightManager { private get; set; }
 
 

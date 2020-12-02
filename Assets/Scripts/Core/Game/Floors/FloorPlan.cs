@@ -18,15 +18,9 @@
 
         #region Constructors
 
-        public FloorPlan()
-        {
-            Rooms = new RoomPlan[0];
-        }
+        public FloorPlan() => Rooms = new RoomPlan[0];
 
-        public FloorPlan(RoomPlan[] rooms)
-        {
-            Rooms = rooms;
-        }
+        public FloorPlan(RoomPlan[] rooms) => Rooms = rooms;
 
         #endregion
 

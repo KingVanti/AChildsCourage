@@ -130,7 +130,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
 
-        
+
         public readonly struct Investigation
         {
 
