@@ -1949,7 +1949,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1891232475}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.NavigationMap, AChildsCourage.Unity
         m_MethodName: ScanLevel
         m_Mode: 1
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1891232474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8ea88908f425d4d9ec731cce5e12f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 30a2a5a15b5752945b38be9b9df620d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   astarPath: {fileID: 1891232476}
