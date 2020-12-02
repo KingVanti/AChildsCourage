@@ -6,10 +6,8 @@ using UnityEngine;
 namespace AChildsCourage
 {
 
-    internal static class Lerper
+    internal static class MLerper
     {
-
-        #region Methods
 
         internal static IEnumerator StepLerp(Action<float> stepFunction, float stepSize)
         {
@@ -50,8 +48,6 @@ namespace AChildsCourage
 
             onLerpCompleted?.Invoke();
         }
-
-        #endregion
 
     }
 
