@@ -34,8 +34,12 @@ namespace Ninject.Extensions.Unity
 
         private static void Register(IKernel kernel, MonoBehaviour behaviour, string eventBrokerName)
         {
+#pragma warning disable 1701, 1702
+            
             kernel.Bind(behaviour.GetType()).ToConstant(behaviour).RegisterOnEventBroker(eventBrokerName);
             _ = kernel.Get(behaviour.GetType());
+            
+#pragma warning restore 1701, 1702
         }
 
     }
