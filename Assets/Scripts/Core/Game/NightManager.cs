@@ -3,7 +3,6 @@ using AChildsCourage.Game.Floors.RoomPersistance;
 using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.NightRecreating;
 using static AChildsCourage.Game.Persistance.MRunData;
-using static AChildsCourage.RNG;
 using static AChildsCourage.Game.FloorGenerating;
 using static AChildsCourage.Game.FloorPlanGenerating;
 
@@ -31,8 +30,8 @@ namespace AChildsCourage.Game
         public void PrepareNightForCurrentRun()
         {
             loadRunData()
-                .Map(runData => StartNight(runData, New()))
-                .Map(nightData => GenerateFloorPlan(roomData, FromSeed(nightData.Seed)))
+                .Map(runData => StartNight(runData, RNG.New()))
+                .Map(nightData => GenerateFloorPlan(roomData, RNG.FromSeed(nightData.Seed)))
                 .Map(floorPlan => GenerateFloor(floorPlan, itemIds, roomData))
                 .Do(recreateNight.Invoke);
         }
