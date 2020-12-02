@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
@@ -14,7 +15,7 @@ namespace AChildsCourage.Game
         {
             return nightData =>
             {
-                var roomData = loadRoomData();
+                var roomData = loadRoomData().ToArray();
                 var itemIds = loadItemIds();
 
                 var rngInitializer = SeedBasedInitializeRng;
