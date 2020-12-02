@@ -1,5 +1,6 @@
 ﻿using AChildsCourage.Game.Persistance;
 using NUnit.Framework;
+using static AChildsCourage.Game.MNightPreparation;
 
 namespace AChildsCourage.Game
 {
@@ -17,9 +18,9 @@ namespace AChildsCourage.Game
             LoadRunData loadRunData = () => new RunData(nightData);
 
             var calledTimes = 0;
-            LoadNight loadNight = _ => calledTimes++;
+            PrepareNight prepareNight = _ => calledTimes++;
 
-            var nightManager = new NightManager(loadRunData, loadNight);
+            var nightManager = new NightManager(loadRunData, prepareNight);
 
             // When
 

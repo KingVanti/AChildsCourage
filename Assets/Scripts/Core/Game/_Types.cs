@@ -9,6 +9,4 @@ namespace AChildsCourage.Game
 
     public delegate IEnumerable<ItemId> LoadItemIds();
 
-    public delegate void LoadNight(NightData data);
-
 }

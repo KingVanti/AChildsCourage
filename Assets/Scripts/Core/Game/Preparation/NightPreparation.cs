@@ -8,7 +8,9 @@ namespace AChildsCourage.Game
     public static class MNightPreparation
     {
 
-        public static LoadNight Make(LoadRoomData loadRoomData, LoadItemIds loadItemIds, IFloorRecreator floorRecreator)
+        public delegate void PrepareNight(NightData data);
+        
+        public static PrepareNight Make(LoadRoomData loadRoomData, LoadItemIds loadItemIds, IFloorRecreator floorRecreator)
         {
             return nightData =>
             {

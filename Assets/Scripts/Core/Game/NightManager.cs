@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
+using  static  AChildsCourage.Game.MNightPreparation;
 
 namespace AChildsCourage.Game
 {
@@ -11,17 +12,17 @@ namespace AChildsCourage.Game
 
         public void PrepareNight()
         {
-            _loadRunData()
+            loadRunData()
                 .Map(d => d.CurrentNight)
-                .Do(_loadNight.Invoke);
+                .Do(prepareNight.Invoke);
         }
 
         #endregion
 
         #region Fields
 
-        private readonly LoadRunData _loadRunData;
-        private readonly LoadNight _loadNight;
+        private readonly LoadRunData loadRunData;
+        private readonly PrepareNight prepareNight;
 
         #endregion
 
@@ -29,15 +30,15 @@ namespace AChildsCourage.Game
 
         public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoom, IFloorRecreator floorRecreator)
         {
-            _loadRunData = loadRunData;
+            this.loadRunData = loadRunData;
 
-            _loadNight = MNightPreparation.Make(loadRoom, loadItemIds, floorRecreator);
+            prepareNight = Make(loadRoom, loadItemIds, floorRecreator);
         }
 
-        public NightManager(LoadRunData loadRunData, LoadNight loadNight)
+        public NightManager(LoadRunData loadRunData, PrepareNight prepareNight)
         {
-            _loadRunData = loadRunData;
-            _loadNight = loadNight;
+            this.loadRunData = loadRunData;
+            this.prepareNight = prepareNight;
         }
 
         #endregion
