@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using AChildsCourage.Game.Floors.RoomPersistance;
-using static AChildsCourage.F;
+﻿using static AChildsCourage.F;
+using static AChildsCourage.Game.FloorGenerating;
+using static AChildsCourage.Game.FloorPlanGenerating;
 using static AChildsCourage.Game.MNightData;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Game.NightRecreating;
 
 namespace AChildsCourage.Game
 {
@@ -10,27 +10,14 @@ namespace AChildsCourage.Game
     public static class MNightPreparation
     {
 
-        public delegate void PrepareNight(NightData data);
-        
-        public static PrepareNight Make(LoadRoomData loadRoomData, LoadItemIds loadItemIds, IFloorRecreator floorRecreator)
-        {
-            return nightData =>
-            {
-                var roomData = loadRoomData().ToArray();
-                var itemIds = loadItemIds();
-
-                var rngInitializer = SeedBasedInitializeRng;
-
-                var floorPlanGenerator = FloorPlanGenerating.Make(roomData, rngInitializer);
-                var floorGenerator = FloorGenerating.Make(itemIds, roomData);
-                var nightRecreator = NightRecreating.Make(floorRecreator);
-
+        internal static PrepareNight PrepareNightWithRandomFloor(GenerateFloorPlan generateFloorPlan, GenerateFloor generateFloor, RecreateNight recreateNight) =>
+            nightData =>
                 Take(nightData.Seed)
-                    .Map(floorPlanGenerator.Invoke)
-                    .Map(floorGenerator.Invoke)
-                    .Do(nightRecreator.Invoke);
-            };
-        }
+                    .Map(generateFloorPlan.Invoke)
+                    .Map(generateFloor.Invoke)
+                    .Do(recreateNight.Invoke);
+
+        internal delegate void PrepareNight(NightData data);
 
     }
 

@@ -1,6 +1,8 @@
-﻿using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistance;
 using AChildsCourage.Game.Persistance;
 using static AChildsCourage.Game.MNightPreparation;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
@@ -14,7 +16,7 @@ namespace AChildsCourage.Game
         public void PrepareNight()
         {
             loadRunData()
-                .Map(d => MRunData.StartNight(d, RNG.New()))
+                .Map(d => MRunData.StartNight(d, New()))
                 .Do(prepareNight.Invoke);
         }
 
@@ -29,11 +31,19 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoom, IFloorRecreator floorRecreator)
+        public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
         {
             this.loadRunData = loadRunData;
+            var roomData = loadRoomData().ToArray();
+            var itemIds = loadItemIds();
 
-            prepareNight = Make(loadRoom, loadItemIds, floorRecreator);
+            var rngInitializer = SeedBasedInitializeRng;
+
+            var generateFloorPlan = FloorPlanGenerating.Make(roomData, rngInitializer);
+            var generateFloor = FloorGenerating.Make(itemIds, roomData);
+            var recreateNight = NightRecreating.Make(floorRecreator);
+
+            prepareNight = PrepareNightWithRandomFloor(generateFloorPlan, generateFloor, recreateNight);
         }
 
         public NightManager(LoadRunData loadRunData, PrepareNight prepareNight)
