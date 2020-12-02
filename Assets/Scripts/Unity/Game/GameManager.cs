@@ -1,16 +1,12 @@
-﻿using UnityEngine;
-
-namespace AChildsCourage.Unity
+﻿namespace AChildsCourage.Unity
 {
 
-    public class GameManager : MonoBehaviour
+    public class GameManager : SceneManager
     {
-
-        [SerializeField] private SceneManager sceneManager;
 
         public void OnLose()
         {
-            sceneManager.LoadSceneWith(SceneNames.GameScene);
+            LoadSceneWith(SceneNames.GameScene);
         }
 
     }

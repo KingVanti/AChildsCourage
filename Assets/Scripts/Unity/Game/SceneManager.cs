@@ -8,13 +8,8 @@ namespace AChildsCourage
     public class SceneManager : MonoBehaviour
     {
 
-        #region Fields
-
         public UnityEvent onSceneLoaded;
 
-        #endregion
-
-        #region Methods
 
         private void Awake()
         {
@@ -27,12 +22,11 @@ namespace AChildsCourage
             onSceneLoaded.Invoke();
         }
 
-        public void LoadSceneWith(string name)
+        
+        protected void LoadSceneWith(string sceneName)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         }
-
-        #endregion
 
     }
 
