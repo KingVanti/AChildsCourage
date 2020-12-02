@@ -15,11 +15,9 @@ namespace AChildsCourage.Game
         internal const int GoalRoomCount = 15;
 
         
-        public static FloorPlan GenerateFloorPlan(IEnumerable<RoomData> roomData, CreateRNG rng)
+        public static FloorPlan GenerateFloorPlan(GenerationParameters parameters, CreateRNG rng)
         {
-            var allPassages = roomData.SelectMany(r => r.GetPassageVariations());
-
-            Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, allPassages, fpip);
+            Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, parameters.Passages, fpip);
 
             return
                 Take(new FloorPlanInProgress())

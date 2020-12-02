@@ -9,6 +9,17 @@ namespace AChildsCourage.Game
     public static partial class MFloorPlanGenerating
     {
 
+        public  readonly struct GenerationParameters
+        {
+            
+            public RoomPassages[] Passages { get; }
+            
+            
+            public GenerationParameters(RoomPassages[] passages) => Passages = passages;
+
+        }
+        
+        
         public enum GenerationPhase
         {
 
