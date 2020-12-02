@@ -17,8 +17,12 @@ namespace AChildsCourage.Game.NightLoading
         #region Properties
 
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
-        
+
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
+
+        [AutoInject] public TileRepository TileRepository { private get; set; }
+
+        [AutoInject] public ItemPickupSpawner ItemPickupSpawner { private get; set; }
 
         #endregion
 
@@ -26,11 +30,9 @@ namespace AChildsCourage.Game.NightLoading
 
 #pragma warning disable 649
 
-        [SerializeField] private TileRepository tileRepository;
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GameObject couragePickupPrefab;
-        [SerializeField] private ItemPickupSpawner itemPickupSpawner;
 
 #pragma warning restore 649
 
@@ -48,17 +50,17 @@ namespace AChildsCourage.Game.NightLoading
 
         private void PlaceGround(GroundTile groundTile)
         {
-            var tile = tileRepository.GetGroundTile();
+            var tile = TileRepository.GetGroundTile();
             var position = groundTile.Position.ToVector3Int();
 
             groundTilemap.SetTile(position, tile);
-            
+
             FloorStateKeeper.OnGroundTilePlaced(groundTile);
         }
 
         private void PlaceWall(Wall wall)
         {
-            var tile = tileRepository.GetWallTileFor(wall);
+            var tile = TileRepository.GetWallTileFor(wall);
             var position = wall.Position.ToVector3Int();
 
             staticTilemap.SetTile(position, tile);
@@ -72,17 +74,15 @@ namespace AChildsCourage.Game.NightLoading
             entity.SetCouragePickupData(pickupData);
         }
 
-        private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition)
-        {
-            return Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity)
+        private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
+            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity)
                 .GetComponent<CouragePickupEntity>();
-        }
 
         private void PlaceItemPickups(ItemPickup pickup)
         {
             var position = pickup.Position.ToVector3();
 
-            itemPickupSpawner.SpawnPickupFor(pickup.ItemId, position);
+            ItemPickupSpawner.SpawnPickupFor(pickup.ItemId, position);
         }
 
         #endregion

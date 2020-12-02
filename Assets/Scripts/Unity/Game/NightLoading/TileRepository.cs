@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.RNG;
@@ -6,6 +7,7 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game.NightLoading
 {
 
+    [UseDI]
     public class TileRepository : MonoBehaviour
     {
 
@@ -19,7 +21,7 @@ namespace AChildsCourage.Game.NightLoading
 
 #pragma warning restore 649
 
-        private readonly CreateRNG _createRng = FromSeed(0);
+        private readonly CreateRNG createRng = FromSeed(0);
 
         #endregion
 
@@ -27,7 +29,7 @@ namespace AChildsCourage.Game.NightLoading
 
         public Tile GetGroundTile()
         {
-            return groundTiles.GetTile(_createRng);
+            return groundTiles.GetTile(createRng);
         }
 
 
@@ -35,8 +37,8 @@ namespace AChildsCourage.Game.NightLoading
         {
             return
                 wall.Type == WallType.Side
-                    ? wallSideTiles.GetTile(_createRng)
-                    : wallTopTiles.GetTile(_createRng);
+                    ? wallSideTiles.GetTile(createRng)
+                    : wallTopTiles.GetTile(createRng);
         }
 
         #endregion
