@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRadius: 7
   visionAngle: 90
+  rotationSpeed: 0
   updatesPerSecond: 5
   wallLayer:
     serializedVersion: 2
@@ -5069,7 +5070,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 3696624342232356208}
-  floorStateKeeper: {fileID: 0}
   rb: {fileID: 3421516115218180208}
   seeker: {fileID: 5749346845843882517}
   touchDamage: 1
