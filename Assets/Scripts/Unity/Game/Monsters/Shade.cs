@@ -57,10 +57,7 @@ namespace AChildsCourage.Game.Monsters
         #endregion
 
         #region Methods
-
-        private void Awake() {
-            Invoke(nameof(StartInvestigation), 1f);
-        }
+        
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
         {
@@ -77,12 +74,12 @@ namespace AChildsCourage.Game.Monsters
             StartInvestigation();
         }
 
-
-        private void StartInvestigation()
+        public void StartInvestigation()
         {
             investigationCoroutine = StartCoroutine(Investigate());
         }
 
+        
         private void CancelInvestigation()
         {
             if (investigationCoroutine != null)
