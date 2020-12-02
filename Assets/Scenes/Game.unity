@@ -543,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: floorStateKeeper
       value: 
-      objectReference: {fileID: 503161867}
+      objectReference: {fileID: 0}
     - target: {fileID: 8622197865602991348, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: floorStateKeeper
       value: 
@@ -592,9 +592,6 @@ GameObject:
   m_Component:
   - component: {fileID: 503161871}
   - component: {fileID: 503161870}
-  - component: {fileID: 503161869}
-  - component: {fileID: 503161868}
-  - component: {fileID: 503161867}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -602,65 +599,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!114 &503161867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503161866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597cd2a8557f2354faf0f923cadbff1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &503161868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503161866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc374aee99a93745a92800ed88edfea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: 9d3e061c3597c854f92173dbea7f799d, type: 2}
-    _variants:
-    - {fileID: 11400000, guid: 00e40060c36f4e94eba83d606f926d68, type: 2}
-    - {fileID: 11400000, guid: 4c221a60abe8e174087af358445f7874, type: 2}
-  wallSideTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
-    _variants:
-    - {fileID: 11400000, guid: 0473d0e8f96c608469653d0b890a6879, type: 2}
-    - {fileID: 11400000, guid: 5c9f2df03d3b0424aa1e527eccc00ad9, type: 2}
-  wallTopTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: ced51251e36120c4e95e51a74d1e1b82, type: 2}
-    _variants:
-    - {fileID: 11400000, guid: 7587d3a44e680b64189a6fc4498b1094, type: 2}
-    - {fileID: 11400000, guid: 2781a482b7c310d4389832fadb125ee1, type: 2}
---- !u!114 &503161869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503161866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileRepository: {fileID: 503161868}
-  groundTilemap: {fileID: 285969144}
-  staticTilemap: {fileID: 687412597}
-  couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
-  itemPickupSpawner: {fileID: 505810858}
 --- !u!156049354 &503161870
 Grid:
   m_ObjectHideFlags: 0
@@ -719,7 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
-  pickupContainer: {fileID: 505810859}
   itemIcons:
   - {fileID: 11400000, guid: 0098f7c911cdea641bd16bf392dc1581, type: 2}
 --- !u!4 &505810859
@@ -2242,6 +2179,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954432594}
+  - component: {fileID: 1954432597}
+  - component: {fileID: 1954432596}
+  - component: {fileID: 1954432595}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -2265,6 +2205,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1954432595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954432593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597cd2a8557f2354faf0f923cadbff1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1954432596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954432593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc374aee99a93745a92800ed88edfea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTiles:
+    _variantProb: 5
+    _baseTile: {fileID: 11400000, guid: 9d3e061c3597c854f92173dbea7f799d, type: 2}
+    _variants:
+    - {fileID: 11400000, guid: 00e40060c36f4e94eba83d606f926d68, type: 2}
+    - {fileID: 11400000, guid: 4c221a60abe8e174087af358445f7874, type: 2}
+  wallSideTiles:
+    _variantProb: 5
+    _baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
+    _variants:
+    - {fileID: 11400000, guid: 0473d0e8f96c608469653d0b890a6879, type: 2}
+    - {fileID: 11400000, guid: 5c9f2df03d3b0424aa1e527eccc00ad9, type: 2}
+  wallTopTiles:
+    _variantProb: 5
+    _baseTile: {fileID: 11400000, guid: ced51251e36120c4e95e51a74d1e1b82, type: 2}
+    _variants:
+    - {fileID: 11400000, guid: 7587d3a44e680b64189a6fc4498b1094, type: 2}
+    - {fileID: 11400000, guid: 2781a482b7c310d4389832fadb125ee1, type: 2}
+--- !u!114 &1954432597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954432593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileRepository: {fileID: 1954432596}
+  groundTilemap: {fileID: 285969144}
+  staticTilemap: {fileID: 687412597}
+  couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
+  itemPickupSpawner: {fileID: 505810858}
 --- !u!1 &1998610035
 GameObject:
   m_ObjectHideFlags: 0
