@@ -23,7 +23,7 @@ namespace AChildsCourage.Game
             itemIds = loadItemIds().ToArray();
             recreateNight = Make(floorRecreator);
 
-            floorPlanGenerationParametes = new GenerationParameters(
+            floorPlanGenerationParameters = new GenerationParameters(
                 roomData.SelectMany(d => d.GetPassageVariations()).ToArray());
         }
 
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game
         {
             loadRunData()
                 .Map(runData => StartNight(runData, RNG.New()))
-                .Map(nightData => GenerateFloorPlan(floorPlanGenerationParametes, RNG.FromSeed(nightData.Seed)))
+                .Map(nightData => GenerateFloorPlan(floorPlanGenerationParameters, RNG.FromSeed(nightData.Seed)))
                 .Map(floorPlan => GenerateFloor(floorPlan, itemIds, roomData))
                 .Do(recreateNight.Invoke);
         }
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        private readonly GenerationParameters floorPlanGenerationParametes;
+        private readonly GenerationParameters floorPlanGenerationParameters;
         private readonly LoadRunData loadRunData;
         private readonly RoomData[] roomData;
         private readonly ItemId[] itemIds;
