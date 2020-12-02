@@ -85,7 +85,8 @@ namespace AChildsCourage.Game.Monsters
 
         private void CancelInvestigation()
         {
-            StopCoroutine(investigationCoroutine);
+            if (investigationCoroutine != null)
+                StopCoroutine(investigationCoroutine);
             investigationCoroutine = null;
         }
 
