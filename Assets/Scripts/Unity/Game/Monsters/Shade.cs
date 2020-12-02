@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
 using Ninject.Extensions.Unity;
@@ -30,7 +31,7 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private Transform targetTransform;
 #pragma warning restore 649
 
-        private IEnumerable<TilePosition> currentTilesInVision;
+        private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
 
         private Coroutine investigationCoroutine;
