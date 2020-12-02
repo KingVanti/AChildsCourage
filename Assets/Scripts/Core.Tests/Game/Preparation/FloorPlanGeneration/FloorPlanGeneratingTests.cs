@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Game.FloorPlanGenerating;
+using static AChildsCourage.Game.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game
 {

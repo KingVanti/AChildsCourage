@@ -7,7 +7,7 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game
 {
 
-    public static partial class FloorPlanGenerating
+    public static partial class MFloorPlanGenerating
     {
 
         internal static FloorPlanInProgress PlaceRoom(FloorPlanInProgress floorPlan, RoomInChunk roomInChunk)

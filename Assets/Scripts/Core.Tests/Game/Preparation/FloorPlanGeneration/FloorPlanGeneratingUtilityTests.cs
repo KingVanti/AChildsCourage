@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors;
 using NUnit.Framework;
-using static AChildsCourage.Game.FloorPlanGenerating;
+using static AChildsCourage.Game.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game
 {

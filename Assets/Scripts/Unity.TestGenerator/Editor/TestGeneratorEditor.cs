@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.Game.FloorPlanGenerating;
+using static AChildsCourage.Game.MFloorPlanGenerating;
 using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Floors.TestGenerator

@@ -4,7 +4,7 @@ using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.NightRecreating;
 using static AChildsCourage.Game.Persistance.MRunData;
 using static AChildsCourage.Game.FloorGenerating;
-using static AChildsCourage.Game.FloorPlanGenerating;
+using static AChildsCourage.Game.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game
 {

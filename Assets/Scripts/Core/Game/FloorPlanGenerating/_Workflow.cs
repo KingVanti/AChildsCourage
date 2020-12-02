@@ -9,7 +9,7 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game
 {
 
-    public static partial class FloorPlanGenerating
+    public static partial class MFloorPlanGenerating
     {
 
         internal const int GoalRoomCount = 15;

@@ -6,7 +6,7 @@ using static AChildsCourage.RNG;
 namespace AChildsCourage.Game
 {
 
-    public static partial class FloorPlanGenerating
+    public static partial class MFloorPlanGenerating
     {
 
         public enum GenerationPhase
