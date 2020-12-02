@@ -16,9 +16,7 @@ namespace AChildsCourage.Game.Monsters
     {
         #region Fields
 
-        public Path path;
-        public AIBase aiBase;
-        public AIPath aiPath;
+        public AIPath ai;
 
 #pragma warning disable 649
         [SerializeField] private FloorStateKeeper floorStateKeeper;
@@ -35,9 +33,6 @@ namespace AChildsCourage.Game.Monsters
         private InvestigationHistory investigationHistory = Empty;
 
         private Coroutine investigationCoroutine;
-        private int currentWaypoint = 0;
-        private float nextWaypointDistance = 1f;
-        private bool reachedEndOfPath = false;
 
         #endregion
 
@@ -96,6 +91,7 @@ namespace AChildsCourage.Game.Monsters
 
         private IEnumerator Investigate()
         {
+
             var investigation = StartNew(FloorState, CurrentState, RNG.New());
 
             var currentTarget = NextTarget(investigation, Position);
@@ -108,7 +104,6 @@ namespace AChildsCourage.Game.Monsters
                 var newTarget = NextTarget(investigation, Position);
                 if (!newTarget.Equals(currentTarget)) {
                     SetPathFinderTarget(newTarget);
-                    aiPath.SearchPath();
                     currentTarget = newTarget;
                 }
 
@@ -124,12 +119,12 @@ namespace AChildsCourage.Game.Monsters
 
         private void SetPathFinderTarget(TilePosition tilePosition)
         {
-            //targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
-            aiPath.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
-            //Vector3 deltaPos = aiPath.desiredVelocity - transform.position;
-            //transform.GetChild(0).right = 
-        }
 
+            targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
+            ai.target = targetTransform;
+            transform.GetChild(0).right = ai.target.position - transform.position;
+
+        }
 
         private void OnDestroy() {
             CancelInvestigation();

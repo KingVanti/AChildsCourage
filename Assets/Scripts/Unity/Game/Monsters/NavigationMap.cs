@@ -10,9 +10,13 @@ namespace AChildsCourage.Game.Monsters {
         private NavGraph[] navigationGraph;
 
         public void ScanLevel() {
-            navigationGraph = astarPath.graphs;
-            Debug.Log(navigationGraph[0]);
-            astarPath.Scan(navigationGraph[0]);
+
+            Invoke(nameof(Scan), 1f);
+
+        }
+
+        private void Scan() {
+            astarPath.Scan(astarPath.graphs[0]);
         }
 
     }
