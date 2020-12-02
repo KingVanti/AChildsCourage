@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436321326}
-  - component: {fileID: 6734576686695532955}
+  - component: {fileID: 5333079100355304299}
   m_Layer: 10
   m_Name: Vision
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 537825537936044895}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6734576686695532955
+--- !u!114 &5333079100355304299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d738ae569d6680d4bb56ff84a09aa382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 10
+  visionRadius: 6
   visionAngle: 90
   updatesPerSecond: 5
   wallLayer:
@@ -52,7 +52,7 @@ MonoBehaviour:
   OnObservingTilesChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1246519846564227323}
+      - m_Target: {fileID: 8622197865602991348}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
         m_MethodName: OnTilesInVisionChanged
         m_Mode: 0
@@ -79,7 +79,9 @@ GameObject:
   - component: {fileID: 1496831347808597378}
   - component: {fileID: 994853314461636515}
   - component: {fileID: 462774780128903143}
-  - component: {fileID: 1246519846564227323}
+  - component: {fileID: 5749346845843882517}
+  - component: {fileID: 3696624342232356208}
+  - component: {fileID: 8622197865602991348}
   m_Layer: 10
   m_Name: Shade
   m_TagString: Shade
@@ -95,10 +97,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537825537936044892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8631647, y: -1.5990208, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1436321326}
+  - {fileID: 170430879650614514}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,10 +206,10 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 2974c05eaf94e4a4dbf28a015687072f, type: 2}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
 --- !u!198 &994853314461636515
@@ -4989,7 +4992,71 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1246519846564227323
+--- !u!114 &5749346845843882517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 1
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &3696624342232356208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 2
+  radius: 0.8
+  height: 2
+  repathRate: 0.5
+  canSearch: 1
+  canMove: 1
+  maxSpeed: 2
+  gravity: {x: NaN, y: NaN, z: NaN}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  orientation: 1
+  enableRotation: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0
+--- !u!114 &8622197865602991348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5001,8 +5068,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544cc20cc1ad3884c8a8697aa124f240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiBase: {fileID: 3696624342232356208}
+  aiPath: {fileID: 3696624342232356208}
   floorStateKeeper: {fileID: 0}
+  rb: {fileID: 3421516115218180208}
+  seeker: {fileID: 5749346845843882517}
   touchDamage: 1
   attackDamage: 2
   movementSpeed: 2
-  investigationUpdatesPerSecond: 3
+  investigationUpdatesPerSecond: 5
+  targetTransform: {fileID: 170430879650614514}
+--- !u!1 &4633493951647504544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 170430879650614514}
+  m_Layer: 10
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &170430879650614514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633493951647504544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 537825537936044895}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
