@@ -14,6 +14,9 @@ namespace AChildsCourage.Game
     internal static partial class FloorGenerating
     {
 
+        internal delegate Floor GenerateFloor(FloorPlan floorPlan);
+        
+        
         internal static GenerateFloor Make(IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
         {
             return floorPlan =>
