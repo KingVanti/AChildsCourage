@@ -20,7 +20,6 @@ namespace AChildsCourage.Game.Items.Pickups
 #pragma warning disable 649
 
         [SerializeField] private GameObject pickupPrefab;
-        [SerializeField] private Transform pickupContainer;
         [SerializeField] private ItemIcon[] itemIcons;
 
 #pragma warning restore 649
@@ -40,7 +39,7 @@ namespace AChildsCourage.Game.Items.Pickups
 
         private ItemPickupEntity SpawnItemPickup(Vector3 position)
         {
-            var itemGameObject = Instantiate(pickupPrefab, position, Quaternion.identity, pickupContainer);
+            var itemGameObject = Instantiate(pickupPrefab, position, Quaternion.identity, transform);
             return itemGameObject.GetComponent<ItemPickupEntity>();
         }
 
