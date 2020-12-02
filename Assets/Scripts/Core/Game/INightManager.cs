@@ -6,7 +6,7 @@
 
         #region Methods
 
-        void PrepareNight();
+        void PrepareNightForCurrentRun();
 
         #endregion
 

@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistance;
-using AChildsCourage.Game.Persistance;
-using static AChildsCourage.Game.MNightPreparation;
+using AChildsCourage.Game.Items;
+using static AChildsCourage.Game.NightRecreating;
+using static AChildsCourage.Game.Persistance.MRunData;
 using static AChildsCourage.RNG;
+using static AChildsCourage.Game.FloorGenerating;
+using static AChildsCourage.Game.FloorPlanGenerating;
 
 namespace AChildsCourage.Game
 {
@@ -11,13 +14,27 @@ namespace AChildsCourage.Game
     internal class NightManager : INightManager
     {
 
+        #region Constructors
+
+        public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
+        {
+            this.loadRunData = loadRunData;
+            roomData = loadRoomData().ToArray();
+            itemIds = loadItemIds().ToArray();
+            recreateNight = Make(floorRecreator);
+        }
+
+        #endregion
+
         #region Methods
 
-        public void PrepareNight()
+        public void PrepareNightForCurrentRun()
         {
             loadRunData()
-                .Map(d => MRunData.StartNight(d, New()))
-                .Do(prepareNight.Invoke);
+                .Map(runData => StartNight(runData, New()))
+                .Map(nightData => GenerateFloorPlan(roomData, FromSeed(nightData.Seed)))
+                .Map(floorPlan => GenerateFloor(floorPlan, itemIds, roomData))
+                .Do(recreateNight.Invoke);
         }
 
         #endregion
@@ -25,28 +42,9 @@ namespace AChildsCourage.Game
         #region Fields
 
         private readonly LoadRunData loadRunData;
-        private readonly PrepareNight prepareNight;
-
-        #endregion
-
-        #region Constructors
-
-        public NightManager(LoadRunData loadRunData, LoadItemIds loadItemIds, LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
-        {
-            this.loadRunData = loadRunData;
-            var roomData = loadRoomData().ToArray();
-            var itemIds = loadItemIds();
-            
-            var recreateNight = NightRecreating.Make(floorRecreator);
-
-            prepareNight = PrepareNightWithRandomFloor(roomData, itemIds, recreateNight);
-        }
-
-        public NightManager(LoadRunData loadRunData, PrepareNight prepareNight)
-        {
-            this.loadRunData = loadRunData;
-            this.prepareNight = prepareNight;
-        }
+        private readonly RoomData[] roomData;
+        private readonly ItemId[] itemIds;
+        private readonly RecreateNight recreateNight;
 
         #endregion
 

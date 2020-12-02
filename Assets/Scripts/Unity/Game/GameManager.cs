@@ -15,7 +15,7 @@ namespace AChildsCourage.Unity
 
         public void PrepareGame()
         {
-            NightManager.PrepareNight();
+            NightManager.PrepareNightForCurrentRun();
             onNightPrepared.Invoke();
         }
 
