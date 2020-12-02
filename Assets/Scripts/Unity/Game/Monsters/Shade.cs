@@ -98,6 +98,10 @@ namespace AChildsCourage.Game.Monsters
             transform.position = newPos;
         }
 
+        private void OnDestroy() {
+            CancelInvestigation();
+        }
+
     }
 
 }
