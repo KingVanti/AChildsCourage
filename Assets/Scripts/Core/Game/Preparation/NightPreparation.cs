@@ -2,10 +2,10 @@
 using static AChildsCourage.F;
 using static AChildsCourage.RNG;
 
-namespace AChildsCourage.Game.NightLoading
+namespace AChildsCourage.Game
 {
 
-    public static class NightLoading
+    public static class MNightPreparation
     {
 
         public static LoadNight Make(LoadRoomData loadRoomData, LoadItemIds loadItemIds, IFloorRecreator floorRecreator)

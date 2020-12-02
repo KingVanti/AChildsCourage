@@ -54,7 +54,7 @@ namespace AChildsCourage.Game
 
 }
 
-namespace AChildsCourage.Game.NightLoading
+namespace AChildsCourage.Game
 {
 
     public class RoomForFloor

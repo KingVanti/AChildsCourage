@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.NightLoading;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using static AChildsCourage.RNG;
 
@@ -81,10 +80,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         }
 
 
-        private FloorPlanGenerating.GenerateFloorPlan GetFloorPlanGenerator()
-        {
-            return FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedInitializeRng);
-        }
+        private FloorPlanGenerating.GenerateFloorPlan GetFloorPlanGenerator() => FloorPlanGenerating.Make(completeRoomLoader.All(), SeedBasedInitializeRng);
 
 
         private void GenerateFloorImage()

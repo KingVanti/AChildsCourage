@@ -4,7 +4,7 @@ using NUnit.Framework;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.FloorGenerating;
 
-namespace AChildsCourage.Game.NightLoading
+namespace AChildsCourage.Game
 {
 
     [TestFixture]

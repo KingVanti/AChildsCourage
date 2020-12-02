@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.NightLoading;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,19 +27,13 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        public Tile GetGroundTile()
-        {
-            return groundTiles.GetTile(createRng);
-        }
+        public Tile GetGroundTile() => groundTiles.GetTile(createRng);
 
 
-        public Tile GetWallTileFor(Wall wall)
-        {
-            return
-                wall.Type == WallType.Side
-                    ? wallSideTiles.GetTile(createRng)
-                    : wallTopTiles.GetTile(createRng);
-        }
+        public Tile GetWallTileFor(Wall wall) =>
+            wall.Type == WallType.Side
+                ? wallSideTiles.GetTile(createRng)
+                : wallTopTiles.GetTile(createRng);
 
         #endregion
 

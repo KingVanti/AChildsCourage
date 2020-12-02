@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistance;
-using AChildsCourage.Game.NightLoading;
 
 namespace AChildsCourage.Game
 {
@@ -32,7 +31,7 @@ namespace AChildsCourage.Game
         {
             _loadRunData = loadRunData;
 
-            _loadNight = NightLoading.NightLoading.Make(loadRoom, loadItemIds, floorRecreator);
+            _loadNight = MNightPreparation.Make(loadRoom, loadItemIds, floorRecreator);
         }
 
         public NightManager(LoadRunData loadRunData, LoadNight loadNight)
