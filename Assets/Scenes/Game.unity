@@ -255,49 +255,6 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &129823623
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 129823625}
-  - component: {fileID: 129823624}
-  m_Layer: 0
-  m_Name: NightManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &129823624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129823623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d283ee5bf6bdef24c8eec58d6dbe7bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &129823625
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129823623}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 459304808}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &140685835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,7 +578,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 911352938}
-  - {fileID: 129823625}
   - {fileID: 2044952114}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1374,9 +1330,9 @@ MonoBehaviour:
   onSceneLoaded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 129823624}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.NightManagerEntity, AChildsCourage.Unity
-        m_MethodName: PrepareNight
+      - m_Target: {fileID: 911352937}
+        m_TargetAssemblyTypeName: AChildsCourage.Unity.GameManager, AChildsCourage.Unity
+        m_MethodName: PrepareGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2534,5 +2490,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 459304808}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

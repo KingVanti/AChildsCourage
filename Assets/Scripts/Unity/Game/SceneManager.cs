@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using Ninject.Extensions.Unity;
+using UnityEngine;
 using UnityEngine.Events;
 using static AChildsCourage.ServiceInjecting;
 
 namespace AChildsCourage
 {
-
+    
     public class SceneManager : MonoBehaviour
     {
 
         public UnityEvent onSceneLoaded;
-
-
+        
+        
         private void Awake()
         {
             SetupScene();
