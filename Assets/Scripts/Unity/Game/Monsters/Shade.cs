@@ -49,16 +49,6 @@ namespace AChildsCourage.Game.Monsters
 
         private FloorState FloorState => FloorStateKeeper.CurrentFloorState;
 
-        private Vector2 MoveVector {
-            get {
-                return rb.velocity;
-            }
-        }
-        
-        private Vector2 NextTargetDestination {
-            get; set;
-        }
-
         #endregion
 
         #region Methods
