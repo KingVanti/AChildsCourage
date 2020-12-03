@@ -344,7 +344,6 @@ namespace AChildsCourage.Game.Player
 
             if (IsMoving)
             {
-                Debug.Log("Hit while moving");
                 rb.AddForce(direction * strength, ForceMode2D.Impulse);
                 MovingDirection = Vector2.zero;
             }

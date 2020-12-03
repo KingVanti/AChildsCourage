@@ -1052,6 +1052,10 @@ PrefabInstance:
       propertyPath: itemSwappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 270846661}
+    - target: {fileID: 3546636511749136385, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Character
