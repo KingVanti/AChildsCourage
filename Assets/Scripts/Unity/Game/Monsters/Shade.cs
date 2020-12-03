@@ -7,6 +7,7 @@ using AChildsCourage.Game.Monsters.Navigation;
 using Ninject.Extensions.Unity;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
@@ -35,6 +36,9 @@ namespace AChildsCourage.Game.Monsters
         private InvestigationHistory investigationHistory = Empty;
 
         private Coroutine investigationCoroutine;
+
+        [Header("Events")]
+        public Vector3Event OnMinimumDistanceReached;
         
 
         #endregion
@@ -117,9 +121,17 @@ namespace AChildsCourage.Game.Monsters
 
         }
 
+
         private void OnDestroy() {
             CancelInvestigation();
         }
+
+        #endregion
+
+        #region Subclasses
+
+        [Serializable]
+        public class Vector3Event : UnityEvent<Vector3> { }
 
         #endregion
 

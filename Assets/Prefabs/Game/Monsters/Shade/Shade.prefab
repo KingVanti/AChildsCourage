@@ -5076,3 +5076,6 @@ MonoBehaviour:
   movementSpeed: 2
   investigationUpdatesPerSecond: 5
   targetTransform: {fileID: 0}
+  OnMinimumDistanceReached:
+    m_PersistentCalls:
+      m_Calls: []
