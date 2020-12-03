@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.CollectionRNG;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.F;
 
@@ -16,22 +17,22 @@ namespace AChildsCourage.Game
         internal const int CourageSparkCount = 25;
 
 
-        internal static IEnumerable<CouragePickup> ChooseCouragePickups(FloorBuilder floorBuilder)
+        internal static IEnumerable<CouragePickup> ChooseCouragePickups(FloorBuilder floorBuilder, RNG.CreateRNG rng)
         {
-            var sparks = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Spark, CourageSparkCount, CalculateCourageSparkWeight);
-            var orbs = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Orb, CourageOrbCount, CalculateCourageOrbWeight);
+            var sparks = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Spark, CourageSparkCount, CalculateCourageSparkWeight, rng);
+            var orbs = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Orb, CourageOrbCount, CalculateCourageOrbWeight, rng);
 
             return sparks.Concat(orbs);
         }
 
 
-        private static IEnumerable<CouragePickup> ChoosePickupsOfVariant(FloorBuilder floorBuilder, CourageVariant variant, int count, CouragePickupWeightFunction weightFunction)
+        private static IEnumerable<CouragePickup> ChoosePickupsOfVariant(FloorBuilder floorBuilder, CourageVariant variant, int count, CouragePickupWeightFunction weightFunction, RNG.CreateRNG rng)
         {
             var positions = GetCouragePositionsOfVariant(floorBuilder, variant).ToImmutableHashSet();
 
             Func<ImmutableHashSet<TilePosition>, ImmutableHashSet<TilePosition>> addNext =
                 taken =>
-                    taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction));
+                    taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction, rng));
 
             return Take(ImmutableHashSet<TilePosition>.Empty)
                    .RepeatFor(addNext, count)
@@ -45,15 +46,14 @@ namespace AChildsCourage.Game
                         .Select(p => p.Position);
 
 
-        internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction)
+        internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, RNG.CreateRNG rng)
         {
             Func<TilePosition, bool> isNotTaken = p => !taken.Contains(p);
-            Func<TilePosition, float> weight = p => weightFunction(p, taken);
+            CalculateWeight<TilePosition> calculateWeight = p => weightFunction(p, taken);
 
             return Take(positions)
                    .Where(isNotTaken)
-                   .OrderByDescending(weight)
-                   .First();
+                   .GetWeightedRandom(calculateWeight, rng);
         }
 
         internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)

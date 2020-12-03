@@ -11,7 +11,7 @@ namespace AChildsCourage.Game
     internal static partial class FloorGenerating
     {
 
-        internal static Floor GenerateFloor(FloorPlan floorPlan, IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData)
+        internal static Floor GenerateFloor(FloorPlan floorPlan, IEnumerable<ItemId> itemIds, IEnumerable<RoomData> roomData, RNG.CreateRNG rng)
         {
             var roomIndex = 0;
 
@@ -20,7 +20,7 @@ namespace AChildsCourage.Game
             return ChooseRoomsFor(floorPlan, roomData)
                    .Aggregate(EmptyFloorBuilder, AddRoomToFloorBuilder)
                    .Map(GenerateWalls)
-                   .Map(BuildFloor);
+                   .MapWith(BuildFloor, rng);
         }
 
     }
