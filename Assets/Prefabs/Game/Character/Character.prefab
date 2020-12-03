@@ -132,7 +132,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.55
-  m_PointLightOuterRadius: 1.55
+  m_PointLightOuterRadius: 1.75
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -160,8 +160,8 @@ MonoBehaviour:
   _cooldown: 0.3
   _id: 0
   lightComponent: {fileID: 788487158}
-  maxFlashlightDistance: 6.75
-  maxFlashlightIntensity: 0.4
+  maxFlashlightDistance: 6.85
+  maxFlashlightIntensity: 0.45
 --- !u!1 &1668216619
 GameObject:
   m_ObjectHideFlags: 0
