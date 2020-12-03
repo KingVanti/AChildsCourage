@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
+﻿using static AChildsCourage.Game.Floors.MFloor;
 
 namespace AChildsCourage.Game
 {

@@ -15,7 +15,7 @@ namespace AChildsCourage.Game
 
             return
                 Take(position)
-                    .IntoWith(OffsetAround, transform.ChunkCorner)
+                    .MapWith(OffsetAround, transform.ChunkCorner)
                     .RepeatFor(rotate, transform.RotationCount)
                     .DoIf(mirror, transform.IsMirrored);
         }

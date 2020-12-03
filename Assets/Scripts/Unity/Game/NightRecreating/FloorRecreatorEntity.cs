@@ -4,6 +4,8 @@ using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static AChildsCourage.Game.Floors.MFloor;
+using static AChildsCourage.Game.Floors.MRoom;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -21,9 +23,7 @@ namespace AChildsCourage.Game
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
         [AutoInject] public TileRepository TileRepository { private get; set; }
-
-        [AutoInject] public ItemPickupSpawner ItemPickupSpawner { private get; set; }
-
+        
         #endregion
 
         #region Fields
@@ -43,10 +43,14 @@ namespace AChildsCourage.Game
 
         public void Recreate(Floor floor)
         {
-            floor.GroundTiles.ForEach(PlaceGround);
             floor.Walls.ForEach(PlaceWall);
+            floor.Rooms.ForEach(RecreateRoom);
             floor.CouragePickups.ForEach(PlaceCouragePickup);
-            floor.ItemPickups.ForEach(PlaceItemPickups);
+        }
+
+        private void RecreateRoom(Room room)
+        {
+            room.GroundTiles.ForEach(PlaceGround);
         }
 
         private void PlaceGround(GroundTile groundTile)
@@ -78,14 +82,7 @@ namespace AChildsCourage.Game
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
             Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity, couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
-
-        private void PlaceItemPickups(ItemPickup pickup)
-        {
-            var position = pickup.Position.ToVector3();
-
-            ItemPickupSpawner.SpawnPickupFor(pickup.ItemId, position);
-        }
-
+        
         #endregion
 
     }

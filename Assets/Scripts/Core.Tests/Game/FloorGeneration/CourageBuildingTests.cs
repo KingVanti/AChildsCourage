@@ -10,7 +10,7 @@ namespace AChildsCourage.Game
     [TestFixture]
     public class CourageBuildingTests
     {
-
+/*
         [Test]
         public void Building_Transforms_All_Pickups_And_Places_Them()
         {
@@ -113,7 +113,7 @@ namespace AChildsCourage.Game
             Assert.That(floor.CourageSparkPositions.Contains(new TilePosition(0, 0)), Is.True, "Should be added to spark list!");
             Assert.That(floor.CourageOrbPositions.Contains(new TilePosition(0, 0)), Is.False, "Should not be added to orb list!");
         }
-
+*/
     }
 
 }

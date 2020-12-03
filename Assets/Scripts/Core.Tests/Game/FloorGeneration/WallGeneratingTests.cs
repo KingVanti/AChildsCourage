@@ -11,7 +11,7 @@ namespace AChildsCourage.Game
     [TestFixture]
     public class WallGeneratingTests
     {
-
+/*
         [Test]
         public void Wall_Is_Above_Ground_If_There_Is_Floor_One_Tile_Below()
         {
@@ -170,7 +170,7 @@ namespace AChildsCourage.Game
 
             Assert.That(hasGround, Is.False, "Should not find ground!");
         }
-
+*/
     }
 
 }

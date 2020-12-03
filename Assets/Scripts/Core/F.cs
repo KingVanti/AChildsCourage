@@ -65,7 +65,7 @@ namespace AChildsCourage
             action(item);
         }
 
-        public static U IntoWith<T, U, V>(this T item, Func<T, V, U> function, V param) => function(item, param);
+        public static U MapWith<T, U, V>(this T item, Func<T, V, U> function, V param) => function(item, param);
 
         public static void ForEach<T>(this IEnumerable<T> elements, Action<T> action)
         {
