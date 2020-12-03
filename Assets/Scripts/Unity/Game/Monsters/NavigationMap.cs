@@ -11,7 +11,6 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning disable 649
         [SerializeField] private AstarPath astarPath;
-        [SerializeField] private int scanOverfill;
 #pragma warning restore 649
 
         private Floor mapFloor;
@@ -36,12 +35,12 @@ namespace AChildsCourage.Game.Monsters
         {
             var (lowerRight, upperLeft) = GetFloorCorners(floor);
 
-            var width = upperLeft.X - lowerRight.X;
-            var depth = upperLeft.Y - lowerRight.Y;
+            var width = upperLeft.X - lowerRight.X + 1;
+            var depth = upperLeft.Y - lowerRight.Y + 1;
             var center = new Vector3(lowerRight.X + width / 2f, lowerRight.Y + depth / 2f, 0);
 
             GridGraph.center = center;
-            GridGraph.SetDimensions(width + scanOverfill, depth + scanOverfill, 1);
+            GridGraph.SetDimensions(width, depth, 1);
         }
 
     }
