@@ -16,8 +16,7 @@ namespace AChildsCourage.Game.Monsters
 {
 
     [UseDI]
-    public class Shade : MonoBehaviour
-    {
+    public class Shade : MonoBehaviour {
         #region Fields
 
         public AIPath ai;
@@ -25,11 +24,12 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning disable 649
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
-        [Header("Stats")][SerializeField] private int touchDamage;
+        [Header("Stats")] [SerializeField] private int touchDamage;
         [SerializeField] private int attackDamage;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private Transform targetTransform;
+        [Range(1, 50)][SerializeField] private float minimumDistanceTargetLock;
 #pragma warning restore 649
 
         private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
@@ -38,7 +38,8 @@ namespace AChildsCourage.Game.Monsters
         private Coroutine investigationCoroutine;
 
         [Header("Events")]
-        public Vector3Event OnMinimumDistanceReached;
+        public Vector3Event OnMinimumDistanceEntered;
+        public UnityEvent OnMinimumDistanceLeft;
         
 
         #endregion
@@ -102,6 +103,13 @@ namespace AChildsCourage.Game.Monsters
                     SetPathFinderTarget(newTarget);
                     currentTarget = newTarget;
                 }
+
+                if(Mathf.Abs(Vector2.Distance(ai.target.position, transform.position)) < minimumDistanceTargetLock) {
+                    OnMinimumDistanceEntered?.Invoke(ai.target.position);
+                } else {
+                    OnMinimumDistanceLeft?.Invoke();
+                }
+
 
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }

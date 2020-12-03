@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Monsters {
 #pragma warning disable 649
         [SerializeField] private int visionRadius;
         [Range(0, 360)] [SerializeField] private float visionAngle;
-        [Range(0, 360)] [SerializeField] private float rotationSpeed;
+        [Range(0.01f, 3f)] [SerializeField] private float rotationSpeed;
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private LayerMask wallLayer;
 #pragma warning restore 649
@@ -21,6 +21,9 @@ namespace AChildsCourage.Game.Monsters {
         public TilePositionsEvent OnObservingTilesChanged;
 
         private bool isWatching = false;
+
+        private bool isNearTarget = false;
+        private Vector3 targetPos = Vector3.zero;
 
         #endregion
 
@@ -99,13 +102,24 @@ namespace AChildsCourage.Game.Monsters {
 
         }
 
+        public void OnMinimumDistanceEntered(Vector3 target) {
+            isNearTarget = true;
+            targetPos = target;
+            Debug.Log(isNearTarget);
+        }
+
+        public void OnMinimumDistanceLeft() {
+            isNearTarget = false;
+            Debug.Log(isNearTarget);
+        }
+
 
         IEnumerator Observe(int radius) {
 
             while (IsObserving) {
 
                 if (!isWatching) {
-                    StartCoroutine(Watch(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 1f));
+                    StartCoroutine(Watch(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), rotationSpeed));
                 }
 
                 CurrentlyObservingTilePositions = GetVisibleTilePositions(radius);
@@ -118,11 +132,19 @@ namespace AChildsCourage.Game.Monsters {
         IEnumerator Watch(Vector3 endRotation, float completionTime) {
 
             isWatching = true;
+
+            if (isNearTarget) {
+
+                float angle = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x) * Mathf.Rad2Deg;
+                endRotation = new Vector3(0,0,angle);
+
+            }
+
             float elapsedTime = 0;
             Quaternion startRotation = transform.rotation;
 
             while (isWatching && elapsedTime < completionTime) {
-
+                
                 transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(endRotation), (elapsedTime / completionTime));
                 elapsedTime += Time.deltaTime;
                 yield return null;
