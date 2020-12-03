@@ -128,11 +128,11 @@ public class FmodPlayer : MonoBehaviour
 
         switch (couragePickup.Variant)
         {
-            case CourageVariant.Orb:
+            case CourageVariant.Spark:
                 FMODUnity.RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
                 break;
 
-            case CourageVariant.Spark:
+            case CourageVariant.Orb:
                 FMODUnity.RuntimeManager.PlayOneShot(CourageOrb_Path, GetComponent<Transform>().position);
                 break;
 

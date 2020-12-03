@@ -190,7 +190,6 @@
 			<destination>{96ddf8ce-ef2e-480b-9a57-216e10cda110}</destination>
 			<destination>{6a8ce96e-d4f4-4f2f-90a8-76f9682e2dbd}</destination>
 			<destination>{551fa740-33d0-4e4f-8a36-bb3e87f95464}</destination>
-			<destination>{eb75fc21-cc24-4467-ac0a-2f170013d999}</destination>
 			<destination>{159de210-8e9e-46ca-b411-5dfc65e402a0}</destination>
 		</relationship>
 	</object>
@@ -211,7 +210,6 @@
 			<destination>{ca10c06f-3734-4525-85ab-881124a7359a}</destination>
 			<destination>{ca3c1a1a-2ae5-4ec2-a3b1-c5b467120720}</destination>
 			<destination>{d832ab53-5012-48a5-a8eb-12287b35c3df}</destination>
-			<destination>{65ca0354-4d5d-4e32-b495-109b53d96c21}</destination>
 			<destination>{12f9c468-5cac-4035-8906-fc2eb5fb8c14}</destination>
 		</relationship>
 	</object>
@@ -337,6 +335,7 @@
 			<destination>{e87e5107-7b5c-41e4-aac8-bf1bc1212b7a}</destination>
 			<destination>{3b3a8113-7647-45d5-9553-e6cb8f0faf67}</destination>
 			<destination>{cda33995-5bea-4fd4-b61a-2b1d8ac987f2}</destination>
+			<destination>{f4397cad-7dde-489d-a9c2-c73f2361e7bc}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{01b6bbed-2385-41f7-abca-619c3895821d}" />
@@ -364,11 +363,6 @@
 	<object class="SingleSound" id="{551fa740-33d0-4e4f-8a36-bb3e87f95464}">
 		<relationship name="audioFile">
 			<destination>{17d418be-691c-4776-b404-7ae4f673ecfe}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{eb75fc21-cc24-4467-ac0a-2f170013d999}">
-		<relationship name="audioFile">
-			<destination>{0183d56c-ca32-475e-8473-b771bf9ee071}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{159de210-8e9e-46ca-b411-5dfc65e402a0}">
@@ -400,11 +394,6 @@
 	<object class="SingleSound" id="{d832ab53-5012-48a5-a8eb-12287b35c3df}">
 		<relationship name="audioFile">
 			<destination>{17d418be-691c-4776-b404-7ae4f673ecfe}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{65ca0354-4d5d-4e32-b495-109b53d96c21}">
-		<relationship name="audioFile">
-			<destination>{0183d56c-ca32-475e-8473-b771bf9ee071}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{12f9c468-5cac-4035-8906-fc2eb5fb8c14}">
@@ -474,6 +463,11 @@
 			<value>0.100000001</value>
 		</property>
 	</object>
+	<object class="PitchShifterEffect" id="{f4397cad-7dde-489d-a9c2-c73f2361e7bc}">
+		<property name="pitch">
+			<value>0.860000074</value>
+		</property>
+	</object>
 	<object class="AutomationCurve" id="{090e5b0e-31c4-405f-9d1a-a993efcea89d}">
 		<relationship name="parameter">
 			<destination>{0d888ce3-7a08-4221-8712-b57fdbc92be2}</destination>
@@ -532,7 +526,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>-11.5</value>
+			<value>-12</value>
 		</property>
 		<property name="curveShape">
 			<value>0.0479508415</value>
@@ -573,10 +567,10 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>-10</value>
+			<value>-6</value>
 		</property>
 		<property name="curveShape">
-			<value>-0.246306613</value>
+			<value>0.179853499</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{6ed5ec57-f6b2-4e2b-9d6a-abb7e77bc8e2}">
@@ -584,7 +578,7 @@
 			<value>5</value>
 		</property>
 		<property name="value">
-			<value>-80</value>
+			<value>-56.6666679</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{2644f040-5985-40ac-a385-8ac6625b7cb5}">
@@ -592,7 +586,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>-11.5</value>
+			<value>-12</value>
 		</property>
 		<property name="curveShape">
 			<value>-0.482421696</value>
@@ -603,7 +597,7 @@
 			<value>5</value>
 		</property>
 		<property name="value">
-			<value>-17.5</value>
+			<value>-18</value>
 		</property>
 		<property name="curveShape">
 			<value>-0.20126611</value>
@@ -622,7 +616,7 @@
 			<value>9</value>
 		</property>
 		<property name="value">
-			<value>-32.5999985</value>
+			<value>-33.5999985</value>
 		</property>
 		<property name="curveShape">
 			<value>0.307199955</value>

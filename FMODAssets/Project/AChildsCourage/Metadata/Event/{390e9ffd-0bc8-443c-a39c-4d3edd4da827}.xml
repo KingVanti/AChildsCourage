@@ -5,7 +5,7 @@
 			<value>rift</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{6115dfe1-b5f9-43d3-8254-7e0bb52c37dd}</destination>
@@ -192,6 +192,7 @@
 	<object class="MixerBusEffectChain" id="{3aafb810-1121-48f9-ab6d-73e591290705}">
 		<relationship name="effects">
 			<destination>{b517a615-0034-49bf-bd44-954d538dc8a8}</destination>
+			<destination>{a821c1aa-0300-41e1-9916-85a412d14e29}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a75257e3-832f-445d-be0f-6b05561c3d9c}" />
@@ -230,6 +231,7 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{b517a615-0034-49bf-bd44-954d538dc8a8}" />
+	<object class="SpatialiserEffect" id="{a821c1aa-0300-41e1-9916-85a412d14e29}" />
 	<object class="MixerBusFader" id="{2800f4d5-ac6f-46ee-a0be-fae84797df28}" />
 	<object class="LowpassEffect" id="{5551d265-a967-42ec-a2d6-c6097f4fa44f}">
 		<property name="cutoff">
