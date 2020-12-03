@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -12,6 +14,8 @@ namespace AChildsCourage.Game
         internal delegate IEnumerable<int> LoadItemIds();
 
         internal delegate TilePosition TransformTile(TilePosition position);
+
+        internal delegate float CouragePickupWeightFunction(TilePosition position, ImmutableHashSet<TilePosition> taken);
 
         internal class ChunkTransform
         {
@@ -35,43 +39,57 @@ namespace AChildsCourage.Game
 
         }
 
-        internal class FloorInProgress
+        private class TransformedRoomData
         {
 
-            internal HashSet<TilePosition> GroundPositions { get; } = new HashSet<TilePosition>();
+            public ImmutableHashSet<GroundTileData> GroundData { get; }
 
-            internal HashSet<TilePosition> CourageOrbPositions { get; } = new HashSet<TilePosition>();
+            public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
 
-            internal HashSet<TilePosition> CourageSparkPositions { get; } = new HashSet<TilePosition>();
 
-            internal HashSet<TilePosition> ItemPickupPositions { get; } = new HashSet<TilePosition>();
+            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData)
+            {
+                GroundData = groundTiles;
+                CouragePickupData = couragePickupData;
+            }
+
+        }
+
+        internal readonly struct FloorBuilder
+        {
+            
+            public  ImmutableHashSet<Wall> Walls { get; }
+            
+            public ImmutableHashSet<RoomBuilder> Rooms { get; }
+            
+            
+            public FloorBuilder(ImmutableHashSet<Wall> walls, ImmutableHashSet<RoomBuilder> rooms)
+            {
+                Walls = walls;
+                Rooms = rooms;
+            }
+
+        }
+
+        internal readonly struct RoomBuilder
+        {
+
+            public  AOIIndex AoiIndex { get; }
+            
+            public ImmutableHashSet<GroundTile> GroundTiles { get; }
+
+            public ImmutableHashSet<CouragePickup> CouragePickups { get; }
+
+
+            public RoomBuilder(AOIIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
+            {
+                AoiIndex = aoiIndex;
+                GroundTiles = groundTiles;
+                CouragePickups = couragePickups;
+            }
 
         }
 
     }
-
-}
-
-namespace AChildsCourage.Game
-{
-
-    public class RoomForFloor
-    {
-
-        public RoomContentData Content { get; }
-
-        public RoomTransform Transform { get; }
-
-
-        public RoomForFloor(RoomContentData content, RoomTransform transform)
-        {
-            Content = content;
-            Transform = transform;
-        }
-
-    }
-
-    public class RoomsForFloor : List<RoomForFloor> { }
-
 
 }

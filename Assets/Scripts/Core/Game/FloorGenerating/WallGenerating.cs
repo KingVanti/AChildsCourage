@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.F;
 
 namespace AChildsCourage.Game
 {
@@ -13,21 +15,28 @@ namespace AChildsCourage.Game
         internal const int WallHeight = 2;
 
 
-        private static IEnumerable<Wall> GenerateWalls(FloorInProgress floor)
+        private static FloorBuilder GenerateWalls(FloorBuilder floor)
         {
-            bool IsEmpty(TilePosition position)
-            {
-                return !floor.HasGroundAt(position);
-            }
+            var groundPositions = GetAllGroundPositions(floor);
 
-            Func<TilePosition, bool> hasGroundBelow = pos => HasGroundBelow(pos, floor.HasGroundAt);
-            Func<TilePosition, Wall> toWall = pos => CreateWall(pos, hasGroundBelow(pos));
-
-            return
-                floor.GroundPositions
-                     .GenerateWallPositionsFor(IsEmpty)
-                     .IntoWith(GetWalls, toWall);
+            return Take(groundPositions)
+                   .Map(GenerateWallPositions)
+                   .Map(wallPositions => GetWalls(wallPositions, pos => CreateWall(pos, groundPositions)))
+                   .Aggregate(floor, PlaceWall);
         }
+
+        private static ImmutableHashSet<TilePosition> GetAllGroundPositions(FloorBuilder floor) =>
+            floor
+                .Rooms
+                .SelectMany(r => r.GroundTiles)
+                .Select(t => t.Position)
+                .ToImmutableHashSet();
+
+        private static ImmutableHashSet<TilePosition> GenerateWallPositions(ImmutableHashSet<TilePosition> groundPositions) =>
+            groundPositions
+                .SelectMany(GetSurroundingWallPositions)
+                .Where(position => !groundPositions.Contains(position))
+                .ToImmutableHashSet();
 
         private static IEnumerable<TilePosition> GetSurroundingWallPositions(TilePosition groundPosition)
         {
@@ -37,53 +46,33 @@ namespace AChildsCourage.Game
                         yield return groundPosition + new TileOffset(dX, dY);
         }
 
-        private static IEnumerable<TilePosition> GenerateWallPositionsFor(this IEnumerable<TilePosition> groundPositions, Func<TilePosition, bool> isEmpty)
-        {
-            return
-                groundPositions
-                    .SelectMany(GetSurroundingWallPositions)
-                    .Where(isEmpty);
-        }
+        private static IEnumerable<Wall> GetWalls(IEnumerable<TilePosition> wallPositions, Func<TilePosition, Wall> toWall) =>
+            wallPositions
+                .Select(toWall);
 
-        private static IEnumerable<Wall> GetWalls(IEnumerable<TilePosition> wallPositions, Func<TilePosition, Wall> toWall)
+        internal static Wall CreateWall(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions)
         {
-            return wallPositions.Select(toWall);
-        }
-
-        internal static bool HasGroundBelow(TilePosition wallPosition, Func<TilePosition, bool> hasGroundAt)
-        {
-            var p = GetCheckGroundPositions(wallPosition)
-                .ToArray();
-            return
-                GetCheckGroundPositions(wallPosition)
-                    .Any(hasGroundAt);
-        }
-
-        internal static Wall CreateWall(TilePosition wallPosition, bool hasGroundBelow)
-        {
-            var wallType = hasGroundBelow ? WallType.Side : WallType.Top;
+            var wallType = HasGroundBelow(wallPosition, groundPositions) ? WallType.Side : WallType.Top;
 
             return new Wall(wallPosition, wallType);
         }
 
-        internal static IEnumerable<TilePosition> GetCheckGroundPositions(TilePosition wallPosition)
-        {
-            return
-                GetGroundOffsets()
-                    .Select(offset => wallPosition + offset);
-        }
+        internal static bool HasGroundBelow(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions) =>
+            GetCheckGroundPositions(wallPosition)
+                .Any(groundPositions.Contains);
 
-        internal static IEnumerable<TileOffset> GetGroundOffsets()
-        {
-            return
-                Enumerable.Range(-WallHeight, WallHeight)
-                          .Select(y => new TileOffset(0, y));
-        }
+        internal static IEnumerable<TilePosition> GetCheckGroundPositions(TilePosition wallPosition) =>
+            GetGroundOffsets()
+                .Select(offset => wallPosition + offset);
 
-        internal static bool HasGroundAt(this FloorInProgress floor, TilePosition position)
-        {
-            return floor.GroundPositions.Contains(position);
-        }
+        internal static IEnumerable<TileOffset> GetGroundOffsets() =>
+            Enumerable.Range(-WallHeight, WallHeight)
+                      .Select(y => new TileOffset(0, y));
+
+        private static FloorBuilder PlaceWall(FloorBuilder floor, Wall wall) =>
+            new FloorBuilder(
+                floor.Walls.Add(wall),
+                floor.Rooms);
 
     }
 
