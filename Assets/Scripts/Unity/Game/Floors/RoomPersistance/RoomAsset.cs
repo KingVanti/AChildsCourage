@@ -12,8 +12,8 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
 #pragma warning disable 649
 
-        [SerializeField] private int _id;
-        [SerializeField] private RoomType _type;
+        [SerializeField] private int id;
+        [SerializeField] private RoomType type;
         [SerializeField] [TextArea(10, 15)] private string passageJson;
         [SerializeField] [TextArea(10, 40)] private string contentJson;
         [SerializeField] [HideInInspector] private string roomJson;
@@ -24,9 +24,9 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         #region Properties
 
-        public RoomId Id => (RoomId) _id;
+        public RoomId Id => (RoomId) id;
 
-        public RoomType Type => _type;
+        public RoomType Type => type;
 
         public ChunkPassages Passages { get => JsonConvert.DeserializeObject<ChunkPassages>(passageJson); set => passageJson = JsonConvert.SerializeObject(value); }
 

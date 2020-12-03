@@ -15,7 +15,7 @@ using Random = UnityEngine.Random;
 namespace AChildsCourage.Game.Player
 {
 
-    [UseDI]
+    [UseDi]
     public class CharacterController : MonoBehaviour
     {
 
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Player
 
         [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
-        [SerializeField] private float _movementSpeed;
+        [SerializeField] private float movementSpeed;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
@@ -35,10 +35,10 @@ namespace AChildsCourage.Game.Player
 
         private Camera mainCamera;
 
-        private Vector2 _movingDirection;
-        private int _rotationIndex;
+        private Vector2 movingDirection;
+        private int rotationIndex;
 
-        private bool _hasFlashlightEquipped;
+        private bool hasFlashlightEquipped;
         private bool isInvincible;
         private bool gettingKnockedBack;
         private bool canCollectCourage = true;
@@ -46,13 +46,13 @@ namespace AChildsCourage.Game.Player
         [EventPublication(nameof(OnPlayerDeath))]
         public event EventHandler OnPlayerDeath;
 
-        [Header("Events")] public Vector2Event OnPositionChanged;
+        [Header("Events")] public Vector2Event onPositionChanged;
 
-        public IntEvent OnUseItem;
-        public IntEvent OnDamageReceived;
-        public CouragePickUpEvent OnCouragePickedUp;
-        public UnityEvent OnSwapItem;
-        public PickUpEvent OnPickUpItem;
+        public IntEvent onUseItem;
+        public IntEvent onDamageReceived;
+        public CouragePickUpEvent onCouragePickedUp;
+        public UnityEvent onSwapItem;
+        public PickUpEvent onPickUpItem;
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace AChildsCourage.Game.Player
         /// <summary>
         ///     The movement speed of the player character.
         /// </summary>
-        public float MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
+        public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
 
         /// <summary>
         ///     The angle the player is facing towards the mouse cursor.
@@ -75,10 +75,10 @@ namespace AChildsCourage.Game.Player
         /// </summary>
         public int RotationIndex
         {
-            get => _rotationIndex;
+            get => rotationIndex;
             set
             {
-                _rotationIndex = value;
+                rotationIndex = value;
                 UpdateAnimator();
             }
         }
@@ -113,10 +113,10 @@ namespace AChildsCourage.Game.Player
         /// </summary>
         public Vector2 MovingDirection
         {
-            get => _movingDirection;
+            get => movingDirection;
             set
             {
-                _movingDirection = value;
+                movingDirection = value;
                 UpdateAnimator();
             }
         }
@@ -125,10 +125,10 @@ namespace AChildsCourage.Game.Player
 
         public bool HasFlashlightEquipped
         {
-            get => _hasFlashlightEquipped;
+            get => hasFlashlightEquipped;
             set
             {
-                _hasFlashlightEquipped = value;
+                hasFlashlightEquipped = value;
                 UpdateAnimator();
             }
         }
@@ -166,7 +166,7 @@ namespace AChildsCourage.Game.Player
             animator.SetBool("IsMovingBackwards", IsMovingBackwards);
 
             if (HasFlashlightEquipped)
-                animator.SetBool("HasFlashlightEquipped", _hasFlashlightEquipped);
+                animator.SetBool("HasFlashlightEquipped", hasFlashlightEquipped);
         }
 
 
@@ -209,7 +209,7 @@ namespace AChildsCourage.Game.Player
         private void Move()
         {
             transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
-            OnPositionChanged.Invoke(transform.position);
+            onPositionChanged.Invoke(transform.position);
         }
 
 
@@ -228,14 +228,14 @@ namespace AChildsCourage.Game.Player
 
         private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs)
         {
-            OnUseItem?.Invoke(eventArgs.SlotId);
+            onUseItem?.Invoke(eventArgs.SlotId);
         }
 
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs)
         {
             if (IsInPickupRange)
             {
-                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
+                onPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
 
                 if (CurrentItemInRange.Id == 0)
                     HasFlashlightEquipped = true;
@@ -246,7 +246,7 @@ namespace AChildsCourage.Game.Player
 
         private void OnItemSwapped(ItemSwappedEventArgs eventArgs)
         {
-            OnSwapItem?.Invoke();
+            onSwapItem?.Invoke();
         }
 
         public void OnCouragePickUp(CouragePickupEntity courage)
@@ -283,7 +283,7 @@ namespace AChildsCourage.Game.Player
             if (collision.CompareTag(EntityTags.Courage))
                 if (canCollectCourage)
                 {
-                    OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
+                    onCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
                     Destroy(collision.gameObject);
                 }
 
@@ -305,10 +305,10 @@ namespace AChildsCourage.Game.Player
 
         private void TakingDamage(int damage)
         {
-            StartCoroutine(Knockback(damage * _movementSpeed * 3, 0.08f));
+            StartCoroutine(Knockback(damage * movementSpeed * 3, 0.08f));
             StartCoroutine(DamageTaken(2f));
 
-            OnDamageReceived?.Invoke(damage);
+            onDamageReceived?.Invoke(damage);
         }
 
         private IEnumerator DamageTaken(float duration)

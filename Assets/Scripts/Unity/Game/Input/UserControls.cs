@@ -14,31 +14,31 @@ namespace AChildsCourage.Game.Input
     {
 
         // Player
-        private readonly InputActionMap m_Player;
-        private readonly InputAction m_Player_Item1;
-        private readonly InputAction m_Player_Item2;
-        private readonly InputAction m_Player_Look;
-        private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Swap;
+        private readonly InputActionMap mPlayer;
+        private readonly InputAction mPlayerItem1;
+        private readonly InputAction mPlayerItem2;
+        private readonly InputAction mPlayerLook;
+        private readonly InputAction mPlayerMove;
+        private readonly InputAction mPlayerSwap;
 
         // UI
-        private readonly InputActionMap m_UI;
-        private readonly InputAction m_UI_Cancel;
-        private readonly InputAction m_UI_LeftClick;
-        private readonly InputAction m_UI_Navigation;
-        private readonly InputAction m_UI_Point;
-        private readonly InputAction m_UI_Quit;
-        private readonly InputAction m_UI_RightClick;
-        private readonly InputAction m_UI_Submit;
-        private int m_GamepadSchemeIndex = -1;
-        private int m_JoystickSchemeIndex = -1;
-        private int m_KeyboardMouseSchemeIndex = -1;
-        private IPlayerActions m_PlayerActionsCallbackInterface;
-        private int m_TouchSchemeIndex = -1;
-        private IUIActions m_UIActionsCallbackInterface;
-        private int m_XRSchemeIndex = -1;
+        private readonly InputActionMap mUI;
+        private readonly InputAction mUICancel;
+        private readonly InputAction mUILeftClick;
+        private readonly InputAction mUINavigation;
+        private readonly InputAction mUIPoint;
+        private readonly InputAction mUIQuit;
+        private readonly InputAction mUIRightClick;
+        private readonly InputAction mUISubmit;
+        private int mGamepadSchemeIndex = -1;
+        private int mJoystickSchemeIndex = -1;
+        private int mKeyboardMouseSchemeIndex = -1;
+        private IPlayerActions mPlayerActionsCallbackInterface;
+        private int mTouchSchemeIndex = -1;
+        private IUIActions mUIActionsCallbackInterface;
+        private int mXRSchemeIndex = -1;
 
-        public InputActionAsset asset { get; }
+        public InputActionAsset Asset { get; }
 
         public PlayerActions Player => new PlayerActions(this);
 
@@ -48,9 +48,9 @@ namespace AChildsCourage.Game.Input
         {
             get
             {
-                if (m_KeyboardMouseSchemeIndex == -1)
-                    m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
-                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+                if (mKeyboardMouseSchemeIndex == -1)
+                    mKeyboardMouseSchemeIndex = Asset.FindControlSchemeIndex("Keyboard&Mouse");
+                return Asset.controlSchemes[mKeyboardMouseSchemeIndex];
             }
         }
 
@@ -58,9 +58,9 @@ namespace AChildsCourage.Game.Input
         {
             get
             {
-                if (m_GamepadSchemeIndex == -1)
-                    m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-                return asset.controlSchemes[m_GamepadSchemeIndex];
+                if (mGamepadSchemeIndex == -1)
+                    mGamepadSchemeIndex = Asset.FindControlSchemeIndex("Gamepad");
+                return Asset.controlSchemes[mGamepadSchemeIndex];
             }
         }
 
@@ -68,9 +68,9 @@ namespace AChildsCourage.Game.Input
         {
             get
             {
-                if (m_TouchSchemeIndex == -1)
-                    m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
-                return asset.controlSchemes[m_TouchSchemeIndex];
+                if (mTouchSchemeIndex == -1)
+                    mTouchSchemeIndex = Asset.FindControlSchemeIndex("Touch");
+                return Asset.controlSchemes[mTouchSchemeIndex];
             }
         }
 
@@ -78,9 +78,9 @@ namespace AChildsCourage.Game.Input
         {
             get
             {
-                if (m_JoystickSchemeIndex == -1)
-                    m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
-                return asset.controlSchemes[m_JoystickSchemeIndex];
+                if (mJoystickSchemeIndex == -1)
+                    mJoystickSchemeIndex = Asset.FindControlSchemeIndex("Joystick");
+                return Asset.controlSchemes[mJoystickSchemeIndex];
             }
         }
 
@@ -88,15 +88,15 @@ namespace AChildsCourage.Game.Input
         {
             get
             {
-                if (m_XRSchemeIndex == -1)
-                    m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
-                return asset.controlSchemes[m_XRSchemeIndex];
+                if (mXRSchemeIndex == -1)
+                    mXRSchemeIndex = Asset.FindControlSchemeIndex("XR");
+                return Asset.controlSchemes[mXRSchemeIndex];
             }
         }
 
         public UserControls()
         {
-            asset = InputActionAsset.FromJson(@"{
+            Asset = InputActionAsset.FromJson(@"{
     ""name"": ""user"",
     ""maps"": [
         {
@@ -552,43 +552,43 @@ namespace AChildsCourage.Game.Input
 }");
 
             // Player
-            m_Player = asset.FindActionMap("Player", true);
-            m_Player_Move = m_Player.FindAction("Move", true);
-            m_Player_Look = m_Player.FindAction("Look", true);
-            m_Player_Item1 = m_Player.FindAction("Item1", true);
-            m_Player_Item2 = m_Player.FindAction("Item2", true);
-            m_Player_Swap = m_Player.FindAction("Swap", true);
+            mPlayer = Asset.FindActionMap("Player", true);
+            mPlayerMove = mPlayer.FindAction("Move", true);
+            mPlayerLook = mPlayer.FindAction("Look", true);
+            mPlayerItem1 = mPlayer.FindAction("Item1", true);
+            mPlayerItem2 = mPlayer.FindAction("Item2", true);
+            mPlayerSwap = mPlayer.FindAction("Swap", true);
 
             // UI
-            m_UI = asset.FindActionMap("UI", true);
-            m_UI_Navigation = m_UI.FindAction("Navigation", true);
-            m_UI_Submit = m_UI.FindAction("Submit", true);
-            m_UI_Cancel = m_UI.FindAction("Cancel", true);
-            m_UI_Quit = m_UI.FindAction("Quit", true);
-            m_UI_Point = m_UI.FindAction("Point", true);
-            m_UI_LeftClick = m_UI.FindAction("LeftClick", true);
-            m_UI_RightClick = m_UI.FindAction("RightClick", true);
+            mUI = Asset.FindActionMap("UI", true);
+            mUINavigation = mUI.FindAction("Navigation", true);
+            mUISubmit = mUI.FindAction("Submit", true);
+            mUICancel = mUI.FindAction("Cancel", true);
+            mUIQuit = mUI.FindAction("Quit", true);
+            mUIPoint = mUI.FindAction("Point", true);
+            mUILeftClick = mUI.FindAction("LeftClick", true);
+            mUIRightClick = mUI.FindAction("RightClick", true);
         }
 
         public void Dispose()
         {
-            Object.Destroy(asset);
+            Object.Destroy(Asset);
         }
 
-        public InputBinding? bindingMask { get => asset.bindingMask; set => asset.bindingMask = value; }
+        public InputBinding? bindingMask { get => Asset.bindingMask; set => Asset.bindingMask = value; }
 
-        public ReadOnlyArray<InputDevice>? devices { get => asset.devices; set => asset.devices = value; }
+        public ReadOnlyArray<InputDevice>? devices { get => Asset.devices; set => Asset.devices = value; }
 
-        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+        public ReadOnlyArray<InputControlScheme> controlSchemes => Asset.controlSchemes;
 
         public bool Contains(InputAction action)
         {
-            return asset.Contains(action);
+            return Asset.Contains(action);
         }
 
         public IEnumerator<InputAction> GetEnumerator()
         {
-            return asset.GetEnumerator();
+            return Asset.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -598,37 +598,37 @@ namespace AChildsCourage.Game.Input
 
         public void Enable()
         {
-            asset.Enable();
+            Asset.Enable();
         }
 
         public void Disable()
         {
-            asset.Disable();
+            Asset.Disable();
         }
 
         public struct PlayerActions
         {
 
-            private readonly UserControls m_Wrapper;
+            private readonly UserControls mWrapper;
 
             public PlayerActions(UserControls wrapper)
             {
-                m_Wrapper = wrapper;
+                mWrapper = wrapper;
             }
 
-            public InputAction Move => m_Wrapper.m_Player_Move;
+            public InputAction Move => mWrapper.mPlayerMove;
 
-            public InputAction Look => m_Wrapper.m_Player_Look;
+            public InputAction Look => mWrapper.mPlayerLook;
 
-            public InputAction Item1 => m_Wrapper.m_Player_Item1;
+            public InputAction Item1 => mWrapper.mPlayerItem1;
 
-            public InputAction Item2 => m_Wrapper.m_Player_Item2;
+            public InputAction Item2 => mWrapper.mPlayerItem2;
 
-            public InputAction Swap => m_Wrapper.m_Player_Swap;
+            public InputAction Swap => mWrapper.mPlayerSwap;
 
             public InputActionMap Get()
             {
-                return m_Wrapper.m_Player;
+                return mWrapper.mPlayer;
             }
 
             public void Enable()
@@ -643,7 +643,7 @@ namespace AChildsCourage.Game.Input
                     .Disable();
             }
 
-            public bool enabled =>
+            public bool Enabled =>
                 Get()
                     .enabled;
 
@@ -654,26 +654,26 @@ namespace AChildsCourage.Game.Input
 
             public void SetCallbacks(IPlayerActions instance)
             {
-                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                if (mWrapper.mPlayerActionsCallbackInterface != null)
                 {
-                    Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    Item1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem1;
-                    Item1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem1;
-                    Item1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem1;
-                    Item2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
-                    Item2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
-                    Item2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnItem2;
-                    Swap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
-                    Swap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
-                    Swap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwap;
+                    Move.started -= mWrapper.mPlayerActionsCallbackInterface.OnMove;
+                    Move.performed -= mWrapper.mPlayerActionsCallbackInterface.OnMove;
+                    Move.canceled -= mWrapper.mPlayerActionsCallbackInterface.OnMove;
+                    Look.started -= mWrapper.mPlayerActionsCallbackInterface.OnLook;
+                    Look.performed -= mWrapper.mPlayerActionsCallbackInterface.OnLook;
+                    Look.canceled -= mWrapper.mPlayerActionsCallbackInterface.OnLook;
+                    Item1.started -= mWrapper.mPlayerActionsCallbackInterface.OnItem1;
+                    Item1.performed -= mWrapper.mPlayerActionsCallbackInterface.OnItem1;
+                    Item1.canceled -= mWrapper.mPlayerActionsCallbackInterface.OnItem1;
+                    Item2.started -= mWrapper.mPlayerActionsCallbackInterface.OnItem2;
+                    Item2.performed -= mWrapper.mPlayerActionsCallbackInterface.OnItem2;
+                    Item2.canceled -= mWrapper.mPlayerActionsCallbackInterface.OnItem2;
+                    Swap.started -= mWrapper.mPlayerActionsCallbackInterface.OnSwap;
+                    Swap.performed -= mWrapper.mPlayerActionsCallbackInterface.OnSwap;
+                    Swap.canceled -= mWrapper.mPlayerActionsCallbackInterface.OnSwap;
                 }
 
-                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                mWrapper.mPlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     Move.started += instance.OnMove;
@@ -699,30 +699,30 @@ namespace AChildsCourage.Game.Input
         public struct UIActions
         {
 
-            private readonly UserControls m_Wrapper;
+            private readonly UserControls mWrapper;
 
             public UIActions(UserControls wrapper)
             {
-                m_Wrapper = wrapper;
+                mWrapper = wrapper;
             }
 
-            public InputAction Navigation => m_Wrapper.m_UI_Navigation;
+            public InputAction Navigation => mWrapper.mUINavigation;
 
-            public InputAction Submit => m_Wrapper.m_UI_Submit;
+            public InputAction Submit => mWrapper.mUISubmit;
 
-            public InputAction Cancel => m_Wrapper.m_UI_Cancel;
+            public InputAction Cancel => mWrapper.mUICancel;
 
-            public InputAction Quit => m_Wrapper.m_UI_Quit;
+            public InputAction Quit => mWrapper.mUIQuit;
 
-            public InputAction Point => m_Wrapper.m_UI_Point;
+            public InputAction Point => mWrapper.mUIPoint;
 
-            public InputAction LeftClick => m_Wrapper.m_UI_LeftClick;
+            public InputAction LeftClick => mWrapper.mUILeftClick;
 
-            public InputAction RightClick => m_Wrapper.m_UI_RightClick;
+            public InputAction RightClick => mWrapper.mUIRightClick;
 
             public InputActionMap Get()
             {
-                return m_Wrapper.m_UI;
+                return mWrapper.mUI;
             }
 
             public void Enable()
@@ -737,7 +737,7 @@ namespace AChildsCourage.Game.Input
                     .Disable();
             }
 
-            public bool enabled =>
+            public bool Enabled =>
                 Get()
                     .enabled;
 
@@ -748,32 +748,32 @@ namespace AChildsCourage.Game.Input
 
             public void SetCallbacks(IUIActions instance)
             {
-                if (m_Wrapper.m_UIActionsCallbackInterface != null)
+                if (mWrapper.mUIActionsCallbackInterface != null)
                 {
-                    Navigation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
-                    Navigation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
-                    Navigation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigation;
-                    Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                    Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                    Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                    Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                    Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                    Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                    Quit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnQuit;
-                    Quit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnQuit;
-                    Quit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnQuit;
-                    Point.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    Point.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    Point.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
-                    LeftClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
-                    LeftClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
-                    LeftClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftClick;
-                    RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                    RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
-                    RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
+                    Navigation.started -= mWrapper.mUIActionsCallbackInterface.OnNavigation;
+                    Navigation.performed -= mWrapper.mUIActionsCallbackInterface.OnNavigation;
+                    Navigation.canceled -= mWrapper.mUIActionsCallbackInterface.OnNavigation;
+                    Submit.started -= mWrapper.mUIActionsCallbackInterface.OnSubmit;
+                    Submit.performed -= mWrapper.mUIActionsCallbackInterface.OnSubmit;
+                    Submit.canceled -= mWrapper.mUIActionsCallbackInterface.OnSubmit;
+                    Cancel.started -= mWrapper.mUIActionsCallbackInterface.OnCancel;
+                    Cancel.performed -= mWrapper.mUIActionsCallbackInterface.OnCancel;
+                    Cancel.canceled -= mWrapper.mUIActionsCallbackInterface.OnCancel;
+                    Quit.started -= mWrapper.mUIActionsCallbackInterface.OnQuit;
+                    Quit.performed -= mWrapper.mUIActionsCallbackInterface.OnQuit;
+                    Quit.canceled -= mWrapper.mUIActionsCallbackInterface.OnQuit;
+                    Point.started -= mWrapper.mUIActionsCallbackInterface.OnPoint;
+                    Point.performed -= mWrapper.mUIActionsCallbackInterface.OnPoint;
+                    Point.canceled -= mWrapper.mUIActionsCallbackInterface.OnPoint;
+                    LeftClick.started -= mWrapper.mUIActionsCallbackInterface.OnLeftClick;
+                    LeftClick.performed -= mWrapper.mUIActionsCallbackInterface.OnLeftClick;
+                    LeftClick.canceled -= mWrapper.mUIActionsCallbackInterface.OnLeftClick;
+                    RightClick.started -= mWrapper.mUIActionsCallbackInterface.OnRightClick;
+                    RightClick.performed -= mWrapper.mUIActionsCallbackInterface.OnRightClick;
+                    RightClick.canceled -= mWrapper.mUIActionsCallbackInterface.OnRightClick;
                 }
 
-                m_Wrapper.m_UIActionsCallbackInterface = instance;
+                mWrapper.mUIActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     Navigation.started += instance.OnNavigation;

@@ -74,14 +74,14 @@ namespace AChildsCourage.Game
         internal readonly struct RoomBuilder
         {
 
-            public  AOIIndex AoiIndex { get; }
+            public  AoiIndex AoiIndex { get; }
             
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
 
-            public RoomBuilder(AOIIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;

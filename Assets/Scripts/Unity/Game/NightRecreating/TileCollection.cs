@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game
 {
@@ -12,13 +12,13 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        internal Tile GetTile(CreateRNG createRng)
+        internal Tile GetTile(CreateRng createRng)
         {
-            var getVariant = createRng.Prob(_variantProb);
+            var getVariant = createRng.Prob(variantProb);
 
             if (getVariant)
-                return _variants.GetRandom(createRng);
-            return _baseTile;
+                return variants.GetRandom(createRng);
+            return baseTile;
         }
 
         #endregion
@@ -27,9 +27,9 @@ namespace AChildsCourage.Game
 
 #pragma warning disable 649
 
-        [SerializeField] [Range(0, 100)] private float _variantProb;
-        [SerializeField] private Tile _baseTile;
-        [SerializeField] private Tile[] _variants;
+        [SerializeField] [Range(0, 100)] private float variantProb;
+        [SerializeField] private Tile baseTile;
+        [SerializeField] private Tile[] variants;
 
 #pragma warning restore 649
 

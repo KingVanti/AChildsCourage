@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Items
 
         private Vector2 characterPosition;
         private LayerMask wallLayer;
-        private bool IsTurnedOn;
+        private bool isTurnedOn;
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace AChildsCourage.Game.Items
 
         private void UpdateFlashlight()
         {
-            if (IsTurnedOn)
+            if (isTurnedOn)
             {
                 FollowMousePosition();
                 ChangeLightIntensity();
@@ -96,8 +96,8 @@ namespace AChildsCourage.Game.Items
 
         public override void Toggle()
         {
-            lightComponent.enabled = IsTurnedOn ? false : true;
-            IsTurnedOn = IsTurnedOn ? false : true;
+            lightComponent.enabled = isTurnedOn ? false : true;
+            isTurnedOn = isTurnedOn ? false : true;
             UpdateFlashlight();
         }
 

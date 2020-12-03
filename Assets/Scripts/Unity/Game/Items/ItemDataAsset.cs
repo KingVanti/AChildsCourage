@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Items
 
         #region Properties
 
-        public ItemData Data => new ItemData((ItemId) _id, _name);
+        public ItemData Data => new ItemData((ItemId) id, name);
 
         #endregion
 
@@ -17,8 +17,8 @@ namespace AChildsCourage.Game.Items
 
 #pragma warning disable 649
 
-        [SerializeField] private int _id;
-        [SerializeField] private string _name;
+        [SerializeField] private int id;
+        [SerializeField] private new string name;
 
 #pragma warning restore 649
 

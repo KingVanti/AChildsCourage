@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.CustomMath;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters.Navigation
@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         public static StartInvestigation StartNew =>
             (floorState, monsterState, rng) =>
                 new Investigation(
-                    ChooseAOI(floorState, monsterState, rng),
+                    ChooseAoi(floorState, monsterState, rng),
                     ImmutableHashSet<TilePosition>.Empty);
 
 
@@ -27,76 +27,76 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         private static Func<Investigation, float> ExplorationRatio =>
             investigation =>
-                InvestigatedPOICount(investigation) / (float) POIToInvestigateCount(investigation);
+                InvestigatedPoiCount(investigation) / (float) PoiToInvestigateCount(investigation);
 
-        private static Func<Investigation, int> InvestigatedPOICount =>
+        private static Func<Investigation, int> InvestigatedPoiCount =>
             investigation =>
                 investigation.InvestigatedPositions.Count;
 
-        private static Func<Investigation, int> POIToInvestigateCount =>
+        private static Func<Investigation, int> PoiToInvestigateCount =>
             investigation =>
-                investigation.AOI.POIs.Length;
+                investigation.Aoi.PoIs.Length;
 
 
         public static ProgressInvestigation Progress =>
             (investigation, positions) =>
                 new Investigation(
-                    investigation.AOI,
+                    investigation.Aoi,
                     investigation.InvestigatedPositions.Union(
                         positions.Where(p => IsPartOfInvestigation(investigation, p))));
 
         private static Func<Investigation, TilePosition, bool> IsPartOfInvestigation =>
             (investigation, position) =>
-                investigation.AOI.POIs.Any(poi => poi.Position.Equals(position));
+                investigation.Aoi.PoIs.Any(poi => poi.Position.Equals(position));
 
 
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>
-                UninvestigatedPOIs(investigation)
+                UninvestigatedPoIs(investigation)
                     .OrderBy(poi => GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
                     .First().Position;
 
-        private static Func<Investigation, IEnumerable<POI>> UninvestigatedPOIs =>
+        private static Func<Investigation, IEnumerable<Poi>> UninvestigatedPoIs =>
             investigation =>
-                investigation.AOI.POIs
+                investigation.Aoi.PoIs
                              .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
 
 
         public static CompleteInvestigation Complete =>
             investigation =>
-                new CompletedInvestigation(investigation.AOI.Index, DateTime.Now);
+                new CompletedInvestigation(investigation.Aoi.Index, DateTime.Now);
 
 
-        private static ChooseInvestigationAOI ChooseAOI =>
+        private static ChooseInvestigationAoi ChooseAoi =>
             (floorState, monsterState, rng) =>
                 floorState.AOIs.GetWeightedRandom(aoi => CalcTotalWeight(aoi, monsterState), rng);
 
 
         // [0 .. 15]
-        internal static CalculateAOIWeight CalcTotalWeight =>
+        internal static CalculateAoiWeight CalcTotalWeight =>
             (aoi, monsterState) =>
                 new[] { CalcDistanceWeight, CalcTimeWeight }.Sum(x => x(aoi, monsterState));
 
         // [0 .. 5]
-        private static CalculateAOIWeight CalcDistanceWeight =>
+        private static CalculateAoiWeight CalcDistanceWeight =>
             (aoi, monsterState) =>
-                DistanceBetweenAOIAndMonster(aoi, monsterState)
+                DistanceBetweenAoiAndMonster(aoi, monsterState)
                     .Clamp(MinDistance, MaxDistance)
                     .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
 
-        private static Func<AOI, MonsterState, float> DistanceBetweenAOIAndMonster =>
+        private static Func<Aoi, MonsterState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
                 GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position));
 
         // [0 .. 10]
-        private static CalculateAOIWeight CalcTimeWeight =>
+        private static CalculateAoiWeight CalcTimeWeight =>
             (aoi, monsterState) =>
                 SecondsSinceLastVisit(aoi, monsterState)
                     .IfNull(MaxTime)
                     .Map(seconds => seconds.Clamp(MinTime, MaxTime))
                     .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
 
-        private static Func<AOI, MonsterState, float?> SecondsSinceLastVisit =>
+        private static Func<Aoi, MonsterState, float?> SecondsSinceLastVisit =>
             (aoi, monsterState) =>
                 monsterState.InvestigationHistory.FindLastIn(aoi.Index)
                             .Bind(i => monsterState.CurrentTime - i.CompletionTime)
@@ -116,7 +116,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         #region Types
 
-        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRng rng);
 
         public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
 
@@ -126,22 +126,22 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
-        internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+        internal delegate Aoi ChooseInvestigationAoi(FloorState floorState, MonsterState monsterState, CreateRng rng);
 
-        internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
+        internal delegate float CalculateAoiWeight(Aoi aoi, MonsterState monsterState);
 
 
         public readonly struct Investigation
         {
 
-            internal AOI AOI { get; }
+            internal Aoi Aoi { get; }
 
             internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
 
 
-            internal Investigation(AOI aoi, ImmutableHashSet<TilePosition> investigatedPositions)
+            internal Investigation(Aoi aoi, ImmutableHashSet<TilePosition> investigatedPositions)
             {
-                AOI = aoi;
+                Aoi = aoi;
                 InvestigatedPositions = investigatedPositions;
             }
 

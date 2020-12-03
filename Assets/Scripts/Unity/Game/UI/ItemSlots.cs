@@ -47,10 +47,10 @@ namespace AChildsCourage.Game.UI
         }
 
 
-        public void UpdateCooldown(int slotId, float currentCooldown, float Cooldown)
+        public void UpdateCooldown(int slotId, float currentCooldown, float cooldown)
         {
             itemCooldownFills[slotId]
-                .fillAmount = Map(currentCooldown, 0, Cooldown, 0, MaxFillAmount);
+                .fillAmount = Map(currentCooldown, 0, cooldown, 0, MaxFillAmount);
 
             if (itemCooldownFills[slotId]
                     .fillAmount <

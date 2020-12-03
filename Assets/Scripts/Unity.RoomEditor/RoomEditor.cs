@@ -127,7 +127,7 @@ namespace AChildsCourage.RoomEditor
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
                 itemLayer.ReadAll(),
-                new AOIMarkerData[0]);
+                new AoiMarkerData[0]);
         }
 
 

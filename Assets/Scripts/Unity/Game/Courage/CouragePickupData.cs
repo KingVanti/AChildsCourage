@@ -12,14 +12,14 @@ namespace AChildsCourage.Game.Courage
 
 #pragma warning disable 649
 
-        [SerializeField] private int _value;
-        [SerializeField] private string _courageName;
-        [SerializeField] private CourageVariant _variant;
-        [SerializeField] private Sprite _sprite;
-        [SerializeField] private Vector3 _scale;
-        [SerializeField] private Texture2D _emission;
-        [SerializeField] private float _lightOuterRadius;
-        [SerializeField] private float _lightIntensity;
+        [SerializeField] private int value;
+        [SerializeField] private string courageName;
+        [SerializeField] private CourageVariant variant;
+        [SerializeField] private Sprite sprite;
+        [SerializeField] private Vector3 scale;
+        [SerializeField] private Texture2D emission;
+        [SerializeField] private float lightOuterRadius;
+        [SerializeField] private float lightIntensity;
 
 #pragma warning restore 649
 
@@ -27,21 +27,21 @@ namespace AChildsCourage.Game.Courage
 
         #region Properties
 
-        public CourageVariant Variant => _variant;
+        public CourageVariant Variant => variant;
 
-        public int Value => _value;
+        public int Value => value;
 
-        public string CourageName => _courageName;
+        public string CourageName => courageName;
 
-        public Sprite Sprite => _sprite;
+        public Sprite Sprite => sprite;
 
-        public Vector3 Scale => _scale;
+        public Vector3 Scale => scale;
 
-        public Texture2D Emission => _emission;
+        public Texture2D Emission => emission;
 
-        public float LightOuterRadius => _lightOuterRadius;
+        public float LightOuterRadius => lightOuterRadius;
 
-        public float LightIntensity => _lightIntensity;
+        public float LightIntensity => lightIntensity;
 
         #endregion
 

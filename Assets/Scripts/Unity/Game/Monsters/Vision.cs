@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Monsters {
         [SerializeField] private LayerMask wallLayer;
 #pragma warning restore 649
 
-        public TilePositionsEvent OnObservingTilesChanged;
+        public TilePositionsEvent onObservingTilesChanged;
 
         private bool isWatching = false;
 
@@ -97,7 +97,7 @@ namespace AChildsCourage.Game.Monsters {
                 }
 
                 CurrentlyObservingTilePositions = GetVisibleTilePositions(radius);
-                OnObservingTilesChanged?.Invoke(CurrentlyObservingTilePositions);
+                onObservingTilesChanged?.Invoke(CurrentlyObservingTilePositions);
                 yield return new WaitForSeconds(1f / updatesPerSecond);
             }
 

@@ -10,13 +10,13 @@ namespace AChildsCourage.Game.Courage
 
         #region Fields
 
-        private int _currentNightCourage;
-        private int _neededNightCourage;
+        private int currentNightCourage;
+        private int neededNightCourage;
 
-        public CourageChangedEvent OnCourageChanged;
-        public CourageChangedEvent OnInitialize;
-        public UnityEvent OnCourageDepleted;
-        public CanCollectCourageEvent OnCouragePickupableChanged;
+        public CourageChangedEvent onCourageChanged;
+        public CourageChangedEvent onInitialize;
+        public UnityEvent onCourageDepleted;
+        public CanCollectCourageEvent onCouragePickupableChanged;
 
         #endregion
 
@@ -24,12 +24,12 @@ namespace AChildsCourage.Game.Courage
 
         public int CurrentNightCourage
         {
-            get => _currentNightCourage;
+            get => currentNightCourage;
             set
             {
-                _currentNightCourage = value;
-                OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
-                OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
+                currentNightCourage = value;
+                onCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
+                onCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
             }
         }
 
@@ -67,7 +67,7 @@ namespace AChildsCourage.Game.Courage
             if (StartNightCourage < 1)
                 StartNightCourage = 1;
 
-            OnInitialize?.Invoke(StartNightCourage, NeededNightCourage, MaxNightCourage);
+            onInitialize?.Invoke(StartNightCourage, NeededNightCourage, MaxNightCourage);
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
@@ -85,7 +85,7 @@ namespace AChildsCourage.Game.Courage
             if (CurrentNightCourage < 0)
             {
                 CurrentNightCourage = 0;
-                OnCourageDepleted?.Invoke();
+                onCourageDepleted?.Invoke();
             }
         }
 

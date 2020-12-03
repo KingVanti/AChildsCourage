@@ -29,7 +29,7 @@ namespace Ninject.Extensions.Unity
         {
             var type = monoBehaviour.GetType();
 
-            return type.HasAttribute<UseDIAttribute>();
+            return type.HasAttribute<UseDiAttribute>();
         }
 
         private static void Register(IKernel kernel, MonoBehaviour behaviour, string eventBrokerName)

@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Persistance
         public static RunData NewRun => new RunData(0, BaseCourage);
 
 
-        public static Func<RunData, RNG.CreateRNG, NightData> StartNight =>
+        public static Func<RunData, Rng.CreateRng, NightData> StartNight =>
             (runData, rng) =>
                 CreateNightWithRandomSeed(rng);
 

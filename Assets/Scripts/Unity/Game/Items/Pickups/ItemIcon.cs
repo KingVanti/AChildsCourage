@@ -11,11 +11,11 @@ namespace AChildsCourage.Game.Items.Pickups
 
 #pragma warning disable 649
 
-        [SerializeField] private int _itemId;
-        [SerializeField] private Sprite _inactiveIcon;
-        [SerializeField] private Sprite _activeIcon;
-        [SerializeField] private Vector3 _scale;
-        [SerializeField] [Range(0, 360)] private float _rotationAngles;
+        [SerializeField] private int itemId;
+        [SerializeField] private Sprite inactiveIcon;
+        [SerializeField] private Sprite activeIcon;
+        [SerializeField] private Vector3 scale;
+        [SerializeField] [Range(0, 360)] private float rotationAngles;
 
 #pragma warning restore 649
 
@@ -23,15 +23,15 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Properties
 
-        public ItemId ItemId => (ItemId) _itemId;
+        public ItemId ItemId => (ItemId) itemId;
 
-        public Sprite InactiveIcon => _inactiveIcon;
+        public Sprite InactiveIcon => inactiveIcon;
 
-        public Sprite ActiveIcon => _activeIcon;
+        public Sprite ActiveIcon => activeIcon;
 
-        public Vector3 Scale => _scale;
+        public Vector3 Scale => scale;
 
-        public float RotationAngles => _rotationAngles;
+        public float RotationAngles => rotationAngles;
 
         #endregion
 

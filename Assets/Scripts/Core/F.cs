@@ -58,14 +58,14 @@ namespace AChildsCourage
                 action();
         }
 
-        public static U Map<T, U>(this T item, Func<T, U> function) => function(item);
+        public static TU Map<T, TU>(this T item, Func<T, TU> function) => function(item);
 
         public static void Do<T>(this T item, Action<T> action)
         {
             action(item);
         }
 
-        public static U MapWith<T, U, V>(this T item, Func<T, V, U> function, V param) => function(item, param);
+        public static TU MapWith<T, TU, TV>(this T item, Func<T, TV, TU> function, TV param) => function(item, param);
 
         public static void ForEach<T>(this IEnumerable<T> elements, Action<T> action)
         {
@@ -73,21 +73,21 @@ namespace AChildsCourage
                 action(element);
         }
 
-        public static void ForEach<T, U>(this IEnumerable<T> elements, Func<T, U> function)
+        public static void ForEach<T, TU>(this IEnumerable<T> elements, Func<T, TU> function)
         {
             foreach (var element in elements)
                 _ = function(element);
         }
 
-        public static U ThenTake<T, U>(this T _, U item) => item;
+        public static TU ThenTake<T, TU>(this T _, TU item) => item;
 
-        public static U FinallyReturn<T, U>(this T _, U item) => _.ThenTake(item);
+        public static TU FinallyReturn<T, TU>(this T _, TU item) => _.ThenTake(item);
 
         public static bool Negate(this bool b) => !b;
 
-        public static U? Bind<T, U>(this T? item, Func<T, U> function) where T : struct where U : struct => item.HasValue ? function(item.Value) : (U?) null;
+        public static TU? Bind<T, TU>(this T? item, Func<T, TU> function) where T : struct where TU : struct => item.HasValue ? function(item.Value) : (TU?) null;
 
-        public static U NullBind<T, U>(this T item, Func<T, U> function) where T : class where U : class => item != null ? function(item) : null;
+        public static TU NullBind<T, TU>(this T item, Func<T, TU> function) where T : class where TU : class => item != null ? function(item) : null;
 
         public static T IfNull<T>(this T? item, T replacement) where T : struct => item ?? replacement;
 

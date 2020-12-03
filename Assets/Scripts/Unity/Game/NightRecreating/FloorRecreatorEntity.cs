@@ -12,7 +12,7 @@ namespace AChildsCourage.Game
 {
 
     [UnityEntity(typeof(IFloorRecreator))]
-    [UseDI]
+    [UseDi]
     public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
 
