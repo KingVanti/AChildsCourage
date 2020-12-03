@@ -22,10 +22,9 @@ namespace AChildsCourage.Game
 
         private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanInProgress floorPlan)
         {
-            var phase =
-                Take(floorPlan)
-                    .Map(CountRooms)
-                    .Map(GetCurrentPhase);
+            var phase = Take(floorPlan)
+                        .Map(CountRooms)
+                        .Map(GetCurrentPhase);
 
             var roomType = GetFilteredRoomTypeFor(phase);
             var remainingRooms = floorPlan.GetRemainingRoomCount();
