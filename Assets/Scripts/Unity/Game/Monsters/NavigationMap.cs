@@ -9,8 +9,11 @@ namespace AChildsCourage.Game.Monsters
     public class NavigationMap : MonoBehaviour
     {
 
+#pragma warning disable 649
         [SerializeField] private AstarPath astarPath;
         [SerializeField] private int scanOverfill;
+#pragma warning restore 649
+
         private Floor mapFloor;
 
         private GridGraph GridGraph => astarPath.graphs.First() as GridGraph;
