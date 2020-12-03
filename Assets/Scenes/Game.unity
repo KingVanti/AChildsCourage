@@ -1487,7 +1487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   astarPath: {fileID: 1059038458}
-  scanOverfill: 10
 --- !u!114 &1059038458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2406,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4809530094449874114, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ca74567c49816e418e5419de7e9b511, type: 2}
     - target: {fileID: 4809530094449874115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_Name
       value: CourageRift
