@@ -12,6 +12,7 @@ namespace AChildsCourage.Game.Courage
 
         private int _currentNightCourage;
         private int _neededNightCourage;
+        [SerializeField] private int _maxNightCourage;
 
         public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
@@ -33,9 +34,7 @@ namespace AChildsCourage.Game.Courage
             }
         }
 
-        public int StartNightCourage { get; set; }
-
-        public int MaxNightCourage { get; set; } = 25;
+        public int MaxNightCourage { get => _maxNightCourage; set => _maxNightCourage = value; }
 
         public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
 
@@ -53,21 +52,10 @@ namespace AChildsCourage.Game.Courage
 
         #region Methods
 
-        private void Start()
+        public void Initialize()
         {
-            Initialize(MaxNightCourage);
-        }
-
-        public void Initialize(int maxNightCourage)
-        {
-            MaxNightCourage = maxNightCourage;
-
-            StartNightCourage += OverfilledNightCourage;
-
-            if (StartNightCourage < 1)
-                StartNightCourage = 1;
-
-            OnInitialize?.Invoke(StartNightCourage, NeededNightCourage, MaxNightCourage);
+            CurrentNightCourage = 1 + OverfilledNightCourage;
+            OnInitialize?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
@@ -76,6 +64,7 @@ namespace AChildsCourage.Game.Courage
 
             if (CurrentNightCourage > MaxNightCourage)
                 CurrentNightCourage = MaxNightCourage;
+
         }
 
         public void Subtract(int value)
