@@ -13,7 +13,7 @@ namespace AChildsCourage.Game
     internal static partial class FloorGenerating
     {
 
-        internal const int CourageOrbCount = 10;
+        internal const int CourageOrbCount = 5;
         internal const int CourageSparkCount = 25;
 
 
@@ -58,26 +58,29 @@ namespace AChildsCourage.Game
 
         internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
         {
-            var distanceOrigin = GetDistanceFromOrigin(position);
+            var distanceOriginWeight =
+                GetDistanceFromOrigin(position)
+                    .Clamp(20, 40)
+                    .Remap(20f, 40f, 1, 10f);
 
-            var distanceToClosest = taken.Any()
+            var distanceToClosestWeight = taken.Any()
                 ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                : 0;
+                       .Clamp(10, 30)
+                       .Remap(10, 30, 1, 20)
+                : 20;
 
-            return (float) Math.Pow(distanceOrigin + distanceToClosest, 2);
+            return distanceOriginWeight + distanceToClosestWeight;
         }
 
         internal static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
         {
-            var distanceOrigin = GetDistanceFromOrigin(position);
-            var distanceToClosest = taken.Any()
+            var distanceToClosestWeight = taken.Any()
                 ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                : 0;
+                       .Clamp(1, 10)
+                       .Remap(1, 10, 4, 1)
+                : 1;
 
-            var distanceOriginWeight = Math.Pow(distanceOrigin, 2);
-            var distanceToClosestWeight = distanceToClosest > 0 ? 1f / distanceToClosest : 0;
-
-            return (float) (distanceOriginWeight + distanceToClosestWeight);
+            return distanceToClosestWeight;
         }
 
     }
