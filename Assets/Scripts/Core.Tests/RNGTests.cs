@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage
 {
 
     [TestFixture]
-    public class RngTests
+    public class RNGTests
     {
 
         [Test]

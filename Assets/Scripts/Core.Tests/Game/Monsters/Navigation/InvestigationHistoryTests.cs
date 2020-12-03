@@ -52,7 +52,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             // When
 
-            var investigation = new CompletedInvestigation((AoiIndex) 1, DateTime.Now);
+            var investigation = new CompletedInvestigation((AOIIndex) 1, DateTime.Now);
             var added = history.Add(investigation);
 
             // Then

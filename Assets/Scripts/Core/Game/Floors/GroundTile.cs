@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Properties
 
-        public AoiIndex AoiIndex { get; }
+        public AOIIndex AOIIndex { get; }
 
         public TilePosition Position { get; }
 
@@ -17,10 +17,10 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        public GroundTile(AoiIndex aoiIndex, TilePosition position)
+        public GroundTile(AOIIndex aoiIndex, TilePosition position)
         {
             Position = position;
-            AoiIndex = aoiIndex;
+            AOIIndex = aoiIndex;
         }
 
         #endregion

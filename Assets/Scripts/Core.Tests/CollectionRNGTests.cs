@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage
 {
 
     [TestFixture]
-    public class CollectionRngTests
+    public class CollectionRNGTests
     {
 
         [Test]
@@ -15,7 +15,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            CreateRng createRng = () => 0;
+            CreateRNG createRng = () => 0;
 
             // When
 
@@ -32,7 +32,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            CreateRng createRng = () => 0;
+            CreateRNG createRng = () => 0;
 
             // When
 

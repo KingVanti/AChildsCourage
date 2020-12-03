@@ -16,8 +16,8 @@ namespace AChildsCourage.Game.Items
 
 #pragma warning disable 649
 
-        [SerializeField] [Range(0, 120)] private float cooldown;
-        [SerializeField] private int id;
+        [SerializeField] [Range(0, 120)] private float _cooldown;
+        [SerializeField] private int _id;
 
 #pragma warning restore 649
 
@@ -25,9 +25,9 @@ namespace AChildsCourage.Game.Items
 
         #region Properties
 
-        public ItemId Id => (ItemId) id;
+        public ItemId Id => (ItemId) _id;
 
-        public float Cooldown { get => cooldown; set => cooldown = value; }
+        public float Cooldown { get => _cooldown; set => _cooldown = value; }
 
         public bool IsInBag { get; set; }
 

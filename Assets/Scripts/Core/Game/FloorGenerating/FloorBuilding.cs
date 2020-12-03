@@ -18,7 +18,7 @@ namespace AChildsCourage.Game
                 ImmutableHashSet<Wall>.Empty,
                 ImmutableHashSet<RoomBuilder>.Empty);
 
-        private static RoomBuilder EmptyRoomBuilder(AoiIndex aoiIndex) =>
+        private static RoomBuilder EmptyRoomBuilder(AOIIndex aoiIndex) =>
             new RoomBuilder(
                 aoiIndex,
                 ImmutableHashSet<GroundTile>.Empty,
@@ -26,7 +26,7 @@ namespace AChildsCourage.Game
 
 
         private static FloorBuilder BuildRoom(FloorBuilder floorBuilder, TransformedRoomData transformedRoomData, int roomIndex) =>
-            Take(EmptyRoomBuilder((AoiIndex) roomIndex))
+            Take(EmptyRoomBuilder((AOIIndex) roomIndex))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
                 .Map(room => PlaceRoom(floorBuilder, room));

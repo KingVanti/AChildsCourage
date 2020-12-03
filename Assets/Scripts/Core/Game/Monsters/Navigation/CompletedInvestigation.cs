@@ -6,14 +6,14 @@ namespace AChildsCourage.Game.Monsters.Navigation
     public readonly struct CompletedInvestigation
     {
 
-        public AoiIndex AoiIndex { get; }
+        public AOIIndex AOIIndex { get; }
 
         public DateTime CompletionTime { get; }
 
 
-        public CompletedInvestigation(AoiIndex aoiIndex, DateTime completionTime)
+        public CompletedInvestigation(AOIIndex aoiIndex, DateTime completionTime)
         {
-            AoiIndex = aoiIndex;
+            AOIIndex = aoiIndex;
             CompletionTime = completionTime;
         }
 

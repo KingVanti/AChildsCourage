@@ -14,7 +14,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Monsters
 {
 
-    [UseDi]
+    [UseDI]
     public class Shade : MonoBehaviour
     {
         #region Fields
@@ -84,7 +84,7 @@ namespace AChildsCourage.Game.Monsters
         private IEnumerator Investigate()
         {
 
-            var investigation = StartNew(FloorState, CurrentState, Rng.New());
+            var investigation = StartNew(FloorState, CurrentState, RNG.New());
 
             var currentTarget = NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);

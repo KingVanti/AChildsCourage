@@ -2,12 +2,12 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
 
-    [UseDi]
+    [UseDI]
     public class TileRepository : MonoBehaviour
     {
 
@@ -21,7 +21,7 @@ namespace AChildsCourage.Game
 
 #pragma warning restore 649
 
-        private readonly CreateRng createRng = FromSeed(0);
+        private readonly CreateRNG createRng = FromSeed(0);
 
         #endregion
 

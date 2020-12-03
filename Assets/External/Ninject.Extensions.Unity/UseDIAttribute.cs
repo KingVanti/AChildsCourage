@@ -4,6 +4,6 @@ namespace Ninject.Extensions.Unity
 {
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class UseDiAttribute : Attribute { }
+    public class UseDIAttribute : Attribute { }
 
 }

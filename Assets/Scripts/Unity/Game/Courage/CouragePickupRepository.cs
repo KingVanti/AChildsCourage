@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.Courage
             throw new Exception("Could not find Courage variant!");
         }
 
-        public CouragePickupData GetRandomPickupData(CreateRng createRng)
+        public CouragePickupData GetRandomPickupData(CreateRNG createRng)
         {
             return couragePickups.GetRandom(createRng);
         }

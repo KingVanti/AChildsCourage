@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
@@ -9,7 +9,7 @@ namespace AChildsCourage.Game
     public static partial class MFloorPlanGenerating
     {
 
-        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, CreateRng createRng)
+        internal static RoomInChunk ChooseNextRoom(ChunkPosition chunkPosition, FloorPlanInProgress floorPlan, IEnumerable<RoomPassages> allPassages, CreateRNG createRng)
         {
             return chunkPosition
                    .CreateFilter(floorPlan)
@@ -18,7 +18,7 @@ namespace AChildsCourage.Game
                    .Map(room => new RoomInChunk(room, chunkPosition));
         }
 
-        private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, CreateRng createRng) => roomPassages.GetRandom(createRng);
+        private static RoomPassages ChooseRandom(this FilteredRoomPassages roomPassages, CreateRNG createRng) => roomPassages.GetRandom(createRng);
 
         private static RoomPassageFilter CreateFilter(this ChunkPosition position, FloorPlanInProgress floorPlan)
         {

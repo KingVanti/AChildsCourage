@@ -4,28 +4,28 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    public readonly struct Aoi
+    public readonly struct AOI
     {
 
-        internal AoiIndex Index { get; }
+        internal AOIIndex Index { get; }
 
         internal TilePosition Center { get; }
 
-        internal ImmutableArray<Poi> PoIs { get; }
+        internal ImmutableArray<POI> POIs { get; }
 
 
-        public Aoi(AoiIndex index, TilePosition center, ImmutableArray<Poi> pois)
+        public AOI(AOIIndex index, TilePosition center, ImmutableArray<POI> pois)
         {
             Index = index;
             Center = center;
-            PoIs = pois;
+            POIs = pois;
         }
 
-        internal Aoi(AoiIndex index, TilePosition center)
+        internal AOI(AOIIndex index, TilePosition center)
         {
             Index = index;
             Center = center;
-            PoIs = ImmutableArray<Poi>.Empty;
+            POIs = ImmutableArray<POI>.Empty;
         }
 
 

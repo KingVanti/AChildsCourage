@@ -45,7 +45,7 @@ namespace AChildsCourage.Game
             new GroundTileData(
                 position,
                 groundTile.DistanceToWall,
-                groundTile.AoiIndex);
+                groundTile.AOIIndex);
 
         internal static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => pickup.With(transformer(pickup.Position));
 

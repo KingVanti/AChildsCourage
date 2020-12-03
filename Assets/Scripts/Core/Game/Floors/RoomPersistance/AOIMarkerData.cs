@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors.RoomPersistance
 {
 
-    public readonly struct AoiMarkerData
+    public readonly struct AOIMarkerData
     {
 
         public TilePosition Position { get; }
@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
         public int Index { get; }
 
 
-        public AoiMarkerData(TilePosition position, int index)
+        public AOIMarkerData(TilePosition position, int index)
         {
             Position = position;
             Index = index;

@@ -9,10 +9,10 @@ public class ItemDataRepository
     private const string ResourcePath = "Items/";
 
 
-    private static readonly Dictionary<ItemId, ItemData> CachedItemData = new Dictionary<ItemId, ItemData>();
+    private static readonly Dictionary<ItemId, ItemData> cachedItemData = new Dictionary<ItemId, ItemData>();
 
 
-    private static bool HasCache => CachedItemData.Count > 0;
+    private static bool HasCache => cachedItemData.Count > 0;
 
 
     public static LoadItemIds GetItemIdLoader()
@@ -25,7 +25,7 @@ public class ItemDataRepository
         if (!HasCache)
             FillCache();
 
-        return CachedItemData.Keys;
+        return cachedItemData.Keys;
     }
 
 
@@ -39,7 +39,7 @@ public class ItemDataRepository
         if (!HasCache)
             FillCache();
 
-        return CachedItemData[id];
+        return cachedItemData[id];
     }
 
 
@@ -49,7 +49,7 @@ public class ItemDataRepository
         {
             var data = asset.Data;
 
-            CachedItemData.Add(data.Id, data);
+            cachedItemData.Add(data.Id, data);
         }
     }
 

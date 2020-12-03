@@ -14,25 +14,25 @@ namespace AChildsCourage.RoomEditor
     {
 
         // Mouse
-        private readonly InputActionMap mMouse;
-        private readonly InputAction mMouseDelete;
-        private readonly InputAction mMouseMove;
-        private readonly InputAction mMousePlace;
+        private readonly InputActionMap m_Mouse;
+        private readonly InputAction m_Mouse_Delete;
+        private readonly InputAction m_Mouse_Move;
+        private readonly InputAction m_Mouse_Place;
 
         // Movement
-        private readonly InputActionMap mMovement;
-        private readonly InputAction mMovementHorizontal;
-        private readonly InputAction mMovementVertical;
+        private readonly InputActionMap m_Movement;
+        private readonly InputAction m_Movement_Horizontal;
+        private readonly InputAction m_Movement_Vertical;
 
         // Zoom
-        private readonly InputActionMap mZoom;
-        private readonly InputAction mZoomFocus;
-        private readonly InputAction mZoomScroll;
-        private IMouseActions mMouseActionsCallbackInterface;
-        private IMovementActions mMovementActionsCallbackInterface;
-        private IZoomActions mZoomActionsCallbackInterface;
+        private readonly InputActionMap m_Zoom;
+        private readonly InputAction m_Zoom_Focus;
+        private readonly InputAction m_Zoom_Scroll;
+        private IMouseActions m_MouseActionsCallbackInterface;
+        private IMovementActions m_MovementActionsCallbackInterface;
+        private IZoomActions m_ZoomActionsCallbackInterface;
 
-        public InputActionAsset Asset { get; }
+        public InputActionAsset asset { get; }
 
         public MouseActions Mouse => new MouseActions(this);
 
@@ -42,7 +42,7 @@ namespace AChildsCourage.RoomEditor
 
         public RoomEditorInput()
         {
-            Asset = InputActionAsset.FromJson(@"{
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""RoomEditor"",
     ""maps"": [
         {
@@ -251,41 +251,41 @@ namespace AChildsCourage.RoomEditor
 }");
 
             // Mouse
-            mMouse = Asset.FindActionMap("Mouse", true);
-            mMousePlace = mMouse.FindAction("Place", true);
-            mMouseDelete = mMouse.FindAction("Delete", true);
-            mMouseMove = mMouse.FindAction("Move", true);
+            m_Mouse = asset.FindActionMap("Mouse", true);
+            m_Mouse_Place = m_Mouse.FindAction("Place", true);
+            m_Mouse_Delete = m_Mouse.FindAction("Delete", true);
+            m_Mouse_Move = m_Mouse.FindAction("Move", true);
 
             // Movement
-            mMovement = Asset.FindActionMap("Movement", true);
-            mMovementHorizontal = mMovement.FindAction("Horizontal", true);
-            mMovementVertical = mMovement.FindAction("Vertical", true);
+            m_Movement = asset.FindActionMap("Movement", true);
+            m_Movement_Horizontal = m_Movement.FindAction("Horizontal", true);
+            m_Movement_Vertical = m_Movement.FindAction("Vertical", true);
 
             // Zoom
-            mZoom = Asset.FindActionMap("Zoom", true);
-            mZoomScroll = mZoom.FindAction("Scroll", true);
-            mZoomFocus = mZoom.FindAction("Focus", true);
+            m_Zoom = asset.FindActionMap("Zoom", true);
+            m_Zoom_Scroll = m_Zoom.FindAction("Scroll", true);
+            m_Zoom_Focus = m_Zoom.FindAction("Focus", true);
         }
 
         public void Dispose()
         {
-            Object.Destroy(Asset);
+            Object.Destroy(asset);
         }
 
-        public InputBinding? bindingMask { get => Asset.bindingMask; set => Asset.bindingMask = value; }
+        public InputBinding? bindingMask { get => asset.bindingMask; set => asset.bindingMask = value; }
 
-        public ReadOnlyArray<InputDevice>? devices { get => Asset.devices; set => Asset.devices = value; }
+        public ReadOnlyArray<InputDevice>? devices { get => asset.devices; set => asset.devices = value; }
 
-        public ReadOnlyArray<InputControlScheme> controlSchemes => Asset.controlSchemes;
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
         public bool Contains(InputAction action)
         {
-            return Asset.Contains(action);
+            return asset.Contains(action);
         }
 
         public IEnumerator<InputAction> GetEnumerator()
         {
-            return Asset.GetEnumerator();
+            return asset.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -295,33 +295,33 @@ namespace AChildsCourage.RoomEditor
 
         public void Enable()
         {
-            Asset.Enable();
+            asset.Enable();
         }
 
         public void Disable()
         {
-            Asset.Disable();
+            asset.Disable();
         }
 
         public struct MouseActions
         {
 
-            private readonly RoomEditorInput mWrapper;
+            private readonly RoomEditorInput m_Wrapper;
 
             public MouseActions(RoomEditorInput wrapper)
             {
-                mWrapper = wrapper;
+                m_Wrapper = wrapper;
             }
 
-            public InputAction Place => mWrapper.mMousePlace;
+            public InputAction Place => m_Wrapper.m_Mouse_Place;
 
-            public InputAction Delete => mWrapper.mMouseDelete;
+            public InputAction Delete => m_Wrapper.m_Mouse_Delete;
 
-            public InputAction Move => mWrapper.mMouseMove;
+            public InputAction Move => m_Wrapper.m_Mouse_Move;
 
             public InputActionMap Get()
             {
-                return mWrapper.mMouse;
+                return m_Wrapper.m_Mouse;
             }
 
             public void Enable()
@@ -336,7 +336,7 @@ namespace AChildsCourage.RoomEditor
                     .Disable();
             }
 
-            public bool Enabled =>
+            public bool enabled =>
                 Get()
                     .enabled;
 
@@ -347,20 +347,20 @@ namespace AChildsCourage.RoomEditor
 
             public void SetCallbacks(IMouseActions instance)
             {
-                if (mWrapper.mMouseActionsCallbackInterface != null)
+                if (m_Wrapper.m_MouseActionsCallbackInterface != null)
                 {
-                    Place.started -= mWrapper.mMouseActionsCallbackInterface.OnPlace;
-                    Place.performed -= mWrapper.mMouseActionsCallbackInterface.OnPlace;
-                    Place.canceled -= mWrapper.mMouseActionsCallbackInterface.OnPlace;
-                    Delete.started -= mWrapper.mMouseActionsCallbackInterface.OnDelete;
-                    Delete.performed -= mWrapper.mMouseActionsCallbackInterface.OnDelete;
-                    Delete.canceled -= mWrapper.mMouseActionsCallbackInterface.OnDelete;
-                    Move.started -= mWrapper.mMouseActionsCallbackInterface.OnMove;
-                    Move.performed -= mWrapper.mMouseActionsCallbackInterface.OnMove;
-                    Move.canceled -= mWrapper.mMouseActionsCallbackInterface.OnMove;
+                    Place.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    Place.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    Place.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    Delete.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    Delete.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    Delete.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    Move.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
+                    Move.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
+                    Move.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
                 }
 
-                mWrapper.mMouseActionsCallbackInterface = instance;
+                m_Wrapper.m_MouseActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     Place.started += instance.OnPlace;
@@ -380,20 +380,20 @@ namespace AChildsCourage.RoomEditor
         public struct MovementActions
         {
 
-            private readonly RoomEditorInput mWrapper;
+            private readonly RoomEditorInput m_Wrapper;
 
             public MovementActions(RoomEditorInput wrapper)
             {
-                mWrapper = wrapper;
+                m_Wrapper = wrapper;
             }
 
-            public InputAction Horizontal => mWrapper.mMovementHorizontal;
+            public InputAction Horizontal => m_Wrapper.m_Movement_Horizontal;
 
-            public InputAction Vertical => mWrapper.mMovementVertical;
+            public InputAction Vertical => m_Wrapper.m_Movement_Vertical;
 
             public InputActionMap Get()
             {
-                return mWrapper.mMovement;
+                return m_Wrapper.m_Movement;
             }
 
             public void Enable()
@@ -408,7 +408,7 @@ namespace AChildsCourage.RoomEditor
                     .Disable();
             }
 
-            public bool Enabled =>
+            public bool enabled =>
                 Get()
                     .enabled;
 
@@ -419,17 +419,17 @@ namespace AChildsCourage.RoomEditor
 
             public void SetCallbacks(IMovementActions instance)
             {
-                if (mWrapper.mMovementActionsCallbackInterface != null)
+                if (m_Wrapper.m_MovementActionsCallbackInterface != null)
                 {
-                    Horizontal.started -= mWrapper.mMovementActionsCallbackInterface.OnHorizontal;
-                    Horizontal.performed -= mWrapper.mMovementActionsCallbackInterface.OnHorizontal;
-                    Horizontal.canceled -= mWrapper.mMovementActionsCallbackInterface.OnHorizontal;
-                    Vertical.started -= mWrapper.mMovementActionsCallbackInterface.OnVertical;
-                    Vertical.performed -= mWrapper.mMovementActionsCallbackInterface.OnVertical;
-                    Vertical.canceled -= mWrapper.mMovementActionsCallbackInterface.OnVertical;
+                    Horizontal.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    Horizontal.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    Horizontal.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    Vertical.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    Vertical.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    Vertical.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
                 }
 
-                mWrapper.mMovementActionsCallbackInterface = instance;
+                m_Wrapper.m_MovementActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     Horizontal.started += instance.OnHorizontal;
@@ -446,20 +446,20 @@ namespace AChildsCourage.RoomEditor
         public struct ZoomActions
         {
 
-            private readonly RoomEditorInput mWrapper;
+            private readonly RoomEditorInput m_Wrapper;
 
             public ZoomActions(RoomEditorInput wrapper)
             {
-                mWrapper = wrapper;
+                m_Wrapper = wrapper;
             }
 
-            public InputAction Scroll => mWrapper.mZoomScroll;
+            public InputAction Scroll => m_Wrapper.m_Zoom_Scroll;
 
-            public InputAction Focus => mWrapper.mZoomFocus;
+            public InputAction Focus => m_Wrapper.m_Zoom_Focus;
 
             public InputActionMap Get()
             {
-                return mWrapper.mZoom;
+                return m_Wrapper.m_Zoom;
             }
 
             public void Enable()
@@ -474,7 +474,7 @@ namespace AChildsCourage.RoomEditor
                     .Disable();
             }
 
-            public bool Enabled =>
+            public bool enabled =>
                 Get()
                     .enabled;
 
@@ -485,17 +485,17 @@ namespace AChildsCourage.RoomEditor
 
             public void SetCallbacks(IZoomActions instance)
             {
-                if (mWrapper.mZoomActionsCallbackInterface != null)
+                if (m_Wrapper.m_ZoomActionsCallbackInterface != null)
                 {
-                    Scroll.started -= mWrapper.mZoomActionsCallbackInterface.OnScroll;
-                    Scroll.performed -= mWrapper.mZoomActionsCallbackInterface.OnScroll;
-                    Scroll.canceled -= mWrapper.mZoomActionsCallbackInterface.OnScroll;
-                    Focus.started -= mWrapper.mZoomActionsCallbackInterface.OnFocus;
-                    Focus.performed -= mWrapper.mZoomActionsCallbackInterface.OnFocus;
-                    Focus.canceled -= mWrapper.mZoomActionsCallbackInterface.OnFocus;
+                    Scroll.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    Scroll.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    Scroll.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    Focus.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    Focus.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    Focus.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
                 }
 
-                mWrapper.mZoomActionsCallbackInterface = instance;
+                m_Wrapper.m_ZoomActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     Scroll.started += instance.OnScroll;

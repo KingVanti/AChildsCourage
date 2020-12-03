@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage
 {
 
-    public static class CollectionRng
+    public static class CollectionRNG
     {
 
         public delegate float CalculateWeight<T>(T element);
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRng createRng) => GetWeightedRandom(calculateWeight, createRng, elements);
+        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRNG createRng) => GetWeightedRandom(calculateWeight, createRng, elements);
 
 
-        public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
+        public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRNG createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements as T[] ?? elements.ToArray();
             if (!elementsArray.Any())
@@ -46,10 +46,10 @@ namespace AChildsCourage
         private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => new Weighted<T>(element, calculateWeight(element));
 
 
-        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRng createRng) => GetRandom(createRng, elements);
+        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRNG createRng) => GetRandom(createRng, elements);
 
 
-        public static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
+        public static T GetRandom<T>(CreateRNG createRng, IEnumerable<T> elements)
         {
             if (elements.Count() == 0)
                 return default;

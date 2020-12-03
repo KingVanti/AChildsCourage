@@ -4,7 +4,7 @@ using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
@@ -15,7 +15,7 @@ namespace AChildsCourage.Game
         internal const int GoalRoomCount = 15;
 
         
-        public static FloorPlan GenerateFloorPlan(GenerationParameters parameters, CreateRng rng)
+        public static FloorPlan GenerateFloorPlan(GenerationParameters parameters, CreateRNG rng)
         {
             Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, parameters.Passages, fpip);
 
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game
                     .Map(BuildFloorPlan);
         }
 
-        internal static FloorPlanInProgress AddRoom(CreateRng createRng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
+        internal static FloorPlanInProgress AddRoom(CreateRNG createRng, IEnumerable<RoomPassages> allPassages, FloorPlanInProgress floorPlanInprogress)
         {
             Func<ChunkPosition> chooseChunk = () => ChooseNextChunk(floorPlanInprogress, createRng);
             Func<ChunkPosition, RoomInChunk> chooseRoom = position => ChooseNextRoom(position, floorPlanInprogress, allPassages, createRng);

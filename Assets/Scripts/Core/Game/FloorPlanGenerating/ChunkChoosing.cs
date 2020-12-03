@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Numerics;
 using static AChildsCourage.F;
-using static AChildsCourage.Rng;
+using static AChildsCourage.RNG;
 
 namespace AChildsCourage.Game
 {
@@ -13,7 +13,7 @@ namespace AChildsCourage.Game
         private const float BaseWeight = 1;
 
 
-        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, CreateRng createRng)
+        private static ChunkPosition ChooseNextChunk(FloorPlanInProgress floorPlan, CreateRNG createRng)
         {
             var phase =
                 Take(floorPlan)
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game
             return new ChunkPosition(0, 0);
         }
 
-        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, CreateRng createRng)
+        private static ChunkPosition GetNextChunk(FloorPlanInProgress floorPlan, CreateRNG createRng)
         {
             if (HasReservedChunks(floorPlan))
                 return floorPlan.ReservedChunks.GetWeightedRandom(GetChunkWeight, createRng);
