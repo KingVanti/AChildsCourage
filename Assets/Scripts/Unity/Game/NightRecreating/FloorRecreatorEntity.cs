@@ -1,8 +1,10 @@
-﻿using AChildsCourage.Game.Courage;
+﻿using System;
+using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.Floors.MRoom;
@@ -28,6 +30,8 @@ namespace AChildsCourage.Game
 
         #region Fields
 
+        public FloorEvent onFloorRecreated;
+        
 #pragma warning disable 649
 
         [SerializeField] private Tilemap groundTilemap;
@@ -46,6 +50,8 @@ namespace AChildsCourage.Game
             floor.Walls.ForEach(PlaceWall);
             floor.Rooms.ForEach(RecreateRoom);
             floor.CouragePickups.ForEach(PlaceCouragePickup);
+            
+            onFloorRecreated.Invoke(floor);
         }
 
         private void RecreateRoom(Room room)
@@ -83,6 +89,12 @@ namespace AChildsCourage.Game
             Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity, couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
         
+        #endregion
+
+        #region Subtypes
+
+        [Serializable] public class FloorEvent : UnityEvent<Floor>{}
+
         #endregion
 
     }

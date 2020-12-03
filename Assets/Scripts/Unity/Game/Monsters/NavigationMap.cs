@@ -1,23 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using Pathfinding;
 using UnityEngine;
+using static AChildsCourage.Game.Floors.MFloor;
 
-namespace AChildsCourage.Game.Monsters {
-    public class NavigationMap : MonoBehaviour {
+namespace AChildsCourage.Game.Monsters
+{
+
+    public class NavigationMap : MonoBehaviour
+    {
 
         [SerializeField] private AstarPath astarPath;
-        private NavGraph[] navigationGraph;
+        private Floor mapFloor;
 
-        public void ScanLevel() {
+        private GridGraph GridGraph => astarPath.graphs.First() as GridGraph;
 
-            Invoke(nameof(Scan), 1f);
 
+        public void OnFloorRecreated(Floor floor)
+        {
+            mapFloor = floor;
+            Invoke(nameof(FitMapToFloor), 1);
         }
 
-        private void Scan() {
-            astarPath.Scan(astarPath.graphs[0]);
+        private void FitMapToFloor()
+        {
+            ScaleToFit(mapFloor);
+            astarPath.Scan(GridGraph);
+        }
+
+
+        private void ScaleToFit(Floor floor)
+        {
+            var (lowerRight, upperLeft) = GetFloorCorners(floor);
+
+            var width = upperLeft.X - lowerRight.X;
+            var depth = upperLeft.Y - lowerRight.Y;
+            var center = new Vector3(lowerRight.X + width / 2f, lowerRight.Y + depth / 2f, 0);
+
+            GridGraph.center = center;
+            GridGraph.Width = width;
+            GridGraph.Depth = depth;
         }
 
     }
+
 }

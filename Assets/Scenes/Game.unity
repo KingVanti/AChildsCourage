@@ -1178,17 +1178,6 @@ PrefabInstance:
       objectReference: {fileID: 665256280}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
---- !u!114 &792860776 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 792860775}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &806895827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,18 +1308,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1531510519}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
         m_MethodName: StartInvestigation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1891232475}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.NavigationMap, AChildsCourage.Unity
-        m_MethodName: ScanLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2129,7 +2106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAIIexCJC04UAIAAPcEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1z2jAQ/SuMzqVjnDAJvbUkIT3kY0IzufiyltZYgyx5JDlAMvz3rmQbu3TaE+Lt26e3H/Ink9rVyL2xKyvFgxHIvk1YOLMvkyF4j3vYGL2WH9hz3qTwZSBB5LyAl4bwWUhzpkJvJf+uNyqQEwIbLQtjq1uxwaVx3hFcgHJIIWt8yNYEfU7Ynn6mi5ByoFN6FU4fdFokkyMdOWqPdqD2xJ42nUdao7mCqkYRPA/sdH4Snrd6murpOME7N0pJ15lh/lDHYpdQu4ZKIYKQQMVFB8nXawJKlJvSB8Vx+lNROPSdLwuHG2mpS60u+2Ha1lXgtq23d1BNuGk+S6OrVvThr/h0FsOFNdV9f+8sCXf4UvLtCxw4OD/q7Ri+GazPYot2oLaQK3wrUT+alTWNFhT0tgmpjcP0Zvh7Km1ZIt8OeGv1DGzq/0yIajjG6vdLJas8dvKyBdbKxI7H+aOl2fwkw3E7XCdBaHDx6vAXbMZr1AXupHWeQl2VOtjLTWMDld3RIXSeN35prEY7FqhRg/KHZ5Lx5yM8i/076w7Cg+ku72L9OzhLifDAT5Kz0LPZnYblSrN7QFc+NV5JjUOnQ+CR+rQ0WrcbNi6pT1s3tgA+Sts0Uvy5WiyFBPAqRwGXOaQgpnCxuOYXKRZ5Xlwv+BWLuyc11QnquTXatYempgdxTXvWf0cmKwt13HZhYbeSH5VxA1Pqwqy5RdRPrcLJOFq6hN6luBWSGrRG76WO82afGVOGb1FkJ6EsVnq79xayQSVjtXw3PiAZW8YPR8aO7PgbUEsDBBQAAAgIAAAIIexMjS/ubQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrSSUaJBYqp5UmpKoklSolFiim6isaVFsrFRalpSUpqFZbK5UixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAIIexCJC04UAIAAPcEAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIexMjS/ubQAAAHgAAAAJACQAAAAAAAAAAAAAAJ0CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAVQMAAAAA
+    dataString: UEsDBBQAAAgIAAAIIeyAuzChSQIAAPQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1z2jAQ/SuMzqVjk2QIvbVASA/5mNBOLlzW0hprkCWPJAdIhv/elWxjh057Qrx9u3pvd+UPJrWrkHtjV1aKByOQfRuxcGZfRn3wHg+wNXot37HjvErhi0CCyHkBLw3haUhzpkRvJf+utyqQEwJrLXNjy6XY4tw47wjOQTmkkDU+ZGuCPkbsQD/jWUg50mkyDad3Os2S0YmOHLVH21M7Ykcb30RarbmCskIRNPfstKOnTTVNblpGUM6NUtK1Upg/VtHqCxyDUSGBbMW7k6+3BBQot4UPIoepT3nu0LeKLBwX0lJ/mprsh2maVoLbNareQNXhlpt0EhU1RR/+io/TGM6tKe+7e9Mk3OELyXekkYPzg64O4UUvPY3N2YPaQabwtUD9aFbW1FpQ0Ns6pNYOJ4v+79navEC+6/FG6gVYV/+ZDXk4RfeHuZJlFjt53QBrZWK34+TR0lx+kuC4F64tQWhQ8dvhL9gOF6gN3EnrPIValzrIy0xtA5UtY8+Cm9rPjdVohxUq1KD88Znq+MsZXsT+nXUH4a20t7ex7glcpES45yfJRejZ7M/TcoXZP6ArnmqvpMa+1SHwSI2aG62bFRta6tLWtc2BDzVsayk+LxebQAI4zVDAdQYTEGO4mt3yqwnmWZbfzviUxe2TmoyCem6Utv2huelelKZN674ho5WFKu67sLBfyffSuJ4pdW7W3CLqp6bCWTlauoRepVgKSR1ao/dSx4mzjw1Thu9QbPqETfS6PHgLn9BKvhkfkA2bx6/Ghp3Y6Q9QSwMEFAAACAgAAAgh7EyNL+5tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJJRokFiqnlSakqiSVKiUWKKbqKxpUWysVFqWlJSmoVlsrlSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7IC7MKFJAgAA9AQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7EyNL+5tAAAAeAAAAAkAJAAAAAAAAAAAAAAAlgIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABOAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2201,7 +2178,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 1
+  showGraphs: 0
 --- !u!4 &1891232477
 Transform:
   m_ObjectHideFlags: 0
@@ -2306,6 +2283,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFloorRecreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1891232475}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.NavigationMap, AChildsCourage.Unity
+        m_MethodName: OnFloorRecreated
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   groundTilemap: {fileID: 285969144}
   staticTilemap: {fileID: 687412597}
   couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
@@ -2477,78 +2469,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnCourageChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1759300744}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
-        m_MethodName: UpdateCourage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnInitialize:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1759300744}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
-        m_MethodName: UpdateCourage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnCourageDepleted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 911352937}
-        m_TargetAssemblyTypeName: AChildsCourage.Unity.GameManager, AChildsCourage.Unity
-        m_MethodName: OnLose
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 792860776}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: KillPlayer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnCouragePickupableChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 792860776}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: SwitchCourageCollectable
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &2044952114
 Transform:
   m_ObjectHideFlags: 0
