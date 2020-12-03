@@ -46,7 +46,7 @@ MonoBehaviour:
   visionRadius: 7
   visionAngle: 90
   rotationSpeed: 0
-  updatesPerSecond: 5
+  updatesPerSecond: 8
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -5038,7 +5038,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 2
+  maxSpeed: 3
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -5051,7 +5051,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 0.6
   pickNextWaypointDist: 1
-  endReachedDistance: 0.2
+  endReachedDistance: 0.3
   alwaysDrawGizmos: 1
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -5074,7 +5074,7 @@ MonoBehaviour:
   touchDamage: 1
   attackDamage: 2
   movementSpeed: 2
-  investigationUpdatesPerSecond: 5
+  investigationUpdatesPerSecond: 8
   targetTransform: {fileID: 0}
   OnMinimumDistanceReached:
     m_PersistentCalls:
