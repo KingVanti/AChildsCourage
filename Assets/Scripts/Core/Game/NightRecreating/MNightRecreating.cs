@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game
 {
 
-    internal static class NightRecreating
+    internal static class MNightRecreating
     {
         
         internal delegate void RecreateNight(Floor floor);
