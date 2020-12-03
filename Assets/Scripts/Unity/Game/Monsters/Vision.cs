@@ -105,12 +105,10 @@ namespace AChildsCourage.Game.Monsters {
         public void OnMinimumDistanceEntered(Vector3 target) {
             isNearTarget = true;
             targetPos = target;
-            Debug.Log(isNearTarget);
         }
 
         public void OnMinimumDistanceLeft() {
             isNearTarget = false;
-            Debug.Log(isNearTarget);
         }
 
 
