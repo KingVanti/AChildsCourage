@@ -294,11 +294,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileRepository: {fileID: 273756742}
+  onFloorRecreated:
+    m_PersistentCalls:
+      m_Calls: []
   groundTilemap: {fileID: 2089445320}
   staticTilemap: {fileID: 705349417}
   couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
-  itemPickupSpawner: {fileID: 1241242447}
+  couragePickupParent: {fileID: 0}
 --- !u!156049354 &273756744
 Grid:
   m_ObjectHideFlags: 0
@@ -746,7 +748,8 @@ PrefabInstance:
       propertyPath: floorStateKeeper
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2440549242262596758, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &401169742 stripped
 GameObject:
@@ -1599,7 +1602,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7961783e6f1fb4593c528dc7b77b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneManager: {fileID: 525765794}
+  onSceneLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  onNightPrepared:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1237972401
 Transform:
   m_ObjectHideFlags: 0
@@ -1644,7 +1652,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
-  pickupContainer: {fileID: 1241242448}
   itemIcons:
   - {fileID: 11400000, guid: 0098f7c911cdea641bd16bf392dc1581, type: 2}
 --- !u!4 &1241242448
@@ -2501,6 +2508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxNightCourage: 0
   OnCourageChanged:
     m_PersistentCalls:
       m_Calls:

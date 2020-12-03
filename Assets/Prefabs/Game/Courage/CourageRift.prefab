@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 4809530094449874114}
   - component: {fileID: 3739399925676272225}
   - component: {fileID: 8709681904578339686}
+  - component: {fileID: -9006861694604943558}
   m_Layer: 0
   m_Name: CourageRift
   m_TagString: Untagged
@@ -199,6 +200,29 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
+--- !u!114 &-9006861694604943558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809530094449874115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/courage/rift
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4809530095725248176
 GameObject:
   m_ObjectHideFlags: 0
