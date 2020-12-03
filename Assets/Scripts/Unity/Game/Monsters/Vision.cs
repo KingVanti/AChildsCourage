@@ -73,6 +73,17 @@ namespace AChildsCourage.Game.Monsters {
 
             }
 
+            for (int i = -1; i <= 1; i++) {
+
+                for (int j = -1; j <= 1; j++) {
+
+                    Vector3 tile = new Vector3(CurrentVector3Position.x + i, CurrentVector3Position.y + j);
+                    tiles.Add(tile);
+
+                }
+
+            }
+
             foreach (Vector3 tile in tiles) {
                 tilePositions.Add(new TilePosition(Mathf.FloorToInt(tile.x), Mathf.FloorToInt(tile.y)));
             }
@@ -88,12 +99,13 @@ namespace AChildsCourage.Game.Monsters {
 
         }
 
+
         IEnumerator Observe(int radius) {
 
             while (IsObserving) {
 
                 if (!isWatching) {
-                    StartCoroutine(Watch(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 1.5f));
+                    StartCoroutine(Watch(new Vector3(0, 0, UnityEngine.Random.Range(0, 360)), 1f));
                 }
 
                 CurrentlyObservingTilePositions = GetVisibleTilePositions(radius);
@@ -109,7 +121,7 @@ namespace AChildsCourage.Game.Monsters {
             float elapsedTime = 0;
             Quaternion startRotation = transform.rotation;
 
-            while (elapsedTime < completionTime) {
+            while (isWatching && elapsedTime < completionTime) {
 
                 transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(endRotation), (elapsedTime / completionTime));
                 elapsedTime += Time.deltaTime;
