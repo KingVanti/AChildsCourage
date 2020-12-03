@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRadius: 7
   visionAngle: 90
-  rotationSpeed: 0
+  rotationSpeed: 1
   updatesPerSecond: 8
   wallLayer:
     serializedVersion: 2
@@ -5038,7 +5038,7 @@ MonoBehaviour:
   repathRate: 0.5
   canSearch: 1
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 1.8
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -5071,11 +5071,40 @@ MonoBehaviour:
   ai: {fileID: 3696624342232356208}
   rb: {fileID: 3421516115218180208}
   seeker: {fileID: 5749346845843882517}
+  shadeAnimator: {fileID: 537825537936044893}
   touchDamage: 1
   attackDamage: 2
   movementSpeed: 2
   investigationUpdatesPerSecond: 8
   targetTransform: {fileID: 0}
-  OnMinimumDistanceReached:
+  minimumDistanceTargetLock: 10
+  OnMinimumDistanceEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8837610286537015916}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
+        m_MethodName: OnMinimumDistanceEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMinimumDistanceLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8837610286537015916}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
+        m_MethodName: OnMinimumDistanceLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

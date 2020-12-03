@@ -24,6 +24,7 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning disable 649
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
+        [SerializeField] private Animator shadeAnimator;
         [Header("Stats")] [SerializeField] private int touchDamage;
         [SerializeField] private int attackDamage;
         [SerializeField] private float movementSpeed;
@@ -54,9 +55,27 @@ namespace AChildsCourage.Game.Monsters
 
         private FloorState FloorState => FloorStateKeeper.CurrentFloorState;
 
+        private bool IsMoving => ai.velocity != Vector3.zero;
+
+        private Vector2 MoveVector {
+            get {
+                return ai.velocity.normalized;
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private void Update() {
+            UpdateAnimator();
+        }
+
+        private void UpdateAnimator() {
+            shadeAnimator.SetBool("IsMoving", IsMoving);
+            shadeAnimator.SetFloat("X", MoveVector.x);
+            shadeAnimator.SetFloat("Y", MoveVector.y);
+        }
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
         {
