@@ -35,6 +35,7 @@ namespace AChildsCourage.Game.Monsters
         private InvestigationHistory investigationHistory = Empty;
 
         private Coroutine investigationCoroutine;
+        
 
         #endregion
 
@@ -61,7 +62,6 @@ namespace AChildsCourage.Game.Monsters
         #endregion
 
         #region Methods
-        
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
         {
