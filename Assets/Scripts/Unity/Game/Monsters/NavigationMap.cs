@@ -10,6 +10,7 @@ namespace AChildsCourage.Game.Monsters
     {
 
         [SerializeField] private AstarPath astarPath;
+        [SerializeField] private int scanOverfill;
         private Floor mapFloor;
 
         private GridGraph GridGraph => astarPath.graphs.First() as GridGraph;
@@ -37,8 +38,7 @@ namespace AChildsCourage.Game.Monsters
             var center = new Vector3(lowerRight.X + width / 2f, lowerRight.Y + depth / 2f, 0);
 
             GridGraph.center = center;
-            GridGraph.Width = width;
-            GridGraph.Depth = depth;
+            GridGraph.SetDimensions(width + scanOverfill, depth + scanOverfill, 1);
         }
 
     }
