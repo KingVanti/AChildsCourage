@@ -25,8 +25,9 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
         [SerializeField] private Animator shadeAnimator;
-        [Header("Stats")] [SerializeField] private int touchDamage;
-        [SerializeField] private int attackDamage;
+        [Header("Stats")] 
+        public int touchDamage;
+        public int attackDamage;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private Transform targetTransform;
@@ -57,7 +58,7 @@ namespace AChildsCourage.Game.Monsters
 
         private bool IsMoving => ai.velocity != Vector3.zero;
 
-        private Vector2 MoveVector {
+        public Vector2 MoveVector {
             get {
                 return ai.velocity.normalized;
             }

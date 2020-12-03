@@ -4,6 +4,7 @@ using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
+using AChildsCourage.Game.Monsters;
 using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;
@@ -271,6 +272,15 @@ namespace AChildsCourage.Game.Player
             canCollectCourage = !canCollect;
         }
 
+        private void OnCollisionEnter2D(Collision2D collision) {
+            if (collision.gameObject.tag == EntityTags.Shade) {
+                if (!gettingKnockedBack && !isInvincible) {
+                    Shade shade = collision.gameObject.GetComponent<Shade>();
+                    TakingDamage(shade.touchDamage, shade.MoveVector);
+                }
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag(EntityTags.Item))
@@ -287,9 +297,7 @@ namespace AChildsCourage.Game.Player
                     Destroy(collision.gameObject);
                 }
 
-            if (collision.CompareTag(EntityTags.Shade))
-                if (!gettingKnockedBack && !isInvincible)
-                    TakingDamage(1);
+
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -303,9 +311,9 @@ namespace AChildsCourage.Game.Player
             }
         }
 
-        private void TakingDamage(int damage)
+        private void TakingDamage(int damage, Vector2 knockbackVector)
         {
-            StartCoroutine(Knockback(damage * _movementSpeed * 3, 0.08f));
+            StartCoroutine(Knockback(damage * _movementSpeed * 3, 0.08f, knockbackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
@@ -330,28 +338,20 @@ namespace AChildsCourage.Game.Player
             isInvincible = false;
         }
 
-        private IEnumerator Knockback(float strength, float duration)
+        private IEnumerator Knockback(float strength, float duration, Vector2 direction)
         {
             gettingKnockedBack = true;
-
-            //Vector2 previousMovingDirection = MovingDirection;
 
             if (IsMoving)
             {
                 Debug.Log("Hit while moving");
-                rb.AddForce(MovingDirection * -1 * strength, ForceMode2D.Impulse);
+                rb.AddForce(direction * strength, ForceMode2D.Impulse);
                 MovingDirection = Vector2.zero;
-            }
-            else
-            {
-                rb.AddForce(new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * strength, ForceMode2D.Impulse);
             }
 
             yield return new WaitForSeconds(duration);
 
             rb.velocity = Vector2.zero;
-
-            //MovingDirection = previousMovingDirection;
             gettingKnockedBack = false;
         }
 
