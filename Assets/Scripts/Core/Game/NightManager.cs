@@ -31,14 +31,12 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        public void PrepareNightForCurrentRun()
-        {
+        public void PrepareNightForCurrentRun() =>
             loadRunData()
                 .Map(runData => StartNight(runData, RNG.New()))
                 .Map(nightData => GenerateFloorPlan(floorPlanGenerationParameters, RNG.FromSeed(nightData.Seed)))
                 .Map(floorPlan => GenerateFloor(floorPlan, itemIds, roomData))
                 .Do(recreateNight.Invoke);
-        }
 
         #endregion
 
