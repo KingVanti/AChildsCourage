@@ -1,35 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Immutable;
+using static AChildsCourage.Game.Floors.MRoom;
 
 namespace AChildsCourage.Game.Floors
 {
 
-    public class Floor
+    public static class MFloor
     {
 
-        #region Constructors
+        public static Floor EmptyFloor =>
+            new Floor(
+                ImmutableHashSet<Wall>.Empty,
+                ImmutableHashSet<CouragePickup>.Empty,
+                ImmutableHashSet<Room>.Empty);
 
-        public Floor(IEnumerable<GroundTile> groundTiles, IEnumerable<Wall> walls, IEnumerable<CouragePickup> couragePickups, IEnumerable<ItemPickup> itemPickups)
+        public readonly struct Floor
         {
-            GroundTiles = new HashSet<GroundTile>(groundTiles);
-            Walls = new HashSet<Wall>(walls);
-            CouragePickups = new HashSet<CouragePickup>(couragePickups);
-            ItemPickups = new HashSet<ItemPickup>(itemPickups);
+
+            public ImmutableHashSet<Wall> Walls { get; }
+
+            public ImmutableHashSet<CouragePickup> CouragePickups { get; }
+
+            public ImmutableHashSet<Room> Rooms { get; }
+
+
+            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms)
+            {
+                Walls = walls;
+                Rooms = rooms;
+                CouragePickups = couragePickups;
+            }
+
         }
 
-        #endregion
-
-        #region Properties
-
-        public HashSet<GroundTile> GroundTiles { get; }
-
-        public HashSet<Wall> Walls { get; }
-
-        public HashSet<CouragePickup> CouragePickups { get; }
-
-        public HashSet<ItemPickup> ItemPickups { get; }
-
-        #endregion
-
     }
+
 
 }
