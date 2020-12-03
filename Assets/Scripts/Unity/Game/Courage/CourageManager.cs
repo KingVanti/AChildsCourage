@@ -62,7 +62,7 @@ namespace AChildsCourage.Game.Courage
         {
             MaxNightCourage = maxNightCourage;
 
-            StartNightCourage = StartNightCourage + OverfilledNightCourage;
+            StartNightCourage += OverfilledNightCourage;
 
             if (StartNightCourage < 1)
                 StartNightCourage = 1;
