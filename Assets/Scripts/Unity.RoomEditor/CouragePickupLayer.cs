@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,7 +25,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(CouragePickupData[] couragePickups)
+        public void PlaceAll(IEnumerable<CouragePickupData> couragePickups)
         {
             Clear();
 
@@ -64,7 +65,7 @@ namespace AChildsCourage.RoomEditor
             return new CouragePickupData(position, variant);
         }
 
-        private CourageVariant GetVariantOf(Tile tile)
+        private static CourageVariant GetVariantOf(Tile tile)
         {
             return tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;
         }
@@ -78,9 +79,9 @@ namespace AChildsCourage.RoomEditor
                     return courageSparkTile;
                 case CourageVariant.Orb:
                     return courageOrbTile;
+                default:
+                    throw new Exception("Invalid variant!");
             }
-
-            throw new Exception("Invalid variant!");
         }
 
         #endregion

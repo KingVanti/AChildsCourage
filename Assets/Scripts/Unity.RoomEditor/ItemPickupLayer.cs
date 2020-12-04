@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,7 +22,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(ItemPickupData[] itemPickups)
+        public void PlaceAll(IEnumerable<ItemPickupData> itemPickups)
         {
             Clear();
 
@@ -49,7 +50,7 @@ namespace AChildsCourage.RoomEditor
                     .ToArray();
         }
 
-        private ItemPickupData ToPickup(TileAtPos tileAtPos)
+        private static ItemPickupData ToPickup(TileAtPos tileAtPos)
         {
             var position = tileAtPos.Position;
 

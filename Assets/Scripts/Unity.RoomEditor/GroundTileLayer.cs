@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,7 +22,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(GroundTileData[] groundTiles)
+        public void PlaceAll(IEnumerable<GroundTileData> groundTiles)
         {
             Clear();
 

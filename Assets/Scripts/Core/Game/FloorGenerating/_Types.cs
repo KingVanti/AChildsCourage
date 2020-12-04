@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -74,14 +74,14 @@ namespace AChildsCourage.Game
         internal readonly struct RoomBuilder
         {
 
-            public  AOIIndex AoiIndex { get; }
+            public  AoiIndex AoiIndex { get; }
             
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
 
-            public RoomBuilder(AOIIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
-using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game
 {
@@ -9,23 +7,23 @@ namespace AChildsCourage.Game
     public static partial class MFloorPlanGenerating
     {
 
-        public  readonly struct GenerationParameters
-        {
-            
-            public RoomPassages[] Passages { get; }
-            
-            
-            public GenerationParameters(RoomPassages[] passages) => Passages = passages;
 
-        }
-        
-        
         public enum GenerationPhase
         {
 
             StartRoom,
             NormalRooms,
             EndRoom
+
+        }
+
+        public readonly struct GenerationParameters
+        {
+
+            public RoomPassages[] Passages { get; }
+
+
+            public GenerationParameters(RoomPassages[] passages) => Passages = passages;
 
         }
 
@@ -39,7 +37,7 @@ namespace AChildsCourage.Game
         }
 
 
-        internal struct RoomInChunk
+        internal readonly struct RoomInChunk
         {
 
             internal RoomPassages Room { get; }

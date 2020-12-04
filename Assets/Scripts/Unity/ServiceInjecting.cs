@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AChildsCourage.Game;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Persistance;
+using AChildsCourage.Game.Persistence;
 using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
 using Ninject.Extensions.Unity;
+using Ninject.Syntax;
 using UnityEngine;
 
 namespace AChildsCourage
@@ -31,7 +32,8 @@ namespace AChildsCourage
                 .ToArray();
             var unityAssembly = assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
             var monoBehaviourTypes = unityAssembly.GetTypes()
-                                                  .Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
+                                                  .Where(t => typeof(MonoBehaviour).IsAssignableFrom(t))
+                                                  .ToArray();
 
             BindSingletons(kernel, assemblies, monoBehaviourTypes);
             BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
@@ -59,17 +61,17 @@ namespace AChildsCourage
             yield return Assembly.Load("AChildsCourage.Unity");
         }
 
-        private static void BindSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
+        private static void BindSingletons(IBindingRoot root, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
-            kernel.Bind(x => x
-                             .From(assemblies)
-                             .IncludingNonPublicTypes()
-                             .SelectAllClasses()
-                             .WithAttribute<SingletonAttribute>()
-                             .Excluding(monoBehaviourTypes)
-                             .BindAllInterfaces()
-                             .Configure(b => b.InSingletonScope()
-                                              .RegisterOnEventBroker(DefaultEventBrokerName)));
+            root.Bind(x => x
+                           .From(assemblies)
+                           .IncludingNonPublicTypes()
+                           .SelectAllClasses()
+                           .WithAttribute<SingletonAttribute>()
+                           .Excluding(monoBehaviourTypes)
+                           .BindAllInterfaces()
+                           .Configure(b => b.InSingletonScope()
+                                            .RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
         private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
@@ -84,22 +86,22 @@ namespace AChildsCourage
                              .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
-        private static void BindConstants(IKernel kernel)
+        private static void BindConstants(IBindingRoot root)
         {
-            kernel.Bind<LoadRoomData>()
-                  .ToConstant(RoomDataLoading.Make());
-            kernel.Bind<LoadRunData>()
-                  .ToConstant(JsonRunDataLoading.Make());
-            kernel.Bind<FindItemData>()
-                  .ToConstant(ItemDataRepository.GetItemDataFinder());
-            kernel.Bind<LoadItemIds>()
-                  .ToConstant(ItemDataRepository.GetItemIdLoader());
+            root.Bind<LoadRoomData>()
+                .ToConstant(RoomDataLoading.Make());
+            root.Bind<LoadRunData>()
+                .ToConstant(JsonRunDataLoading.Make());
+            root.Bind<FindItemData>()
+                .ToConstant(ItemDataRepository.GetItemDataFinder());
+            root.Bind<LoadItemIds>()
+                .ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 
-        private static void ActivateEagerServices(IKernel kernel)
+        private static void ActivateEagerServices(IResolutionRoot root)
         {
-            _ = kernel.GetAll<IEagerActivation>()
-                      .ToArray();
+            _ = root.GetAll<IEagerActivation>()
+                    .ToArray();
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using static AChildsCourage.Game.MNightData;
 
-namespace AChildsCourage.Game.Persistance
+namespace AChildsCourage.Game.Persistence
 {
 
     public static class MRunData

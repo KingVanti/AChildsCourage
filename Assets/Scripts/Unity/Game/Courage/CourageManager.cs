@@ -71,11 +71,11 @@ namespace AChildsCourage.Game.Courage
         {
             CurrentNightCourage -= value;
 
-            if (CurrentNightCourage < 0)
-            {
-                CurrentNightCourage = 0;
-                OnCourageDepleted?.Invoke();
-            }
+            if (CurrentNightCourage >= 0)
+                return;
+            
+            CurrentNightCourage = 0;
+            OnCourageDepleted?.Invoke();
         }
 
         #endregion

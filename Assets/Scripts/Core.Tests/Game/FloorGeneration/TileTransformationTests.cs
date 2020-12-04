@@ -142,7 +142,7 @@ namespace AChildsCourage.Game
 
             // Then
 
-            Assert.That(rotated, Is.EqualTo(new TilePosition(22, 20)), "Position incorrectly cotated!");
+            Assert.That(rotated, Is.EqualTo(new TilePosition(22, 20)), "Position incorrectly rotated!");
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.Rng;
@@ -35,11 +36,7 @@ namespace AChildsCourage.Game.Courage
 
         public CouragePickupData GetCouragePickupData(CourageVariant variant)
         {
-            foreach (var cpd in couragePickups)
-                if (cpd.Variant == variant)
-                    return cpd;
-
-            throw new Exception("Could not find Courage variant!");
+           return couragePickups.First(cpd => cpd.Variant == variant);
         }
 
         public CouragePickupData GetRandomPickupData(CreateRng createRng)

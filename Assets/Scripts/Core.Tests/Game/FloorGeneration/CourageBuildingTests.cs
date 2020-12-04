@@ -1,5 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using NUnit.Framework;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.FloorGenerating;

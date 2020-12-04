@@ -13,8 +13,8 @@ namespace AChildsCourage.Game
         {
             // Given
 
-            var x = 5;
-            var y = -10;
+            const int x = 5;
+            const int y = -10;
 
             // When
 
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game
         }
 
         [Test]
-        public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Cooridantes_Are_Added()
+        public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Coordinates_Are_Added()
         {
             // Given
 
@@ -46,7 +46,7 @@ namespace AChildsCourage.Game
 
 
         [Test]
-        public void Distance_From_Origin_Is_Caluclated_Correctly()
+        public void Distance_From_Origin_Is_Calculated_Correctly()
         {
             // Given
 
@@ -63,7 +63,7 @@ namespace AChildsCourage.Game
 
 
         [Test]
-        public void Distance_Between_Positions_Is_Caluclated_Correctly()
+        public void Distance_Between_Positions_Is_Calculated_Correctly()
         {
             // Given
 

@@ -16,9 +16,7 @@ namespace AChildsCourage.Game
         {
             var getVariant = createRng.Prob(_variantProb);
 
-            if (getVariant)
-                return _variants.GetRandom(createRng);
-            return _baseTile;
+            return getVariant ? _variants.GetRandom(createRng) : _baseTile;
         }
 
         #endregion

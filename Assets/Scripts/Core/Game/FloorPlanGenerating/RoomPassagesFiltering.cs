@@ -28,7 +28,7 @@ namespace AChildsCourage.Game
         {
             var looseEnds = filter.PassageFilter.FindLooseEnds(roomPassages.Passages);
 
-            return looseEnds <= filter.MaxLooseEnds && (filter.MaxLooseEnds > 0 ? looseEnds > 0 : true);
+            return looseEnds <= filter.MaxLooseEnds && (filter.MaxLooseEnds <= 0 || looseEnds > 0);
         }
 
         internal static bool PassagesMatch(RoomPassages passages, RoomPassageFilter filter) => filter.PassageFilter.Matches(passages.Passages);

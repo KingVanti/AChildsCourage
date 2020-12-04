@@ -11,12 +11,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.CustomMath;
-using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Player
 {
 
-    [UseDI]
+    [UseDi]
     public class CharacterController : MonoBehaviour
     {
 
@@ -54,6 +53,10 @@ namespace AChildsCourage.Game.Player
         public CouragePickUpEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
         public PickUpEvent OnPickUpItem;
+        private static readonly int RotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
+        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
+        private static readonly int MovingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
+        private static readonly int FlashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
 
         #endregion
 
@@ -102,9 +105,7 @@ namespace AChildsCourage.Game.Player
             {
                 if (IsMoving && RelativeMousePos.x < 0 && MovingDirection.x > 0)
                     return true;
-                if (IsMoving && RelativeMousePos.x > 0 && MovingDirection.x < 0)
-                    return true;
-                return false;
+                return IsMoving && RelativeMousePos.x > 0 && MovingDirection.x < 0;
             }
         }
 
@@ -162,12 +163,12 @@ namespace AChildsCourage.Game.Player
 
         private void UpdateAnimator()
         {
-            animator.SetFloat("RotationIndex", RotationIndex);
-            animator.SetBool("IsMoving", IsMoving);
-            animator.SetBool("IsMovingBackwards", IsMovingBackwards);
+            animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
+            animator.SetBool(MovingAnimatorKey, IsMoving);
+            animator.SetBool(MovingBackwardsAnimatorKey, IsMovingBackwards);
 
             if (HasFlashlightEquipped)
-                animator.SetBool("HasFlashlightEquipped", _hasFlashlightEquipped);
+                animator.SetBool(FlashlightEquippedAnimatorKey, _hasFlashlightEquipped);
         }
 
 
@@ -209,7 +210,7 @@ namespace AChildsCourage.Game.Player
 
         private void Move()
         {
-            transform.Translate(MovingDirection * Time.fixedDeltaTime * MovementSpeed, Space.World);
+            transform.Translate(MovingDirection * (Time.fixedDeltaTime * MovementSpeed), Space.World);
             OnPositionChanged.Invoke(transform.position);
         }
 
@@ -234,15 +235,15 @@ namespace AChildsCourage.Game.Player
 
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs)
         {
-            if (IsInPickupRange)
-            {
-                OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
+            if (!IsInPickupRange)
+                return;
 
-                if (CurrentItemInRange.Id == 0)
-                    HasFlashlightEquipped = true;
+            OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
 
-                Destroy(CurrentItemInRange.gameObject);
-            }
+            if (CurrentItemInRange.Id == 0)
+                HasFlashlightEquipped = true;
+
+            Destroy(CurrentItemInRange.gameObject);
         }
 
         private void OnItemSwapped(ItemSwappedEventArgs eventArgs)
@@ -262,6 +263,8 @@ namespace AChildsCourage.Game.Player
                 case CourageVariant.Spark:
                     emission.rateOverTime = 10;
                     break;
+                default:
+                    throw new Exception("Invalid courage variant!");
             }
 
             courageCollectParticleSystem.Play();
@@ -272,13 +275,13 @@ namespace AChildsCourage.Game.Player
             canCollectCourage = !canCollect;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision) {
-            if (collision.gameObject.tag == EntityTags.Shade) {
-                if (!gettingKnockedBack && !isInvincible) {
-                    Shade shade = collision.gameObject.GetComponent<Shade>();
-                    TakingDamage(shade.touchDamage, shade.MoveVector);
-                }
-            }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible)
+                return;
+
+            var shade = collision.gameObject.GetComponent<Shade>();
+            TakingDamage(shade.touchDamage, shade.MoveVector);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -290,30 +293,27 @@ namespace AChildsCourage.Game.Player
                 CurrentItemInRange.ShowInfo(IsInPickupRange);
             }
 
-            if (collision.CompareTag(EntityTags.Courage))
-                if (canCollectCourage)
-                {
-                    OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
-                    Destroy(collision.gameObject);
-                }
+            if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage)
+                return;
 
-
+            OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
+            Destroy(collision.gameObject);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag(EntityTags.Item))
-            {
-                IsInPickupRange = false;
-                CurrentItemInRange.GetComponent<ItemPickupEntity>()
-                                  .ShowInfo(IsInPickupRange);
-                CurrentItemInRange = null;
-            }
+            if (!collision.CompareTag(EntityTags.Item))
+                return;
+
+            IsInPickupRange = false;
+            CurrentItemInRange.GetComponent<ItemPickupEntity>()
+                              .ShowInfo(IsInPickupRange);
+            CurrentItemInRange = null;
         }
 
-        private void TakingDamage(int damage, Vector2 knockbackVector)
+        private void TakingDamage(int damage, Vector2 knockBackVector)
         {
-            StartCoroutine(Knockback(damage * _movementSpeed * 10, 0.095f, knockbackVector));
+            StartCoroutine(KnockBack(damage * _movementSpeed * 10, 0.095f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
@@ -322,7 +322,7 @@ namespace AChildsCourage.Game.Player
         private IEnumerator DamageTaken(float duration)
         {
             isInvincible = true;
-            var steps = 5;
+            const int steps = 5;
 
             var f = spriteRenderer.color;
             var g = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
@@ -338,7 +338,7 @@ namespace AChildsCourage.Game.Player
             isInvincible = false;
         }
 
-        private IEnumerator Knockback(float strength, float duration, Vector2 direction)
+        private IEnumerator KnockBack(float strength, float duration, Vector2 direction)
         {
             gettingKnockedBack = true;
 

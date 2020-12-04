@@ -1,6 +1,6 @@
 ﻿using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Floors.RoomPersistance
+namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     public class RoomContentData
@@ -15,15 +15,15 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         public ItemPickupData[] ItemData { get; }
 
-        public AOIMarkerData[] AOIMarkers { get; }
+        public AoiMarkerData[] AoiMarkers { get; }
 
 
-        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, AOIMarkerData[] aoiMarkers)
+        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, AoiMarkerData[] aoiMarkers)
         {
             GroundData = groundData ?? new GroundTileData[0];
             CourageData = courageData ?? new CouragePickupData[0];
             ItemData = itemData ?? new ItemPickupData[0];
-            AOIMarkers = aoiMarkers ?? new[] { new AOIMarkerData(new TilePosition(0, 0), 0) };
+            AoiMarkers = aoiMarkers ?? new[] { new AoiMarkerData(new TilePosition(0, 0), 0) };
         }
 
     }

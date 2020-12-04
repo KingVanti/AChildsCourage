@@ -1,21 +1,21 @@
 ﻿namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    public readonly struct AOIIndex
+    public readonly struct AoiIndex
     {
 
-        public static AOIIndex Zero => (AOIIndex) 0;
+        public static AoiIndex Zero => (AoiIndex) 0;
 
 
         private readonly int value;
 
 
-        private AOIIndex(int value) => this.value = value;
+        private AoiIndex(int value) => this.value = value;
 
 
-        public static explicit operator AOIIndex(int index) => new AOIIndex(index);
+        public static explicit operator AoiIndex(int index) => new AoiIndex(index);
 
-        public static implicit operator int(AOIIndex index) => index.value;
+        public static implicit operator int(AoiIndex index) => index.value;
 
     }
 

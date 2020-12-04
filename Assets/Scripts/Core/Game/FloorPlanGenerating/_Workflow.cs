@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
 using static AChildsCourage.F;
 using static AChildsCourage.Rng;
 
@@ -14,14 +13,14 @@ namespace AChildsCourage.Game
 
         internal const int GoalRoomCount = 15;
 
-        
+
         public static FloorPlan GenerateFloorPlan(GenerationParameters parameters, CreateRng rng)
         {
-            Func<FloorPlanInProgress, FloorPlanInProgress> addRoom = fpip => AddRoom(rng, parameters.Passages, fpip);
+            FloorPlanInProgress Room(FloorPlanInProgress floorPlanInProgress) => AddRoom(rng, parameters.Passages, floorPlanInProgress);
 
             return
                 Take(new FloorPlanInProgress())
-                    .RepeatWhile(addRoom, NeedsMoreRooms)
+                    .RepeatWhile(Room, NeedsMoreRooms)
                     .Map(BuildFloorPlan);
         }
 
@@ -37,8 +36,8 @@ namespace AChildsCourage.Game
                     .Map(placeRoom.Invoke);
         }
 
-        internal static bool NeedsMoreRooms(FloorPlanInProgress fpip) =>
-            Take(fpip)
+        internal static bool NeedsMoreRooms(FloorPlanInProgress floorPlanInProgress) =>
+            Take(floorPlanInProgress)
                 .Map(CountRooms)
                 .Map(IsEnough)
                 .Negate();
@@ -56,13 +55,14 @@ namespace AChildsCourage.Game
 
                 return new RoomPlan(passages.Id, transform);
             };
-            Func<IEnumerable<RoomPlan>, FloorPlan> createFloorPlan = roomPlans => new FloorPlan(roomPlans.ToArray());
+
+            FloorPlan CreateFloorPlan(IEnumerable<RoomPlan> roomPlans) => new FloorPlan(roomPlans.ToArray());
 
             return
                 Take(floorPlanInProgress.RoomsByChunks.Keys)
                     .Select(lookupRoom.Invoke)
                     .Select(createRoomPlan.Invoke)
-                    .Map(createFloorPlan);
+                    .Map(CreateFloorPlan);
         }
 
     }

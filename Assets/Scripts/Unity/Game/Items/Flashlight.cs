@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Items
 
         private Vector2 characterPosition;
         private LayerMask wallLayer;
-        private bool IsTurnedOn;
+        private bool isTurnedOn;
 
         #endregion
 
@@ -57,10 +57,9 @@ namespace AChildsCourage.Game.Items
 
         private void FollowMousePosition()
         {
-            if (RaycastMouseToCharacter.collider != null)
-                transform.position = new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0);
-            else
-                transform.position = new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
+            transform.position = RaycastMouseToCharacter.collider != null
+                ? new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0)
+                : new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
         }
 
         private void ChangeLightIntensity()
@@ -75,11 +74,11 @@ namespace AChildsCourage.Game.Items
 
         private void UpdateFlashlight()
         {
-            if (IsTurnedOn)
-            {
-                FollowMousePosition();
-                ChangeLightIntensity();
-            }
+            if (!isTurnedOn)
+                return;
+            
+            FollowMousePosition();
+            ChangeLightIntensity();
         }
 
         private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
@@ -96,8 +95,8 @@ namespace AChildsCourage.Game.Items
 
         public override void Toggle()
         {
-            lightComponent.enabled = IsTurnedOn ? false : true;
-            IsTurnedOn = IsTurnedOn ? false : true;
+            lightComponent.enabled = !isTurnedOn;
+            isTurnedOn = !isTurnedOn;
             UpdateFlashlight();
         }
 

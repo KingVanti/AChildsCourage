@@ -1,9 +1,9 @@
 ﻿using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Floors.RoomPersistance
+namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
-    public readonly struct AOIMarkerData
+    public readonly struct AoiMarkerData
     {
 
         public TilePosition Position { get; }
@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
         public int Index { get; }
 
 
-        public AOIMarkerData(TilePosition position, int index)
+        public AoiMarkerData(TilePosition position, int index)
         {
             Position = position;
             Index = index;

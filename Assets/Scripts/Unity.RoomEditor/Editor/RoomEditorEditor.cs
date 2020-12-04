@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,12 +28,12 @@ namespace AChildsCourage.RoomEditor.Editor
             GUI.color = new Color(0.75f, 0.75f, 1f);
 
             if (Application.isPlaying)
-                DrawRoomEdiorGUI();
+                DrawRoomEditorGUI();
             else
                 EditorGUILayout.LabelField("Press play to start editing!");
         }
 
-        private void DrawRoomEdiorGUI()
+        private void DrawRoomEditorGUI()
         {
             if (!RoomEditor.HasLoadedAsset)
                 DrawLoadAssetGUI();
@@ -121,14 +121,14 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void DrawSaveAssetGUI()
         {
-            if (GUILayout.Button("Save asset"))
-            {
-                RoomEditor.SaveChanges();
-                EditorUtility.SetDirty(RoomEditor.LoadedAsset);
-                AssetDatabase.SaveAssets();
+            if (!GUILayout.Button("Save asset"))
+                return;
+            
+            RoomEditor.SaveChanges();
+            EditorUtility.SetDirty(RoomEditor.LoadedAsset);
+            AssetDatabase.SaveAssets();
 
-                Debug.Log("Successfully saved room. Dont forget to push!");
-            }
+            Debug.Log("Successfully saved room. Dont forget to push!");
         }
 
         private void DrawUnloadAssetGUI()

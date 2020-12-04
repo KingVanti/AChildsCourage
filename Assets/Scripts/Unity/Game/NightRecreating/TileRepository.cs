@@ -7,7 +7,7 @@ using static AChildsCourage.Rng;
 namespace AChildsCourage.Game
 {
 
-    [UseDI]
+    [UseDi]
     public class TileRepository : MonoBehaviour
     {
 

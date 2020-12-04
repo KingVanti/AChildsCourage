@@ -15,10 +15,9 @@ namespace AChildsCourage.Game
             floorPlan.RoomsByChunks.Add(roomInChunk.Position, roomInChunk.Room);
             floorPlan.ReservedChunks.Remove(roomInChunk.Position);
 
-            Func<ChunkPosition, bool> canReserve = p => floorPlan.CanReserve(p);
-            Action<ChunkPosition> reserve = p => floorPlan.ReservedChunks.Add(p);
+            void Reserve(ChunkPosition p) => floorPlan.ReservedChunks.Add(p);
 
-            roomInChunk.Position.ReserveChunksAround(canReserve, reserve);
+            roomInChunk.Position.ReserveChunksAround(floorPlan.CanReserve, (Action<ChunkPosition>) Reserve);
 
             return floorPlan;
         }

@@ -10,68 +10,68 @@ namespace AChildsCourage.Game.Floors
 {
 
 
-    [UseDI]
+    [UseDi]
     public class FloorStateKeeper : MonoBehaviour
     {
 
-        private readonly Dictionary<AOIIndex, AOIState> aoiStates = new Dictionary<AOIIndex, AOIState>();
+        private readonly Dictionary<AoiIndex, AoiState> aoiStates = new Dictionary<AoiIndex, AoiState>();
 
         public FloorState CurrentFloorState => GenerateFloorState();
 
 
-        private IEnumerable<AOIState> CurrentAOIStates => aoiStates.Values;
+        private IEnumerable<AoiState> CurrentAoiStates => aoiStates.Values;
 
 
         public void OnGroundTilePlaced(GroundTile groundTile)
         {
-            if (!HasStateForIndex(groundTile.AOIIndex))
-                aoiStates.Add(groundTile.AOIIndex, new AOIState(groundTile.AOIIndex));
+            if (!HasStateForIndex(groundTile.AoiIndex))
+                aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
             
-            aoiStates[groundTile.AOIIndex].AddPOI(groundTile.Position);
+            aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
         }
 
-        private bool HasStateForIndex(AOIIndex index) => aoiStates.ContainsKey(index);
+        private bool HasStateForIndex(AoiIndex index) => aoiStates.ContainsKey(index);
 
 
         private FloorState GenerateFloorState() =>
-            CurrentAOIStates
-                .Select(aoiState => aoiState.ToAOI())
+            CurrentAoiStates
+                .Select(aoiState => aoiState.ToAoi())
                 .ToImmutableArray()
                 .Map(array => new FloorState(array));
 
-        private class AOIState
+        private class AoiState
         {
 
-            public AOIIndex Index { get; }
+            public AoiIndex Index { get; }
 
             public TilePosition Center { get; }
 
-            public List<POIState> POIStates { get; } = new List<POIState>();
+            public List<PoiState> PoiStates { get; } = new List<PoiState>();
 
-            private ImmutableArray<POI> POIs =>
-                POIStates.Select(poiState => poiState.ToPOI())
+            private ImmutableArray<Poi> Pois =>
+                PoiStates.Select(poiState => poiState.ToPoi())
                          .ToImmutableArray();
 
 
-            public AOIState(AOIIndex index) => Index = index;
+            public AoiState(AoiIndex index) => Index = index;
 
 
-            public AOI ToAOI() => new AOI(Index, Center, POIs);
+            public Aoi ToAoi() => new Aoi(Index, Center, Pois);
 
-            public void AddPOI(TilePosition position) => POIStates.Add(new POIState(position));
+            public void AddPoi(TilePosition position) => PoiStates.Add(new PoiState(position));
 
         }
 
-        private class POIState
+        private class PoiState
         {
 
             public TilePosition Position { get; }
 
 
-            public POIState(TilePosition position) => Position = position;
+            public PoiState(TilePosition position) => Position = position;
 
 
-            public POI ToPOI() => new POI(Position);
+            public Poi ToPoi() => new Poi(Position);
 
         }
 

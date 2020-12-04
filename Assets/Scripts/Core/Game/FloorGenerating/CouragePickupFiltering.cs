@@ -30,12 +30,10 @@ namespace AChildsCourage.Game
         {
             var positions = GetCouragePositionsOfVariant(floorBuilder, variant).ToImmutableHashSet();
 
-            Func<ImmutableHashSet<TilePosition>, ImmutableHashSet<TilePosition>> addNext =
-                taken =>
-                    taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction, rng));
+            ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction, rng));
 
             return Take(ImmutableHashSet<TilePosition>.Empty)
-                   .RepeatFor(addNext, count)
+                   .RepeatFor(AddNext, count)
                    .Select(p => new CouragePickup(p, variant));
         }
 
@@ -48,12 +46,13 @@ namespace AChildsCourage.Game
 
         internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, Rng.CreateRng rng)
         {
-            Func<TilePosition, bool> isNotTaken = p => !taken.Contains(p);
-            CalculateWeight<TilePosition> calculateWeight = p => weightFunction(p, taken);
+            bool IsNotTaken(TilePosition p) => !taken.Contains(p);
+
+            float CalculateWeight(TilePosition p) => weightFunction(p, taken);
 
             return Take(positions)
-                   .Where(isNotTaken)
-                   .GetWeightedRandom(calculateWeight, rng);
+                   .Where(IsNotTaken)
+                   .GetWeightedRandom(CalculateWeight, rng);
         }
 
         internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)

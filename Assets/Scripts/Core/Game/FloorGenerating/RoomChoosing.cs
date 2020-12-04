@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -45,7 +45,7 @@ namespace AChildsCourage.Game
             new GroundTileData(
                 position,
                 groundTile.DistanceToWall,
-                groundTile.AOIIndex);
+                groundTile.AoiIndex);
 
         internal static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => pickup.With(transformer(pickup.Position));
 

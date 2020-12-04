@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.F;
@@ -18,7 +18,7 @@ namespace AChildsCourage.Game
                 ImmutableHashSet<Wall>.Empty,
                 ImmutableHashSet<RoomBuilder>.Empty);
 
-        private static RoomBuilder EmptyRoomBuilder(AOIIndex aoiIndex) =>
+        private static RoomBuilder EmptyRoomBuilder(AoiIndex aoiIndex) =>
             new RoomBuilder(
                 aoiIndex,
                 ImmutableHashSet<GroundTile>.Empty,
@@ -26,7 +26,7 @@ namespace AChildsCourage.Game
 
 
         private static FloorBuilder BuildRoom(FloorBuilder floorBuilder, TransformedRoomData transformedRoomData, int roomIndex) =>
-            Take(EmptyRoomBuilder((AOIIndex) roomIndex))
+            Take(EmptyRoomBuilder((AoiIndex) roomIndex))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
                 .Map(room => PlaceRoom(floorBuilder, room));

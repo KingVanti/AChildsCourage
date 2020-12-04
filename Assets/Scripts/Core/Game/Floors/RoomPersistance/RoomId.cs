@@ -1,4 +1,4 @@
-﻿namespace AChildsCourage.Game.Floors.RoomPersistance
+﻿namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     public readonly struct RoomId

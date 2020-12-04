@@ -33,7 +33,7 @@
             Matches(south, passages.HasSouth) &&
             Matches(west, passages.HasWest);
 
-        private bool Matches(PassageFilter filter, bool hasPassage) =>
+        private static bool Matches(PassageFilter filter, bool hasPassage) =>
             filter == PassageFilter.Open ||
             hasPassage && filter == PassageFilter.Passage ||
             !hasPassage && filter == PassageFilter.NoPassage;
@@ -45,7 +45,7 @@
             (IsLooseEnd(south, passages.HasSouth) ? 1 : 0) +
             (IsLooseEnd(west, passages.HasWest) ? 1 : 0);
 
-        private bool IsLooseEnd(PassageFilter filter, bool hasPassage) => filter == PassageFilter.Open && hasPassage;
+        private static bool IsLooseEnd(PassageFilter filter, bool hasPassage) => filter == PassageFilter.Open && hasPassage;
 
         #endregion
 

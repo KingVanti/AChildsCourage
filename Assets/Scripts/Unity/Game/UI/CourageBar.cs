@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +40,7 @@ namespace AChildsCourage.Game.UI
 
         private IEnumerator FillLerp(float destination)
         {
-            while (courageBarFill.fillAmount != destination)
+            while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon)
             {
                 courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 2.0f);
                 yield return new WaitForEndOfFrame();

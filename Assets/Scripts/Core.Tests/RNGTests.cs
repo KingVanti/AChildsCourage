@@ -5,7 +5,7 @@ namespace AChildsCourage
 {
 
     [TestFixture]
-    public class RNGTests
+    public class RngTests
     {
 
         [Test]
@@ -13,7 +13,7 @@ namespace AChildsCourage
         {
             // Given
 
-            var seed = 31482823;
+            const int seed = 31482823;
             var rng1 = FromSeed(seed);
             var rng2 = FromSeed(seed);
 

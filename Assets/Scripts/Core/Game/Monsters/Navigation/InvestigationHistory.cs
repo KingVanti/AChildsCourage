@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public delegate InvestigationHistory AddInvestigation(InvestigationHistory history, CompletedInvestigation investigation);
 
-        public delegate CompletedInvestigation? FindMostRecentAOIInvestigation(InvestigationHistory history, AOIIndex index);
+        public delegate CompletedInvestigation? FindMostRecentAoiInvestigation(InvestigationHistory history, AoiIndex index);
 
         public class InvestigationHistory : IEnumerable<CompletedInvestigation>
         {
@@ -42,11 +42,11 @@ namespace AChildsCourage.Game.Monsters.Navigation
                 new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
 
 
-        public static CompletedInvestigation? FindLastIn(this InvestigationHistory history, AOIIndex index) => FindInHistory(history, index);
+        public static CompletedInvestigation? FindLastIn(this InvestigationHistory history, AoiIndex index) => FindInHistory(history, index);
 
-        public static FindMostRecentAOIInvestigation FindInHistory =>
+        public static FindMostRecentAoiInvestigation FindInHistory =>
             (history, index) =>
-                history.CompletedInvestigations.FindLast(i => i.AOIIndex == index);
+                history.CompletedInvestigations.FindLast(i => i.AoiIndex == index);
 
 
         public static InvestigationHistory Empty => new InvestigationHistory();

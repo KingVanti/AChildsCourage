@@ -1,6 +1,6 @@
 ﻿using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Floors.RoomPersistance
+namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     public readonly struct GroundTileData
@@ -10,14 +10,14 @@ namespace AChildsCourage.Game.Floors.RoomPersistance
 
         public int DistanceToWall { get; }
 
-        public int AOIIndex { get; }
+        public int AoiIndex { get; }
 
 
-        public GroundTileData(TilePosition position, int distanceToWall, int aOIIndex)
+        public GroundTileData(TilePosition position, int distanceToWall, int aoiIndex)
         {
             Position = position;
             DistanceToWall = distanceToWall;
-            AOIIndex = aOIIndex;
+            AoiIndex = aoiIndex;
         }
 
     }

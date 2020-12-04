@@ -44,14 +44,13 @@ namespace AChildsCourage.Game.Player
 
         public void UseItem(int usedSlotId)
         {
-            if (currentItems[usedSlotId] != null && currentItemCooldown[usedSlotId] == 0)
-            {
-                currentItems[usedSlotId]
-                    .Toggle();
-                StartCoroutine(Cooldown(usedSlotId));
-                itemUsedEvent?.Invoke(FindItemData(currentItems[usedSlotId]
-                                                       .Id));
-            }
+            if (currentItems[usedSlotId] == null || currentItemCooldown[usedSlotId] != 0)
+                return;
+
+            currentItems[usedSlotId].Toggle();
+            StartCoroutine(Cooldown(usedSlotId));
+            itemUsedEvent?.Invoke(FindItemData(currentItems[usedSlotId]
+                                                   .Id));
         }
 
         public void PickUpItem(int slotId, int itemId)
@@ -62,10 +61,7 @@ namespace AChildsCourage.Game.Player
             PutItemInSlot(slotId, itemId);
         }
 
-        private bool HasItemInSlot(int slotId)
-        {
-            return currentItems[slotId] != null;
-        }
+        private bool HasItemInSlot(int slotId) => currentItems[slotId] != null;
 
         private void DropItem(int slotId)
         {

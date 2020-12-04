@@ -1,10 +1,11 @@
-﻿using Castle.Core.Internal;
-using Ninject.Extensions.AppccelerateEventBroker;
-using Ninject.Infrastructure.Language;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.Core.Internal;
+using Ninject.Infrastructure.Language;
+using Ninject.Syntax;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Ninject.Extensions.Unity
 {
@@ -16,16 +17,13 @@ namespace Ninject.Extensions.Unity
         {
             var entities =
                 GetAllMonoBehaviours()
-                .Where(IsEntity);
+                    .Where(IsEntity);
 
             foreach (var entity in entities)
                 BindEntity(kernel, entity);
         }
 
-        private static IEnumerable<MonoBehaviour> GetAllMonoBehaviours()
-        {
-            return UnityEngine.Object.FindObjectsOfType<MonoBehaviour>();
-        }
+        private static IEnumerable<MonoBehaviour> GetAllMonoBehaviours() => Object.FindObjectsOfType<MonoBehaviour>();
 
         private static bool IsEntity(MonoBehaviour monoBehaviour)
         {
@@ -34,11 +32,11 @@ namespace Ninject.Extensions.Unity
             return type.HasAttribute<UnityEntityAttribute>();
         }
 
-        private static void BindEntity(IKernel kernel, MonoBehaviour entity)
+        private static void BindEntity(IBindingRoot root, MonoBehaviour entity)
         {
             var interfaceType = GetInterfaceType(entity);
 
-            kernel.Bind(interfaceType).ToConstant(entity);
+            root.Bind(interfaceType).ToConstant(entity);
         }
 
         private static Type GetInterfaceType(MonoBehaviour entity)

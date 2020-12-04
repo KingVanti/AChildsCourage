@@ -1,5 +1,4 @@
-﻿using System;
-using static AChildsCourage.F;
+﻿using static AChildsCourage.F;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -10,14 +9,15 @@ namespace AChildsCourage.Game
 
         internal static TilePosition Transform(TilePosition position, ChunkTransform transform)
         {
-            Func<TilePosition, TilePosition> rotate = p => RotateClockwiseAround(p, transform.ChunkCenter);
-            Func<TilePosition, TilePosition> mirror = p => YMirrorOver(p, transform.ChunkCenter);
+            TilePosition Rotate(TilePosition p) => RotateClockwiseAround(p, transform.ChunkCenter);
+
+            TilePosition Mirror(TilePosition p) => YMirrorOver(p, transform.ChunkCenter);
 
             return
                 Take(position)
                     .MapWith(OffsetAround, transform.ChunkCorner)
-                    .RepeatFor(rotate, transform.RotationCount)
-                    .DoIf(mirror, transform.IsMirrored);
+                    .RepeatFor(Rotate, transform.RotationCount)
+                    .DoIf(Mirror, transform.IsMirrored);
         }
 
         internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
@@ -34,16 +34,15 @@ namespace AChildsCourage.Game
 
         internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
         {
-            var sin = -1;
-            var cos = 0;
+            const int sin = -1;
 
             var translated = new TilePosition(
                 position.X - chunkCenter.X,
                 position.Y - chunkCenter.Y);
 
             var rotated = new TilePosition(
-                translated.X * cos - translated.Y * sin,
-                translated.Y * cos + translated.X * sin);
+                translated.X - translated.Y * sin,
+                translated.Y + translated.X * sin);
 
             return new TilePosition(
                 rotated.X + chunkCenter.X,

@@ -31,11 +31,11 @@ namespace AChildsCourage.Game
 
             // When
 
-            var hasReserver = HasReservedChunks(floorPlan);
+            var hasReserved = HasReservedChunks(floorPlan);
 
             // Then
 
-            Assert.That(hasReserver, Is.True, "Builder should have reserved chunks!");
+            Assert.That(hasReserved, Is.True, "Builder should have reserved chunks!");
         }
 
         [Test]
@@ -47,11 +47,11 @@ namespace AChildsCourage.Game
 
             // When
 
-            var hasReserver = HasReservedChunks(floorPlan);
+            var hasReserved = HasReservedChunks(floorPlan);
 
             // Then
 
-            Assert.That(hasReserver, Is.False, "Builder should not have reserved chunks!");
+            Assert.That(hasReserved, Is.False, "Builder should not have reserved chunks!");
         }
 
 

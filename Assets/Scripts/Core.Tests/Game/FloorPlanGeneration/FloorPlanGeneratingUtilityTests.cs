@@ -81,7 +81,7 @@ namespace AChildsCourage.Game
 
             var phases =
                 Enumerable.Range(1, GoalRoomCount - 2)
-                          .Select(currentRoomCount => GetCurrentPhase(currentRoomCount));
+                          .Select(GetCurrentPhase);
 
             // Then
 

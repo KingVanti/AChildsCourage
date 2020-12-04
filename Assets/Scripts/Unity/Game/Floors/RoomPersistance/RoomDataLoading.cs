@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.RoomPersistance
+namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     internal static class RoomDataLoading

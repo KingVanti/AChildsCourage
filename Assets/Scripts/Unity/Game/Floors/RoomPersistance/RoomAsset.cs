@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Floors.RoomPersistance
+namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     [CreateAssetMenu(menuName = "A Child's Courage/Room", fileName = "New Room")]

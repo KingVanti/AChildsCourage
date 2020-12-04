@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Courage
             Value = courageData.Value;
             spriteRenderer.sprite = courageData.Sprite;
             spriteRenderer.transform.localScale = courageData.Scale;
-            spriteRenderer.material.SetTexture("_Emission", courageData.Emission);
+            spriteRenderer.material.SetTexture(EmissionTextureKey, courageData.Emission);
             courageName = courageData.CourageName;
             courageLight.pointLightOuterRadius = courageData.LightOuterRadius;
             courageLight.intensity = courageData.LightIntensity;
@@ -32,6 +32,7 @@ namespace AChildsCourage.Game.Courage
 #pragma warning restore 649
 
         private string courageName = "";
+        private static readonly int EmissionTextureKey = Shader.PropertyToID("_Emission");
 
         #endregion
 

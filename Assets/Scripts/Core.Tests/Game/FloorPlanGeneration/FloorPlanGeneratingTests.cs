@@ -51,7 +51,7 @@ namespace AChildsCourage.Game
 
             var isEnough =
                 Enumerable.Range(0, GoalRoomCount - 1)
-                          .Select(roomCount => { return IsEnough(roomCount); });
+                          .Select(IsEnough);
 
             // Then
 

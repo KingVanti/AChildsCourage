@@ -19,8 +19,10 @@ namespace AChildsCourage.Game.Floors
 
         public FilteredRoomPassages(IEnumerable<RoomPassages> passages)
         {
-            if (passages.Count() > 0)
-                this.passages = passages;
+            var passageArray = passages.ToArray();
+            
+            if (passageArray.Length > 0)
+                this.passages = passageArray;
             else
                 throw new Exception("No passages in this filter");
         }

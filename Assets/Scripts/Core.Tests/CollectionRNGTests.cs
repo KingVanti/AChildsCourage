@@ -6,7 +6,7 @@ namespace AChildsCourage
 {
 
     [TestFixture]
-    public class CollectionRNGTests
+    public class CollectionRngTests
     {
 
         [Test]
@@ -15,11 +15,12 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            CreateRng createRng = () => 0;
+
+            float CreateRng() => 0;
 
             // When
 
-            var element = elements.GetRandom(createRng);
+            var element = elements.GetRandom(CreateRng);
 
             // Then
 
@@ -32,11 +33,12 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            CreateRng createRng = () => 0;
+
+            float CreateRng() => 0;
 
             // When
 
-            var element = elements.GetWeightedRandom(e => e, createRng);
+            var element = elements.GetWeightedRandom(e => e, CreateRng);
 
             // Then
 
@@ -44,7 +46,7 @@ namespace AChildsCourage
         }
 
         [Test]
-        public void Elements_With_Double_The_Weight_Appear_Approximatly_Double_As_Often()
+        public void Elements_With_Double_The_Weight_Appear_Approximately_Double_As_Often()
         {
             // Given
 

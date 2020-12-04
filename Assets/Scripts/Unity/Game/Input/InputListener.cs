@@ -83,14 +83,14 @@ namespace AChildsCourage.Game.Input
                 OnEquippedItemUsedIn(1, context);
         }
 
-        private void OnEquippedItemUsedIn(int slotId, Context context)
+        private void OnEquippedItemUsedIn(int slotId, Context _)
         {
             var eventArgs = new EquippedItemUsedEventArgs(slotId);
             OnEquippedItemUsed?.Invoke(this, eventArgs);
         }
 
 
-        private void OnItemPickedUpTo(int slotId, Context context)
+        private void OnItemPickedUpTo(int slotId, Context _)
         {
             var eventArgs = new ItemPickedUpEventArgs(slotId);
             OnItemPickedUp?.Invoke(this, eventArgs);

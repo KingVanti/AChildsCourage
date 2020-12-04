@@ -93,7 +93,7 @@ namespace AChildsCourage.RoomEditor
                 }
         }
 
-        private TilePosition GetLocalTilePos(Vector3Int global)
+        private static TilePosition GetLocalTilePos(Vector3Int global)
         {
             return new TilePosition(
                 global.x + ChunkCenterOffset,
@@ -101,7 +101,7 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        private Vector3Int ToGlobalPosition(TilePosition position)
+        private static Vector3Int ToGlobalPosition(TilePosition position)
         {
             return new Vector3Int(
                 position.X - ChunkCenterOffset,

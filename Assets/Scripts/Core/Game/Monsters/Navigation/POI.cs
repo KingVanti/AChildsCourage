@@ -3,13 +3,13 @@
 namespace AChildsCourage.Game.Monsters.Navigation
 {
 
-    public readonly struct POI
+    public readonly struct Poi
     {
 
         public TilePosition Position { get; }
 
 
-        public POI(TilePosition position) => Position = position;
+        public Poi(TilePosition position) => Position = position;
 
     }
 

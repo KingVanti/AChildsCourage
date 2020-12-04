@@ -15,7 +15,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Monsters
 {
 
-    [UseDI]
+    [UseDi]
     public class Shade : MonoBehaviour {
         #region Fields
 
@@ -42,7 +42,9 @@ namespace AChildsCourage.Game.Monsters
         [Header("Events")]
         public Vector3Event OnMinimumDistanceEntered;
         public UnityEvent OnMinimumDistanceLeft;
-        
+        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
+        private static readonly int XAnimatorKey = Animator.StringToHash("X");
+        private static readonly int YAnimatorKey = Animator.StringToHash("Y");
 
         #endregion
 
@@ -58,11 +60,7 @@ namespace AChildsCourage.Game.Monsters
 
         private bool IsMoving => ai.velocity != Vector3.zero;
 
-        public Vector2 MoveVector {
-            get {
-                return ai.velocity.normalized;
-            }
-        }
+        public Vector2 MoveVector => ai.velocity.normalized;
 
         #endregion
 
@@ -73,9 +71,9 @@ namespace AChildsCourage.Game.Monsters
         }
 
         private void UpdateAnimator() {
-            shadeAnimator.SetBool("IsMoving", IsMoving);
-            shadeAnimator.SetFloat("X", MoveVector.x);
-            shadeAnimator.SetFloat("Y", MoveVector.y);
+            shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
+            shadeAnimator.SetFloat(XAnimatorKey, MoveVector.x);
+            shadeAnimator.SetFloat(YAnimatorKey, MoveVector.y);
         }
 
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)

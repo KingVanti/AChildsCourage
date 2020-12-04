@@ -3,16 +3,16 @@ using AChildsCourage.Game;
 using AChildsCourage.Game.Items;
 using UnityEngine;
 
-public class ItemDataRepository
+public static class ItemDataRepository
 {
 
     private const string ResourcePath = "Items/";
 
 
-    private static readonly Dictionary<ItemId, ItemData> cachedItemData = new Dictionary<ItemId, ItemData>();
+    private static readonly Dictionary<ItemId, ItemData> CachedItemData = new Dictionary<ItemId, ItemData>();
 
 
-    private static bool HasCache => cachedItemData.Count > 0;
+    private static bool HasCache => CachedItemData.Count > 0;
 
 
     public static LoadItemIds GetItemIdLoader()
@@ -25,7 +25,7 @@ public class ItemDataRepository
         if (!HasCache)
             FillCache();
 
-        return cachedItemData.Keys;
+        return CachedItemData.Keys;
     }
 
 
@@ -39,7 +39,7 @@ public class ItemDataRepository
         if (!HasCache)
             FillCache();
 
-        return cachedItemData[id];
+        return CachedItemData[id];
     }
 
 
@@ -49,7 +49,7 @@ public class ItemDataRepository
         {
             var data = asset.Data;
 
-            cachedItemData.Add(data.Id, data);
+            CachedItemData.Add(data.Id, data);
         }
     }
 

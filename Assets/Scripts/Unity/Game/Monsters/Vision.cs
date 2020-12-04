@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using static AChildsCourage.Game.MTilePosition;
@@ -20,20 +21,15 @@ namespace AChildsCourage.Game.Monsters {
 
         public TilePositionsEvent OnObservingTilesChanged;
 
-        private bool isWatching = false;
-
-        private bool isNearTarget = false;
+        private bool isWatching ;
+        private bool isNearTarget ;
         private Vector3 targetPos = Vector3.zero;
 
         #endregion
 
         #region Properties
 
-        private Vector3 CurrentVector3Position {
-            get {
-                return new Vector3(Mathf.RoundToInt(transform.position.x) + 0.5f, Mathf.RoundToInt(transform.position.y) + 0.5f, 0);
-            }
-        }
+        private Vector3 CurrentVector3Position => new Vector3(Mathf.RoundToInt(transform.position.x) + 0.5f, Mathf.RoundToInt(transform.position.y) + 0.5f, 0);
 
         private bool IsObserving { get; set; } = true;
 
@@ -51,53 +47,48 @@ namespace AChildsCourage.Game.Monsters {
 
         private List<TilePosition> GetVisibleTilePositions(int radius) {
 
-            List<Vector3> tiles = new List<Vector3>();
-            List<TilePosition> tilePositions = new List<TilePosition>();
+            var tiles = new List<Vector3>();
 
-            for (int i = -radius; i <= radius; i++) {
+            for (var i = -radius; i <= radius; i++) {
 
-                for (int j = -radius; j <= radius; j++) {
+                for (var j = -radius; j <= radius; j++) {
 
-                    Vector3 tile = new Vector3(CurrentVector3Position.x + i, CurrentVector3Position.y + j);
+                    var tile = new Vector3(CurrentVector3Position.x + i, CurrentVector3Position.y + j);
 
-                    if (Vector3.Distance(CurrentVector3Position, tile) <= radius) {
-
-                        if (Vector3.Angle(tile - transform.position, transform.right) <= visionAngle / 2) {
-
-                            if (!Physics2D.Raycast(transform.position, (tile - transform.position).normalized, Vector2.Distance(tile, transform.position), wallLayer)) {
-                                tiles.Add(tile);
-                            }
-
-                        }
-
+                    if (!(Vector3.Distance(CurrentVector3Position, tile) <= radius))
+                        continue;
+                    if (!(Vector3.Angle(tile - transform.position, transform.right) <= visionAngle / 2))
+                        continue;
+                    
+                    if (!Physics2D.Raycast(transform.position, (tile - transform.position).normalized, Vector2.Distance(tile, transform.position), wallLayer)) {
+                        tiles.Add(tile);
                     }
 
                 }
 
             }
 
-            for (int i = -1; i <= 1; i++) {
+            for (var i = -1; i <= 1; i++) {
 
-                for (int j = -1; j <= 1; j++) {
+                for (var j = -1; j <= 1; j++) {
 
-                    Vector3 tile = new Vector3(CurrentVector3Position.x + i, CurrentVector3Position.y + j);
+                    var tile = new Vector3(CurrentVector3Position.x + i, CurrentVector3Position.y + j);
                     tiles.Add(tile);
 
                 }
 
             }
 
-            foreach (Vector3 tile in tiles) {
-                tilePositions.Add(new TilePosition(Mathf.FloorToInt(tile.x), Mathf.FloorToInt(tile.y)));
-            }
-
-            return tilePositions;
-
+            return tiles
+                   .Select(tile => new TilePosition(
+                                    Mathf.FloorToInt(tile.x),
+                                    Mathf.FloorToInt(tile.y)))
+                   .ToList();
         }
 
         private void OnDrawGizmos() {
 
-            foreach (TilePosition t in CurrentlyObservingTilePositions)
+            foreach (var t in CurrentlyObservingTilePositions)
                 Gizmos.DrawWireSphere(t.ToVector3(), 0.1f);
 
         }
@@ -112,7 +103,7 @@ namespace AChildsCourage.Game.Monsters {
         }
 
 
-        IEnumerator Observe(int radius) {
+      private  IEnumerator Observe(int radius) {
 
             while (IsObserving) {
 
@@ -127,23 +118,23 @@ namespace AChildsCourage.Game.Monsters {
 
         }
 
-        IEnumerator Watch(Vector3 endRotation, float completionTime) {
+    private    IEnumerator Watch(Vector3 endRotation, float completionTime) {
 
             isWatching = true;
 
             if (isNearTarget) {
 
-                float angle = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x) * Mathf.Rad2Deg;
+                var angle = Mathf.Atan2(targetPos.y - transform.position.y, targetPos.x - transform.position.x) * Mathf.Rad2Deg;
                 endRotation = new Vector3(0,0,angle);
 
             }
 
             float elapsedTime = 0;
-            Quaternion startRotation = transform.rotation;
+            var startRotation = transform.rotation;
 
             while (isWatching && elapsedTime < completionTime) {
                 
-                transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(endRotation), (elapsedTime / completionTime));
+                transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(endRotation), elapsedTime / completionTime);
                 elapsedTime += Time.deltaTime;
                 yield return null;
 

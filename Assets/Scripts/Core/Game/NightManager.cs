@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.MNightRecreating;
-using static AChildsCourage.Game.Persistance.MRunData;
+using static AChildsCourage.Game.Persistence.MRunData;
 using static AChildsCourage.Game.FloorGenerating;
 using static AChildsCourage.Game.MFloorPlanGenerating;
 

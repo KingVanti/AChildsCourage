@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Ninject.Syntax;
 
 namespace Ninject.Extensions.Unity
 {
 
     public static class PropertyServiceInjection
     {
-
-        public static void AutoInjectSceneServices(this IKernel kernel, IEnumerable<Assembly> injectionAssemblies)
-        {
-            foreach (var injectionAssembly in injectionAssemblies)
-                AutoInjectSceneServices(kernel, injectionAssembly);
-        }
-
+        
         public static void AutoInjectSceneServices(this IKernel kernel, Assembly injectionAssembly)
         {
             var types = GetAllTypes(injectionAssembly);
@@ -23,28 +18,28 @@ namespace Ninject.Extensions.Unity
                 InjectServicesFor(type, kernel);
         }
 
-        private static Type[] GetAllTypes(Assembly injectionAssembly)
+        private static IEnumerable<Type> GetAllTypes(Assembly injectionAssembly)
         {
             return injectionAssembly.GetTypes();
         }
 
         private static void InjectServicesFor(Type type, IKernel kernel)
         {
-            var monos = Utility.GetMonoBehavioursOfType(type).ToArray();
+            var monoBehaviours = Utility.GetMonoBehavioursOfType(type).ToArray();
 
-            if (monos.Length > 0)
+            if (monoBehaviours.Length <= 0)
+                return;
+            
+            foreach (var property in GetAutoInjectProperties(type))
             {
-                foreach (var property in GetAutoInjectProperties(type))
-                {
-                    var service = GetServiceFor(property, kernel);
+                var service = GetServiceFor(property, kernel);
 
-                    foreach (var mono in monos)
-                        property.SetValue(mono, service);
-                }
+                foreach (var mono in monoBehaviours)
+                    property.SetValue(mono, service);
             }
         }
 
-        private static PropertyInfo[] GetAutoInjectProperties(Type type)
+        private static IEnumerable<PropertyInfo> GetAutoInjectProperties(Type type)
         {
             var properties = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             var autoInjectProperties = properties.Where(IsAutoInjectProperty);
@@ -57,11 +52,11 @@ namespace Ninject.Extensions.Unity
             return property.GetCustomAttribute<AutoInjectAttribute>() != null;
         }
 
-        private static object GetServiceFor(PropertyInfo property, IKernel kernel)
+        private static object GetServiceFor(PropertyInfo property, IResolutionRoot root)
         {
             var propertyType = property.PropertyType;
 
-            return kernel.Get(propertyType);
+            return root.Get(propertyType);
         }
 
     }

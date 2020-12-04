@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -106,11 +107,11 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             PrintPassages(type, position, passages, pixels);
         }
 
-        private static void PrintPassages(RoomType type, Vector2Int pixelPos, ChunkPassages passages, Color[][] pixels)
+        private static void PrintPassages(RoomType type, Vector2Int pixelPos, ChunkPassages passages, IReadOnlyList<Color[]> pixels)
         {
             for (var dx = 1; dx < 4; dx++)
                 for (var dy = 1; dy < 4; dy++)
-                    pixels[pixelPos.x + dx][pixelPos.y + dy] = GetRoomtypeColor(type);
+                    pixels[pixelPos.x + dx][pixelPos.y + dy] = GetRoomTypeColor(type);
 
             if (passages.HasNorth)
                 pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.white;
@@ -122,7 +123,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 pixels[pixelPos.x][pixelPos.y + 2] = Color.white;
         }
 
-        private static Color GetRoomtypeColor(RoomType type)
+        private static Color GetRoomTypeColor(RoomType type)
         {
             switch (type)
             {
@@ -132,9 +133,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                     return Color.white;
                 case RoomType.End:
                     return Color.magenta;
+                default:
+                    throw  new Exception("Invalid room type!");
             }
-
-            throw new Exception("Invalid room type!");
         }
 
         private static Vector2Int GetPixelPos(ChunkPosition position, Vector2Int offset)

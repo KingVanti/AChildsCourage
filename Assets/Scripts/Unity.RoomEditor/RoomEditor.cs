@@ -1,5 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistance;
+﻿using System;
+using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 
 namespace AChildsCourage.RoomEditor
@@ -95,6 +96,8 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Item:
                     itemLayer.PlaceAt(position);
                     break;
+                default:
+                    throw new Exception("Invalid tile category!");
             }
         }
 
@@ -111,6 +114,8 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Item:
                     itemLayer.DeleteTileAt(position);
                     break;
+                default:
+                    throw new Exception("Invalid tile category!");
             }
         }
 
@@ -121,14 +126,12 @@ namespace AChildsCourage.RoomEditor
             LoadedAsset.Content = ReadContent();
         }
 
-        private RoomContentData ReadContent()
-        {
-            return new RoomContentData(
+        private RoomContentData ReadContent() =>
+            new RoomContentData(
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
                 itemLayer.ReadAll(),
-                new AOIMarkerData[0]);
-        }
+                new AoiMarkerData[0]);
 
 
         internal void Unload()
