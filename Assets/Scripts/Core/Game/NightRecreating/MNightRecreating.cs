@@ -10,7 +10,7 @@ namespace AChildsCourage.Game
         
         internal static RecreateNight Make(IFloorRecreator floorRecreator)
         {
-            return floor => { floorRecreator.Recreate(floor); };
+            return floorRecreator.Recreate;
         }
 
     }
