@@ -7,9 +7,9 @@ namespace AChildsCourage
     public static class F
     {
 
-        public static T Take<T>(T input) => input;
+        public static TItem Take<TItem>(TItem input) => input;
 
-        public static T RepeatFor<T>(this T input, Func<T, T> function, int times)
+        public static TItem RepeatFor<TItem>(this TItem input, Func<TItem, TItem> function, int times)
         {
             var result = input;
 
@@ -25,7 +25,7 @@ namespace AChildsCourage
                 action();
         }
 
-        public static T RepeatWhile<T>(this T input, Func<T, T> function, Func<bool> predicate)
+        public static TItem RepeatWhile<TItem>(this TItem input, Func<TItem, TItem> function, Func<bool> predicate)
         {
             var result = input;
 
@@ -35,7 +35,7 @@ namespace AChildsCourage
             return result;
         }
 
-        public static T RepeatWhile<T>(this T input, Func<T, T> function, Func<T, bool> predicate)
+        public static TItem RepeatWhile<TItem>(this TItem input, Func<TItem, TItem> function, Func<TItem, bool> predicate)
         {
             var result = input;
 
@@ -45,11 +45,9 @@ namespace AChildsCourage
             return result;
         }
 
-        public static T DoIf<T>(this T input, Func<T, T> function, bool predicate)
+        public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate)
         {
-            if (predicate)
-                return function(input);
-            return input;
+            return predicate ? function(input) : input;
         }
 
         public static void While(this Action action, Func<bool> predicate)
@@ -58,38 +56,38 @@ namespace AChildsCourage
                 action();
         }
 
-        public static U Map<T, U>(this T item, Func<T, U> function) => function(item);
+        public static TResult Map<TItem, TResult>(this TItem item, Func<TItem, TResult> function) => function(item);
 
-        public static void Do<T>(this T item, Action<T> action)
+        public static void Do<TItem>(this TItem item, Action<TItem> action)
         {
             action(item);
         }
 
-        public static U MapWith<T, U, V>(this T item, Func<T, V, U> function, V param) => function(item, param);
+        public static TResult MapWith<TItem, TResult, TParam>(this TItem item, Func<TItem, TParam, TResult> function, TParam param) => function(item, param);
 
-        public static void ForEach<T>(this IEnumerable<T> elements, Action<T> action)
+        public static void ForEach<TItem>(this IEnumerable<TItem> elements, Action<TItem> action)
         {
             foreach (var element in elements)
                 action(element);
         }
 
-        public static void ForEach<T, U>(this IEnumerable<T> elements, Func<T, U> function)
+        public static void ForEach<TItem, TResult>(this IEnumerable<TItem> elements, Func<TItem, TResult> function)
         {
             foreach (var element in elements)
                 _ = function(element);
         }
 
-        public static U ThenTake<T, U>(this T _, U item) => item;
+        public static TReplace ThenTake<TItem, TReplace>(this TItem _, TReplace item) => item;
 
-        public static U FinallyReturn<T, U>(this T _, U item) => _.ThenTake(item);
+        public static TReturn FinallyReturn<TItem, TReturn>(this TItem _, TReturn item) => _.ThenTake(item);
 
         public static bool Negate(this bool b) => !b;
 
-        public static U? Bind<T, U>(this T? item, Func<T, U> function) where T : struct where U : struct => item.HasValue ? function(item.Value) : (U?) null;
+        public static TResult? Bind<TItem, TResult>(this TItem? item, Func<TItem, TResult> function) where TItem : struct where TResult : struct => item.HasValue ? function(item.Value) : (TResult?) null;
 
-        public static U NullBind<T, U>(this T item, Func<T, U> function) where T : class where U : class => item != null ? function(item) : null;
+        public static TResult NullBind<TItem, TResult>(this TItem item, Func<TItem, TResult> function) where TItem : class where TResult : class => item != null ? function(item) : null;
 
-        public static T IfNull<T>(this T? item, T replacement) where T : struct => item ?? replacement;
+        public static TItem IfNull<TItem>(this TItem? item, TItem replacement) where TItem : struct => item ?? replacement;
 
     }
 
