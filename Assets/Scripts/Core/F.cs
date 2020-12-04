@@ -45,16 +45,16 @@ namespace AChildsCourage
             return result;
         }
 
-        public static T DoIf<T>(this T input, Func<T, T> function, bool predecate)
+        public static T DoIf<T>(this T input, Func<T, T> function, bool predicate)
         {
-            if (predecate)
+            if (predicate)
                 return function(input);
             return input;
         }
 
-        public static void While(this Action action, Func<bool> predecate)
+        public static void While(this Action action, Func<bool> predicate)
         {
-            while (predecate())
+            while (predicate())
                 action();
         }
 
