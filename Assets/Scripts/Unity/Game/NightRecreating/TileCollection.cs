@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game
 {
@@ -12,7 +12,7 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        internal Tile GetTile(CreateRNG createRng)
+        internal Tile GetTile(CreateRng createRng)
         {
             var getVariant = createRng.Prob(_variantProb);
 

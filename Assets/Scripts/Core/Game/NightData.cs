@@ -6,7 +6,7 @@ namespace AChildsCourage.Game
     public static class MNightData
     {
 
-        public static Func<RNG.CreateRNG, NightData> CreateNightWithRandomSeed =>
+        public static Func<Rng.CreateRng, NightData> CreateNightWithRandomSeed =>
             rng =>
                 new NightData(rng.GetValueBetween(int.MinValue, int.MaxValue));
 

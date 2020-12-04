@@ -1,5 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Courage
 
         CouragePickupData GetCouragePickupData(CourageVariant variant);
 
-        CouragePickupData GetRandomPickupData(CreateRNG createRng);
+        CouragePickupData GetRandomPickupData(CreateRng createRng);
 
         #endregion
 

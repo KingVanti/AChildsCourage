@@ -109,7 +109,7 @@ namespace AChildsCourage.Game.Monsters
         private IEnumerator Investigate()
         {
 
-            var investigation = StartNew(FloorState, CurrentState, RNG.New());
+            var investigation = StartNew(FloorState, CurrentState, Rng.New());
 
             var currentTarget = NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);

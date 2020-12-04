@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.CustomMath;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters.Navigation
@@ -116,7 +116,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         #region Types
 
-        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRng rng);
 
         public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
 
@@ -126,7 +126,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
-        internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRNG rng);
+        internal delegate AOI ChooseInvestigationAOI(FloorState floorState, MonsterState monsterState, CreateRng rng);
 
         internal delegate float CalculateAOIWeight(AOI aoi, MonsterState monsterState);
 

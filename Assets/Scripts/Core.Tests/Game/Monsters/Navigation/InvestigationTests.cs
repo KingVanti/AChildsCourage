@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
             var started = StartNew(
                 new FloorState(new AOI()),
                 new MonsterState(new EntityPosition(), DateTime.MinValue, Empty),
-                RNG.Always(0));
+                Rng.Always(0));
 
             // When
 

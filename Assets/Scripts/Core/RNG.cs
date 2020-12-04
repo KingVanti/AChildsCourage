@@ -3,35 +3,35 @@
 namespace AChildsCourage
 {
 
-    public static class RNG
+    public static class Rng
     {
 
-        public delegate float CreateRNG();
+        public delegate float CreateRng();
 
-        public delegate CreateRNG InitializeRNGSource(int seed);
+        public delegate CreateRng InitializeRngSource(int seed);
 
 
-        public static InitializeRNGSource SeedBasedInitializeRng { get; } = FromSeed;
+        public static InitializeRngSource SeedBasedInitializeRng { get; } = FromSeed;
 
-        public static CreateRNG FromSeed(int seed)
+        public static CreateRng FromSeed(int seed)
         {
             var random = new Random(seed);
 
             return () => (float) random.NextDouble();
         }
 
-        public static CreateRNG Always(float value)
+        public static CreateRng Always(float value)
         {
             return () => value;
         }
 
-        public static CreateRNG New() => FromSeed(DateTime.Now.GetHashCode());
+        public static CreateRng New() => FromSeed(DateTime.Now.GetHashCode());
 
 
-        public static float GetValue01(this CreateRNG source) => source();
+        public static float GetValue01(this CreateRng source) => source();
 
 
-        public static float GetValueBetween(this CreateRNG source, float min, float max)
+        public static float GetValueBetween(this CreateRng source, float min, float max)
         {
             var diff = max - min;
             var dist = diff * GetValue01(source);
@@ -40,16 +40,16 @@ namespace AChildsCourage
         }
 
 
-        public static int GetValueBetween(this CreateRNG source, int min, int max) => (int) GetValueBetween(source, (float) min, max);
+        public static int GetValueBetween(this CreateRng source, int min, int max) => (int) GetValueBetween(source, (float) min, max);
 
 
-        public static float GetValueUnder(this CreateRNG source, float max) => GetValue01(source) * max;
+        public static float GetValueUnder(this CreateRng source, float max) => GetValue01(source) * max;
 
 
-        public static int GetValueUnder(this CreateRNG source, int max) => (int) GetValueUnder(source, (float) max);
+        public static int GetValueUnder(this CreateRng source, int max) => (int) GetValueUnder(source, (float) max);
 
 
-        public static bool Prob(this CreateRNG source, float variantProb) => GetValueBetween(source, float.Epsilon, 100f) <= variantProb;
+        public static bool Prob(this CreateRng source, float variantProb) => GetValueBetween(source, float.Epsilon, 100f) <= variantProb;
 
     }
 

@@ -34,9 +34,9 @@ namespace AChildsCourage.Game
         public void PrepareNightForCurrentRun()
         {
             var nightData = loadRunData()
-                .Map(runData => StartNight(runData, RNG.New()));
+                .Map(runData => StartNight(runData, Rng.New()));
 
-            var rng = RNG.FromSeed(nightData.Seed);
+            var rng = Rng.FromSeed(nightData.Seed);
 
             GenerateFloorPlan(floorPlanGenerationParameters, rng)
                 .Map(floorPlan => GenerateFloor(floorPlan, itemIds, roomData, rng))

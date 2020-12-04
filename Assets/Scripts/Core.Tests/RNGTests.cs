@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.RNG;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage
 {
