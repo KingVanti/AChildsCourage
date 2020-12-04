@@ -620,12 +620,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2025621520}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
+        m_MethodName: UpdateStage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInitialize:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1171723089}
         m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
         m_MethodName: UpdateCourage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2025621520}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
+        m_MethodName: SetRiftStats
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2380,6 +2404,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: courageManager
+      value: 
+      objectReference: {fileID: 269662568}
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2430,6 +2458,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+--- !u!114 &2025621520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+  m_PrefabInstance: {fileID: 2025621519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd0e091db11ef34994d1e2344f8301f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2064087350
 PrefabInstance:
   m_ObjectHideFlags: 0
