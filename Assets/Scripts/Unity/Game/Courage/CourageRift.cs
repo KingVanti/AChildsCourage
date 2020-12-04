@@ -18,15 +18,11 @@ namespace AChildsCourage.Game.Courage {
             sr.sprite = riftStageSprites[currentStage];
             needed = neededCourage;
             threshold = Mathf.RoundToInt(needed / riftStageSprites.Length);
-            Debug.Log(needed);
-            Debug.Log(threshold);
-
         }
 
         public void UpdateStage(int currentCourage, int neededCourage, int maxCourage) {
 
             if(currentCourage >= lastCourageStageCount + threshold) {
-                Debug.Log(lastCourageStageCount + threshold);
                 currentStage++;
                 sr.sprite = riftStageSprites[currentStage];
                 lastCourageStageCount = currentCourage;
