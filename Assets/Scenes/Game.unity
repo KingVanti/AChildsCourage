@@ -249,6 +249,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 269662568}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageManager, AChildsCourage.Unity
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onNightPrepared:
     m_PersistentCalls:
       m_Calls:
@@ -278,6 +290,11 @@ Transform:
   m_Father: {fileID: 1609446191}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &104577611 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &118822145
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxNightCourage: 30
   OnCourageChanged:
     m_PersistentCalls:
       m_Calls:
@@ -602,12 +620,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2025621520}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
+        m_MethodName: UpdateStage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInitialize:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1171723089}
         m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
         m_MethodName: UpdateCourage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2025621520}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
+        m_MethodName: SetRiftStats
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1127,7 +1169,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 104577611}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
@@ -2362,6 +2404,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: courageManager
+      value: 
+      objectReference: {fileID: 269662568}
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2412,6 +2458,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+--- !u!114 &2025621520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+  m_PrefabInstance: {fileID: 2025621519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd0e091db11ef34994d1e2344f8301f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2064087350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2467,10 +2524,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1496831347808597378, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
-      objectReference: {fileID: 0}
+    - target: {fileID: 3943784392033496761, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 104577611}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: targetTransform
       value: 

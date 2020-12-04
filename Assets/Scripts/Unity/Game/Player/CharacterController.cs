@@ -313,7 +313,7 @@ namespace AChildsCourage.Game.Player
 
         private void TakingDamage(int damage, Vector2 knockbackVector)
         {
-            StartCoroutine(Knockback(damage * _movementSpeed * 3, 0.08f, knockbackVector));
+            StartCoroutine(Knockback(damage * _movementSpeed * 10, 0.095f, knockbackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
@@ -342,11 +342,8 @@ namespace AChildsCourage.Game.Player
         {
             gettingKnockedBack = true;
 
-            if (IsMoving)
-            {
-                rb.AddForce(direction * strength, ForceMode2D.Impulse);
-                MovingDirection = Vector2.zero;
-            }
+            rb.AddForce(direction * strength, ForceMode2D.Impulse);
+            MovingDirection = Vector2.zero;
 
             yield return new WaitForSeconds(duration);
 
