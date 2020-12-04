@@ -34,15 +34,11 @@ namespace AChildsCourage.Game
 
         internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
         {
-            const int sin = -1;
-
             var translated = new TilePosition(
                 position.X - chunkCenter.X,
                 position.Y - chunkCenter.Y);
 
-            var rotated = new TilePosition(
-                translated.X - translated.Y * sin,
-                translated.Y + translated.X * sin);
+            var rotated = new TilePosition(translated.Y, -translated.X);
 
             return new TilePosition(
                 rotated.X + chunkCenter.X,
