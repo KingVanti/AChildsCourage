@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game
 {

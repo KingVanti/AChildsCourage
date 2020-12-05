@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using NUnit.Framework;
 using static AChildsCourage.Game.FloorGenerating;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game

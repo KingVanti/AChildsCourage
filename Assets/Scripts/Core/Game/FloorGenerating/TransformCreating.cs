@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -17,13 +18,13 @@ namespace AChildsCourage.Game
 
         internal static TilePosition GetChunkCenter(ChunkPosition chunkPosition) =>
             new TilePosition(
-                chunkPosition.X * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent,
-                chunkPosition.Y * ChunkPosition.ChunkSize + ChunkPosition.ChunkExtent);
+                chunkPosition.X * ChunkSize + ChunkExtent,
+                chunkPosition.Y * ChunkSize + ChunkExtent);
 
         internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition) =>
             new TilePosition(
-                chunkPosition.X * ChunkPosition.ChunkSize,
-                chunkPosition.Y * ChunkPosition.ChunkSize);
+                chunkPosition.X * ChunkSize,
+                chunkPosition.Y * ChunkSize);
 
     }
 
