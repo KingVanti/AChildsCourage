@@ -1,4 +1,5 @@
 ﻿using System;
+using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Monsters.Navigation
