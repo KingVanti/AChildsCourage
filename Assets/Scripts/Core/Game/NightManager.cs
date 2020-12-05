@@ -34,7 +34,7 @@ namespace AChildsCourage.Game
         public void PrepareNightForCurrentRun()
         {
             var nightData = loadRunData()
-                .Map(runData => StartNight(runData, Rng.New()));
+                .Map(runData => StartNight(runData, Rng.Random()));
 
             var rng = Rng.FromSeed(nightData.Seed);
 
