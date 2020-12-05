@@ -29,10 +29,8 @@ namespace AChildsCourage
         {
             var kernel = CreateDefaultKernel();
             var assemblies = GetAssemblies().ToArray();
-            var unityAssembly = assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
-            var monoBehaviourTypes = unityAssembly.GetTypes()
-                                                  .Where(t => typeof(MonoBehaviour).IsAssignableFrom(t))
-                                                  .ToArray();
+            var unityAssembly = GetUnityAssembly(assemblies);
+            var monoBehaviourTypes = GetMonoBehaviourTypes(unityAssembly).ToArray();
 
             BindSingletons(kernel, assemblies, monoBehaviourTypes);
             BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
@@ -60,6 +58,16 @@ namespace AChildsCourage
             yield return Assembly.Load("AChildsCourage.Unity");
         }
 
+        private static Assembly GetUnityAssembly(IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
+        }
+        
+        private static IEnumerable<Type> GetMonoBehaviourTypes(Assembly unityAssembly)
+        {
+            return unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
+        }
+        
         private static void BindSingletons(IBindingRoot root, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
             root.Bind(x => x.From(assemblies)
