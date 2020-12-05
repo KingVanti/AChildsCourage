@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace AChildsCourage
 {
 
-    public static class F
+    public static class MFunctional
     {
 
         public static TItem Take<TItem>(TItem input) => input;

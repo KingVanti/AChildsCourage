@@ -4,7 +4,7 @@ using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.F;
+using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.Floors.MRoom;
 
 namespace AChildsCourage.Game

@@ -1,4 +1,4 @@
-﻿using static AChildsCourage.F;
+﻿using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
