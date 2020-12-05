@@ -9,7 +9,7 @@ using static AChildsCourage.MRng;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         internal static Func<FloorPlan, IEnumerable<ItemId>, IEnumerable<RoomData>, CreateRng, Floor> GenerateFloor =>

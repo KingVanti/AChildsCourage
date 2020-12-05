@@ -10,7 +10,7 @@ using static AChildsCourage.Game.Floors.MRoom;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         private static FloorBuilder EmptyFloorBuilder =>

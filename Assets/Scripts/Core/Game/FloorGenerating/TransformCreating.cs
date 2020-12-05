@@ -5,7 +5,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         internal static ChunkTransform ToChunkTransform(RoomTransform transform)

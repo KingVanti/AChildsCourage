@@ -4,7 +4,7 @@ using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.MNightRecreating;
 using static AChildsCourage.Game.Persistence.MRunData;
-using static AChildsCourage.Game.FloorGenerating;
+using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.Game.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game

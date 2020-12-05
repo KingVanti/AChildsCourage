@@ -8,7 +8,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         private static IEnumerable<TransformedRoomData> ChooseRoomsFor(FloorPlan floorPlan, IEnumerable<RoomData> rooms)

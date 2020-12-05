@@ -9,7 +9,7 @@ using static AChildsCourage.MFunctional;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         internal const int WallHeight = 2;
