@@ -17,7 +17,7 @@ namespace AChildsCourage.Game
         internal const int CourageSparkCount = 25;
 
 
-        internal static IEnumerable<CouragePickup> ChooseCouragePickups(FloorBuilder floorBuilder, Rng.CreateRng rng)
+        internal static IEnumerable<CouragePickup> ChooseCouragePickups(FloorBuilder floorBuilder, MRng.CreateRng rng)
         {
             var sparks = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Spark, CourageSparkCount, CalculateCourageSparkWeight, rng);
             var orbs = ChoosePickupsOfVariant(floorBuilder, CourageVariant.Orb, CourageOrbCount, CalculateCourageOrbWeight, rng);
@@ -26,7 +26,7 @@ namespace AChildsCourage.Game
         }
 
 
-        private static IEnumerable<CouragePickup> ChoosePickupsOfVariant(FloorBuilder floorBuilder, CourageVariant variant, int count, CouragePickupWeightFunction weightFunction, Rng.CreateRng rng)
+        private static IEnumerable<CouragePickup> ChoosePickupsOfVariant(FloorBuilder floorBuilder, CourageVariant variant, int count, CouragePickupWeightFunction weightFunction, MRng.CreateRng rng)
         {
             var positions = GetCouragePositionsOfVariant(floorBuilder, variant).ToImmutableHashSet();
 
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game
                         .Select(p => p.Position);
 
 
-        internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, Rng.CreateRng rng)
+        internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, MRng.CreateRng rng)
         {
             bool IsNotTaken(TilePosition p) => !taken.Contains(p);
 

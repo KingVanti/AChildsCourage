@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.CustomMath;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters.Navigation

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using static AChildsCourage.Game.MFloorPlanGenerating;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Floors.TestGenerator

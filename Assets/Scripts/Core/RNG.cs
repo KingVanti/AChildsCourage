@@ -3,7 +3,7 @@
 namespace AChildsCourage
 {
 
-    public static class Rng
+    public static class MRng
     {
 
         public delegate float CreateRng();

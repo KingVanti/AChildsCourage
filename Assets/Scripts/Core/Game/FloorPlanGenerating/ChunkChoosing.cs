@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Numerics;
 using static AChildsCourage.F;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {

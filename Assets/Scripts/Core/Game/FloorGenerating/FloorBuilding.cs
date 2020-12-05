@@ -58,7 +58,7 @@ namespace AChildsCourage.Game
                 floor.Walls,
                 floor.Rooms.Add(room));
 
-        private static Floor BuildFloor(FloorBuilder floorBuilder, Rng.CreateRng rng) =>
+        private static Floor BuildFloor(FloorBuilder floorBuilder, MRng.CreateRng rng) =>
             new Floor(
                 floorBuilder.Walls,
                 ChooseCouragePickups(floorBuilder, rng).ToImmutableHashSet(),
