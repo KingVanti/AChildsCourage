@@ -28,8 +28,7 @@ namespace AChildsCourage
         internal static void InjectServices()
         {
             var kernel = CreateDefaultKernel();
-            var assemblies = GetAssemblies()
-                .ToArray();
+            var assemblies = GetAssemblies().ToArray();
             var unityAssembly = assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
             var monoBehaviourTypes = unityAssembly.GetTypes()
                                                   .Where(t => typeof(MonoBehaviour).IsAssignableFrom(t))
