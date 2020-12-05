@@ -7,9 +7,7 @@ namespace AChildsCourage.Game.Items.Pickups
     {
 
         #region Properties
-
         public ItemId Id { get; private set; }
-
         #endregion
 
         #region Fields
@@ -18,12 +16,23 @@ namespace AChildsCourage.Game.Items.Pickups
 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private CanvasGroup tutorialInfo;
+        [SerializeField] private int flashlightId;
+        [SerializeField] private ItemIcon flashlightIcon;
 
 #pragma warning restore 649
 
         #endregion
 
         #region Methods
+
+        private void Start() {
+            SetItem(flashlightId, flashlightIcon);
+        }
+
+        private void SetItem(int itemId, ItemIcon icon) {
+            Id = new ItemId(itemId);
+            SetIcon(icon);
+        }
 
         public void SetItemData(ItemData itemData, ItemIcon icon)
         {

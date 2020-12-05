@@ -16,4 +16,4 @@ MonoBehaviour:
   _inactiveIcon: {fileID: -2638390803197812687, guid: b81c866f3d1928647b1ab7d49e56d984, type: 3}
   _activeIcon: {fileID: 3106980830948349586, guid: 22b11af7818b2d247be3966b29c27ebb, type: 3}
   _scale: {x: 0.45, y: 0.45, z: 1}
-  _rotationAngles: 45
+  _rotationAngles: 77

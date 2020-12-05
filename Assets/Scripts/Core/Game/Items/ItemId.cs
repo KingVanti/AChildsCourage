@@ -7,7 +7,7 @@
         private readonly int value;
 
 
-        private ItemId(int value) => this.value = value;
+        public ItemId(int value) => this.value = value;
 
 
         public override string ToString() => value.ToString();
