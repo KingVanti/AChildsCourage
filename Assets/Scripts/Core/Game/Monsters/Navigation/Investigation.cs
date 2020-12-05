@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.MCustomMath;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
