@@ -6,7 +6,14 @@ namespace AChildsCourage.Game
     public static class MTilePosition
     {
 
-        #region Records
+        internal static float GetDistanceFromOrigin(TilePosition position) => new Vector2(position.X, position.Y).Length();
+
+
+        internal static float GetDistanceBetween(TilePosition p1, TilePosition p2) =>
+            Vector2.Distance(
+                new Vector2(p1.X, p1.Y),
+                new Vector2(p2.X, p2.Y));
+
 
         public readonly struct TilePosition
         {
@@ -26,25 +33,10 @@ namespace AChildsCourage.Game
 
 
             public static TilePosition operator +(TilePosition position, TileOffset offset) =>
-                new TilePosition(
-                    position.X + offset.X,
-                    position.Y + offset.Y);
+                new TilePosition(position.X + offset.X,
+                                 position.Y + offset.Y);
 
         }
-
-        #endregion
-
-        #region Functions
-
-        internal static float GetDistanceFromOrigin(TilePosition position) => new Vector2(position.X, position.Y).Length();
-
-
-        internal static float GetDistanceBetween(TilePosition p1, TilePosition p2) =>
-            Vector2.Distance(
-                new Vector2(p1.X, p1.Y),
-                new Vector2(p2.X, p2.Y));
-
-        #endregion
 
     }
 
