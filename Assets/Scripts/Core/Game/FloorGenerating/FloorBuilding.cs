@@ -25,7 +25,7 @@ namespace AChildsCourage.Game
                 ImmutableHashSet<CouragePickup>.Empty);
 
 
-        private static FloorBuilder BuildRoom(FloorBuilder floorBuilder, TransformedRoomData transformedRoomData, int roomIndex) =>
+        private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
             Take(EmptyRoomBuilder((AoiIndex) roomIndex))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
@@ -46,7 +46,7 @@ namespace AChildsCourage.Game
             Take(pickupData)
                 .Select(data => new CouragePickup(data.Position, data.Variant))
                 .Aggregate(roomBuilder, PlaceCouragePickup);
-        
+
         private static RoomBuilder PlaceCouragePickup(RoomBuilder room, CouragePickup pickup) =>
             new RoomBuilder(
                 room.AoiIndex,
