@@ -62,27 +62,24 @@ namespace AChildsCourage
 
         private static void BindSingletons(IBindingRoot root, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
-            root.Bind(x => x
-                           .From(assemblies)
-                           .IncludingNonPublicTypes()
-                           .SelectAllClasses()
-                           .WithAttribute<SingletonAttribute>()
-                           .Excluding(monoBehaviourTypes)
-                           .BindAllInterfaces()
-                           .Configure(b => b.InSingletonScope()
-                                            .RegisterOnEventBroker(DefaultEventBrokerName)));
+            root.Bind(x => x.From(assemblies)
+                            .IncludingNonPublicTypes()
+                            .SelectAllClasses()
+                            .WithAttribute<SingletonAttribute>()
+                            .Excluding(monoBehaviourTypes)
+                            .BindAllInterfaces()
+                            .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
         private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
-            kernel.Bind(x => x
-                             .From(assemblies)
-                             .IncludingNonPublicTypes()
-                             .SelectAllClasses()
-                             .WithoutAttribute<SingletonAttribute>()
-                             .Excluding(monoBehaviourTypes)
-                             .BindAllInterfaces()
-                             .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
+            kernel.Bind(x => x.From(assemblies)
+                              .IncludingNonPublicTypes()
+                              .SelectAllClasses()
+                              .WithoutAttribute<SingletonAttribute>()
+                              .Excluding(monoBehaviourTypes)
+                              .BindAllInterfaces()
+                              .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
         private static void BindConstants(IBindingRoot root)
@@ -99,8 +96,7 @@ namespace AChildsCourage
 
         private static void ActivateEagerServices(IResolutionRoot root)
         {
-            _ = root.GetAll<IEagerActivation>()
-                    .ToArray();
+            _ = root.GetAll<IEagerActivation>().ToArray();
         }
 
     }
