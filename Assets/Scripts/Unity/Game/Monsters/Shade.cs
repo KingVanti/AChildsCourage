@@ -17,7 +17,16 @@ namespace AChildsCourage.Game.Monsters
 {
 
     [UseDi]
-    public class Shade : MonoBehaviour {
+    public class Shade : MonoBehaviour
+    {
+
+        #region Subclasses
+
+        [Serializable]
+        public class Vector3Event : UnityEvent<Vector3> { }
+
+        #endregion
+
         #region Fields
 
         public AIPath ai;
@@ -26,13 +35,14 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Seeker seeker;
         [SerializeField] private Animator shadeAnimator;
-        [Header("Stats")] 
-        public int touchDamage;
+
+        [Header("Stats")] public int touchDamage;
+
         public int attackDamage;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private Transform targetTransform;
-        [Range(1, 50)][SerializeField] private float minimumDistanceTargetLock;
+        [Range(1, 50)] [SerializeField] private float minimumDistanceTargetLock;
 #pragma warning restore 649
 
         private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
@@ -40,8 +50,8 @@ namespace AChildsCourage.Game.Monsters
 
         private Coroutine investigationCoroutine;
 
-        [Header("Events")]
-        public Vector3Event OnMinimumDistanceEntered;
+        [Header("Events")] public Vector3Event OnMinimumDistanceEntered;
+
         public UnityEvent OnMinimumDistanceLeft;
         private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int XAnimatorKey = Animator.StringToHash("X");
@@ -67,11 +77,13 @@ namespace AChildsCourage.Game.Monsters
 
         #region Methods
 
-        private void Update() {
+        private void Update()
+        {
             UpdateAnimator();
         }
 
-        private void UpdateAnimator() {
+        private void UpdateAnimator()
+        {
             shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
             shadeAnimator.SetFloat(XAnimatorKey, MoveVector.x);
             shadeAnimator.SetFloat(YAnimatorKey, MoveVector.y);
@@ -97,7 +109,7 @@ namespace AChildsCourage.Game.Monsters
             investigationCoroutine = StartCoroutine(Investigate());
         }
 
-        
+
         private void CancelInvestigation()
         {
             if (investigationCoroutine != null)
@@ -107,7 +119,6 @@ namespace AChildsCourage.Game.Monsters
 
         private IEnumerator Investigate()
         {
-
             var investigation = StartNew(FloorState, CurrentState, MRng.Random());
 
             var currentTarget = NextTarget(investigation, Position);
@@ -118,17 +129,16 @@ namespace AChildsCourage.Game.Monsters
                 investigation = Progress(investigation, currentTilesInVision);
 
                 var newTarget = NextTarget(investigation, Position);
-                if (!newTarget.Equals(currentTarget)) {
+                if (!newTarget.Equals(currentTarget))
+                {
                     SetPathFinderTarget(newTarget);
                     currentTarget = newTarget;
                 }
 
-                if(Mathf.Abs(Vector2.Distance(ai.target.position, transform.position)) < minimumDistanceTargetLock) {
+                if (Mathf.Abs(Vector2.Distance(ai.target.position, transform.position)) < minimumDistanceTargetLock)
                     OnMinimumDistanceEntered?.Invoke(ai.target.position);
-                } else {
+                else
                     OnMinimumDistanceLeft?.Invoke();
-                }
-
 
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }
@@ -142,23 +152,15 @@ namespace AChildsCourage.Game.Monsters
 
         private void SetPathFinderTarget(TilePosition tilePosition)
         {
-
             targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
             ai.target = targetTransform;
-
         }
 
 
-        private void OnDestroy() {
+        private void OnDestroy()
+        {
             CancelInvestigation();
         }
-
-        #endregion
-
-        #region Subclasses
-
-        [Serializable]
-        public class Vector3Event : UnityEvent<Vector3> { }
 
         #endregion
 
