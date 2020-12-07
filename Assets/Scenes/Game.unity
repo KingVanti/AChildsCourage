@@ -2956,9 +2956,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: courageManager
       value: 
       objectReference: {fileID: 269662568}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 61644404}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AChildsCourage.Unity.GameManager, AChildsCourage.Unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnWin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
