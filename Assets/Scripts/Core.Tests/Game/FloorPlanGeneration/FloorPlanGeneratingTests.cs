@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game

@@ -2,7 +2,7 @@
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {

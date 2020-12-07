@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AChildsCourage.Game;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.RoomEditor
@@ -12,7 +12,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Constants
 
-        private const int ChunkCenterOffset = (ChunkPosition.ChunkSize - 1) / 2;
+        private const int ChunkCenterOffset = (ChunkSize - 1) / 2;
 
         #endregion
 

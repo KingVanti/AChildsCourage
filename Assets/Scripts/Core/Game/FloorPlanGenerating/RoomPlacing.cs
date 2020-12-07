@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using static AChildsCourage.F;
+using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.MFunctional;
 
 namespace AChildsCourage.Game
 {

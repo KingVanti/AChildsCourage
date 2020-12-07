@@ -8,6 +8,7 @@ using Ninject.Extensions.Unity;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.Events;
+using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
@@ -107,7 +108,7 @@ namespace AChildsCourage.Game.Monsters
         private IEnumerator Investigate()
         {
 
-            var investigation = StartNew(FloorState, CurrentState, Rng.New());
+            var investigation = StartNew(FloorState, CurrentState, MRng.Random());
 
             var currentTarget = NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);

@@ -28,12 +28,9 @@ namespace AChildsCourage
         internal static void InjectServices()
         {
             var kernel = CreateDefaultKernel();
-            var assemblies = GetAssemblies()
-                .ToArray();
-            var unityAssembly = assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
-            var monoBehaviourTypes = unityAssembly.GetTypes()
-                                                  .Where(t => typeof(MonoBehaviour).IsAssignableFrom(t))
-                                                  .ToArray();
+            var assemblies = GetAssemblies().ToArray();
+            var unityAssembly = GetUnityAssembly(assemblies);
+            var monoBehaviourTypes = GetMonoBehaviourTypes(unityAssembly).ToArray();
 
             BindSingletons(kernel, assemblies, monoBehaviourTypes);
             BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
@@ -61,29 +58,36 @@ namespace AChildsCourage
             yield return Assembly.Load("AChildsCourage.Unity");
         }
 
+        private static Assembly GetUnityAssembly(IEnumerable<Assembly> assemblies)
+        {
+            return assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
+        }
+        
+        private static IEnumerable<Type> GetMonoBehaviourTypes(Assembly unityAssembly)
+        {
+            return unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
+        }
+        
         private static void BindSingletons(IBindingRoot root, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
-            root.Bind(x => x
-                           .From(assemblies)
-                           .IncludingNonPublicTypes()
-                           .SelectAllClasses()
-                           .WithAttribute<SingletonAttribute>()
-                           .Excluding(monoBehaviourTypes)
-                           .BindAllInterfaces()
-                           .Configure(b => b.InSingletonScope()
-                                            .RegisterOnEventBroker(DefaultEventBrokerName)));
+            root.Bind(x => x.From(assemblies)
+                            .IncludingNonPublicTypes()
+                            .SelectAllClasses()
+                            .WithAttribute<SingletonAttribute>()
+                            .Excluding(monoBehaviourTypes)
+                            .BindAllInterfaces()
+                            .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
         private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
         {
-            kernel.Bind(x => x
-                             .From(assemblies)
-                             .IncludingNonPublicTypes()
-                             .SelectAllClasses()
-                             .WithoutAttribute<SingletonAttribute>()
-                             .Excluding(monoBehaviourTypes)
-                             .BindAllInterfaces()
-                             .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
+            kernel.Bind(x => x.From(assemblies)
+                              .IncludingNonPublicTypes()
+                              .SelectAllClasses()
+                              .WithoutAttribute<SingletonAttribute>()
+                              .Excluding(monoBehaviourTypes)
+                              .BindAllInterfaces()
+                              .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
         private static void BindConstants(IBindingRoot root)
@@ -100,8 +104,7 @@ namespace AChildsCourage
 
         private static void ActivateEagerServices(IResolutionRoot root)
         {
-            _ = root.GetAll<IEagerActivation>()
-                    .ToArray();
+            _ = root.GetAll<IEagerActivation>().ToArray();
         }
 
     }

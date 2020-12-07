@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage
 {
 
-    public static class CollectionRng
+    public static class MCollectionRng
     {
 
         public delegate float CalculateWeight<in T>(T element);
@@ -38,10 +38,10 @@ namespace AChildsCourage
             throw new Exception("No element selected. This should not happen!");
         }
 
-        private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight)
-        {
-            return elements.Select(o => AttachWeight(o, calculateWeight));
-        }
+        private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight) =>
+            elements
+                .Select(o => AttachWeight(o, calculateWeight));
+
 
         private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => new Weighted<T>(element, calculateWeight(element));
 
@@ -52,7 +52,7 @@ namespace AChildsCourage
         public static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements.ToArray();
-            
+
             if (elementsArray.Length == 0)
                 return default;
 
@@ -61,7 +61,7 @@ namespace AChildsCourage
         }
 
 
-        private class Weighted<T>
+        private readonly struct Weighted<T>
         {
 
             internal T Element { get; }

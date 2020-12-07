@@ -1,5 +1,5 @@
 ﻿using AChildsCourage.Game.Floors;
-using static AChildsCourage.Rng;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Courage
 {

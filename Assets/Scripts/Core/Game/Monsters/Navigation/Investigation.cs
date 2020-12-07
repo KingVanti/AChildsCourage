@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using static AChildsCourage.CustomMath;
-using static AChildsCourage.Rng;
+using static AChildsCourage.Game.MEntityPosition;
+using static AChildsCourage.MCustomMath;
+using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters.Navigation
@@ -53,7 +54,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>
                 UninvestigatedPois(investigation)
-                    .OrderBy(poi => GetDistanceBetween(poi.Position, EntityPosition.GetTilePosition(monsterPosition)))
+                    .OrderBy(poi => GetDistanceBetween(poi.Position, GetEntityTile(monsterPosition)))
                     .First().Position;
 
         private static Func<Investigation, IEnumerable<Poi>> UninvestigatedPois =>
@@ -86,7 +87,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         private static Func<Aoi, MonsterState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
-                GetDistanceBetween(aoi.Center, EntityPosition.GetTilePosition(monsterState.Position));
+                GetDistanceBetween(aoi.Center, GetEntityTile(monsterState.Position));
 
         // [0 .. 10]
         private static CalculateAoiWeight CalcTimeWeight =>

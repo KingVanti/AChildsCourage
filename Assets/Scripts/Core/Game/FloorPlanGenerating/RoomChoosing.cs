@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
-using static AChildsCourage.F;
-using static AChildsCourage.Rng;
+using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.MFunctional;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {

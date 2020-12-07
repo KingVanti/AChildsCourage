@@ -1,39 +1,29 @@
 ﻿namespace AChildsCourage.Game
 {
 
-    public readonly struct ChunkPosition
+    public static class MChunkPosition
     {
-
-        #region Constants
 
         public const int ChunkSize = 21;
         public const int ChunkExtent = (ChunkSize - 1) / 2;
 
-        #endregion
-
-        #region Properties
-
-        public int X { get; }
-
-        public int Y { get; }
-
-        #endregion
-
-        #region Constructors
-
-        public ChunkPosition(int x, int y)
+        public readonly struct ChunkPosition
         {
-            X = x;
-            Y = y;
+            
+            public int X { get; }
+
+            public int Y { get; }
+
+
+            public ChunkPosition(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
+
+            public override string ToString() => $"({X}, {Y})";
+
         }
-
-        #endregion
-
-        #region Methods
-
-        public override string ToString() => $"({X}, {Y})";
-
-        #endregion
 
     }
 

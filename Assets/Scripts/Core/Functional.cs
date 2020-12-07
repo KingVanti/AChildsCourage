@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AChildsCourage
 {
 
-    public static class F
+    public static class MFunctional
     {
 
         public static TItem Take<TItem>(TItem input) => input;
@@ -45,10 +46,7 @@ namespace AChildsCourage
             return result;
         }
 
-        public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate)
-        {
-            return predicate ? function(input) : input;
-        }
+        public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate) => predicate ? function(input) : input;
 
         public static void While(this Action action, Func<bool> predicate)
         {
@@ -88,6 +86,27 @@ namespace AChildsCourage
         public static TResult NullBind<TItem, TResult>(this TItem item, Func<TItem, TResult> function) where TItem : class where TResult : class => item != null ? function(item) : null;
 
         public static TItem IfNull<TItem>(this TItem? item, TItem replacement) where TItem : struct => item ?? replacement;
+
+        public static TAccumulate AggregateI<TSource, TAccumulate>(this IEnumerable<TSource> source, TAccumulate seed, Func<int, TAccumulate, TSource, TAccumulate> func)
+        {
+            var accumulate = seed;
+            var sourceArray = source.ToArray();
+
+            for (var i = 0; i < sourceArray.Length; i++)
+                accumulate = func(i, accumulate, sourceArray[i]);
+
+            return accumulate;
+        }
+
+        public static TAccumulate AggregateTimes<TAccumulate>(TAccumulate seed, Func<TAccumulate, TAccumulate> func, int times)
+        {
+            var accumulate = seed;
+
+            for (var i = 0; i < times; i++)
+                accumulate = func(accumulate);
+
+            return accumulate;
+        }
 
     }
 

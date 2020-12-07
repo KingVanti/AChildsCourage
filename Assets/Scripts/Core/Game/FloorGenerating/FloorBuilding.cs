@@ -4,13 +4,13 @@ using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.F;
+using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.Floors.MRoom;
 
 namespace AChildsCourage.Game
 {
 
-    internal static partial class FloorGenerating
+    internal static partial class MFloorGenerating
     {
 
         private static FloorBuilder EmptyFloorBuilder =>
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game
                 ImmutableHashSet<CouragePickup>.Empty);
 
 
-        private static FloorBuilder BuildRoom(FloorBuilder floorBuilder, TransformedRoomData transformedRoomData, int roomIndex) =>
+        private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
             Take(EmptyRoomBuilder((AoiIndex) roomIndex))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
@@ -46,7 +46,7 @@ namespace AChildsCourage.Game
             Take(pickupData)
                 .Select(data => new CouragePickup(data.Position, data.Variant))
                 .Aggregate(roomBuilder, PlaceCouragePickup);
-        
+
         private static RoomBuilder PlaceCouragePickup(RoomBuilder room, CouragePickup pickup) =>
             new RoomBuilder(
                 room.AoiIndex,
@@ -58,7 +58,7 @@ namespace AChildsCourage.Game
                 floor.Walls,
                 floor.Rooms.Add(room));
 
-        private static Floor BuildFloor(FloorBuilder floorBuilder, Rng.CreateRng rng) =>
+        private static Floor BuildFloor(FloorBuilder floorBuilder, MRng.CreateRng rng) =>
             new Floor(
                 floorBuilder.Walls,
                 ChooseCouragePickups(floorBuilder, rng).ToImmutableHashSet(),
