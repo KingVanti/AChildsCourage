@@ -1,12 +1,10 @@
-﻿using static AChildsCourage.Game.MTilePosition;
-
-namespace AChildsCourage.Game.Floors.RoomPersistence
+﻿namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
     public class RoomContentData
     {
 
-        public static RoomContentData Empty => new RoomContentData(null, null, null);
+        public static RoomContentData Empty => new RoomContentData(null, null, null, null);
 
 
         public GroundTileData[] GroundData { get; }
@@ -14,13 +12,16 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
         public CouragePickupData[] CourageData { get; }
 
         public ItemPickupData[] ItemData { get; }
-        
 
-        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData)
+        public StaticObjectData[] StaticObjects { get; }
+
+
+        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, StaticObjectData[] staticObjects)
         {
             GroundData = groundData ?? new GroundTileData[0];
             CourageData = courageData ?? new CouragePickupData[0];
             ItemData = itemData ?? new ItemPickupData[0];
+            StaticObjects = staticObjects ?? new StaticObjectData[0];
         }
 
     }
