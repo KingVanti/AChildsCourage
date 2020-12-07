@@ -45,14 +45,17 @@ namespace AChildsCourage.Game
 
             public ImmutableHashSet<GroundTileData> GroundData { get; }
 
+            public ImmutableHashSet<StaticObjectData> StaticObjectData { get; }
+
             public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
 
             public ChunkPosition ChunkPosition { get; }
 
 
-            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData, ChunkPosition chunkPosition)
+            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, ChunkPosition chunkPosition)
             {
                 GroundData = groundTiles;
+                StaticObjectData = staticObjectData;
                 CouragePickupData = couragePickupData;
                 ChunkPosition = chunkPosition;
             }

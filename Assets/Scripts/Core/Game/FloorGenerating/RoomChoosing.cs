@@ -30,7 +30,8 @@ namespace AChildsCourage.Game
 
             return new TransformedRoomData(
                 content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
-                content.CourageData.Select(t => TransformCouragePickup(t, transformer)).ToImmutableHashSet(),
+                content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
+                content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
                 roomTransform.Position);
         }
 
@@ -39,7 +40,7 @@ namespace AChildsCourage.Game
             var transform = ToChunkTransform(roomTransform);
             return position => Transform(position, transform);
         }
-        
+
         internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TransformTile transformer) => groundTile.With(transformer(groundTile.Position));
 
         internal static GroundTileData With(this GroundTileData groundTile, TilePosition position) =>
@@ -47,6 +48,12 @@ namespace AChildsCourage.Game
                 position,
                 groundTile.DistanceToWall,
                 groundTile.AoiIndex);
+
+        internal static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) => staticObject.With(transformer(staticObject.Position));
+
+        internal static StaticObjectData With(this StaticObjectData staticObject, TilePosition position) =>
+            new StaticObjectData(
+                position);
 
         internal static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => pickup.With(transformer(pickup.Position));
 

@@ -32,6 +32,7 @@ namespace AChildsCourage.Game
         private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
             Take(EmptyRoomBuilder((AoiIndex) roomIndex, transformedRoomData.ChunkPosition))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
+                .MapWith(BuildStaticObjects, transformedRoomData.StaticObjectData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
                 .Map(room => PlaceRoom(floorBuilder, room));
 
@@ -45,6 +46,18 @@ namespace AChildsCourage.Game
                             room.GroundTiles.Add(tile),
                             room.CouragePickups,
                             room.StaticObjects,
+                            room.ChunkPosition);
+
+        internal static RoomBuilder BuildStaticObjects(RoomBuilder roomBuilder, ImmutableHashSet<StaticObjectData> staticObjects) =>
+            Take(staticObjects)
+                .Select(data => new StaticObject(data.Position))
+                .Aggregate(roomBuilder, PlaceStaticObject);
+
+        private static RoomBuilder PlaceStaticObject(RoomBuilder room, StaticObject staticObject) =>
+            new RoomBuilder(room.AoiIndex,
+                            room.GroundTiles,
+                            room.CouragePickups,
+                            room.StaticObjects.Add(staticObject),
                             room.ChunkPosition);
 
         internal static RoomBuilder BuildCouragePickups(RoomBuilder roomBuilder, ImmutableHashSet<CouragePickupData> pickupData) =>
