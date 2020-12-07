@@ -18,7 +18,6 @@ namespace AChildsCourage.Game.Courage {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private CourageManager courageManager;
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
-
         [SerializeField] private ParticleSystem riftParticleSystem;
 #pragma warning restore 649
 
@@ -50,7 +49,6 @@ namespace AChildsCourage.Game.Courage {
 
             for (int i = 0; i < stageThresholds.Length; i++) {
                 stageThresholds[i] = threshold * i;
-                Debug.Log(stageThresholds[i]);
             }
 
             courage = currentCourage;
@@ -63,23 +61,27 @@ namespace AChildsCourage.Game.Courage {
             courage = currentCourage;
             UpdateParticleSystem();
 
-            if (courage <= needed) {
+            if (lastCourageCount > courage) {
 
-                if (lastCourageCount > courage) {
+                if (courage >= stageThresholds[currentStage])
+                    return;
 
-                    if (courage >= stageThresholds[currentStage])
-                        return;
-
-                    currentStage--;
-
+                if(courage < 0) {
+                    currentStage = stageThresholds[0];
                 } else {
-
-                    if (courage < stageThresholds[currentStage+1])
-                        return;
-
-                    currentStage++;
+                    currentStage--;
                 }
 
+            } else {
+
+                if (courage < stageThresholds[currentStage + 1])
+                    return;
+
+                if (courage >= needed) {
+                    currentStage = stageThresholds.Length-1;
+                } else {
+                    currentStage++;
+                }
             }
 
             spriteRenderer.sprite = riftStageSprites[currentStage];
