@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.Floors.MRoom;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -13,7 +14,8 @@ namespace AChildsCourage.Game.Floors
             new Floor(
                 ImmutableHashSet<Wall>.Empty,
                 ImmutableHashSet<CouragePickup>.Empty,
-                ImmutableHashSet<Room>.Empty);
+                ImmutableHashSet<Room>.Empty,
+                new ChunkPosition(0, 0));
 
 
         public static (TilePosition, TilePosition ) GetFloorCorners(Floor floor)
@@ -28,7 +30,6 @@ namespace AChildsCourage.Game.Floors
             return (new TilePosition(minX, minY), new TilePosition(maxX, maxY));
         }
 
-
         public readonly struct Floor
         {
 
@@ -38,11 +39,14 @@ namespace AChildsCourage.Game.Floors
 
             public ImmutableHashSet<Room> Rooms { get; }
 
+            public ChunkPosition EndRoomChunkPosition { get; }
 
-            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms)
+
+            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms, ChunkPosition endRoomChunkPosition)
             {
                 Walls = walls;
                 Rooms = rooms;
+                EndRoomChunkPosition = endRoomChunkPosition;
                 CouragePickups = couragePickups;
             }
 

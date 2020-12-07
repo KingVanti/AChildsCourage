@@ -6,6 +6,8 @@ using AChildsCourage.Game.Monsters.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.Floors.MRoom;
+using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
@@ -18,15 +20,16 @@ namespace AChildsCourage.Game
                 ImmutableHashSet<Wall>.Empty,
                 ImmutableHashSet<RoomBuilder>.Empty);
 
-        private static RoomBuilder EmptyRoomBuilder(AoiIndex aoiIndex) =>
+        private static RoomBuilder EmptyRoomBuilder(AoiIndex aoiIndex, ChunkPosition chunkPosition) =>
             new RoomBuilder(
                 aoiIndex,
                 ImmutableHashSet<GroundTile>.Empty,
-                ImmutableHashSet<CouragePickup>.Empty);
+                ImmutableHashSet<CouragePickup>.Empty,
+                chunkPosition);
 
 
         private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
-            Take(EmptyRoomBuilder((AoiIndex) roomIndex))
+            Take(EmptyRoomBuilder((AoiIndex) roomIndex, transformedRoomData.ChunkPosition))
                 .MapWith(BuildGround, transformedRoomData.GroundData)
                 .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
                 .Map(room => PlaceRoom(floorBuilder, room));
@@ -40,7 +43,8 @@ namespace AChildsCourage.Game
             new RoomBuilder(
                 room.AoiIndex,
                 room.GroundTiles.Add(tile),
-                room.CouragePickups);
+                room.CouragePickups,
+                room.ChunkPosition);
 
         internal static RoomBuilder BuildCouragePickups(RoomBuilder roomBuilder, ImmutableHashSet<CouragePickupData> pickupData) =>
             Take(pickupData)
@@ -51,18 +55,22 @@ namespace AChildsCourage.Game
             new RoomBuilder(
                 room.AoiIndex,
                 room.GroundTiles,
-                room.CouragePickups.Add(pickup));
+                room.CouragePickups.Add(pickup),
+                room.ChunkPosition);
 
         private static FloorBuilder PlaceRoom(FloorBuilder floor, RoomBuilder room) =>
             new FloorBuilder(
                 floor.Walls,
                 floor.Rooms.Add(room));
 
-        private static Floor BuildFloor(FloorBuilder floorBuilder, MRng.CreateRng rng) =>
+        private static Floor BuildFloor(FloorBuilder floorBuilder, CreateRng rng) =>
             new Floor(
                 floorBuilder.Walls,
                 ChooseCouragePickups(floorBuilder, rng).ToImmutableHashSet(),
-                floorBuilder.Rooms.Select(BuildRoom).ToImmutableHashSet());
+                floorBuilder.Rooms.Select(BuildRoom).ToImmutableHashSet(),
+                GetEndRoomChunkPosition(floorBuilder));
+
+        private static ChunkPosition GetEndRoomChunkPosition(FloorBuilder floorBuilder) => floorBuilder.Rooms.Last().ChunkPosition;
 
         private static Room BuildRoom(RoomBuilder roomBuilder) =>
             new Room(

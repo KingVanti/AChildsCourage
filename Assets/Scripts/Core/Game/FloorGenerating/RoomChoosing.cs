@@ -30,7 +30,8 @@ namespace AChildsCourage.Game
 
             return new TransformedRoomData(
                 content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
-                content.CourageData.Select(t => TransformCouragePickup(t, transformer)).ToImmutableHashSet());
+                content.CourageData.Select(t => TransformCouragePickup(t, transformer)).ToImmutableHashSet(),
+                roomTransform.Position);
         }
 
         private static TransformTile CreateTransformerFor(RoomTransform roomTransform)

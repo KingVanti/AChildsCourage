@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -45,12 +46,15 @@ namespace AChildsCourage.Game
             public ImmutableHashSet<GroundTileData> GroundData { get; }
 
             public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
+            
+            public  ChunkPosition ChunkPosition { get; }
 
 
-            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData)
+            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData, ChunkPosition chunkPosition)
             {
                 GroundData = groundTiles;
                 CouragePickupData = couragePickupData;
+                ChunkPosition = chunkPosition;
             }
 
         }
@@ -61,7 +65,6 @@ namespace AChildsCourage.Game
             public  ImmutableHashSet<Wall> Walls { get; }
             
             public ImmutableHashSet<RoomBuilder> Rooms { get; }
-            
             
             public FloorBuilder(ImmutableHashSet<Wall> walls, ImmutableHashSet<RoomBuilder> rooms)
             {
@@ -80,12 +83,15 @@ namespace AChildsCourage.Game
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
+            public ChunkPosition ChunkPosition { get; }
+            
 
-            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ChunkPosition chunkPosition)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
                 CouragePickups = couragePickups;
+                ChunkPosition = chunkPosition;
             }
 
         }
