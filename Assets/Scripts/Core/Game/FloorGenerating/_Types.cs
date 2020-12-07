@@ -49,14 +49,17 @@ namespace AChildsCourage.Game
 
             public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
 
+            public RoomType RoomType { get; }
+
             public ChunkPosition ChunkPosition { get; }
 
 
-            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, ChunkPosition chunkPosition)
+            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, RoomType roomType, ChunkPosition chunkPosition)
             {
                 GroundData = groundTiles;
                 StaticObjectData = staticObjectData;
                 CouragePickupData = couragePickupData;
+                RoomType = roomType;
                 ChunkPosition = chunkPosition;
             }
 
@@ -88,15 +91,18 @@ namespace AChildsCourage.Game
 
             public ImmutableHashSet<StaticObject> StaticObjects { get; }
 
+            public RoomType RoomType { get; }
+
             public ChunkPosition ChunkPosition { get; }
 
 
-            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ChunkPosition chunkPosition)
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, RoomType roomType, ChunkPosition chunkPosition)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
                 CouragePickups = couragePickups;
                 StaticObjects = staticObjects;
+                RoomType = roomType;
                 ChunkPosition = chunkPosition;
             }
 

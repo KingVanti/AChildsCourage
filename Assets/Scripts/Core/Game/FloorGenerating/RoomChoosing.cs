@@ -17,14 +17,15 @@ namespace AChildsCourage.Game
 
             foreach (var roomPlan in floorPlan.Rooms)
             {
-                var roomContent = roomsArray.First(r => r.Id == roomPlan.RoomId).Content;
-                var transformed = TransformContent(roomContent, roomPlan.Transform);
+                var roomData = roomsArray.First(r => r.Id == roomPlan.RoomId);
+                var roomContent = roomData.Content;
+                var transformed = TransformContent(roomContent, roomPlan.Transform, roomData.Type);
 
                 yield return transformed;
             }
         }
 
-        private static TransformedRoomData TransformContent(RoomContentData content, RoomTransform roomTransform)
+        private static TransformedRoomData TransformContent(RoomContentData content, RoomTransform roomTransform, RoomType roomType)
         {
             var transformer = CreateTransformerFor(roomTransform);
 
@@ -32,6 +33,7 @@ namespace AChildsCourage.Game
                 content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
                 content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
                 content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
+                roomType,
                 roomTransform.Position);
         }
 
