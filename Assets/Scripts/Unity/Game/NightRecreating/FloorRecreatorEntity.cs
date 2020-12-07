@@ -92,7 +92,7 @@ namespace AChildsCourage.Game
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
-            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X, tilePosition.Y, 0), Quaternion.identity, couragePickupParent)
+            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X + 0.5f, tilePosition.Y + 0.5f, 0), Quaternion.identity, couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
 
         #endregion
