@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNightCourage: 30
+  _maxNightCourage: 44
   OnCourageChanged:
     m_PersistentCalls:
       m_Calls:

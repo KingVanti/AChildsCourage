@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd0e091db11ef34994d1e2344f8301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 4809530094449874114}
+  spriteRenderer: {fileID: 4809530094449874114}
   courageManager: {fileID: 0}
   riftStageSprites:
   - {fileID: 8640902565523615927, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
@@ -244,6 +244,10 @@ MonoBehaviour:
   - {fileID: -5270732064675614295, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
   - {fileID: 3086977108949329331, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
   - {fileID: 6444347497105302043, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
+  courageCollectParticleSystem: {fileID: 4809530095725248182}
+  OnRiftEntered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4809530095725248176
 GameObject:
   m_ObjectHideFlags: 0
