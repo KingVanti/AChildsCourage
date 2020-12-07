@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Courage
 {
-
     public class CourageManager : MonoBehaviour
     {
 

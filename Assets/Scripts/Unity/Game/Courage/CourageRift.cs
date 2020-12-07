@@ -4,9 +4,13 @@ using static AChildsCourage.Game.MChunkPosition;
 using UnityEngine.Events;
 
 using static AChildsCourage.MCustomMath;
+using Ninject.Extensions.Unity;
+using Appccelerate.EventBroker;
+using System;
 
 namespace AChildsCourage.Game.Courage {
 
+    [UseDi]
     public class CourageRift : MonoBehaviour {
         #region Fields
 
@@ -28,15 +32,16 @@ namespace AChildsCourage.Game.Courage {
         [Header("Events")]
         public UnityEvent onRiftEntered;
 
+        [EventPublication(nameof(OnPlayerWin))]
+        public event EventHandler OnPlayerWin;
+
         #endregion
 
         #region Methods
 
-
         public void OnFloorBuilt(Floor floor) {
             transform.position = GetChunkCenter(floor.EndRoomChunkPosition).ToVector3() + new Vector3(0.5f, 0.5f, 0);
         }
-
 
         public void SetRiftStats(int currentCourage, int neededCourage, int maxCourage) {
             spriteRenderer.sprite = riftStageSprites[currentStage];
@@ -95,6 +100,7 @@ namespace AChildsCourage.Game.Courage {
 
             if (collision.CompareTag("Player")) {
                 if (currentStage == 4) {
+                    OnPlayerWin?.Invoke(this, EventArgs.Empty);
                     onRiftEntered?.Invoke();
                 }
             }

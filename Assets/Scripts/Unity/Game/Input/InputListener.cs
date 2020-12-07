@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Courage;
 using Appccelerate.EventBroker;
 using Appccelerate.EventBroker.Handlers;
 using UnityEngine;
@@ -105,6 +106,11 @@ namespace AChildsCourage.Game.Input
         [EventSubscription(nameof(CharacterController.OnPlayerDeath), typeof(OnPublisher))]
         public void OnPlayerDeath(EventArgs _)
         {
+            UnsubscribeFromInputs();
+        }
+
+        [EventSubscription(nameof(CourageRift.OnPlayerWin), typeof(OnPublisher))]
+        public void OnPlayerWin(EventArgs _) {
             UnsubscribeFromInputs();
         }
 
