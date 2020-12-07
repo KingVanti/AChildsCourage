@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using static AChildsCourage.Game.Floors.MFloor;
+using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -14,6 +16,13 @@ namespace AChildsCourage.Game.Courage
         private int lastCourageStageCount = 2;
         private int needed;
         private int threshold;
+
+
+        public void OnFloorBuilt(Floor floor)
+        {
+            transform.position = GetChunkCenter(floor.EndRoomChunkPosition).ToVector3() + new Vector3(0.5f, 0.5f, 0);
+        }
+
 
         public void SetRiftStats(int currentCourage, int neededCourage, int maxCourage)
         {
