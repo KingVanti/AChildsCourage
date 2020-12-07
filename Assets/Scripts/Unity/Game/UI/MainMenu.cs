@@ -8,6 +8,14 @@ namespace AChildsCourage.Game.UI {
             UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.GameScene);
         }
 
+        public void OnQuitButtonPressed() {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+      Application.Quit();
+#endif
+        }
+
     }
 
 }
