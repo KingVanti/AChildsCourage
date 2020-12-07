@@ -130,8 +130,7 @@ namespace AChildsCourage.RoomEditor
             new RoomContentData(
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
-                itemLayer.ReadAll(),
-                new AoiMarkerData[0]);
+                itemLayer.ReadAll());
 
 
         internal void Unload()
