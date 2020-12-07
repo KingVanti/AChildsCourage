@@ -22,9 +22,14 @@ namespace AChildsCourage.Unity
 
         public void OnLose()
         {
-            LoadSceneWith(SceneNames.GameScene);
+            LoadSceneWith(SceneNames.EndScene);
         }
 
+
+        public void OnWin() 
+        {
+            LoadSceneWith(SceneNames.EndScene);
+        }
     }
 
 }
