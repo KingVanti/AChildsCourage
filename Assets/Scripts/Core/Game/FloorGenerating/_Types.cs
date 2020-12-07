@@ -46,8 +46,8 @@ namespace AChildsCourage.Game
             public ImmutableHashSet<GroundTileData> GroundData { get; }
 
             public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
-            
-            public  ChunkPosition ChunkPosition { get; }
+
+            public ChunkPosition ChunkPosition { get; }
 
 
             public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData, ChunkPosition chunkPosition)
@@ -61,11 +61,11 @@ namespace AChildsCourage.Game
 
         internal readonly struct FloorBuilder
         {
-            
-            public  ImmutableHashSet<Wall> Walls { get; }
-            
+
+            public ImmutableHashSet<Wall> Walls { get; }
+
             public ImmutableHashSet<RoomBuilder> Rooms { get; }
-            
+
             public FloorBuilder(ImmutableHashSet<Wall> walls, ImmutableHashSet<RoomBuilder> rooms)
             {
                 Walls = walls;
@@ -77,20 +77,23 @@ namespace AChildsCourage.Game
         internal readonly struct RoomBuilder
         {
 
-            public  AoiIndex AoiIndex { get; }
-            
+            public AoiIndex AoiIndex { get; }
+
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
-            public ChunkPosition ChunkPosition { get; }
-            
+            public ImmutableHashSet<StaticObject> StaticObjects { get; }
 
-            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ChunkPosition chunkPosition)
+            public ChunkPosition ChunkPosition { get; }
+
+
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ChunkPosition chunkPosition)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
                 CouragePickups = couragePickups;
+                StaticObjects = staticObjects;
                 ChunkPosition = chunkPosition;
             }
 
