@@ -15,17 +15,7 @@ namespace AChildsCourage.Game
 
             return new ChunkTransform(transform.RotationCount, transform.IsMirrored, chunkCorner, chunkCenter);
         }
-
-        internal static TilePosition GetChunkCenter(ChunkPosition chunkPosition) =>
-            new TilePosition(
-                chunkPosition.X * ChunkSize + ChunkExtent,
-                chunkPosition.Y * ChunkSize + ChunkExtent);
-
-        internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition) =>
-            new TilePosition(
-                chunkPosition.X * ChunkSize,
-                chunkPosition.Y * ChunkSize);
-
+        
     }
 
 }
