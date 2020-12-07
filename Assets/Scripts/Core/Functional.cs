@@ -98,6 +98,16 @@ namespace AChildsCourage
             return accumulate;
         }
 
+        public static TAccumulate AggregateTimes<TAccumulate>(TAccumulate seed, Func<TAccumulate, TAccumulate> func, int times)
+        {
+            var accumulate = seed;
+
+            for (var i = 0; i < times; i++)
+                accumulate = func(accumulate);
+
+            return accumulate;
+        }
+
     }
 
 
