@@ -28,11 +28,6 @@ namespace AChildsCourage.Game.Player {
             StartCoroutine(Sprint());
         }
 
-        private void Update() {
-            Debug.Log(stamina);
-        }
-
-
         public void StartSprinting() {
             isSprinting = true;
         }
