@@ -27,35 +27,31 @@ namespace AChildsCourage.Game.Monsters
 
         #endregion
 
+        #region Static Fields
+
+        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
+        private static readonly int XAnimatorKey = Animator.StringToHash("X");
+        private static readonly int YAnimatorKey = Animator.StringToHash("Y");
+
+        #endregion
+
         #region Fields
 
         public AIPath ai;
+        public Vector3Event OnMinimumDistanceEntered;
+        public UnityEvent OnMinimumDistanceLeft;
 
 #pragma warning disable 649
-        [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Seeker seeker;
         [SerializeField] private Animator shadeAnimator;
-
-        [Header("Stats")] public int touchDamage;
-
-        public int attackDamage;
-        [SerializeField] private float movementSpeed;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private Transform targetTransform;
+        [SerializeField] private int touchDamage;
         [Range(1, 50)] [SerializeField] private float minimumDistanceTargetLock;
 #pragma warning restore 649
 
         private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
-
         private Coroutine investigationCoroutine;
-
-        [Header("Events")] public Vector3Event OnMinimumDistanceEntered;
-
-        public UnityEvent OnMinimumDistanceLeft;
-        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
-        private static readonly int XAnimatorKey = Animator.StringToHash("X");
-        private static readonly int YAnimatorKey = Animator.StringToHash("Y");
 
         #endregion
 
@@ -63,15 +59,15 @@ namespace AChildsCourage.Game.Monsters
 
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
+        public int TouchDamage => touchDamage;
+
+        public Vector2 CurrentDirection => ai.velocity.normalized;
+
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        private FloorState FloorState => FloorStateKeeper.CurrentFloorState;
-
         private bool IsMoving => ai.velocity != Vector3.zero;
-
-        public Vector2 MoveVector => ai.velocity.normalized;
 
         #endregion
 
@@ -85,25 +81,29 @@ namespace AChildsCourage.Game.Monsters
         private void UpdateAnimator()
         {
             shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
-            shadeAnimator.SetFloat(XAnimatorKey, MoveVector.x);
-            shadeAnimator.SetFloat(YAnimatorKey, MoveVector.y);
+            shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
+            shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
         }
 
+        
         public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
         {
             currentTilesInVision = positions;
         }
 
+        
         public void OnHuntStarted()
         {
             CancelInvestigation();
         }
 
+        
         public void OnHuntEnded()
         {
             StartInvestigation();
         }
 
+        
         public void StartInvestigation()
         {
             investigationCoroutine = StartCoroutine(Investigate());
@@ -117,9 +117,10 @@ namespace AChildsCourage.Game.Monsters
             investigationCoroutine = null;
         }
 
+        
         private IEnumerator Investigate()
         {
-            var investigation = StartNew(FloorState, CurrentState, MRng.Random());
+            var investigation = StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, MRng.Random());
 
             var currentTarget = NextTarget(investigation, Position);
             SetPathFinderTarget(currentTarget);
