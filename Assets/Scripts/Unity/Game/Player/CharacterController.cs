@@ -25,11 +25,13 @@ namespace AChildsCourage.Game.Player
 
         [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
-        [SerializeField] private float _movementSpeed;
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private float sprintSpeed;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Light2D characterGlowingLight;
+        [SerializeField] private Stamina stamina;
 
 #pragma warning restore 649
 
@@ -42,6 +44,9 @@ namespace AChildsCourage.Game.Player
         private bool isInvincible;
         private bool gettingKnockedBack;
         private bool canCollectCourage = true;
+        private bool _isSprinting = false;
+        private bool hasStamina = true;
+        private float defaultSpeed;
 
         [EventPublication(nameof(OnPlayerDeath))]
         public event EventHandler OnPlayerDeath;
@@ -52,6 +57,8 @@ namespace AChildsCourage.Game.Player
         public IntEvent OnDamageReceived;
         public CouragePickUpEvent OnCouragePickedUp;
         public UnityEvent OnSwapItem;
+        public UnityEvent OnSprintStart;
+        public UnityEvent OnSprintStop;
         public PickUpEvent OnPickUpItem;
         private static readonly int RotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
         private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
@@ -63,11 +70,6 @@ namespace AChildsCourage.Game.Player
         #region Properties
 
         [AutoInject] internal IInputListener InputListener { set => BindTo(value); }
-
-        /// <summary>
-        ///     The movement speed of the player character.
-        /// </summary>
-        public float MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
 
         /// <summary>
         ///     The angle the player is facing towards the mouse cursor.
@@ -109,6 +111,16 @@ namespace AChildsCourage.Game.Player
             }
         }
 
+        public bool IsSprinting {
+            get {
+                return _isSprinting;
+            }
+            set {
+                _isSprinting = value;
+                UpdateAnimator();
+            }
+        }
+
         /// <summary>
         ///     .
         ///     The moving direction of the player character
@@ -145,6 +157,7 @@ namespace AChildsCourage.Game.Player
         {
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera")
                                    .GetComponent<Camera>();
+            defaultSpeed = movementSpeed;
         }
 
         private void FixedUpdate()
@@ -159,10 +172,15 @@ namespace AChildsCourage.Game.Player
             listener.OnItemPickedUp += (_, e) => OnItemPickedUp(e);
             listener.OnEquippedItemUsed += (_, e) => OnEquippedItemUsed(e);
             listener.OnItemSwapped += (_, e) => OnItemSwapped(e);
+            listener.OnStartSprinting += (_, e) => OnStartSprint(e);
+            listener.OnStopSprinting += (_, e) => OnStopSprint(e);
         }
 
         private void UpdateAnimator()
         {
+
+            animator.speed = IsSprinting ? 1.2f : 1;
+
             animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
             animator.SetBool(MovingAnimatorKey, IsMoving);
             animator.SetBool(MovingBackwardsAnimatorKey, IsMovingBackwards);
@@ -210,7 +228,7 @@ namespace AChildsCourage.Game.Player
 
         private void Move()
         {
-            transform.Translate(MovingDirection * (Time.fixedDeltaTime * MovementSpeed), Space.World);
+            transform.Translate(MovingDirection * (Time.fixedDeltaTime * movementSpeed), Space.World);
             OnPositionChanged.Invoke(transform.position);
         }
 
@@ -227,6 +245,37 @@ namespace AChildsCourage.Game.Player
                 MovingDirection = eventArgs.MoveDirection;
         }
 
+        private void OnStartSprint(StartSprintEventArgs eventArgs)
+        {
+            if (IsMoving) {
+                if (hasStamina) {
+                    movementSpeed = sprintSpeed;
+                    IsSprinting = true;
+                }
+
+                OnSprintStart?.Invoke();
+            }
+        }
+
+        private void OnStopSprint(StopSprintEventArgs eventArgs) 
+        {
+            StopSprinting();
+            OnSprintStop?.Invoke();
+        }
+
+        private void StopSprinting() {
+            IsSprinting = false;
+            movementSpeed = defaultSpeed;
+        }
+
+        public void OnStaminaDepleted() {
+            StopSprinting();
+            hasStamina = false;
+        }
+
+        public void OnStaminaRefresh() {
+            hasStamina = true;
+        }
 
         private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs)
         {
@@ -313,7 +362,7 @@ namespace AChildsCourage.Game.Player
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
         {
-            StartCoroutine(KnockBack(damage * _movementSpeed * 10, 0.095f, knockBackVector));
+            StartCoroutine(KnockBack(damage * movementSpeed * 10, 0.095f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);

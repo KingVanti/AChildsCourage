@@ -31,6 +31,8 @@ namespace AChildsCourage.Game.Input
             userControls.Player.Item1.performed += OnItem1KeyPress;
             userControls.Player.Item2.performed += OnItem2KeyPress;
             userControls.Player.Swap.performed += OnItemSwap;
+            userControls.Player.Sprint.performed += OnSprintPressed;
+            userControls.Player.Sprint.canceled += OnSprintReleased;
 
             userControls.Player.Enable();
         }
@@ -49,6 +51,10 @@ namespace AChildsCourage.Game.Input
 
         public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
 
+        public event EventHandler<StartSprintEventArgs> OnStartSprinting;
+
+        public event EventHandler<StopSprintEventArgs> OnStopSprinting;
+
         #endregion
 
         #region Methods
@@ -66,6 +72,28 @@ namespace AChildsCourage.Game.Input
             var moveDirection = context.ReadValue<Vector2>();
             var eventArgs = new MoveDirectionChangedEventArgs(moveDirection);
             OnMoveDirectionChanged?.Invoke(this, eventArgs);
+        }
+
+        private void OnSprint(Context context) {
+
+            if (context.performed) {
+                OnSprintPressed(context);
+            }
+
+            if (context.canceled) {
+                OnSprintReleased(context);
+            }
+
+        }
+
+        private void OnSprintPressed(Context context) {
+            var eventArgs = new StartSprintEventArgs();
+            OnStartSprinting?.Invoke(this, eventArgs);
+        }
+
+        private void OnSprintReleased(Context context) {
+            var eventArgs = new StopSprintEventArgs();
+            OnStopSprinting?.Invoke(this, eventArgs);
         }
 
         private void OnItem1KeyPress(Context context)
@@ -121,6 +149,8 @@ namespace AChildsCourage.Game.Input
             userControls.Player.Swap.performed -= OnItemSwap;
             userControls.Player.Item1.performed -= OnItem1KeyPress;
             userControls.Player.Item2.performed -= OnItem2KeyPress;
+            userControls.Player.Sprint.performed -= OnSprintPressed;
+            userControls.Player.Sprint.canceled -= OnSprintReleased;
         }
 
         #endregion
