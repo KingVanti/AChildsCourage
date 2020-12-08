@@ -57,14 +57,13 @@ namespace AChildsCourage.Game
                 return new RoomPlan(passages.Id, transform);
             };
 
-            FloorPlan CreateFloorPlan(IEnumerable<RoomPlan> roomPlans) => new FloorPlan(roomPlans.ToArray());
-
-            return
-                Take(floorPlanInProgress.RoomsByChunks.Keys)
-                    .Select(lookupRoom.Invoke)
-                    .Select(createRoomPlan.Invoke)
-                    .Map(CreateFloorPlan);
+            return Take(floorPlanInProgress.RoomsByChunks.Keys)
+                   .Select(lookupRoom.Invoke)
+                   .Select(createRoomPlan.Invoke)
+                   .Map(CreateFloorPlan);
         }
+
+        private static FloorPlan CreateFloorPlan(IEnumerable<RoomPlan> roomPlans) => new FloorPlan(roomPlans.ToArray());
 
     }
 
