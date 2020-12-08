@@ -1,68 +1,49 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.Immutable;
-using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.MFloorGenerating.MRoomPassageFiltering;
+using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
 
-    internal static partial class MFloorGenerating
+    public static partial class MFloorGenerating
     {
 
-        private static IEnumerable<TransformedRoomData> ChooseRoomsFor(FloorPlan floorPlan, IEnumerable<RoomData> rooms)
+        public static class MRoomChoosing
         {
-            var roomsArray = rooms.ToArray();
 
-            foreach (var roomPlan in floorPlan.Rooms)
+            public static Func<RoomInChunk, FloorLayout, ImmutableHashSet<RoomPassages>, CreateRng, RoomPassagesInChunk> ChooseRoom =>
+                (room, layout, roomPassages, rng) =>
+                    CreateFilter(layout, room)
+                        .Map(filter => FilterPassagesMatching(filter, roomPassages))
+                        .MapWith(ChooseRandom, rng)
+                        .Map(passages => new RoomPassagesInChunk(passages, room.Chunk));
+
+            private static RoomPassageFilter CreateFilter(FloorLayout layout, RoomInChunk room) => new RoomPassageFilter(room.RoomType, GetPassagesForChunk(layout, room.Chunk));
+
+            private static RoomPassages ChooseRandom(FilteredRoomPassages roomPassages, CreateRng createRng) => roomPassages.GetRandom(createRng);
+
+            
+            public readonly struct RoomPassagesInChunk
             {
-                var roomData = roomsArray.First(r => r.Id == roomPlan.RoomId);
-                var roomContent = roomData.Content;
-                var transformed = TransformContent(roomContent, roomPlan.Transform, roomData.Type);
 
-                yield return transformed;
+                public RoomPassages Passages { get; }
+
+                public ChunkPosition Chunk { get; }
+
+
+                public RoomPassagesInChunk(RoomPassages passages, ChunkPosition chunk)
+                {
+                    Passages = passages;
+                    Chunk = chunk;
+                }
+
             }
+
         }
-
-        private static TransformedRoomData TransformContent(RoomContentData content, RoomTransform roomTransform, RoomType roomType)
-        {
-            var transformer = CreateTransformerFor(roomTransform);
-
-            return new TransformedRoomData(
-                content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
-                content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
-                content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
-                roomType,
-                roomTransform.Position);
-        }
-
-        private static TransformTile CreateTransformerFor(RoomTransform roomTransform)
-        {
-            var transform = ToChunkTransform(roomTransform);
-            return position => Transform(position, transform);
-        }
-
-        internal static GroundTileData TransformGroundTile(GroundTileData groundTile, TransformTile transformer) => groundTile.With(transformer(groundTile.Position));
-
-        internal static GroundTileData With(this GroundTileData groundTile, TilePosition position) =>
-            new GroundTileData(
-                position,
-                groundTile.DistanceToWall,
-                groundTile.AoiIndex);
-
-        internal static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) => staticObject.With(transformer(staticObject.Position));
-
-        internal static StaticObjectData With(this StaticObjectData staticObject, TilePosition position) =>
-            new StaticObjectData(
-                position);
-
-        internal static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => pickup.With(transformer(pickup.Position));
-
-        internal static CouragePickupData With(this CouragePickupData pickup, TilePosition position) =>
-            new CouragePickupData(
-                position,
-                pickup.Variant);
 
     }
 

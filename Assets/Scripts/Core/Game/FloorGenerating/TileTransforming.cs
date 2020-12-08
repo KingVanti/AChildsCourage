@@ -1,48 +1,85 @@
-﻿using static AChildsCourage.MFunctional;
+﻿using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
 {
 
-    internal static partial class MFloorGenerating
+    public static partial class MFloorGenerating
     {
 
-        internal static TilePosition Transform(TilePosition position, ChunkTransform transform)
+        public static class MTileTransforming
         {
-            TilePosition Rotate(TilePosition p) => RotateClockwiseAround(p, transform.ChunkCenter);
 
-            TilePosition Mirror(TilePosition p) => YMirrorOver(p, transform.ChunkCenter);
+            internal static ChunkTransform ToChunkTransform(RoomTransform transform)
+            {
+                var chunkCenter = GetChunkCenter(transform.Position);
+                var chunkCorner = GetChunkCorner(transform.Position);
 
-            return
-                Take(position)
-                    .MapWith(OffsetAround, transform.ChunkCorner)
-                    .RepeatFor(Rotate, transform.RotationCount)
-                    .DoIf(Mirror, transform.IsMirrored);
-        }
+                return new ChunkTransform(transform.RotationCount, transform.IsMirrored, chunkCorner, chunkCenter);
+            }
 
-        internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
-            new TilePosition(
-                chunkCorner.X + position.X,
-                chunkCorner.Y + position.Y);
+            internal static TilePosition Transform(TilePosition position, ChunkTransform transform)
+            {
+                TilePosition Rotate(TilePosition p) => RotateClockwiseAround(p, transform.ChunkCenter);
 
-        internal static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
-        {
-            var yDiff = chunkCenter.Y - position.Y;
+                TilePosition Mirror(TilePosition p) => YMirrorOver(p, transform.ChunkCenter);
 
-            return new TilePosition(position.X, chunkCenter.Y + yDiff);
-        }
+                return
+                    Take(position)
+                        .MapWith(OffsetAround, transform.ChunkCorner)
+                        .For(transform.RotationCount, Rotate)
+                        .DoIf(Mirror, transform.IsMirrored);
+            }
 
-        internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
-        {
-            var translated = new TilePosition(
-                position.X - chunkCenter.X,
-                position.Y - chunkCenter.Y);
+            internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
+                new TilePosition(
+                    chunkCorner.X + position.X,
+                    chunkCorner.Y + position.Y);
 
-            var rotated = new TilePosition(translated.Y, -translated.X);
+            internal static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
+            {
+                var yDiff = chunkCenter.Y - position.Y;
 
-            return new TilePosition(
-                rotated.X + chunkCenter.X,
-                rotated.Y + chunkCenter.Y);
+                return new TilePosition(position.X, chunkCenter.Y + yDiff);
+            }
+
+            internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
+            {
+                var translated = new TilePosition(
+                    position.X - chunkCenter.X,
+                    position.Y - chunkCenter.Y);
+
+                var rotated = new TilePosition(translated.Y, -translated.X);
+
+                return new TilePosition(
+                    rotated.X + chunkCenter.X,
+                    rotated.Y + chunkCenter.Y);
+            }
+
+
+            internal class ChunkTransform
+            {
+
+                internal int RotationCount { get; }
+
+                internal bool IsMirrored { get; }
+
+                internal TilePosition ChunkCorner { get; }
+
+                internal TilePosition ChunkCenter { get; }
+
+
+                internal ChunkTransform(int rotationCount, bool isMirrored, TilePosition chunkCorner, TilePosition chunkCenter)
+                {
+                    RotationCount = rotationCount;
+                    IsMirrored = isMirrored;
+                    ChunkCorner = chunkCorner;
+                    ChunkCenter = chunkCenter;
+                }
+
+            }
+
         }
 
     }

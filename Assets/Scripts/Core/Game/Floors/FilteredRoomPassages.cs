@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,15 +16,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        public FilteredRoomPassages(IEnumerable<RoomPassages> passages)
-        {
-            var passageArray = passages.ToArray();
-            
-            if (passageArray.Length > 0)
-                this.passages = passageArray;
-            else
-                throw new Exception("No passages in this filter");
-        }
+        public FilteredRoomPassages(RoomPassages[] passages) => this.passages = passages;
 
         #endregion
 

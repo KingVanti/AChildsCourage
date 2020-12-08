@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using static AChildsCourage.Game.Floors.MPassageDirection;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -85,6 +86,8 @@ namespace AChildsCourage.Game.Floors
             hashCode = hashCode * -1521134295 + HasWest.GetHashCode();
             return hashCode;
         }
+
+        public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
 
         #endregion
 

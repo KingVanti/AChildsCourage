@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
+using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.Game.MFloorGenerating.MRoomPassageGenerating;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
@@ -28,20 +30,17 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         }
 
 
-        internal ChunkPassages GetPassagesFor(RoomPlan roomPlan)
-        {
-            return
-                allData.First(d => d.Id == roomPlan.RoomId)
-                       .Map(d => d.GetBasePassages())
-                       .RepeatFor(p => p.Rotate(), roomPlan.Transform.RotationCount)
-                       .DoIf(p => p.Mirror(), roomPlan.Transform.IsMirrored)
-                       .Map(p => p.Passages);
-        }
+        internal ChunkPassages GetPassagesFor(RoomPlan roomPlan) =>
+            allData.First(d => d.Id == roomPlan.RoomId)
+                   .Map(GetBasePassages)
+                   .For(roomPlan.Transform.RotationCount, Rotate)
+                   .DoIf(Mirror, roomPlan.Transform.IsMirrored)
+                   .Map(p => p.Passages);
 
-        internal IEnumerable<RoomData> All()
-        {
-            return allData;
-        }
+
+        internal IEnumerable<RoomData> All() => allData;
+
+        internal RoomType GetRoomType(RoomPlan roomPlan) => allData.First(d => d.Id == roomPlan.RoomId).Type;
 
     }
 
