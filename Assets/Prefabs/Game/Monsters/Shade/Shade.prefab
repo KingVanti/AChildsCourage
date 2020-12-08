@@ -43,13 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da14756bb389b4c42939be0375971446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 7
-  visionAngle: 90
-  rotationSpeed: 1
-  updatesPerSecond: 8
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 512
   OnObservingTilesChanged:
     m_PersistentCalls:
       m_Calls:
@@ -65,6 +58,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  visionRadius: 7
+  visionAngle: 90
+  rotationTime: 1
+  updatesPerSecond: 8
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &537825537936044892
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 6287393413328556662}
   - component: {fileID: 3943784392033496761}
   - component: {fileID: -8586691573789480448}
+  - component: {fileID: 2064087353}
   m_Layer: 10
   m_Name: Shade
   m_TagString: Shade
@@ -5071,15 +5072,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 3696624342232356208}
-  rb: {fileID: 3421516115218180208}
-  seeker: {fileID: 5749346845843882517}
-  shadeAnimator: {fileID: 537825537936044893}
-  touchDamage: 1
-  attackDamage: 2
-  movementSpeed: 2
-  investigationUpdatesPerSecond: 8
-  targetTransform: {fileID: 0}
-  minimumDistanceTargetLock: 10
   OnMinimumDistanceEntered:
     m_PersistentCalls:
       m_Calls:
@@ -5110,6 +5102,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  shadeAnimator: {fileID: 537825537936044893}
+  investigationUpdatesPerSecond: 8
+  targetTransform: {fileID: 0}
+  touchDamage: 1
+  minimumDistanceTargetLock: 10
 --- !u!114 &3943784392033496761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5148,3 +5145,16 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &2064087353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  awarenessLossPerSecond: 0.1
