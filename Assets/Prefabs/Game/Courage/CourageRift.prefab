@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4809530094353232124}
   - component: {fileID: 4809530094353232115}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8709681904578339686}
   - component: {fileID: -9006861694604943558}
   - component: {fileID: 1063552414703545796}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CourageRift
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd0e091db11ef34994d1e2344f8301f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 4809530094449874114}
+  spriteRenderer: {fileID: 4809530094449874114}
   courageManager: {fileID: 0}
   riftStageSprites:
   - {fileID: 8640902565523615927, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
@@ -244,6 +244,10 @@ MonoBehaviour:
   - {fileID: -5270732064675614295, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
   - {fileID: 3086977108949329331, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
   - {fileID: 6444347497105302043, guid: 0e5d7070d010e5d48acc0fb557f670d1, type: 3}
+  riftParticleSystem: {fileID: 4809530095725248182}
+  onRiftEntered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4809530095725248176
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +259,7 @@ GameObject:
   - component: {fileID: 4809530095725248183}
   - component: {fileID: 4809530095725248181}
   - component: {fileID: 4809530095725248182}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CourageRiftParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1179,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2275,7 +2279,7 @@ ParticleSystem:
     radial:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -3
+      scalar: -1
       minScalar: 0
       maxCurve:
         serializedVersion: 2

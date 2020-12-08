@@ -276,6 +276,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1187637746}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeSpawnerEntity,
+          AChildsCourage.Unity
+        m_MethodName: SpawnShade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &61644405
 Transform:
   m_ObjectHideFlags: 0
@@ -666,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNightCourage: 30
+  _maxNightCourage: 44
   OnCourageChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1842,6 +1855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756146565}
+  - component: {fileID: 756146566}
   m_Layer: 0
   m_Name: Static Objects
   m_TagString: Untagged
@@ -1867,6 +1881,22 @@ Transform:
   m_Father: {fileID: 1187637745}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &756146566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756146564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15883ad0dc7cb2b41ac05884e841d75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staticObjectPrefab: {fileID: 57104783504101754, guid: c7a422d2f403ccd4c8d01e8673e9163d, type: 3}
+  appearanceWeights:
+  - appearance: {fileID: 11400000, guid: cfe5a088183ebdf4689100b2d52cc3e5, type: 2}
+    weight: 1
 --- !u!1 &1059038456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,6 +2170,7 @@ GameObject:
   - component: {fileID: 1187637744}
   - component: {fileID: 1187637743}
   - component: {fileID: 1187637742}
+  - component: {fileID: 1187637746}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -2216,6 +2247,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1187637746}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeSpawnerEntity,
+          AChildsCourage.Unity
+        m_MethodName: OnFloorBuilt
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2025621520}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
+        m_MethodName: OnFloorBuilt
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   groundTilemap: {fileID: 118822148}
   staticTilemap: {fileID: 465115103}
   couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
@@ -2237,6 +2293,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1187637746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187637741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe8e67a97d39a245a43a66f6e605ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onShadeSpawned:
+    m_PersistentCalls:
+      m_Calls: []
+  shade: {fileID: 2064087351}
 --- !u!1 &1268513529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,9 +2956,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: courageManager
       value: 
       objectReference: {fileID: 269662568}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 61644404}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AChildsCourage.Unity.GameManager, AChildsCourage.Unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnWin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

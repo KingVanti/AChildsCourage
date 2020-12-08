@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Monsters.Navigation;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -44,25 +45,33 @@ namespace AChildsCourage.Game
 
             public ImmutableHashSet<GroundTileData> GroundData { get; }
 
+            public ImmutableHashSet<StaticObjectData> StaticObjectData { get; }
+
             public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
 
+            public RoomType RoomType { get; }
 
-            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<CouragePickupData> couragePickupData)
+            public ChunkPosition ChunkPosition { get; }
+
+
+            public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, RoomType roomType, ChunkPosition chunkPosition)
             {
                 GroundData = groundTiles;
+                StaticObjectData = staticObjectData;
                 CouragePickupData = couragePickupData;
+                RoomType = roomType;
+                ChunkPosition = chunkPosition;
             }
 
         }
 
         internal readonly struct FloorBuilder
         {
-            
-            public  ImmutableHashSet<Wall> Walls { get; }
-            
+
+            public ImmutableHashSet<Wall> Walls { get; }
+
             public ImmutableHashSet<RoomBuilder> Rooms { get; }
-            
-            
+
             public FloorBuilder(ImmutableHashSet<Wall> walls, ImmutableHashSet<RoomBuilder> rooms)
             {
                 Walls = walls;
@@ -74,18 +83,27 @@ namespace AChildsCourage.Game
         internal readonly struct RoomBuilder
         {
 
-            public  AoiIndex AoiIndex { get; }
-            
+            public AoiIndex AoiIndex { get; }
+
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
+            public ImmutableHashSet<StaticObject> StaticObjects { get; }
 
-            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups)
+            public RoomType RoomType { get; }
+
+            public ChunkPosition ChunkPosition { get; }
+
+
+            public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, RoomType roomType, ChunkPosition chunkPosition)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
                 CouragePickups = couragePickups;
+                StaticObjects = staticObjects;
+                RoomType = roomType;
+                ChunkPosition = chunkPosition;
             }
 
         }

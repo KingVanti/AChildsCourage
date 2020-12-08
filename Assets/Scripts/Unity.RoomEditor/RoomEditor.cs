@@ -16,6 +16,7 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private GroundTileLayer groundLayer;
         [SerializeField] private CouragePickupLayer courageLayer;
         [SerializeField] private ItemPickupLayer itemLayer;
+        [SerializeField] private StaticObjectLayer staticObjectLayer;
 
 #pragma warning restore 649
 
@@ -66,6 +67,7 @@ namespace AChildsCourage.RoomEditor
             groundLayer.PlaceAll(content.GroundData);
             courageLayer.PlaceAll(content.CourageData);
             itemLayer.PlaceAll(content.ItemData);
+            staticObjectLayer.PlaceAll(content.StaticObjects);
         }
 
 
@@ -96,6 +98,9 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Item:
                     itemLayer.PlaceAt(position);
                     break;
+                case TileCategory.StaticObject:
+                    staticObjectLayer.PlaceAt(position);
+                    break;
                 default:
                     throw new Exception("Invalid tile category!");
             }
@@ -114,6 +119,9 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Item:
                     itemLayer.DeleteTileAt(position);
                     break;
+                case TileCategory.StaticObject:
+                    staticObjectLayer.DeleteTileAt(position);
+                    break;
                 default:
                     throw new Exception("Invalid tile category!");
             }
@@ -131,7 +139,7 @@ namespace AChildsCourage.RoomEditor
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
                 itemLayer.ReadAll(),
-                new AoiMarkerData[0]);
+                staticObjectLayer.ReadAll());
 
 
         internal void Unload()

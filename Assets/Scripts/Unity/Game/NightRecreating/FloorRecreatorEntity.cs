@@ -32,6 +32,8 @@ namespace AChildsCourage.Game
 
         [AutoInject] public TileRepository TileRepository { private get; set; }
 
+        [AutoInject] public StaticObjectSpawner StaticObjectSpawner { private get; set; }
+
         #endregion
 
         #region Fields
@@ -63,6 +65,7 @@ namespace AChildsCourage.Game
         private void RecreateRoom(Room room)
         {
             room.GroundTiles.ForEach(PlaceGround);
+            room.StaticObjects.ForEach(StaticObjectSpawner.Spawn);
         }
 
         private void PlaceGround(GroundTile groundTile)

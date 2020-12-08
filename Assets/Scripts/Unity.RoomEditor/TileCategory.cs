@@ -6,7 +6,8 @@
 
         Ground,
         Courage,
-        Item
+        Item,
+        StaticObject
 
     }
 

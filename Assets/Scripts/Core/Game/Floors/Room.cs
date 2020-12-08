@@ -10,7 +10,8 @@ namespace AChildsCourage.Game.Floors
         public static Room EmptyRoom(AoiIndex aoiIndex) =>
             new Room(
                 aoiIndex,
-                ImmutableHashSet<GroundTile>.Empty);
+                ImmutableHashSet<GroundTile>.Empty,
+                ImmutableHashSet<StaticObject>.Empty);
 
         public readonly struct Room
         {
@@ -18,11 +19,14 @@ namespace AChildsCourage.Game.Floors
             public AoiIndex AoiIndex { get; }
 
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
-            
-            public Room(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles)
+
+            public ImmutableHashSet<StaticObject> StaticObjects { get; }
+
+            public Room(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<StaticObject> staticObjects)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
+                StaticObjects = staticObjects;
             }
 
         }

@@ -83,8 +83,8 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.BeginHorizontal();
 
-            var tileCategories = Enum.GetValues(typeof(TileCategory))
-                                     .Cast<TileCategory>();
+            var tileCategories = Enum.GetValues(typeof(TileCategory)).Cast<TileCategory>();
+
             foreach (var tileCategory in tileCategories)
                 if (GUILayout.Button(tileCategory.ToString()))
                     RoomEditor.SelectedTileCategory = tileCategory;
@@ -123,7 +123,7 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             if (!GUILayout.Button("Save asset"))
                 return;
-            
+
             RoomEditor.SaveChanges();
             EditorUtility.SetDirty(RoomEditor.LoadedAsset);
             AssetDatabase.SaveAssets();

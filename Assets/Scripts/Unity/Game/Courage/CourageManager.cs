@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Courage
 {
-
     public class CourageManager : MonoBehaviour
     {
 
@@ -54,8 +53,8 @@ namespace AChildsCourage.Game.Courage
 
         public void Initialize()
         {
-            CurrentNightCourage = 1 + OverfilledNightCourage;
             OnInitialize?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
+            CurrentNightCourage = 1 + OverfilledNightCourage;
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
