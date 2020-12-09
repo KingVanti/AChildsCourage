@@ -5,7 +5,7 @@
 			<value>panting_midSprint</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{ba894550-49fc-41d0-bc31-52cfaa278a41}</destination>
@@ -30,6 +30,9 @@
 		</relationship>
 		<relationship name="timeline">
 			<destination>{30ac96cf-40dd-47d7-bc3b-e5cf1c18344a}</destination>
+		</relationship>
+		<relationship name="banks">
+			<destination>{c380d223-76e1-44a0-a5f1-bbd49f709ba9}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{95f85667-7e16-43f8-ad88-0e68076818b0}">
@@ -56,11 +59,18 @@
 	<object class="EventAutomatableProperties" id="{9dd62057-bf05-4cb6-92c1-efd906136d3a}" />
 	<object class="MarkerTrack" id="{3b40b595-a176-4d40-97fa-c074bcbe5004}" />
 	<object class="GroupTrack" id="{277ea2b3-b19a-4447-8019-7c85e4192a5e}">
+		<relationship name="modules">
+			<destination>{11ee6bc9-ca30-4efe-8d90-f29e99b7e433}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{a9c5486a-35f7-48a4-92a7-f2d7270b17e5}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{30ac96cf-40dd-47d7-bc3b-e5cf1c18344a}" />
+	<object class="Timeline" id="{30ac96cf-40dd-47d7-bc3b-e5cf1c18344a}">
+		<relationship name="modules">
+			<destination>{11ee6bc9-ca30-4efe-8d90-f29e99b7e433}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{d84763af-68d7-44d7-9cb6-696c1b374408}">
 		<relationship name="effectChain">
 			<destination>{fe613913-f5f1-43f2-945c-85851d668154}</destination>
@@ -78,7 +88,18 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f4fa53f6-4d03-4bf4-bd52-341ec338165e}" />
+	<object class="SingleSound" id="{11ee6bc9-ca30-4efe-8d90-f29e99b7e433}">
+		<property name="length">
+			<value>2.8599999999999999</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{8f3b396e-9477-4bc9-b276-4b2376a4f5ed}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{a9c5486a-35f7-48a4-92a7-f2d7270b17e5}">
+		<property name="volume">
+			<value>-6</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -102,9 +123,21 @@
 	<object class="MixerBusEffectChain" id="{e5f8b03f-913c-49bc-8454-a9614b4a1949}">
 		<relationship name="effects">
 			<destination>{fccce4fc-e72c-4d95-a4c7-4dcce38f6f8e}</destination>
+			<destination>{ad0f2ba8-e9b2-4014-a994-6210c54e9034}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{a8f1fc5a-7e2b-412e-8520-ae9c2d5bcce9}" />
 	<object class="MixerBusFader" id="{0d0fba7c-4b7e-4f18-a6f6-df8504dee6d5}" />
 	<object class="MixerBusFader" id="{fccce4fc-e72c-4d95-a4c7-4dcce38f6f8e}" />
+	<object class="PitchShifterEffect" id="{ad0f2ba8-e9b2-4014-a994-6210c54e9034}">
+		<property name="pitch">
+			<value>1.05000007</value>
+		</property>
+		<property name="fftSize">
+			<value>4096</value>
+		</property>
+		<property name="overlap">
+			<value>1</value>
+		</property>
+	</object>
 </objects>
