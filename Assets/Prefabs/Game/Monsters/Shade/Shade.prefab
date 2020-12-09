@@ -5202,3 +5202,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   awarenessLossPerSecond: 0.1
+  baseAwarenessGainPerSecond: 0.05
+  primaryVisionMultiplier: 2

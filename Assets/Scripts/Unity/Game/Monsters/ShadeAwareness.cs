@@ -16,6 +16,23 @@ namespace AChildsCourage.Game.Monsters
 
         #endregion
 
+        #region Fields
+
+        public AwarenessLevelEvent onAwarenessLevelChanged;
+
+#pragma warning disable 649
+
+        [SerializeField] private float awarenessLossPerSecond;
+        [SerializeField] private float baseAwarenessGainPerSecond;
+        [SerializeField] private float primaryVisionMultiplier;
+
+#pragma warning  restore 649
+
+        private Awareness currentAwareness;
+        private AwarenessLevel currentAwarenessLevel;
+
+        #endregion
+
         #region Properties
 
         public AwarenessLevel CurrentAwarenessLevel
@@ -32,20 +49,9 @@ namespace AChildsCourage.Game.Monsters
 
         public Visibility CurrentCharacterVisibility { get; set; }
 
-        #endregion
+        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier;
 
-        #region Fields
-
-        public AwarenessLevelEvent onAwarenessLevelChanged;
-
-#pragma warning disable 649
-
-        [SerializeField] private float awarenessLossPerSecond;
-
-#pragma warning  restore 649
-
-        private Awareness currentAwareness;
-        private AwarenessLevel currentAwarenessLevel;
+        private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
 
         #endregion
 
@@ -66,7 +72,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void GainAwareness()
         {
-            throw new NotImplementedException();
+            currentAwareness = MAwareness.LooseAwareness(currentAwareness, CurrentAwarenessGain * Time.deltaTime);
         }
 
         #endregion
