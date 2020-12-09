@@ -20,6 +20,9 @@ public class FmodPlayer : MonoBehaviour
     const string CourageOrb_Path = "event:/Courage/CurageOrb";
     const string Char_getHit_Path = "event:/char/getHit";
     const string Char_Death_Path = "event:/char/death";
+    const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
+    const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
+
 
     bool Flashlight_status = false;
     bool blankie_status = false;
@@ -151,6 +154,16 @@ public class FmodPlayer : MonoBehaviour
     public void PlayChar_Death()
     {
         FMODUnity.RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
+    }
+
+    public void PlaySprint_stop()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+    }
+
+    public void PlaySprint_depleted()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
     }
 }
 
