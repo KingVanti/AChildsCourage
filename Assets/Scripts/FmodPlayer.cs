@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items;
 using FMOD.Studio;
+using System.Collections;
 using UnityEngine;
 
 public class FmodPlayer : MonoBehaviour
@@ -26,8 +27,10 @@ public class FmodPlayer : MonoBehaviour
 
     bool Flashlight_status = false;
     bool blankie_status = false;
+    bool Char_sprint_stop_Is_playing = false;
 
     private EventInstance Footsteps;
+    private float waitTime = 1.5f;
 
     /*
     void MaterialCheck()
@@ -158,13 +161,31 @@ public class FmodPlayer : MonoBehaviour
 
     public void PlaySprint_stop()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+        if (Char_sprint_stop_Is_playing == false)
+        {
+            StartCoroutine(SprintTimer());
+            FMODUnity.RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+            
+        }
     }
 
     public void PlaySprint_depleted()
     {
         FMODUnity.RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
     }
+
+
+    private IEnumerator SprintTimer()
+    {
+        Char_sprint_stop_Is_playing = true;
+        
+        yield return new WaitForSeconds(waitTime);
+        Char_sprint_stop_Is_playing = false;
+    }
+
+
+
+
 }
 
 
