@@ -13,13 +13,9 @@ namespace AChildsCourage.Game.Monsters
     public class TileVision : MonoBehaviour
     {
 
-        #region Properties
+        #region Static Properties
 
-        private Vector3 CurrentTileCenterPosition =>
-            new Vector3(
-                Mathf.RoundToInt(transform.position.x) + 0.5f,
-                Mathf.RoundToInt(transform.position.y) + 0.5f,
-                0);
+        private static Vector3 RandomVector => new Vector3(0, 0, Random.Range(0, 360));
 
         #endregion
 
@@ -58,6 +54,17 @@ namespace AChildsCourage.Game.Monsters
 
         #endregion
 
+        #region Properties
+
+        private Vector3 CurrentTileCenterPosition =>
+            new Vector3(
+                Mathf.RoundToInt(transform.position.x) + 0.5f,
+                Mathf.RoundToInt(transform.position.y) + 0.5f);
+
+        private float WaitTime => 1f / updatesPerSecond;
+
+        #endregion
+
         #region Methods
 
         private void Start()
@@ -70,13 +77,13 @@ namespace AChildsCourage.Game.Monsters
             while (true)
             {
                 if (!isWatching)
-                    StartCoroutine(TurnToRotation(new Vector3(0, 0, Random.Range(0, 360))));
+                    StartCoroutine(TurnToRotation(RandomVector));
 
                 currentlyObservedTilePositions.Clear();
                 currentlyObservedTilePositions.UnionWith(GetTilePositionsInView(radius));
                 OnObservingTilesChanged?.Invoke(currentlyObservedTilePositions);
 
-                yield return new WaitForSeconds(1f / updatesPerSecond);
+                yield return new WaitForSeconds(WaitTime);
             }
         }
 

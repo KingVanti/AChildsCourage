@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Monsters
 {
@@ -9,42 +12,49 @@ namespace AChildsCourage.Game.Monsters
     public class ShadeEyes : MonoBehaviour
     {
 
+        #region Subtypes
+
+        [Serializable]
+        public class VisibilityEvent : UnityEvent<Visibility> { }
+
+        #endregion
+
         #region Fields
 
-        public Events.Bool onCharacterInVisionChanged;
+        public VisibilityEvent onCharacterVisibilityChanged;
 
-#pragma warning  disable 649
+#pragma warning disable 649
 
         [SerializeField] private float updatesPerSecond;
-        [SerializeField] private float viewRadius;
-        [SerializeField] private float viewAngle;
+        [SerializeField] private VisionCone primaryVision;
+        [SerializeField] private VisionCone secondaryVision;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
-#pragma warning  restore 649
+#pragma warning restore 649
 
-        private bool characterIsInVision;
+        private Visibility characterVisibility;
 
         #endregion
 
         #region Properties
 
-        public bool CharacterIsInVision
+        public VisionCone PrimaryVision => primaryVision;
+
+        public VisionCone SecondaryVision => secondaryVision;
+
+        public Visibility CharacterVisibility
         {
-            get => characterIsInVision;
+            get => characterVisibility;
             private set
             {
-                if (characterIsInVision == value)
+                if (characterVisibility == value)
                     return;
 
-                characterIsInVision = value;
-                onCharacterInVisionChanged.Invoke(characterIsInVision);
+                characterVisibility = value;
+                onCharacterVisibilityChanged.Invoke(characterVisibility);
             }
         }
-
-        public float ViewRadius => viewRadius;
-
-        public float ViewAngle => viewAngle;
 
         private float WaitTime => 1f / updatesPerSecond;
 
@@ -70,19 +80,32 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
-        private void UpdateVision() => CharacterIsInVision = CurrentCharacterVisionPoints.Any(IsInView);
+        private void UpdateVision()
+        {
+            var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
 
-        private bool IsInView(Vector3 visionPoint) =>
-            IsInViewRadius(visionPoint) &&
-            IsInViewAngle(visionPoint) &&
+            CharacterVisibility = visionPoints.Any(IsInPrimaryVision)
+                ? Visibility.Primary
+                : visionPoints.Any(IsInSecondaryVision)
+                    ? Visibility.Secondary
+                    : Visibility.NotVisible;
+        }
+
+        private bool IsInPrimaryVision(Vector3 visionPoint) => IsInView(primaryVision, visionPoint);
+
+        private bool IsInSecondaryVision(Vector3 visionPoint) => IsInView(secondaryVision, visionPoint);
+
+        private bool IsInView(VisionCone cone, Vector3 visionPoint) =>
+            IsInViewRadius(cone, visionPoint) &&
+            IsInViewAngle(cone, visionPoint) &&
             IsUnobstructed(visionPoint);
 
-        private bool IsInViewRadius(Vector3 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= viewRadius;
+        private bool IsInViewRadius(VisionCone cone, Vector3 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= cone.ViewRadius;
 
-        private bool IsInViewAngle(Vector3 visionPoint)
+        private bool IsInViewAngle(VisionCone cone, Vector3 visionPoint)
         {
             var dirToPoint = visionPoint - CurrentPosition;
-            return Vector3.Angle(transform.right, dirToPoint) < viewAngle / 2f;
+            return Vector3.Angle(transform.right, dirToPoint) < cone.ViewAngle / 2f;
         }
 
         private bool IsUnobstructed(Vector3 visionPoint)
