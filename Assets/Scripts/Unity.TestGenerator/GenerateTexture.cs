@@ -3,25 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.MFloorGenerating;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
 
     internal static class GenerateTexture
     {
-
-        #region Subtypes
-
-        private enum RoomType
-        {
-
-            Start,
-            Normal,
-            End
-
-        }
-
-        #endregion
 
         #region Methods
 
@@ -43,16 +31,11 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             var pixels = CreateColorArray(floorPlan);
             var offset = CalculateChunkOffset(floorPlan);
 
-            for (var i = 0; i < floorPlan.Rooms.Length; i++)
+            foreach (var room in floorPlan.Rooms)
             {
-                var type = RoomType.Normal;
+                var type = roomLoader.GetRoomType(room);
 
-                if (i == 0)
-                    type = RoomType.Start;
-                if (i == floorPlan.Rooms.Length - 1)
-                    type = RoomType.End;
-
-                PrintRoom(type, floorPlan.Rooms[i], offset, roomLoader, pixels);
+                PrintRoom(type, room, offset, roomLoader, pixels);
             }
 
             return pixels;
@@ -135,7 +118,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 case RoomType.End:
                     return Color.magenta;
                 default:
-                    throw  new Exception("Invalid room type!");
+                    throw new Exception("Invalid room type!");
             }
         }
 
@@ -148,12 +131,10 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 offsetPosition.y * 5);
         }
 
-        private static Vector2Int GetOffsetPosition(ChunkPosition position, Vector2Int offset)
-        {
-            return new Vector2Int(
+        private static Vector2Int GetOffsetPosition(ChunkPosition position, Vector2Int offset) =>
+            new Vector2Int(
                 position.X + offset.x,
                 position.Y + offset.y);
-        }
 
         #endregion
 

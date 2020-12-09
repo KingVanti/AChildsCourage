@@ -16,6 +16,10 @@ namespace AChildsCourage.Game.Input
 
         event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
 
+        event EventHandler<StartSprintEventArgs> OnStartSprinting;
+
+        event EventHandler<StopSprintEventArgs> OnStopSprinting;
+
     }
 
 }

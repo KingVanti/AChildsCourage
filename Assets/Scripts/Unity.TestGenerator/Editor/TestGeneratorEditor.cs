@@ -1,8 +1,9 @@
-﻿using System.Linq;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.Game.MFloorPlanGenerating;
+using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.MRng;
+using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutGenerating;
+using static AChildsCourage.Game.MFloorGenerating.MFloorPlanGenerating;
 using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
@@ -73,8 +74,10 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private void GenerateFloorImage()
         {
-            var parameters = new GenerationParameters(completeRoomLoader.All().SelectMany(d => d.GetPassageVariations()).ToArray());
-            var floorPlan = GenerateFloorPlan(parameters, FromSeed(seed));
+            var parameters = new GenerationParameters(12);
+            var rng = FromSeed(seed);
+            var floorPlan = GenerateFloorLayout(rng, parameters)
+                .Map(layout => GenerateFloorPlan(layout, completeRoomLoader.All(), rng));
 
             floorImage = GenerateTexture.From(floorPlan, completeRoomLoader);
         }

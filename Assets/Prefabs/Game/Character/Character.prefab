@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 8820627343415363624}
   - component: {fileID: 3546636511749136385}
   - component: {fileID: 8820627343415363625}
+  - component: {fileID: 1871683216658508858}
   - component: {fileID: 1266752489}
   - component: {fileID: 1604705283}
   - component: {fileID: 703323583}
@@ -473,11 +474,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
-  _movementSpeed: 2
+  movementSpeed: 1.7
+  sprintSpeed: 4
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
   rb: {fileID: 3546636511749136385}
   characterGlowingLight: {fileID: 1604705283}
+  stamina: {fileID: 1871683216658508858}
   OnPositionChanged:
     m_PersistentCalls:
       m_Calls:
@@ -591,6 +594,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnSprintStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1871683216658508858}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Stamina, AChildsCourage.Unity
+        m_MethodName: StartSprinting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSprintStop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1871683216658508858}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Stamina, AChildsCourage.Unity
+        m_MethodName: StopSprinting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnPickUpItem:
     m_PersistentCalls:
       m_Calls:
@@ -610,6 +643,54 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
         m_MethodName: AddItem
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1871683216658508858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820627343415363622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caa7214ea7258aa4f8d9b0e65e2c892d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stamina: 100
+  staminaRecoveryRate: 5
+  staminaDrainRate: 10
+  staminaDepletedCooldown: 5
+  onStaminaDepleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8820627343415363625}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
+          AChildsCourage.Unity
+        m_MethodName: OnStaminaDepleted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRefreshed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8820627343415363625}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
+          AChildsCourage.Unity
+        m_MethodName: OnStaminaRefresh
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5483,6 +5564,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05092597, y: 0.3033676}
-  m_Size: {x: 0.66149664, y: 0.8209419}
+  m_Offset: {x: -0.0016438961, y: 0.32702446}
+  m_Size: {x: 0.8192067, y: 0.8192067}
   m_Direction: 0

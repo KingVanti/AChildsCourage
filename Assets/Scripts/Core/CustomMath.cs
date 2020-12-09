@@ -19,6 +19,10 @@ namespace AChildsCourage
         public static float Inverse(this float f) => 1f / f;
         
         public static float Raise(this float f, float pow) => (float) Pow(f, pow);
+        
+        public static int Minus(this int i, int sub) => i - sub;
+
+        public static int Times(this int i, int mult) => i * mult;
 
     }
 

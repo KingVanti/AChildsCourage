@@ -4,26 +4,20 @@
     public readonly struct RoomPassageFilter
     {
 
-        #region Properties
-
         public RoomType RoomType { get; }
 
-        public int MaxLooseEnds { get; }
+        public ChunkPassages Passages { get; }
 
-        public ChunkPassageFilter PassageFilter { get; }
 
-        #endregion
-
-        #region Constructors
-
-        public RoomPassageFilter(RoomType roomType, int maxLooseEnds, ChunkPassageFilter passageFilter)
+        public RoomPassageFilter(RoomType roomType, ChunkPassages passages)
         {
             RoomType = roomType;
-            MaxLooseEnds = maxLooseEnds;
-            PassageFilter = passageFilter;
+            Passages = passages;
         }
 
-        #endregion
+
+        public override string ToString() => $"({RoomType}: {Passages})";
+
 
     }
 

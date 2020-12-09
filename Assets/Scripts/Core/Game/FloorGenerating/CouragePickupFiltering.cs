@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.MFloorGenerating.MFloorBuilder;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MFunctional;
 using static AChildsCourage.MRng;
@@ -10,73 +11,81 @@ using static AChildsCourage.MRng;
 namespace AChildsCourage.Game
 {
 
-    internal static partial class MFloorGenerating
+    public static partial class MFloorGenerating
     {
 
-        internal const int CourageOrbCount = 5;
-        internal const int CourageSparkCount = 25;
+        public static class MCouragePickupFiltering
+        {
+
+            internal const int CourageOrbCount = 5;
+            internal const int CourageSparkCount = 25;
 
 
-        internal static Func<FloorBuilder, CreateRng, IEnumerable<CouragePickup>> ChooseCouragePickups =>
-            (floorBuilder, rng) =>
-                ChoosePickupsOfVariant(floorBuilder, CourageVariant.Spark, CourageSparkCount, CalculateCourageSparkWeight, rng)
-                    .Concat(ChoosePickupsOfVariant(floorBuilder, CourageVariant.Orb, CourageOrbCount, CalculateCourageOrbWeight, rng));
+            internal static Func<FloorBuilder, CreateRng, IEnumerable<CouragePickup>> ChooseCouragePickups =>
+                (floorBuilder, rng) =>
+                    ChoosePickupsOfVariant(floorBuilder, CourageVariant.Spark, CourageSparkCount, CalculateCourageSparkWeight, rng)
+                        .Concat(ChoosePickupsOfVariant(floorBuilder, CourageVariant.Orb, CourageOrbCount, CalculateCourageOrbWeight, rng));
 
 
-        private static Func<FloorBuilder, CourageVariant, int, CouragePickupWeightFunction, CreateRng, IEnumerable<CouragePickup>> ChoosePickupsOfVariant =>
-            (floorBuilder, variant, count, weightFunction, rng) =>
+            private static Func<FloorBuilder, CourageVariant, int, CouragePickupWeightFunction, CreateRng, IEnumerable<CouragePickup>> ChoosePickupsOfVariant =>
+                (floorBuilder, variant, count, weightFunction, rng) =>
+                {
+                    var positions = GetCouragePositionsOfVariant(floorBuilder, variant).ToImmutableHashSet();
+
+                    ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction, rng));
+
+                    return AggregateTimes(ImmutableHashSet<TilePosition>.Empty, AddNext, count)
+                        .Select(p => new CouragePickup(p, variant));
+                };
+
+            private static IEnumerable<TilePosition> GetCouragePositionsOfVariant(FloorBuilder floorBuilder, CourageVariant variant) =>
+                floorBuilder.Rooms
+                            .SelectMany(r => r.CouragePickups)
+                            .Where(p => p.Variant == variant)
+                            .Select(p => p.Position);
+
+
+            internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, CreateRng rng)
             {
-                var positions = GetCouragePositionsOfVariant(floorBuilder, variant).ToImmutableHashSet();
+                bool IsNotTaken(TilePosition p) => !taken.Contains(p);
 
-                ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => taken.Add(ChooseNextPickupPosition(positions, taken, weightFunction, rng));
+                float CalculateWeight(TilePosition p) => weightFunction(p, taken);
 
-                return AggregateTimes(ImmutableHashSet<TilePosition>.Empty, AddNext, count)
-                    .Select(p => new CouragePickup(p, variant));
-            };
+                return Take(positions)
+                       .Where(IsNotTaken)
+                       .GetWeightedRandom(CalculateWeight, rng);
+            }
 
-        private static IEnumerable<TilePosition> GetCouragePositionsOfVariant(FloorBuilder floorBuilder, CourageVariant variant) =>
-            floorBuilder.Rooms
-                        .SelectMany(r => r.CouragePickups)
-                        .Where(p => p.Variant == variant)
-                        .Select(p => p.Position);
+            internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
+            {
+                var distanceOriginWeight =
+                    GetDistanceFromOrigin(position)
+                        .Clamp(20, 40)
+                        .Remap(20f, 40f, 1, 10f);
 
+                var distanceToClosestWeight = taken.Any()
+                    ? taken.Select(p => GetDistanceBetween(position, p)).Min()
+                           .Clamp(10, 30)
+                           .Remap(10, 30, 1, 20)
+                    : 20;
 
-        internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, CreateRng rng)
-        {
-            bool IsNotTaken(TilePosition p) => !taken.Contains(p);
+                return distanceOriginWeight + distanceToClosestWeight;
+            }
 
-            float CalculateWeight(TilePosition p) => weightFunction(p, taken);
+            internal static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
+            {
+                var distanceToClosestWeight = taken.Any()
+                    ? taken.Select(p => GetDistanceBetween(position, p)).Min()
+                           .Clamp(1, 10)
+                           .Remap(1, 10, 4, 1)
+                    : 1;
 
-            return Take(positions)
-                   .Where(IsNotTaken)
-                   .GetWeightedRandom(CalculateWeight, rng);
-        }
+                return distanceToClosestWeight;
+            }
 
-        internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
-        {
-            var distanceOriginWeight =
-                GetDistanceFromOrigin(position)
-                    .Clamp(20, 40)
-                    .Remap(20f, 40f, 1, 10f);
+            
+            internal delegate float CouragePickupWeightFunction(TilePosition position, ImmutableHashSet<TilePosition> taken);
 
-            var distanceToClosestWeight = taken.Any()
-                ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                       .Clamp(10, 30)
-                       .Remap(10, 30, 1, 20)
-                : 20;
-
-            return distanceOriginWeight + distanceToClosestWeight;
-        }
-
-        internal static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
-        {
-            var distanceToClosestWeight = taken.Any()
-                ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                       .Clamp(1, 10)
-                       .Remap(1, 10, 4, 1)
-                : 1;
-
-            return distanceToClosestWeight;
         }
 
     }

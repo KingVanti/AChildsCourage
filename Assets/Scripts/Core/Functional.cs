@@ -10,7 +10,7 @@ namespace AChildsCourage
 
         public static TItem Take<TItem>(TItem input) => input;
 
-        public static TItem RepeatFor<TItem>(this TItem input, Func<TItem, TItem> function, int times)
+        public static TItem For<TItem>(this TItem input, int times, Func<TItem, TItem> function)
         {
             var result = input;
 
@@ -20,13 +20,13 @@ namespace AChildsCourage
             return result;
         }
 
-        public static void RepeatFor(this Action action, int times)
+        public static void For(this Action action, int times)
         {
             for (var _ = 0; _ < times; _++)
                 action();
         }
 
-        public static TItem RepeatWhile<TItem>(this TItem input, Func<TItem, TItem> function, Func<bool> predicate)
+        public static TItem While<TItem>(this TItem input, Func<bool> predicate, Func<TItem, TItem> function)
         {
             var result = input;
 
@@ -36,7 +36,7 @@ namespace AChildsCourage
             return result;
         }
 
-        public static TItem RepeatWhile<TItem>(this TItem input, Func<TItem, TItem> function, Func<TItem, bool> predicate)
+        public static TItem While<TItem>(this TItem input, Func<TItem, bool> predicate, Func<TItem, TItem> function)
         {
             var result = input;
 
