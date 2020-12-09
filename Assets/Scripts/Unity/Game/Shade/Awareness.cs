@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     public static class MAwareness

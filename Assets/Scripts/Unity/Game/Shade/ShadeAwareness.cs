@@ -3,10 +3,10 @@ using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Player;
 using UnityEngine;
 using UnityEngine.Events;
-using static AChildsCourage.Game.Monsters.MAwareness;
+using static AChildsCourage.Game.Shade.MAwareness;
 using CharacterController = AChildsCourage.Game.Player.CharacterController;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     public class ShadeAwareness : MonoBehaviour
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning  restore 649
 
-        private Awareness currentAwareness;
+        private MAwareness.Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
 
         #endregion

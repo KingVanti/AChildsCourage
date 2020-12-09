@@ -4,7 +4,7 @@ using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
-using AChildsCourage.Game.Monsters;
+using AChildsCourage.Game.Shade;
 using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;

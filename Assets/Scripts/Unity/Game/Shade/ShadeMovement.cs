@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using Pathfinding;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     [UseDi]

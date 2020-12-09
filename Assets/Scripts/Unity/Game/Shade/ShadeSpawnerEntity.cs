@@ -4,7 +4,7 @@ using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     public class ShadeSpawnerEntity : MonoBehaviour

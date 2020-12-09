@@ -1,8 +1,8 @@
 ﻿using System;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 
-namespace AChildsCourage.Game.Monsters.Navigation
+namespace AChildsCourage.Game.Shade.Navigation
 {
 
     public readonly struct MonsterState
@@ -12,10 +12,10 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
         public DateTime CurrentTime { get; }
 
-        public InvestigationHistory InvestigationHistory { get; }
+        public MInvestigationHistory.InvestigationHistory InvestigationHistory { get; }
 
 
-        public MonsterState(EntityPosition position, DateTime currentTime, InvestigationHistory investigationHistory)
+        public MonsterState(EntityPosition position, DateTime currentTime, MInvestigationHistory.InvestigationHistory investigationHistory)
         {
             Position = position;
             CurrentTime = currentTime;

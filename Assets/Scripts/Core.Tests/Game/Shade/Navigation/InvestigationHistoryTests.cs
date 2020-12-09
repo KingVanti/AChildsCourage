@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 
-namespace AChildsCourage.Game.Monsters.Navigation
+namespace AChildsCourage.Game.Shade.Navigation
 {
 
     [TestFixture]

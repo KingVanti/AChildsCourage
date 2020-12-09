@@ -7,7 +7,7 @@ using static AChildsCourage.MCustomMath;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters.Navigation
+namespace AChildsCourage.Game.Shade.Navigation
 {
 
     public static class MInvestigation

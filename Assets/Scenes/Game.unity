@@ -2395,7 +2395,7 @@ MonoBehaviour:
   onShadeSpawned:
     m_PersistentCalls:
       m_Calls: []
-  shade: {fileID: 2064087351}
+  shadeBrain: {fileID: 2064087351}
 --- !u!1 &1268513529
 GameObject:
   m_ObjectHideFlags: 0

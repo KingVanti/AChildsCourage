@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     [Serializable]

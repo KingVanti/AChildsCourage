@@ -1,7 +1,7 @@
 ﻿using Ninject.Extensions.Unity;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     [UseDi]

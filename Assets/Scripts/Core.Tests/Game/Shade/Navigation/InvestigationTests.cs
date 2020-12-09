@@ -3,10 +3,10 @@ using System.Collections.Immutable;
 using System.Linq;
 using NUnit.Framework;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigation;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 
-namespace AChildsCourage.Game.Monsters.Navigation
+namespace AChildsCourage.Game.Shade.Navigation
 {
 
     [TestFixture]
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var poi1 = new Poi(new MTilePosition.TilePosition(1, 0));
             var poi2 = new Poi(new MTilePosition.TilePosition(2, 0));
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
                 ImmutableHashSet<MTilePosition.TilePosition>.Empty);
             var monsterPosition = new EntityPosition(0, 0);
@@ -61,7 +61,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var poi1 = new Poi(new MTilePosition.TilePosition(1, 0));
             var poi2 = new Poi(new MTilePosition.TilePosition(2, 0));
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
                 ImmutableHashSet.Create(new MTilePosition.TilePosition(1, 0)));
             var monsterPosition = new EntityPosition(0, 0);
@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         {
             // Given
 
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
                             new Poi(new MTilePosition.TilePosition(0, 0)),
                             new Poi(new MTilePosition.TilePosition(1, 1)))),
@@ -101,7 +101,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         {
             // Given
 
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
                             new Poi(new MTilePosition.TilePosition(0, 0)),
                             new Poi(new MTilePosition.TilePosition(1, 1)),
@@ -123,7 +123,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         {
             // Given
 
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
                             new Poi(new MTilePosition.TilePosition(0, 0)),
                             new Poi(new MTilePosition.TilePosition(1, 1)))),
@@ -145,7 +145,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
         {
             // Given
 
-            var investigation = new Investigation(
+            var investigation = new MInvestigation.Investigation(
                 new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
                             new Poi(new MTilePosition.TilePosition(0, 0)),
                             new Poi(new MTilePosition.TilePosition(1, 1)))),
@@ -188,7 +188,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new InvestigationHistory(
+            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
                                                     new CompletedInvestigation((AoiIndex) 1, new DateTime(2020, 1, 1, 1, 1, 0)),
                                                     new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
@@ -209,7 +209,7 @@ namespace AChildsCourage.Game.Monsters.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new InvestigationHistory(
+            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
                                                     new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
             // When

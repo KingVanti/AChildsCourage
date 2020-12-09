@@ -2,7 +2,7 @@
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.MFunctional;
 

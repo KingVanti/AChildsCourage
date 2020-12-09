@@ -2,15 +2,15 @@
 using System.Collections;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
-using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigation;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     [UseDi]
@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning restore 649
 
         private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
-        private InvestigationHistory investigationHistory = Empty;
+        private MInvestigationHistory.InvestigationHistory investigationHistory = Empty;
         private Coroutine investigationCoroutine;
 
         #endregion

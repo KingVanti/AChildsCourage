@@ -1,4 +1,4 @@
-﻿namespace AChildsCourage.Game.Monsters
+﻿namespace AChildsCourage.Game.Shade
 {
 
     public enum Visibility

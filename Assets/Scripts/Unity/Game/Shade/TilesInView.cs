@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     public readonly struct TilesInView : IEnumerable<TilePosition>

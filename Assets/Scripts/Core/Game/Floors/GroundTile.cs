@@ -1,4 +1,4 @@
-﻿using AChildsCourage.Game.Monsters.Navigation;
+﻿using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors

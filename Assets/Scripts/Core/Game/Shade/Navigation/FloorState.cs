@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace AChildsCourage.Game.Monsters.Navigation
+namespace AChildsCourage.Game.Shade.Navigation
 {
 
     public readonly struct FloorState

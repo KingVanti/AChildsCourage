@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using static AChildsCourage.Game.Monsters.ShadeEvents;
+using static AChildsCourage.Game.Shade.ShadeEvents;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Shade
 {
 
     public class ShadeEyes : MonoBehaviour
@@ -14,8 +14,8 @@ namespace AChildsCourage.Game.Monsters
 
         #region Fields
 
-        public VisibilityEvent onCharacterVisibilityChanged;
-        public TilesInViewEvent onTilesInViewChanged;
+        public ShadeEvents.VisibilityEvent onCharacterVisibilityChanged;
+        public ShadeEvents.TilesInViewEvent onTilesInViewChanged;
 
 #pragma warning disable 649
 
