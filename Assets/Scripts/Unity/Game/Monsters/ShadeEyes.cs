@@ -19,6 +19,7 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning disable 649
 
+        [SerializeField] private float smallVisionRadius;
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private VisionCone primaryVision;
         [SerializeField] private VisionCone secondaryVision;
@@ -133,7 +134,9 @@ namespace AChildsCourage.Game.Monsters
                     yield return new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
         }
 
-        private bool PositionIsVisible(Vector3 position) => IsInView(secondaryVision, position);
+        private bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position)|| IsInView(secondaryVision, position);
+
+        private bool PositionIsInSmallRadius(Vector3 position) => Vector3.Distance(transform.position, position) <= smallVisionRadius;
 
         #endregion
 

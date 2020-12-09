@@ -87,6 +87,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  smallVisionRadius: 1.5
   updatesPerSecond: 4
   primaryVision:
     viewRadius: 10
