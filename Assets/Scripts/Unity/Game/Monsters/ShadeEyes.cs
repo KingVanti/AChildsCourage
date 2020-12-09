@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Monsters
 
         public Events.Bool onCharacterInVisionChanged;
 
-#pragma warning  disable 649
+#pragma warning disable 649
 
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private float viewRadius;
@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
-#pragma warning  restore 649
+#pragma warning restore 649
 
         private bool characterIsInVision;
 
