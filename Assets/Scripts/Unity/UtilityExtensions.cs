@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage
 {
@@ -23,6 +24,18 @@ namespace AChildsCourage
             Debug.Log(formatter(item));
             return item;
         }
+        
+        public static Vector3Int ToVector3Int(this TilePosition tilePosition) =>
+            new Vector3Int(
+                tilePosition.X,
+                tilePosition.Y,
+                0);
+
+        public static Vector3 ToVector3(this TilePosition tilePosition) =>
+            new Vector3(
+                tilePosition.X,
+                tilePosition.Y,
+                0);
     }
 
 }
