@@ -5205,5 +5205,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   awarenessLossPerSecond: 0.5
-  baseAwarenessGainPerSecond: 0.5
+  baseAwarenessGainPerSecond: 0.4
   primaryVisionMultiplier: 2
+  minDistance: 1
+  maxDistance: 15
+  maxDistanceMultiplier: 2
+  characterTransform: {fileID: 0}

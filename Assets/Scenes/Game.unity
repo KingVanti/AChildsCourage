@@ -1339,6 +1339,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 555895927203934551, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &489588454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3137,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: characterTransform
+      value: 
+      objectReference: {fileID: 489588454}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade

@@ -26,6 +26,10 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
         [SerializeField] private float primaryVisionMultiplier;
+        [SerializeField] private float minDistance;
+        [SerializeField] private float maxDistance;
+        [SerializeField] private float maxDistanceMultiplier;
+        [SerializeField] private Transform characterTransform;
 
 #pragma warning  restore 649
 
@@ -52,10 +56,15 @@ namespace AChildsCourage.Game.Monsters
 
         public float CurrentAwareness => currentAwareness.Value;
         
-        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier;
+        
+        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier;
 
         private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
 
+        private float DistanceMultiplier => DistanceToCharacter.Remap(minDistance, maxDistance, maxDistanceMultiplier, 1);
+        
+        private float DistanceToCharacter => Vector3.Distance(transform.position, characterTransform.position);
+        
         #endregion
 
         #region Methods
