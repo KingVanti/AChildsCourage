@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Monsters
 
         #region Properties
 
-        [AutoInject] public Shade Shade { private get; set; }
+        [AutoInject] public ShadeMovement Movement { private get; set; }
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void FaceMovementDirection()
         {
-            transform.right = Shade.CurrentDirection;
+            transform.right = Movement.CurrentDirection;
         }
 
         #endregion

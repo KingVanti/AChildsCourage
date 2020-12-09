@@ -342,7 +342,8 @@ namespace AChildsCourage.Game.Player
                 return;
 
             var shade = collision.gameObject.GetComponent<Shade>();
-            TakingDamage(shade.TouchDamage, shade.CurrentDirection);
+            var shadeMovement = collision.gameObject.GetComponent<ShadeMovement>();
+            TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

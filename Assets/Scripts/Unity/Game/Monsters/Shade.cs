@@ -4,9 +4,7 @@ using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
 using Ninject.Extensions.Unity;
-using Pathfinding;
 using UnityEngine;
-using UnityEngine.Events;
 using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
@@ -19,29 +17,15 @@ namespace AChildsCourage.Game.Monsters
     public class Shade : MonoBehaviour
     {
 
-        #region Subclasses
-
-        [Serializable]
-        public class Vector3Event : UnityEvent<Vector3> { }
-
-        #endregion
-
-        #region Static Fields
-
-        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
-        private static readonly int XAnimatorKey = Animator.StringToHash("X");
-        private static readonly int YAnimatorKey = Animator.StringToHash("Y");
-
-        #endregion
-
         #region Fields
 
+        public Events.Vector3 onTargetPositionChanged;
+        
 #pragma warning disable 649
-        [SerializeField] private AIPath aiPath;
-        [SerializeField] private Animator shadeAnimator;
+
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private int touchDamage;
-        [Range(1, 50)] [SerializeField] private float minimumDistanceTargetLock;
+
 #pragma warning restore 649
 
         private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
@@ -56,30 +40,13 @@ namespace AChildsCourage.Game.Monsters
 
         public int TouchDamage => touchDamage;
 
-        public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
-
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        private bool IsMoving => aiPath.velocity != Vector3.zero;
-
         #endregion
 
         #region Methods
-
-        private void Update()
-        {
-            UpdateAnimator();
-        }
-
-        private void UpdateAnimator()
-        {
-            shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
-            shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
-            shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
-        }
-
 
         public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
@@ -118,7 +85,7 @@ namespace AChildsCourage.Game.Monsters
             var investigation = StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, MRng.Random());
 
             var currentTarget = NextTarget(investigation, Position);
-            SetPathFinderTarget(currentTarget);
+            onTargetPositionChanged.Invoke(currentTarget.GetTileCenter());
 
             while (!IsComplete(investigation))
             {
@@ -127,7 +94,7 @@ namespace AChildsCourage.Game.Monsters
                 var newTarget = NextTarget(investigation, Position);
                 if (!newTarget.Equals(currentTarget))
                 {
-                    SetPathFinderTarget(newTarget);
+                    onTargetPositionChanged.Invoke(currentTarget.GetTileCenter());
                     currentTarget = newTarget;
                 }
 
@@ -138,12 +105,6 @@ namespace AChildsCourage.Game.Monsters
             investigationHistory = investigationHistory.Add(completed);
 
             StartInvestigation();
-        }
-
-
-        private void SetPathFinderTarget(TilePosition tilePosition)
-        {
-            aiPath.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
         }
 
 

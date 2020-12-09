@@ -37,6 +37,12 @@ namespace AChildsCourage
                 tilePosition.Y,
                 0);
         
+        public static Vector3 GetTileCenter(this TilePosition tilePosition) =>
+            new Vector3(
+                tilePosition.X + 0.5f,
+                tilePosition.Y + 0.5f,
+                0);
+        
         public static TilePosition FloorToTile(this Vector3 position) =>
             new TilePosition(
                 Mathf.FloorToInt(position.x),
