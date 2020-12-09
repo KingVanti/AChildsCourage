@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;

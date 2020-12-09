@@ -1339,6 +1339,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 555895927203934551, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &489588454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2103879681, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,13 +2030,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAIIexmfzRrTAIAAPIEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1v2zAM/SuBzstgpy3a7LalabpDP9Cs6MUXWqJjIbJkSHKTtMh/HyXbsZdhO0V5fKTeIyl/Mqldjdwbu7JSPBiB7NuEhTP7MhmC97iHjdFr+YE9500KXwYSRM4LeGkIT0OaMxV6K/l3vVGBnBDYaFkYWy3FBhfGeUdwAcohhazxIVsT9Dlhe/qZzkPKgU6z63D6oNM8mRzpyFF7tAO1J/a06VWkNZorqGoUQfPATnt62lbT5KZjBOXcKCVdJ4X5Qx2tvsAhGBUSyFa8O/l6Q0CJclP6IHKc+lQUDn2nyMLhVlrqT1uT/TBt0ypw21bVO6gm3HKVzqKitujDX/FpGsOFNdV9f2+ahDt8KfmWNHJwftTVMXw7SE9jc3agtpArfCtRP5qVNY0WFPS2CamNw9nt8PdkbVEi3w54K/UMbOr/zIY8HKP7/ULJKo+dvGyBtTKx23HyaGkuP0lw3AvXlSA0qHh1+As24wXqAnfSOk+hzqUO8nLT2EBly9iz4KbxC2M12nGFGjUof3imOv58hmexf2fdQXgr3e1drH8CZykRHvhJchZ6NrvTtFxpdg/oyqfGK6lxaHUIPFKjFkbrdsXGlvq0dWML4KO0TSPFn7vFZpAAXuco4DKHGYgpXMxv+MUMizwvbub8msXlk5p8gnpuhXbtobHpobimRes/IZOVhTquu7CwW8mPyriBKXVh1twi6qe2wkk4WrqEHqVYCkkNWqP3UseBs8+MKcO3KLJToSw6Xe69hWyokrFavhsfkIwt4jcjY0d2/A1QSwMEFAAACAgAAAgh7EyNL+5tAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJJRokFiqnlSakqiSVKiUWKKbqKxpUWysVFqWlJSmoVlsrlSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7GZ/NGtMAgAA8gQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7EyNL+5tAAAAeAAAAAkAJAAAAAAAAAAAAAAAmQIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABRAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAIIeyrm3dJSwIAAPQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF9VE1z2jAQ/SuMzqVjk2QSemsJIT3kY0IzufiyltZYgyx5JDlAMvz3rmQbu3TaE+K9t6u3H/Ink9rVyL2xKyvFgxHIvk1YOLMvk4G8xz1sjF7LD+w1b1L4Moggal7AS0N4GsKcqdBbyb/rjQrihMBGy8LYaik2uDDOO4ILUA6JssaHaE3Q54Tt6Wc6DyEHOs2uw+mDTvNkcqQjR+3RDtJe2MumV1HWaK6gqlEEz4M67eVpm01TNZ0iOOdGKek6K8wf6ljqCxxCoUIClRXvTr7eEFCi3JQ+mByHPhWFQ985snC4lZb60+ZkP0zbtArctnX1DqoJt1yls+ioTfrwFz9NI11YU93396ZJuMOXkm/JIwfnR10dw7eD9TQ2ZwdqC7nCtxL1o1lZ02hBpLdNCG0czm6Hv6fSFiXy7YC3Vs/Apv7PbKiGY6x+v1CyymMnL1tgrUzsdpw8WprLTzIc98J1KQgNLl4d/oLNeIE64k5a54nqqtTBXm4aG6RsGXsWqmn8wliNdpyhRg3KH54pjz+f4Rn376g7CG+lu73j+idwFhLhQZ8kZ9Sz2Z2m5Uqze0BXPjVeST1OFphH6tTCaN3umDtjQ9y6sQXwcdymkeLP7WIzSACvcxRwmcMMxBQu5jf8YoZFnhc3c37N4vpJTZWCem6tdg2iwelhATStWv8Rmaws1HHhhYXdSn5Uxg1KqQuz5hZRP7UZTs7R0iX0LMVSSGrRGr2XOo6cfWZMGb5FkZ0SZbHU5d5byIYsGavlu/EBydgifjUydmTH31BLAwQUAAAICAAACCHsTI0v7m0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNVRUEovSizIKAaKGII4pZkpIHa0klGiQWKqeVJqSqJJUqJRYopuorGlRbKxUWpaUlKahWWyuVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAACCHsq5t3SUsCAAD0BAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAACCHsTI0v7m0AAAB4AAAACQAkAAAAAAAAAAAAAACYAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAFADAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
   showNavGraphs: 1
-  showUnwalkableNodes: 1
+  showUnwalkableNodes: 0
   debugMode: 0
   debugFloor: 0
   debugRoof: 1
@@ -2091,7 +2102,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 1
+  showGraphs: 0
 --- !u!4 &1059038459
 Transform:
   m_ObjectHideFlags: 0
@@ -2102,8 +2113,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1898134967}
+  m_Children: []
   m_Father: {fileID: 730283651}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2385,7 +2395,7 @@ MonoBehaviour:
   onShadeSpawned:
     m_PersistentCalls:
       m_Calls: []
-  shade: {fileID: 2064087351}
+  shadeBrain: {fileID: 2064087351}
 --- !u!1 &1268513529
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,36 +2885,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794985066}
   m_CullTransparentMesh: 0
---- !u!1 &1898134966
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1898134967}
-  m_Layer: 0
-  m_Name: PathfinderTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1898134967
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898134966}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1059038459}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984066222
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 489588451}
+    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: flashlight
+      value: 
+      objectReference: {fileID: 489588454}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade
@@ -3192,10 +3180,6 @@ PrefabInstance:
       propertyPath: characterVisionPoints.Array.data[1]
       value: 
       objectReference: {fileID: 489588452}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: targetTransform
-      value: 
-      objectReference: {fileID: 1898134967}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!114 &2064087351 stripped

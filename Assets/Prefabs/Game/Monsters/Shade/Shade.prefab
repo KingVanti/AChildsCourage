@@ -44,28 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da14756bb389b4c42939be0375971446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnObservingTilesChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6287393413328556662}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
-        m_MethodName: OnTilesInVisionChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  visionRadius: 7
-  visionAngle: 90
-  rotationTime: 1
-  updatesPerSecond: 8
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  rotationDegreesPerSecond: 90
 --- !u!114 &4616488904359167555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +62,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2064087353}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeAwareness, AChildsCourage.Unity
-        m_MethodName: OnCharacterInVisionChanges
+        m_MethodName: set_CurrentCharacterVisibility
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -93,6 +72,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onTilesInViewChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6287393413328556662}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
+        m_MethodName: OnTilesInVisionChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  smallVisionRadius: 1.5
   updatesPerSecond: 4
   primaryVision:
     viewRadius: 10
@@ -123,10 +118,11 @@ GameObject:
   - component: {fileID: 462774780128903143}
   - component: {fileID: 5749346845843882517}
   - component: {fileID: 3696624342232356208}
-  - component: {fileID: 6287393413328556662}
   - component: {fileID: 3943784392033496761}
   - component: {fileID: -8586691573789480448}
+  - component: {fileID: 6287393413328556662}
   - component: {fileID: 2064087353}
+  - component: {fileID: 7337468781757878326}
   m_Layer: 12
   m_Name: Shade
   m_TagString: Shade
@@ -5100,54 +5096,6 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
---- !u!114 &6287393413328556662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537825537936044892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ai: {fileID: 3696624342232356208}
-  OnMinimumDistanceEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8837610286537015916}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
-        m_MethodName: OnMinimumDistanceEntered
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMinimumDistanceLeft:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8837610286537015916}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
-        m_MethodName: OnMinimumDistanceLeft
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  shadeAnimator: {fileID: 537825537936044893}
-  investigationUpdatesPerSecond: 8
-  targetTransform: {fileID: 0}
-  touchDamage: 1
-  minimumDistanceTargetLock: 10
 --- !u!114 &3943784392033496761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5186,6 +5134,35 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &6287393413328556662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTargetPositionChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7337468781757878326}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeMovement, AChildsCourage.Unity
+        m_MethodName: SetMovementTarget
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  investigationUpdatesPerSecond: 8
+  touchDamage: 1
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5198,4 +5175,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  awarenessLossPerSecond: 0.1
+  onAwarenessLevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onAwarenessChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  awarenessLossPerSecond: 0.5
+  baseAwarenessGainPerSecond: 0.4
+  primaryVisionMultiplier: 2
+  minDistance: 1
+  maxDistance: 15
+  maxDistanceMultiplier: 2
+  walkingMultiplier: 1.5
+  sprintingMultiplier: 2
+  flashLightMultiplier: 2
+  characterController: {fileID: 0}
+  flashlight: {fileID: 0}
+--- !u!114 &7337468781757878326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPath: {fileID: 3696624342232356208}
+  shadeAnimator: {fileID: 537825537936044893}

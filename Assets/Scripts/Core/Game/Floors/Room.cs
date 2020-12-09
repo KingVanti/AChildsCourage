@@ -1,5 +1,5 @@
 ﻿using System.Collections.Immutable;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 
 namespace AChildsCourage.Game.Floors
 {

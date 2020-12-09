@@ -26,13 +26,14 @@ namespace AChildsCourage.Game.Items
 
         private Vector2 characterPosition;
         private LayerMask wallLayer;
-        private bool isTurnedOn;
 
         #endregion
 
         #region Properties
 
         [AutoInject] internal IInputListener InputListener { set => BindTo(value); }
+
+        public bool IsTurnedOn { get; private set; }
 
         private Vector2 MousePos { get; set; }
 
@@ -68,13 +69,13 @@ namespace AChildsCourage.Game.Items
 
         private void ChangeLightIntensity()
         {
-            lightComponent.intensity = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0, maxFlashlightDistance, maxFlashlightIntensity, 0f),2);
+            lightComponent.intensity = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0, maxFlashlightDistance, maxFlashlightIntensity, 0f), 2);
         }
 
-        private void ChangeLightRadius() 
+        private void ChangeLightRadius()
         {
-            lightComponent.pointLightOuterRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.65f, maxFlashlightOuterRadius),2);
-            lightComponent.pointLightInnerRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.25f, maxFlashlightInnerRadius),2);
+            lightComponent.pointLightOuterRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.65f, maxFlashlightOuterRadius), 2);
+            lightComponent.pointLightInnerRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.25f, maxFlashlightInnerRadius), 2);
         }
 
         private void BindTo(IInputListener listener)
@@ -84,9 +85,9 @@ namespace AChildsCourage.Game.Items
 
         private void UpdateFlashlight()
         {
-            if (!isTurnedOn)
+            if (!IsTurnedOn)
                 return;
-            
+
             FollowMousePosition();
             ChangeLightIntensity();
             ChangeLightRadius();
@@ -106,8 +107,8 @@ namespace AChildsCourage.Game.Items
 
         public override void Toggle()
         {
-            lightComponent.enabled = !isTurnedOn;
-            isTurnedOn = !isTurnedOn;
+            lightComponent.enabled = !IsTurnedOn;
+            IsTurnedOn = !IsTurnedOn;
             UpdateFlashlight();
         }
 

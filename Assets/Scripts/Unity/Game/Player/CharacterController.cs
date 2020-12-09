@@ -4,7 +4,7 @@ using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
-using AChildsCourage.Game.Monsters;
+using AChildsCourage.Game.Shade;
 using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;
@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.Player
         private bool isInvincible;
         private bool gettingKnockedBack;
         private bool canCollectCourage = true;
-        private bool _isSprinting = false;
+        private bool _isSprinting;
         private bool hasStamina = true;
         private float defaultSpeed;
 
@@ -111,11 +111,11 @@ namespace AChildsCourage.Game.Player
             }
         }
 
-        public bool IsSprinting {
-            get {
-                return _isSprinting;
-            }
-            set {
+        public bool IsSprinting
+        {
+            get => _isSprinting;
+            set
+            {
                 _isSprinting = value;
                 UpdateAnimator();
             }
@@ -149,6 +149,8 @@ namespace AChildsCourage.Game.Player
 
         public ItemPickupEntity CurrentItemInRange { get; set; }
 
+        public MovementState CurrentMovmentState => IsSprinting ? MovementState.Sprinting : IsMoving ? MovementState.Walking : MovementState.Standing;
+
         #endregion
 
         #region Methods
@@ -178,7 +180,6 @@ namespace AChildsCourage.Game.Player
 
         private void UpdateAnimator()
         {
-
             animator.speed = IsSprinting ? 1.4f : 1;
 
             animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
@@ -249,38 +250,40 @@ namespace AChildsCourage.Game.Player
 
         private void OnStartSprint(StartSprintEventArgs eventArgs)
         {
-            if (IsMoving) {
-
-                if (hasStamina) {
+            if (IsMoving)
+            {
+                if (hasStamina)
+                {
                     movementSpeed = sprintSpeed;
                     IsSprinting = true;
                 }
 
                 OnSprintStart?.Invoke();
-
             }
         }
 
-        private void OnStopSprint(StopSprintEventArgs eventArgs) 
+        private void OnStopSprint(StopSprintEventArgs eventArgs)
         {
             if (hasStamina && IsSprinting)
                 OnSprintStop?.Invoke();
 
             StopSprinting();
-            
         }
 
-        private void StopSprinting() {
+        private void StopSprinting()
+        {
             IsSprinting = false;
             movementSpeed = defaultSpeed;
         }
 
-        public void OnStaminaDepleted() {
+        public void OnStaminaDepleted()
+        {
             StopSprinting();
             hasStamina = false;
         }
 
-        public void OnStaminaRefresh() {
+        public void OnStaminaRefresh()
+        {
             hasStamina = true;
         }
 
@@ -338,8 +341,9 @@ namespace AChildsCourage.Game.Player
             if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible)
                 return;
 
-            var shade = collision.gameObject.GetComponent<Shade>();
-            TakingDamage(shade.TouchDamage, shade.CurrentDirection);
+            var shade = collision.gameObject.GetComponent<ShadeBrain>();
+            var shadeMovement = collision.gameObject.GetComponent<ShadeMovement>();
+            TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

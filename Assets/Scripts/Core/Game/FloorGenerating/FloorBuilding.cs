@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
-using AChildsCourage.Game.Monsters.Navigation;
+using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.MFunctional;
 using static AChildsCourage.Game.Floors.MRoom;
