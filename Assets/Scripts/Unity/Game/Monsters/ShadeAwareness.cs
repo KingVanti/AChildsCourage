@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using static AChildsCourage.Game.Monsters.MAwareness;
 
 namespace AChildsCourage.Game.Monsters
@@ -8,7 +9,33 @@ namespace AChildsCourage.Game.Monsters
     public class ShadeAwareness : MonoBehaviour
     {
 
+        #region Properties
+
+        public AwarenessLevel CurrentAwarenessLevel
+        {
+            get => currentAwarenessLevel;
+            set
+            {
+                if (currentAwarenessLevel != value)
+                {
+                    currentAwarenessLevel = value;
+                    onAwarenessLevelChanged.Invoke(currentAwarenessLevel);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Subtypes
+
+        [Serializable]
+        public class AwarenessLevelEvent : UnityEvent<AwarenessLevel> { }
+
+        #endregion
+
         #region Fields
+
+        public AwarenessLevelEvent onAwarenessLevelChanged;
 
 #pragma warning disable 649
 
@@ -18,6 +45,7 @@ namespace AChildsCourage.Game.Monsters
 
         private Visibility currentCharacterVisibility;
         private Awareness currentAwareness;
+        private AwarenessLevel currentAwarenessLevel;
 
         #endregion
 
