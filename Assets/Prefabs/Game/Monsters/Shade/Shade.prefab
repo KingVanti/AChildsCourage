@@ -5210,4 +5210,6 @@ MonoBehaviour:
   minDistance: 1
   maxDistance: 15
   maxDistanceMultiplier: 2
-  characterTransform: {fileID: 0}
+  walkingMultiplier: 1.5
+  sprintingMultiplier: 2
+  characterController: {fileID: 0}
