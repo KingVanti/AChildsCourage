@@ -3,7 +3,7 @@ using Pathfinding;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
 
-namespace AChildsCourage.Game.Monsters
+namespace AChildsCourage.Game.Floors
 {
 
     public class NavigationMap : MonoBehaviour
