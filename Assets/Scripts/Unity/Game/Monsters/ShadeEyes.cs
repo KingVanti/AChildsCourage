@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,8 +26,8 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning disable 649
 
         [SerializeField] private float updatesPerSecond;
-        [SerializeField] private float viewRadius;
-        [SerializeField] private float viewAngle;
+        [SerializeField] private VisionCone primaryVision;
+        [SerializeField] private VisionCone secondaryVision;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
@@ -37,6 +38,10 @@ namespace AChildsCourage.Game.Monsters
         #endregion
 
         #region Properties
+
+        public VisionCone PrimaryVision => primaryVision;
+
+        public VisionCone SecondaryVision => secondaryVision;
 
         public Visibility CharacterVisibility
         {
@@ -50,10 +55,6 @@ namespace AChildsCourage.Game.Monsters
                 onCharacterVisibilityChanged.Invoke(characterVisibility);
             }
         }
-
-        public float ViewRadius => viewRadius;
-
-        public float ViewAngle => viewAngle;
 
         private float WaitTime => 1f / updatesPerSecond;
 
@@ -79,19 +80,32 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
-        private void UpdateVision() => CharacterVisibility = CurrentCharacterVisionPoints.Any(IsInView) ? Visibility.Primary : Visibility.NotVisible;
+        private void UpdateVision()
+        {
+            var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
 
-        private bool IsInView(Vector3 visionPoint) =>
-            IsInViewRadius(visionPoint) &&
-            IsInViewAngle(visionPoint) &&
+            CharacterVisibility = visionPoints.Any(IsInPrimaryVision)
+                ? Visibility.Primary
+                : visionPoints.Any(IsInSecondaryVision)
+                    ? Visibility.Secondary
+                    : Visibility.NotVisible;
+        }
+
+        private bool IsInPrimaryVision(Vector3 visionPoint) => IsInView(primaryVision, visionPoint);
+
+        private bool IsInSecondaryVision(Vector3 visionPoint) => IsInView(secondaryVision, visionPoint);
+
+        private bool IsInView(VisionCone cone, Vector3 visionPoint) =>
+            IsInViewRadius(cone, visionPoint) &&
+            IsInViewAngle(cone, visionPoint) &&
             IsUnobstructed(visionPoint);
 
-        private bool IsInViewRadius(Vector3 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= viewRadius;
+        private bool IsInViewRadius(VisionCone cone, Vector3 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= cone.ViewRadius;
 
-        private bool IsInViewAngle(Vector3 visionPoint)
+        private bool IsInViewAngle(VisionCone cone, Vector3 visionPoint)
         {
             var dirToPoint = visionPoint - CurrentPosition;
-            return Vector3.Angle(transform.right, dirToPoint) < viewAngle / 2f;
+            return Vector3.Angle(transform.right, dirToPoint) < cone.ViewAngle / 2f;
         }
 
         private bool IsUnobstructed(Vector3 visionPoint)

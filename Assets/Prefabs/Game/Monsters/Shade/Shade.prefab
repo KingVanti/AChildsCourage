@@ -94,8 +94,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   updatesPerSecond: 4
-  viewRadius: 10
-  viewAngle: 50
+  primaryVision:
+    viewRadius: 10
+    viewAngle: 60
+  secondaryVision:
+    viewRadius: 9
+    viewAngle: 150
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 512
