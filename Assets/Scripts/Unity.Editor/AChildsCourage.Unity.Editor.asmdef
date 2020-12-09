@@ -1,0 +1,17 @@
+{
+    "name": "AChildsCourage.Unity.Editor",
+    "references": [
+        "GUID:a3ff7ba5d0edb2345bcec0591301ad84"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
