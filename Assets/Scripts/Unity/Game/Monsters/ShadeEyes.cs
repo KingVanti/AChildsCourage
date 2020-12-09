@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Monsters
             {
                 if (characterIsInVision == value)
                     return;
-                
+
                 characterIsInVision = value;
                 onCharacterInVisionChanged.Invoke(characterIsInVision);
             }
