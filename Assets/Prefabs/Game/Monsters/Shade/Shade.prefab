@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436321326}
   - component: {fileID: 8837610286537015916}
-  - component: {fileID: 2941871584484145549}
+  - component: {fileID: 4616488904359167555}
   m_Layer: 12
   m_Name: Vision
   m_TagString: Untagged
@@ -66,7 +66,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &2941871584484145549
+--- !u!114 &4616488904359167555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b821764d7d4560b4a9812f387a637c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onCharacterInVisionChanged:
+  onCharacterVisibilityChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2064087353}
@@ -94,8 +94,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   updatesPerSecond: 4
-  viewRadius: 10
-  viewAngle: 50
+  primaryVision:
+    viewRadius: 10
+    viewAngle: 60
+  secondaryVision:
+    viewRadius: 9
+    viewAngle: 150
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -5059,7 +5063,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -1
+    value: 1
 --- !u!114 &3696624342232356208
 MonoBehaviour:
   m_ObjectHideFlags: 0
