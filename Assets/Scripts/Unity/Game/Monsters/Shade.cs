@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Monsters.Navigation;
@@ -9,7 +8,6 @@ using Pathfinding;
 using UnityEngine;
 using UnityEngine.Events;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Monsters.MAwareness;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigation;
 using static AChildsCourage.Game.Monsters.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
@@ -38,18 +36,15 @@ namespace AChildsCourage.Game.Monsters
 
         #region Fields
 
-        public AIPath ai;
-        public Vector3Event OnMinimumDistanceEntered;
-        public UnityEvent OnMinimumDistanceLeft;
-
 #pragma warning disable 649
+        [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
         [SerializeField] private float investigationUpdatesPerSecond;
         [SerializeField] private int touchDamage;
         [Range(1, 50)] [SerializeField] private float minimumDistanceTargetLock;
 #pragma warning restore 649
 
-        private IEnumerable<TilePosition> currentTilesInVision = Enumerable.Empty<TilePosition>();
+        private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
         private InvestigationHistory investigationHistory = Empty;
         private Coroutine investigationCoroutine;
 
@@ -61,13 +56,13 @@ namespace AChildsCourage.Game.Monsters
 
         public int TouchDamage => touchDamage;
 
-        public Vector2 CurrentDirection => ai.velocity.normalized;
+        public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
 
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        private bool IsMoving => ai.velocity != Vector3.zero;
+        private bool IsMoving => aiPath.velocity != Vector3.zero;
 
         #endregion
 
@@ -85,25 +80,25 @@ namespace AChildsCourage.Game.Monsters
             shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
         }
 
-        
-        public void OnTilesInVisionChanged(IEnumerable<TilePosition> positions)
+
+        public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
-            currentTilesInVision = positions;
+            currentTilesInVision = tilesInView;
         }
 
-        
+
         public void OnHuntStarted()
         {
             CancelInvestigation();
         }
 
-        
+
         public void OnHuntEnded()
         {
             StartInvestigation();
         }
 
-        
+
         public void StartInvestigation()
         {
             investigationCoroutine = StartCoroutine(Investigate());
@@ -117,7 +112,7 @@ namespace AChildsCourage.Game.Monsters
             investigationCoroutine = null;
         }
 
-        
+
         private IEnumerator Investigate()
         {
             var investigation = StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, MRng.Random());
@@ -136,11 +131,6 @@ namespace AChildsCourage.Game.Monsters
                     currentTarget = newTarget;
                 }
 
-                if (Mathf.Abs(Vector2.Distance(ai.destination, transform.position)) < minimumDistanceTargetLock)
-                    OnMinimumDistanceEntered?.Invoke(ai.destination);
-                else
-                    OnMinimumDistanceLeft?.Invoke();
-
                 yield return new WaitForSeconds(1f / investigationUpdatesPerSecond);
             }
 
@@ -153,7 +143,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void SetPathFinderTarget(TilePosition tilePosition)
         {
-            ai.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
+            aiPath.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
         }
 
 

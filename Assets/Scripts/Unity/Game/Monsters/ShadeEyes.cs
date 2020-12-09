@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
+using static AChildsCourage.Game.Monsters.ShadeEvents;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Monsters
 {
@@ -12,16 +12,10 @@ namespace AChildsCourage.Game.Monsters
     public class ShadeEyes : MonoBehaviour
     {
 
-        #region Subtypes
-
-        [Serializable]
-        public class VisibilityEvent : UnityEvent<Visibility> { }
-
-        #endregion
-
         #region Fields
 
         public VisibilityEvent onCharacterVisibilityChanged;
+        public TilesInViewEvent onTilesInViewChanged;
 
 #pragma warning disable 649
 
@@ -34,6 +28,7 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning restore 649
 
         private Visibility characterVisibility;
+        private readonly HashSet<TilePosition> currentTilesInView = new HashSet<TilePosition>();
 
         #endregion
 
@@ -56,11 +51,16 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
+        public TilesInView CurrentTilesInView => new TilesInView(currentTilesInView);
+
+
         private float WaitTime => 1f / updatesPerSecond;
 
         private Vector3 CurrentPosition => transform.position;
 
         private IEnumerable<Vector3> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => p.position);
+
+        private Vector3 CurrentTileCenterPosition => CurrentPosition.GetTileCenter();
 
         #endregion
 
@@ -76,11 +76,12 @@ namespace AChildsCourage.Game.Monsters
             while (true)
             {
                 yield return new WaitForSeconds(WaitTime);
-                UpdateVision();
+                UpdateCharacterVision();
+                UpdateTilesInVision();
             }
         }
 
-        private void UpdateVision()
+        private void UpdateCharacterVision()
         {
             var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
 
@@ -113,6 +114,29 @@ namespace AChildsCourage.Game.Monsters
             var dirToPoint = visionPoint - CurrentPosition;
             return !Physics2D.Raycast(CurrentPosition, dirToPoint, dirToPoint.magnitude, obstructionLayers);
         }
+
+        private void UpdateTilesInVision()
+        {
+            currentTilesInView.Clear();
+            currentTilesInView.UnionWith(GetTilePositionsInView());
+            onTilesInViewChanged?.Invoke(CurrentTilesInView);
+        }
+
+        private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(UtilityExtensions.FloorToTile);
+
+        private IEnumerable<Vector3> GetPositionsInView()
+        {
+            for (var dX = -secondaryVision.ViewRadius; dX <= secondaryVision.ViewRadius; dX++)
+                for (var dY = -secondaryVision.ViewRadius; dY <= secondaryVision.ViewRadius; dY++)
+                {
+                    var position = new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
+
+                    if (PositionIsVisible(position))
+                        yield return position;
+                }
+        }
+
+        private bool PositionIsVisible(Vector3 position) => IsInView(secondaryVision, position);
 
         #endregion
 

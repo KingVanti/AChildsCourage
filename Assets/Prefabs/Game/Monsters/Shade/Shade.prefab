@@ -44,28 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da14756bb389b4c42939be0375971446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnObservingTilesChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6287393413328556662}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
-        m_MethodName: OnTilesInVisionChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  visionRadius: 7
-  visionAngle: 90
-  rotationTime: 1
-  updatesPerSecond: 8
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 512
+  rotationDegreesPerSecond: 90
 --- !u!114 &4616488904359167555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +63,21 @@ MonoBehaviour:
       - m_Target: {fileID: 2064087353}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeAwareness, AChildsCourage.Unity
         m_MethodName: set_CurrentCharacterVisibility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTilesInViewChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6287393413328556662}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
+        m_MethodName: OnTilesInVisionChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5112,37 +5106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ai: {fileID: 3696624342232356208}
-  OnMinimumDistanceEntered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8837610286537015916}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
-        m_MethodName: OnMinimumDistanceEntered
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMinimumDistanceLeft:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8837610286537015916}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Vision, AChildsCourage.Unity
-        m_MethodName: OnMinimumDistanceLeft
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  aiPath: {fileID: 3696624342232356208}
   shadeAnimator: {fileID: 537825537936044893}
   investigationUpdatesPerSecond: 8
   touchDamage: 1
