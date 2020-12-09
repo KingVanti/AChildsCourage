@@ -5145,7 +5145,6 @@ MonoBehaviour:
         m_CallState: 2
   shadeAnimator: {fileID: 537825537936044893}
   investigationUpdatesPerSecond: 8
-  targetTransform: {fileID: 0}
   touchDamage: 1
   minimumDistanceTargetLock: 10
 --- !u!114 &3943784392033496761

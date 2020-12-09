@@ -45,7 +45,6 @@ namespace AChildsCourage.Game.Monsters
 #pragma warning disable 649
         [SerializeField] private Animator shadeAnimator;
         [SerializeField] private float investigationUpdatesPerSecond;
-        [SerializeField] private Transform targetTransform;
         [SerializeField] private int touchDamage;
         [Range(1, 50)] [SerializeField] private float minimumDistanceTargetLock;
 #pragma warning restore 649
@@ -137,8 +136,8 @@ namespace AChildsCourage.Game.Monsters
                     currentTarget = newTarget;
                 }
 
-                if (Mathf.Abs(Vector2.Distance(ai.target.position, transform.position)) < minimumDistanceTargetLock)
-                    OnMinimumDistanceEntered?.Invoke(ai.target.position);
+                if (Mathf.Abs(Vector2.Distance(ai.destination, transform.position)) < minimumDistanceTargetLock)
+                    OnMinimumDistanceEntered?.Invoke(ai.destination);
                 else
                     OnMinimumDistanceLeft?.Invoke();
 
@@ -154,8 +153,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void SetPathFinderTarget(TilePosition tilePosition)
         {
-            targetTransform.position = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
-            ai.target = targetTransform;
+            ai.destination = tilePosition.ToVector3() + new Vector3(0.5f, 0.5f, 0);
         }
 
 
