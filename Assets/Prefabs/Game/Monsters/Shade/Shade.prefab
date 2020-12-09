@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436321326}
   - component: {fileID: 8837610286537015916}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Vision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3943784392033496761}
   - component: {fileID: -8586691573789480448}
   - component: {fileID: 2064087353}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Shade
   m_TagString: Shade
   m_Icon: {fileID: 0}

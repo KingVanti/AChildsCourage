@@ -66,7 +66,7 @@ namespace AChildsCourage.Game.Courage {
                 if (courage >= stageThresholds[currentStage])
                     return;
 
-                if(courage < 0) {
+                if (courage < 0) {
                     currentStage = stageThresholds[0];
                 } else {
                     currentStage--;
@@ -74,12 +74,13 @@ namespace AChildsCourage.Game.Courage {
 
             } else {
 
-                if (courage < stageThresholds[currentStage + 1])
-                    return;
-
                 if (courage >= needed) {
-                    currentStage = stageThresholds.Length-1;
+                    currentStage = stageThresholds.Length - 1;
                 } else {
+
+                    if (courage < stageThresholds[currentStage + 1])
+                        return;
+
                     currentStage++;
                 }
             }
