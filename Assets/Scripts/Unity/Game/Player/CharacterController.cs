@@ -263,9 +263,11 @@ namespace AChildsCourage.Game.Player
 
         private void OnStopSprint(StopSprintEventArgs eventArgs) 
         {
-            StopSprinting();
-            if(hasStamina)
+            if (hasStamina && IsSprinting)
                 OnSprintStop?.Invoke();
+
+            StopSprinting();
+            
         }
 
         private void StopSprinting() {
