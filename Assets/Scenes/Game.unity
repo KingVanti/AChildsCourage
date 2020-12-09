@@ -1274,7 +1274,7 @@ GameObject:
   - component: {fileID: 514745770}
   - component: {fileID: 514745769}
   - component: {fileID: 514745771}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1594,7 +1594,7 @@ GameObject:
   - component: {fileID: 701947686}
   - component: {fileID: 701947687}
   - component: {fileID: 701947688}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1856,7 +1856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 756146565}
   - component: {fileID: 756146566}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Static Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2368,7 +2368,7 @@ GameObject:
   - component: {fileID: 1444604455}
   - component: {fileID: 1444604457}
   - component: {fileID: 1444604456}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3135,7 +3135,7 @@ GameObject:
   - component: {fileID: 2074507389}
   - component: {fileID: 2074507390}
   - component: {fileID: 2074507391}
-  m_Layer: 10
+  m_Layer: 13
   m_Name: Bookshelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
