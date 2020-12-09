@@ -68,6 +68,7 @@ namespace AChildsCourage.Game.Player {
 
         private IEnumerator Cooldown() {
             isOnCooldown = true;
+            StopSprinting();
             yield return new WaitForSeconds(staminaDepletedCooldown);
             isOnCooldown = false;
             onRefreshed?.Invoke();
