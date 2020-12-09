@@ -3192,6 +3192,10 @@ PrefabInstance:
       propertyPath: characterVisionPoints.Array.data[1]
       value: 
       objectReference: {fileID: 489588452}
+    - target: {fileID: 4616488904359167555, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: onCharacterVisibilityChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_CurrentCharacterVisibility
+      objectReference: {fileID: 0}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: targetTransform
       value: 

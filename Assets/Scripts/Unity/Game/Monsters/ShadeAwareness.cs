@@ -9,6 +9,13 @@ namespace AChildsCourage.Game.Monsters
     public class ShadeAwareness : MonoBehaviour
     {
 
+        #region Subtypes
+
+        [Serializable]
+        public class AwarenessLevelEvent : UnityEvent<AwarenessLevel> { }
+
+        #endregion
+
         #region Properties
 
         public AwarenessLevel CurrentAwarenessLevel
@@ -24,12 +31,7 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
-        #endregion
-
-        #region Subtypes
-
-        [Serializable]
-        public class AwarenessLevelEvent : UnityEvent<AwarenessLevel> { }
+        public Visibility CurrentCharacterVisibility { get; set; }
 
         #endregion
 
@@ -43,7 +45,6 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning  restore 649
 
-        private Visibility currentCharacterVisibility;
         private Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
 
@@ -51,15 +52,9 @@ namespace AChildsCourage.Game.Monsters
 
         #region Methods
 
-        public void OnCharacterInVisionChanges(Visibility characterVisibility)
-        {
-            currentCharacterVisibility = characterVisibility;
-        }
-
-
         private void Update()
         {
-            if (currentCharacterVisibility == Visibility.NotVisible)
+            if (CurrentCharacterVisibility == Visibility.NotVisible)
                 LooseAwareness();
             else
                 GainAwareness();

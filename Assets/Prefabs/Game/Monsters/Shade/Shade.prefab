@@ -83,7 +83,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2064087353}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeAwareness, AChildsCourage.Unity
-        m_MethodName: OnCharacterInVisionChanges
+        m_MethodName: set_CurrentCharacterVisibility
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5198,4 +5198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onAwarenessLevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
   awarenessLossPerSecond: 0.1
