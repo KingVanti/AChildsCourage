@@ -124,16 +124,13 @@ namespace AChildsCourage.Game.Monsters
 
         private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(UtilityExtensions.FloorToTile);
 
-        private IEnumerable<Vector3> GetPositionsInView()
+        private IEnumerable<Vector3> GetPositionsInView() => GetPositionsInViewCone().Where(PositionIsVisible);
+
+        private IEnumerable<Vector3> GetPositionsInViewCone()
         {
             for (var dX = -secondaryVision.ViewRadius; dX <= secondaryVision.ViewRadius; dX++)
                 for (var dY = -secondaryVision.ViewRadius; dY <= secondaryVision.ViewRadius; dY++)
-                {
-                    var position = new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
-
-                    if (PositionIsVisible(position))
-                        yield return position;
-                }
+                    yield return new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
         }
 
         private bool PositionIsVisible(Vector3 position) => IsInView(secondaryVision, position);
