@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Monsters
         {
             var shadePosition = Eyes.transform.position;
 
-            Handles.color = Eyes.CharacterIsInVision ? Color.red : Color.white;
+            Handles.color = Eyes.CharacterVisibility == Visibility.Primary ? Color.red : Color.white;
 
             Handles.DrawWireArc(shadePosition, Vector3.forward, Vector3.right, 360, Eyes.ViewRadius);
 

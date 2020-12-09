@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Monsters
 {
@@ -9,9 +11,16 @@ namespace AChildsCourage.Game.Monsters
     public class ShadeEyes : MonoBehaviour
     {
 
+        #region Subtypes
+
+        [Serializable]
+        public class VisibilityEvent : UnityEvent<Visibility> { }
+
+        #endregion
+
         #region Fields
 
-        public Events.Bool onCharacterInVisionChanged;
+        public VisibilityEvent onCharacterVisibilityChanged;
 
 #pragma warning disable 649
 
@@ -23,22 +32,22 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning restore 649
 
-        private bool characterIsInVision;
+        private Visibility characterVisibility;
 
         #endregion
 
         #region Properties
 
-        public bool CharacterIsInVision
+        public Visibility CharacterVisibility
         {
-            get => characterIsInVision;
+            get => characterVisibility;
             private set
             {
-                if (characterIsInVision == value)
+                if (characterVisibility == value)
                     return;
 
-                characterIsInVision = value;
-                onCharacterInVisionChanged.Invoke(characterIsInVision);
+                characterVisibility = value;
+                onCharacterVisibilityChanged.Invoke(characterVisibility);
             }
         }
 
@@ -70,7 +79,7 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
-        private void UpdateVision() => CharacterIsInVision = CurrentCharacterVisionPoints.Any(IsInView);
+        private void UpdateVision() => CharacterVisibility = CurrentCharacterVisionPoints.Any(IsInView) ? Visibility.Primary : Visibility.NotVisible;
 
         private bool IsInView(Vector3 visionPoint) =>
             IsInViewRadius(visionPoint) &&

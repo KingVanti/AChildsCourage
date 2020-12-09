@@ -16,22 +16,22 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning  restore 649
 
-        private bool canSeeCharacter;
+        private Visibility currentCharacterVisibility;
         private Awareness currentAwareness;
 
         #endregion
 
         #region Methods
 
-        public void OnCharacterInVisionChanges(bool characterIsInVision)
+        public void OnCharacterInVisionChanges(Visibility characterVisibility)
         {
-            canSeeCharacter = characterIsInVision;
+            currentCharacterVisibility = characterVisibility;
         }
 
 
         private void Update()
         {
-            if (!canSeeCharacter)
+            if (currentCharacterVisibility == Visibility.NotVisible)
                 LooseAwareness();
             else
                 GainAwareness();

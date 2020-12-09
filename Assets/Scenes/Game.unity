@@ -3132,34 +3132,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade
@@ -3212,10 +3184,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 104577611}
-    - target: {fileID: 5749346845843882517, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: graphMask.value
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 4616488904359167555, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: characterVisionPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 489588453}
+    - target: {fileID: 4616488904359167555, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: characterVisionPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 489588452}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: targetTransform
       value: 
@@ -3231,58 +3207,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &2064087352 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1436321325, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-  m_PrefabInstance: {fileID: 2064087350}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2064087353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064087352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b821764d7d4560b4a9812f387a637c42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onCharacterInVisionChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2064087354}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeAwareness, AChildsCourage.Unity
-        m_MethodName: OnCharacterInVisionChanges
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  updatesPerSecond: 4
-  viewRadius: 10
-  viewAngle: 50
-  obstructionLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  characterVisionPoints:
-  - {fileID: 489588453}
-  - {fileID: 489588452}
---- !u!114 &2064087354 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-  m_PrefabInstance: {fileID: 2064087350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2074507388
