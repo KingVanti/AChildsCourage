@@ -12,7 +12,11 @@ namespace AChildsCourage.Game.Monsters
 
         public UnityEvent onShadeSpawned;
 
+#pragma warning disable 649
+
         [SerializeField] private Shade shade;
+
+#pragma warning restore 649
 
         private TilePosition spawnTile;
 
