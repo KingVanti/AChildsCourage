@@ -46,7 +46,7 @@ namespace AChildsCourage.Game.Monsters
 
         public float ViewAngle => viewAngle;
 
-        private int WaitTime => (int) (1f / updatesPerSecond * 1000);
+        private float WaitTime => 1f / updatesPerSecond;
 
         private Vector3 CurrentPosition => transform.position;
 
