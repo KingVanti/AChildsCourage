@@ -23,11 +23,10 @@ namespace AChildsCourage.Game.Monsters
             get => currentAwarenessLevel;
             set
             {
-                if (currentAwarenessLevel != value)
-                {
-                    currentAwarenessLevel = value;
-                    onAwarenessLevelChanged.Invoke(currentAwarenessLevel);
-                }
+                if (currentAwarenessLevel == value)
+                    return;
+                currentAwarenessLevel = value;
+                onAwarenessLevelChanged.Invoke(currentAwarenessLevel);
             }
         }
 
