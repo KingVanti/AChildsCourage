@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1436321326}
   - component: {fileID: 8837610286537015916}
   - component: {fileID: 2941871584484145549}
+  - component: {fileID: 2198169147197282825}
   m_Layer: 12
   m_Name: Vision
   m_TagString: Untagged
@@ -67,6 +68,42 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
 --- !u!114 &2941871584484145549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436321325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b821764d7d4560b4a9812f387a637c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onCharacterInVisionChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2064087353}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.ShadeAwareness, AChildsCourage.Unity
+        m_MethodName: OnCharacterInVisionChanges
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  updatesPerSecond: 4
+  viewRadius: 10
+  viewAngle: 50
+  obstructionLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  characterVisionPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &2198169147197282825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5059,7 +5096,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -1
+    value: 1
 --- !u!114 &3696624342232356208
 MonoBehaviour:
   m_ObjectHideFlags: 0

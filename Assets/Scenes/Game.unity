@@ -3212,6 +3212,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 104577611}
+    - target: {fileID: 5749346845843882517, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: graphMask.value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: targetTransform
       value: 
