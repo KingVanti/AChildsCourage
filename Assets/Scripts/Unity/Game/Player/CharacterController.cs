@@ -179,7 +179,7 @@ namespace AChildsCourage.Game.Player
         private void UpdateAnimator()
         {
 
-            animator.speed = IsSprinting ? 1.2f : 1;
+            animator.speed = IsSprinting ? 1.4f : 1;
 
             animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
             animator.SetBool(MovingAnimatorKey, IsMoving);
@@ -245,22 +245,27 @@ namespace AChildsCourage.Game.Player
                 MovingDirection = eventArgs.MoveDirection;
         }
 
+        #region Sprinting
+
         private void OnStartSprint(StartSprintEventArgs eventArgs)
         {
             if (IsMoving) {
+
                 if (hasStamina) {
                     movementSpeed = sprintSpeed;
                     IsSprinting = true;
                 }
 
                 OnSprintStart?.Invoke();
+
             }
         }
 
         private void OnStopSprint(StopSprintEventArgs eventArgs) 
         {
             StopSprinting();
-            OnSprintStop?.Invoke();
+            if(hasStamina)
+                OnSprintStop?.Invoke();
         }
 
         private void StopSprinting() {
@@ -276,6 +281,8 @@ namespace AChildsCourage.Game.Player
         public void OnStaminaRefresh() {
             hasStamina = true;
         }
+
+        #endregion
 
         private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs)
         {
