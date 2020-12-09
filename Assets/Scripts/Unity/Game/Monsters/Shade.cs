@@ -107,7 +107,7 @@ namespace AChildsCourage.Game.Monsters
         
         public void StartInvestigation()
         {
-            //investigationCoroutine = StartCoroutine(Investigate());
+            investigationCoroutine = StartCoroutine(Investigate());
         }
 
 

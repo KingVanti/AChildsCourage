@@ -69,7 +69,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void Start()
         {
-        //    StartCoroutine(Observe(visionRadius));
+            StartCoroutine(Observe(visionRadius));
         }
 
         private IEnumerator Observe(int radius)
