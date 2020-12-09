@@ -1262,6 +1262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &489588452 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 853869650153857379, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &489588453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 555895927203934551, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,6 +3065,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436321326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade
@@ -3124,6 +3162,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2064087352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1436321325, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+  m_PrefabInstance: {fileID: 2064087350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2064087353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064087352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b821764d7d4560b4a9812f387a637c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updatesPerSecond: 4
+  viewRadius: 10
+  viewAngle: 50
+  obstructionLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  characterVisionPoints:
+  - {fileID: 489588453}
+  - {fileID: 489588452}
 --- !u!1 &2074507388
 GameObject:
   m_ObjectHideFlags: 0
