@@ -5212,4 +5212,6 @@ MonoBehaviour:
   maxDistanceMultiplier: 2
   walkingMultiplier: 1.5
   sprintingMultiplier: 2
+  flashLightMultiplier: 2
   characterController: {fileID: 0}
+  flashlight: {fileID: 0}

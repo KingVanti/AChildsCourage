@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,7 +34,9 @@ namespace AChildsCourage.Game.Monsters
         [SerializeField] private float maxDistanceMultiplier;
         [SerializeField] private float walkingMultiplier;
         [SerializeField] private float sprintingMultiplier;
+        [SerializeField] private float flashLightMultiplier;
         [SerializeField] private CharacterController characterController;
+        [SerializeField] private Flashlight flashlight;
 
 #pragma warning  restore 649
 
@@ -61,7 +64,7 @@ namespace AChildsCourage.Game.Monsters
         public float CurrentAwareness => currentAwareness.Value;
 
 
-        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier;
+        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
         private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
 
@@ -87,6 +90,8 @@ namespace AChildsCourage.Game.Monsters
             }
         }
 
+        private float FlashLightMultiplier => flashlight.IsTurnedOn ? flashLightMultiplier : 1;
+
         #endregion
 
         #region Methods
@@ -108,7 +113,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void GainAwareness()
         {
-            currentAwareness = MAwareness.GainAwareness(currentAwareness, CurrentAwarenessGain.Log() * Time.deltaTime);
+            currentAwareness = MAwareness.GainAwareness(currentAwareness, CurrentAwarenessGain * Time.deltaTime);
         }
 
         #endregion
