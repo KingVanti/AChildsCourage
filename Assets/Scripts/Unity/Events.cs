@@ -9,6 +9,9 @@ namespace AChildsCourage
 
         [Serializable]
         public class Bool : UnityEvent<bool> { }
+        
+        [Serializable]
+        public class Float : UnityEvent<float> { }
 
     }
 

@@ -19,6 +19,7 @@ namespace AChildsCourage.Game.Monsters
         #region Fields
 
         public AwarenessLevelEvent onAwarenessLevelChanged;
+        public Events.Float onAwarenessChanged;
 
 #pragma warning disable 649
 
@@ -49,6 +50,8 @@ namespace AChildsCourage.Game.Monsters
 
         public Visibility CurrentCharacterVisibility { get; set; }
 
+        public float CurrentAwareness => currentAwareness.Value;
+        
         private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier;
 
         private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
@@ -63,6 +66,8 @@ namespace AChildsCourage.Game.Monsters
                 LooseAwareness();
             else
                 GainAwareness();
+            
+            onAwarenessChanged.Invoke(CurrentAwareness);
         }
 
         private void LooseAwareness()
@@ -72,7 +77,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void GainAwareness()
         {
-            currentAwareness = MAwareness.LooseAwareness(currentAwareness, CurrentAwarenessGain * Time.deltaTime);
+            currentAwareness = MAwareness.GainAwareness(currentAwareness, CurrentAwarenessGain * Time.deltaTime);
         }
 
         #endregion
