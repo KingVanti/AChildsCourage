@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using static AChildsCourage.Game.Monsters.MAwareness;
 
 namespace AChildsCourage.Game.Monsters
@@ -15,22 +16,35 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning  restore 649
 
-        private bool playerIsVisible;
+        private bool characterIsInVision;
         private Awareness currentAwareness;
 
         #endregion
 
         #region Methods
 
+        public void OnCharacterInVisionChanges(bool characterIsInVision)
+        {
+            this.characterIsInVision = characterIsInVision;
+        }
+
+
         private void Update()
         {
-            if (!playerIsVisible)
+            if (!characterIsInVision)
                 LooseAwareness();
+            else
+                GainAwareness();
         }
 
         private void LooseAwareness()
         {
             currentAwareness = MAwareness.LooseAwareness(currentAwareness, awarenessLossPerSecond * Time.deltaTime);
+        }
+
+        private void GainAwareness()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
