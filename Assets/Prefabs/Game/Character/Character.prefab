@@ -475,7 +475,7 @@ MonoBehaviour:
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
   movementSpeed: 1.7
-  sprintSpeed: 2.5
+  sprintSpeed: 4
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
   rb: {fileID: 3546636511749136385}
@@ -664,8 +664,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stamina: 100
-  staminaRecoveryRate: 10
-  staminaDrainRate: 20
+  staminaRecoveryRate: 5
+  staminaDrainRate: 10
   staminaDepletedCooldown: 5
   onStaminaDepleted:
     m_PersistentCalls:
