@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using static AChildsCourage.Game.Monsters.MAwareness;
 
 namespace AChildsCourage.Game.Monsters
@@ -10,7 +9,7 @@ namespace AChildsCourage.Game.Monsters
 
         #region Fields
 
-        #pragma  warning disable 649
+#pragma warning disable 649
 
         [SerializeField] private float awarenessLossPerSecond;
 
@@ -33,7 +32,7 @@ namespace AChildsCourage.Game.Monsters
         {
             currentAwareness = MAwareness.LooseAwareness(currentAwareness, awarenessLossPerSecond * Time.deltaTime);
         }
-        
+
         #endregion
 
     }

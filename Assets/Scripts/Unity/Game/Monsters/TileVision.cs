@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.Monsters
         #region Subclasses
 
         [Serializable]
-        public class TilePositionsEvent : UnityEvent<List<TilePosition>> { }
+        public class TilePositionsEvent : UnityEvent<IEnumerable<TilePosition>> { }
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace AChildsCourage.Game.Monsters
         private bool isWatching;
         private bool isNearTarget;
         private Vector3 targetPos = Vector3.zero;
-        private readonly List<TilePosition> currentlyObservedTilePositions = new List<TilePosition>();
+        private readonly HashSet<TilePosition> currentlyObservedTilePositions = new HashSet<TilePosition>();
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace AChildsCourage.Game.Monsters
                     StartCoroutine(TurnToRotation(new Vector3(0, 0, Random.Range(0, 360))));
 
                 currentlyObservedTilePositions.Clear();
-                currentlyObservedTilePositions.AddRange(GetTilePositionsInView(radius));
+                currentlyObservedTilePositions.UnionWith(GetTilePositionsInView(radius));
                 OnObservingTilesChanged?.Invoke(currentlyObservedTilePositions);
 
                 yield return new WaitForSeconds(1f / updatesPerSecond);
