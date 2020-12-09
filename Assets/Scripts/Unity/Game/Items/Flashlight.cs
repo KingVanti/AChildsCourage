@@ -15,8 +15,10 @@ namespace AChildsCourage.Game.Items
 #pragma warning disable 649
 
         [SerializeField] private Light2D lightComponent;
-        [SerializeField] [Range(0.25f, 10.0f)] private float maxFlashlightDistance;
-        [SerializeField] [Range(0.05f, 1.0f)] private float maxFlashlightIntensity;
+        [SerializeField] [Range(0.25f, 50.0f)] private float maxFlashlightDistance;
+        [SerializeField] [Range(0.05f, 1.5f)] private float maxFlashlightIntensity;
+        [SerializeField] [Range(1f, 20f)] private float maxFlashlightOuterRadius;
+        [SerializeField] [Range(0.15f, 2f)] private float maxFlashlightInnerRadius;
 
 #pragma warning restore 649
 
@@ -39,6 +41,8 @@ namespace AChildsCourage.Game.Items
         private float CharacterDistance => Mathf.Abs(Vector2.Distance(ProjectedMousePos, characterPosition + Vector2.up / 2));
 
         private RaycastHit2D RaycastMouseToCharacter => Physics2D.Raycast(characterPosition, (ProjectedMousePos - characterPosition).normalized, CharacterDistance, wallLayer);
+
+        private float DistanceToCharacter => Vector2.Distance(transform.position, characterPosition);
 
         #endregion
 
@@ -64,7 +68,13 @@ namespace AChildsCourage.Game.Items
 
         private void ChangeLightIntensity()
         {
-            lightComponent.intensity = Mathf.Clamp(Map(Mathf.Abs(Vector2.Distance(transform.position, characterPosition)), 0.5f, maxFlashlightDistance, maxFlashlightIntensity, 0f), 0, maxFlashlightIntensity);
+            lightComponent.intensity = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0, maxFlashlightDistance, maxFlashlightIntensity, 0f),2);
+        }
+
+        private void ChangeLightRadius() 
+        {
+            lightComponent.pointLightOuterRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.65f, maxFlashlightOuterRadius),2);
+            lightComponent.pointLightInnerRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.25f, maxFlashlightInnerRadius),2);
         }
 
         private void BindTo(IInputListener listener)
@@ -79,6 +89,7 @@ namespace AChildsCourage.Game.Items
             
             FollowMousePosition();
             ChangeLightIntensity();
+            ChangeLightRadius();
         }
 
         private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
