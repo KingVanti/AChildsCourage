@@ -341,7 +341,7 @@ namespace AChildsCourage.Game.Player
             if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible)
                 return;
 
-            var shade = collision.gameObject.GetComponent<Shade>();
+            var shade = collision.gameObject.GetComponent<ShadeBrain>();
             var shadeMovement = collision.gameObject.GetComponent<ShadeMovement>();
             TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }

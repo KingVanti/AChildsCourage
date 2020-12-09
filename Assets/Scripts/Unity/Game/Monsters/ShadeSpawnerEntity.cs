@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Monsters
 
 #pragma warning disable 649
 
-        [SerializeField] private Shade shade;
+        [SerializeField] private ShadeBrain shadeBrain;
 
 #pragma warning restore 649
 
@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Monsters
 
         private void TeleportShadeToSpawn()
         {
-            shade.transform.position = spawnTile.ToVector3();
+            shadeBrain.transform.position = spawnTile.ToVector3();
         }
 
 

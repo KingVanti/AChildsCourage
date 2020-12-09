@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Monsters
 {
 
     [UseDi]
-    public class Shade : MonoBehaviour
+    public class ShadeBrain : MonoBehaviour
     {
 
         #region Fields
