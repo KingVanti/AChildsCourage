@@ -82,7 +82,7 @@ namespace AChildsCourage.Game.Shade.Navigation
             (aoi, monsterState) =>
                 DistanceBetweenAoiAndMonster(aoi, monsterState)
                     .Clamp(MinDistance, MaxDistance)
-                    .Remap(MinDistance, MaxDistance, 5, 0);
+                    .RemapSquared(MaxDistance, MinDistance, 0, 10);
 
         private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
@@ -106,11 +106,11 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         #region Values
 
-        private const float MinDistance = 10;
-        private const float MaxDistance = 40;
+        private const float MinDistance = 30;
+        private const float MaxDistance = 60;
         private const float MinTime = 1;
         private const float MaxTime = 300;
-        private const float CompletionExplorationRation = 0.5f;
+        private const float CompletionExplorationRation = 0.75f;
 
         #endregion
 
