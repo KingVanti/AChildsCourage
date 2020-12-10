@@ -127,7 +127,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
-        internal delegate Aoi ChooseInvestigationAoi(FloorState floorState, ShadeState shadeState, CreateRng rng);
+        private delegate Aoi ChooseInvestigationAoi(FloorState floorState, ShadeState shadeState, CreateRng rng);
 
         internal delegate float CalculateAoiWeight(Aoi aoi, ShadeState shadeState);
 
