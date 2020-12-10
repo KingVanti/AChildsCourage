@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
@@ -35,7 +34,7 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning restore 649
 
-        private HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
+        private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
@@ -94,7 +93,7 @@ namespace AChildsCourage.Game.Shade
 
         public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
         {
-            if (awarenessLevel == AwarenessLevel.Hunting)
+            if (behaviourType != ShadeBehaviourType.DirectHunting && awarenessLevel == AwarenessLevel.Hunting)
                 StartBehaviour(DirectHunt);
         }
 
@@ -119,7 +118,7 @@ namespace AChildsCourage.Game.Shade
                 investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
                 CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
-            
+
             bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
 
             void ProgressInvestigation()
@@ -135,10 +134,10 @@ namespace AChildsCourage.Game.Shade
             {
                 var completed = investigationBehaviour.CompleteInvestigation();
                 investigationHistory = investigationHistory.Add(completed);
-                
+
                 StartBehaviour(Investigate);
             }
-            
+
             StartInvestigation();
 
             while (InvestigationIsInProgress())
@@ -191,6 +190,11 @@ namespace AChildsCourage.Game.Shade
                 CurrentTargetPosition = indirectHuntingBehaviour.TargetPosition;
             }
 
+            void StopHunt()
+            {
+                StartBehaviour(Investigate);
+            }
+
             StartHunt();
 
             while (HuntIsInProgress())
@@ -198,6 +202,8 @@ namespace AChildsCourage.Game.Shade
                 ProgressHunt();
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
+
+            StopHunt();
         }
 
         #endregion

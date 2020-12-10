@@ -5,6 +5,8 @@ namespace AChildsCourage.Game.Shade
 
     public class IndirectHuntingBehaviour
     {
+
+        private const int HuntCancelTime = 5;
         
         private Vector3 lastSeenPosition;
         private float lastSeenTime;
@@ -34,7 +36,10 @@ namespace AChildsCourage.Game.Shade
         public void ProgressHunt()
         {
             TargetPosition = PredictedPosition;
+
+            HuntIsInProgress = TimeSinceLastSeen < HuntCancelTime;
         }
+        
     }
 
 }
