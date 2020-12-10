@@ -135,6 +135,8 @@ namespace AChildsCourage.Game.Shade
             {
                 var completed = investigationBehaviour.CompleteInvestigation();
                 investigationHistory = investigationHistory.Add(completed);
+                
+                StartBehaviour(Investigate);
             }
             
             StartInvestigation();
