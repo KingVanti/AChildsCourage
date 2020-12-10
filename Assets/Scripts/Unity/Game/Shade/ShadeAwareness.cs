@@ -73,6 +73,7 @@ namespace AChildsCourage.Game.Shade
 
                 currentAwareness = value;
                 onAwarenessChanged.Invoke(currentAwareness.Value);
+                UpdateAwarenessLevel();
             }
         }
 
@@ -125,6 +126,16 @@ namespace AChildsCourage.Game.Shade
         private void GainAwareness()
         {
             CurrentAwareness = MAwareness.GainAwareness(CurrentAwareness, CurrentAwarenessGain * Time.deltaTime);
+        }
+
+        private void UpdateAwarenessLevel()
+        {
+            if (CurrentAwareness.Value >= minHuntingAwareness)
+                CurrentAwarenessLevel = AwarenessLevel.Hunting;
+            else if (CurrentAwareness.Value >= minSuspiciousAwareness)
+                CurrentAwarenessLevel = AwarenessLevel.Suspicious;
+            else
+                CurrentAwarenessLevel = AwarenessLevel.Oblivious;
         }
 
         #endregion
