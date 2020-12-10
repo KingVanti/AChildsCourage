@@ -1,29 +1,41 @@
 ﻿using AChildsCourage.Game.Shade;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Game.UI {
-    public class Veins : MonoBehaviour {
+namespace AChildsCourage.Game.UI
+{
+
+    public class Veins : MonoBehaviour
+    {
+
+        #region Fields
+
+#pragma warning  disable 649
 
         [SerializeField] private Image image;
         [SerializeField] private Sprite defaultVeins;
         [SerializeField] private Sprite activeVeins;
 
-        public void SetTransparency(float awareness) {
-            image.color = new Color(image.color.r, image.color.g, image.color.b,awareness);
+#pragma warning  restore 649
+
+        #endregion
+
+        #region Methods
+
+        public void SetTransparency(float awareness)
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, awareness);
         }
 
-        public void SetVeinSprite(AwarenessLevel level) {
-
-            if(level == AwarenessLevel.Hunting) {
+        public void SetVeinSprite(AwarenessLevel level)
+        {
+            if (level == AwarenessLevel.Hunting)
                 image.sprite = activeVeins;
-            } else {
+            else
                 image.sprite = defaultVeins;
-            }
-
         }
+
+        #endregion
 
     }
 
