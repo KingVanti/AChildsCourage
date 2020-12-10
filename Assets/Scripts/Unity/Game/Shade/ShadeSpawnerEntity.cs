@@ -36,6 +36,7 @@ namespace AChildsCourage.Game.Shade
         public void OnFloorBuilt(Floor floor)
         {
             spawnTile = GetChunkCenter(floor.EndRoomChunkPosition);
+            SpawnShade();
         }
 
     }

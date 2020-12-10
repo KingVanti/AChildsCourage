@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Shade.Navigation;
@@ -16,6 +17,12 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrain : MonoBehaviour
     {
 
+        #region Subtypes
+
+        private delegate IEnumerator BehaviourFunction();
+
+        #endregion
+
         #region Fields
 
         public Events.Vector3 onTargetPositionChanged;
@@ -28,13 +35,14 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning restore 649
 
-        private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
+        private HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
-        private Coroutine investigationCoroutine;
-        private Coroutine huntingCoroutine;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
-        private readonly HuntingBehaviour huntingBehaviour = new HuntingBehaviour();
+        private readonly DirectHuntingBehaviour directHuntingBehaviour = new DirectHuntingBehaviour();
+        private readonly IndirectHuntingBehaviour indirectHuntingBehaviour = new IndirectHuntingBehaviour();
+        private Coroutine behaviourRoutine;
+        private ShadeBehaviourType behaviourType;
 
         #endregion
 
@@ -43,7 +51,7 @@ namespace AChildsCourage.Game.Shade
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
         public int TouchDamage => touchDamage;
-        
+
         public Vector3 CurrentTargetPosition
         {
             get => currentTargetPosition;
@@ -55,15 +63,15 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        private bool IsCurrentlyInvestigating => investigationCoroutine != null;
+        private bool IsInvestigating => behaviourType == ShadeBehaviourType.Investigating;
 
-        private bool IsCurrentlyHunting => huntingCoroutine != null;
+        private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
 
         private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
 
-        private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
+        private ShadeState CurrentState => new ShadeState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
@@ -71,82 +79,127 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
+        public void OnNightPrepared()
+        {
+            StartBehaviour(Investigate);
+        }
+
+        private void StartBehaviour(BehaviourFunction behaviourFunction)
+        {
+            if (behaviourRoutine != null)
+                StopCoroutine(behaviourRoutine);
+            behaviourRoutine = StartCoroutine(behaviourFunction());
+        }
+
+
         public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
         {
             if (awarenessLevel == AwarenessLevel.Hunting)
-                StartHunt();
-        }
-
-        private void StartHunt()
-        {
-            if (IsCurrentlyInvestigating)
-                CancelInvestigation();
-
-            huntingBehaviour.StartHunt(characterRigidbody);
-            huntingCoroutine = StartCoroutine(Hunt());
-        }
-
-        private void CancelInvestigation()
-        {
-            StopCoroutine(investigationCoroutine);
-            investigationCoroutine = null;
+                StartBehaviour(DirectHunt);
         }
 
 
         public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
-            currentTilesInVision = tilesInView;
+            investigatedPositions.UnionWith(tilesInView);
         }
 
 
         public void OnCharacterVisibilityChanged(Visibility characterVisibility)
         {
-            if (characterVisibility == Visibility.NotVisible && IsCurrentlyHunting)
-                huntingBehaviour.OnLostPlayer();
-        }
-        
-        public void StartInvestigation()
-        {
-            investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
-            CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-
-            investigationCoroutine = StartCoroutine(Investigate());
+            if (characterVisibility == Visibility.NotVisible && IsHuntingDirectly)
+                StartBehaviour(IndirectHunt);
         }
 
         private IEnumerator Investigate()
         {
-            while (investigationBehaviour.InvestigationIsInProgress)
+            void StartInvestigation()
             {
-                investigationBehaviour.ProgressInvestigation(currentTilesInVision);
+                behaviourType = ShadeBehaviourType.Investigating;
+                investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
+                CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            }
+            
+            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
+
+            void ProgressInvestigation()
+            {
+                investigationBehaviour.ProgressInvestigation(CurrentState, investigatedPositions);
+                investigatedPositions.Clear();
 
                 if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
                     CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            }
 
+            void CompleteInvestigation()
+            {
+                var completed = investigationBehaviour.CompleteInvestigation();
+                investigationHistory = investigationHistory.Add(completed);
+                
+                StartBehaviour(Investigate);
+            }
+            
+            StartInvestigation();
+
+            while (InvestigationIsInProgress())
+            {
+                ProgressInvestigation();
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
 
             CompleteInvestigation();
         }
 
-        private void CompleteInvestigation()
+        private IEnumerator DirectHunt()
         {
-            var completed = investigationBehaviour.CompleteInvestigation();
-            investigationHistory = investigationHistory.Add(completed);
-
-            StartInvestigation();
-        }
-
-        private IEnumerator Hunt()
-        {
-            while (huntingBehaviour.HuntIsInProgress)
+            void StartHunt()
             {
-                huntingBehaviour.ProgressHunt();
-                CurrentTargetPosition = huntingBehaviour.TargetPosition;
+                behaviourType = ShadeBehaviourType.DirectHunting;
+                directHuntingBehaviour.StartHunt(characterRigidbody);
+            }
 
+            bool HuntIsInProgress() => directHuntingBehaviour.HuntIsInProgress;
+
+            void ProgressHunt()
+            {
+                directHuntingBehaviour.ProgressHunt();
+                CurrentTargetPosition = directHuntingBehaviour.TargetPosition;
+            }
+
+            StartHunt();
+
+            while (HuntIsInProgress())
+            {
+                ProgressHunt();
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
         }
-        
+
+        private IEnumerator IndirectHunt()
+        {
+            void StartHunt()
+            {
+                behaviourType = ShadeBehaviourType.IndirectHunting;
+                indirectHuntingBehaviour.StartIndirectHunt(characterRigidbody);
+            }
+
+            bool HuntIsInProgress() => indirectHuntingBehaviour.HuntIsInProgress;
+
+            void ProgressHunt()
+            {
+                indirectHuntingBehaviour.ProgressHunt();
+                CurrentTargetPosition = indirectHuntingBehaviour.TargetPosition;
+            }
+
+            StartHunt();
+
+            while (HuntIsInProgress())
+            {
+                ProgressHunt();
+                yield return new WaitForSeconds(BehaviourUpdateWaitTime);
+            }
+        }
+
         #endregion
 
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.MCustomMath;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -83,9 +82,9 @@ namespace AChildsCourage.Game.Shade.Navigation
             (aoi, monsterState) =>
                 DistanceBetweenAoiAndMonster(aoi, monsterState)
                     .Clamp(MinDistance, MaxDistance)
-                    .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
+                    .RemapSquared(MaxDistance, MinDistance, 0, 10);
 
-        private static Func<Aoi, MonsterState, float> DistanceBetweenAoiAndMonster =>
+        private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
                 GetDistanceBetween(aoi.Center, GetEntityTile(monsterState.Position));
 
@@ -94,10 +93,10 @@ namespace AChildsCourage.Game.Shade.Navigation
             (aoi, monsterState) =>
                 SecondsSinceLastVisit(aoi, monsterState)
                     .IfNull(MaxTime)
-                    .Map(seconds => seconds.Clamp(MinTime, MaxTime))
-                    .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
+                    .Clamp(MinTime, MaxTime)
+                    .Remap(MinTime, MaxTime, 0, 10);
 
-        private static Func<Aoi, MonsterState, float?> SecondsSinceLastVisit =>
+        private static Func<Aoi, ShadeState, float?> SecondsSinceLastVisit =>
             (aoi, monsterState) =>
                 monsterState.InvestigationHistory.FindLastIn(aoi.Index)
                             .Bind(i => monsterState.CurrentTime - i.CompletionTime)
@@ -107,17 +106,17 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         #region Values
 
-        private const float MinDistance = 10;
-        private const float MaxDistance = 100;
+        private const float MinDistance = 30;
+        private const float MaxDistance = 60;
         private const float MinTime = 1;
         private const float MaxTime = 300;
-        private const float CompletionExplorationRation = 0.5f;
+        private const float CompletionExplorationRation = 0.75f;
 
         #endregion
 
         #region Types
 
-        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRng rng);
+        public delegate Investigation StartInvestigation(FloorState floorState, ShadeState shadeState, CreateRng rng);
 
         public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
 
@@ -127,9 +126,9 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
-        internal delegate Aoi ChooseInvestigationAoi(FloorState floorState, MonsterState monsterState, CreateRng rng);
+        private delegate Aoi ChooseInvestigationAoi(FloorState floorState, ShadeState shadeState, CreateRng rng);
 
-        internal delegate float CalculateAoiWeight(Aoi aoi, MonsterState monsterState);
+        internal delegate float CalculateAoiWeight(Aoi aoi, ShadeState shadeState);
 
 
         public readonly struct Investigation

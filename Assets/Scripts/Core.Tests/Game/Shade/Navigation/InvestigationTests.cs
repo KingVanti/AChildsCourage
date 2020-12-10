@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var started = StartNew(
                 new FloorState(new Aoi()),
-                new MonsterState(new EntityPosition(), DateTime.MinValue, Empty),
+                new ShadeState(new EntityPosition(), DateTime.MinValue, Empty),
                 MRng.Always(0));
 
             // When
@@ -169,7 +169,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(10, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(20, 0));
-            var monsterState = new MonsterState(new EntityPosition(0, 0), DateTime.MinValue, Empty);
+            var monsterState = new ShadeState(new EntityPosition(0, 0), DateTime.MinValue, Empty);
 
             // When
 
@@ -188,7 +188,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
+            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
                                                     new CompletedInvestigation((AoiIndex) 1, new DateTime(2020, 1, 1, 1, 1, 0)),
                                                     new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
@@ -209,7 +209,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new MonsterState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
+            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
                                                     new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
             // When
