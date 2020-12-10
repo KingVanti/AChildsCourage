@@ -5161,8 +5161,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  investigationUpdatesPerSecond: 8
+  behaviourUpdatesPerSecond: 10
   touchDamage: 1
+  characterTransform: {fileID: 0}
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,16 +22,19 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning disable 649
 
-        [SerializeField] private float investigationUpdatesPerSecond;
+        [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
+        [SerializeField] private Transform characterTransform;
 
 #pragma warning restore 649
 
         private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
         private InvestigationHistory investigationHistory = Empty;
         private Coroutine investigationCoroutine;
-        private TilePosition currentTargetTile;
+        private Coroutine huntingCoroutine;
+        private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
+        private readonly HuntingBehaviour huntingBehaviour = new HuntingBehaviour();
 
         #endregion
 
@@ -44,19 +47,19 @@ namespace AChildsCourage.Game.Shade
 
         private bool IsCurrentlyInvestigating => investigationCoroutine != null;
 
-        private float InvestigationUpdateWaitTime => 1f / investigationUpdatesPerSecond;
+        private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
 
-        private TilePosition CurrentTargetTile
+        private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
+
+        private Vector3 CurrentTargetPosition
         {
-            get => currentTargetTile;
+            get => currentTargetPosition;
             set
             {
-                currentTargetTile = value;
-                onTargetPositionChanged.Invoke(CurrentTargetPosition);
+                currentTargetPosition = value;
+                onTargetPositionChanged.Invoke(currentTargetPosition);
             }
         }
-
-        private Vector3 CurrentTargetPosition => currentTargetTile.GetTileCenter();
 
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
@@ -76,6 +79,15 @@ namespace AChildsCourage.Game.Shade
         {
             if (IsCurrentlyInvestigating)
                 CancelInvestigation();
+
+            huntingBehaviour.StartHunt(characterTransform);
+            huntingCoroutine = StartCoroutine(Hunt());
+        }
+
+        private void CancelInvestigation()
+        {
+            StopCoroutine(investigationCoroutine);
+            investigationCoroutine = null;
         }
 
 
@@ -89,18 +101,10 @@ namespace AChildsCourage.Game.Shade
         {
             investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
             CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-            
+
             investigationCoroutine = StartCoroutine(Investigate());
         }
 
-
-        private void CancelInvestigation()
-        {
-            StopCoroutine(investigationCoroutine);
-            investigationCoroutine = null;
-        }
-        
-        
         private IEnumerator Investigate()
         {
             while (investigationBehaviour.InvestigationIsInProgress)
@@ -110,7 +114,7 @@ namespace AChildsCourage.Game.Shade
                 if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
                     CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
 
-                yield return new WaitForSeconds(InvestigationUpdateWaitTime);
+                yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
 
             CompleteInvestigation();
@@ -124,7 +128,15 @@ namespace AChildsCourage.Game.Shade
             StartInvestigation();
         }
 
-        private void OnDestroy() => CancelInvestigation();
+        private IEnumerator Hunt()
+        {
+            while (huntingBehaviour.HuntIsInProgress)
+            {
+                CurrentTargetPosition = huntingBehaviour.TargetPosition;
+
+                yield return new WaitForSeconds(BehaviourUpdateWaitTime);
+            }
+        }
 
         #endregion
 
