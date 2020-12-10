@@ -35,12 +35,14 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float walkingMultiplier;
         [SerializeField] private float sprintingMultiplier;
         [SerializeField] private float flashLightMultiplier;
+        [SerializeField] private float minSuspiciousAwareness;
+        [SerializeField] private float minHuntingAwareness;
         [SerializeField] private CharacterController characterController;
         [SerializeField] private Flashlight flashlight;
 
 #pragma warning  restore 649
 
-        private MAwareness.Awareness currentAwareness;
+        private Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
 
         #endregion
@@ -61,7 +63,18 @@ namespace AChildsCourage.Game.Shade
 
         public Visibility CurrentCharacterVisibility { get; set; }
 
-        public float CurrentAwareness => currentAwareness.Value;
+        public Awareness CurrentAwareness
+        {
+            get => currentAwareness;
+            private set
+            {
+                if (currentAwareness.Equals(value))
+                    return;
+
+                currentAwareness = value;
+                onAwarenessChanged.Invoke(currentAwareness.Value);
+            }
+        }
 
 
         private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
@@ -102,18 +115,16 @@ namespace AChildsCourage.Game.Shade
                 LooseAwareness();
             else
                 GainAwareness();
-
-            onAwarenessChanged.Invoke(CurrentAwareness);
         }
 
         private void LooseAwareness()
         {
-            currentAwareness = MAwareness.LooseAwareness(currentAwareness, awarenessLossPerSecond * Time.deltaTime);
+            CurrentAwareness = MAwareness.LooseAwareness(CurrentAwareness, awarenessLossPerSecond * Time.deltaTime);
         }
 
         private void GainAwareness()
         {
-            currentAwareness = MAwareness.GainAwareness(currentAwareness, CurrentAwarenessGain * Time.deltaTime);
+            CurrentAwareness = MAwareness.GainAwareness(CurrentAwareness, CurrentAwarenessGain * Time.deltaTime);
         }
 
         #endregion
