@@ -134,7 +134,7 @@
 	<object class="MixerBusFader" id="{14e6d835-bc52-41e7-b647-0fd53a9f5c69}" />
 	<object class="PitchShifterEffect" id="{0eec8efa-5e8b-4c4e-a409-1e2eaceb1133}">
 		<property name="pitch">
-			<value>1.05000007</value>
+			<value>1.20000005</value>
 		</property>
 		<property name="fftSize">
 			<value>4096</value>
