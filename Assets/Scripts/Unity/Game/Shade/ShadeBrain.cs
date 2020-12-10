@@ -9,6 +9,7 @@ using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigation;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -20,7 +21,7 @@ namespace AChildsCourage.Game.Shade
         #region Fields
 
         public Events.Vector3 onTargetPositionChanged;
-        
+
 #pragma warning disable 649
 
         [SerializeField] private float investigationUpdatesPerSecond;
@@ -29,7 +30,7 @@ namespace AChildsCourage.Game.Shade
 #pragma warning restore 649
 
         private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
-        private MInvestigationHistory.InvestigationHistory investigationHistory = Empty;
+        private InvestigationHistory investigationHistory = Empty;
         private Coroutine investigationCoroutine;
 
         #endregion
@@ -82,7 +83,7 @@ namespace AChildsCourage.Game.Shade
 
         private IEnumerator Investigate()
         {
-            var investigation = StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, MRng.Random());
+            var investigation = StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, Random());
 
             var currentTarget = NextTarget(investigation, Position);
             onTargetPositionChanged.Invoke(currentTarget.GetTileCenter());
