@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Shade.Navigation;
+﻿using System.Collections.Generic;
+using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigation;
@@ -29,9 +30,9 @@ namespace AChildsCourage.Game.Shade
         private void UpdateTargetTile(EntityPosition position) => CurrentTargetTile = NextTarget(currentInvestigation, position);
 
         
-        public void ProgressInvestigation(TilesInView tilesInView)
+        public void ProgressInvestigation(IEnumerable<TilePosition> investigatedTiles)
         {
-            currentInvestigation = Progress(currentInvestigation, tilesInView);
+            currentInvestigation = Progress(currentInvestigation, investigatedTiles);
         }
 
         

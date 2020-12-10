@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Shade.Navigation;
@@ -34,7 +35,7 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning restore 649
 
-        private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
+        private HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
@@ -100,7 +101,7 @@ namespace AChildsCourage.Game.Shade
 
         public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
-            currentTilesInVision = tilesInView;
+            investigatedPositions.UnionWith(tilesInView);
         }
 
 
@@ -118,23 +119,24 @@ namespace AChildsCourage.Game.Shade
                 investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
                 CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
+            
+            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
+
+            void ProgressInvestigation()
+            {
+                investigationBehaviour.ProgressInvestigation(investigatedPositions);
+                investigatedPositions.Clear();
+
+                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
+                    CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            }
 
             void CompleteInvestigation()
             {
                 var completed = investigationBehaviour.CompleteInvestigation();
                 investigationHistory = investigationHistory.Add(completed);
             }
-
-            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
-
-            void ProgressInvestigation()
-            {
-                investigationBehaviour.ProgressInvestigation(currentTilesInVision);
-
-                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
-                    CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-            }
-
+            
             StartInvestigation();
 
             while (InvestigationIsInProgress())
