@@ -229,7 +229,7 @@ namespace AChildsCourage.Game.Player
 
         private void Move()
         {
-            transform.Translate(MovingDirection * (Time.fixedDeltaTime * movementSpeed), Space.World);
+            rb.velocity = MovingDirection * movementSpeed;
             OnPositionChanged.Invoke(transform.position);
         }
 

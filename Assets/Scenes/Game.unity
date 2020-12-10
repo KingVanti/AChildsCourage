@@ -400,11 +400,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &104577613 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 489588450}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &118822145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,6 +1359,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &489588455 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 3546636511749136385, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+  m_PrefabInstance: {fileID: 489588450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,9 +3209,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489588452}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: characterTransform
+      propertyPath: characterRigidbody
       value: 
-      objectReference: {fileID: 104577613}
+      objectReference: {fileID: 489588455}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!114 &2064087351 stripped

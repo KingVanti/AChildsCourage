@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Shade
 
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
-        [SerializeField] private Transform characterTransform;
+        [SerializeField] private Rigidbody2D characterRigidbody;
 
 #pragma warning restore 649
 
@@ -43,15 +43,8 @@ namespace AChildsCourage.Game.Shade
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
         public int TouchDamage => touchDamage;
-
-
-        private bool IsCurrentlyInvestigating => investigationCoroutine != null;
-
-        private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
-
-        private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
-
-        private Vector3 CurrentTargetPosition
+        
+        public Vector3 CurrentTargetPosition
         {
             get => currentTargetPosition;
             set
@@ -60,6 +53,15 @@ namespace AChildsCourage.Game.Shade
                 onTargetPositionChanged.Invoke(currentTargetPosition);
             }
         }
+
+
+        private bool IsCurrentlyInvestigating => investigationCoroutine != null;
+
+        private bool IsCurrentlyHunting => huntingCoroutine != null;
+
+        private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
+
+        private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
 
         private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
 
@@ -80,7 +82,7 @@ namespace AChildsCourage.Game.Shade
             if (IsCurrentlyInvestigating)
                 CancelInvestigation();
 
-            huntingBehaviour.StartHunt(characterTransform);
+            huntingBehaviour.StartHunt(characterRigidbody);
             huntingCoroutine = StartCoroutine(Hunt());
         }
 
@@ -97,6 +99,12 @@ namespace AChildsCourage.Game.Shade
         }
 
 
+        public void OnCharacterVisibilityChanged(Visibility characterVisibility)
+        {
+            if (characterVisibility == Visibility.NotVisible && IsCurrentlyHunting)
+                huntingBehaviour.OnLostPlayer();
+        }
+        
         public void StartInvestigation()
         {
             investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
@@ -132,12 +140,13 @@ namespace AChildsCourage.Game.Shade
         {
             while (huntingBehaviour.HuntIsInProgress)
             {
+                huntingBehaviour.ProgressHunt();
                 CurrentTargetPosition = huntingBehaviour.TargetPosition;
 
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
         }
-
+        
         #endregion
 
     }
