@@ -38,7 +38,8 @@ namespace AChildsCourage.Game.Shade
         private InvestigationHistory investigationHistory = Empty;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
-        private readonly HuntingBehaviour huntingBehaviour = new HuntingBehaviour();
+        private readonly DirectHuntingBehaviour directHuntingBehaviour = new DirectHuntingBehaviour();
+        private readonly IndirectHuntingBehaviour indirectHuntingBehaviour = new IndirectHuntingBehaviour();
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
 
@@ -63,7 +64,7 @@ namespace AChildsCourage.Game.Shade
 
         private bool IsInvestigating => behaviourType == ShadeBehaviourType.Investigating;
 
-        private bool IsHunting => behaviourType == ShadeBehaviourType.DirectHunting;
+        private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
 
@@ -93,9 +94,9 @@ namespace AChildsCourage.Game.Shade
         public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
         {
             if (awarenessLevel == AwarenessLevel.Hunting)
-                StartBehaviour(Hunt);
+                StartBehaviour(DirectHunt);
         }
-        
+
 
         public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
@@ -105,8 +106,8 @@ namespace AChildsCourage.Game.Shade
 
         public void OnCharacterVisibilityChanged(Visibility characterVisibility)
         {
-            if (characterVisibility == Visibility.NotVisible && IsHunting)
-                huntingBehaviour.OnLostPlayer();
+            if (characterVisibility == Visibility.NotVisible && IsHuntingDirectly)
+                StartBehaviour(IndirectHunt);
         }
 
         private IEnumerator Investigate()
@@ -145,25 +146,49 @@ namespace AChildsCourage.Game.Shade
             CompleteInvestigation();
         }
 
-        private IEnumerator Hunt()
+        private IEnumerator DirectHunt()
         {
-
             void StartHunt()
             {
                 behaviourType = ShadeBehaviourType.DirectHunting;
-                huntingBehaviour.StartHunt(characterRigidbody);
+                directHuntingBehaviour.StartHunt(characterRigidbody);
             }
-            
-            bool HuntIsInProgress() => huntingBehaviour.HuntIsInProgress;
+
+            bool HuntIsInProgress() => directHuntingBehaviour.HuntIsInProgress;
 
             void ProgressHunt()
             {
-                huntingBehaviour.ProgressHunt();
-                CurrentTargetPosition = huntingBehaviour.TargetPosition;
+                directHuntingBehaviour.ProgressHunt();
+                CurrentTargetPosition = directHuntingBehaviour.TargetPosition;
             }
 
             StartHunt();
-            
+
+            while (HuntIsInProgress())
+            {
+                ProgressHunt();
+                yield return new WaitForSeconds(BehaviourUpdateWaitTime);
+            }
+        }
+
+        private IEnumerator IndirectHunt()
+        {
+            void StartHunt()
+            {
+                behaviourType = ShadeBehaviourType.IndirectHunting;
+                indirectHuntingBehaviour.StartIndirectHunt(characterRigidbody);
+            }
+
+            bool HuntIsInProgress() => indirectHuntingBehaviour.HuntIsInProgress;
+
+            void ProgressHunt()
+            {
+                indirectHuntingBehaviour.ProgressHunt();
+                CurrentTargetPosition = indirectHuntingBehaviour.TargetPosition;
+            }
+
+            StartHunt();
+
             while (HuntIsInProgress())
             {
                 ProgressHunt();
