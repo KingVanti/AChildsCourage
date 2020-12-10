@@ -124,7 +124,7 @@ namespace AChildsCourage.Game.Shade
 
             void ProgressInvestigation()
             {
-                investigationBehaviour.ProgressInvestigation(investigatedPositions);
+                investigationBehaviour.ProgressInvestigation(CurrentState, investigatedPositions);
                 investigatedPositions.Clear();
 
                 if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))

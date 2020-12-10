@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.MCustomMath;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -83,7 +82,7 @@ namespace AChildsCourage.Game.Shade.Navigation
             (aoi, monsterState) =>
                 DistanceBetweenAoiAndMonster(aoi, monsterState)
                     .Clamp(MinDistance, MaxDistance)
-                    .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
+                    .Remap(MinDistance, MaxDistance, 5, 0);
 
         private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
@@ -94,8 +93,8 @@ namespace AChildsCourage.Game.Shade.Navigation
             (aoi, monsterState) =>
                 SecondsSinceLastVisit(aoi, monsterState)
                     .IfNull(MaxTime)
-                    .Map(seconds => seconds.Clamp(MinTime, MaxTime))
-                    .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
+                    .Clamp(MinTime, MaxTime)
+                    .Remap(MinTime, MaxTime, 0, 10);
 
         private static Func<Aoi, ShadeState, float?> SecondsSinceLastVisit =>
             (aoi, monsterState) =>
@@ -108,7 +107,7 @@ namespace AChildsCourage.Game.Shade.Navigation
         #region Values
 
         private const float MinDistance = 10;
-        private const float MaxDistance = 100;
+        private const float MaxDistance = 40;
         private const float MinTime = 1;
         private const float MaxTime = 300;
         private const float CompletionExplorationRation = 0.5f;

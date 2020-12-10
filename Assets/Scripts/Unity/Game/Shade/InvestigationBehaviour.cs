@@ -30,9 +30,10 @@ namespace AChildsCourage.Game.Shade
         private void UpdateTargetTile(EntityPosition position) => CurrentTargetTile = NextTarget(currentInvestigation, position);
 
         
-        public void ProgressInvestigation(IEnumerable<TilePosition> investigatedTiles)
+        public void ProgressInvestigation(ShadeState shadeState,IEnumerable<TilePosition> investigatedTiles)
         {
             currentInvestigation = Progress(currentInvestigation, investigatedTiles);
+            UpdateTargetTile(shadeState.Position);
         }
 
         
