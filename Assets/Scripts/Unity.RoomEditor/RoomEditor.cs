@@ -17,6 +17,7 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private CouragePickupLayer courageLayer;
         [SerializeField] private ItemPickupLayer itemLayer;
         [SerializeField] private StaticObjectLayer staticObjectLayer;
+        [SerializeField] private RuneLayer runeLayer;
 
 #pragma warning restore 649
 
@@ -68,6 +69,7 @@ namespace AChildsCourage.RoomEditor
             courageLayer.PlaceAll(content.CourageData);
             itemLayer.PlaceAll(content.ItemData);
             staticObjectLayer.PlaceAll(content.StaticObjects);
+            runeLayer.PlaceAll(content.Runes);
         }
 
 
@@ -101,6 +103,9 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.StaticObject:
                     staticObjectLayer.PlaceAt(position);
                     break;
+                case TileCategory.Runes:
+                    runeLayer.PlaceAt(position);
+                    break;
                 default:
                     throw new Exception("Invalid tile category!");
             }
@@ -122,6 +127,9 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.StaticObject:
                     staticObjectLayer.DeleteTileAt(position);
                     break;
+                case TileCategory.Runes:
+                    runeLayer.DeleteTileAt(position);
+                    break;
                 default:
                     throw new Exception("Invalid tile category!");
             }
@@ -139,7 +147,8 @@ namespace AChildsCourage.RoomEditor
                 groundLayer.ReadAll(),
                 courageLayer.ReadAll(),
                 itemLayer.ReadAll(),
-                staticObjectLayer.ReadAll());
+                staticObjectLayer.ReadAll(),
+                runeLayer.ReadAll());
 
 
         internal void Unload()
@@ -150,6 +159,7 @@ namespace AChildsCourage.RoomEditor
             courageLayer.Clear();
             itemLayer.Clear();
             staticObjectLayer.Clear();
+            runeLayer.Clear();
         }
 
         #endregion

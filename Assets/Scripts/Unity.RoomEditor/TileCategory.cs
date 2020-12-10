@@ -7,7 +7,8 @@
         Ground,
         Courage,
         Item,
-        StaticObject
+        StaticObject,
+        Runes
 
     }
 

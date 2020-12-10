@@ -4,7 +4,7 @@
     public class RoomContentData
     {
 
-        public static RoomContentData Empty => new RoomContentData(null, null, null, null);
+        public static RoomContentData Empty => new RoomContentData(null, null, null, null, null);
 
 
         public GroundTileData[] GroundData { get; }
@@ -15,13 +15,16 @@
 
         public StaticObjectData[] StaticObjects { get; }
 
+        public RuneData[] Runes { get; }
 
-        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, StaticObjectData[] staticObjects)
+
+        public RoomContentData(GroundTileData[] groundData, CouragePickupData[] courageData, ItemPickupData[] itemData, StaticObjectData[] staticObjects, RuneData[] runes)
         {
             GroundData = groundData ?? new GroundTileData[0];
             CourageData = courageData ?? new CouragePickupData[0];
             ItemData = itemData ?? new ItemPickupData[0];
             StaticObjects = staticObjects ?? new StaticObjectData[0];
+            Runes = runes ?? new RuneData[0];
         }
 
     }
