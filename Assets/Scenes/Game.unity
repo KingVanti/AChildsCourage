@@ -266,8 +266,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2064087351}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Monsters.Shade, AChildsCourage.Unity
-        m_MethodName: StartInvestigation
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Shade.ShadeBrain, AChildsCourage.Unity
+        m_MethodName: OnNightPrepared
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

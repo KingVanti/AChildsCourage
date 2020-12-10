@@ -16,6 +16,12 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrain : MonoBehaviour
     {
 
+        #region Subtypes
+
+        private delegate IEnumerator BehaviourFunction();
+
+        #endregion
+
         #region Fields
 
         public Events.Vector3 onTargetPositionChanged;
@@ -30,11 +36,11 @@ namespace AChildsCourage.Game.Shade
 
         private TilesInView currentTilesInVision = new TilesInView(Enumerable.Empty<TilePosition>());
         private InvestigationHistory investigationHistory = Empty;
-        private Coroutine investigationCoroutine;
-        private Coroutine huntingCoroutine;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
         private readonly HuntingBehaviour huntingBehaviour = new HuntingBehaviour();
+        private Coroutine behaviourRoutine;
+        private ShadeBehaviourType behaviourType;
 
         #endregion
 
@@ -43,7 +49,7 @@ namespace AChildsCourage.Game.Shade
         [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
 
         public int TouchDamage => touchDamage;
-        
+
         public Vector3 CurrentTargetPosition
         {
             get => currentTargetPosition;
@@ -55,9 +61,9 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        private bool IsCurrentlyInvestigating => investigationCoroutine != null;
+        private bool IsInvestigating => behaviourType == ShadeBehaviourType.Investigating;
 
-        private bool IsCurrentlyHunting => huntingCoroutine != null;
+        private bool IsHunting => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
 
@@ -71,27 +77,25 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
+        public void OnNightPrepared()
+        {
+            StartBehaviour(Investigate);
+        }
+
+        private void StartBehaviour(BehaviourFunction behaviourFunction)
+        {
+            if (behaviourRoutine != null)
+                StopCoroutine(behaviourRoutine);
+            behaviourRoutine = StartCoroutine(behaviourFunction());
+        }
+
+
         public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
         {
             if (awarenessLevel == AwarenessLevel.Hunting)
-                StartHunt();
+                StartBehaviour(Hunt);
         }
-
-        private void StartHunt()
-        {
-            if (IsCurrentlyInvestigating)
-                CancelInvestigation();
-
-            huntingBehaviour.StartHunt(characterRigidbody);
-            huntingCoroutine = StartCoroutine(Hunt());
-        }
-
-        private void CancelInvestigation()
-        {
-            StopCoroutine(investigationCoroutine);
-            investigationCoroutine = null;
-        }
-
+        
 
         public void OnTilesInVisionChanged(TilesInView tilesInView)
         {
@@ -101,52 +105,72 @@ namespace AChildsCourage.Game.Shade
 
         public void OnCharacterVisibilityChanged(Visibility characterVisibility)
         {
-            if (characterVisibility == Visibility.NotVisible && IsCurrentlyHunting)
+            if (characterVisibility == Visibility.NotVisible && IsHunting)
                 huntingBehaviour.OnLostPlayer();
-        }
-        
-        public void StartInvestigation()
-        {
-            investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
-            CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-
-            investigationCoroutine = StartCoroutine(Investigate());
         }
 
         private IEnumerator Investigate()
         {
-            while (investigationBehaviour.InvestigationIsInProgress)
+            void StartInvestigation()
+            {
+                behaviourType = ShadeBehaviourType.Investigating;
+                investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
+                CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            }
+
+            void CompleteInvestigation()
+            {
+                var completed = investigationBehaviour.CompleteInvestigation();
+                investigationHistory = investigationHistory.Add(completed);
+            }
+
+            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
+
+            void ProgressInvestigation()
             {
                 investigationBehaviour.ProgressInvestigation(currentTilesInVision);
 
                 if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
                     CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            }
 
+            StartInvestigation();
+
+            while (InvestigationIsInProgress())
+            {
+                ProgressInvestigation();
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
 
             CompleteInvestigation();
         }
 
-        private void CompleteInvestigation()
-        {
-            var completed = investigationBehaviour.CompleteInvestigation();
-            investigationHistory = investigationHistory.Add(completed);
-
-            StartInvestigation();
-        }
-
         private IEnumerator Hunt()
         {
-            while (huntingBehaviour.HuntIsInProgress)
+
+            void StartHunt()
+            {
+                behaviourType = ShadeBehaviourType.DirectHunting;
+                huntingBehaviour.StartHunt(characterRigidbody);
+            }
+            
+            bool HuntIsInProgress() => huntingBehaviour.HuntIsInProgress;
+
+            void ProgressHunt()
             {
                 huntingBehaviour.ProgressHunt();
                 CurrentTargetPosition = huntingBehaviour.TargetPosition;
+            }
 
+            StartHunt();
+            
+            while (HuntIsInProgress())
+            {
+                ProgressHunt();
                 yield return new WaitForSeconds(BehaviourUpdateWaitTime);
             }
         }
-        
+
         #endregion
 
     }
