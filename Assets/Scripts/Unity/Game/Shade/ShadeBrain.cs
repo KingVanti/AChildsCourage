@@ -63,7 +63,7 @@ namespace AChildsCourage.Game.Shade
 
         private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
 
-        private MonsterState CurrentState => new MonsterState(Position, DateTime.Now, investigationHistory);
+        private ShadeState CurrentState => new ShadeState(Position, DateTime.Now, investigationHistory);
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 

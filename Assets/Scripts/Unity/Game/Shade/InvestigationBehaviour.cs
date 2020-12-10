@@ -20,10 +20,10 @@ namespace AChildsCourage.Game.Shade
         public bool InvestigationIsInProgress => !IsComplete(currentInvestigation);
 
 
-        public void StartNewInvestigation(FloorState floorState, MonsterState monsterState)
+        public void StartNewInvestigation(FloorState floorState, ShadeState shadeState)
         {
-            currentInvestigation = StartNew(floorState, monsterState, rng);
-            UpdateTargetTile(monsterState.Position);
+            currentInvestigation = StartNew(floorState, shadeState, rng);
+            UpdateTargetTile(shadeState.Position);
         }
 
         private void UpdateTargetTile(EntityPosition position) => CurrentTargetTile = NextTarget(currentInvestigation, position);

@@ -85,7 +85,7 @@ namespace AChildsCourage.Game.Shade.Navigation
                     .Clamp(MinDistance, MaxDistance)
                     .Map(distance => Map(distance, MinDistance, MaxDistance, 5, 0));
 
-        private static Func<Aoi, MonsterState, float> DistanceBetweenAoiAndMonster =>
+        private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
                 GetDistanceBetween(aoi.Center, GetEntityTile(monsterState.Position));
 
@@ -97,7 +97,7 @@ namespace AChildsCourage.Game.Shade.Navigation
                     .Map(seconds => seconds.Clamp(MinTime, MaxTime))
                     .Map(seconds => Map(seconds, MinTime, MaxTime, 0, 10));
 
-        private static Func<Aoi, MonsterState, float?> SecondsSinceLastVisit =>
+        private static Func<Aoi, ShadeState, float?> SecondsSinceLastVisit =>
             (aoi, monsterState) =>
                 monsterState.InvestigationHistory.FindLastIn(aoi.Index)
                             .Bind(i => monsterState.CurrentTime - i.CompletionTime)
@@ -117,7 +117,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         #region Types
 
-        public delegate Investigation StartInvestigation(FloorState floorState, MonsterState monsterState, CreateRng rng);
+        public delegate Investigation StartInvestigation(FloorState floorState, ShadeState shadeState, CreateRng rng);
 
         public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
 
@@ -127,9 +127,9 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
 
-        internal delegate Aoi ChooseInvestigationAoi(FloorState floorState, MonsterState monsterState, CreateRng rng);
+        internal delegate Aoi ChooseInvestigationAoi(FloorState floorState, ShadeState shadeState, CreateRng rng);
 
-        internal delegate float CalculateAoiWeight(Aoi aoi, MonsterState monsterState);
+        internal delegate float CalculateAoiWeight(Aoi aoi, ShadeState shadeState);
 
 
         public readonly struct Investigation
