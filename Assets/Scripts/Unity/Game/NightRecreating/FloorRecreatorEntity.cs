@@ -33,6 +33,8 @@ namespace AChildsCourage.Game
         [AutoInject] public TileRepository TileRepository { private get; set; }
 
         [AutoInject] public StaticObjectSpawner StaticObjectSpawner { private get; set; }
+        
+        [AutoInject] public RuneSpawner RuneSpawner { private get; set; }
 
         #endregion
 
@@ -66,6 +68,7 @@ namespace AChildsCourage.Game
         {
             room.GroundTiles.ForEach(PlaceGround);
             room.StaticObjects.ForEach(StaticObjectSpawner.Spawn);
+            room.Runes.ForEach(RuneSpawner.Spawn);
         }
 
         private void PlaceGround(GroundTile groundTile)

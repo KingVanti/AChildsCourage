@@ -38,6 +38,7 @@ namespace AChildsCourage.Game
                     content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
                     content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
                     content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
+                    content.Runes.Select(r => TransformRune(r, transformer)).ToImmutableHashSet(),
                     roomType,
                     roomTransform.Position);
             }
@@ -62,6 +63,12 @@ namespace AChildsCourage.Game
                 new StaticObjectData(
                     position);
 
+            private static RuneData TransformRune(RuneData rune, TransformTile transformer) => With(rune, transformer(rune.Position));
+
+            private static RuneData With(RuneData rune, TilePosition position) =>
+                new RuneData(
+                    position);
+
             private static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => With(pickup, transformer(pickup.Position));
 
             private static CouragePickupData With(CouragePickupData pickup, TilePosition position) =>
@@ -79,16 +86,19 @@ namespace AChildsCourage.Game
 
                 public ImmutableHashSet<CouragePickupData> CouragePickupData { get; }
 
+                public ImmutableHashSet<RuneData> RuneData { get; }
+
                 public RoomType RoomType { get; }
 
                 public ChunkPosition ChunkPosition { get; }
 
 
-                public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, RoomType roomType, ChunkPosition chunkPosition)
+                public TransformedRoomData(ImmutableHashSet<GroundTileData> groundTiles, ImmutableHashSet<StaticObjectData> staticObjectData, ImmutableHashSet<CouragePickupData> couragePickupData, ImmutableHashSet<RuneData> runeData, RoomType roomType, ChunkPosition chunkPosition)
                 {
                     GroundData = groundTiles;
                     StaticObjectData = staticObjectData;
                     CouragePickupData = couragePickupData;
+                    RuneData = runeData;
                     RoomType = roomType;
                     ChunkPosition = chunkPosition;
                 }

@@ -39,6 +39,7 @@ namespace AChildsCourage.Game
                     .MapWith(BuildGround, transformedRoomData.GroundData)
                     .MapWith(BuildStaticObjects, transformedRoomData.StaticObjectData)
                     .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
+                    .MapWith(BuildRunes, transformedRoomData.RuneData)
                     .Map(room => PlaceRoom(floorBuilder, room));
 
             private static Floor CreateFloor(FloorBuilder floorBuilder, CreateRng rng) =>
@@ -50,7 +51,8 @@ namespace AChildsCourage.Game
             private static Room BuildRoom(RoomBuilder roomBuilder) =>
                 new Room(roomBuilder.AoiIndex,
                          roomBuilder.GroundTiles,
-                         roomBuilder.StaticObjects);
+                         roomBuilder.StaticObjects,
+                         roomBuilder.Runes);
 
         }
 

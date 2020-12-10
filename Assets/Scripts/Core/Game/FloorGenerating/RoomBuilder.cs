@@ -21,6 +21,7 @@ namespace AChildsCourage.Game
                     ImmutableHashSet<GroundTile>.Empty,
                     ImmutableHashSet<CouragePickup>.Empty,
                     ImmutableHashSet<StaticObject>.Empty,
+                    ImmutableHashSet<Rune>.Empty,
                     roomType,
                     chunkPosition);
 
@@ -34,6 +35,7 @@ namespace AChildsCourage.Game
                                 room.GroundTiles.Add(tile),
                                 room.CouragePickups,
                                 room.StaticObjects,
+                                room.Runes,
                                 room.RoomType,
                                 room.ChunkPosition);
 
@@ -47,6 +49,21 @@ namespace AChildsCourage.Game
                                 room.GroundTiles,
                                 room.CouragePickups,
                                 room.StaticObjects.Add(staticObject),
+                                room.Runes,
+                                room.RoomType,
+                                room.ChunkPosition);
+
+            public static RoomBuilder BuildRunes(RoomBuilder roomBuilder, ImmutableHashSet<RuneData> runes) =>
+                Take(runes)
+                    .Select(data => new Rune(data.Position))
+                    .Aggregate(roomBuilder, PlaceRune);
+
+            private static RoomBuilder PlaceRune(RoomBuilder room, Rune rune) =>
+                new RoomBuilder(room.AoiIndex,
+                                room.GroundTiles,
+                                room.CouragePickups,
+                                room.StaticObjects,
+                                room.Runes.Add(rune),
                                 room.RoomType,
                                 room.ChunkPosition);
 
@@ -60,6 +77,7 @@ namespace AChildsCourage.Game
                                 room.GroundTiles,
                                 room.CouragePickups.Add(pickup),
                                 room.StaticObjects,
+                                room.Runes,
                                 room.RoomType,
                                 room.ChunkPosition);
 
@@ -74,17 +92,20 @@ namespace AChildsCourage.Game
 
                 public ImmutableHashSet<StaticObject> StaticObjects { get; }
 
+                public ImmutableHashSet<Rune> Runes { get; }
+
                 public RoomType RoomType { get; }
 
                 public ChunkPosition ChunkPosition { get; }
 
 
-                public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, RoomType roomType, ChunkPosition chunkPosition)
+                public RoomBuilder(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes, RoomType roomType, ChunkPosition chunkPosition)
                 {
                     AoiIndex = aoiIndex;
                     GroundTiles = groundTiles;
                     CouragePickups = couragePickups;
                     StaticObjects = staticObjects;
+                    Runes = runes;
                     RoomType = roomType;
                     ChunkPosition = chunkPosition;
                 }
