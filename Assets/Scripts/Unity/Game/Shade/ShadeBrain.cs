@@ -6,11 +6,8 @@ using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Shade.Navigation.MInvestigation;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.MRng;
-using static AChildsCourage.MFunctional;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -34,6 +31,7 @@ namespace AChildsCourage.Game.Shade
         private InvestigationHistory investigationHistory = Empty;
         private Coroutine investigationCoroutine;
         private TilePosition currentTargetTile;
+        private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
 
         #endregion
 
@@ -89,6 +87,9 @@ namespace AChildsCourage.Game.Shade
 
         public void StartInvestigation()
         {
+            investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
+            CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+            
             investigationCoroutine = StartCoroutine(Investigate());
         }
 
@@ -98,39 +99,27 @@ namespace AChildsCourage.Game.Shade
             StopCoroutine(investigationCoroutine);
             investigationCoroutine = null;
         }
-
-
+        
+        
         private IEnumerator Investigate()
         {
-            var investigation = StartNewInvestigation();
-            CurrentTargetTile = GetNextTargetPosition(investigation);
-
-            while (!IsComplete(investigation))
+            while (investigationBehaviour.InvestigationIsInProgress)
             {
-                investigation = ProgressInvestigation(investigation);
-                var newTarget = GetNextTargetPosition(investigation);
+                investigationBehaviour.ProgressInvestigation(currentTilesInVision);
 
-                if (!newTarget.Equals(CurrentTargetTile))
-                    CurrentTargetTile = newTarget;
+                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
+                    CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
 
                 yield return new WaitForSeconds(InvestigationUpdateWaitTime);
             }
 
-            CompleteInvestigation(investigation);
+            CompleteInvestigation();
         }
 
-        private Investigation StartNewInvestigation() => StartNew(FloorStateKeeper.CurrentFloorState, CurrentState, Random());
-
-        private TilePosition GetNextTargetPosition(Investigation investigation) => NextTarget(investigation, Position);
-
-        private Investigation ProgressInvestigation(Investigation investigation) => Progress(investigation, currentTilesInVision);
-
-        private void AddInvestigationToHistory(CompletedInvestigation completed) => investigationHistory = investigationHistory.Add(completed);
-
-        private void CompleteInvestigation(Investigation investigation)
+        private void CompleteInvestigation()
         {
-            Take(Complete(investigation))
-                .Do(AddInvestigationToHistory);
+            var completed = investigationBehaviour.CompleteInvestigation();
+            investigationHistory = investigationHistory.Add(completed);
 
             StartInvestigation();
         }
