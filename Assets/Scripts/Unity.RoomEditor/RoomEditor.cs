@@ -149,6 +149,7 @@ namespace AChildsCourage.RoomEditor
             groundLayer.Clear();
             courageLayer.Clear();
             itemLayer.Clear();
+            staticObjectLayer.Clear();
         }
 
         #endregion
