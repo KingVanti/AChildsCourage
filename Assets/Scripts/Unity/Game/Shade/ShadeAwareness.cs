@@ -12,16 +12,9 @@ namespace AChildsCourage.Game.Shade
     public class ShadeAwareness : MonoBehaviour
     {
 
-        #region Subtypes
-
-        [Serializable]
-        public class AwarenessLevelEvent : UnityEvent<AwarenessLevel> { }
-
-        #endregion
-
         #region Fields
 
-        public AwarenessLevelEvent onAwarenessLevelChanged;
+        public ShadeEvents.AwarenessLevel onAwarenessLevelChanged;
         public Events.Float onAwarenessChanged;
 
 #pragma warning disable 649
@@ -57,7 +50,7 @@ namespace AChildsCourage.Game.Shade
                 if (currentAwarenessLevel == value)
                     return;
                 currentAwarenessLevel = value;
-                onAwarenessLevelChanged.Invoke(currentAwarenessLevel);
+                onAwarenessLevelChanged.Invoke(CurrentAwarenessLevel);
             }
         }
 
