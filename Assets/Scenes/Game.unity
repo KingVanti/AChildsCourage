@@ -1997,8 +1997,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticObjectPrefab: {fileID: 57104783504101754, guid: c7a422d2f403ccd4c8d01e8673e9163d, type: 3}
   appearanceWeights:
+  - appearance: {fileID: 11400000, guid: 9c2a7e315bb09d641b08632f26aefeb6, type: 2}
+    weight: 5
+  - appearance: {fileID: 11400000, guid: 9374b56f646973649865d83687f92448, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: ffb05f21d5ffc93449ad32a43f05dbb6, type: 2}
+    weight: 5
+  - appearance: {fileID: 11400000, guid: 6cdb4db1ce4129942b23887bfc1ea1ec, type: 2}
+    weight: 2
   - appearance: {fileID: 11400000, guid: cfe5a088183ebdf4689100b2d52cc3e5, type: 2}
     weight: 1
+  - appearance: {fileID: 11400000, guid: 69f32204e5a3e084f901e236fa458b04, type: 2}
+    weight: 5
 --- !u!1 &1059038456
 GameObject:
   m_ObjectHideFlags: 0
