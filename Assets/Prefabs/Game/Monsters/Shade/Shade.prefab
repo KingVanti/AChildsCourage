@@ -5177,10 +5177,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onAwarenessLevelChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6287393413328556662}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Shade.ShadeBrain, AChildsCourage.Unity
+        m_MethodName: OnAwarenessLevelChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onAwarenessChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.Veins, AChildsCourage.Unity
+        m_MethodName: SetTransparency
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   awarenessLossPerSecond: 0.5
   baseAwarenessGainPerSecond: 0.4
   primaryVisionMultiplier: 2
@@ -5190,6 +5214,8 @@ MonoBehaviour:
   walkingMultiplier: 1.5
   sprintingMultiplier: 2
   flashLightMultiplier: 2
+  minSuspiciousAwareness: 0.25
+  minHuntingAwareness: 1
   characterController: {fileID: 0}
   flashlight: {fileID: 0}
 --- !u!114 &7337468781757878326

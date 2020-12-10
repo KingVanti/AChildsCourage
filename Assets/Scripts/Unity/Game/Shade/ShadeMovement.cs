@@ -42,6 +42,12 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
+        public void SetMovementTarget(Vector3 position)
+        {
+            aiPath.destination = position;
+        }
+
+
         private void Update()
         {
             UpdateAnimator();
@@ -52,12 +58,6 @@ namespace AChildsCourage.Game.Shade
             shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
             shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
             shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
-        }
-        
-        
-        public void SetMovementTarget(Vector3 position)
-        {
-            aiPath.destination = position;
         }
 
         #endregion

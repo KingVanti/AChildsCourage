@@ -16,6 +16,9 @@ namespace AChildsCourage
         [Serializable]
         public class Vector3 : UnityEvent<UnityEngine.Vector3> { }
 
+        [Serializable]
+        public class Empty : UnityEvent { }
+        
     }
 
 }
