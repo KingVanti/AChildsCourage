@@ -9,7 +9,6 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Floors
 {
 
-
     [UseDi]
     public class FloorStateKeeper : MonoBehaviour
     {
@@ -26,7 +25,7 @@ namespace AChildsCourage.Game.Floors
         {
             if (!HasStateForIndex(groundTile.AoiIndex))
                 aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
-            
+
             aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
         }
 
@@ -44,8 +43,6 @@ namespace AChildsCourage.Game.Floors
 
             public AoiIndex Index { get; }
 
-            public TilePosition Center { get; }
-
             public List<PoiState> PoiStates { get; } = new List<PoiState>();
 
             private ImmutableArray<Poi> Pois =>
@@ -56,7 +53,16 @@ namespace AChildsCourage.Game.Floors
             public AoiState(AoiIndex index) => Index = index;
 
 
-            public Aoi ToAoi() => new Aoi(Index, Center, Pois);
+            public Aoi ToAoi() => new Aoi(Index, CalculateCenter(), Pois);
+
+            private TilePosition CalculateCenter()
+            {
+                var positions = Pois.Select(p => p.Position).ToImmutableHashSet();
+
+                return new TilePosition(
+                    (int) positions.Select(p => p.X).Average(),
+                    (int) positions.Select(p => p.Y).Average());
+            }
 
             public void AddPoi(TilePosition position) => PoiStates.Add(new PoiState(position));
 
