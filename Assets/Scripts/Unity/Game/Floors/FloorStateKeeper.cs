@@ -14,9 +14,22 @@ namespace AChildsCourage.Game.Floors
     {
 
         private readonly Dictionary<AoiIndex, AoiState> aoiStates = new Dictionary<AoiIndex, AoiState>();
+        private FloorState lastFloorState;
+        private bool outDatedFloorState;
 
-        public FloorState CurrentFloorState => GenerateFloorState();
+        public FloorState CurrentFloorState
+        {
+            get
+            {
+                if (outDatedFloorState)
+                {
+                    lastFloorState = GenerateFloorState();
+                    outDatedFloorState = false;
+                }
 
+                return lastFloorState;
+            }
+        }
 
         private IEnumerable<AoiState> CurrentAoiStates => aoiStates.Values;
 
@@ -27,6 +40,7 @@ namespace AChildsCourage.Game.Floors
                 aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
 
             aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
+            outDatedFloorState = true;
         }
 
         private bool HasStateForIndex(AoiIndex index) => aoiStates.ContainsKey(index);
