@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6417160014689851347}
   - component: {fileID: 6417160014689851344}
   - component: {fileID: 6417160014689851346}
-  m_Layer: 0
+  - component: {fileID: -3375665635034509671}
+  m_Layer: 14
   m_Name: Rune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,3 +100,15 @@ CircleCollider2D:
   m_Offset: {x: 1, y: 1}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &-3375665635034509671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417160014689851345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8a42c7692788d48bf95dd7c9e816c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
