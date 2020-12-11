@@ -60,6 +60,7 @@ namespace AChildsCourage.Game
             floor.Walls.ForEach(PlaceWall);
             floor.Rooms.ForEach(RecreateRoom);
             floor.CouragePickups.ForEach(PlaceCouragePickup);
+            floor.Runes.ForEach(RuneSpawner.Spawn);
 
             onFloorRecreated.Invoke(floor);
         }
@@ -68,7 +69,6 @@ namespace AChildsCourage.Game
         {
             room.GroundTiles.ForEach(PlaceGround);
             room.StaticObjects.ForEach(StaticObjectSpawner.Spawn);
-            room.Runes.ForEach(RuneSpawner.Spawn);
         }
 
         private void PlaceGround(GroundTile groundTile)

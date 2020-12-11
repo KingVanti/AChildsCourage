@@ -15,6 +15,7 @@ namespace AChildsCourage.Game.Floors
                 ImmutableHashSet<Wall>.Empty,
                 ImmutableHashSet<CouragePickup>.Empty,
                 ImmutableHashSet<Room>.Empty,
+                ImmutableHashSet<Rune>.Empty, 
                 new ChunkPosition(0, 0));
 
 
@@ -39,15 +40,18 @@ namespace AChildsCourage.Game.Floors
 
             public ImmutableHashSet<Room> Rooms { get; }
 
+            public ImmutableHashSet<Rune> Runes { get; }
+
             public ChunkPosition EndRoomChunkPosition { get; }
 
 
-            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms, ChunkPosition endRoomChunkPosition)
+            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms, ImmutableHashSet<Rune> runes, ChunkPosition endRoomChunkPosition)
             {
                 Walls = walls;
-                Rooms = rooms;
-                EndRoomChunkPosition = endRoomChunkPosition;
                 CouragePickups = couragePickups;
+                Rooms = rooms;
+                Runes = runes;
+                EndRoomChunkPosition = endRoomChunkPosition;
             }
 
         }

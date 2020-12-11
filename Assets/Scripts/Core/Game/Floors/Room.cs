@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Shade.Navigation;
 
 namespace AChildsCourage.Game.Floors
@@ -12,8 +11,7 @@ namespace AChildsCourage.Game.Floors
             new Room(
                 aoiIndex,
                 ImmutableHashSet<GroundTile>.Empty,
-                ImmutableHashSet<StaticObject>.Empty,
-                ImmutableHashSet<Rune>.Empty);
+                ImmutableHashSet<StaticObject>.Empty);
 
         public readonly struct Room
         {
@@ -23,15 +21,12 @@ namespace AChildsCourage.Game.Floors
             public ImmutableHashSet<GroundTile> GroundTiles { get; }
 
             public ImmutableHashSet<StaticObject> StaticObjects { get; }
-
-            public  ImmutableHashSet<Rune> Runes { get; }
             
-            public Room(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes)
+            public Room(AoiIndex aoiIndex, ImmutableHashSet<GroundTile> groundTiles, ImmutableHashSet<StaticObject> staticObjects)
             {
                 AoiIndex = aoiIndex;
                 GroundTiles = groundTiles;
                 StaticObjects = staticObjects;
-                Runes = runes;
             }
 
         }

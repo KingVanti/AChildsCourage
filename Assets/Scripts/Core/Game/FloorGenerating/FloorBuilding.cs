@@ -12,6 +12,7 @@ using static AChildsCourage.Game.MFloorGenerating.MWallGenerating;
 using static AChildsCourage.Game.MFloorGenerating.MCouragePickupFiltering;
 using static AChildsCourage.Game.MFloorGenerating.MRoomBuilder;
 using static AChildsCourage.Game.MFloorGenerating.MRoomTransforming;
+using  static AChildsCourage.Game.MFloorGenerating.MRuneFiltering;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
@@ -46,13 +47,13 @@ namespace AChildsCourage.Game
                 new Floor(floorBuilder.Walls,
                           ChooseCouragePickups(floorBuilder, rng).ToImmutableHashSet(),
                           floorBuilder.Rooms.Select(BuildRoom).ToImmutableHashSet(),
+                          ChooseRunes(floorBuilder, rng).ToImmutableHashSet(),
                           GetEndRoomChunkPosition(floorBuilder));
 
             private static Room BuildRoom(RoomBuilder roomBuilder) =>
                 new Room(roomBuilder.AoiIndex,
                          roomBuilder.GroundTiles,
-                         roomBuilder.StaticObjects,
-                         roomBuilder.Runes);
+                         roomBuilder.StaticObjects);
 
         }
 
