@@ -71,7 +71,8 @@ public class FmodPlayer : MonoBehaviour
 
     public void Update()
     {
-        stamina.stamina = (float) Stamina_eventInstance.setParameterByName("Material", Material);
+        Stamina_eventInstance.setParameterByName("Material", stamina.stamina); ;
+
     }
     public void PlayFootstepsEvent()
     {
