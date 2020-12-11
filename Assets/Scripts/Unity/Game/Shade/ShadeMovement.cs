@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using Pathfinding;
@@ -23,7 +24,8 @@ namespace AChildsCourage.Game.Shade
         #region Fields
 
 #pragma warning disable 649
-        
+
+        [SerializeField] private float waitTimeAfterDealingDamage;
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
         
@@ -59,9 +61,23 @@ namespace AChildsCourage.Game.Shade
             shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
             shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
         }
+        
+        public void WaitAfterDealingDamage()
+        {
+            StartCoroutine(WaitAndContinue());
+        }
 
+        private IEnumerator WaitAndContinue()
+        {
+            var originalSpeed = aiPath.maxSpeed;
+            aiPath.maxSpeed = 0;
+            
+            yield return new WaitForSeconds(waitTimeAfterDealingDamage);
+
+            aiPath.maxSpeed = originalSpeed;
+        }
+        
         #endregion
-
     }
 
 }
