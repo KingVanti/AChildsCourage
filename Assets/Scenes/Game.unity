@@ -1999,6 +1999,26 @@ MonoBehaviour:
     weight: 1
   - appearance: {fileID: 11400000, guid: 69f32204e5a3e084f901e236fa458b04, type: 2}
     weight: 5
+  - appearance: {fileID: 11400000, guid: 571e0500608f3784a857c4a664424c07, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: be94537b1a01a9d4880c377a777673ee, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: 865d72049570b3842b5e9cf9322610d5, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: cdde6f2fa666035498a77b7128f1ce58, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: c97ee9685407c5443be27fb9cda4964d, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: b330617d810a8d349988eb64b225cce5, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: 7f39308bb03d1fa42a339944c6e146d1, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: ba02ccd91fd92db46b6f737c3d1dd835, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: 778e09c63bcbddd448594e809105c28d, type: 2}
+    weight: 4
+  - appearance: {fileID: 11400000, guid: bcf3e2a9e183f1842a9981002032bef0, type: 2}
+    weight: 4
 --- !u!1 &1059038456
 GameObject:
   m_ObjectHideFlags: 0

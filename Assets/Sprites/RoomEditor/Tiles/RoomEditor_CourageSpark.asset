@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Background_Marking
+  m_Name: RoomEditor_CourageSpark
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 15aee20544ff4394d80ec568ff7dc607, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee0e90ec09ba58f4e80920c4cf88ece1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
