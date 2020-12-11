@@ -377,7 +377,7 @@ namespace AChildsCourage.Game.Player
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
         {
-            StartCoroutine(KnockBack(damage * movementSpeed * 10, 0.095f, knockBackVector));
+            StartCoroutine(KnockBack(damage * movementSpeed * 10, 0.175f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
@@ -386,6 +386,7 @@ namespace AChildsCourage.Game.Player
         private IEnumerator DamageTaken(float duration)
         {
             isInvincible = true;
+            Physics2D.IgnoreLayerCollision(8, 12, true);
             const int steps = 5;
 
             var f = spriteRenderer.color;
@@ -399,6 +400,7 @@ namespace AChildsCourage.Game.Player
                 yield return new WaitForSeconds(duration / 2 / steps);
             }
 
+            Physics2D.IgnoreLayerCollision(8, 12, false);
             isInvincible = false;
         }
 

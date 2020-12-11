@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Player {
 
         #region Fields
         [Header("Stats")]
-        [SerializeField] private float stamina = 100;
+        public float stamina = 100;
         [SerializeField] private float staminaRecoveryRate = 1;
         [SerializeField] private float staminaDrainRate = 2;
         [SerializeField] private float staminaDepletedCooldown = 5;
