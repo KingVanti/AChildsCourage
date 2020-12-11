@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Passage
+  m_Name: RoomEditor_StartPoint
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: ede3f0a951f1ea9449382f9f6d85768c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b58839b640df9a34eb2afc8f4a337679, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
