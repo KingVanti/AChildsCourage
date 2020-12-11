@@ -342,8 +342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 62620829}
-  defaultVeins: {fileID: 0}
-  activeVeins: {fileID: 0}
+  defaultVeins: {fileID: 21300000, guid: 0ff74467603f0d044ad7fabbd365a5d7, type: 3}
+  activeVeins: {fileID: 21300000, guid: 29e6362439790114e9491abef8394d3a, type: 3}
 --- !u!114 &62620829
 MonoBehaviour:
   m_ObjectHideFlags: 0
