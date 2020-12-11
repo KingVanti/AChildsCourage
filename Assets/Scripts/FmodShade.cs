@@ -10,6 +10,7 @@ public class FmodShade : MonoBehaviour
 
     #region eventpaths
     private const string ShadeBanished_path = "event:/Monster/getBanished";
+    private const string ShadeSpawn_path = "event:/Monster/Spawn";
 
 
     #endregion
@@ -30,6 +31,11 @@ public class FmodShade : MonoBehaviour
     public void Shade_getBanished()
     {
         RuntimeManager.PlayOneShot(ShadeBanished_path, GetComponent<Transform>().position);
+    }
+
+    public void Shade_spawn()
+    {
+        RuntimeManager.PlayOneShot(ShadeSpawn_path, GetComponent<Transform>().position);
     }
 
 }
