@@ -32,6 +32,10 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
         [SerializeField] private Rigidbody2D characterRigidbody;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private Material dissolveMaterial;
+
 
 #pragma warning restore 649
 
@@ -43,6 +47,9 @@ namespace AChildsCourage.Game.Shade
         private readonly IndirectHuntingBehaviour indirectHuntingBehaviour = new IndirectHuntingBehaviour();
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
+        private bool isDissolving = false;
+
+
 
         #endregion
 
@@ -211,18 +218,43 @@ namespace AChildsCourage.Game.Shade
 
         public void Banish()
         {
+            if (!isDissolving)
+                StartCoroutine(Dissolve());
+        }
+
+        private void DeactivateShade() {
             StartBehaviour(None);
             transform.position = new Vector3(100, 100, 0);
             CurrentTargetPosition = transform.position;
             gameObject.SetActive(false);
-            onBanished.Invoke();
         }
 
 
         public void Respawn()
         {
+            spriteRenderer.material = defaultMaterial;
             gameObject.SetActive(true);
             StartBehaviour(Investigate);
+        }
+
+        private IEnumerator Dissolve()
+        {
+
+            isDissolving = true;
+
+            spriteRenderer.material = dissolveMaterial;
+            dissolveMaterial.SetFloat("_Fade", 1);
+
+            while (dissolveMaterial.GetFloat("_Fade") > 0) {
+                dissolveMaterial.SetFloat("_Fade", Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
+                yield return null;
+            }
+
+            DeactivateShade();
+            onBanished.Invoke();
+            dissolveMaterial.SetFloat("_Fade", 1);
+            isDissolving = false;
+
         }
         
         
