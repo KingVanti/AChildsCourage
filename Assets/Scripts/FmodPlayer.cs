@@ -2,13 +2,14 @@
 using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items;
+using AChildsCourage.Game.Player;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
 public class FmodPlayer : MonoBehaviour
 {
-
+    [SerializeField] private Stamina stamina;
     // private float distance = 0.1f;
     private float Material = 0;
 
@@ -32,7 +33,15 @@ public class FmodPlayer : MonoBehaviour
     private bool Flashlight_status;
 
     private EventInstance Footsteps;
+    private EventInstance Stamina_eventInstance;
     private readonly float waitTime = 1.5f;
+
+    private void Start()
+    {
+        Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
+        Stamina_eventInstance = RuntimeManager.CreateInstance(Footsteps_Path);
+    }
+    
 
     /*
     void MaterialCheck()
@@ -59,9 +68,15 @@ public class FmodPlayer : MonoBehaviour
     }
     */
 
+
+    public void Update()
+    {
+        stamina.stamina = Stamina_eventInstance.setParameterByName("Material", Material); ;
+
+    }
     public void PlayFootstepsEvent()
     {
-        Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
+        
         Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         Footsteps.setParameterByName("Material", Material);
         Footsteps.start();

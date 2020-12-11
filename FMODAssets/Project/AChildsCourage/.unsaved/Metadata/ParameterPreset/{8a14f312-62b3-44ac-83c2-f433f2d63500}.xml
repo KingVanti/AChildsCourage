@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{8a14f312-62b3-44ac-83c2-f433f2d63500}">
+		<property name="name">
+			<value>stamina</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f1e4bb3d-3351-4826-bd49-10f0440f9080}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{55af6754-821f-4a07-9a33-f13d4e26a60c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{55af6754-821f-4a07-9a33-f13d4e26a60c}">
+		<property name="maximum">
+			<value>100</value>
+		</property>
+		<property name="initialValue">
+			<value>100</value>
+		</property>
+	</object>
+</objects>
