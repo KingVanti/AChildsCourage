@@ -10,9 +10,17 @@ using UnityEngine;
 public class FmodPlayer : MonoBehaviour
 {
     [SerializeField] private Stamina stamina;
-    // private float distance = 0.1f;
     private float Material = 0;
+    private bool blankie_status;
+    private bool Char_sprint_stop_Is_playing;
+    private bool Flashlight_status;
 
+    private EventInstance Footsteps;
+    private EventInstance Stamina_eventInstance;
+    private readonly float waitTime = 1.5f;
+
+
+    #region eventpaths
     private const string Footsteps_Path = "event:/char/steps";
     private const string PickUp_Path = "event:/UI/Item/ItemPickup";
     private const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
@@ -26,21 +34,19 @@ public class FmodPlayer : MonoBehaviour
     private const string Char_Death_Path = "event:/char/death";
     private const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
     private const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
-    private const string Char_sprint_nearEnd = "event:/char/stamina/endStamina";
-    private bool blankie_status;
-    private bool Char_sprint_stop_Is_playing;
+    private const string Char_sprint_nearEnd = "event:/char/stamina/sprint_nearEnd";
+
+    #endregion
 
 
-    private bool Flashlight_status;
 
-    private EventInstance Footsteps;
-    private EventInstance Stamina_eventInstance;
-    private readonly float waitTime = 1.5f;
+
 
     private void Start()
     {
-        Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
         Stamina_eventInstance = RuntimeManager.CreateInstance(Char_sprint_nearEnd);
+        Stamina_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        Stamina_eventInstance.start();
     }
     
 
@@ -72,12 +78,21 @@ public class FmodPlayer : MonoBehaviour
 
     public void Update()
     {
-        Stamina_eventInstance.setParameterByName("stamina", stamina.stamina); ;
-
+        Stamina_eventInstance.setParameterByName("stamina", stamina.stamina);
     }
+
+    public void OnDestroy()
+    {
+        Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+
+
+
+
     public void PlayFootstepsEvent()
     {
-        
+        Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
         Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         Footsteps.setParameterByName("Material", Material);
         Footsteps.start();
