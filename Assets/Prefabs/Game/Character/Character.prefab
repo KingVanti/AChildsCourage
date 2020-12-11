@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stamina: 100
-  staminaRecoveryRate: 5
+  staminaRecoveryRate: 10
   staminaDrainRate: 25
   staminaDepletedCooldown: 5
   onStaminaDepleted:
