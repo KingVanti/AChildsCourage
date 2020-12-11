@@ -26,6 +26,7 @@ public class FmodPlayer : MonoBehaviour
     private const string Char_Death_Path = "event:/char/death";
     private const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
     private const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
+    private const string Char_sprint_nearEnd = "event:/char/stamina/endStamina";
     private bool blankie_status;
     private bool Char_sprint_stop_Is_playing;
 
@@ -39,7 +40,7 @@ public class FmodPlayer : MonoBehaviour
     private void Start()
     {
         Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
-        Stamina_eventInstance = RuntimeManager.CreateInstance(Footsteps_Path);
+        Stamina_eventInstance = RuntimeManager.CreateInstance(Char_sprint_nearEnd);
     }
     
 
@@ -71,7 +72,7 @@ public class FmodPlayer : MonoBehaviour
 
     public void Update()
     {
-        Stamina_eventInstance.setParameterByName("Material", stamina.stamina); ;
+        Stamina_eventInstance.setParameterByName("stamina", stamina.stamina); ;
 
     }
     public void PlayFootstepsEvent()
