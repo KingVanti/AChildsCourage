@@ -244,6 +244,7 @@ namespace AChildsCourage.Game.Shade
 
             spriteRenderer.material = dissolveMaterial;
             dissolveMaterial.SetFloat("_Fade", 1);
+            onBanished.Invoke();
 
             while (dissolveMaterial.GetFloat("_Fade") > 0) {
                 dissolveMaterial.SetFloat("_Fade", Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
@@ -251,7 +252,6 @@ namespace AChildsCourage.Game.Shade
             }
 
             DeactivateShade();
-            onBanished.Invoke();
             dissolveMaterial.SetFloat("_Fade", 1);
             isDissolving = false;
 

@@ -5285,6 +5285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTimeAfterDealingDamage: 3
+  waitTimeAfterDealingDamage: 4
   aiPath: {fileID: 3696624342232356208}
   shadeAnimator: {fileID: 537825537936044893}
