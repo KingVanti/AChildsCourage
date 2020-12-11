@@ -5203,6 +5203,9 @@ MonoBehaviour:
   behaviourUpdatesPerSecond: 10
   touchDamage: 1
   characterRigidbody: {fileID: 0}
+  spriteRenderer: {fileID: 537825537936044894}
+  defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
+  dissolveMaterial: {fileID: 2100000, guid: 43a50397f36e9e94389729784f852392, type: 2}
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
