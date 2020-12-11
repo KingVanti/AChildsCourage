@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
@@ -11,12 +12,6 @@ namespace AChildsCourage.Game.Shade
     {
 
         public UnityEvent onShadeSpawned;
-
-#pragma warning disable 649
-
-        [SerializeField] private ShadeBrain shadeBrain;
-
-#pragma warning restore 649
 
         private TilePosition spawnTile;
 
@@ -38,6 +33,25 @@ namespace AChildsCourage.Game.Shade
             spawnTile = GetChunkCenter(floor.EndRoomChunkPosition);
             SpawnShade();
         }
+
+
+        public void OnShadeBanished()
+        {
+            StartCoroutine(TimeoutShade());
+        }
+
+        private IEnumerator TimeoutShade()
+        {
+            yield return new WaitForSeconds(shadeTimeoutTime);
+            SpawnShade();
+        }
+
+#pragma warning disable 649
+
+        [SerializeField] private ShadeBrain shadeBrain;
+        [SerializeField] private float shadeTimeoutTime;
+
+#pragma warning restore 649
 
     }
 

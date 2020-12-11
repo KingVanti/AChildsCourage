@@ -345,6 +345,8 @@ namespace AChildsCourage.Game.Player
 
             var shade = collision.gameObject.GetComponent<ShadeBrain>();
             var shadeMovement = collision.gameObject.GetComponent<ShadeMovement>();
+
+            shadeMovement.WaitAfterDealingDamage();
             TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 

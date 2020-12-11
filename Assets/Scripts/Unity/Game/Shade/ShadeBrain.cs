@@ -24,6 +24,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
+        public Events.Empty onBanished;
         public Events.Vector3 onTargetPositionChanged;
 
 #pragma warning disable 649
@@ -77,11 +78,6 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Methods
-
-        public void OnNightPrepared()
-        {
-            StartBehaviour(Investigate);
-        }
 
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
@@ -206,6 +202,30 @@ namespace AChildsCourage.Game.Shade
             StopHunt();
         }
 
+
+        private static IEnumerator None()
+        {
+            yield return null;
+        }
+
+
+        public void Banish()
+        {
+            StartBehaviour(None);
+            transform.position = new Vector3(100, 100, 0);
+            CurrentTargetPosition = transform.position;
+            gameObject.SetActive(false);
+            onBanished.Invoke();
+        }
+
+
+        public void Respawn()
+        {
+            gameObject.SetActive(true);
+            StartBehaviour(Investigate);
+        }
+        
+        
         #endregion
 
     }
