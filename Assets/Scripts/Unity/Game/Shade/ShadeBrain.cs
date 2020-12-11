@@ -79,11 +79,6 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        public void OnNightPrepared()
-        {
-            StartBehaviour(Investigate);
-        }
-
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
             if (behaviourRoutine != null)
@@ -223,6 +218,14 @@ namespace AChildsCourage.Game.Shade
             onBanished.Invoke();
         }
 
+
+        public void Respawn()
+        {
+            gameObject.SetActive(true);
+            StartBehaviour(Investigate);
+        }
+        
+        
         #endregion
 
     }
