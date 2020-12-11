@@ -27,7 +27,15 @@ Material:
         m_Texture: {fileID: 2800000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: 0cc80f6d0f4dfab48b3475f3dd8ebb0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_3F0486B9: {r: 4, g: 2.6792312, b: 0, a: 0}
+    - Color_3F0486B9: {r: 4, g: 2.9490197, b: 0, a: 0}
   m_BuildTextureStacks: []
