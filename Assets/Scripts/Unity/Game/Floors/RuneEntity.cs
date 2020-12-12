@@ -62,6 +62,7 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Sprite activeSprite;
         [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private Sprite usedSprite;
+        [SerializeField] private Material litMaterial;
 
 #pragma warning  restore 649
 
