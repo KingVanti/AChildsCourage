@@ -24,7 +24,8 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-        public Events.Empty onBanished;
+        public Events.Empty onBanishedCompleted;
+        public Events.Empty onBanishedStarted;
         public Events.Vector3 onTargetPositionChanged;
 
 #pragma warning disable 649
@@ -225,6 +226,7 @@ namespace AChildsCourage.Game.Shade
             StartBehaviour(None);
             transform.position = new Vector3(100, 100, 0);
             CurrentTargetPosition = transform.position;
+            onBanishedCompleted?.Invoke();
             gameObject.SetActive(false);
         }
 
@@ -243,7 +245,7 @@ namespace AChildsCourage.Game.Shade
 
             spriteRenderer.material = dissolveMaterial;
             dissolveMaterial.SetFloat(FadePropertyId, 1);
-            onBanished.Invoke();
+            onBanishedStarted?.Invoke();
 
             while (dissolveMaterial.GetFloat(FadePropertyId) > 0) {
                 dissolveMaterial.SetFloat(FadePropertyId, Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
