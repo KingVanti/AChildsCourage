@@ -132,12 +132,6 @@ namespace AChildsCourage.Game.Player
             set
             {
                 _movingDirection = value;
-
-                if (MovingDirection == Vector2.zero && IsSprinting) {
-                    StopSprinting();
-                    OnSprintStop?.Invoke();
-                }
-
                 UpdateAnimator();
             }
         }
@@ -239,6 +233,9 @@ namespace AChildsCourage.Game.Player
         {
             if (!gettingKnockedBack)
                 rb.velocity = MovingDirection * movementSpeed;
+
+            if (!IsMoving)
+                StopSprinting();
 
             OnPositionChanged.Invoke(transform.position);
         }
