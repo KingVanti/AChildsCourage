@@ -58,13 +58,16 @@ namespace AChildsCourage.Game.Floors
 
         IEnumerator Banishing(float deactivationTime)
         {
-
             yield return new WaitForSeconds(deactivationTime);
+            TurnOff();
+            wasUsed = true;
+        }
+
+        private void TurnOff()
+        {
             spriteRenderer.material = litMaterial;
             spriteRenderer.sprite = usedSprite;
             runeLight.intensity = 0.1f;
-            wasUsed = true;
-
         }
 
 #pragma warning  disable 649
