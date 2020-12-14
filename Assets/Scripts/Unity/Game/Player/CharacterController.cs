@@ -64,6 +64,7 @@ namespace AChildsCourage.Game.Player
         private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int MovingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
         private static readonly int FlashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
+        private static readonly int SprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
         #endregion
 
@@ -185,6 +186,7 @@ namespace AChildsCourage.Game.Player
             animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
             animator.SetBool(MovingAnimatorKey, IsMoving);
             animator.SetBool(MovingBackwardsAnimatorKey, IsMovingBackwards);
+            animator.SetBool(SprintingAnimatorKey, IsSprinting);
 
             if (HasFlashlightEquipped)
                 animator.SetBool(FlashlightEquippedAnimatorKey, _hasFlashlightEquipped);
