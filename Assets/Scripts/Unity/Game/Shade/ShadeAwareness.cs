@@ -103,6 +103,12 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
+        public void ClearAwareness()
+        {
+            CurrentAwareness = NoAwareness;
+        }
+        
+
         private void Update()
         {
             if (CurrentCharacterVisibility == Visibility.NotVisible)
