@@ -70,7 +70,7 @@ namespace AChildsCourage.Game.Shade
         private IEnumerator WaitAndContinue()
         {
             var originalSpeed = aiPath.maxSpeed;
-            aiPath.maxSpeed = 0;
+            aiPath.maxSpeed = 0.0001f;
             
             yield return new WaitForSeconds(waitTimeAfterDealingDamage);
 
