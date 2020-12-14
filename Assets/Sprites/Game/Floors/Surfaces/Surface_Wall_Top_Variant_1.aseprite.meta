@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ab97f09700363a4090c0ebfc242ed9b
+guid: 16820744d45ca6a4387d75cbcb101420
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -24,7 +24,7 @@ ScriptedImporter:
     tilePadding: {x: 0, y: 0}
     tileOffset: {x: 0, y: 0}
   animationSettings: []
-  atlas: {instanceID: 0}
+  atlas: {fileID: -8328923581568760697, guid: 16820744d45ca6a4387d75cbcb101420, type: 3}
   importType: 0
   bindType: 0
   emptyTileBehaviour: 0

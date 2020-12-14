@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Wall_Top_Basic
+  m_Name: Surface_Ground_Variant_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 144563014373330226, guid: a94d53061324ff74aaf45b6d34afbda3, type: 3}
+  m_Sprite: {fileID: 7469305538389249995, guid: 9d71515b30b7a17468e24101e163ffe5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
