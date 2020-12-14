@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f050c9493a6815642a126bd24f64938d, type: 3}
   m_Name: Plant 5
   m_EditorClassIdentifier: 
-  sprite: {fileID: -5363355907781065839, guid: 9ac15e0aa45ced046835934718064c19, type: 3}
+  sprite: {fileID: -6349392989484803058, guid: bf0190203ae706845a3c4151cd57267e, type: 3}
