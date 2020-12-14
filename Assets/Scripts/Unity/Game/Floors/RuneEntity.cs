@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -51,18 +52,31 @@ namespace AChildsCourage.Game.Floors
         private void UseRuneOn(ShadeBrain shadeBrain)
         {
             shadeBrain.Banish();
+            StartCoroutine(Banishing(deactivationTime));
+
+        }
+
+        IEnumerator Banishing(float deactivationTime)
+        {
+
+            yield return new WaitForSeconds(deactivationTime);
+            spriteRenderer.material = litMaterial;
             spriteRenderer.sprite = usedSprite;
+            runeLight.intensity = 0.1f;
             wasUsed = true;
+
         }
 
 #pragma warning  disable 649
 
         [SerializeField] private float activeTime;
+        [SerializeField] private float deactivationTime;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite activeSprite;
         [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private Sprite usedSprite;
         [SerializeField] private Material litMaterial;
+        [SerializeField] private Light2D runeLight;
 
 #pragma warning  restore 649
 
