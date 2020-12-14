@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f050c9493a6815642a126bd24f64938d, type: 3}
   m_Name: Bag 1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 8766740682603709380, guid: 16041ee9566d31e40bfc884abb709964, type: 3}
+  sprite: {fileID: 4139197684161411251, guid: 330ed63ccfbce5b4ab808e24a9698214, type: 3}
