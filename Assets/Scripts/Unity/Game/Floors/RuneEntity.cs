@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -9,6 +10,9 @@ namespace AChildsCourage.Game.Floors
     public class RuneEntity : MonoBehaviour
     {
 
+        private const string ShadeTag = "Shade";
+        private const string PlayerTag = "Player";
+        
         private bool isActive;
         private bool wasUsed;
 
@@ -17,17 +21,45 @@ namespace AChildsCourage.Game.Floors
             if (wasUsed)
                 return;
 
-            if (isActive && other.gameObject.CompareTag("Shade"))
-            {
-                var shadeBrain = other.GetComponent<ShadeBrain>();
-                UseRuneOn(shadeBrain);
-            }
-            else if (other.gameObject.CompareTag("Player"))
-            {
-                Activate();
-            }
+            if (isActive && IsShade(other, out var shadeBrain))
+                OnShadeEnter(shadeBrain);
+            else if (IsPlayer(other))
+                OnPlayerEnter();
         }
 
+        public void OnTriggerExit2D(Collider2D other)
+        {
+            if (IsPlayer(other))
+                OnPlayerExit();
+        }
+
+
+        private bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
+        {
+            shadeBrain = other.GetComponent<ShadeBrain>();
+            return other.gameObject.CompareTag(ShadeTag);
+        }
+
+        private bool IsPlayer(Collider2D other)
+        {
+            return other.gameObject.CompareTag(PlayerTag);
+        }
+
+        private void OnPlayerEnter()
+        {
+            Activate();
+        }
+
+        private void OnPlayerExit()
+        {
+            
+        }
+
+        private void OnShadeEnter(ShadeBrain shadeBrain)
+        {
+           UseRuneOn(shadeBrain);
+        }
+        
         private void Activate()
         {
             spriteRenderer.sprite = activeSprite;
@@ -56,7 +88,7 @@ namespace AChildsCourage.Game.Floors
 
         }
 
-        IEnumerator Banishing(float deactivationTime)
+        private IEnumerator Banishing(float deactivationTime)
         {
             yield return new WaitForSeconds(deactivationTime);
             TurnOff();
