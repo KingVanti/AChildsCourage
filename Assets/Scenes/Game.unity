@@ -3470,6 +3470,10 @@ PrefabInstance:
       propertyPath: characterRigidbody
       value: 
       objectReference: {fileID: 489588455}
+    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: touchDamage
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!114 &2064087351 stripped
