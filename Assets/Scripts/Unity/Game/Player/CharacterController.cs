@@ -396,7 +396,7 @@ namespace AChildsCourage.Game.Player
         private IEnumerator DamageTaken(float duration)
         {
             isInvincible = true;
-            Physics2D.IgnoreLayerCollision(8, 12, true);
+            // Physics2D.IgnoreLayerCollision(8, 12, true);
             const int steps = 5;
 
             var f = spriteRenderer.color;
@@ -410,7 +410,7 @@ namespace AChildsCourage.Game.Player
                 yield return new WaitForSeconds(duration / 2 / steps);
             }
 
-            Physics2D.IgnoreLayerCollision(8, 12, false);
+            // Physics2D.IgnoreLayerCollision(8, 12, false);
             isInvincible = false;
         }
 
