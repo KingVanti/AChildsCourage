@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{6f758c6f-b049-4b77-926f-21bdb7ec8582}">
 		<property name="name">
-			<value>1-0</value>
+			<value>1-0 lost</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
@@ -110,10 +110,10 @@
 	<object class="MixerBusPanner" id="{73189283-a291-4dec-a07e-82b59b5879a5}" />
 	<object class="SingleSound" id="{ccacbabf-443f-4b09-a066-193a46bc8afa}">
 		<property name="length">
-			<value>1.6200000000000001</value>
+			<value>1.22</value>
 		</property>
 		<property name="timelockedOffset">
-			<value>5</value>
+			<value>5.3999999999999986</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{9fffe995-d9fc-4f8f-be23-45b931f857d4}</destination>
@@ -135,10 +135,10 @@
 	</object>
 	<object class="SingleSound" id="{d609b3d3-df9e-4563-bd46-3cb64336469c}">
 		<property name="start">
-			<value>0.60000000000000009</value>
+			<value>0.19999999999999993</value>
 		</property>
 		<property name="length">
-			<value>1.3850000000000005</value>
+			<value>1.02</value>
 		</property>
 		<property name="timelockedOffset">
 			<value>26.214999999999982</value>
@@ -151,9 +151,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{38cbcb00-d97f-4200-8ddb-456a4827d9e8}">
-		<property name="volume">
-			<value>-11.5</value>
-		</property>
 		<property name="name">
 			<value>Audio 2</value>
 		</property>
@@ -169,7 +166,7 @@
 	</object>
 	<object class="SingleSound" id="{7c661b14-68f5-42f6-bf39-7b1bb9b83ccd}">
 		<property name="start">
-			<value>0.60000000000000009</value>
+			<value>0.19999999999999993</value>
 		</property>
 		<property name="length">
 			<value>0.88</value>
@@ -216,6 +213,7 @@
 			<destination>{2572681a-a001-46cb-a076-a713ea0c9de9}</destination>
 			<destination>{b5953fc1-01e2-4246-a6c5-47432a2fb68c}</destination>
 			<destination>{6a9eec3d-f648-4226-a1f4-7fec5b2b8c2c}</destination>
+			<destination>{cd6f7111-2709-4004-a79b-1dc4dd50e262}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{80e13c69-bec1-493e-9763-eb4c35f211a9}" />
@@ -272,9 +270,20 @@
 			<value>1200</value>
 		</property>
 	</object>
+	<object class="MultibandEqEffect" id="{cd6f7111-2709-4004-a79b-1dc4dd50e262}">
+		<property name="filterTypeA">
+			<value>3</value>
+		</property>
+		<property name="frequencyA">
+			<value>308.87088</value>
+		</property>
+		<property name="qualityA">
+			<value>0.974517226</value>
+		</property>
+	</object>
 	<object class="AutomationPoint" id="{4749743c-3f2b-4dfe-9f10-088816ed260d}">
 		<property name="position">
-			<value>0.60000000000000009</value>
+			<value>0.19999999999999993</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -285,7 +294,7 @@
 	</object>
 	<object class="AutomationPoint" id="{d73c30cf-e809-453d-ba42-398f11bc70c5}">
 		<property name="position">
-			<value>0.84999999999999964</value>
+			<value>0.44999999999999929</value>
 		</property>
 		<property name="value">
 			<value>1</value>
@@ -307,7 +316,7 @@
 	</object>
 	<object class="AutomationPoint" id="{19248bd1-a561-4287-9981-18838ef50a58}">
 		<property name="position">
-			<value>0.60000000000000009</value>
+			<value>0.19999999999999993</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -318,7 +327,7 @@
 	</object>
 	<object class="AutomationPoint" id="{8ff4693a-4ae2-4c6c-b145-bb7d02b000b1}">
 		<property name="position">
-			<value>0.76000000000000045</value>
+			<value>0.3600000000000001</value>
 		</property>
 		<property name="value">
 			<value>1</value>
@@ -326,7 +335,7 @@
 	</object>
 	<object class="AutomationPoint" id="{c94babaa-63e8-480b-9eb8-1734d31a85ef}">
 		<property name="position">
-			<value>0.95999999999999996</value>
+			<value>0.55999999999999961</value>
 		</property>
 		<property name="value">
 			<value>1</value>
@@ -337,7 +346,7 @@
 	</object>
 	<object class="AutomationPoint" id="{d2b6573e-5e36-4920-a93a-a9dd30065b4d}">
 		<property name="position">
-			<value>1.48</value>
+			<value>1.0799999999999996</value>
 		</property>
 		<property name="value">
 			<value>0</value>
