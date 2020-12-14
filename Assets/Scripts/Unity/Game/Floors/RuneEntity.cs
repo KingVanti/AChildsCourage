@@ -51,59 +51,52 @@ namespace AChildsCourage.Game.Floors
         {
             Activate();
         }
-
+        
         private void OnPlayerExit()
         {
-            
+             StopAllCoroutines();
+             StartCoroutine(WaitAndDeactivate());
         }
 
         private void OnShadeEnter(ShadeBrain shadeBrain)
         {
-           UseRuneOn(shadeBrain);
+            UseRuneOn(shadeBrain);
         }
+        
         
         private void Activate()
         {
             spriteRenderer.sprite = activeSprite;
             isActive = true;
-
-            StopAllCoroutines();
-            StartCoroutine(StayActive());
         }
-
-        private IEnumerator StayActive()
-        {
-            yield return new WaitForSeconds(activeTime);
-            Deactivate();
-        }
-
+        
         private void Deactivate()
         {
             spriteRenderer.sprite = inactiveSprite;
             isActive = false;
         }
-
+        
         private void UseRuneOn(ShadeBrain shadeBrain)
         {
             shadeBrain.Banish();
-            StartCoroutine(Banishing(deactivationTime));
-
-        }
-
-        private IEnumerator Banishing(float deactivationTime)
-        {
-            yield return new WaitForSeconds(deactivationTime);
-            TurnOff();
             wasUsed = true;
+            Invoke(nameof(Disable), deactivationTime);
         }
 
-        private void TurnOff()
+        private IEnumerator WaitAndDeactivate()
+        {
+            yield return new WaitForSeconds(activeTime);
+            Deactivate();
+        }
+
+        private void Disable()
         {
             spriteRenderer.material = litMaterial;
             spriteRenderer.sprite = usedSprite;
             runeLight.intensity = 0.1f;
         }
 
+        
 #pragma warning  disable 649
 
         [SerializeField] private float activeTime;
