@@ -34,13 +34,13 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        private bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
+        private static bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
         {
             shadeBrain = other.GetComponent<ShadeBrain>();
             return other.gameObject.CompareTag(ShadeTag);
         }
 
-        private bool IsPlayer(Collider2D other)
+        private static bool IsPlayer(Collider2D other)
         {
             return other.gameObject.CompareTag(PlayerTag);
         }
