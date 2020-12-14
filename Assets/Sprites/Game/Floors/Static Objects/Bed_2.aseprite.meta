@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22b11af7818b2d247be3966b29c27ebb
+guid: 353b8a9aa1b2f1a4fbdbde979e8f6699
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -14,17 +14,17 @@ ScriptedImporter:
     mirror: 0
     transparencyMode: 0
     transparentColor: {r: 1, g: 0, b: 1, a: 1}
-    meshType: 1
+    meshType: 0
     extrudeEdges: 1
     spritePivot: {x: 0.5, y: 0.5}
-    generatePhysics: 1
+    generatePhysics: 0
     wrapMode: 1
     filterMode: 0
     tileSize: {x: 32, y: 32}
     tilePadding: {x: 0, y: 0}
     tileOffset: {x: 0, y: 0}
   animationSettings: []
-  atlas: {fileID: -8328923581568760697, guid: 22b11af7818b2d247be3966b29c27ebb, type: 3}
+  atlas: {fileID: -8328923581568760697, guid: 353b8a9aa1b2f1a4fbdbde979e8f6699, type: 3}
   importType: 0
   bindType: 0
   emptyTileBehaviour: 0
