@@ -14,7 +14,10 @@ namespace AChildsCourage.Game.UI
 
 #pragma warning disable 649
         [SerializeField] private Image courageBarFill;
-        [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
+        [SerializeField] private TextMeshProUGUI courageCounterCurrentTextMesh;
+        [SerializeField] private TextMeshProUGUI courageCounterNeededTextMesh;
+        [SerializeField] private Color32 textColor;
+        [SerializeField] private Color fillColor;
 #pragma warning restore 649
 
         #endregion
@@ -35,16 +38,34 @@ namespace AChildsCourage.Game.UI
 
         public void UpdateCourageCounter(int newValue, int neededValue)
         {
-            courageCounterTextMesh.text = newValue + " / " + neededValue;
+            if(newValue >= neededValue) {
+                courageCounterCurrentTextMesh.faceColor = textColor;
+            } else {
+                courageCounterCurrentTextMesh.faceColor = new Color(1,1,1,1);
+            }
+
+            courageCounterCurrentTextMesh.text = newValue.ToString();
+            courageCounterNeededTextMesh.text = "/ " + neededValue.ToString();
         }
 
         private IEnumerator FillLerp(float destination)
         {
             while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon)
             {
-                courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 2.0f);
+                courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 4.0f);
                 yield return new WaitForEndOfFrame();
             }
+
+            UpdateCourageBarColor();
+
+        }
+
+        private void UpdateCourageBarColor()
+        {
+            courageBarFill.color = new Color(
+                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.r),
+                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.g),
+                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.b));
         }
 
         #endregion
