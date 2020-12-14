@@ -48,8 +48,7 @@ namespace AChildsCourage.Game.Shade
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
         private bool isDissolving = false;
-
-
+        private static readonly int FadePropertyId = Shader.PropertyToID("_Fade");
 
         #endregion
 
@@ -243,16 +242,16 @@ namespace AChildsCourage.Game.Shade
             isDissolving = true;
 
             spriteRenderer.material = dissolveMaterial;
-            dissolveMaterial.SetFloat("_Fade", 1);
+            dissolveMaterial.SetFloat(FadePropertyId, 1);
             onBanished.Invoke();
 
-            while (dissolveMaterial.GetFloat("_Fade") > 0) {
-                dissolveMaterial.SetFloat("_Fade", Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
+            while (dissolveMaterial.GetFloat(FadePropertyId) > 0) {
+                dissolveMaterial.SetFloat(FadePropertyId, Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
                 yield return null;
             }
 
             DeactivateShade();
-            dissolveMaterial.SetFloat("_Fade", 1);
+            dissolveMaterial.SetFloat(FadePropertyId, 1);
             isDissolving = false;
 
         }
