@@ -231,9 +231,12 @@ namespace AChildsCourage.Game.Player
 
         private void Move()
         {
-            if (!gettingKnockedBack) {
+            if (!gettingKnockedBack)
                 rb.velocity = MovingDirection * movementSpeed;
-            }
+
+            if (!IsMoving)
+                StopSprinting();
+
             OnPositionChanged.Invoke(transform.position);
         }
 
