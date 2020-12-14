@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{082a9c54-72ac-43ba-bfa0-029b3ca2f9e6}">
+		<property name="assetPath">
+			<value>212764__qubodup__lion-roar.flac</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6.5597278911564629</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2cab07a3-fcf7-450b-8f2e-4283b75c88b1}</destination>
+		</relationship>
+	</object>
+</objects>

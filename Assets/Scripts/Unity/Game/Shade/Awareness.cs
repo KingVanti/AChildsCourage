@@ -9,6 +9,8 @@ namespace AChildsCourage.Game.Shade
         private const float MinAwareness = 0;
         private const float MaxAwareness = 1;
 
+        public static Awareness NoAwareness => new Awareness(MinAwareness);
+        
         
         public static Func<Awareness, float, Awareness> LooseAwareness =>
             (awareness, amount) =>
@@ -23,8 +25,7 @@ namespace AChildsCourage.Game.Shade
         {
 
             public float Value { get; }
-
-
+            
             public Awareness(float value) => Value = value.Clamp(MinAwareness, MaxAwareness);
 
         }
