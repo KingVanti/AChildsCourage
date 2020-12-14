@@ -9,9 +9,22 @@ namespace AChildsCourage.Game.Floors
 
     public class RuneEntity : MonoBehaviour
     {
-
+        
         private const string ShadeTag = "Shade";
         private const string PlayerTag = "Player";
+
+        
+        private static bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
+        {
+            shadeBrain = other.GetComponent<ShadeBrain>();
+            return other.gameObject.CompareTag(ShadeTag);
+        }
+
+        private static bool IsPlayer(Collider2D other)
+        {
+            return other.gameObject.CompareTag(PlayerTag);
+        }
+        
         
         private bool isActive;
         private bool wasUsed;
@@ -33,18 +46,7 @@ namespace AChildsCourage.Game.Floors
                 OnPlayerExit();
         }
 
-
-        private static bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
-        {
-            shadeBrain = other.GetComponent<ShadeBrain>();
-            return other.gameObject.CompareTag(ShadeTag);
-        }
-
-        private static bool IsPlayer(Collider2D other)
-        {
-            return other.gameObject.CompareTag(PlayerTag);
-        }
-
+        
         private void OnPlayerEnter()
         {
             Activate();
