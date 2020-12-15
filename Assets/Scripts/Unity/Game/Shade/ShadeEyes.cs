@@ -134,7 +134,7 @@ namespace AChildsCourage.Game.Shade
                     yield return new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
         }
 
-        private bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position)|| IsInView(secondaryVision, position);
+        public bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position)|| IsInView(secondaryVision, position);
 
         private bool PositionIsInSmallRadius(Vector3 position) => Vector3.Distance(transform.position, position) <= smallVisionRadius;
 

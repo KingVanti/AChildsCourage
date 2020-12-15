@@ -5,12 +5,19 @@ namespace AChildsCourage.Game.Shade
 
     public class IndirectHuntingBehaviour
     {
-
+        
         private const int HuntCancelTime = 5;
         
+        private ShadeEyes shadeEyes;
         private Vector3 lastSeenPosition;
         private float lastSeenTime;
         private Vector2 lastSeenVelocity;
+
+        
+        public IndirectHuntingBehaviour(ShadeEyes shadeEyes)
+        {
+            this.shadeEyes = shadeEyes;
+        }
         
         
         public Vector3 TargetPosition { get; private set; }
@@ -18,9 +25,14 @@ namespace AChildsCourage.Game.Shade
         public  bool HuntIsInProgress { get; private set; }
         
         
-        private Vector3 PredictedPosition => lastSeenPosition + (Vector3) (lastSeenVelocity * (Time.deltaTime * TimeSinceLastSeen));
+        private Vector3 PredictedPosition => lastSeenPosition + (Vector3) (lastSeenVelocity * TimeSinceLastSeen);
 
         private float TimeSinceLastSeen => Time.time - lastSeenTime;
+
+
+        private bool SearchedEnoughTime => TimeSinceLastSeen >= HuntCancelTime;
+
+        private bool CanSeeTarget => shadeEyes.PositionIsVisible(PredictedPosition);
 
         
         public void StartIndirectHunt(Rigidbody2D target)
@@ -37,9 +49,9 @@ namespace AChildsCourage.Game.Shade
         {
             TargetPosition = PredictedPosition;
 
-            HuntIsInProgress = TimeSinceLastSeen < HuntCancelTime;
+            HuntIsInProgress = !SearchedEnoughTime && !CanSeeTarget;
         }
-        
+
     }
 
 }

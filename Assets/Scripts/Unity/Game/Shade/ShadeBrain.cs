@@ -35,6 +35,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material dissolveMaterial;
         [SerializeField] private new Collider2D collider;
+        [SerializeField] private ShadeEyes shadeEyes;
 
 #pragma warning restore 649
 
@@ -43,7 +44,7 @@ namespace AChildsCourage.Game.Shade
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
         private readonly DirectHuntingBehaviour directHuntingBehaviour = new DirectHuntingBehaviour();
-        private readonly IndirectHuntingBehaviour indirectHuntingBehaviour = new IndirectHuntingBehaviour();
+        private IndirectHuntingBehaviour indirectHuntingBehaviour;
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
         private bool isDissolving;
@@ -87,6 +88,11 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Methods
+
+        private void Awake()
+        {
+            indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
+        }
 
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
@@ -219,7 +225,7 @@ namespace AChildsCourage.Game.Shade
 
             StopHunt();
         }
-        
+
         private static IEnumerator None()
         {
             yield return null;
@@ -259,7 +265,7 @@ namespace AChildsCourage.Game.Shade
 
             spriteRenderer.material = dissolveMaterial;
             dissolveMaterial.SetFloat(FadePropertyId, 1);
-            
+
             while (dissolveMaterial.GetFloat(FadePropertyId) > 0)
             {
                 dissolveMaterial.SetFloat(FadePropertyId,

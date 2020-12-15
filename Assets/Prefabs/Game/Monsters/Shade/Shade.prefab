@@ -441,6 +441,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 43a50397f36e9e94389729784f852392, type: 2}
   collider: {fileID: 1496831347808597378}
+  shadeEyes: {fileID: 4616488904359167555}
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
