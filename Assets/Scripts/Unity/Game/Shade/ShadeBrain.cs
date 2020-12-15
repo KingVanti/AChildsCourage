@@ -219,8 +219,7 @@ namespace AChildsCourage.Game.Shade
 
             StopHunt();
         }
-
-
+        
         private static IEnumerator None()
         {
             yield return null;
