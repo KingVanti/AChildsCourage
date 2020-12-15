@@ -3667,7 +3667,7 @@ PrefabInstance:
       objectReference: {fileID: 489588455}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: touchDamage
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7337468781757878326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: movementSpeed

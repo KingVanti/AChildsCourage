@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Appccelerate.EventBroker;
+using Ninject.Extensions.Unity;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,6 +8,7 @@ using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Courage
 {
+    [UseDi]
     public class CourageManager : MonoBehaviour
     {
 
@@ -26,6 +29,9 @@ namespace AChildsCourage.Game.Courage
         public UnityEvent onCourageNotEnoughStarted;
         public UnityEvent onCourageNotEnoughCompleted;
         public CanCollectCourageEvent OnCouragePickupableChanged;
+
+        [EventPublication(nameof(OnPlayerLose))]
+        public event EventHandler OnPlayerLose;
 
         #endregion
 
@@ -95,12 +101,16 @@ namespace AChildsCourage.Game.Courage
             OnCourageDepleted?.Invoke();
         }
 
+        public void GameLost() {
+            OnPlayerLose?.Invoke(this, EventArgs.Empty);
+        }
+
         IEnumerator CourageLoss() {
 
             messageCanvas.alpha = 1;
             yield return new WaitForSeconds(messageTime);
             onCourageNotEnoughCompleted?.Invoke();
-
+            GameLost();
         }
 
         #endregion

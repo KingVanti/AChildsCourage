@@ -142,6 +142,11 @@ namespace AChildsCourage.Game.Input
             UnsubscribeFromInputs();
         }
 
+        [EventSubscription(nameof(CourageManager.OnPlayerLose), typeof(OnPublisher))]
+        public void OnPlayerLose(EventArgs _) {
+            UnsubscribeFromInputs();
+        }
+
         private void UnsubscribeFromInputs()
         {
             userControls.Player.Look.performed -= OnLook;
