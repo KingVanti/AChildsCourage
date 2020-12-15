@@ -30,6 +30,8 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private Animator shadeAnimator;
         
 #pragma warning restore 649
+
+        private float standardSpeed;
         
         #endregion
 
@@ -49,10 +51,20 @@ namespace AChildsCourage.Game.Shade
             aiPath.destination = position;
         }
 
+        public void ResetSpeed()
+        {
+            aiPath.maxSpeed = standardSpeed;
+        }
+
 
         private void Update()
         {
             UpdateAnimator();
+        }
+
+        private void Awake()
+        {
+            standardSpeed = aiPath.maxSpeed;
         }
 
         private void UpdateAnimator()
@@ -69,12 +81,11 @@ namespace AChildsCourage.Game.Shade
 
         private IEnumerator WaitAndContinue()
         {
-            var originalSpeed = aiPath.maxSpeed;
             aiPath.maxSpeed = 0.0001f;
             
             yield return new WaitForSeconds(waitTimeAfterDealingDamage);
 
-            aiPath.maxSpeed = originalSpeed;
+            ResetSpeed();
         }
         
         #endregion
