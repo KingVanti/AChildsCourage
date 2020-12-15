@@ -11,11 +11,9 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
-
     [UseDi]
     public class ShadeBrain : MonoBehaviour
     {
-
         #region Subtypes
 
         private delegate IEnumerator BehaviourFunction();
@@ -36,7 +34,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material dissolveMaterial;
-
+        [SerializeField] private new Collider2D collider;
 
 #pragma warning restore 649
 
@@ -48,7 +46,7 @@ namespace AChildsCourage.Game.Shade
         private readonly IndirectHuntingBehaviour indirectHuntingBehaviour = new IndirectHuntingBehaviour();
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
-        private bool isDissolving = false;
+        private bool isDissolving;
         private static readonly int FadePropertyId = Shader.PropertyToID("_Fade");
 
         #endregion
@@ -76,7 +74,11 @@ namespace AChildsCourage.Game.Shade
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
 
-        private TilePosition CurrentTargetTile { get => CurrentTargetPosition.FloorToTile(); set => CurrentTargetPosition = value.GetTileCenter(); }
+        private TilePosition CurrentTargetTile
+        {
+            get => CurrentTargetPosition.FloorToTile();
+            set => CurrentTargetPosition = value.GetTileCenter();
+        }
 
         private ShadeState CurrentState => new ShadeState(Position, DateTime.Now, investigationHistory);
 
@@ -122,7 +124,10 @@ namespace AChildsCourage.Game.Shade
                 CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
 
-            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
+            bool InvestigationIsInProgress()
+            {
+                return investigationBehaviour.InvestigationIsInProgress;
+            }
 
             void ProgressInvestigation()
             {
@@ -160,7 +165,10 @@ namespace AChildsCourage.Game.Shade
                 directHuntingBehaviour.StartHunt(characterRigidbody);
             }
 
-            bool HuntIsInProgress() => directHuntingBehaviour.HuntIsInProgress;
+            bool HuntIsInProgress()
+            {
+                return directHuntingBehaviour.HuntIsInProgress;
+            }
 
             void ProgressHunt()
             {
@@ -185,7 +193,10 @@ namespace AChildsCourage.Game.Shade
                 indirectHuntingBehaviour.StartIndirectHunt(characterRigidbody);
             }
 
-            bool HuntIsInProgress() => indirectHuntingBehaviour.HuntIsInProgress;
+            bool HuntIsInProgress()
+            {
+                return indirectHuntingBehaviour.HuntIsInProgress;
+            }
 
             void ProgressHunt()
             {
@@ -218,14 +229,18 @@ namespace AChildsCourage.Game.Shade
 
         public void Banish()
         {
+            onBanishedStarted?.Invoke();
+            StartBehaviour(None);
+            CurrentTargetPosition = transform.position;
+            collider.enabled = false;
+
             if (!isDissolving)
                 StartCoroutine(Dissolve());
         }
 
-        private void DeactivateShade() {
-            StartBehaviour(None);
+        private void DeactivateShade()
+        {
             transform.position = new Vector3(100, 100, 0);
-            CurrentTargetPosition = transform.position;
             onBanishedCompleted?.Invoke();
             gameObject.SetActive(false);
         }
@@ -235,32 +250,29 @@ namespace AChildsCourage.Game.Shade
         {
             spriteRenderer.material = defaultMaterial;
             gameObject.SetActive(true);
+            collider.enabled = true;
             StartBehaviour(Investigate);
         }
 
         private IEnumerator Dissolve()
         {
-
             isDissolving = true;
 
             spriteRenderer.material = dissolveMaterial;
             dissolveMaterial.SetFloat(FadePropertyId, 1);
-            onBanishedStarted?.Invoke();
-
-            while (dissolveMaterial.GetFloat(FadePropertyId) > 0) {
-                dissolveMaterial.SetFloat(FadePropertyId, Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
+            
+            while (dissolveMaterial.GetFloat(FadePropertyId) > 0)
+            {
+                dissolveMaterial.SetFloat(FadePropertyId,
+                    Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
             DeactivateShade();
             dissolveMaterial.SetFloat(FadePropertyId, 1);
             isDissolving = false;
-
         }
-        
-        
+
         #endregion
-
     }
-
 }
