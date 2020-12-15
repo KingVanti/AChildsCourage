@@ -19,6 +19,7 @@ namespace AChildsCourage.Game.Courage
         [SerializeField] private float messageTime;
         [SerializeField] private CanvasGroup messageCanvas;
 
+        [Header("Events")]
         public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
         public UnityEvent OnCourageDepleted;
@@ -69,8 +70,8 @@ namespace AChildsCourage.Game.Courage
         public void Initialize()
         {
             OnInitialize?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
-            CurrentNightCourage = 1 + OverfilledNightCourage;
             AvailableNightCourage = MaxNightCourage;
+            CurrentNightCourage = 1 + OverfilledNightCourage;
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
