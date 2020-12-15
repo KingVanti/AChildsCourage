@@ -9,7 +9,13 @@ using UnityEngine;
 
 public class FmodPlayer : MonoBehaviour
 {
+
+#pragma warning disable 649
+    
     [SerializeField] private Stamina stamina;
+    
+#pragma warning restore 649
+    
     private float Material = 0;
     private bool blankie_status;
     private bool Char_sprint_stop_Is_playing;
