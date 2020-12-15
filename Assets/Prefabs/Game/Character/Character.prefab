@@ -545,6 +545,7 @@ MonoBehaviour:
   rb: {fileID: 3546636511749136385}
   characterGlowingLight: {fileID: 1604705283}
   stamina: {fileID: 1871683216658508858}
+  knockbackMultiplier: 2
   OnPositionChanged:
     m_PersistentCalls:
       m_Calls:
@@ -741,7 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stamina: 100
   staminaRecoveryRate: 10
-  staminaDrainRate: 25
+  staminaDrainRate: 20
   staminaDepletedCooldown: 5
   onStaminaDepleted:
     m_PersistentCalls:
@@ -859,6 +860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afff565ceb00a44ea2a481941699db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stamina: {fileID: 1871683216658508858}
 --- !u!198 &6250614698386667104
 ParticleSystem:
   m_ObjectHideFlags: 0

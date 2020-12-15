@@ -1389,14 +1389,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 703323583, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: stamina
-      value: 
-      objectReference: {fileID: 489588456}
-    - target: {fileID: 1266752489, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1668216621, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: cooldownEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1405,10 +1397,6 @@ PrefabInstance:
       propertyPath: itemSwappedEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 270846661}
-    - target: {fileID: 1871683216658508858, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: staminaDrainRate
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Character
@@ -1512,17 +1500,6 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 3546636511749136385, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &489588456 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1871683216658508858, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 489588450}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104577611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa7214ea7258aa4f8d9b0e65e2c892d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
