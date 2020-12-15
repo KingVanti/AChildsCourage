@@ -649,6 +649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 733911144}
     m_Modifications:
+    - target: {fileID: 1755514221774227884, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d4e497c255f5f7e4a8f288b2aa5c8aed, type: 3}
     - target: {fileID: 3021571848086110469, guid: 65860c608dc283f47b04208eab53fde4, type: 3}
       propertyPath: m_Name
       value: Pickup

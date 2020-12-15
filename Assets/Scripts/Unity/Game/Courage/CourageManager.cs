@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,11 +13,17 @@ namespace AChildsCourage.Game.Courage
 
         private int _currentNightCourage;
         private int _neededNightCourage;
+        private int _availableNightCourage;
         [SerializeField] private int _maxNightCourage;
+
+        [SerializeField] private float messageTime;
+        [SerializeField] private CanvasGroup messageCanvas;
 
         public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
         public UnityEvent OnCourageDepleted;
+        public UnityEvent onCourageNotEnoughStarted;
+        public UnityEvent onCourageNotEnoughCompleted;
         public CanCollectCourageEvent OnCouragePickupableChanged;
 
         #endregion
@@ -30,12 +38,19 @@ namespace AChildsCourage.Game.Courage
                 _currentNightCourage = value;
                 OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
                 OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
+
+                if(CurrentNightCourage + AvailableNightCourage < NeededNightCourage) {
+                    StartCoroutine(CourageLoss());
+                }
+
             }
         }
 
         public int MaxNightCourage { get => _maxNightCourage; set => _maxNightCourage = value; }
 
         public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
+
+        public int AvailableNightCourage { get => _availableNightCourage; set => _availableNightCourage = value; }
 
         public int OverfilledNightCourage
         {
@@ -55,6 +70,7 @@ namespace AChildsCourage.Game.Courage
         {
             OnInitialize?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
             CurrentNightCourage = 1 + OverfilledNightCourage;
+            AvailableNightCourage = MaxNightCourage;
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
@@ -64,6 +80,7 @@ namespace AChildsCourage.Game.Courage
             if (CurrentNightCourage > MaxNightCourage)
                 CurrentNightCourage = MaxNightCourage;
 
+            AvailableNightCourage -= pickedUpCourage.Value;
         }
 
         public void Subtract(int value)
@@ -75,6 +92,14 @@ namespace AChildsCourage.Game.Courage
             
             CurrentNightCourage = 0;
             OnCourageDepleted?.Invoke();
+        }
+
+        IEnumerator CourageLoss() {
+
+            messageCanvas.alpha = 1;
+            yield return new WaitForSeconds(messageTime);
+            onCourageNotEnoughCompleted?.Invoke();
+
         }
 
         #endregion
