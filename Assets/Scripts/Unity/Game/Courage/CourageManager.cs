@@ -17,10 +17,14 @@ namespace AChildsCourage.Game.Courage
         private int _currentNightCourage;
         private int _neededNightCourage;
         private int _availableNightCourage;
+        
+#pragma warning disable 649
+        
         [SerializeField] private int _maxNightCourage;
-
         [SerializeField] private float messageTime;
         [SerializeField] private CanvasGroup messageCanvas;
+        
+#pragma warning restore 649
 
         [Header("Events")]
         public CourageChangedEvent OnCourageChanged;
