@@ -248,7 +248,7 @@ namespace AChildsCourage.Game.Shade
             onBanishedStarted?.Invoke();
 
             while (dissolveMaterial.GetFloat(FadePropertyId) > 0) {
-                dissolveMaterial.SetFloat(FadePropertyId, Mathf.MoveTowards(dissolveMaterial.GetFloat("_Fade"), 0, Time.deltaTime));
+                dissolveMaterial.SetFloat(FadePropertyId, Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
