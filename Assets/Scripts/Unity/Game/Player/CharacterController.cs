@@ -32,6 +32,7 @@ namespace AChildsCourage.Game.Player
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Light2D characterGlowingLight;
         [SerializeField] private Stamina stamina;
+        [SerializeField] private float knockbackMultiplier;
 
 #pragma warning restore 649
 
@@ -387,7 +388,7 @@ namespace AChildsCourage.Game.Player
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
         {
-            StartCoroutine(KnockBack(damage * movementSpeed * 10, 0.175f, knockBackVector));
+            StartCoroutine(KnockBack(damage * movementSpeed * knockbackMultiplier, 0.175f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);
