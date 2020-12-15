@@ -67,7 +67,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        private void Awake()
+        private void OnEnable()
         {
             StartCoroutine(ContinuallyUpdateVision());
         }
