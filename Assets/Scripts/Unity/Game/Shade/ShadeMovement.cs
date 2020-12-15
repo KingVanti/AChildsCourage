@@ -25,6 +25,7 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning disable 649
 
+        [SerializeField] private float movementSpeed;
         [SerializeField] private float waitTimeAfterDealingDamage;
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
@@ -53,18 +54,13 @@ namespace AChildsCourage.Game.Shade
 
         public void ResetSpeed()
         {
-            aiPath.maxSpeed = standardSpeed;
+            aiPath.maxSpeed = movementSpeed;
         }
 
 
         private void Update()
         {
             UpdateAnimator();
-        }
-
-        private void Awake()
-        {
-            standardSpeed = aiPath.maxSpeed;
         }
 
         private void UpdateAnimator()

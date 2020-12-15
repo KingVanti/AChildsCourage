@@ -435,7 +435,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   behaviourUpdatesPerSecond: 10
-  touchDamage: 1
+  touchDamage: 10
   characterRigidbody: {fileID: 0}
   spriteRenderer: {fileID: 537825537936044894}
   defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
@@ -531,6 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 2.2
   waitTimeAfterDealingDamage: 4
   aiPath: {fileID: 3696624342232356208}
   shadeAnimator: {fileID: 537825537936044893}
