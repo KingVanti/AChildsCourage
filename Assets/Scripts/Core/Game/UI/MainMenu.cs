@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.UI
     public class MainMenu : MonoBehaviour
     {
 
-        public void OnPlayButtonPressed() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.GameScene);
+        public void OnPlayButtonPressed() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.Game);
 
         public void OnQuitButtonPressed()
         {

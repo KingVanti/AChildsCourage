@@ -20,10 +20,10 @@ namespace AChildsCourage.Unity
         }
 
 
-        public void OnLose() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.EndScene);
+        public void OnLose() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.End);
 
 
-        public void OnWin() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.EndScene);
+        public void OnWin() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.End);
 
     }
 
