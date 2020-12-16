@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Shade.Navigation
             var started = StartNew(
                                    new FloorState(new Aoi()),
                                    new ShadeState(new EntityPosition(), DateTime.MinValue, Empty),
-                                   MRng.Always(0));
+                                   MRng.ConstantRng(0));
 
             // When
 

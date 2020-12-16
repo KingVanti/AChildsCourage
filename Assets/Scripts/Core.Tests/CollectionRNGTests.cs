@@ -51,7 +51,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new[] {1, 2};
-            var rng = FromSeed(0);
+            var rng = RngFromSeed(0);
 
             // When
 

@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Shade
     public class InvestigationBehaviour
     {
 
-        private readonly CreateRng rng = Random();
+        private readonly CreateRng rng = RandomRng();
 
         private Investigation currentInvestigation;
 

@@ -66,7 +66,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         private void GenerateFloorImage()
         {
             var parameters = new GenerationParameters(12);
-            var rng = FromSeed(seed);
+            var rng = RngFromSeed(seed);
             var floorPlan = GenerateFloorLayout(rng, parameters)
                 .Map(layout => GenerateFloorPlan(layout, completeRoomLoader.All(), rng));
 

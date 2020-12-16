@@ -21,7 +21,7 @@ namespace AChildsCourage.Game
 
 #pragma warning restore 649
 
-        private readonly CreateRng createRng = FromSeed(0);
+        private readonly CreateRng createRng = RngFromSeed(0);
 
         #endregion
 

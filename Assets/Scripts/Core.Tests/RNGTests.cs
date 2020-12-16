@@ -14,8 +14,8 @@ namespace AChildsCourage
             // Given
 
             const int seed = 31482823;
-            var rng1 = FromSeed(seed);
-            var rng2 = FromSeed(seed);
+            var rng1 = RngFromSeed(seed);
+            var rng2 = RngFromSeed(seed);
 
             // When/Then
 

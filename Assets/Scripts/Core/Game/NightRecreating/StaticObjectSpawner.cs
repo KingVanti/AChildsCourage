@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectSpawner : MonoBehaviour
     {
 
-        private readonly CreateRng rng = Random();
+        private readonly CreateRng rng = RandomRng();
 
 
         public void Spawn(StaticObject staticObject)
