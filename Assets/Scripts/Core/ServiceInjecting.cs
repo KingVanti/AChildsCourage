@@ -75,7 +75,7 @@ namespace AChildsCourage
         {
             root.Bind<LoadRoomData>().ToConstant(RoomDataLoading.Make());
             root.Bind<FindItemData>().ToConstant(ItemDataRepository.GetItemDataFinder());
-            root.Bind<LoadItemIds>().ToConstant(ItemDataRepository.GetItemIdLoader());
+            root.Bind<ItemDataRepository.LoadItemIds>().ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 
         private static void ActivateEagerServices(IResolutionRoot root) => _ = root.GetAll<IEagerActivation>().ToArray();

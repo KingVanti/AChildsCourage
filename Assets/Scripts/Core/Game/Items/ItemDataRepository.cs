@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using AChildsCourage.Game;
 using AChildsCourage.Game.Items;
 using UnityEngine;
 
 public static class ItemDataRepository
 {
+
+    public delegate IEnumerable<ItemId> LoadItemIds();
 
     private const string ResourcePath = "Items/";
 
