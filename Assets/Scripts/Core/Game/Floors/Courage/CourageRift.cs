@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.Courage
             transform.position = GetEndRoomCenter(floor);
 
         private static Vector2 GetEndRoomCenter(Floor floor) => floor.EndRoomChunkPosition
-                                                                     .Map(GetChunkCenter)
+                                                                     .Map(GetCenter)
                                                                      .Map(GetTileCenter);
 
         public void SetRiftStats(int currentCourage, int neededCourage, int maxCourage)

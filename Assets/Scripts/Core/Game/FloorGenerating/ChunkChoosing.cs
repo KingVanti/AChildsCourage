@@ -53,7 +53,7 @@ namespace AChildsCourage.Game
 
             // [0 .. 10]
             private static float CalculateDistanceWeight(ChunkPosition chunk) =>
-                GetDistanceToOrigin(chunk)
+                GetChunkDistanceToOrigin(chunk)
                     .Clamp(1, 5)
                     .Remap(1, 5, 10, 0);
 

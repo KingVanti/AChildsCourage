@@ -13,8 +13,8 @@ namespace AChildsCourage.Game
 
             internal static ChunkTransform ToChunkTransform(RoomTransform transform)
             {
-                var chunkCenter = GetChunkCenter(transform.Position);
-                var chunkCorner = GetChunkCorner(transform.Position);
+                var chunkCenter = GetCenter(transform.Position);
+                var chunkCorner = GetCorner(transform.Position);
 
                 return new ChunkTransform(transform.RotationCount, transform.IsMirrored, chunkCorner, chunkCenter);
             }

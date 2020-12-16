@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
+using UnityEngine;
 using static AChildsCourage.Game.Floors.MPassageDirection;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -15,14 +15,33 @@ namespace AChildsCourage.Game
 
         private static TileOffset ChunkCenterTileOffset => new TileOffset(ChunkExtent, ChunkExtent);
 
+        public static Func<ChunkPosition, TilePosition> GetCenter =>
+            position =>
+                position
+                    .Map(GetCorner)
+                    .MapWith(OffsetTilePosition, ChunkCenterTileOffset);
 
-        public static TilePosition GetChunkCenter(ChunkPosition position) => OffsetTilePosition(GetChunkCorner(position), ChunkCenterTileOffset);
+        internal static Func<ChunkPosition, TilePosition> GetCorner =>
+            chunkPosition =>
+                new TilePosition(chunkPosition.X * ChunkSize,
+                                 chunkPosition.Y * ChunkSize);
 
-        internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition) =>
-            new TilePosition(chunkPosition.X * ChunkSize,
-                             chunkPosition.Y * ChunkSize);
+        internal static Func<ChunkPosition, float> GetChunkDistanceToOrigin =>
+            position =>
+                new Vector2(position.X, position.Y).magnitude;
 
-        internal static float GetDistanceToOrigin(ChunkPosition position) => new Vector2(position.X, position.Y).Length();
+        internal static Func<ChunkPosition, PassageDirection, ChunkPosition> GetAdjacentChunk =>
+            (position, direction) =>
+            {
+                switch (direction)
+                {
+                    case PassageDirection.North: return new ChunkPosition(position.X, position.Y + 1);
+                    case PassageDirection.East: return new ChunkPosition(position.X + 1, position.Y);
+                    case PassageDirection.South: return new ChunkPosition(position.X, position.Y - 1);
+                    case PassageDirection.West: return new ChunkPosition(position.X - 1, position.Y);
+                    default: throw new Exception("Invalid direction!");
+                }
+            };
 
         internal static IEnumerable<ChunkPosition> GetAdjacentChunks(ChunkPosition position)
         {
@@ -32,17 +51,6 @@ namespace AChildsCourage.Game
             yield return GetAdjacentChunk(position, PassageDirection.West);
         }
 
-        internal static ChunkPosition GetAdjacentChunk(ChunkPosition position, PassageDirection direction)
-        {
-            switch (direction)
-            {
-                case PassageDirection.North: return new ChunkPosition(position.X, position.Y + 1);
-                case PassageDirection.East: return new ChunkPosition(position.X + 1, position.Y);
-                case PassageDirection.South: return new ChunkPosition(position.X, position.Y - 1);
-                case PassageDirection.West: return new ChunkPosition(position.X - 1, position.Y);
-                default: throw new Exception("Invalid direction!");
-            }
-        }
 
         public readonly struct ChunkPosition
         {
