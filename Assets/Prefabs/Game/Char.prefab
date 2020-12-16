@@ -803,7 +803,7 @@ MonoBehaviour:
   staminaDepletedCooldown: 5
   standingRate: 10
   walkingRate: 8
-  sprintingRate: 15
+  sprintingRate: -15
   recoveredStaminaAmount: 15
 --- !u!95 &1266752489
 Animator:
