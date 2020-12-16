@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Shade
             onShadeSpawned.Invoke();
         }
 
-        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.ToVector3();
+        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.Map(ToVector2);
 
 
         public void OnFloorBuilt(Floor floor)

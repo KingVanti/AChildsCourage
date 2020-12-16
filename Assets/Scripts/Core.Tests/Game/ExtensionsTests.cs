@@ -17,7 +17,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var vector = tilePosition.ToVector3Int();
+            var vector = tilePosition.Map(ToVector3Int);
 
             // Then
 

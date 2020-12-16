@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors
 
         private void InstantiateStaticObjectAt(TilePosition tilePosition)
         {
-            var position = tilePosition.ToVector3() + new Vector3(0.5f, 0, 0);
+            var position = ToVector2(tilePosition) + new Vector2(0.5f, 0);
             Instantiate(runePrefab, position, Quaternion.identity, transform);
         }
 

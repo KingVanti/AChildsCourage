@@ -67,7 +67,7 @@ namespace AChildsCourage.Game
         private void PlaceGround(GroundTile groundTile)
         {
             var tile = TileRepository.GetGroundTile();
-            var position = groundTile.Position.ToVector3Int();
+            var position = groundTile.Position.Map(ToVector3Int);
 
             groundTilemap.SetTile(position, tile);
 
@@ -77,7 +77,7 @@ namespace AChildsCourage.Game
         private void PlaceWall(Wall wall)
         {
             var tile = TileRepository.GetWallTileFor(wall);
-            var position = wall.Position.ToVector3Int();
+            var position = wall.Position.Map(ToVector3Int);
 
             staticTilemap.SetTile(position, tile);
         }

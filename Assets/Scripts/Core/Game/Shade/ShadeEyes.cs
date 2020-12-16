@@ -56,11 +56,13 @@ namespace AChildsCourage.Game.Shade
 
         private float WaitTime => 1f / updatesPerSecond;
 
-        private Vector3 CurrentPosition => transform.position;
+        private Vector2 CurrentPosition => transform.position;
 
-        private IEnumerable<Vector3> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => p.position);
+        private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
 
-        private Vector3 CurrentTileCenterPosition => CurrentPosition.GetTileCenter();
+        private Vector2 CurrentTileCenterPosition => CurrentPosition
+                                                     .Map(ToTile)
+                                                     .Map(GetTileCenter);
 
         #endregion
 
@@ -87,24 +89,24 @@ namespace AChildsCourage.Game.Shade
                 : Visibility.NotVisible;
         }
 
-        private bool IsInPrimaryVision(Vector3 visionPoint) => IsInView(primaryVision, visionPoint);
+        private bool IsInPrimaryVision(Vector2 visionPoint) => IsInView(primaryVision, visionPoint);
 
-        private bool IsInSecondaryVision(Vector3 visionPoint) => IsInView(secondaryVision, visionPoint);
+        private bool IsInSecondaryVision(Vector2 visionPoint) => IsInView(secondaryVision, visionPoint);
 
-        private bool IsInView(VisionCone cone, Vector3 visionPoint) =>
+        private bool IsInView(VisionCone cone, Vector2 visionPoint) =>
             IsInViewRadius(cone, visionPoint) &&
             IsInViewAngle(cone, visionPoint) &&
             IsUnobstructed(visionPoint);
 
-        private bool IsInViewRadius(VisionCone cone, Vector3 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= cone.ViewRadius;
+        private bool IsInViewRadius(VisionCone cone, Vector2 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= cone.ViewRadius;
 
-        private bool IsInViewAngle(VisionCone cone, Vector3 visionPoint)
+        private bool IsInViewAngle(VisionCone cone, Vector2 visionPoint)
         {
             var dirToPoint = visionPoint - CurrentPosition;
             return Vector3.Angle(transform.right, dirToPoint) < cone.ViewAngle / 2f;
         }
 
-        private bool IsUnobstructed(Vector3 visionPoint)
+        private bool IsUnobstructed(Vector2 visionPoint)
         {
             var dirToPoint = visionPoint - CurrentPosition;
             return !Physics2D.Raycast(CurrentPosition, dirToPoint, dirToPoint.magnitude, obstructionLayers);
@@ -117,20 +119,20 @@ namespace AChildsCourage.Game.Shade
             onTilesInViewChanged?.Invoke(CurrentTilesInView);
         }
 
-        private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(UtilityExtensions.FloorToTile);
+        private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(ToTile);
 
-        private IEnumerable<Vector3> GetPositionsInView() => GetPositionsInViewCone().Where(PositionIsVisible);
+        private IEnumerable<Vector2> GetPositionsInView() => GetPositionsInViewCone().Where(PositionIsVisible);
 
-        private IEnumerable<Vector3> GetPositionsInViewCone()
+        private IEnumerable<Vector2> GetPositionsInViewCone()
         {
             for (var dX = -secondaryVision.ViewRadius; dX <= secondaryVision.ViewRadius; dX++)
                 for (var dY = -secondaryVision.ViewRadius; dY <= secondaryVision.ViewRadius; dY++)
-                    yield return new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
+                    yield return new Vector2(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
         }
 
-        public bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position) || IsInView(secondaryVision, position);
+        public bool PositionIsVisible(Vector2 position) => PositionIsInSmallRadius(position) || IsInView(secondaryVision, position);
 
-        private bool PositionIsInSmallRadius(Vector3 position) => Vector3.Distance(transform.position, position) <= smallVisionRadius;
+        private bool PositionIsInSmallRadius(Vector2 position) => Vector2.Distance(transform.position, position) <= smallVisionRadius;
 
         #endregion
 

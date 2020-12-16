@@ -61,7 +61,7 @@ namespace AChildsCourage.Game.Shade
 
         public int TouchDamage => touchDamage;
 
-        public Vector3 CurrentTargetPosition
+        public Vector2 CurrentTargetPosition
         {
             get => currentTargetPosition;
             private set
@@ -78,8 +78,8 @@ namespace AChildsCourage.Game.Shade
 
         private TilePosition CurrentTargetTile
         {
-            get => CurrentTargetPosition.FloorToTile();
-            set => CurrentTargetPosition = value.GetTileCenter();
+            get => CurrentTargetPosition.Map(ToTile);
+            set => CurrentTargetPosition = value.Map(GetTileCenter);
         }
 
         private ShadeState CurrentState => new ShadeState(Position, DateTime.Now, investigationHistory);

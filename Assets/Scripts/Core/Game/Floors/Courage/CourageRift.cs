@@ -2,9 +2,9 @@
 using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;
-using UnityEngine.Events;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MCustomMath;
 
 namespace AChildsCourage.Game.Courage
@@ -13,12 +13,12 @@ namespace AChildsCourage.Game.Courage
     [UseDi]
     public class CourageRift : MonoBehaviour
     {
-        
+
         [EventPublication(nameof(OnCharWin))]
         public event EventHandler OnCharWin;
 
         #region Fields
-        
+
         [Header("Events")]
         public Events.Empty onRiftEntered;
 
@@ -40,7 +40,12 @@ namespace AChildsCourage.Game.Courage
 
         #region Methods
 
-        public void OnFloorBuilt(Floor floor) => transform.position = GetChunkCenter(floor.EndRoomChunkPosition).ToVector3() + new Vector3(0.5f, 0.5f, 0);
+        public void OnFloorBuilt(Floor floor) =>
+            transform.position = GetEndRoomCenter(floor);
+
+        private static Vector2 GetEndRoomCenter(Floor floor) => floor.EndRoomChunkPosition
+                                                                     .Map(GetChunkCenter)
+                                                                     .Map(GetTileCenter);
 
         public void SetRiftStats(int currentCourage, int neededCourage, int maxCourage)
         {

@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Floors
 
         private StaticObjectEntity InstantiateStaticObjectAt(TilePosition tilePosition)
         {
-            var position = tilePosition.ToVector3() + new Vector3(0.5f, 0, 0);
+            var position = ToVector2(tilePosition) + new Vector2(0.5f, 0);
             return Instantiate(staticObjectPrefab, position, Quaternion.identity, transform).GetComponent<StaticObjectEntity>();
         }
 

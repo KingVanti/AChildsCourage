@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Numerics;
+using UnityEngine;
+using static UnityEngine.Mathf;
 
 namespace AChildsCourage.Game
 {
@@ -9,7 +10,7 @@ namespace AChildsCourage.Game
 
         internal static Func<TilePosition, float> GetDistanceFromOrigin =>
             position =>
-                new Vector2(position.X, position.Y).Length();
+                new Vector2(position.X, position.Y).magnitude;
 
 
         internal static Func<TilePosition, TilePosition, float> GetDistanceBetween =>
@@ -21,6 +22,27 @@ namespace AChildsCourage.Game
             (position, offset) =>
                 new TilePosition(position.X + offset.X,
                                  position.Y + offset.Y);
+
+        public static Func<TilePosition, Vector3Int> ToVector3Int =>
+            tilePosition =>
+                new Vector3Int(tilePosition.X,
+                               tilePosition.Y,
+                               0);
+
+        public static Func<TilePosition, Vector2> ToVector2 =>
+            tilePosition =>
+                new Vector2(tilePosition.X,
+                            tilePosition.Y);
+
+        public static Func<TilePosition, Vector2> GetTileCenter =>
+            tilePosition =>
+                new Vector2(tilePosition.X + 0.5f,
+                            tilePosition.Y + 0.5f);
+
+        public static Func<Vector2, TilePosition> ToTile =>
+            vector =>
+                new TilePosition(FloorToInt(vector.x),
+                                 FloorToInt(vector.y));
 
 
         public readonly struct TilePosition
