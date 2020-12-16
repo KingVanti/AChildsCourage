@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace AChildsCourage.Game
 {
@@ -6,13 +7,15 @@ namespace AChildsCourage.Game
     public static class MTilePosition
     {
 
-        internal static float GetDistanceFromOrigin(TilePosition position) => new Vector2(position.X, position.Y).Length();
+        internal static Func<TilePosition, float> GetDistanceFromOrigin =>
+            position =>
+                new Vector2(position.X, position.Y).Length();
 
 
-        internal static float GetDistanceBetween(TilePosition p1, TilePosition p2) =>
-            Vector2.Distance(
-                             new Vector2(p1.X, p1.Y),
-                             new Vector2(p2.X, p2.Y));
+        internal static Func<TilePosition, TilePosition, float> GetDistanceBetween =>
+            (p1, p2) =>
+                Vector2.Distance(new Vector2(p1.X, p1.Y),
+                                 new Vector2(p2.X, p2.Y));
 
 
         public readonly struct TilePosition
