@@ -4,6 +4,7 @@ using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.MNightRecreating;
 using static AChildsCourage.Game.Persistence.MRunData;
 using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
@@ -12,7 +13,11 @@ namespace AChildsCourage.Game
     internal class NightManager : INightManager
     {
 
-        #region Constructors
+        private readonly GenerationParameters floorPlanGenerationParameters;
+        private readonly ItemId[] itemIds;
+        private readonly RecreateNight recreateNight;
+        private readonly RoomData[] roomData;
+
 
         public NightManager(LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
         {
@@ -22,29 +27,14 @@ namespace AChildsCourage.Game
             floorPlanGenerationParameters = new GenerationParameters(15);
         }
 
-        #endregion
-
-        #region Methods
 
         public void PrepareNightForCurrentRun()
         {
-            var nightData = NewRun.Map(runData => StartNight(runData, MRng.Random()));
-
-            var rng = MRng.FromSeed(nightData.Seed);
+            var nightData = NewRun.Map(runData => StartNight(runData, Random()));
+            var rng = FromSeed(nightData.Seed);
 
             GenerateFloor(rng, roomData, floorPlanGenerationParameters).Do(recreateNight.Invoke);
         }
-
-        #endregion
-
-        #region Fields
-
-        private readonly GenerationParameters floorPlanGenerationParameters;
-        private readonly RoomData[] roomData;
-        private readonly ItemId[] itemIds;
-        private readonly RecreateNight recreateNight;
-
-        #endregion
 
     }
 
