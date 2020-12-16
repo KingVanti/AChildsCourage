@@ -10,7 +10,9 @@ namespace AChildsCourage.Game.Floors
     {
 
 #pragma warning disable 649
+        
         [SerializeField] private AstarPath astarPath;
+        
 #pragma warning restore 649
 
         private Floor mapFloor;
@@ -29,8 +31,7 @@ namespace AChildsCourage.Game.Floors
             ScaleToFit(mapFloor);
             astarPath.Scan(GridGraph);
         }
-
-
+        
         private void ScaleToFit(Floor floor)
         {
             var (lowerRight, upperLeft) = GetFloorCorners(floor);
