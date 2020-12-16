@@ -18,10 +18,7 @@ namespace AChildsCourage
             InjectServices();
             onSceneLoaded.Invoke();
         }
-
-
-        protected static void LoadSceneWith(string sceneName) => UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-
+        
     }
 
 }
