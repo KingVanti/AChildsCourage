@@ -1,4 +1,5 @@
 ﻿using Ninject.Extensions.Unity;
+using static UnityEngine.SceneManagement.SceneManager;
 
 namespace AChildsCourage.Game
 {
@@ -8,6 +9,7 @@ namespace AChildsCourage.Game
 
         public Events.Empty onNightPrepared;
 
+        
         [AutoInject] public INightManager NightManager { private get; set; }
 
 
@@ -18,10 +20,10 @@ namespace AChildsCourage.Game
         }
 
 
-        public void OnLose() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.End);
+        public void OnLose() => LoadScene(SceneNames.End);
 
 
-        public void OnWin() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.End);
+        public void OnWin() => LoadScene(SceneNames.End);
 
     }
 
