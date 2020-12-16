@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.Floors.MRoom;
 using static AChildsCourage.Game.MFloorGenerating.MFloorBuilder;
 using static AChildsCourage.Game.MFloorGenerating.MWallGenerating;
 using static AChildsCourage.Game.MFloorGenerating.MCouragePickupFiltering;

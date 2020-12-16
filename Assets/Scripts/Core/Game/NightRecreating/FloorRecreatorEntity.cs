@@ -1,12 +1,9 @@
-﻿using System;
-using AChildsCourage.Game.Floors;
+﻿using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using Ninject.Extensions.Unity;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.Floors.MRoom;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -16,7 +13,7 @@ namespace AChildsCourage.Game
     [UseDi]
     public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
-        
+
         #region Properties
 
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
