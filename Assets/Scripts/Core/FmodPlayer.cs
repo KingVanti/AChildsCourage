@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Player;
+using AChildsCourage.Game.Char;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;

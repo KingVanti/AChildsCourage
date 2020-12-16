@@ -32,8 +32,8 @@ namespace AChildsCourage.Game.Courage
 
         [Header("Events")] public UnityEvent onRiftEntered;
 
-        [EventPublication(nameof(OnPlayerWin))]
-        public event EventHandler OnPlayerWin;
+        [EventPublication(nameof(OnCharWin))]
+        public event EventHandler OnCharWin;
 
         #endregion
 
@@ -93,10 +93,10 @@ namespace AChildsCourage.Game.Courage
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag(EntityTags.Char))
                 if (currentStage == 4)
                 {
-                    OnPlayerWin?.Invoke(this, EventArgs.Empty);
+                    OnCharWin?.Invoke(this, EventArgs.Empty);
                     onRiftEntered?.Invoke();
                 }
         }

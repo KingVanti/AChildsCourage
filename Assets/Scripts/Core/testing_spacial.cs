@@ -5,7 +5,7 @@ using UnityEngine;
 public class testing_spacial : MonoBehaviour
 {
 
-    [SerializeField] public GameObject player;
+    [SerializeField] public GameObject @char;
     [SerializeField] public Rigidbody2D rigidBody2D;
     private float dir;
     private float distance;
@@ -24,9 +24,9 @@ public class testing_spacial : MonoBehaviour
         //test_spacial = FMODUnity.RuntimeManager.CreateInstance("event:/Monster/Shade/ambient");
         //FMODUnity.RuntimeManager.AttachInstanceToGameObject(test_spacial, gameObject);
         Vector2 item = transform.position;
-        Vector2 playerpos = player.transform.position;
+        Vector2 charPos = @char.transform.position;
 
-        distance = Mathf.Abs(Vector2.Distance(playerpos, item));
+        distance = Mathf.Abs(Vector2.Distance(charPos, item));
 
         //dir = Mathf.Atan2(playerpos.y, playerpos.x) * Mathf.Rad2Deg;
 

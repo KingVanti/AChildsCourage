@@ -964,7 +964,7 @@ MonoBehaviour:
       - m_Target: {fileID: 489588451}
         m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
           AChildsCourage.Unity
-        m_MethodName: KillPlayer
+        m_MethodName: Kill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1399,7 +1399,7 @@ PrefabInstance:
       objectReference: {fileID: 270846661}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
-      value: Character
+      value: Char
       objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1444,6 +1444,22 @@ PrefabInstance:
     - target: {fileID: 8820627343415363623, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820627343415363624, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -776474863298432979, guid: 62d4fca58215d634ebb8b29b0112f2ee, type: 3}
+    - target: {fileID: 8820627343415363624, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820627343415363624, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820627343415363624, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: OnPositionChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1622,7 +1638,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &514745771
@@ -1881,7 +1897,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &701947688
@@ -2936,7 +2952,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1445666896
@@ -3574,6 +3590,10 @@ PrefabInstance:
       propertyPath: flashlight
       value: 
       objectReference: {fileID: 489588454}
+    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: charController
+      value: 
+      objectReference: {fileID: 489588451}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade
@@ -3624,6 +3644,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3943784392033496761, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: player
+      value: 
+      objectReference: {fileID: 104577611}
+    - target: {fileID: 3943784392033496761, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: char
       value: 
       objectReference: {fileID: 104577611}
     - target: {fileID: 4616488904359167555, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
@@ -3746,7 +3770,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2074507391

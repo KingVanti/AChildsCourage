@@ -1,10 +1,10 @@
 ﻿using System;
+using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Courage;
 using Appccelerate.EventBroker;
 using Appccelerate.EventBroker.Handlers;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
-using CharacterController = AChildsCourage.Game.Player.CharacterController;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace AChildsCourage.Game.Input
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Input
 
         #region Fields
 
-        private readonly UserControls userControls;
+        private readonly CharControls charControls;
 
         #endregion
 
@@ -24,17 +24,17 @@ namespace AChildsCourage.Game.Input
 
         public InputListener()
         {
-            userControls = new UserControls();
+            charControls = new CharControls();
 
-            userControls.Player.Look.performed += OnLook;
-            userControls.Player.Move.performed += OnMove;
-            userControls.Player.Item1.performed += OnItem1KeyPress;
-            userControls.Player.Item2.performed += OnItem2KeyPress;
-            userControls.Player.Swap.performed += OnItemSwap;
-            userControls.Player.Sprint.performed += OnSprintPressed;
-            userControls.Player.Sprint.canceled += OnSprintReleased;
+            charControls.Char.Look.performed += OnLook;
+            charControls.Char.Move.performed += OnMove;
+            charControls.Char.Item1.performed += OnItem1KeyPress;
+            charControls.Char.Item2.performed += OnItem2KeyPress;
+            charControls.Char.Swap.performed += OnItemSwap;
+            charControls.Char.Sprint.performed += OnSprintPressed;
+            charControls.Char.Sprint.canceled += OnSprintReleased;
 
-            userControls.Player.Enable();
+            charControls.Char.Enable();
         }
 
         #endregion
@@ -128,24 +128,24 @@ namespace AChildsCourage.Game.Input
             OnItemSwapped?.Invoke(this, eventArgs);
         }
 
-        [EventSubscription(nameof(CharacterController.OnPlayerDeath), typeof(OnPublisher))]
-        public void OnPlayerDeath(EventArgs _) => UnsubscribeFromInputs();
+        [EventSubscription(nameof(CharController.OnCharDeath), typeof(OnPublisher))]
+        public void OnCharDeath(EventArgs _) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageRift.OnPlayerWin), typeof(OnPublisher))]
-        public void OnPlayerWin(EventArgs _) => UnsubscribeFromInputs();
+        [EventSubscription(nameof(CourageRift.OnCharWin), typeof(OnPublisher))]
+        public void OnCharWin(EventArgs _) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageManager.OnPlayerLose), typeof(OnPublisher))]
-        public void OnPlayerLose(EventArgs _) => UnsubscribeFromInputs();
+        [EventSubscription(nameof(CourageManager.OnCharLose), typeof(OnPublisher))]
+        public void OnCharLose(EventArgs _) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()
         {
-            userControls.Player.Look.performed -= OnLook;
-            userControls.Player.Move.performed -= OnMove;
-            userControls.Player.Swap.performed -= OnItemSwap;
-            userControls.Player.Item1.performed -= OnItem1KeyPress;
-            userControls.Player.Item2.performed -= OnItem2KeyPress;
-            userControls.Player.Sprint.performed -= OnSprintPressed;
-            userControls.Player.Sprint.canceled -= OnSprintReleased;
+            charControls.Char.Look.performed -= OnLook;
+            charControls.Char.Move.performed -= OnMove;
+            charControls.Char.Swap.performed -= OnItemSwap;
+            charControls.Char.Item1.performed -= OnItem1KeyPress;
+            charControls.Char.Item2.performed -= OnItem2KeyPress;
+            charControls.Char.Sprint.performed -= OnSprintPressed;
+            charControls.Char.Sprint.canceled -= OnSprintReleased;
         }
 
         #endregion

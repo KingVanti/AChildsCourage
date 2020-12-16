@@ -8,10 +8,7 @@ namespace AChildsCourage.Game.Floors
 
     public class RuneEntity : MonoBehaviour
     {
-
-        private const string ShadeTag = "Shade";
-        private const string PlayerTag = "Player";
-
+        
 
         private bool isActive;
         private bool wasUsed;
@@ -22,27 +19,27 @@ namespace AChildsCourage.Game.Floors
 
             if (isActive && IsShade(other, out var shadeBrain))
                 OnShadeEnter(shadeBrain);
-            else if (IsPlayer(other)) OnPlayerEnter();
+            else if (IsChar(other)) OnCharEnter();
         }
 
         public void OnTriggerExit2D(Collider2D other)
         {
-            if (IsPlayer(other)) OnPlayerExit();
+            if (IsChar(other)) OnCharExit();
         }
 
 
         private static bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
         {
             shadeBrain = other.GetComponent<ShadeBrain>();
-            return other.gameObject.CompareTag(ShadeTag);
+            return other.gameObject.CompareTag(EntityTags.Shade);
         }
 
-        private static bool IsPlayer(Collider2D other) => other.gameObject.CompareTag(PlayerTag);
+        private static bool IsChar(Collider2D other) => other.gameObject.CompareTag(EntityTags.Char);
 
 
-        private void OnPlayerEnter() => Activate();
+        private void OnCharEnter() => Activate();
 
-        private void OnPlayerExit()
+        private void OnCharExit()
         {
             StopAllCoroutines();
             StartCoroutine(WaitAndDeactivate());

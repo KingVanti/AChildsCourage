@@ -6,14 +6,14 @@ using UnityEngine;
 public class FmodShade : MonoBehaviour
 {
 
-    [SerializeField] public GameObject player;
+    [SerializeField] public GameObject @char;
 
     private float distance;
     private StudioEventEmitter emitter;
 
     private void Update()
     {
-        distance = Mathf.Abs(Vector2.Distance(transform.position, player.transform.position));
+        distance = Mathf.Abs(Vector2.Distance(transform.position, @char.transform.position));
         emitter.SetParameter("Distance", distance);
     }
 

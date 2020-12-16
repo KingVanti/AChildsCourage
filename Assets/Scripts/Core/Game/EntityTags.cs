@@ -15,9 +15,9 @@
         internal const string Item = "Item";
 
         /// <summary>
-        ///     Unity tag for player entities
+        ///     Unity tag for char entities
         /// </summary>
-        internal const string Player = "Player";
+        internal const string Char = "Char";
 
         /// <summary>
         ///     Unity tag for courage entities

@@ -32,8 +32,8 @@ namespace AChildsCourage.Game.Courage
         public UnityEvent onCourageNotEnoughCompleted;
         public CanCollectCourageEvent OnCouragePickupableChanged;
 
-        [EventPublication(nameof(OnPlayerLose))]
-        public event EventHandler OnPlayerLose;
+        [EventPublication(nameof(OnCharLose))]
+        public event EventHandler OnCharLose;
 
         #endregion
 
@@ -101,7 +101,7 @@ namespace AChildsCourage.Game.Courage
             OnCourageDepleted?.Invoke();
         }
 
-        public void GameLost() => OnPlayerLose?.Invoke(this, EventArgs.Empty);
+        public void GameLost() => OnCharLose?.Invoke(this, EventArgs.Empty);
 
         private IEnumerator CourageLoss()
         {

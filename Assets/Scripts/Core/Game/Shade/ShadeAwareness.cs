@@ -1,9 +1,8 @@
 ﻿using System;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Player;
+using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;
-using CharacterController = AChildsCourage.Game.Player.CharacterController;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -29,7 +28,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float flashLightMultiplier;
         [SerializeField] private float minSuspiciousAwareness;
         [SerializeField] private float minHuntingAwareness;
-        [SerializeField] private CharacterController characterController;
+        [SerializeField] private CharController charController;
         [SerializeField] private Flashlight flashlight;
 
 #pragma warning  restore 649
@@ -74,13 +73,13 @@ namespace AChildsCourage.Game.Shade
 
         private float DistanceMultiplier => DistanceToCharacter.Remap(minDistance, maxDistance, maxDistanceMultiplier, 1);
 
-        private float DistanceToCharacter => Vector3.Distance(transform.position, characterController.transform.position);
+        private float DistanceToCharacter => Vector3.Distance(transform.position, charController.transform.position);
 
         private float MovementMultiplier
         {
             get
             {
-                switch (characterController.CurrentMovmentState)
+                switch (charController.CurrentMovmentState)
                 {
                     case MovementState.Standing: return 1;
                     case MovementState.Walking: return walkingMultiplier;
