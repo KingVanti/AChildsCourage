@@ -1,8 +1,6 @@
-﻿using AChildsCourage.Game;
-using Ninject.Extensions.Unity;
-using UnityEngine.Events;
+﻿using Ninject.Extensions.Unity;
 
-namespace AChildsCourage.Unity
+namespace AChildsCourage.Game
 {
 
     public class GameManager : SceneManager
