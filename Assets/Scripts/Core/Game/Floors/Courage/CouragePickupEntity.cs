@@ -12,16 +12,16 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Methods
 
-        public void SetCouragePickupData(CouragePickupData courageData)
+        public void SetCouragePickupData(CouragePickupAppearance courageAppearance)
         {
-            Variant = courageData.Variant;
-            Value = courageData.Value;
-            spriteRenderer.sprite = courageData.Sprite;
-            spriteRenderer.transform.localScale = courageData.Scale;
-            spriteRenderer.material.SetTexture(emissionTextureKey, courageData.Emission);
-            courageName = courageData.CourageName;
-            courageLight.pointLightOuterRadius = courageData.LightOuterRadius;
-            courageLight.intensity = courageData.LightIntensity;
+            Variant = courageAppearance.Variant;
+            Value = courageAppearance.Value;
+            spriteRenderer.sprite = courageAppearance.Sprite;
+            spriteRenderer.transform.localScale = courageAppearance.Scale;
+            spriteRenderer.material.SetTexture(emissionTextureKey, courageAppearance.Emission);
+            courageName = courageAppearance.CourageName;
+            courageLight.pointLightOuterRadius = courageAppearance.LightOuterRadius;
+            courageLight.intensity = courageAppearance.LightIntensity;
         }
 
         #endregion

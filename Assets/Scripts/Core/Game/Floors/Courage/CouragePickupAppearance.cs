@@ -4,8 +4,8 @@ using UnityEngine;
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    [CreateAssetMenu(fileName = "Courage", menuName = "A Child's Courage/Courage", order = 3)]
-    public class CouragePickupData : ScriptableObject
+    [CreateAssetMenu(fileName = "New courage-pickup appearance", menuName = "A Child's Courage/Courage-pickup appearance")]
+    public class CouragePickupAppearance : ScriptableObject
     {
         
 #pragma warning disable 649

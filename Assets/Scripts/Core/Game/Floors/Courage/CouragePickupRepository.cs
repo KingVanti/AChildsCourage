@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Immutable;
 using System.Linq;
-using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.MRng;
 
@@ -12,27 +11,27 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Constants
 
-        private const string CouragePickupDataPath = "Courage/";
+        private const string CouragePickupDataPath = "Courage-Pickup Appearances/";
 
         #endregion
 
         #region Fields
 
-        private readonly List<CouragePickupData> couragePickups = new List<CouragePickupData>();
+        private readonly ImmutableHashSet<CouragePickupAppearance> couragePickups;
 
         #endregion
 
         #region Constructors
 
-        public CouragePickupRepository() => couragePickups.AddRange(Resources.LoadAll<CouragePickupData>(CouragePickupDataPath));
+        public CouragePickupRepository() => couragePickups = Resources.LoadAll<CouragePickupAppearance>(CouragePickupDataPath).ToImmutableHashSet();
 
         #endregion
 
         #region Methods
 
-        public CouragePickupData GetCouragePickupData(CourageVariant variant) => couragePickups.First(cpd => cpd.Variant == variant);
+        public CouragePickupAppearance GetCouragePickupData(CourageVariant variant) => couragePickups.First(cpd => cpd.Variant == variant);
 
-        public CouragePickupData GetRandomPickupData(CreateRng createRng) => couragePickups.GetRandom(createRng);
+        public CouragePickupAppearance GetRandomPickupData(CreateRng createRng) => couragePickups.GetRandom(createRng);
 
         #endregion
 

@@ -8,9 +8,9 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Methods
 
-        CouragePickupData GetCouragePickupData(CourageVariant variant);
+        CouragePickupAppearance GetCouragePickupData(CourageVariant variant);
 
-        CouragePickupData GetRandomPickupData(CreateRng createRng);
+        CouragePickupAppearance GetRandomPickupData(CreateRng createRng);
 
         #endregion
 
