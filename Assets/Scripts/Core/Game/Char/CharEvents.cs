@@ -20,7 +20,10 @@ namespace AChildsCourage.Game.Char
 
         [Serializable]
         public class CouragePickUp : UnityEvent<CouragePickupEntity> { }
-        
+
+        [Serializable]
+        public class MovementState : UnityEvent<Char.MovementState> { }
+
     }
 
 }

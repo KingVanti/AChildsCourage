@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Char
-{
+namespace AChildsCourage.Game.Char {
 
-    public class StaminaEntity : MonoBehaviour
-    {
+    public class StaminaEntity : MonoBehaviour {
 
         #region Fields
 
@@ -17,13 +15,15 @@ namespace AChildsCourage.Game.Char
 
         [Header("Stats")]
         public float stamina = 100;
-        [SerializeField] private float staminaRecoveryRate = 1;
-        [SerializeField] private float staminaDrainRate = 2;
-        [SerializeField] private float staminaDepletedCooldown = 5;
+        [SerializeField] private float staminaDepletedCooldown;
+        [SerializeField] private float standingRate;
+        [SerializeField] private float walkingRate;
+        [SerializeField] private float sprintingRate;
+        [SerializeField] private float recoveredStaminaAmount;
 
-#pragma warning  restore 649
+#pragma warning restore 649
 
-        private bool isSprinting;
+        private float staminaDrainRate = 1f;
         private bool isOnCooldown;
 
         #endregion
@@ -32,47 +32,51 @@ namespace AChildsCourage.Game.Char
 
         private void Start() => StartCoroutine(Sprint());
 
-        public void StartSprinting() => isSprinting = true;
+        public void SetStaminaDrainRate(MovementState movementState) {
 
-        public void StopSprinting() => isSprinting = false;
+            switch (movementState) {
+                case MovementState.Sprinting:
+                    staminaDrainRate = sprintingRate;
+                    break;
+                case MovementState.Walking:
+                    staminaDrainRate = walkingRate;
+                    break;
+                case MovementState.Standing:
+                    staminaDrainRate = standingRate;
+                    break;
+            }
 
-        private IEnumerator Sprint()
-        {
-            while (true)
-            {
-                if (!isOnCooldown)
-                {
-                    if (isSprinting && stamina >= 0)
-                    {
-                        stamina = Mathf.MoveTowards(stamina, 0, staminaDrainRate * Time.deltaTime);
+        }
 
-                        if (stamina <= 0.05f)
-                        {
-                            StartCoroutine(Cooldown());
-                            onStaminaDepleted?.Invoke();
-                        }
+        private IEnumerator Sprint() {
 
-                        yield return null;
+            while (true) {
+                if (!isOnCooldown) {
+
+                    stamina = stamina.Plus(staminaDrainRate * Time.deltaTime).Clamp(0, 100);
+
+                    if (stamina <= 0.05f) {
+                        StartCoroutine(Cooldown());
+                        onStaminaDepleted?.Invoke();
                     }
 
-                    if (!isSprinting && stamina <= 100)
-                    {
-                        stamina = Mathf.MoveTowards(stamina, 100, staminaRecoveryRate * Time.deltaTime);
-                        yield return null;
-                    }
+                    yield return null;
+
                 }
 
                 yield return null;
             }
         }
 
-        private IEnumerator Cooldown()
-        {
+        private IEnumerator Cooldown() {
             isOnCooldown = true;
-            StopSprinting();
             yield return new WaitForSeconds(staminaDepletedCooldown);
             isOnCooldown = false;
-            stamina = 15;
+            RefreshStamina(recoveredStaminaAmount);
+        }
+
+        private void RefreshStamina(float recoveredStaminaAmount) {
+            stamina = recoveredStaminaAmount;
             onRefreshed?.Invoke();
         }
 
