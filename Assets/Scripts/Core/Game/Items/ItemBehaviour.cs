@@ -27,7 +27,11 @@ namespace AChildsCourage.Game.Items
 
         public ItemId Id => (ItemId) _id;
 
-        public float Cooldown { get => _cooldown; set => _cooldown = value; }
+        public float Cooldown
+        {
+            get => _cooldown;
+            set => _cooldown = value;
+        }
 
         public bool IsInBag { get; set; }
 

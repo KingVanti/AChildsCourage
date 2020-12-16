@@ -38,14 +38,13 @@ namespace AChildsCourage.Game.UI
 
         public void UpdateCourageCounter(int newValue, int neededValue)
         {
-            if(newValue >= neededValue) {
+            if (newValue >= neededValue)
                 courageCounterCurrentTextMesh.faceColor = textColor;
-            } else {
-                courageCounterCurrentTextMesh.faceColor = new Color(1,1,1,1);
-            }
+            else
+                courageCounterCurrentTextMesh.faceColor = new Color(1, 1, 1, 1);
 
             courageCounterCurrentTextMesh.text = newValue.ToString();
-            courageCounterNeededTextMesh.text = "/ " + neededValue.ToString();
+            courageCounterNeededTextMesh.text = "/ " + neededValue;
         }
 
         private IEnumerator FillLerp(float destination)
@@ -57,16 +56,13 @@ namespace AChildsCourage.Game.UI
             }
 
             UpdateCourageBarColor();
-
         }
 
-        private void UpdateCourageBarColor()
-        {
+        private void UpdateCourageBarColor() =>
             courageBarFill.color = new Color(
-                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.r),
-                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.g),
-                MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.b));
-        }
+                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.r),
+                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.g),
+                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.b));
 
         #endregion
 

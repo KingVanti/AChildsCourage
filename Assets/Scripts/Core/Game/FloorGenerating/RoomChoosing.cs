@@ -26,7 +26,7 @@ namespace AChildsCourage.Game
 
             private static RoomPassages ChooseRandom(FilteredRoomPassages roomPassages, CreateRng createRng) => roomPassages.GetRandom(createRng);
 
-            
+
             public readonly struct RoomPassagesInChunk
             {
 

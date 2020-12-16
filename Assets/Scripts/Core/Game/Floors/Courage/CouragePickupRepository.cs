@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
@@ -25,24 +24,15 @@ namespace AChildsCourage.Game.Courage
 
         #region Constructors
 
-        public CouragePickupRepository()
-        {
-            couragePickups.AddRange(Resources.LoadAll<CouragePickupData>(CouragePickupDataPath));
-        }
+        public CouragePickupRepository() => couragePickups.AddRange(Resources.LoadAll<CouragePickupData>(CouragePickupDataPath));
 
         #endregion
 
         #region Methods
 
-        public CouragePickupData GetCouragePickupData(CourageVariant variant)
-        {
-           return couragePickups.First(cpd => cpd.Variant == variant);
-        }
+        public CouragePickupData GetCouragePickupData(CourageVariant variant) => couragePickups.First(cpd => cpd.Variant == variant);
 
-        public CouragePickupData GetRandomPickupData(CreateRng createRng)
-        {
-            return couragePickups.GetRandom(createRng);
-        }
+        public CouragePickupData GetRandomPickupData(CreateRng createRng) => couragePickups.GetRandom(createRng);
 
         #endregion
 

@@ -15,10 +15,7 @@ namespace AChildsCourage.Game.Input
 
         #region Constructors
 
-        internal MoveDirectionChangedEventArgs(Vector2 moveDirection)
-        {
-            MoveDirection = moveDirection;
-        }
+        internal MoveDirectionChangedEventArgs(Vector2 moveDirection) => MoveDirection = moveDirection;
 
         #endregion
 

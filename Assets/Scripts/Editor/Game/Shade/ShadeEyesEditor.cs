@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Shade
 
         private static readonly Color TileInVisionColor = new Color(0.31f, 0.37f, 0.9f, 1f);
 
-        
+
         private ShadeEyes Eyes => target as ShadeEyes;
 
 

@@ -8,10 +8,7 @@ namespace AChildsCourage.Game.Player
 
         #region Methods
 
-        public void UpdatePosition(Vector2 newPosition)
-        {
-            transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
-        }
+        public void UpdatePosition(Vector2 newPosition) => transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
 
         #endregion
 

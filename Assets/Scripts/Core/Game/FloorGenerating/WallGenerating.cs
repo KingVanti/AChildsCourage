@@ -75,8 +75,8 @@ namespace AChildsCourage.Game
 
             private static FloorBuilder PlaceWall(FloorBuilder floor, Wall wall) =>
                 new FloorBuilder(
-                    floor.Walls.Add(wall),
-                    floor.Rooms);
+                                 floor.Walls.Add(wall),
+                                 floor.Rooms);
 
         }
 

@@ -41,9 +41,9 @@ namespace AChildsCourage.Game
             private static Func<RoomPassagesInChunk, RoomTransform> CreateTransform =>
                 passagesInChunk =>
                     new RoomTransform(
-                        passagesInChunk.Chunk,
-                        passagesInChunk.Passages.IsMirrored,
-                        passagesInChunk.Passages.RotationCount);
+                                      passagesInChunk.Chunk,
+                                      passagesInChunk.Passages.IsMirrored,
+                                      passagesInChunk.Passages.RotationCount);
 
             private static Func<IEnumerable<RoomPlan>, FloorPlan> CreateFloorPlan =>
                 roomPlans =>

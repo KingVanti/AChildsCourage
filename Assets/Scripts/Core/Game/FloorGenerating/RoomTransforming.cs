@@ -35,12 +35,12 @@ namespace AChildsCourage.Game
                 var transformer = CreateTransformerFor(roomTransform);
 
                 return new TransformedRoomData(
-                    content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
-                    content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
-                    content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
-                    content.Runes.Select(r => TransformRune(r, transformer)).ToImmutableHashSet(),
-                    roomType,
-                    roomTransform.Position);
+                                               content.GroundData.Select(t => TransformGroundTile(t, transformer)).ToImmutableHashSet(),
+                                               content.StaticObjects.Select(o => TransformStaticObject(o, transformer)).ToImmutableHashSet(),
+                                               content.CourageData.Select(c => TransformCouragePickup(c, transformer)).ToImmutableHashSet(),
+                                               content.Runes.Select(r => TransformRune(r, transformer)).ToImmutableHashSet(),
+                                               roomType,
+                                               roomTransform.Position);
             }
 
             private static TransformTile CreateTransformerFor(RoomTransform roomTransform)
@@ -53,28 +53,28 @@ namespace AChildsCourage.Game
 
             private static GroundTileData With(GroundTileData groundTile, TilePosition position) =>
                 new GroundTileData(
-                    position,
-                    groundTile.DistanceToWall,
-                    groundTile.AoiIndex);
+                                   position,
+                                   groundTile.DistanceToWall,
+                                   groundTile.AoiIndex);
 
             private static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) => With(staticObject, transformer(staticObject.Position));
 
             private static StaticObjectData With(StaticObjectData staticObject, TilePosition position) =>
                 new StaticObjectData(
-                    position);
+                                     position);
 
             private static RuneData TransformRune(RuneData rune, TransformTile transformer) => With(rune, transformer(rune.Position));
 
             private static RuneData With(RuneData rune, TilePosition position) =>
                 new RuneData(
-                    position);
+                             position);
 
             private static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => With(pickup, transformer(pickup.Position));
 
             private static CouragePickupData With(CouragePickupData pickup, TilePosition position) =>
                 new CouragePickupData(
-                    position,
-                    pickup.Variant);
+                                      position,
+                                      pickup.Variant);
 
 
             public class TransformedRoomData

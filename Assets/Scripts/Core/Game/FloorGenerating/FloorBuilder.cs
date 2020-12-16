@@ -16,8 +16,8 @@ namespace AChildsCourage.Game
 
             public static FloorBuilder EmptyFloorBuilder =>
                 new FloorBuilder(
-                    ImmutableHashSet<Wall>.Empty,
-                    ImmutableHashSet<RoomBuilder>.Empty);
+                                 ImmutableHashSet<Wall>.Empty,
+                                 ImmutableHashSet<RoomBuilder>.Empty);
 
             public static Func<FloorBuilder, RoomBuilder, FloorBuilder> PlaceRoom =>
                 (floor, room) =>

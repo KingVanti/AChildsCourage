@@ -29,8 +29,7 @@ namespace AChildsCourage.RoomEditor
         {
             Clear();
 
-            foreach (var couragePickup in couragePickups)
-                Place(couragePickup);
+            foreach (var couragePickup in couragePickups) Place(couragePickup);
         }
 
         private void Place(CouragePickupData couragePickup)
@@ -49,13 +48,10 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        public CouragePickupData[] ReadAll()
-        {
-            return
-                GetTiles()
-                    .Select(ToPickup)
-                    .ToArray();
-        }
+        public CouragePickupData[] ReadAll() =>
+            GetTiles()
+                .Select(ToPickup)
+                .ToArray();
 
         private CouragePickupData ToPickup(TileAtPos tileAtPos)
         {
@@ -65,22 +61,16 @@ namespace AChildsCourage.RoomEditor
             return new CouragePickupData(position, variant);
         }
 
-        private static CourageVariant GetVariantOf(Tile tile)
-        {
-            return tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;
-        }
+        private static CourageVariant GetVariantOf(Tile tile) => tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;
 
 
         private Tile GetTileFor(CourageVariant variant)
         {
             switch (variant)
             {
-                case CourageVariant.Spark:
-                    return courageSparkTile;
-                case CourageVariant.Orb:
-                    return courageOrbTile;
-                default:
-                    throw new Exception("Invalid variant!");
+                case CourageVariant.Spark: return courageSparkTile;
+                case CourageVariant.Orb: return courageOrbTile;
+                default: throw new Exception("Invalid variant!");
             }
         }
 

@@ -15,10 +15,7 @@ namespace AChildsCourage.Game.Input
 
         #region Constructors
 
-        internal MousePositionChangedEventArgs(Vector2 mousePosition)
-        {
-            MousePosition = mousePosition;
-        }
+        internal MousePositionChangedEventArgs(Vector2 mousePosition) => MousePosition = mousePosition;
 
         #endregion
 

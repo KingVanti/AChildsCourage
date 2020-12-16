@@ -14,10 +14,7 @@ namespace AChildsCourage.Game.Input
 
         #region Constructors
 
-        internal ItemPickedUpEventArgs(int slotId)
-        {
-            SlotId = slotId;
-        }
+        internal ItemPickedUpEventArgs(int slotId) => SlotId = slotId;
 
         #endregion
 

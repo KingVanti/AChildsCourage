@@ -14,24 +14,21 @@ namespace AChildsCourage
         {
             var result = input;
 
-            for (var _ = 0; _ < times; _++)
-                result = function(result);
+            for (var _ = 0; _ < times; _++) result = function(result);
 
             return result;
         }
 
         public static void For(this Action action, int times)
         {
-            for (var _ = 0; _ < times; _++)
-                action();
+            for (var _ = 0; _ < times; _++) action();
         }
 
         public static TItem While<TItem>(this TItem input, Func<bool> predicate, Func<TItem, TItem> function)
         {
             var result = input;
 
-            while (predicate())
-                result = function(result);
+            while (predicate()) result = function(result);
 
             return result;
         }
@@ -40,8 +37,7 @@ namespace AChildsCourage
         {
             var result = input;
 
-            while (predicate(result))
-                result = function(result);
+            while (predicate(result)) result = function(result);
 
             return result;
         }
@@ -50,29 +46,23 @@ namespace AChildsCourage
 
         public static void While(this Action action, Func<bool> predicate)
         {
-            while (predicate())
-                action();
+            while (predicate()) action();
         }
 
         public static TResult Map<TItem, TResult>(this TItem item, Func<TItem, TResult> function) => function(item);
 
-        public static void Do<TItem>(this TItem item, Action<TItem> action)
-        {
-            action(item);
-        }
+        public static void Do<TItem>(this TItem item, Action<TItem> action) => action(item);
 
         public static TResult MapWith<TItem, TResult, TParam>(this TItem item, Func<TItem, TParam, TResult> function, TParam param) => function(item, param);
 
         public static void ForEach<TItem>(this IEnumerable<TItem> elements, Action<TItem> action)
         {
-            foreach (var element in elements)
-                action(element);
+            foreach (var element in elements) action(element);
         }
 
         public static void ForEach<TItem, TResult>(this IEnumerable<TItem> elements, Func<TItem, TResult> function)
         {
-            foreach (var element in elements)
-                _ = function(element);
+            foreach (var element in elements) _ = function(element);
         }
 
         public static TReplace ThenTake<TItem, TReplace>(this TItem _, TReplace item) => item;
@@ -92,8 +82,7 @@ namespace AChildsCourage
             var accumulate = seed;
             var sourceArray = source.ToArray();
 
-            for (var i = 0; i < sourceArray.Length; i++)
-                accumulate = func(i, accumulate, sourceArray[i]);
+            for (var i = 0; i < sourceArray.Length; i++) accumulate = func(i, accumulate, sourceArray[i]);
 
             return accumulate;
         }
@@ -102,13 +91,11 @@ namespace AChildsCourage
         {
             var accumulate = seed;
 
-            for (var i = 0; i < times; i++)
-                accumulate = func(accumulate);
+            for (var i = 0; i < times; i++) accumulate = func(accumulate);
 
             return accumulate;
         }
 
     }
-
 
 }

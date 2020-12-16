@@ -75,8 +75,7 @@ namespace AChildsCourage.RoomEditor
 
         public void OnMouseDown(MouseDownEventArgs eventArgs)
         {
-            if (HasLoadedAsset)
-                ProcessEvent(eventArgs);
+            if (HasLoadedAsset) ProcessEvent(eventArgs);
         }
 
         private void ProcessEvent(MouseDownEventArgs eventArgs)
@@ -106,8 +105,7 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Runes:
                     runeLayer.PlaceAt(position);
                     break;
-                default:
-                    throw new Exception("Invalid tile category!");
+                default: throw new Exception("Invalid tile category!");
             }
         }
 
@@ -130,8 +128,7 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Runes:
                     runeLayer.DeleteTileAt(position);
                     break;
-                default:
-                    throw new Exception("Invalid tile category!");
+                default: throw new Exception("Invalid tile category!");
             }
         }
 
@@ -144,11 +141,11 @@ namespace AChildsCourage.RoomEditor
 
         private RoomContentData ReadContent() =>
             new RoomContentData(
-                groundLayer.ReadAll(),
-                courageLayer.ReadAll(),
-                itemLayer.ReadAll(),
-                staticObjectLayer.ReadAll(),
-                runeLayer.ReadAll());
+                                groundLayer.ReadAll(),
+                                courageLayer.ReadAll(),
+                                itemLayer.ReadAll(),
+                                staticObjectLayer.ReadAll(),
+                                runeLayer.ReadAll());
 
 
         internal void Unload()

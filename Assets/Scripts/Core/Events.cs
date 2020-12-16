@@ -18,7 +18,7 @@ namespace AChildsCourage
 
         [Serializable]
         public class Empty : UnityEvent { }
-        
+
     }
 
 }

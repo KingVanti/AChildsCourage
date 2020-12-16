@@ -2,7 +2,6 @@
 using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Player;
 using UnityEngine;
-using UnityEngine.Events;
 using static AChildsCourage.Game.Shade.MAwareness;
 using CharacterController = AChildsCourage.Game.Player.CharacterController;
 
@@ -47,8 +46,7 @@ namespace AChildsCourage.Game.Shade
             get => currentAwarenessLevel;
             set
             {
-                if (currentAwarenessLevel == value)
-                    return;
+                if (currentAwarenessLevel == value) return;
                 currentAwarenessLevel = value;
                 onAwarenessLevelChanged.Invoke(CurrentAwarenessLevel);
             }
@@ -61,8 +59,7 @@ namespace AChildsCourage.Game.Shade
             get => currentAwareness;
             private set
             {
-                if (currentAwareness.Equals(value))
-                    return;
+                if (currentAwareness.Equals(value)) return;
 
                 currentAwareness = value;
                 onAwarenessChanged.Invoke(currentAwareness.Value);
@@ -85,14 +82,10 @@ namespace AChildsCourage.Game.Shade
             {
                 switch (characterController.CurrentMovmentState)
                 {
-                    case MovementState.Standing:
-                        return 1;
-                    case MovementState.Walking:
-                        return walkingMultiplier;
-                    case MovementState.Sprinting:
-                        return sprintingMultiplier;
-                    default:
-                        throw new Exception("Invalid movement state!");
+                    case MovementState.Standing: return 1;
+                    case MovementState.Walking: return walkingMultiplier;
+                    case MovementState.Sprinting: return sprintingMultiplier;
+                    default: throw new Exception("Invalid movement state!");
                 }
             }
         }
@@ -103,11 +96,8 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        public void ClearAwareness()
-        {
-            CurrentAwareness = NoAwareness;
-        }
-        
+        public void ClearAwareness() => CurrentAwareness = NoAwareness;
+
 
         private void Update()
         {
@@ -117,15 +107,9 @@ namespace AChildsCourage.Game.Shade
                 GainAwareness();
         }
 
-        private void LooseAwareness()
-        {
-            CurrentAwareness = MAwareness.LooseAwareness(CurrentAwareness, awarenessLossPerSecond * Time.deltaTime);
-        }
+        private void LooseAwareness() => CurrentAwareness = MAwareness.LooseAwareness(CurrentAwareness, awarenessLossPerSecond * Time.deltaTime);
 
-        private void GainAwareness()
-        {
-            CurrentAwareness = MAwareness.GainAwareness(CurrentAwareness, CurrentAwarenessGain * Time.deltaTime);
-        }
+        private void GainAwareness() => CurrentAwareness = MAwareness.GainAwareness(CurrentAwareness, CurrentAwarenessGain * Time.deltaTime);
 
         private void UpdateAwarenessLevel()
         {

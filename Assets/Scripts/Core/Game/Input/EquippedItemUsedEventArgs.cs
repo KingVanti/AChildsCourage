@@ -14,10 +14,7 @@ namespace AChildsCourage.Game.Input
 
         #region Constructors
 
-        internal EquippedItemUsedEventArgs(int slotId)
-        {
-            SlotId = slotId;
-        }
+        internal EquippedItemUsedEventArgs(int slotId) => SlotId = slotId;
 
         #endregion
 

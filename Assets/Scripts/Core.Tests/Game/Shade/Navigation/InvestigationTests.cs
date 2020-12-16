@@ -19,9 +19,9 @@ namespace AChildsCourage.Game.Shade.Navigation
             // Given
 
             var started = StartNew(
-                new FloorState(new Aoi()),
-                new ShadeState(new EntityPosition(), DateTime.MinValue, Empty),
-                MRng.Always(0));
+                                   new FloorState(new Aoi()),
+                                   new ShadeState(new EntityPosition(), DateTime.MinValue, Empty),
+                                   MRng.Always(0));
 
             // When
 
@@ -40,9 +40,9 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var poi1 = new Poi(new MTilePosition.TilePosition(1, 0));
             var poi2 = new Poi(new MTilePosition.TilePosition(2, 0));
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
-                ImmutableHashSet<MTilePosition.TilePosition>.Empty);
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
+                                                  ImmutableHashSet<MTilePosition.TilePosition>.Empty);
             var monsterPosition = new EntityPosition(0, 0);
 
             // When
@@ -61,9 +61,9 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var poi1 = new Poi(new MTilePosition.TilePosition(1, 0));
             var poi2 = new Poi(new MTilePosition.TilePosition(2, 0));
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
-                ImmutableHashSet.Create(new MTilePosition.TilePosition(1, 0)));
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(poi1, poi2)),
+                                                  ImmutableHashSet.Create(new MTilePosition.TilePosition(1, 0)));
             var monsterPosition = new EntityPosition(0, 0);
 
             // When
@@ -81,11 +81,11 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
-                            new Poi(new MTilePosition.TilePosition(0, 0)),
-                            new Poi(new MTilePosition.TilePosition(1, 1)))),
-                ImmutableHashSet.Create(new MTilePosition.TilePosition(0, 0)));
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(0, 0)),
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(1, 1)))),
+                                                  ImmutableHashSet.Create(new MTilePosition.TilePosition(0, 0)));
 
             // When
 
@@ -101,12 +101,12 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
-                            new Poi(new MTilePosition.TilePosition(0, 0)),
-                            new Poi(new MTilePosition.TilePosition(1, 1)),
-                            new Poi(new MTilePosition.TilePosition(2, 2)))),
-                ImmutableHashSet.Create(new MTilePosition.TilePosition(0, 0)));
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(0, 0)),
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(1, 1)),
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(2, 2)))),
+                                                  ImmutableHashSet.Create(new MTilePosition.TilePosition(0, 0)));
 
             // When
 
@@ -123,16 +123,16 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
-                            new Poi(new MTilePosition.TilePosition(0, 0)),
-                            new Poi(new MTilePosition.TilePosition(1, 1)))),
-                ImmutableHashSet<MTilePosition.TilePosition>.Empty);
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(0, 0)),
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(1, 1)))),
+                                                  ImmutableHashSet<MTilePosition.TilePosition>.Empty);
 
             // When
 
             var position = new MTilePosition.TilePosition(0, 0);
-            var progressed = Progress(investigation, new[] { position });
+            var progressed = Progress(investigation, new[] {position});
 
             // Then
 
@@ -145,16 +145,16 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var investigation = new MInvestigation.Investigation(
-                new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
-                            new Poi(new MTilePosition.TilePosition(0, 0)),
-                            new Poi(new MTilePosition.TilePosition(1, 1)))),
-                ImmutableHashSet<MTilePosition.TilePosition>.Empty);
+            var investigation = new Investigation(
+                                                  new Aoi(AoiIndex.Zero, new MTilePosition.TilePosition(), ImmutableArray.Create(
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(0, 0)),
+                                                                                                                                 new Poi(new MTilePosition.TilePosition(1, 1)))),
+                                                  ImmutableHashSet<MTilePosition.TilePosition>.Empty);
 
             // When
 
             var position = new MTilePosition.TilePosition(2, 2);
-            var progressed = Progress(investigation, new[] { position });
+            var progressed = Progress(investigation, new[] {position});
 
             // Then
 
@@ -188,9 +188,9 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
-                                                    new CompletedInvestigation((AoiIndex) 1, new DateTime(2020, 1, 1, 1, 1, 0)),
-                                                    new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
+            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new InvestigationHistory(
+                                                                                                                                    new CompletedInvestigation((AoiIndex) 1, new DateTime(2020, 1, 1, 1, 1, 0)),
+                                                                                                                                    new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
             // When
 
@@ -209,8 +209,8 @@ namespace AChildsCourage.Game.Shade.Navigation
 
             var aoi1 = new Aoi((AoiIndex) 1, new MTilePosition.TilePosition(2, 0));
             var aoi2 = new Aoi((AoiIndex) 2, new MTilePosition.TilePosition(2, 0));
-            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new MInvestigationHistory.InvestigationHistory(
-                                                    new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
+            var monsterState = new ShadeState(new EntityPosition(1, 0), new DateTime(2020, 1, 1, 1, 1, 2), new InvestigationHistory(
+                                                                                                                                    new CompletedInvestigation((AoiIndex) 2, new DateTime(2020, 1, 1, 1, 1, 1))));
 
             // When
 

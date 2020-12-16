@@ -44,8 +44,7 @@ namespace AChildsCourage.Game.Player
 
         public void UseItem(int usedSlotId)
         {
-            if (currentItems[usedSlotId] == null || currentItemCooldown[usedSlotId] != 0)
-                return;
+            if (currentItems[usedSlotId] == null || currentItemCooldown[usedSlotId] != 0) return;
 
             currentItems[usedSlotId].Toggle();
             StartCoroutine(Cooldown(usedSlotId));
@@ -55,8 +54,7 @@ namespace AChildsCourage.Game.Player
 
         public void PickUpItem(int slotId, int itemId)
         {
-            if (HasItemInSlot(slotId))
-                DropItem(slotId);
+            if (HasItemInSlot(slotId)) DropItem(slotId);
 
             PutItemInSlot(slotId, itemId);
         }
@@ -83,10 +81,9 @@ namespace AChildsCourage.Game.Player
         public void OnItemSwapInventory()
         {
             if (currentItemCooldown[0] != 0 || currentItemCooldown[1] != 0)
-            {
+
                 // Maybe do an animation when trying to use?? 
                 Debug.Log("Can't Swap items when on cooldown!");
-            }
             else
             {
                 var tempItem = currentItems[0];

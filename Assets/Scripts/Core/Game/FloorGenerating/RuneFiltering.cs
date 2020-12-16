@@ -49,11 +49,11 @@ namespace AChildsCourage.Game
 
             private static float CalculateRuneWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
-                var distanceToClosestWeight = taken.Any()
-                    ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                           .Clamp(25, 60)
-                           .Remap(25, 60, 1, 20)
-                    : 20;
+                var distanceToClosestWeight = taken.Any() ?
+                    taken.Select(p => GetDistanceBetween(position, p)).Min()
+                         .Clamp(25, 60)
+                         .Remap(25, 60, 1, 20) :
+                    20;
 
                 return distanceToClosestWeight;
             }

@@ -55,28 +55,16 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void DeleteTileAt(Vector2Int position)
-        {
-            tilemap.SetTile((Vector3Int) position, null);
-        }
+        public void DeleteTileAt(Vector2Int position) => tilemap.SetTile((Vector3Int) position, null);
 
 
-        public void Clear()
-        {
-            tilemap.ClearAllTiles();
-        }
+        public void Clear() => tilemap.ClearAllTiles();
 
 
-        protected void PlaceTileAt(Tile tile, TilePosition position)
-        {
-            tilemap.SetTile(ToGlobalPosition(position), tile);
-        }
+        protected void PlaceTileAt(Tile tile, TilePosition position) => tilemap.SetTile(ToGlobalPosition(position), tile);
 
 
-        protected void PlaceTileAt(Tile tile, Vector2Int position)
-        {
-            tilemap.SetTile((Vector3Int) position, tile);
-        }
+        protected void PlaceTileAt(Tile tile, Vector2Int position) => tilemap.SetTile((Vector3Int) position, tile);
 
         protected IEnumerable<TileAtPos> GetTiles()
         {
@@ -88,26 +76,21 @@ namespace AChildsCourage.RoomEditor
                     var globalTilePos = new Vector3Int(x, y, 0);
                     var tile = tilemap.GetTile<Tile>(globalTilePos);
 
-                    if (tile != null)
-                        yield return new TileAtPos(tile, GetLocalTilePos(globalTilePos));
+                    if (tile != null) yield return new TileAtPos(tile, GetLocalTilePos(globalTilePos));
                 }
         }
 
-        private static TilePosition GetLocalTilePos(Vector3Int global)
-        {
-            return new TilePosition(
-                global.x + ChunkCenterOffset,
-                global.y + ChunkCenterOffset);
-        }
+        private static TilePosition GetLocalTilePos(Vector3Int global) =>
+            new TilePosition(
+                             global.x + ChunkCenterOffset,
+                             global.y + ChunkCenterOffset);
 
 
-        private static Vector3Int ToGlobalPosition(TilePosition position)
-        {
-            return new Vector3Int(
-                position.X - ChunkCenterOffset,
-                position.Y - ChunkCenterOffset,
-                0);
-        }
+        private static Vector3Int ToGlobalPosition(TilePosition position) =>
+            new Vector3Int(
+                           position.X - ChunkCenterOffset,
+                           position.Y - ChunkCenterOffset,
+                           0);
 
         #endregion
 

@@ -15,29 +15,21 @@ public static class ItemDataRepository
     private static bool HasCache => CachedItemData.Count > 0;
 
 
-    public static LoadItemIds GetItemIdLoader()
-    {
-        return GetItemIds;
-    }
+    public static LoadItemIds GetItemIdLoader() => GetItemIds;
 
     private static IEnumerable<ItemId> GetItemIds()
     {
-        if (!HasCache)
-            FillCache();
+        if (!HasCache) FillCache();
 
         return CachedItemData.Keys;
     }
 
 
-    public static FindItemData GetItemDataFinder()
-    {
-        return GetItemDataBy;
-    }
+    public static FindItemData GetItemDataFinder() => GetItemDataBy;
 
     private static ItemData GetItemDataBy(ItemId id)
     {
-        if (!HasCache)
-            FillCache();
+        if (!HasCache) FillCache();
 
         return CachedItemData[id];
     }

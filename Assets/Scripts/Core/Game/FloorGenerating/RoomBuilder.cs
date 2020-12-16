@@ -17,13 +17,13 @@ namespace AChildsCourage.Game
 
             public static RoomBuilder EmptyRoomBuilder(AoiIndex aoiIndex, RoomType roomType, ChunkPosition chunkPosition) =>
                 new RoomBuilder(
-                    aoiIndex,
-                    ImmutableHashSet<GroundTile>.Empty,
-                    ImmutableHashSet<CouragePickup>.Empty,
-                    ImmutableHashSet<StaticObject>.Empty,
-                    ImmutableHashSet<Rune>.Empty,
-                    roomType,
-                    chunkPosition);
+                                aoiIndex,
+                                ImmutableHashSet<GroundTile>.Empty,
+                                ImmutableHashSet<CouragePickup>.Empty,
+                                ImmutableHashSet<StaticObject>.Empty,
+                                ImmutableHashSet<Rune>.Empty,
+                                roomType,
+                                chunkPosition);
 
             public static RoomBuilder BuildGround(RoomBuilder roomBuilder, ImmutableHashSet<GroundTileData> groundData) =>
                 Take(groundData)

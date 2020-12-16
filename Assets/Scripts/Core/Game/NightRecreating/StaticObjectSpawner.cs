@@ -17,14 +17,11 @@ namespace AChildsCourage.Game.Floors
         public void Spawn(StaticObject staticObject)
         {
             var entity = InstantiateStaticObjectAt(staticObject.Position);
-            
+
             entity.Appearance = ChooseRandomAppearance();
         }
 
-        private StaticObjectAppearance ChooseRandomAppearance()
-        {
-            return appearanceWeights.GetWeightedRandom(p => p.Weight, rng).Appearance;
-        }
+        private StaticObjectAppearance ChooseRandomAppearance() => appearanceWeights.GetWeightedRandom(p => p.Weight, rng).Appearance;
 
         private StaticObjectEntity InstantiateStaticObjectAt(TilePosition tilePosition)
         {

@@ -11,8 +11,8 @@ namespace AChildsCourage.Game
 
         internal static float GetDistanceBetween(TilePosition p1, TilePosition p2) =>
             Vector2.Distance(
-                new Vector2(p1.X, p1.Y),
-                new Vector2(p2.X, p2.Y));
+                             new Vector2(p1.X, p1.Y),
+                             new Vector2(p2.X, p2.Y));
 
 
         public readonly struct TilePosition

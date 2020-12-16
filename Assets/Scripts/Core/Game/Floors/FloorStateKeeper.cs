@@ -36,8 +36,7 @@ namespace AChildsCourage.Game.Floors
 
         public void OnGroundTilePlaced(GroundTile groundTile)
         {
-            if (!HasStateForIndex(groundTile.AoiIndex))
-                aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
+            if (!HasStateForIndex(groundTile.AoiIndex)) aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
 
             aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
             outDatedFloorState = true;
@@ -74,8 +73,8 @@ namespace AChildsCourage.Game.Floors
                 var positions = Pois.Select(p => p.Position).ToImmutableHashSet();
 
                 return new TilePosition(
-                    (int) positions.Select(p => p.X).Average(),
-                    (int) positions.Select(p => p.Y).Average());
+                                        (int) positions.Select(p => p.X).Average(),
+                                        (int) positions.Select(p => p.Y).Average());
             }
 
             public void AddPoi(TilePosition position) => PoiStates.Add(new PoiState(position));

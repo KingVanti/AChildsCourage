@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace AChildsCourage.Game.Input {
+namespace AChildsCourage.Game.Input
+{
 
     internal class StopSprintEventArgs : EventArgs { }
 

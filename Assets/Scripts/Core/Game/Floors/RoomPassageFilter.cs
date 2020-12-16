@@ -18,7 +18,6 @@
 
         public override string ToString() => $"({RoomType}: {Passages})";
 
-
     }
 
 }

@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         {
             var pixels = ConvertToColorArray(floorPlan, roomLoader);
             var texture = new Texture2D(pixels[0]
-                                            .Length, pixels.Length) { filterMode = FilterMode.Point };
+                                            .Length, pixels.Length) {filterMode = FilterMode.Point};
 
             texture.SetPixels(pixels.SelectMany(x => x)
                                     .ToArray());
@@ -48,8 +48,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
             var pixels = new Color[width][];
 
-            for (var x = 0; x < width; x++)
-                pixels[x] = new Color[height];
+            for (var x = 0; x < width; x++) pixels[x] = new Color[height];
 
             return pixels;
         }
@@ -74,14 +73,12 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             return Mathf.Abs(minY - maxY) + 1;
         }
 
-        private static Vector2Int CalculateChunkOffset(FloorPlan floorPlan)
-        {
-            return new Vector2Int(
-                -floorPlan.Rooms.Select(r => r.Transform.Position.X)
-                          .Min(),
-                -floorPlan.Rooms.Select(r => r.Transform.Position.Y)
-                          .Min());
-        }
+        private static Vector2Int CalculateChunkOffset(FloorPlan floorPlan) =>
+            new Vector2Int(
+                           -floorPlan.Rooms.Select(r => r.Transform.Position.X)
+                                     .Min(),
+                           -floorPlan.Rooms.Select(r => r.Transform.Position.Y)
+                                     .Min());
 
         private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, CompleteRoomLoader roomLoader, Color[][] pixels)
         {
@@ -97,28 +94,20 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 for (var dy = 1; dy < 4; dy++)
                     pixels[pixelPos.x + dx][pixelPos.y + dy] = GetRoomTypeColor(type);
 
-            if (passages.HasNorth)
-                pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.white;
-            if (passages.HasEast)
-                pixels[pixelPos.x + 4][pixelPos.y + 2] = Color.white;
-            if (passages.HasSouth)
-                pixels[pixelPos.x + 2][pixelPos.y] = Color.white;
-            if (passages.HasWest)
-                pixels[pixelPos.x][pixelPos.y + 2] = Color.white;
+            if (passages.HasNorth) pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.white;
+            if (passages.HasEast) pixels[pixelPos.x + 4][pixelPos.y + 2] = Color.white;
+            if (passages.HasSouth) pixels[pixelPos.x + 2][pixelPos.y] = Color.white;
+            if (passages.HasWest) pixels[pixelPos.x][pixelPos.y + 2] = Color.white;
         }
 
         private static Color GetRoomTypeColor(RoomType type)
         {
             switch (type)
             {
-                case RoomType.Start:
-                    return Color.cyan;
-                case RoomType.Normal:
-                    return Color.white;
-                case RoomType.End:
-                    return Color.magenta;
-                default:
-                    throw new Exception("Invalid room type!");
+                case RoomType.Start: return Color.cyan;
+                case RoomType.Normal: return Color.white;
+                case RoomType.End: return Color.magenta;
+                default: throw new Exception("Invalid room type!");
             }
         }
 
@@ -127,14 +116,14 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             var offsetPosition = GetOffsetPosition(position, offset);
 
             return new Vector2Int(
-                offsetPosition.x * 5,
-                offsetPosition.y * 5);
+                                  offsetPosition.x * 5,
+                                  offsetPosition.y * 5);
         }
 
         private static Vector2Int GetOffsetPosition(ChunkPosition position, Vector2Int offset) =>
             new Vector2Int(
-                position.X + offset.x,
-                position.Y + offset.y);
+                           position.X + offset.x,
+                           position.Y + offset.y);
 
         #endregion
 

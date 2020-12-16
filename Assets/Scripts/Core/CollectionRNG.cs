@@ -18,8 +18,7 @@ namespace AChildsCourage
         public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements as T[] ?? elements.ToArray();
-            if (!elementsArray.Any())
-                return default;
+            if (!elementsArray.Any()) return default;
 
             var weightedElements = elementsArray.AttachWeights(calculateWeight).ToArray();
 
@@ -31,8 +30,7 @@ namespace AChildsCourage
             {
                 currentWeightIndex += weightedElement.Weight;
 
-                if (currentWeightIndex >= itemWeightIndex)
-                    return weightedElement.Element;
+                if (currentWeightIndex >= itemWeightIndex) return weightedElement.Element;
             }
 
             throw new Exception("No element selected. This should not happen!");
@@ -53,8 +51,7 @@ namespace AChildsCourage
         {
             var elementsArray = elements.ToArray();
 
-            if (elementsArray.Length == 0)
-                return default;
+            if (elementsArray.Length == 0) return default;
 
             var index = createRng.GetValueUnder(elementsArray.Length);
             return elementsArray[index];

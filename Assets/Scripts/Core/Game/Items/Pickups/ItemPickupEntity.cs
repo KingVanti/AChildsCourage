@@ -7,7 +7,9 @@ namespace AChildsCourage.Game.Items.Pickups
     {
 
         #region Properties
+
         public ItemId Id { get; private set; }
+
         #endregion
 
         #region Fields
@@ -25,11 +27,10 @@ namespace AChildsCourage.Game.Items.Pickups
 
         #region Methods
 
-        private void Start() {
-            SetItem(flashlightId, flashlightIcon);
-        }
+        private void Start() => SetItem(flashlightId, flashlightIcon);
 
-        private void SetItem(int itemId, ItemIcon icon) {
+        private void SetItem(int itemId, ItemIcon icon)
+        {
             Id = new ItemId(itemId);
             SetIcon(icon);
         }
@@ -49,10 +50,7 @@ namespace AChildsCourage.Game.Items.Pickups
             spriteRenderer.transform.rotation = Quaternion.Euler(new Vector3(0, 0, icon.RotationAngles));
         }
 
-        public void ShowInfo(bool status)
-        {
-            tutorialInfo.alpha = status ? 1 : 0;
-        }
+        public void ShowInfo(bool status) => tutorialInfo.alpha = status ? 1 : 0;
 
         #endregion
 

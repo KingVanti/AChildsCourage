@@ -17,8 +17,8 @@ namespace AChildsCourage.Game.Shade.Navigation
         public static StartInvestigation StartNew =>
             (floorState, monsterState, rng) =>
                 new Investigation(
-                    ChooseAoi(floorState, monsterState, rng),
-                    ImmutableHashSet<TilePosition>.Empty);
+                                  ChooseAoi(floorState, monsterState, rng),
+                                  ImmutableHashSet<TilePosition>.Empty);
 
 
         public static InvestigationIsComplete IsComplete =>
@@ -41,9 +41,9 @@ namespace AChildsCourage.Game.Shade.Navigation
         public static ProgressInvestigation Progress =>
             (investigation, positions) =>
                 new Investigation(
-                    investigation.Aoi,
-                    investigation.InvestigatedPositions.Union(
-                        positions.Where(p => IsPartOfInvestigation(investigation, p))));
+                                  investigation.Aoi,
+                                  investigation.InvestigatedPositions.Union(
+                                                                            positions.Where(p => IsPartOfInvestigation(investigation, p))));
 
         private static Func<Investigation, TilePosition, bool> IsPartOfInvestigation =>
             (investigation, position) =>
@@ -75,7 +75,7 @@ namespace AChildsCourage.Game.Shade.Navigation
         // [0 .. 15]
         internal static CalculateAoiWeight CalcTotalWeight =>
             (aoi, monsterState) =>
-                new[] { CalcDistanceWeight, CalcTimeWeight }.Sum(x => x(aoi, monsterState));
+                new[] {CalcDistanceWeight, CalcTimeWeight}.Sum(x => x(aoi, monsterState));
 
         // [0 .. 5]
         private static CalculateAoiWeight CalcDistanceWeight =>

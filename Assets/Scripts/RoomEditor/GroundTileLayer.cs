@@ -26,29 +26,19 @@ namespace AChildsCourage.RoomEditor
         {
             Clear();
 
-            foreach (var groundTile in groundTiles)
-                Place(groundTile);
+            foreach (var groundTile in groundTiles) Place(groundTile);
         }
 
-        private void Place(GroundTileData groundTile)
-        {
-            PlaceTileAt(tile, groundTile.Position);
-        }
+        private void Place(GroundTileData groundTile) => PlaceTileAt(tile, groundTile.Position);
 
 
-        public void PlaceAt(Vector2Int position)
-        {
-            PlaceTileAt(tile, position);
-        }
+        public void PlaceAt(Vector2Int position) => PlaceTileAt(tile, position);
 
 
-        public GroundTileData[] ReadAll()
-        {
-            return
-                GetTiles()
-                    .Select(t => new GroundTileData(t.Position, 0, 0))
-                    .ToArray();
-        }
+        public GroundTileData[] ReadAll() =>
+            GetTiles()
+                .Select(t => new GroundTileData(t.Position, 0, 0))
+                .ToArray();
 
         #endregion
 

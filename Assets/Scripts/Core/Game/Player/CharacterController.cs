@@ -71,7 +71,11 @@ namespace AChildsCourage.Game.Player
 
         #region Properties
 
-        [AutoInject] internal IInputListener InputListener { set => BindTo(value); }
+        [AutoInject]
+        internal IInputListener InputListener
+        {
+            set => BindTo(value);
+        }
 
         /// <summary>
         ///     The angle the player is facing towards the mouse cursor.
@@ -107,8 +111,7 @@ namespace AChildsCourage.Game.Player
         {
             get
             {
-                if (IsMoving && RelativeMousePos.x < 0 && MovingDirection.x > 0)
-                    return true;
+                if (IsMoving && RelativeMousePos.x < 0 && MovingDirection.x > 0) return true;
                 return IsMoving && RelativeMousePos.x > 0 && MovingDirection.x < 0;
             }
         }
@@ -134,7 +137,8 @@ namespace AChildsCourage.Game.Player
             {
                 _movingDirection = value;
 
-                if (MovingDirection == Vector2.zero && IsSprinting) {
+                if (MovingDirection == Vector2.zero && IsSprinting)
+                {
                     StopSprinting();
                     OnSprintStop?.Invoke();
                 }
@@ -170,10 +174,7 @@ namespace AChildsCourage.Game.Player
             defaultSpeed = movementSpeed;
         }
 
-        private void FixedUpdate()
-        {
-            Move();
-        }
+        private void FixedUpdate() => Move();
 
         private void BindTo(IInputListener listener)
         {
@@ -195,22 +196,17 @@ namespace AChildsCourage.Game.Player
             animator.SetBool(MovingBackwardsAnimatorKey, IsMovingBackwards);
             animator.SetBool(SprintingAnimatorKey, IsSprinting);
 
-            if (HasFlashlightEquipped)
-                animator.SetBool(FlashlightEquippedAnimatorKey, _hasFlashlightEquipped);
+            if (HasFlashlightEquipped) animator.SetBool(FlashlightEquippedAnimatorKey, _hasFlashlightEquipped);
         }
 
 
-        public void KillPlayer()
-        {
-            OnPlayerDeath?.Invoke(this, EventArgs.Empty);
-        }
+        public void KillPlayer() => OnPlayerDeath?.Invoke(this, EventArgs.Empty);
 
         private void Rotate()
         {
             var projectedMousePosition = Vector2.zero;
 
-            if (mainCamera != null)
-                projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
+            if (mainCamera != null) projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
 
             Vector2 playerPos = transform.position;
 
@@ -220,8 +216,7 @@ namespace AChildsCourage.Game.Player
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f)
-                ChangeLookDirection(RelativeMousePos);
+            if (Vector2.Distance(projectedMousePosition, playerPos) > 0.2f) ChangeLookDirection(RelativeMousePos);
         }
 
         private void ChangeLookDirection(Vector2 relativeMousePosition)
@@ -232,14 +227,12 @@ namespace AChildsCourage.Game.Player
                 RotationIndex = 1;
             else if (relativeMousePosition.x < -0.7f && relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)
                 RotationIndex = 2;
-            else if (relativeMousePosition.y < -0.7f && relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)
-                RotationIndex = 3;
+            else if (relativeMousePosition.y < -0.7f && relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f) RotationIndex = 3;
         }
 
         private void Move()
         {
-            if (!gettingKnockedBack)
-                rb.velocity = MovingDirection * movementSpeed;
+            if (!gettingKnockedBack) rb.velocity = MovingDirection * movementSpeed;
 
             OnPositionChanged.Invoke(transform.position);
         }
@@ -253,8 +246,7 @@ namespace AChildsCourage.Game.Player
 
         private void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs)
         {
-            if (!gettingKnockedBack)
-                MovingDirection = eventArgs.MoveDirection;
+            if (!gettingKnockedBack) MovingDirection = eventArgs.MoveDirection;
         }
 
         #region Sprinting
@@ -275,8 +267,7 @@ namespace AChildsCourage.Game.Player
 
         private void OnStopSprint(StopSprintEventArgs eventArgs)
         {
-            if (hasStamina && IsSprinting)
-                OnSprintStop?.Invoke();
+            if (hasStamina && IsSprinting) OnSprintStop?.Invoke();
 
             StopSprinting();
         }
@@ -293,35 +284,24 @@ namespace AChildsCourage.Game.Player
             hasStamina = false;
         }
 
-        public void OnStaminaRefresh()
-        {
-            hasStamina = true;
-        }
+        public void OnStaminaRefresh() => hasStamina = true;
 
         #endregion
 
-        private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs)
-        {
-            OnUseItem?.Invoke(eventArgs.SlotId);
-        }
+        private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs) => OnUseItem?.Invoke(eventArgs.SlotId);
 
         private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs)
         {
-            if (!IsInPickupRange)
-                return;
+            if (!IsInPickupRange) return;
 
             OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
 
-            if (CurrentItemInRange.Id == 0)
-                HasFlashlightEquipped = true;
+            if (CurrentItemInRange.Id == 0) HasFlashlightEquipped = true;
 
             Destroy(CurrentItemInRange.gameObject);
         }
 
-        private void OnItemSwapped(ItemSwappedEventArgs eventArgs)
-        {
-            OnSwapItem?.Invoke();
-        }
+        private void OnItemSwapped(ItemSwappedEventArgs eventArgs) => OnSwapItem?.Invoke();
 
         public void OnCouragePickUp(CouragePickupEntity courage)
         {
@@ -335,22 +315,17 @@ namespace AChildsCourage.Game.Player
                 case CourageVariant.Spark:
                     emission.rateOverTime = 10;
                     break;
-                default:
-                    throw new Exception("Invalid courage variant!");
+                default: throw new Exception("Invalid courage variant!");
             }
 
             courageCollectParticleSystem.Play();
         }
 
-        public void SwitchCourageCollectable(bool canCollect)
-        {
-            canCollectCourage = !canCollect;
-        }
+        public void SwitchCourageCollectable(bool canCollect) => canCollectCourage = !canCollect;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible)
-                return;
+            if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible) return;
 
             var shade = collision.gameObject.GetComponent<ShadeBrain>();
             var shadeMovement = collision.gameObject.GetComponent<ShadeMovement>();
@@ -368,8 +343,7 @@ namespace AChildsCourage.Game.Player
                 CurrentItemInRange.ShowInfo(IsInPickupRange);
             }
 
-            if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage)
-                return;
+            if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
             OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
             Destroy(collision.gameObject);
@@ -377,8 +351,7 @@ namespace AChildsCourage.Game.Player
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (!collision.CompareTag(EntityTags.Item))
-                return;
+            if (!collision.CompareTag(EntityTags.Item)) return;
 
             IsInPickupRange = false;
             CurrentItemInRange.GetComponent<ItemPickupEntity>()
@@ -397,6 +370,7 @@ namespace AChildsCourage.Game.Player
         private IEnumerator DamageTaken(float duration)
         {
             isInvincible = true;
+
             // Physics2D.IgnoreLayerCollision(8, 12, true);
             const int steps = 5;
 

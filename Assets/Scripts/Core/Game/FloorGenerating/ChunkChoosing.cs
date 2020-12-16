@@ -21,15 +21,13 @@ namespace AChildsCourage.Game
                 {
                     switch (GetCurrentPhase(builder, parameters))
                     {
-                        case LayoutGenerationPhase.StartRoom:
-                            return GetStartRoomChunk();
+                        case LayoutGenerationPhase.StartRoom: return GetStartRoomChunk();
 
                         case LayoutGenerationPhase.NormalRooms:
                         case LayoutGenerationPhase.EndRoom:
                             return ChooseRandomNextChunk(builder, createRng);
 
-                        default:
-                            throw new Exception("Invalid building phase!");
+                        default: throw new Exception("Invalid building phase!");
                     }
                 };
 
@@ -40,8 +38,7 @@ namespace AChildsCourage.Game
             private static Func<FloorLayoutBuilder, CreateRng, ChunkPosition> ChooseRandomNextChunk =>
                 (builder, createRng) =>
                 {
-                    if (!HasReservedChunks(builder))
-                        throw new Exception("Could not find any more possible chunks!");
+                    if (!HasReservedChunks(builder)) throw new Exception("Could not find any more possible chunks!");
 
                     float WeightFunction(ChunkPosition chunk) => CalculateChunkWeight(builder, chunk);
 

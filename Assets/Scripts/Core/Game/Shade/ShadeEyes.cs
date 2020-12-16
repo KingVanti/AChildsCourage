@@ -14,8 +14,8 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-        public ShadeEvents.VisibilityEvent onCharacterVisibilityChanged;
-        public ShadeEvents.TilesInViewEvent onTilesInViewChanged;
+        public VisibilityEvent onCharacterVisibilityChanged;
+        public TilesInViewEvent onTilesInViewChanged;
 
 #pragma warning disable 649
 
@@ -44,8 +44,7 @@ namespace AChildsCourage.Game.Shade
             get => characterVisibility;
             private set
             {
-                if (characterVisibility == value)
-                    return;
+                if (characterVisibility == value) return;
 
                 characterVisibility = value;
                 onCharacterVisibilityChanged.Invoke(characterVisibility);
@@ -67,10 +66,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        private void OnEnable()
-        {
-            StartCoroutine(ContinuallyUpdateVision());
-        }
+        private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
 
         private IEnumerator ContinuallyUpdateVision()
         {
@@ -86,11 +82,9 @@ namespace AChildsCourage.Game.Shade
         {
             var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
 
-            CharacterVisibility = visionPoints.Any(IsInPrimaryVision)
-                ? Visibility.Primary
-                : visionPoints.Any(IsInSecondaryVision)
-                    ? Visibility.Secondary
-                    : Visibility.NotVisible;
+            CharacterVisibility = visionPoints.Any(IsInPrimaryVision) ? Visibility.Primary
+                : visionPoints.Any(IsInSecondaryVision) ? Visibility.Secondary
+                : Visibility.NotVisible;
         }
 
         private bool IsInPrimaryVision(Vector3 visionPoint) => IsInView(primaryVision, visionPoint);
@@ -134,7 +128,7 @@ namespace AChildsCourage.Game.Shade
                     yield return new Vector3(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
         }
 
-        public bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position)|| IsInView(secondaryVision, position);
+        public bool PositionIsVisible(Vector3 position) => PositionIsInSmallRadius(position) || IsInView(secondaryVision, position);
 
         private bool PositionIsInSmallRadius(Vector3 position) => Vector3.Distance(transform.position, position) <= smallVisionRadius;
 

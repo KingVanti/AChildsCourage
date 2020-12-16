@@ -22,10 +22,7 @@ namespace AChildsCourage.Game.Shade
             onShadeSpawned.Invoke();
         }
 
-        private void TeleportShadeToSpawn()
-        {
-            shadeBrain.transform.position = spawnTile.ToVector3();
-        }
+        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.ToVector3();
 
 
         public void OnFloorBuilt(Floor floor)
@@ -35,10 +32,7 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        public void OnShadeBanished()
-        {
-            StartCoroutine(TimeoutShade());
-        }
+        public void OnShadeBanished() => StartCoroutine(TimeoutShade());
 
         private IEnumerator TimeoutShade()
         {

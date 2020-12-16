@@ -12,11 +12,11 @@ namespace AChildsCourage.Game.Floors
 
         public static Floor EmptyFloor =>
             new Floor(
-                ImmutableHashSet<Wall>.Empty,
-                ImmutableHashSet<CouragePickup>.Empty,
-                ImmutableHashSet<Room>.Empty,
-                ImmutableHashSet<Rune>.Empty, 
-                new ChunkPosition(0, 0));
+                      ImmutableHashSet<Wall>.Empty,
+                      ImmutableHashSet<CouragePickup>.Empty,
+                      ImmutableHashSet<Room>.Empty,
+                      ImmutableHashSet<Rune>.Empty,
+                      new ChunkPosition(0, 0));
 
 
         public static (TilePosition, TilePosition ) GetFloorCorners(Floor floor)
@@ -57,6 +57,5 @@ namespace AChildsCourage.Game.Floors
         }
 
     }
-
 
 }

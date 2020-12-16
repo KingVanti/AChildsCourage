@@ -63,27 +63,27 @@ namespace AChildsCourage.Game
                         .Clamp(20, 40)
                         .Remap(20f, 40f, 1, 10f);
 
-                var distanceToClosestWeight = taken.Any()
-                    ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                           .Clamp(10, 30)
-                           .Remap(10, 30, 1, 20)
-                    : 20;
+                var distanceToClosestWeight = taken.Any() ?
+                    taken.Select(p => GetDistanceBetween(position, p)).Min()
+                         .Clamp(10, 30)
+                         .Remap(10, 30, 1, 20) :
+                    20;
 
                 return distanceOriginWeight + distanceToClosestWeight;
             }
 
             internal static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
-                var distanceToClosestWeight = taken.Any()
-                    ? taken.Select(p => GetDistanceBetween(position, p)).Min()
-                           .Clamp(1, 10)
-                           .Remap(1, 10, 4, 1)
-                    : 1;
+                var distanceToClosestWeight = taken.Any() ?
+                    taken.Select(p => GetDistanceBetween(position, p)).Min()
+                         .Clamp(1, 10)
+                         .Remap(1, 10, 4, 1) :
+                    1;
 
                 return distanceToClosestWeight;
             }
 
-            
+
             internal delegate float CouragePickupWeightFunction(TilePosition position, ImmutableHashSet<TilePosition> taken);
 
         }

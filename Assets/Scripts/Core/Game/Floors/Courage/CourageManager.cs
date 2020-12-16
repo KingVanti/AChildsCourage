@@ -1,13 +1,13 @@
-﻿using Appccelerate.EventBroker;
-using Ninject.Extensions.Unity;
-using System;
+﻿using System;
 using System.Collections;
-using TMPro;
+using Appccelerate.EventBroker;
+using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Courage
 {
+
     [UseDi]
     public class CourageManager : MonoBehaviour
     {
@@ -16,18 +16,16 @@ namespace AChildsCourage.Game.Courage
 
         private int _currentNightCourage;
         private int _neededNightCourage;
-        private int _availableNightCourage;
-        
+
 #pragma warning disable 649
-        
+
         [SerializeField] private int _maxNightCourage;
         [SerializeField] private float messageTime;
         [SerializeField] private CanvasGroup messageCanvas;
-        
+
 #pragma warning restore 649
 
-        [Header("Events")]
-        public CourageChangedEvent OnCourageChanged;
+        [Header("Events")] public CourageChangedEvent OnCourageChanged;
         public CourageChangedEvent OnInitialize;
         public UnityEvent OnCourageDepleted;
         public UnityEvent onCourageNotEnoughStarted;
@@ -50,25 +48,25 @@ namespace AChildsCourage.Game.Courage
                 OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
                 OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
 
-                if(CurrentNightCourage + AvailableNightCourage < NeededNightCourage) {
-                    StartCoroutine(CourageLoss());
-                }
-
+                if (CurrentNightCourage + AvailableNightCourage < NeededNightCourage) StartCoroutine(CourageLoss());
             }
         }
 
-        public int MaxNightCourage { get => _maxNightCourage; set => _maxNightCourage = value; }
+        public int MaxNightCourage
+        {
+            get => _maxNightCourage;
+            set => _maxNightCourage = value;
+        }
 
         public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
 
-        public int AvailableNightCourage { get => _availableNightCourage; set => _availableNightCourage = value; }
+        public int AvailableNightCourage { get; set; }
 
         public int OverfilledNightCourage
         {
             get
             {
-                if (CurrentNightCourage > NeededNightCourage)
-                    return CurrentNightCourage - NeededNightCourage;
+                if (CurrentNightCourage > NeededNightCourage) return CurrentNightCourage - NeededNightCourage;
                 return 0;
             }
         }
@@ -88,8 +86,7 @@ namespace AChildsCourage.Game.Courage
         {
             CurrentNightCourage += pickedUpCourage.Value;
 
-            if (CurrentNightCourage > MaxNightCourage)
-                CurrentNightCourage = MaxNightCourage;
+            if (CurrentNightCourage > MaxNightCourage) CurrentNightCourage = MaxNightCourage;
 
             AvailableNightCourage -= pickedUpCourage.Value;
         }
@@ -98,19 +95,16 @@ namespace AChildsCourage.Game.Courage
         {
             CurrentNightCourage -= value;
 
-            if (CurrentNightCourage >= 0)
-                return;
-            
+            if (CurrentNightCourage >= 0) return;
+
             CurrentNightCourage = 0;
             OnCourageDepleted?.Invoke();
         }
 
-        public void GameLost() {
-            OnPlayerLose?.Invoke(this, EventArgs.Empty);
-        }
+        public void GameLost() => OnPlayerLose?.Invoke(this, EventArgs.Empty);
 
-        IEnumerator CourageLoss() {
-
+        private IEnumerator CourageLoss()
+        {
             messageCanvas.alpha = 1;
             yield return new WaitForSeconds(messageTime);
             onCourageNotEnoughCompleted?.Invoke();

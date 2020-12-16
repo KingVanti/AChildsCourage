@@ -16,10 +16,7 @@ namespace AChildsCourage.Game.Floors
 #pragma warning  restore 649
 
 
-        public void Spawn(Rune rune)
-        {
-            InstantiateStaticObjectAt(rune.Position);
-        }
+        public void Spawn(Rune rune) => InstantiateStaticObjectAt(rune.Position);
 
         private void InstantiateStaticObjectAt(TilePosition tilePosition)
         {

@@ -1,16 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEditor;
+using UnityEngine;
 
-namespace AChildsCourage.Game.UI {
-    public class MainMenu : MonoBehaviour {
+namespace AChildsCourage.Game.UI
+{
 
-        public void OnPlayButtonPressed() {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.GameScene);
-        }
+    public class MainMenu : MonoBehaviour
+    {
 
-        public void OnQuitButtonPressed() {
+        public void OnPlayButtonPressed() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.GameScene);
+
+        public void OnQuitButtonPressed()
+        {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
       Application.Quit();
 #endif

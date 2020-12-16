@@ -12,7 +12,7 @@ using static AChildsCourage.Game.MFloorGenerating.MWallGenerating;
 using static AChildsCourage.Game.MFloorGenerating.MCouragePickupFiltering;
 using static AChildsCourage.Game.MFloorGenerating.MRoomBuilder;
 using static AChildsCourage.Game.MFloorGenerating.MRoomTransforming;
-using  static AChildsCourage.Game.MFloorGenerating.MRuneFiltering;
+using static AChildsCourage.Game.MFloorGenerating.MRuneFiltering;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game

@@ -34,8 +34,8 @@ namespace AChildsCourage.Game
 
             internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
                 new TilePosition(
-                    chunkCorner.X + position.X,
-                    chunkCorner.Y + position.Y);
+                                 chunkCorner.X + position.X,
+                                 chunkCorner.Y + position.Y);
 
             internal static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
             {
@@ -47,14 +47,14 @@ namespace AChildsCourage.Game
             internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
             {
                 var translated = new TilePosition(
-                    position.X - chunkCenter.X,
-                    position.Y - chunkCenter.Y);
+                                                  position.X - chunkCenter.X,
+                                                  position.Y - chunkCenter.Y);
 
                 var rotated = new TilePosition(translated.Y, -translated.X);
 
                 return new TilePosition(
-                    rotated.X + chunkCenter.X,
-                    rotated.Y + chunkCenter.Y);
+                                        rotated.X + chunkCenter.X,
+                                        rotated.Y + chunkCenter.Y);
             }
 
 

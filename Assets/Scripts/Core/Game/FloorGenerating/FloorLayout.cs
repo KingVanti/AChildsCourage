@@ -17,10 +17,10 @@ namespace AChildsCourage.Game
             public static Func<FloorLayout, ChunkPosition, ChunkPassages> GetPassagesForChunk =>
                 (layout, chunk) =>
                     new ChunkPassages(
-                        IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
-                        IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.East)),
-                        IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.South)),
-                        IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.West)));
+                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
+                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.East)),
+                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.South)),
+                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.West)));
 
             private static Func<FloorLayout, ChunkPosition, bool> IsOccupied =>
                 (layout, position) =>

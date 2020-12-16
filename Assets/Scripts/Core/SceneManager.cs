@@ -11,10 +11,7 @@ namespace AChildsCourage
         public UnityEvent onSceneLoaded;
 
 
-        private void Awake()
-        {
-            SetupScene();
-        }
+        private void Awake() => SetupScene();
 
         private void SetupScene()
         {
@@ -23,10 +20,7 @@ namespace AChildsCourage
         }
 
 
-        protected static void LoadSceneWith(string sceneName)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
-        }
+        protected static void LoadSceneWith(string sceneName) => UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
 
     }
 

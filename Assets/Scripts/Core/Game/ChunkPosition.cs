@@ -34,14 +34,10 @@ namespace AChildsCourage.Game
         {
             switch (direction)
             {
-                case PassageDirection.North:
-                    return new ChunkPosition(position.X, position.Y + 1);
-                case PassageDirection.East:
-                    return new ChunkPosition(position.X + 1, position.Y);
-                case PassageDirection.South:
-                    return new ChunkPosition(position.X, position.Y - 1);
-                case PassageDirection.West:
-                    return new ChunkPosition(position.X - 1, position.Y);
+                case PassageDirection.North: return new ChunkPosition(position.X, position.Y + 1);
+                case PassageDirection.East: return new ChunkPosition(position.X + 1, position.Y);
+                case PassageDirection.South: return new ChunkPosition(position.X, position.Y - 1);
+                case PassageDirection.West: return new ChunkPosition(position.X - 1, position.Y);
             }
 
             throw new Exception("Invalid direction!");

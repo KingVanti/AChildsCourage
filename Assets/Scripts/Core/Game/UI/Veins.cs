@@ -22,10 +22,7 @@ namespace AChildsCourage.Game.UI
 
         #region Methods
 
-        public void SetTransparency(float awareness)
-        {
-            image.color = new Color(image.color.r, image.color.g, image.color.b, awareness);
-        }
+        public void SetTransparency(float awareness) => image.color = new Color(image.color.r, image.color.g, image.color.b, awareness);
 
         public void SetVeinSprite(AwarenessLevel level)
         {

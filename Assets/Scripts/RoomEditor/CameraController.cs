@@ -8,7 +8,11 @@ namespace AChildsCourage.RoomEditor
 
         #region Properties
 
-        private float Zoom { get => camera.orthographicSize; set => camera.orthographicSize = Mathf.Clamp(value, minZoom, maxZoom); }
+        private float Zoom
+        {
+            get => camera.orthographicSize;
+            set => camera.orthographicSize = Mathf.Clamp(value, minZoom, maxZoom);
+        }
 
         #endregion
 
@@ -49,25 +53,13 @@ namespace AChildsCourage.RoomEditor
             input.Enable();
         }
 
-        private void StartHorizontalMovement(float direction)
-        {
-            currentMovement.x = direction * speed;
-        }
+        private void StartHorizontalMovement(float direction) => currentMovement.x = direction * speed;
 
-        private void StopHorizontalMovement()
-        {
-            currentMovement.x = 0;
-        }
+        private void StopHorizontalMovement() => currentMovement.x = 0;
 
-        private void StartVerticalMovement(float direction)
-        {
-            currentMovement.y = direction * speed;
-        }
+        private void StartVerticalMovement(float direction) => currentMovement.y = direction * speed;
 
-        private void StopVerticalMovement()
-        {
-            currentMovement.y = 0;
-        }
+        private void StopVerticalMovement() => currentMovement.y = 0;
 
         private void OnScroll(float delta)
         {
@@ -76,15 +68,9 @@ namespace AChildsCourage.RoomEditor
             Zoom += -normalized * zoomSpeed;
         }
 
-        private void FocusZoom()
-        {
-            Zoom = focusZoom;
-        }
+        private void FocusZoom() => Zoom = focusZoom;
 
-        private void Update()
-        {
-            transform.position += (Vector3) currentMovement * Time.deltaTime;
-        }
+        private void Update() => transform.position += (Vector3) currentMovement * Time.deltaTime;
 
         #endregion
 

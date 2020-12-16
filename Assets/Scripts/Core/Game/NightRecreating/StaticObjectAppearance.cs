@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Floors
 
 #pragma warning  restore 649
 
-        public Sprite Sprite { get => sprite; }
+        public Sprite Sprite => sprite;
 
     }
 

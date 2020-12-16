@@ -7,15 +7,6 @@ namespace AChildsCourage.Game
     public static partial class MFloorGenerating
     {
 
-        public enum LayoutGenerationPhase
-        {
-
-            StartRoom,
-            NormalRooms,
-            EndRoom
-
-        }
-
         public readonly struct GenerationParameters
         {
 
@@ -68,6 +59,15 @@ namespace AChildsCourage.Game
                 IsMirrored = isMirrored;
                 RotationCount = rotationCount;
             }
+
+        }
+
+        public enum LayoutGenerationPhase
+        {
+
+            StartRoom,
+            NormalRooms,
+            EndRoom
 
         }
 

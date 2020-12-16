@@ -26,29 +26,19 @@ namespace AChildsCourage.RoomEditor
         {
             Clear();
 
-            foreach (var itemPickup in itemPickups)
-                Place(itemPickup);
+            foreach (var itemPickup in itemPickups) Place(itemPickup);
         }
 
-        private void Place(ItemPickupData itemPickup)
-        {
-            PlaceTileAt(itemTile, itemPickup.Position);
-        }
+        private void Place(ItemPickupData itemPickup) => PlaceTileAt(itemTile, itemPickup.Position);
 
 
-        public void PlaceAt(Vector2Int position)
-        {
-            PlaceTileAt(itemTile, position);
-        }
+        public void PlaceAt(Vector2Int position) => PlaceTileAt(itemTile, position);
 
 
-        public ItemPickupData[] ReadAll()
-        {
-            return
-                GetTiles()
-                    .Select(ToPickup)
-                    .ToArray();
-        }
+        public ItemPickupData[] ReadAll() =>
+            GetTiles()
+                .Select(ToPickup)
+                .ToArray();
 
         private static ItemPickupData ToPickup(TileAtPos tileAtPos)
         {

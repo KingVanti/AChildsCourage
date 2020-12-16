@@ -1,51 +1,48 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Player {
-    public class Stamina : MonoBehaviour {
+namespace AChildsCourage.Game.Player
+{
+
+    public class Stamina : MonoBehaviour
+    {
 
         #region Fields
-        [Header("Stats")]
-        public float stamina = 100;
+
+        [Header("Stats")] public float stamina = 100;
         [SerializeField] private float staminaRecoveryRate = 1;
         [SerializeField] private float staminaDrainRate = 2;
         [SerializeField] private float staminaDepletedCooldown = 5;
 
-        private bool isSprinting = false;
-        private bool isOnCooldown = false;
+        private bool isSprinting;
+        private bool isOnCooldown;
 
-        [Header("Events")]
-        public UnityEvent onStaminaDepleted;
+        [Header("Events")] public UnityEvent onStaminaDepleted;
         public UnityEvent onRefreshed;
 
         #endregion
 
         #region Methods
 
-        private void Start() {
-            StartCoroutine(Sprint());
-        }
+        private void Start() => StartCoroutine(Sprint());
 
-        public void StartSprinting() {
-            isSprinting = true;
-        }
+        public void StartSprinting() => isSprinting = true;
 
-        public void StopSprinting() {
-            isSprinting = false;
-        }
+        public void StopSprinting() => isSprinting = false;
 
-        private IEnumerator Sprint() {
-
-            while (true) {
-
-                if (!isOnCooldown) {
-
-                    if (isSprinting && stamina >= 0) {
+        private IEnumerator Sprint()
+        {
+            while (true)
+            {
+                if (!isOnCooldown)
+                {
+                    if (isSprinting && stamina >= 0)
+                    {
                         stamina = Mathf.MoveTowards(stamina, 0, staminaDrainRate * Time.deltaTime);
 
-                        if(stamina <= 0.05f) {
+                        if (stamina <= 0.05f)
+                        {
                             StartCoroutine(Cooldown());
                             onStaminaDepleted?.Invoke();
                         }
@@ -53,20 +50,19 @@ namespace AChildsCourage.Game.Player {
                         yield return null;
                     }
 
-                    if (!isSprinting && stamina <= 100) {
+                    if (!isSprinting && stamina <= 100)
+                    {
                         stamina = Mathf.MoveTowards(stamina, 100, staminaRecoveryRate * Time.deltaTime);
                         yield return null;
                     }
-
                 }
 
                 yield return null;
-
             }
-
         }
 
-        private IEnumerator Cooldown() {
+        private IEnumerator Cooldown()
+        {
             isOnCooldown = true;
             StopSprinting();
             yield return new WaitForSeconds(staminaDepletedCooldown);

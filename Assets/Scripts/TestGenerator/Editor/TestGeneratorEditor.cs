@@ -21,11 +21,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         #region Static Methods
 
         [MenuItem("Window/A Child's Courage/Test Generator")]
-        public static void Open()
-        {
+        public static void Open() =>
             GetWindow<TestGeneratorEditor>()
                 .Show();
-        }
 
         #endregion
 
@@ -45,8 +43,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Generate"))
-                GenerateFloorImage();
+            if (GUILayout.Button("Generate")) GenerateFloorImage();
             if (GUILayout.Button("Generate Random"))
             {
                 seed = Random.Range(int.MinValue, int.MaxValue);
@@ -61,15 +58,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 EditorGUILayout.LabelField("Press \"Generate\" to test generation!");
         }
 
-        private void OnConfigGUI()
-        {
-            seed = EditorGUILayout.IntField("Seed", seed);
-        }
+        private void OnConfigGUI() => seed = EditorGUILayout.IntField("Seed", seed);
 
-        private void OnFloorGUI()
-        {
-            GUI.DrawTexture(new Rect(10, 100, floorImage.width * 10, floorImage.height * 10), floorImage);
-        }
+        private void OnFloorGUI() => GUI.DrawTexture(new Rect(10, 100, floorImage.width * 10, floorImage.height * 10), floorImage);
 
 
         private void GenerateFloorImage()

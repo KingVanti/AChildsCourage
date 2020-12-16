@@ -50,15 +50,14 @@ namespace AChildsCourage
         {
             // Given
 
-            var elements = new[] { 1, 2 };
+            var elements = new[] {1, 2};
             var rng = FromSeed(0);
 
             // When
 
             var numbers = new int[1000];
 
-            for (var i = 0; i < numbers.Length; i++)
-                numbers[i] = elements.GetWeightedRandom(e => e, rng);
+            for (var i = 0; i < numbers.Length; i++) numbers[i] = elements.GetWeightedRandom(e => e, rng);
 
             // Then
 

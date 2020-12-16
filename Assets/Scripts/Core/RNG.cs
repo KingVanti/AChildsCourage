@@ -7,8 +7,8 @@ namespace AChildsCourage
     {
 
         public delegate float CreateRng();
-        
-        
+
+
         public static CreateRng FromSeed(int seed)
         {
             var random = new Random(seed);
@@ -16,10 +16,7 @@ namespace AChildsCourage
             return () => (float) random.NextDouble();
         }
 
-        public static CreateRng Always(float value)
-        {
-            return () => value;
-        }
+        public static CreateRng Always(float value) => () => value;
 
         public static CreateRng Random() => FromSeed(DateTime.Now.GetHashCode());
 

@@ -18,8 +18,7 @@ namespace AChildsCourage.Game
                                        .Where(p => RoomMatchesFilter(p, filter))
                                        .ToArray();
 
-                if (filteredPassages.Length > 0)
-                    return new FilteredRoomPassages(filteredPassages);
+                if (filteredPassages.Length > 0) return new FilteredRoomPassages(filteredPassages);
                 throw new Exception($"No passages for the filter: {filter}!");
             }
 

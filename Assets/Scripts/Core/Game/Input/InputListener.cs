@@ -74,24 +74,21 @@ namespace AChildsCourage.Game.Input
             OnMoveDirectionChanged?.Invoke(this, eventArgs);
         }
 
-        private void OnSprint(Context context) {
+        private void OnSprint(Context context)
+        {
+            if (context.performed) OnSprintPressed(context);
 
-            if (context.performed) {
-                OnSprintPressed(context);
-            }
-
-            if (context.canceled) {
-                OnSprintReleased(context);
-            }
-
+            if (context.canceled) OnSprintReleased(context);
         }
 
-        private void OnSprintPressed(Context context) {
+        private void OnSprintPressed(Context context)
+        {
             var eventArgs = new StartSprintEventArgs();
             OnStartSprinting?.Invoke(this, eventArgs);
         }
 
-        private void OnSprintReleased(Context context) {
+        private void OnSprintReleased(Context context)
+        {
             var eventArgs = new StopSprintEventArgs();
             OnStopSprinting?.Invoke(this, eventArgs);
         }
@@ -132,20 +129,13 @@ namespace AChildsCourage.Game.Input
         }
 
         [EventSubscription(nameof(CharacterController.OnPlayerDeath), typeof(OnPublisher))]
-        public void OnPlayerDeath(EventArgs _)
-        {
-            UnsubscribeFromInputs();
-        }
+        public void OnPlayerDeath(EventArgs _) => UnsubscribeFromInputs();
 
         [EventSubscription(nameof(CourageRift.OnPlayerWin), typeof(OnPublisher))]
-        public void OnPlayerWin(EventArgs _) {
-            UnsubscribeFromInputs();
-        }
+        public void OnPlayerWin(EventArgs _) => UnsubscribeFromInputs();
 
         [EventSubscription(nameof(CourageManager.OnPlayerLose), typeof(OnPublisher))]
-        public void OnPlayerLose(EventArgs _) {
-            UnsubscribeFromInputs();
-        }
+        public void OnPlayerLose(EventArgs _) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()
         {

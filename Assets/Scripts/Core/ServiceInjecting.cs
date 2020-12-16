@@ -5,7 +5,6 @@ using System.Reflection;
 using AChildsCourage.Game;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Persistence;
 using Ninject;
 using Ninject.Extensions.AppccelerateEventBroker;
 using Ninject.Extensions.Conventions;
@@ -51,14 +50,10 @@ namespace AChildsCourage
 
             return kernel;
         }
-        
-        private static IEnumerable<Type> GetMonoBehaviourTypes(Assembly unityAssembly)
-        {
-            return unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
-        }
-        
-        private static void BindSingletons(IBindingRoot root, Assembly assembly, IEnumerable<Type> monoBehaviourTypes)
-        {
+
+        private static IEnumerable<Type> GetMonoBehaviourTypes(Assembly unityAssembly) => unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
+
+        private static void BindSingletons(IBindingRoot root, Assembly assembly, IEnumerable<Type> monoBehaviourTypes) =>
             root.Bind(x => x.From(assembly)
                             .IncludingNonPublicTypes()
                             .SelectAllClasses()
@@ -66,10 +61,8 @@ namespace AChildsCourage
                             .Excluding(monoBehaviourTypes)
                             .BindAllInterfaces()
                             .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
-        }
 
-        private static void BindNonSingletons(IKernel kernel, Assembly assembly, IEnumerable<Type> monoBehaviourTypes)
-        {
+        private static void BindNonSingletons(IKernel kernel, Assembly assembly, IEnumerable<Type> monoBehaviourTypes) =>
             kernel.Bind(x => x.From(assembly)
                               .IncludingNonPublicTypes()
                               .SelectAllClasses()
@@ -77,7 +70,6 @@ namespace AChildsCourage
                               .Excluding(monoBehaviourTypes)
                               .BindAllInterfaces()
                               .Configure(b => b.RegisterOnEventBroker(DefaultEventBrokerName)));
-        }
 
         private static void BindConstants(IBindingRoot root)
         {
@@ -86,10 +78,7 @@ namespace AChildsCourage
             root.Bind<LoadItemIds>().ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 
-        private static void ActivateEagerServices(IResolutionRoot root)
-        {
-            _ = root.GetAll<IEagerActivation>().ToArray();
-        }
+        private static void ActivateEagerServices(IResolutionRoot root) => _ = root.GetAll<IEagerActivation>().ToArray();
 
     }
 

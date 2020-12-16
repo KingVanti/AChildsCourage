@@ -1,10 +1,7 @@
 ﻿using System.Collections;
-using System.Linq;
-using AChildsCourage.Game.Shade.Navigation;
 using Ninject.Extensions.Unity;
 using Pathfinding;
 using UnityEngine;
-using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -12,7 +9,7 @@ namespace AChildsCourage.Game.Shade
     [UseDi]
     public class ShadeMovement : MonoBehaviour
     {
-        
+
         #region Static Fields
 
         private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
@@ -20,7 +17,7 @@ namespace AChildsCourage.Game.Shade
         private static readonly int YAnimatorKey = Animator.StringToHash("Y");
 
         #endregion
-        
+
         #region Fields
 
 #pragma warning disable 649
@@ -29,39 +26,30 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float waitTimeAfterDealingDamage;
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
-        
+
 #pragma warning restore 649
 
         private float standardSpeed;
-        
+
         #endregion
 
         #region Properties
 
         public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
-        
-        
+
+
         private bool IsMoving => aiPath.velocity != Vector3.zero;
 
         #endregion
 
         #region Methods
 
-        public void SetMovementTarget(Vector3 position)
-        {
-            aiPath.destination = position;
-        }
+        public void SetMovementTarget(Vector3 position) => aiPath.destination = position;
 
-        public void ResetSpeed()
-        {
-            aiPath.maxSpeed = movementSpeed;
-        }
+        public void ResetSpeed() => aiPath.maxSpeed = movementSpeed;
 
 
-        private void Update()
-        {
-            UpdateAnimator();
-        }
+        private void Update() => UpdateAnimator();
 
         private void UpdateAnimator()
         {
@@ -69,22 +57,20 @@ namespace AChildsCourage.Game.Shade
             shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
             shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
         }
-        
-        public void WaitAfterDealingDamage()
-        {
-            StartCoroutine(WaitAndContinue());
-        }
+
+        public void WaitAfterDealingDamage() => StartCoroutine(WaitAndContinue());
 
         private IEnumerator WaitAndContinue()
         {
             aiPath.maxSpeed = 0.0001f;
-            
+
             yield return new WaitForSeconds(waitTimeAfterDealingDamage);
 
             ResetSpeed();
         }
-        
+
         #endregion
+
     }
 
 }

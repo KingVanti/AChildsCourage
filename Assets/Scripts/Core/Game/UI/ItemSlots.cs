@@ -29,11 +29,9 @@ namespace AChildsCourage.Game.UI
 
         #region Methods
 
-        public void AddItem(int slotId, int itemId)
-        {
+        public void AddItem(int slotId, int itemId) =>
             itemSlotsImages[slotId]
                 .sprite = availableItemSprites[itemId];
-        }
 
         public void SwapItems()
         {
@@ -55,13 +53,11 @@ namespace AChildsCourage.Game.UI
             if (itemCooldownFills[slotId]
                     .fillAmount <
                 1)
-            {
                 itemSlotsImages[slotId]
                     .color = new Color(itemSlotsImages[slotId]
                                        .color.r, itemSlotsImages[slotId]
                                                  .color.g, itemSlotsImages[slotId]
                                                            .color.b, 0.5f);
-            }
             else
             {
                 itemSlotsImages[slotId]

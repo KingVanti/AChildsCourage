@@ -12,13 +12,13 @@ namespace AChildsCourage.Game
         public static class MRoomPassageGenerating
         {
 
-            public static IEnumerable<RoomPassages> GetPassageVariations( RoomData roomData) =>
+            public static IEnumerable<RoomPassages> GetPassageVariations(RoomData roomData) =>
                 Take(roomData)
                     .Map(GetBasePassages)
                     .Map(GetVariations);
 
             public static RoomPassages GetBasePassages(RoomData roomData) => new RoomPassages(roomData.Id, roomData.Passages, 0, false, roomData.Type);
-            
+
             private static IEnumerable<RoomPassages> GetVariations(RoomPassages room)
             {
                 for (var _ = 0; _ < 4; _++)

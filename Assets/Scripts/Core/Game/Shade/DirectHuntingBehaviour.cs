@@ -5,7 +5,7 @@ namespace AChildsCourage.Game.Shade
 
     public class DirectHuntingBehaviour
     {
-        
+
         private Rigidbody2D target;
 
 
@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Shade
 
         public Vector3 TargetPosition { get; private set; }
 
-        
+
         public void StartHunt(Rigidbody2D targetRigidbody)
         {
             target = targetRigidbody;
@@ -21,10 +21,7 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        public void ProgressHunt()
-        {
-            TargetPosition = target.position;
-        }
+        public void ProgressHunt() => TargetPosition = target.position;
 
     }
 

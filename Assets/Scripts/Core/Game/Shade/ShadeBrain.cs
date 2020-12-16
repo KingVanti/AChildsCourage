@@ -11,9 +11,11 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
+
     [UseDi]
     public class ShadeBrain : MonoBehaviour
     {
+
         #region Subtypes
 
         private delegate IEnumerator BehaviourFunction();
@@ -89,36 +91,27 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        private void Awake()
-        {
-            indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
-        }
+        private void Awake() => indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
 
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
-            if (behaviourRoutine != null)
-                StopCoroutine(behaviourRoutine);
+            if (behaviourRoutine != null) StopCoroutine(behaviourRoutine);
             behaviourRoutine = StartCoroutine(behaviourFunction());
         }
 
 
         public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
         {
-            if (behaviourType != ShadeBehaviourType.DirectHunting && awarenessLevel == AwarenessLevel.Hunting)
-                StartBehaviour(DirectHunt);
+            if (behaviourType != ShadeBehaviourType.DirectHunting && awarenessLevel == AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
         }
 
 
-        public void OnTilesInVisionChanged(TilesInView tilesInView)
-        {
-            investigatedPositions.UnionWith(tilesInView);
-        }
+        public void OnTilesInVisionChanged(TilesInView tilesInView) => investigatedPositions.UnionWith(tilesInView);
 
 
         public void OnCharacterVisibilityChanged(Visibility characterVisibility)
         {
-            if (characterVisibility == Visibility.NotVisible && IsHuntingDirectly)
-                StartBehaviour(IndirectHunt);
+            if (characterVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
         }
 
         private IEnumerator Investigate()
@@ -130,18 +123,14 @@ namespace AChildsCourage.Game.Shade
                 CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
 
-            bool InvestigationIsInProgress()
-            {
-                return investigationBehaviour.InvestigationIsInProgress;
-            }
+            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
 
             void ProgressInvestigation()
             {
                 investigationBehaviour.ProgressInvestigation(CurrentState, investigatedPositions);
                 investigatedPositions.Clear();
 
-                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile))
-                    CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
+                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile)) CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
 
             void CompleteInvestigation()
@@ -171,10 +160,7 @@ namespace AChildsCourage.Game.Shade
                 directHuntingBehaviour.StartHunt(characterRigidbody);
             }
 
-            bool HuntIsInProgress()
-            {
-                return directHuntingBehaviour.HuntIsInProgress;
-            }
+            bool HuntIsInProgress() => directHuntingBehaviour.HuntIsInProgress;
 
             void ProgressHunt()
             {
@@ -199,10 +185,7 @@ namespace AChildsCourage.Game.Shade
                 indirectHuntingBehaviour.StartIndirectHunt(characterRigidbody);
             }
 
-            bool HuntIsInProgress()
-            {
-                return indirectHuntingBehaviour.HuntIsInProgress;
-            }
+            bool HuntIsInProgress() => indirectHuntingBehaviour.HuntIsInProgress;
 
             void ProgressHunt()
             {
@@ -210,10 +193,7 @@ namespace AChildsCourage.Game.Shade
                 CurrentTargetPosition = indirectHuntingBehaviour.TargetPosition;
             }
 
-            void StopHunt()
-            {
-                StartBehaviour(Investigate);
-            }
+            void StopHunt() => StartBehaviour(Investigate);
 
             StartHunt();
 
@@ -226,10 +206,7 @@ namespace AChildsCourage.Game.Shade
             StopHunt();
         }
 
-        private static IEnumerator None()
-        {
-            yield return null;
-        }
+        private static IEnumerator None() { yield return null; }
 
 
         public void Banish()
@@ -239,8 +216,7 @@ namespace AChildsCourage.Game.Shade
             CurrentTargetPosition = transform.position;
             collider.enabled = false;
 
-            if (!isDissolving)
-                StartCoroutine(Dissolve());
+            if (!isDissolving) StartCoroutine(Dissolve());
         }
 
         private void DeactivateShade()
@@ -269,7 +245,7 @@ namespace AChildsCourage.Game.Shade
             while (dissolveMaterial.GetFloat(FadePropertyId) > 0)
             {
                 dissolveMaterial.SetFloat(FadePropertyId,
-                    Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
+                                          Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
@@ -279,5 +255,7 @@ namespace AChildsCourage.Game.Shade
         }
 
         #endregion
+
     }
+
 }

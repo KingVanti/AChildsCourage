@@ -33,7 +33,7 @@ namespace AChildsCourage.Game
         [AutoInject] public TileRepository TileRepository { private get; set; }
 
         [AutoInject] public StaticObjectSpawner StaticObjectSpawner { private get; set; }
-        
+
         [AutoInject] public RuneSpawner RuneSpawner { private get; set; }
 
         #endregion

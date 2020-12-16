@@ -48,8 +48,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
             EditorGUILayout.Space();
 
-            if (selectedAsset != null)
-                RoomEditor.OnAssetSelected(selectedAsset);
+            if (selectedAsset != null) RoomEditor.OnAssetSelected(selectedAsset);
         }
 
         private void DrawEditingGUI()
@@ -68,16 +67,12 @@ namespace AChildsCourage.RoomEditor.Editor
 
             DrawTileCategorySelectionGUI();
 
-            if (RoomEditor.SelectedTileCategory == TileCategory.Courage)
-                DrawCourageSelectionGUI();
+            if (RoomEditor.SelectedTileCategory == TileCategory.Courage) DrawCourageSelectionGUI();
 
             DrawPassageEditorGUI();
         }
 
-        private void DrawRoomTypeSelectionGUI()
-        {
-            RoomEditor.CurrentRoomType = (RoomType) EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
-        }
+        private void DrawRoomTypeSelectionGUI() => RoomEditor.CurrentRoomType = (RoomType) EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
 
         private void DrawTileCategorySelectionGUI()
         {
@@ -112,17 +107,16 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.LabelField("Room passages:");
             RoomEditor.CurrentPassages = new ChunkPassages(
-                EditorGUILayout.Toggle("North", RoomEditor.CurrentPassages.HasNorth),
-                EditorGUILayout.Toggle("East", RoomEditor.CurrentPassages.HasEast),
-                EditorGUILayout.Toggle("South", RoomEditor.CurrentPassages.HasSouth),
-                EditorGUILayout.Toggle("West", RoomEditor.CurrentPassages.HasWest));
+                                                           EditorGUILayout.Toggle("North", RoomEditor.CurrentPassages.HasNorth),
+                                                           EditorGUILayout.Toggle("East", RoomEditor.CurrentPassages.HasEast),
+                                                           EditorGUILayout.Toggle("South", RoomEditor.CurrentPassages.HasSouth),
+                                                           EditorGUILayout.Toggle("West", RoomEditor.CurrentPassages.HasWest));
             EditorGUILayout.Space();
         }
 
         private void DrawSaveAssetGUI()
         {
-            if (!GUILayout.Button("Save asset"))
-                return;
+            if (!GUILayout.Button("Save asset")) return;
 
             RoomEditor.SaveChanges();
             EditorUtility.SetDirty(RoomEditor.LoadedAsset);
@@ -135,8 +129,7 @@ namespace AChildsCourage.RoomEditor.Editor
         {
             EditorGUILayout.Space();
 
-            if (GUILayout.Button("Unload asset"))
-                RoomEditor.Unload();
+            if (GUILayout.Button("Unload asset")) RoomEditor.Unload();
         }
 
         #endregion

@@ -28,9 +28,17 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public RoomType Type => _type;
 
-        public ChunkPassages Passages { get => JsonConvert.DeserializeObject<ChunkPassages>(passageJson); set => passageJson = JsonConvert.SerializeObject(value); }
+        public ChunkPassages Passages
+        {
+            get => JsonConvert.DeserializeObject<ChunkPassages>(passageJson);
+            set => passageJson = JsonConvert.SerializeObject(value);
+        }
 
-        public RoomContentData Content { get => JsonConvert.DeserializeObject<RoomContentData>(contentJson); set => contentJson = JsonConvert.SerializeObject(value); }
+        public RoomContentData Content
+        {
+            get => JsonConvert.DeserializeObject<RoomContentData>(contentJson);
+            set => contentJson = JsonConvert.SerializeObject(value);
+        }
 
         #endregion
 

@@ -43,18 +43,15 @@ namespace AChildsCourage.RoomEditor
 
         private void OnMouseMoved()
         {
-            if (input.Mouse.Place.phase == InputActionPhase.Started)
-                UpdateTilePosition(LeftButtonName);
-            if (input.Mouse.Delete.phase == InputActionPhase.Started)
-                UpdateTilePosition(RightButtonName);
+            if (input.Mouse.Place.phase == InputActionPhase.Started) UpdateTilePosition(LeftButtonName);
+            if (input.Mouse.Delete.phase == InputActionPhase.Started) UpdateTilePosition(RightButtonName);
         }
 
         private void UpdateTilePosition(string buttonName)
         {
             var position = GetCurrentMousePosition();
 
-            if (MouseIsOverGameView())
-                onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
+            if (MouseIsOverGameView()) onMouseDown.Invoke(new MouseDownEventArgs(position, buttonName));
         }
 
         private Vector2Int GetCurrentMousePosition()
@@ -62,8 +59,8 @@ namespace AChildsCourage.RoomEditor
             var pos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
             return new Vector2Int(
-                Mathf.FloorToInt(pos.x),
-                Mathf.FloorToInt(pos.y));
+                                  Mathf.FloorToInt(pos.x),
+                                  Mathf.FloorToInt(pos.y));
         }
 
         private bool MouseIsOverGameView()

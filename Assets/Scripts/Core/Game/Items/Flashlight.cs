@@ -31,7 +31,11 @@ namespace AChildsCourage.Game.Items
 
         #region Properties
 
-        [AutoInject] internal IInputListener InputListener { set => BindTo(value); }
+        [AutoInject]
+        internal IInputListener InputListener
+        {
+            set => BindTo(value);
+        }
 
         public bool IsTurnedOn { get; private set; }
 
@@ -49,28 +53,16 @@ namespace AChildsCourage.Game.Items
 
         #region Methods
 
-        private void Start()
-        {
+        private void Start() =>
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera")
                                    .GetComponent<Camera>();
-        }
 
-        private void OnEnable()
-        {
-            wallLayer = LayerMask.GetMask("Walls");
-        }
+        private void OnEnable() => wallLayer = LayerMask.GetMask("Walls");
 
-        private void FollowMousePosition()
-        {
-            transform.position = RaycastMouseToCharacter.collider != null
-                ? new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0)
-                : new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
-        }
+        private void FollowMousePosition() =>
+            transform.position = RaycastMouseToCharacter.collider != null ? new Vector3(RaycastMouseToCharacter.point.x, RaycastMouseToCharacter.point.y, 0) : new Vector3(ProjectedMousePos.x, ProjectedMousePos.y, 0);
 
-        private void ChangeLightIntensity()
-        {
-            lightComponent.intensity = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0, maxFlashlightDistance, maxFlashlightIntensity, 0f), 2);
-        }
+        private void ChangeLightIntensity() => lightComponent.intensity = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0, maxFlashlightDistance, maxFlashlightIntensity, 0f), 2);
 
         private void ChangeLightRadius()
         {
@@ -78,15 +70,11 @@ namespace AChildsCourage.Game.Items
             lightComponent.pointLightInnerRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.25f, maxFlashlightInnerRadius), 2);
         }
 
-        private void BindTo(IInputListener listener)
-        {
-            listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
-        }
+        private void BindTo(IInputListener listener) => listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
 
         private void UpdateFlashlight()
         {
-            if (!IsTurnedOn)
-                return;
+            if (!IsTurnedOn) return;
 
             FollowMousePosition();
             ChangeLightIntensity();

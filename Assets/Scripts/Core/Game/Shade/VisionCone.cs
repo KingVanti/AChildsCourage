@@ -8,16 +8,16 @@ namespace AChildsCourage.Game.Shade
     public struct VisionCone
     {
 
+        public float ViewRadius => viewRadius;
+
+        public float ViewAngle => viewAngle;
+
 #pragma warning disable 649
-        
+
         [SerializeField] private float viewRadius;
         [SerializeField] private float viewAngle;
 
 #pragma warning restore 649
-        
-        public float ViewRadius => viewRadius;
-
-        public float ViewAngle => viewAngle;
 
     }
 

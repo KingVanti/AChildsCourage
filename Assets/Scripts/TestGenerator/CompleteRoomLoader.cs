@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private readonly RoomData[] allData;
 
-        private readonly ChunkPassages[] basePassages = { new ChunkPassages(true, false, false, false), new ChunkPassages(true, true, false, false), new ChunkPassages(true, false, true, false), new ChunkPassages(true, true, true, false), new ChunkPassages(true, true, true, true) };
+        private readonly ChunkPassages[] basePassages = {new ChunkPassages(true, false, false, false), new ChunkPassages(true, true, false, false), new ChunkPassages(true, false, true, false), new ChunkPassages(true, true, true, false), new ChunkPassages(true, true, true, true)};
 
 
         internal CompleteRoomLoader()
@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             var id = 1;
             var query =
                 from basePassage in basePassages
-                from type in new[] { RoomType.Normal, RoomType.End }
+                from type in new[] {RoomType.Normal, RoomType.End}
                 select new RoomData((RoomId) id++, type, basePassage, RoomContentData.Empty);
 
             allData = query.Prepend(startRoom)

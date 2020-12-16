@@ -26,15 +26,9 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        private void Update()
-        {
-            FaceMovementDirection();
-        }
+        private void Update() => FaceMovementDirection();
 
-        private void FaceMovementDirection()
-        {
-            transform.right = Movement.CurrentDirection;
-        }
+        private void FaceMovementDirection() => transform.right = Movement.CurrentDirection;
 
         #endregion
 
