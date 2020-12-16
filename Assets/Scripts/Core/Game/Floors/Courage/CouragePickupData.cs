@@ -7,9 +7,7 @@ namespace AChildsCourage.Game.Floors.Courage
     [CreateAssetMenu(fileName = "Courage", menuName = "A Child's Courage/Courage", order = 3)]
     public class CouragePickupData : ScriptableObject
     {
-
-        #region Fields
-
+        
 #pragma warning disable 649
 
         [SerializeField] private int _value;
@@ -22,10 +20,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float _lightIntensity;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Properties
+        
 
         public CourageVariant Variant => _variant;
 
@@ -42,9 +37,7 @@ namespace AChildsCourage.Game.Floors.Courage
         public float LightOuterRadius => _lightOuterRadius;
 
         public float LightIntensity => _lightIntensity;
-
-        #endregion
-
+        
     }
 
 }
