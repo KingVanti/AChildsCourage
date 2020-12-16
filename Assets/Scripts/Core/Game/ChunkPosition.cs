@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AChildsCourage.Game.Floors;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MPassageDirection;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game

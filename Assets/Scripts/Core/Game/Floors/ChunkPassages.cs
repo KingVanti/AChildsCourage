@@ -1,5 +1,4 @@
 ﻿using System;
-using static AChildsCourage.Game.Floors.MPassageDirection;
 
 namespace AChildsCourage.Game.Floors
 {

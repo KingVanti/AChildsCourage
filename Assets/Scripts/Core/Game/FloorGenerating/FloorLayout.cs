@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.Floors.MPassageDirection;
 using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game
