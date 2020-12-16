@@ -7,8 +7,6 @@ namespace AChildsCourage.Game.Floors
     public class RoomPassages
     {
 
-        #region Properties
-
         public RoomId Id { get; }
 
         public ChunkPassages Passages { get; }
@@ -19,10 +17,7 @@ namespace AChildsCourage.Game.Floors
 
         public RoomType Type { get; }
 
-        #endregion
 
-        #region Constructors
-        
         public RoomPassages(RoomId id, ChunkPassages passages, int rotationCount = 0, bool isMirrored = false, RoomType type = RoomType.Normal)
         {
             Id = id;
@@ -31,8 +26,6 @@ namespace AChildsCourage.Game.Floors
             RotationCount = rotationCount;
             IsMirrored = isMirrored;
         }
-
-        #endregion
 
     }
 
