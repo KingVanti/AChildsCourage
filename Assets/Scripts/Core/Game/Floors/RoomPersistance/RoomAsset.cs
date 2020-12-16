@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
-using UnityEngine;
+﻿using UnityEngine;
+using static AChildsCourage.Game.Floors.MChunkPassages;
+using static Newtonsoft.Json.JsonConvert;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {
@@ -30,14 +31,14 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public ChunkPassages Passages
         {
-            get => JsonConvert.DeserializeObject<ChunkPassages>(passageJson);
-            set => passageJson = JsonConvert.SerializeObject(value);
+            get => DeserializeObject<ChunkPassages>(passageJson);
+            set => passageJson = SerializeObject(value);
         }
 
         public RoomContentData Content
         {
-            get => JsonConvert.DeserializeObject<RoomContentData>(contentJson);
-            set => contentJson = JsonConvert.SerializeObject(value);
+            get => DeserializeObject<RoomContentData>(contentJson);
+            set => contentJson = SerializeObject(value);
         }
 
         #endregion

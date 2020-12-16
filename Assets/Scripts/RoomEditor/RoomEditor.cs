@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
+using static AChildsCourage.Game.Floors.MChunkPassages;
 
 namespace AChildsCourage.RoomEditor
 {

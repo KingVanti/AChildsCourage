@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static AChildsCourage.Game.Floors.MChunkPassages;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MFloorGenerating;
 

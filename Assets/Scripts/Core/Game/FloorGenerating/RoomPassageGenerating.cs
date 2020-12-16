@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.F;
+using  static AChildsCourage.Game.Floors.MChunkPassages;
 
 namespace AChildsCourage.Game
 {
@@ -24,15 +25,15 @@ namespace AChildsCourage.Game
                 for (var _ = 0; _ < 4; _++)
                 {
                     yield return room;
-                    yield return Mirror(room);
+                    yield return MirrorRoom(room);
 
-                    room = Rotate(room);
+                    room = RotateRoom(room);
                 }
             }
 
-            public static RoomPassages Mirror(RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.YMirrored, passages.RotationCount, true, passages.Type);
+            public static RoomPassages MirrorRoom(RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.Map(MirrorOverXAxis), passages.RotationCount, true, passages.Type);
 
-            public static RoomPassages Rotate(RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.Rotated, passages.RotationCount + 1, passages.IsMirrored, passages.Type);
+            public static RoomPassages RotateRoom(RoomPassages passages) => new RoomPassages(passages.Id, passages.Passages.Map(Rotate), passages.RotationCount + 1, passages.IsMirrored, passages.Type);
 
         }
 

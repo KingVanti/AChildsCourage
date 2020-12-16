@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using static AChildsCourage.Game.Floors.MChunkPassages;
 using static AChildsCourage.Game.Floors.MPassageDirection;
 
 namespace AChildsCourage.Game.Floors
@@ -17,7 +18,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var mirrored = passages.YMirrored;
+            var mirrored = passages.Map(MirrorOverXAxis);
 
             // Then
 
@@ -34,7 +35,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var mirrored = passages.YMirrored;
+            var mirrored = passages.Map(MirrorOverXAxis);
 
             // Then
 
@@ -52,7 +53,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var rotated = passage.Rotated;
+            var rotated = passage.Map(Rotate);
 
             // Then
 
@@ -72,7 +73,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var count = passage.Count;
+            var count = passage.Map(GetPassageCount);
 
             // Then
 
@@ -89,7 +90,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var has = passages.Has(PassageDirection.North);
+            var has = passages.MapWith(HasPassageWithDirection, PassageDirection.North);
 
             // Then
 
@@ -105,7 +106,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var has = passages.Has(PassageDirection.East);
+            var has = passages.MapWith(HasPassageWithDirection, PassageDirection.East);
 
             // Then
 

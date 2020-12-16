@@ -1,90 +1,68 @@
 ﻿using System;
-using Newtonsoft.Json;
 using static AChildsCourage.Game.Floors.MPassageDirection;
 
 namespace AChildsCourage.Game.Floors
 {
 
-    public readonly struct ChunkPassages
+    public static class MChunkPassages
     {
 
-        #region Static Properties
+        public static ChunkPassages NoPassages => new ChunkPassages(false, false, false, false);
 
-        public static ChunkPassages None => new ChunkPassages(false, false, false, false);
+        public static ChunkPassages AllPassages => new ChunkPassages(true, true, true, true);
 
-        public static ChunkPassages All => new ChunkPassages(true, true, true, true);
+        public static Func<ChunkPassages, int> GetPassageCount =>
+            passages => (passages.HasNorth ? 1 : 0) +
+                        (passages.HasEast ? 1 : 0) +
+                        (passages.HasSouth ? 1 : 0) +
+                        (passages.HasWest ? 1 : 0);
 
-        #endregion
+        public static Func<ChunkPassages, ChunkPassages> Rotate =>
+            passages =>
+                new ChunkPassages(passages.HasWest, passages.HasNorth, passages.HasEast, passages.HasSouth);
 
-        #region Properties
+        public static Func<ChunkPassages, ChunkPassages> MirrorOverXAxis =>
+            passages =>
+                new ChunkPassages(passages.HasSouth, passages.HasEast, passages.HasNorth, passages.HasWest);
 
-        public bool HasNorth { get; }
-
-        public bool HasEast { get; }
-
-        public bool HasSouth { get; }
-
-        public bool HasWest { get; }
-
-
-        [JsonIgnore] public int Count => (HasNorth ? 1 : 0) + (HasEast ? 1 : 0) + (HasSouth ? 1 : 0) + (HasWest ? 1 : 0);
-
-
-        [JsonIgnore] public ChunkPassages Rotated => new ChunkPassages(HasWest, HasNorth, HasEast, HasSouth);
-
-
-        [JsonIgnore] public ChunkPassages YMirrored => new ChunkPassages(HasSouth, HasEast, HasNorth, HasWest);
-
-        #endregion
-
-        #region Constructors
-
-        public ChunkPassages(bool hasNorth, bool hasEast, bool hasSouth, bool hasWest)
-        {
-            HasNorth = hasNorth;
-            HasEast = hasEast;
-            HasSouth = hasSouth;
-            HasWest = hasWest;
-        }
-
-        #endregion
-
-        #region Methods
-
-        public bool Has(PassageDirection passage)
-        {
-            switch (passage)
+        public static Func<ChunkPassages, PassageDirection, bool> HasPassageWithDirection =>
+            (passages, direction) =>
             {
-                case PassageDirection.North: return HasNorth;
-                case PassageDirection.East: return HasEast;
-                case PassageDirection.South: return HasSouth;
-                case PassageDirection.West: return HasWest;
-                default: throw new Exception("Invalid passage!");
-            }
-        }
+                switch (direction)
+                {
+                    case PassageDirection.North: return passages.HasNorth;
+                    case PassageDirection.East: return passages.HasEast;
+                    case PassageDirection.South: return passages.HasSouth;
+                    case PassageDirection.West: return passages.HasWest;
+                    default: throw new Exception("Invalid passage!");
+                }
+            };
 
 
-        public override bool Equals(object obj) =>
-            obj is ChunkPassages passages &&
-            HasNorth == passages.HasNorth &&
-            HasEast == passages.HasEast &&
-            HasSouth == passages.HasSouth &&
-            HasWest == passages.HasWest;
-
-
-        public override int GetHashCode()
+        public readonly struct ChunkPassages
         {
-            var hashCode = 1909415112;
-            hashCode = hashCode * -1521134295 + HasNorth.GetHashCode();
-            hashCode = hashCode * -1521134295 + HasEast.GetHashCode();
-            hashCode = hashCode * -1521134295 + HasSouth.GetHashCode();
-            hashCode = hashCode * -1521134295 + HasWest.GetHashCode();
-            return hashCode;
+
+            public bool HasNorth { get; }
+
+            public bool HasEast { get; }
+
+            public bool HasSouth { get; }
+
+            public bool HasWest { get; }
+
+
+            public ChunkPassages(bool hasNorth, bool hasEast, bool hasSouth, bool hasWest)
+            {
+                HasNorth = hasNorth;
+                HasEast = hasEast;
+                HasSouth = hasSouth;
+                HasWest = hasWest;
+            }
+
+
+            public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
+
         }
-
-        public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
-
-        #endregion
 
     }
 

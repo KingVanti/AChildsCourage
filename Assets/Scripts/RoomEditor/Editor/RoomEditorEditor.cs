@@ -4,6 +4,7 @@ using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEditor;
 using UnityEngine;
+using static AChildsCourage.Game.Floors.MChunkPassages;
 
 namespace AChildsCourage.RoomEditor.Editor
 {
@@ -106,8 +107,7 @@ namespace AChildsCourage.RoomEditor.Editor
         private void DrawPassageEditorGUI()
         {
             EditorGUILayout.LabelField("Room passages:");
-            RoomEditor.CurrentPassages = new ChunkPassages(
-                                                           EditorGUILayout.Toggle("North", RoomEditor.CurrentPassages.HasNorth),
+            RoomEditor.CurrentPassages = new ChunkPassages(EditorGUILayout.Toggle("North", RoomEditor.CurrentPassages.HasNorth),
                                                            EditorGUILayout.Toggle("East", RoomEditor.CurrentPassages.HasEast),
                                                            EditorGUILayout.Toggle("South", RoomEditor.CurrentPassages.HasSouth),
                                                            EditorGUILayout.Toggle("West", RoomEditor.CurrentPassages.HasWest));

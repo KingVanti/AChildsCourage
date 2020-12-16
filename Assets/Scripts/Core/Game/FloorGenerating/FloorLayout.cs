@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using static AChildsCourage.Game.Floors.MChunkPassages;
 using static AChildsCourage.Game.Floors.MPassageDirection;
 using static AChildsCourage.Game.MChunkPosition;
 
@@ -16,8 +17,7 @@ namespace AChildsCourage.Game
 
             public static Func<FloorLayout, ChunkPosition, ChunkPassages> GetPassagesForChunk =>
                 (layout, chunk) =>
-                    new ChunkPassages(
-                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
+                    new ChunkPassages(IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
                                       IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.East)),
                                       IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.South)),
                                       IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.West)));
