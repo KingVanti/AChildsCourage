@@ -74,7 +74,7 @@ namespace AChildsCourage
         private static void BindConstants(IBindingRoot root)
         {
             root.Bind<LoadRoomData>().ToConstant(RoomDataLoading.Make());
-            root.Bind<FindItemData>().ToConstant(ItemDataRepository.GetItemDataFinder());
+            root.Bind<ItemDataRepository.FindItemData>().ToConstant(ItemDataRepository.GetItemDataFinder());
             root.Bind<ItemDataRepository.LoadItemIds>().ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 

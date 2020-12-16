@@ -5,7 +5,10 @@ using UnityEngine;
 public static class ItemDataRepository
 {
 
+    
+    public delegate ItemData FindItemData(ItemId id);
     public delegate IEnumerable<ItemId> LoadItemIds();
+    
 
     private const string ResourcePath = "Items/";
 

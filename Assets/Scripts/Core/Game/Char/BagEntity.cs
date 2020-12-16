@@ -6,6 +6,7 @@ using AChildsCourage.Game.Items.Pickups;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Events;
+using static ItemDataRepository;
 
 namespace AChildsCourage.Game.Char
 {

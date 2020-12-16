@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Ninject.Extensions.Unity;
 using UnityEngine;
+using static ItemDataRepository;
 
 namespace AChildsCourage.Game.Items.Pickups
 {
