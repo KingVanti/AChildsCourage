@@ -204,7 +204,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!95 &537825537936044893
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60955c7f1932fe449820b5ce6ad39609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  char: {fileID: 0}
 --- !u!114 &-8586691573789480448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   flashLightMultiplier: 2
   minSuspiciousAwareness: 0.25
   minHuntingAwareness: 1
-  characterController: {fileID: 0}
+  charController: {fileID: 0}
   flashlight: {fileID: 0}
 --- !u!114 &7337468781757878326
 MonoBehaviour:
