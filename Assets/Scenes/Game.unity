@@ -1062,7 +1062,7 @@ MonoBehaviour:
   - {fileID: 539114754}
   - {fileID: 742163239}
   availableItemSprites:
-  - {fileID: -2638390803197812687, guid: b81c866f3d1928647b1ab7d49e56d984, type: 3}
+  - {fileID: -1469379161324075365, guid: b81c866f3d1928647b1ab7d49e56d984, type: 3}
   itemCooldownFills:
   - {fileID: 1445666898}
   - {fileID: 201147385}
