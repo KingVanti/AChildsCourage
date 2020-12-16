@@ -720,7 +720,19 @@ MonoBehaviour:
         m_CallState: 2
   OnMovementStateChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1871683216658508858}
+        m_TargetAssemblyTypeName: AChildsCourage.Game.Char.StaminaEntity, AChildsCourage.Core
+        m_MethodName: SetStaminaDrainRate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
   movementSpeed: 1.7
@@ -788,9 +800,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   stamina: 100
-  staminaRecoveryRate: 10
-  staminaDrainRate: 20
   staminaDepletedCooldown: 5
+  standingRate: 10
+  walkingRate: 8
+  sprintingRate: 15
+  recoveredStaminaAmount: 15
 --- !u!95 &1266752489
 Animator:
   serializedVersion: 3

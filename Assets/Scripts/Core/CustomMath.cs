@@ -28,6 +28,8 @@ namespace AChildsCourage
 
         public static int Minus(this int i, int sub) => i - sub;
 
+        public static float Plus(this float f, float add) => f + add;
+
         public static int Times(this int i, int mult) => i * mult;
 
     }
