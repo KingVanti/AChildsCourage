@@ -1,40 +1,42 @@
 ﻿using System.Collections;
+using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Items;
-using AChildsCourage.Game.Char;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
-public class FmodPlayer : MonoBehaviour
+namespace AChildsCourage
 {
+
+    public class FmodPlayer : MonoBehaviour
+    {
 
 #pragma warning disable 649
 
-    [SerializeField] private Stamina stamina;
+        [SerializeField] private Stamina stamina;
 
 #pragma warning restore 649
-    private readonly float waitTime = 1.5f;
-    private bool blankie_status;
-    private bool Char_sprint_stop_Is_playing;
-    private bool Flashlight_status;
 
-    private EventInstance Footsteps;
-
-    private readonly float Material = 0;
-    private EventInstance Stamina_eventInstance;
-
-
-    private void Start()
-    {
-        Stamina_eventInstance = RuntimeManager.CreateInstance(Char_sprint_nearEnd);
-        Stamina_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        Stamina_eventInstance.start();
-    }
+        private readonly float Material = 0;
+        private readonly float waitTime = 1.5f;
+        private bool blankie_status;
+        private bool Char_sprint_stop_Is_playing;
+        private bool Flashlight_status;
+        private EventInstance Footsteps;
+        private EventInstance Stamina_eventInstance;
 
 
-    /*
+        private void Start()
+        {
+            Stamina_eventInstance = RuntimeManager.CreateInstance(Char_sprint_nearEnd);
+            Stamina_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            Stamina_eventInstance.start();
+        }
+
+
+        /*
     void MaterialCheck()
     {
         RaycastHit2D hit;
@@ -60,129 +62,131 @@ public class FmodPlayer : MonoBehaviour
     */
 
 
-    public void Update() => Stamina_eventInstance.setParameterByName("stamina", stamina.stamina);
+        public void Update() => Stamina_eventInstance.setParameterByName("stamina", stamina.stamina);
 
-    public void OnDestroy() => Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        public void OnDestroy() => Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
 
-    public void PlayFootstepsEvent()
-    {
-        Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
-        Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        Footsteps.setParameterByName("Material", Material);
-        Footsteps.start();
-        Footsteps.release();
-    }
-
-    public void PlayItems(ItemData itemData)
-    {
-        switch (itemData.Id)
+        public void PlayFootstepsEvent()
         {
-            case 0: //flashlight
-                PlayFlashlight();
-                break;
-
-            case 1: //Blankie
-                PlayBlankie();
-                break;
-            default:
-                Debug.Log("ItemID wrong");
-                break;
+            Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
+            Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            Footsteps.setParameterByName("Material", Material);
+            Footsteps.start();
+            Footsteps.release();
         }
-    }
 
-    public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
-
-    public void PlayBlankie()
-    {
-        if (blankie_status)
+        public void PlayItems(ItemData itemData)
         {
-            RuntimeManager.PlayOneShot(Blankie_ON_Path, GetComponent<Transform>().position);
-            blankie_status = !blankie_status;
+            switch (itemData.Id)
+            {
+                case 0: //flashlight
+                    PlayFlashlight();
+                    break;
+
+                case 1: //Blankie
+                    PlayBlankie();
+                    break;
+                default:
+                    Debug.Log("ItemID wrong");
+                    break;
+            }
         }
-        else
+
+        public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
+
+        public void PlayBlankie()
         {
-            RuntimeManager.PlayOneShot(Blankie_OFF_Path, GetComponent<Transform>().position);
-            blankie_status = !blankie_status;
+            if (blankie_status)
+            {
+                RuntimeManager.PlayOneShot(Blankie_ON_Path, GetComponent<Transform>().position);
+                blankie_status = !blankie_status;
+            }
+            else
+            {
+                RuntimeManager.PlayOneShot(Blankie_OFF_Path, GetComponent<Transform>().position);
+                blankie_status = !blankie_status;
+            }
         }
-    }
 
-    public void PlayFlashlight()
-    {
-        if (Flashlight_status)
+        public void PlayFlashlight()
         {
-            RuntimeManager.PlayOneShot(Flashlight_ON_Path, GetComponent<Transform>().position);
-            Flashlight_status = !Flashlight_status;
+            if (Flashlight_status)
+            {
+                RuntimeManager.PlayOneShot(Flashlight_ON_Path, GetComponent<Transform>().position);
+                Flashlight_status = !Flashlight_status;
+            }
+            else
+            {
+                RuntimeManager.PlayOneShot(Flashlight_OFF_Path, GetComponent<Transform>().position);
+                Flashlight_status = !Flashlight_status;
+            }
         }
-        else
+
+        public void PlayItemSwap() => RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
+
+        public void PlayCouragePickUp(CouragePickupEntity couragePickup)
         {
-            RuntimeManager.PlayOneShot(Flashlight_OFF_Path, GetComponent<Transform>().position);
-            Flashlight_status = !Flashlight_status;
+            switch (couragePickup.Variant)
+            {
+                case CourageVariant.Spark:
+                    RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
+                    break;
+
+                case CourageVariant.Orb:
+                    RuntimeManager.PlayOneShot(CourageOrb_Path, GetComponent<Transform>().position);
+                    break;
+
+                default:
+                    Debug.Log("doesnt exist");
+                    break;
+            }
         }
-    }
 
-    public void PlayItemSwap() => RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
+        public void PlayChar_GetHit() => RuntimeManager.PlayOneShot(Char_getHit_Path, GetComponent<Transform>().position);
 
-    public void PlayCouragePickUp(CouragePickupEntity couragePickup)
-    {
-        switch (couragePickup.Variant)
+        public void PlayChar_Death() => RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
+
+        public void PlaySprint_stop()
         {
-            case CourageVariant.Spark:
-                RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
-                break;
-
-            case CourageVariant.Orb:
-                RuntimeManager.PlayOneShot(CourageOrb_Path, GetComponent<Transform>().position);
-                break;
-
-            default:
-                Debug.Log("doesnt exist");
-                break;
+            if (Char_sprint_stop_Is_playing == false)
+            {
+                StartCoroutine(SprintTimer());
+                RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+            }
         }
-    }
 
-    public void PlayChar_GetHit() => RuntimeManager.PlayOneShot(Char_getHit_Path, GetComponent<Transform>().position);
+        public void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
 
-    public void PlayChar_Death() => RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
 
-    public void PlaySprint_stop()
-    {
-        if (Char_sprint_stop_Is_playing == false)
+        private IEnumerator SprintTimer()
         {
-            StartCoroutine(SprintTimer());
-            RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+            Char_sprint_stop_Is_playing = true;
+
+            yield return new WaitForSeconds(waitTime);
+            Char_sprint_stop_Is_playing = false;
         }
+
+
+        #region eventpaths
+
+        private const string Footsteps_Path = "event:/char/steps";
+        private const string PickUp_Path = "event:/UI/Item/ItemPickup";
+        private const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
+        private const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
+        private const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
+        private const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
+        private const string ItemSwap_Path = "event:/UI/Item/ItemSwap";
+        private const string CourageSpark_Path = "event:/Courage/CurageSpark";
+        private const string CourageOrb_Path = "event:/Courage/CurageOrb";
+        private const string Char_getHit_Path = "event:/char/getHit";
+        private const string Char_Death_Path = "event:/char/death";
+        private const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
+        private const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
+        private const string Char_sprint_nearEnd = "event:/char/stamina/sprint_nearEnd";
+
+        #endregion
+
     }
-
-    public void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
-
-
-    private IEnumerator SprintTimer()
-    {
-        Char_sprint_stop_Is_playing = true;
-
-        yield return new WaitForSeconds(waitTime);
-        Char_sprint_stop_Is_playing = false;
-    }
-
-
-    #region eventpaths
-
-    private const string Footsteps_Path = "event:/char/steps";
-    private const string PickUp_Path = "event:/UI/Item/ItemPickup";
-    private const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
-    private const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
-    private const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
-    private const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
-    private const string ItemSwap_Path = "event:/UI/Item/ItemSwap";
-    private const string CourageSpark_Path = "event:/Courage/CurageSpark";
-    private const string CourageOrb_Path = "event:/Courage/CurageOrb";
-    private const string Char_getHit_Path = "event:/char/getHit";
-    private const string Char_Death_Path = "event:/char/death";
-    private const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
-    private const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
-    private const string Char_sprint_nearEnd = "event:/char/stamina/sprint_nearEnd";
-
-    #endregion
 
 }
