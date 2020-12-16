@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using CouragePickupData = AChildsCourage.Game.Floors.RoomPersistence.CouragePickupData;
 using Object = UnityEngine.Object;
 
 namespace AChildsCourage.RoomEditor

@@ -1,6 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
-using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Floors.Courage;
 using Appccelerate.EventBroker;
 using Appccelerate.EventBroker.Handlers;
 using UnityEngine;

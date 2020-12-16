@@ -4,7 +4,7 @@ using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.MRng;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     internal class CouragePickupRepository : ICouragePickupRepository

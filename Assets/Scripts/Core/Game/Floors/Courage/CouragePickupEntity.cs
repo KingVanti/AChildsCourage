@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     public class CouragePickupEntity : MonoBehaviour

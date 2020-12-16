@@ -1,10 +1,12 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.F;
+using CouragePickupData = AChildsCourage.Game.Floors.RoomPersistence.CouragePickupData;
 
 namespace AChildsCourage.Game
 {

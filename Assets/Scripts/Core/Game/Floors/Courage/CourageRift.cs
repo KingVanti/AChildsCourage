@@ -7,7 +7,7 @@ using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MCustomMath;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     [UseDi]

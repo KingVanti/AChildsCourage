@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
 using AChildsCourage.Game.Shade;

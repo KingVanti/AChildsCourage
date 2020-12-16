@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     [CreateAssetMenu(fileName = "Courage", menuName = "A Child's Courage/Courage", order = 3)]

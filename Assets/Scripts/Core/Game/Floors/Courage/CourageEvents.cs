@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Events;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     public static class CourageEvents

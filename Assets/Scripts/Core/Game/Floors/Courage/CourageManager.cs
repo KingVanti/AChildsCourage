@@ -4,7 +4,7 @@ using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     [UseDi]

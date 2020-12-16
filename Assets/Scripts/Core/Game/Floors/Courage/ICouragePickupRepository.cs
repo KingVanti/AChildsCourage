@@ -1,7 +1,6 @@
-﻿using AChildsCourage.Game.Floors;
-using static AChildsCourage.MRng;
+﻿using static AChildsCourage.MRng;
 
-namespace AChildsCourage.Game.Courage
+namespace AChildsCourage.Game.Floors.Courage
 {
 
     public interface ICouragePickupRepository

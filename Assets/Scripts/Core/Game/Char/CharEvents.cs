@@ -1,5 +1,5 @@
 ﻿using System;
-using AChildsCourage.Game.Courage;
+using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Items;
 using UnityEngine.Events;
 

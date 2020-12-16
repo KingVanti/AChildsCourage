@@ -1,4 +1,5 @@
-﻿using static AChildsCourage.Game.MTilePosition;
+﻿using AChildsCourage.Game.Floors.Courage;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {

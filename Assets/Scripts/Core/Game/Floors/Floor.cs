@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
+using AChildsCourage.Game.Floors.Courage;
 using static AChildsCourage.Game.Floors.MRoom;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;

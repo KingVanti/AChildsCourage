@@ -1,6 +1,6 @@
 ﻿using System;
-using AChildsCourage.Game.Courage;
 using AChildsCourage.Game.Floors;
+using AChildsCourage.Game.Floors.Courage;
 using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Events;
