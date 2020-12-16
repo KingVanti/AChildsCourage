@@ -36,7 +36,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var actual = position + offset;
+            var actual = OffsetTilePosition(position, offset);
 
             // Then
 

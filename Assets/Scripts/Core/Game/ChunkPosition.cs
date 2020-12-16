@@ -13,8 +13,10 @@ namespace AChildsCourage.Game
         public const int ChunkSize = 21;
         private const int ChunkExtent = (ChunkSize - 1) / 2;
 
+        private static TileOffset ChunkCenterTileOffset => new TileOffset(ChunkExtent, ChunkExtent);
 
-        public static TilePosition GetChunkCenter(ChunkPosition position) => GetChunkCorner(position) + new TileOffset(ChunkExtent, ChunkExtent);
+
+        public static TilePosition GetChunkCenter(ChunkPosition position) => OffsetTilePosition(GetChunkCorner(position), ChunkCenterTileOffset);
 
         internal static TilePosition GetChunkCorner(ChunkPosition chunkPosition) =>
             new TilePosition(chunkPosition.X * ChunkSize,

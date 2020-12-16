@@ -17,6 +17,11 @@ namespace AChildsCourage.Game
                 Vector2.Distance(new Vector2(p1.X, p1.Y),
                                  new Vector2(p2.X, p2.Y));
 
+        public static Func<TilePosition, TileOffset, TilePosition> OffsetTilePosition =>
+            (position, offset) =>
+                new TilePosition(position.X + offset.X,
+                                 position.Y + offset.Y);
+
 
         public readonly struct TilePosition
         {
@@ -34,10 +39,21 @@ namespace AChildsCourage.Game
 
             public override string ToString() => $"({X}, {Y})";
 
+        }
 
-            public static TilePosition operator +(TilePosition position, TileOffset offset) =>
-                new TilePosition(position.X + offset.X,
-                                 position.Y + offset.Y);
+        public readonly struct TileOffset
+        {
+
+            public int X { get; }
+
+            public int Y { get; }
+
+
+            public TileOffset(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
 
         }
 
