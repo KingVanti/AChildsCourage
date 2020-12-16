@@ -53,7 +53,7 @@ namespace AChildsCourage.Game.Shade.Navigation
         public static ChooseNextTarget NextTarget =>
             (investigation, monsterPosition) =>
                 UninvestigatedPois(investigation)
-                    .OrderBy(poi => GetDistanceBetween(poi.Position, GetEntityTile(monsterPosition)))
+                    .OrderBy(poi => DistanceTo(poi.Position, GetEntityTile(monsterPosition)))
                     .First().Position;
 
         private static Func<Investigation, IEnumerable<Poi>> UninvestigatedPois =>
@@ -86,7 +86,7 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
             (aoi, monsterState) =>
-                GetDistanceBetween(aoi.Center, GetEntityTile(monsterState.Position));
+                DistanceTo(aoi.Center, GetEntityTile(monsterState.Position));
 
         // [0 .. 10]
         private static CalculateAoiWeight CalcTimeWeight =>

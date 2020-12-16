@@ -36,7 +36,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var actual = OffsetTilePosition(position, offset);
+            var actual = OffsetBy(position, offset);
 
             // Then
 
@@ -72,7 +72,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var distance = GetDistanceBetween(p1, p2);
+            var distance = DistanceTo(p1, p2);
 
             // When
 
