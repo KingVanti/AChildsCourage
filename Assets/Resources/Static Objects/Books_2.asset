@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f050c9493a6815642a126bd24f64938d, type: 3}
   m_Name: Books_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: -311395109518525655, guid: f1a3285936ed56842831aa40961cc2f2, type: 3}
+  sprite: {fileID: 6860260584683262082, guid: f1a3285936ed56842831aa40961cc2f2, type: 3}

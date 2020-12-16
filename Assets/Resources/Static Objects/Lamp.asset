@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f050c9493a6815642a126bd24f64938d, type: 3}
   m_Name: Lamp
   m_EditorClassIdentifier: 
-  sprite: {fileID: -760239853992773962, guid: 50c2e6d9c759ed1499542d9d1f8473e2, type: 3}
+  sprite: {fileID: 5970273524301112636, guid: 50c2e6d9c759ed1499542d9d1f8473e2, type: 3}
