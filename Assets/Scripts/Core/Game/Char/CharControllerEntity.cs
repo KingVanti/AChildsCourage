@@ -39,6 +39,7 @@ namespace AChildsCourage.Game.Char
         public Events.Empty OnSprintStop;
         public CharEvents.PickUp OnPickUpItem;
         public CharEvents.CouragePickUp OnCouragePickedUp;
+        public CharEvents.MovementState OnMovementStateChanged;
 
 #pragma warning disable 649
 
@@ -65,6 +66,7 @@ namespace AChildsCourage.Game.Char
         private bool isSprinting;
         private bool hasStamina = true;
         private float defaultSpeed;
+        private MovementState movementState;
 
         #endregion
 
@@ -160,7 +162,15 @@ namespace AChildsCourage.Game.Char
 
         public ItemPickupEntity CurrentItemInRange { get; set; }
 
-        public MovementState CurrentMovementState => IsSprinting ? MovementState.Sprinting : IsMoving ? MovementState.Walking : MovementState.Standing;
+        public MovementState CurrentMovementState {
+            get => movementState;
+            set { 
+                if(movementState != value) {
+                    movementState = value;
+                    OnMovementStateChanged.Invoke(CurrentMovementState);
+                }
+            } 
+        }
 
         #endregion
 
@@ -184,6 +194,16 @@ namespace AChildsCourage.Game.Char
             listener.OnItemSwapped += (_, e) => OnItemSwapped(e);
             listener.OnStartSprinting += (_, e) => OnStartSprint(e);
             listener.OnStopSprinting += (_, e) => OnStopSprint(e);
+        }
+
+        private void UpdateMovementState()
+        {
+
+            CurrentMovementState =
+                IsSprinting ? MovementState.Sprinting
+                : IsMoving ? MovementState.Walking
+                : MovementState.Standing;
+
         }
 
         private void UpdateAnimator()
@@ -234,6 +254,7 @@ namespace AChildsCourage.Game.Char
             if (!gettingKnockedBack) rb.velocity = MovingDirection * movementSpeed;
 
             OnPositionChanged.Invoke(transform.position);
+            UpdateMovementState();
         }
 
 

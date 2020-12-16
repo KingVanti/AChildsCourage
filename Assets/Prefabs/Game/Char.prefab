@@ -718,6 +718,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnMovementStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
   movementSpeed: 1.7
