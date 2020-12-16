@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 
 namespace AChildsCourage.Game
 {

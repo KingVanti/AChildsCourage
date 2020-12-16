@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
 

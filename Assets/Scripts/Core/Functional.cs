@@ -5,7 +5,7 @@ using System.Linq;
 namespace AChildsCourage
 {
 
-    public static class MFunctional
+    public static class F
     {
 
         public static TItem Take<TItem>(TItem input) => input;

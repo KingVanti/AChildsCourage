@@ -4,7 +4,7 @@ using static AChildsCourage.Game.MFloorGenerating.MChunkChoosing;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutBuilder;
 using static AChildsCourage.MRng;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 
 namespace AChildsCourage.Game
 {

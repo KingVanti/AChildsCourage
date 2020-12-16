@@ -5,7 +5,7 @@ using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.MFloorGenerating.MFloorBuilder;
 using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game

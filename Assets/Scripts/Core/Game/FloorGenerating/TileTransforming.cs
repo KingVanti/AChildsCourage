@@ -1,5 +1,5 @@
 ﻿using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game

@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
-using static AChildsCourage.MFunctional;
+using static AChildsCourage.F;
 using static AChildsCourage.Game.MFloorGenerating.MRoomChoosing;
 using static AChildsCourage.Game.MFloorGenerating.MRoomPassageGenerating;
 using static AChildsCourage.MRng;
