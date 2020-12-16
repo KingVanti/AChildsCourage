@@ -2,8 +2,8 @@
 using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Items;
 using static AChildsCourage.Game.MNightRecreating;
-using static AChildsCourage.Game.Persistence.MRunData;
 using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.Game.MNightData;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game
 
         public void PrepareNightForCurrentRun()
         {
-            var nightData = NewRun.Map(runData => StartNight(runData, RandomRng()));
+            var nightData = CreateNightWithRandomSeed(RandomRng());
             var rng = RngFromSeed(nightData.Seed);
 
             GenerateFloor(rng, roomData, floorPlanGenerationParameters)
