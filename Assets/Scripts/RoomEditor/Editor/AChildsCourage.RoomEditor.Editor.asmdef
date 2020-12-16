@@ -1,9 +1,8 @@
 {
-    "name": "AChildsCourage.Unity.RoomEditor.Editor",
+    "name": "AChildsCourage.RoomEditor.Editor",
     "references": [
-        "GUID:405f92b469f12c5418b9fbfaca991308",
-        "GUID:a3ff7ba5d0edb2345bcec0591301ad84",
-        "GUID:64b37223ed8a9824e8f41a193d4826b5"
+        "GUID:64b37223ed8a9824e8f41a193d4826b5",
+        "GUID:405f92b469f12c5418b9fbfaca991308"
     ],
     "includePlatforms": [
         "Editor"
