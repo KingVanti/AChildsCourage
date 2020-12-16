@@ -16,9 +16,7 @@ namespace AChildsCourage.Game.Char {
         [Header("Stats")]
         public float stamina = 100;
         [SerializeField] private float staminaDepletedCooldown;
-        [SerializeField] private float standingRate;
-        [SerializeField] private float walkingRate;
-        [SerializeField] private float sprintingRate;
+        [SerializeField] private EnumArray<MovementState, float> staminaRates;
         [SerializeField] private float recoveredStaminaAmount;
 
 #pragma warning restore 649
@@ -32,20 +30,9 @@ namespace AChildsCourage.Game.Char {
 
         private void Start() => StartCoroutine(Sprint());
 
-        public void SetStaminaDrainRate(MovementState movementState) {
-
-            switch (movementState) {
-                case MovementState.Sprinting:
-                    staminaDrainRate = sprintingRate;
-                    break;
-                case MovementState.Walking:
-                    staminaDrainRate = walkingRate;
-                    break;
-                case MovementState.Standing:
-                    staminaDrainRate = standingRate;
-                    break;
-            }
-
+        public void SetStaminaDrainRate(MovementState movementState)
+        {
+            staminaDrainRate = staminaRates[movementState];
         }
 
         private IEnumerator Sprint() {

@@ -801,9 +801,16 @@ MonoBehaviour:
         m_CallState: 2
   stamina: 100
   staminaDepletedCooldown: 5
-  standingRate: 10
-  walkingRate: 8
-  sprintingRate: 15
+  staminaRates:
+    enumTypeName: AChildsCourage.Game.Char.MovementState
+    mappedTypeName: System.Single
+    enums:
+    - enumValue: 0
+      mappedValue: 10
+    - enumValue: 1
+      mappedValue: 8
+    - enumValue: 2
+      mappedValue: -15
   recoveredStaminaAmount: 15
 --- !u!95 &1266752489
 Animator:
