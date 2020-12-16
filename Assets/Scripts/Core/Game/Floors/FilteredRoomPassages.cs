@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -7,25 +8,15 @@ namespace AChildsCourage.Game.Floors
     public class FilteredRoomPassages : IEnumerable<RoomPassages>
     {
 
-        #region Fields
+        private readonly ImmutableHashSet<RoomPassages> passages;
 
-        private readonly IEnumerable<RoomPassages> passages;
 
-        #endregion
+        public FilteredRoomPassages(IEnumerable<RoomPassages> passages) => this.passages = passages.ToImmutableHashSet();
 
-        #region Constructors
-
-        public FilteredRoomPassages(IEnumerable<RoomPassages> passages) => this.passages = passages;
-
-        #endregion
-
-        #region Methods
 
         public IEnumerator<RoomPassages> GetEnumerator() => passages.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => passages.GetEnumerator();
-
-        #endregion
 
     }
 
