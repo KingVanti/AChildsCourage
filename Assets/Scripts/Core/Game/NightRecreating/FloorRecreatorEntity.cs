@@ -18,13 +18,13 @@ namespace AChildsCourage.Game
 
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
 
-        [AutoInject] public FloorStateKeeper FloorStateKeeper { private get; set; }
+        [AutoInject] public FloorStateKeeperEntity FloorStateKeeper { private get; set; }
 
-        [AutoInject] public TileRepository TileRepository { private get; set; }
+        [AutoInject] public TileRepositoryEntity TileRepository { private get; set; }
 
-        [AutoInject] public StaticObjectSpawner StaticObjectSpawner { private get; set; }
+        [AutoInject] public StaticObjectSpawnerEntity StaticObjectSpawner { private get; set; }
 
-        [AutoInject] public RuneSpawner RuneSpawner { private get; set; }
+        [AutoInject] public RuneSpawnerEntity RuneSpawner { private get; set; }
 
         #endregion
 

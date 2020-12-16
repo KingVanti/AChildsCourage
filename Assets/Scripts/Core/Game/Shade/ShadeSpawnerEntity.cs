@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning disable 649
 
-        [SerializeField] private ShadeBrain shadeBrain;
+        [SerializeField] private ShadeBrainEntity shadeBrain;
         [SerializeField] private float shadeTimeoutTime;
 
 #pragma warning restore 649

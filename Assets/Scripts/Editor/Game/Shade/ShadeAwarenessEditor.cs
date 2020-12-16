@@ -4,11 +4,11 @@ using UnityEngine;
 namespace AChildsCourage.Game.Shade
 {
 
-    [CustomEditor(typeof(ShadeAwareness))]
+    [CustomEditor(typeof(ShadeAwarenessEntity))]
     public class ShadeAwarenessEditor : Editor
     {
 
-        private ShadeAwareness Awareness => (ShadeAwareness) target;
+        private ShadeAwarenessEntity Awareness => (ShadeAwarenessEntity) target;
 
 
         private void OnSceneGUI()

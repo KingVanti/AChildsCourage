@@ -4,7 +4,7 @@ using static UnityEngine.SceneManagement.SceneManager;
 namespace AChildsCourage.Game
 {
 
-    public class GameManager : SceneManager
+    public class GameManager : SceneManagerEntity
     {
 
         public Events.Empty onNightPrepared;

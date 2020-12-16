@@ -128,13 +128,13 @@ namespace AChildsCourage.Game.Input
             OnItemSwapped?.Invoke(this, eventArgs);
         }
 
-        [EventSubscription(nameof(CharController.OnCharDeath), typeof(OnPublisher))]
+        [EventSubscription(nameof(CharControllerEntity.OnCharDeath), typeof(OnPublisher))]
         public void OnCharDeath(EventArgs _) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageRift.OnCharWin), typeof(OnPublisher))]
+        [EventSubscription(nameof(CourageRiftEntity.OnCharWin), typeof(OnPublisher))]
         public void OnCharWin(EventArgs _) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageManager.OnCharLose), typeof(OnPublisher))]
+        [EventSubscription(nameof(CourageManagerEntity.OnCharLose), typeof(OnPublisher))]
         public void OnCharLose(EventArgs _) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()

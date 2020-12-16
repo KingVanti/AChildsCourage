@@ -10,13 +10,13 @@ using static AChildsCourage.Game.Floors.MChunkPassages;
 namespace AChildsCourage.RoomEditor.Editor
 {
 
-    [CustomEditor(typeof(RoomEditor))]
+    [CustomEditor(typeof(RoomEditorEntity))]
     public class RoomEditorEditor : UnityEditor.Editor
     {
 
         #region Properties
 
-        private RoomEditor RoomEditor => target as RoomEditor;
+        private RoomEditorEntity RoomEditor => target as RoomEditorEntity;
 
         #endregion
 

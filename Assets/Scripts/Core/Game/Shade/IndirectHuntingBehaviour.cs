@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Shade
         private float lastSeenTime;
         private Vector2 lastSeenVelocity;
 
-        private readonly ShadeEyes shadeEyes;
+        private readonly ShadeEyesEntity shadeEyes;
 
 
         public Vector3 TargetPosition { get; private set; }
@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Shade
         private bool CanSeeTarget => shadeEyes.PositionIsVisible(PredictedPosition);
 
 
-        public IndirectHuntingBehaviour(ShadeEyes shadeEyes) => this.shadeEyes = shadeEyes;
+        public IndirectHuntingBehaviour(ShadeEyesEntity shadeEyes) => this.shadeEyes = shadeEyes;
 
 
         public void StartIndirectHunt(Rigidbody2D target)

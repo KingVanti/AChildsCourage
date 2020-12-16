@@ -4,11 +4,11 @@ using UnityEngine;
 namespace AChildsCourage.Game.Shade
 {
 
-    [CustomEditor(typeof(ShadeBrain))]
+    [CustomEditor(typeof(ShadeBrainEntity))]
     public class ShadeBrainEditor : Editor
     {
 
-        private ShadeBrain Brain => (ShadeBrain) target;
+        private ShadeBrainEntity Brain => (ShadeBrainEntity) target;
 
 
         private void OnSceneGUI()

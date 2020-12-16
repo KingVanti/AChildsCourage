@@ -1,0 +1,17 @@
+﻿using UnityEngine;
+
+namespace AChildsCourage.Game.Char
+{
+
+    public class GameCameraControllerEntity : MonoBehaviour
+    {
+
+        #region Methods
+
+        public void UpdatePosition(Vector2 newPosition) => transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
+
+        #endregion
+
+    }
+
+}

@@ -15,7 +15,7 @@ namespace AChildsCourage
 
 #pragma warning disable 649
 
-        [SerializeField] private Stamina stamina;
+        [SerializeField] private StaminaEntity stamina;
 
 #pragma warning restore 649
 
