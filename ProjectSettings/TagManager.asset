@@ -12,6 +12,7 @@ TagManager:
   - stone
   - Courage
   - Shade
+  - Char
   layers:
   - Default
   - TransparentFX
