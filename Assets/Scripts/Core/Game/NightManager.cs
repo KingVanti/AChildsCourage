@@ -14,9 +14,8 @@ namespace AChildsCourage.Game
 
         #region Constructors
 
-        public NightManager(LoadRunData loadRunData, LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
+        public NightManager(LoadRoomData loadRoomData, IFloorRecreator floorRecreator)
         {
-            this.loadRunData = loadRunData;
             roomData = loadRoomData().ToArray();
             recreateNight = Make(floorRecreator);
 
@@ -29,13 +28,11 @@ namespace AChildsCourage.Game
 
         public void PrepareNightForCurrentRun()
         {
-            var nightData = loadRunData()
-                .Map(runData => StartNight(runData, MRng.Random()));
+            var nightData = NewRun.Map(runData => StartNight(runData, MRng.Random()));
 
             var rng = MRng.FromSeed(nightData.Seed);
 
-            GenerateFloor(rng, roomData, floorPlanGenerationParameters)
-                .Do(recreateNight.Invoke);
+            GenerateFloor(rng, roomData, floorPlanGenerationParameters).Do(recreateNight.Invoke);
         }
 
         #endregion
@@ -43,7 +40,6 @@ namespace AChildsCourage.Game
         #region Fields
 
         private readonly GenerationParameters floorPlanGenerationParameters;
-        private readonly LoadRunData loadRunData;
         private readonly RoomData[] roomData;
         private readonly ItemId[] itemIds;
         private readonly RecreateNight recreateNight;

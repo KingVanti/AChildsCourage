@@ -22,25 +22,25 @@ namespace AChildsCourage
     {
 
         private const string DefaultEventBrokerName = "Default";
-        private const string UnityAssemblyName = "Unity";
 
+
+        private static Assembly ProjectAssembly => Assembly.Load("AChildsCourage.Core");
 
         internal static void InjectServices()
         {
             var kernel = CreateDefaultKernel();
-            var assemblies = GetAssemblies().ToArray();
-            var unityAssembly = GetUnityAssembly(assemblies);
-            var monoBehaviourTypes = GetMonoBehaviourTypes(unityAssembly).ToArray();
+            var assembly = ProjectAssembly;
+            var monoBehaviourTypes = GetMonoBehaviourTypes(assembly).ToArray();
 
-            BindSingletons(kernel, assemblies, monoBehaviourTypes);
-            BindNonSingletons(kernel, assemblies, monoBehaviourTypes);
+            BindSingletons(kernel, assembly, monoBehaviourTypes);
+            BindNonSingletons(kernel, assembly, monoBehaviourTypes);
             BindConstants(kernel);
             kernel.BindUnityEntities();
             kernel.RegisterMonoBehaviours(DefaultEventBrokerName);
 
             ActivateEagerServices(kernel);
 
-            kernel.AutoInjectSceneServices(unityAssembly);
+            kernel.AutoInjectSceneServices(assembly);
         }
 
         private static IKernel CreateDefaultKernel()
@@ -51,26 +51,15 @@ namespace AChildsCourage
 
             return kernel;
         }
-
-        private static IEnumerable<Assembly> GetAssemblies()
-        {
-            yield return Assembly.Load("AChildsCourage.Core");
-            yield return Assembly.Load("AChildsCourage.Unity");
-        }
-
-        private static Assembly GetUnityAssembly(IEnumerable<Assembly> assemblies)
-        {
-            return assemblies.First(a => a.FullName.Contains(UnityAssemblyName));
-        }
         
         private static IEnumerable<Type> GetMonoBehaviourTypes(Assembly unityAssembly)
         {
             return unityAssembly.GetTypes().Where(t => typeof(MonoBehaviour).IsAssignableFrom(t));
         }
         
-        private static void BindSingletons(IBindingRoot root, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
+        private static void BindSingletons(IBindingRoot root, Assembly assembly, IEnumerable<Type> monoBehaviourTypes)
         {
-            root.Bind(x => x.From(assemblies)
+            root.Bind(x => x.From(assembly)
                             .IncludingNonPublicTypes()
                             .SelectAllClasses()
                             .WithAttribute<SingletonAttribute>()
@@ -79,9 +68,9 @@ namespace AChildsCourage
                             .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
         }
 
-        private static void BindNonSingletons(IKernel kernel, IEnumerable<Assembly> assemblies, IEnumerable<Type> monoBehaviourTypes)
+        private static void BindNonSingletons(IKernel kernel, Assembly assembly, IEnumerable<Type> monoBehaviourTypes)
         {
-            kernel.Bind(x => x.From(assemblies)
+            kernel.Bind(x => x.From(assembly)
                               .IncludingNonPublicTypes()
                               .SelectAllClasses()
                               .WithoutAttribute<SingletonAttribute>()
@@ -92,14 +81,9 @@ namespace AChildsCourage
 
         private static void BindConstants(IBindingRoot root)
         {
-            root.Bind<LoadRoomData>()
-                .ToConstant(RoomDataLoading.Make());
-            root.Bind<LoadRunData>()
-                .ToConstant(JsonRunDataLoading.Make());
-            root.Bind<FindItemData>()
-                .ToConstant(ItemDataRepository.GetItemDataFinder());
-            root.Bind<LoadItemIds>()
-                .ToConstant(ItemDataRepository.GetItemIdLoader());
+            root.Bind<LoadRoomData>().ToConstant(RoomDataLoading.Make());
+            root.Bind<FindItemData>().ToConstant(ItemDataRepository.GetItemDataFinder());
+            root.Bind<LoadItemIds>().ToConstant(ItemDataRepository.GetItemIdLoader());
         }
 
         private static void ActivateEagerServices(IResolutionRoot root)
