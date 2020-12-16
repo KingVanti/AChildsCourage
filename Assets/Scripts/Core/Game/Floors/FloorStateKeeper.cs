@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Floors
             get
             {
                 if (!outDatedFloorState) return lastFloorState;
-                
+
                 lastFloorState = GenerateFloorState();
                 outDatedFloorState = false;
 
