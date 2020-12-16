@@ -8,10 +8,23 @@ namespace AChildsCourage.Game.Floors
 
     public class RuneEntity : MonoBehaviour
     {
-        
 
+#pragma warning disable 649
+
+        [SerializeField] private float activeTime;
+        [SerializeField] private float deactivationTime;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Sprite activeSprite;
+        [SerializeField] private Sprite inactiveSprite;
+        [SerializeField] private Sprite usedSprite;
+        [SerializeField] private Material litMaterial;
+        [SerializeField] private Light2D runeLight;
+
+#pragma warning restore 649
+        
         private bool isActive;
         private bool wasUsed;
+
 
         public void OnTriggerEnter2D(Collider2D other)
         {
@@ -26,7 +39,6 @@ namespace AChildsCourage.Game.Floors
         {
             if (IsChar(other)) OnCharExit();
         }
-
 
         private static bool IsShade(Component other, out ShadeBrain shadeBrain)
         {
@@ -79,20 +91,6 @@ namespace AChildsCourage.Game.Floors
             spriteRenderer.sprite = usedSprite;
             runeLight.intensity = 0.1f;
         }
-
-
-#pragma warning  disable 649
-
-        [SerializeField] private float activeTime;
-        [SerializeField] private float deactivationTime;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite activeSprite;
-        [SerializeField] private Sprite inactiveSprite;
-        [SerializeField] private Sprite usedSprite;
-        [SerializeField] private Material litMaterial;
-        [SerializeField] private Light2D runeLight;
-
-#pragma warning  restore 649
 
     }
 
