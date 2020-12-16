@@ -16,14 +16,7 @@ namespace AChildsCourage.Game
     [UseDi]
     public class FloorRecreatorEntity : MonoBehaviour, IFloorRecreator
     {
-
-        #region Subtypes
-
-        [Serializable]
-        public class FloorEvent : UnityEvent<Floor> { }
-
-        #endregion
-
+        
         #region Properties
 
         [AutoInject] public ICouragePickupRepository CouragePickupRepository { private get; set; }
@@ -40,7 +33,7 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        public FloorEvent onFloorRecreated;
+        public FloorEvents.Floor onFloorRecreated;
 
 #pragma warning disable 649
 

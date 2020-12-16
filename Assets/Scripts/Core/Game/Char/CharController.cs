@@ -31,14 +31,14 @@ namespace AChildsCourage.Game.Char
         #region Fields
         
         [Header("Events")] 
-        public Vector2Event OnPositionChanged;
-        public IntEvent OnUseItem;
-        public IntEvent OnDamageReceived;
-        public CouragePickUpEvent OnCouragePickedUp;
-        public UnityEvent OnSwapItem;
-        public UnityEvent OnSprintStart;
-        public UnityEvent OnSprintStop;
-        public PickUpEvent OnPickUpItem;
+        public Events.Vector2 OnPositionChanged;
+        public Events.Int OnUseItem;
+        public Events.Int OnDamageReceived;
+        public Events.Empty OnSwapItem;
+        public Events.Empty OnSprintStart;
+        public Events.Empty OnSprintStop;
+        public CharEvents.PickUp OnPickUpItem;
+        public CharEvents.CouragePickUp OnCouragePickedUp;
 
 #pragma warning disable 649
 
@@ -398,25 +398,6 @@ namespace AChildsCourage.Game.Char
             rb.velocity = Vector2.zero;
             gettingKnockedBack = false;
         }
-
-        #endregion
-
-        #region Subclasses
-
-        [Serializable]
-        public class Vector2Event : UnityEvent<Vector2> { }
-
-        [Serializable]
-        public class BoolEvent : UnityEvent<bool> { }
-
-        [Serializable]
-        public class IntEvent : UnityEvent<int> { }
-
-        [Serializable]
-        public class PickUpEvent : UnityEvent<int, int> { }
-
-        [Serializable]
-        public class CouragePickUpEvent : UnityEvent<CouragePickupEntity> { }
 
         #endregion
 

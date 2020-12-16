@@ -13,8 +13,14 @@ namespace AChildsCourage.Game.Courage
     [UseDi]
     public class CourageRift : MonoBehaviour
     {
+        
+        [EventPublication(nameof(OnCharWin))]
+        public event EventHandler OnCharWin;
 
         #region Fields
+        
+        [Header("Events")]
+        public Events.Empty onRiftEntered;
 
 #pragma warning disable 649
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -29,11 +35,6 @@ namespace AChildsCourage.Game.Courage
         private readonly int[] stageThresholds = new int[5];
         private int courage;
         private int lastCourageCount;
-
-        [Header("Events")] public UnityEvent onRiftEntered;
-
-        [EventPublication(nameof(OnCharWin))]
-        public event EventHandler OnCharWin;
 
         #endregion
 

@@ -3,7 +3,6 @@ using System.Collections;
 using Appccelerate.EventBroker;
 using Ninject.Extensions.Unity;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Courage
 {
@@ -25,12 +24,13 @@ namespace AChildsCourage.Game.Courage
 
 #pragma warning restore 649
 
-        [Header("Events")] public CourageChangedEvent OnCourageChanged;
-        public CourageChangedEvent OnInitialize;
-        public UnityEvent OnCourageDepleted;
-        public UnityEvent onCourageNotEnoughStarted;
-        public UnityEvent onCourageNotEnoughCompleted;
-        public CanCollectCourageEvent OnCouragePickupableChanged;
+        [Header("Events")]
+        public CourageEvents.CourageChanged OnCourageChanged;
+        public CourageEvents.CourageChanged OnInitialize;
+        public Events.Empty OnCourageDepleted;
+        public Events.Empty onCourageNotEnoughStarted;
+        public Events.Empty onCourageNotEnoughCompleted;
+        public Events.Bool OnCouragePickupableChanged;
 
         [EventPublication(nameof(OnCharLose))]
         public event EventHandler OnCharLose;
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.Courage
 
         #region Properties
 
-        private int CurrentNightCourage
+        public int CurrentNightCourage
         {
             get => _currentNightCourage;
             set
@@ -52,13 +52,13 @@ namespace AChildsCourage.Game.Courage
             }
         }
 
-        private int MaxNightCourage
+        public int MaxNightCourage
         {
             get => _maxNightCourage;
             set => _maxNightCourage = value;
         }
 
-        private int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
+        public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
 
         private int AvailableNightCourage { get; set; }
 
@@ -110,16 +110,6 @@ namespace AChildsCourage.Game.Courage
             onCourageNotEnoughCompleted?.Invoke();
             GameLost();
         }
-
-        #endregion
-
-        #region Subclasses
-
-        [Serializable]
-        public class CourageChangedEvent : UnityEvent<int, int, int> { }
-
-        [Serializable]
-        public class CanCollectCourageEvent : UnityEvent<bool> { }
 
         #endregion
 

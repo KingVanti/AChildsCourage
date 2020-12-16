@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Shade
     public class ShadeSpawnerEntity : MonoBehaviour
     {
 
-        public UnityEvent onShadeSpawned;
+        public Events.Empty onShadeSpawned;
 
         private TilePosition spawnTile;
 

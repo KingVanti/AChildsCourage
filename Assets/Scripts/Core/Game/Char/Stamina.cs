@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Char
 {
@@ -10,16 +9,22 @@ namespace AChildsCourage.Game.Char
 
         #region Fields
 
-        [Header("Stats")] public float stamina = 100;
+        [Header("Events")]
+        public Events.Empty onStaminaDepleted;
+        public Events.Empty onRefreshed;
+
+#pragma warning  disable 649
+
+        [Header("Stats")]
+        public float stamina = 100;
         [SerializeField] private float staminaRecoveryRate = 1;
         [SerializeField] private float staminaDrainRate = 2;
         [SerializeField] private float staminaDepletedCooldown = 5;
 
+#pragma warning  restore 649
+
         private bool isSprinting;
         private bool isOnCooldown;
-
-        [Header("Events")] public UnityEvent onStaminaDepleted;
-        public UnityEvent onRefreshed;
 
         #endregion
 

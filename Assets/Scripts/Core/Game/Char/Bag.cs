@@ -24,11 +24,11 @@ namespace AChildsCourage.Game.Char
         private readonly ItemBehaviour[] currentItems = new ItemBehaviour[2];
         private readonly float[] currentItemCooldown = new float[2];
 
-        public CooldownEvent cooldownEvent;
-        public ItemDataEvent itemUsedEvent;
-        public UnityEvent itemDroppedEvent;
-        public UnityEvent itemSwappedEvent;
-        public UnityEvent itemPickUpEvent;
+        public CharEvents.Cooldown cooldownEvent;
+        public CharEvents.ItemData itemUsedEvent;
+        public Events.Empty itemDroppedEvent;
+        public Events.Empty itemSwappedEvent;
+        public Events.Empty itemPickUpEvent;
 
         #endregion
 
@@ -111,16 +111,7 @@ namespace AChildsCourage.Game.Char
         }
 
         #endregion
-
-        #region Subclasses
-
-        [Serializable]
-        public class CooldownEvent : UnityEvent<int, float, float> { }
-
-        [Serializable]
-        public class ItemDataEvent : UnityEvent<ItemData> { }
-
-        #endregion
+        
 
     }
 

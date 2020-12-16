@@ -8,7 +8,7 @@ namespace AChildsCourage
     public class SceneManager : MonoBehaviour
     {
 
-        public UnityEvent onSceneLoaded;
+        public Events.Empty onSceneLoaded;
 
 
         private void Awake() => SetupScene();

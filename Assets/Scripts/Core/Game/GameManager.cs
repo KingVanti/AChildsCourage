@@ -8,7 +8,7 @@ namespace AChildsCourage.Unity
     public class GameManager : SceneManager
     {
 
-        public UnityEvent onNightPrepared;
+        public Events.Empty onNightPrepared;
 
         [AutoInject] public INightManager NightManager { private get; set; }
 
