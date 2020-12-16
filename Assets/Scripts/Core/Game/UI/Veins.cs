@@ -24,13 +24,10 @@ namespace AChildsCourage.Game.UI
 
         public void SetTransparency(float awareness) => image.color = new Color(image.color.r, image.color.g, image.color.b, awareness);
 
-        public void SetVeinSprite(AwarenessLevel level)
-        {
-            if (level == AwarenessLevel.Hunting)
-                image.sprite = activeVeins;
-            else
-                image.sprite = defaultVeins;
-        }
+        public void SetVeinSprite(AwarenessLevel level) =>
+            image.sprite = level == AwarenessLevel.Hunting
+                ? activeVeins
+                : defaultVeins;
 
         #endregion
 

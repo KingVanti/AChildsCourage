@@ -16,6 +16,8 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrain : MonoBehaviour
     {
 
+        private static readonly int fadePropertyId = Shader.PropertyToID("_Fade");
+
         #region Subtypes
 
         private delegate IEnumerator BehaviourFunction();
@@ -50,7 +52,6 @@ namespace AChildsCourage.Game.Shade
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
         private bool isDissolving;
-        private static readonly int FadePropertyId = Shader.PropertyToID("_Fade");
 
         #endregion
 
@@ -63,15 +64,13 @@ namespace AChildsCourage.Game.Shade
         public Vector3 CurrentTargetPosition
         {
             get => currentTargetPosition;
-            set
+            private set
             {
                 currentTargetPosition = value;
                 onTargetPositionChanged.Invoke(currentTargetPosition);
             }
         }
 
-
-        private bool IsInvestigating => behaviourType == ShadeBehaviourType.Investigating;
 
         private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
@@ -240,17 +239,17 @@ namespace AChildsCourage.Game.Shade
             isDissolving = true;
 
             spriteRenderer.material = dissolveMaterial;
-            dissolveMaterial.SetFloat(FadePropertyId, 1);
+            dissolveMaterial.SetFloat(fadePropertyId, 1);
 
-            while (dissolveMaterial.GetFloat(FadePropertyId) > 0)
+            while (dissolveMaterial.GetFloat(fadePropertyId) > 0)
             {
-                dissolveMaterial.SetFloat(FadePropertyId,
-                                          Mathf.MoveTowards(dissolveMaterial.GetFloat(FadePropertyId), 0, Time.deltaTime));
+                dissolveMaterial.SetFloat(fadePropertyId,
+                                          Mathf.MoveTowards(dissolveMaterial.GetFloat(fadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
             DeactivateShade();
-            dissolveMaterial.SetFloat(FadePropertyId, 1);
+            dissolveMaterial.SetFloat(fadePropertyId, 1);
             isDissolving = false;
         }
 

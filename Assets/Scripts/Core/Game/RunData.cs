@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Persistence
     public static class MRunData
     {
 
-        public const int BaseCourage = 0;
+        private const int BaseCourage = 0;
 
 
         public static RunData NewRun => new RunData(0, BaseCourage);

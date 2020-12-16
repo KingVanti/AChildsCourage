@@ -93,12 +93,10 @@ namespace AChildsCourage.Game.Courage
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(EntityTags.Char))
-                if (currentStage == 4)
-                {
-                    OnCharWin?.Invoke(this, EventArgs.Empty);
-                    onRiftEntered?.Invoke();
-                }
+            if (!collision.CompareTag(EntityTags.Char) || currentStage != 4) return;
+
+            OnCharWin?.Invoke(this, EventArgs.Empty);
+            onRiftEntered?.Invoke();
         }
 
         #endregion

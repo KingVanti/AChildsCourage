@@ -21,16 +21,7 @@ namespace AChildsCourage.Game.Floors
         #endregion
 
         #region Constructors
-
-        public RoomPassages()
-        {
-            Id = (RoomId) (-1);
-            Passages = ChunkPassages.None;
-            RotationCount = 0;
-            IsMirrored = false;
-            Type = RoomType.Normal;
-        }
-
+        
         public RoomPassages(RoomId id, ChunkPassages passages, int rotationCount = 0, bool isMirrored = false, RoomType type = RoomType.Normal)
         {
             Id = id;

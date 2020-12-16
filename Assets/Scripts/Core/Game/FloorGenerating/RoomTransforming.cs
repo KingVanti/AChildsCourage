@@ -60,14 +60,12 @@ namespace AChildsCourage.Game
             private static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) => With(staticObject, transformer(staticObject.Position));
 
             private static StaticObjectData With(StaticObjectData staticObject, TilePosition position) =>
-                new StaticObjectData(
-                                     position);
+                new StaticObjectData(position);
 
             private static RuneData TransformRune(RuneData rune, TransformTile transformer) => With(rune, transformer(rune.Position));
 
             private static RuneData With(RuneData rune, TilePosition position) =>
-                new RuneData(
-                             position);
+                new RuneData(position);
 
             private static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => With(pickup, transformer(pickup.Position));
 
@@ -105,7 +103,7 @@ namespace AChildsCourage.Game
 
             }
 
-            internal delegate TilePosition TransformTile(TilePosition position);
+            private delegate TilePosition TransformTile(TilePosition position);
 
         }
 

@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Floors
 
         #region Constructors
 
-        public FilteredRoomPassages(RoomPassages[] passages) => this.passages = passages;
+        public FilteredRoomPassages(IEnumerable<RoomPassages> passages) => this.passages = passages;
 
         #endregion
 

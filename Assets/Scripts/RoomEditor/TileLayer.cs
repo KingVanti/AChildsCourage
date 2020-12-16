@@ -76,7 +76,7 @@ namespace AChildsCourage.RoomEditor
                     var globalTilePos = new Vector3Int(x, y, 0);
                     var tile = tilemap.GetTile<Tile>(globalTilePos);
 
-                    if (tile != null) yield return new TileAtPos(tile, GetLocalTilePos(globalTilePos));
+                    if (tile) yield return new TileAtPos(tile, GetLocalTilePos(globalTilePos));
                 }
         }
 

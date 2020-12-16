@@ -12,9 +12,9 @@ namespace AChildsCourage.Game.Shade
 
         #region Static Fields
 
-        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
-        private static readonly int XAnimatorKey = Animator.StringToHash("X");
-        private static readonly int YAnimatorKey = Animator.StringToHash("Y");
+        private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
+        private static readonly int xAnimatorKey = Animator.StringToHash("X");
+        private static readonly int yAnimatorKey = Animator.StringToHash("Y");
 
         #endregion
 
@@ -53,9 +53,9 @@ namespace AChildsCourage.Game.Shade
 
         private void UpdateAnimator()
         {
-            shadeAnimator.SetBool(MovingAnimatorKey, IsMoving);
-            shadeAnimator.SetFloat(XAnimatorKey, CurrentDirection.x);
-            shadeAnimator.SetFloat(YAnimatorKey, CurrentDirection.y);
+            shadeAnimator.SetBool(movingAnimatorKey, IsMoving);
+            shadeAnimator.SetFloat(xAnimatorKey, CurrentDirection.x);
+            shadeAnimator.SetFloat(yAnimatorKey, CurrentDirection.y);
         }
 
         public void WaitAfterDealingDamage() => StartCoroutine(WaitAndContinue());

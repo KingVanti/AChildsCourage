@@ -18,8 +18,27 @@ namespace AChildsCourage.Game.Char
     [UseDi]
     public class CharController : MonoBehaviour
     {
+        
+        [EventPublication(nameof(OnCharDeath))]
+        public event EventHandler OnCharDeath;
+        
+        private static readonly int rotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
+        private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
+        private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
+        private static readonly int flashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
+        private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
         #region Fields
+        
+        [Header("Events")] 
+        public Vector2Event OnPositionChanged;
+        public IntEvent OnUseItem;
+        public IntEvent OnDamageReceived;
+        public CouragePickUpEvent OnCouragePickedUp;
+        public UnityEvent OnSwapItem;
+        public UnityEvent OnSprintStart;
+        public UnityEvent OnSprintStop;
+        public PickUpEvent OnPickUpItem;
 
 #pragma warning disable 649
 
@@ -32,40 +51,20 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Light2D characterGlowingLight;
         [SerializeField] private Stamina stamina;
-        [SerializeField] private float knockbackMultiplier;
+        [SerializeField] private float knockBackMultiplier;
 
 #pragma warning restore 649
 
         private Camera mainCamera;
-
-        private Vector2 _movingDirection;
-        private int _rotationIndex;
-
-        private bool _hasFlashlightEquipped;
+        private Vector2 movingDirection;
+        private int rotationIndex;
+        private bool hasFlashlightEquipped;
         private bool isInvincible;
         private bool gettingKnockedBack;
         private bool canCollectCourage = true;
-        private bool _isSprinting;
+        private bool isSprinting;
         private bool hasStamina = true;
         private float defaultSpeed;
-
-        [EventPublication(nameof(OnCharDeath))]
-        public event EventHandler OnCharDeath;
-
-        [Header("Events")] public Vector2Event OnPositionChanged;
-
-        public IntEvent OnUseItem;
-        public IntEvent OnDamageReceived;
-        public CouragePickUpEvent OnCouragePickedUp;
-        public UnityEvent OnSwapItem;
-        public UnityEvent OnSprintStart;
-        public UnityEvent OnSprintStop;
-        public PickUpEvent OnPickUpItem;
-        private static readonly int RotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
-        private static readonly int MovingAnimatorKey = Animator.StringToHash("IsMoving");
-        private static readonly int MovingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
-        private static readonly int FlashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
-        private static readonly int SprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
         #endregion
 
@@ -87,10 +86,10 @@ namespace AChildsCourage.Game.Char
         /// </summary>
         public int RotationIndex
         {
-            get => _rotationIndex;
+            get => rotationIndex;
             set
             {
-                _rotationIndex = value;
+                rotationIndex = value;
                 UpdateAnimator();
             }
         }
@@ -118,10 +117,10 @@ namespace AChildsCourage.Game.Char
 
         public bool IsSprinting
         {
-            get => _isSprinting;
+            get => isSprinting;
             set
             {
-                _isSprinting = value;
+                isSprinting = value;
                 UpdateAnimator();
             }
         }
@@ -132,10 +131,10 @@ namespace AChildsCourage.Game.Char
         /// </summary>
         public Vector2 MovingDirection
         {
-            get => _movingDirection;
+            get => movingDirection;
             set
             {
-                _movingDirection = value;
+                movingDirection = value;
 
                 if (MovingDirection == Vector2.zero && IsSprinting)
                 {
@@ -151,17 +150,17 @@ namespace AChildsCourage.Game.Char
 
         public bool HasFlashlightEquipped
         {
-            get => _hasFlashlightEquipped;
+            get => hasFlashlightEquipped;
             set
             {
-                _hasFlashlightEquipped = value;
+                hasFlashlightEquipped = value;
                 UpdateAnimator();
             }
         }
 
         public ItemPickupEntity CurrentItemInRange { get; set; }
 
-        public MovementState CurrentMovmentState => IsSprinting ? MovementState.Sprinting : IsMoving ? MovementState.Walking : MovementState.Standing;
+        public MovementState CurrentMovementState => IsSprinting ? MovementState.Sprinting : IsMoving ? MovementState.Walking : MovementState.Standing;
 
         #endregion
 
@@ -191,12 +190,12 @@ namespace AChildsCourage.Game.Char
         {
             animator.speed = IsSprinting ? 1.4f : 1;
 
-            animator.SetFloat(RotationIndexAnimatorKey, RotationIndex);
-            animator.SetBool(MovingAnimatorKey, IsMoving);
-            animator.SetBool(MovingBackwardsAnimatorKey, IsMovingBackwards);
-            animator.SetBool(SprintingAnimatorKey, IsSprinting);
+            animator.SetFloat(rotationIndexAnimatorKey, RotationIndex);
+            animator.SetBool(movingAnimatorKey, IsMoving);
+            animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
+            animator.SetBool(sprintingAnimatorKey, IsSprinting);
 
-            if (HasFlashlightEquipped) animator.SetBool(FlashlightEquippedAnimatorKey, _hasFlashlightEquipped);
+            if (HasFlashlightEquipped) animator.SetBool(flashlightEquippedAnimatorKey, hasFlashlightEquipped);
         }
 
 
@@ -253,16 +252,14 @@ namespace AChildsCourage.Game.Char
 
         private void OnStartSprint(StartSprintEventArgs eventArgs)
         {
-            if (IsMoving)
+            if (!IsMoving) return;
+            if (hasStamina)
             {
-                if (hasStamina)
-                {
-                    movementSpeed = sprintSpeed;
-                    IsSprinting = true;
-                }
-
-                OnSprintStart?.Invoke();
+                movementSpeed = sprintSpeed;
+                IsSprinting = true;
             }
+
+            OnSprintStart?.Invoke();
         }
 
         private void OnStopSprint(StopSprintEventArgs eventArgs)
@@ -361,7 +358,7 @@ namespace AChildsCourage.Game.Char
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
         {
-            StartCoroutine(KnockBack(damage * movementSpeed * knockbackMultiplier, 0.175f, knockBackVector));
+            StartCoroutine(KnockBack(damage * movementSpeed * knockBackMultiplier, 0.175f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
             OnDamageReceived?.Invoke(damage);

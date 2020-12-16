@@ -15,9 +15,8 @@ namespace AChildsCourage.Game.Floors
                     case PassageDirection.East: return PassageDirection.West;
                     case PassageDirection.South: return PassageDirection.North;
                     case PassageDirection.West: return PassageDirection.East;
+                    default: throw new Exception("Invalid direction");
                 }
-
-                throw new Exception("Invalid direction");
             };
 
         public enum PassageDirection

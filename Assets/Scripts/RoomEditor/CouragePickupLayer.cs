@@ -5,6 +5,7 @@ using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -53,7 +54,7 @@ namespace AChildsCourage.RoomEditor
                 .Select(ToPickup)
                 .ToArray();
 
-        private CouragePickupData ToPickup(TileAtPos tileAtPos)
+        private static CouragePickupData ToPickup(TileAtPos tileAtPos)
         {
             var position = tileAtPos.Position;
             var variant = GetVariantOf(tileAtPos.Tile);
@@ -61,7 +62,7 @@ namespace AChildsCourage.RoomEditor
             return new CouragePickupData(position, variant);
         }
 
-        private static CourageVariant GetVariantOf(Tile tile) => tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;
+        private static CourageVariant GetVariantOf(Object tile) => tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;
 
 
         private Tile GetTileFor(CourageVariant variant)

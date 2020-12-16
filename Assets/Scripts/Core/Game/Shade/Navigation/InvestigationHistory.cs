@@ -37,14 +37,14 @@ namespace AChildsCourage.Game.Shade.Navigation
 
         public static InvestigationHistory Add(this InvestigationHistory history, CompletedInvestigation investigation) => AddToHistory(history, investigation);
 
-        public static AddInvestigation AddToHistory =>
+        private static AddInvestigation AddToHistory =>
             (history, investigation) =>
                 new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
 
 
         public static CompletedInvestigation? FindLastIn(this InvestigationHistory history, AoiIndex index) => FindInHistory(history, index);
 
-        public static FindMostRecentAoiInvestigation FindInHistory =>
+        private static FindMostRecentAoiInvestigation FindInHistory =>
             (history, index) =>
                 history.CompletedInvestigations.FindLast(i => i.AoiIndex == index);
 

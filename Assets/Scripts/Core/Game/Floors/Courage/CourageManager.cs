@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.Courage
 
         #region Properties
 
-        public int CurrentNightCourage
+        private int CurrentNightCourage
         {
             get => _currentNightCourage;
             set
@@ -52,17 +52,17 @@ namespace AChildsCourage.Game.Courage
             }
         }
 
-        public int MaxNightCourage
+        private int MaxNightCourage
         {
             get => _maxNightCourage;
             set => _maxNightCourage = value;
         }
 
-        public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
+        private int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
 
-        public int AvailableNightCourage { get; set; }
+        private int AvailableNightCourage { get; set; }
 
-        public int OverfilledNightCourage
+        private int OverfilledNightCourage
         {
             get
             {

@@ -10,15 +10,6 @@ namespace AChildsCourage.Game.Floors
     public static class MFloor
     {
 
-        public static Floor EmptyFloor =>
-            new Floor(
-                      ImmutableHashSet<Wall>.Empty,
-                      ImmutableHashSet<CouragePickup>.Empty,
-                      ImmutableHashSet<Room>.Empty,
-                      ImmutableHashSet<Rune>.Empty,
-                      new ChunkPosition(0, 0));
-
-
         public static (TilePosition, TilePosition ) GetFloorCorners(Floor floor)
         {
             var groundPositions = floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToArray();

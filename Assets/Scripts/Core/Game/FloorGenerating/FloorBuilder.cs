@@ -27,7 +27,7 @@ namespace AChildsCourage.Game
                 floorBuilder =>
                     GetEndRoom(floorBuilder).ChunkPosition;
 
-            public static Func<FloorBuilder, RoomBuilder> GetEndRoom =>
+            private static Func<FloorBuilder, RoomBuilder> GetEndRoom =>
                 floorBuilder =>
                     floorBuilder.Rooms.First(r => r.RoomType == RoomType.End);
 

@@ -17,8 +17,8 @@ namespace AChildsCourage.Game
         public static class MCouragePickupFiltering
         {
 
-            internal const int CourageOrbCount = 5;
-            internal const int CourageSparkCount = 25;
+            private const int CourageOrbCount = 5;
+            private const int CourageSparkCount = 25;
 
 
             internal static Func<FloorBuilder, CreateRng, IEnumerable<CouragePickup>> ChooseCouragePickups =>
@@ -45,7 +45,7 @@ namespace AChildsCourage.Game
                             .Select(p => p.Position);
 
 
-            internal static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, CreateRng rng)
+            private static TilePosition ChooseNextPickupPosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CouragePickupWeightFunction weightFunction, CreateRng rng)
             {
                 bool IsNotTaken(TilePosition p) => !taken.Contains(p);
 
@@ -56,7 +56,7 @@ namespace AChildsCourage.Game
                        .GetWeightedRandom(CalculateWeight, rng);
             }
 
-            internal static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
+            private static float CalculateCourageOrbWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
                 var distanceOriginWeight =
                     GetDistanceFromOrigin(position)
@@ -72,7 +72,7 @@ namespace AChildsCourage.Game
                 return distanceOriginWeight + distanceToClosestWeight;
             }
 
-            internal static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
+            private static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
                 var distanceToClosestWeight = taken.Any() ?
                     taken.Select(p => GetDistanceBetween(position, p)).Min()

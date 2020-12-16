@@ -15,7 +15,7 @@ namespace AChildsCourage
         public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRng createRng) => GetWeightedRandom(calculateWeight, createRng, elements);
 
 
-        public static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
+        private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements as T[] ?? elements.ToArray();
             if (!elementsArray.Any()) return default;
@@ -47,7 +47,7 @@ namespace AChildsCourage
         public static T GetRandom<T>(this IEnumerable<T> elements, CreateRng createRng) => GetRandom(createRng, elements);
 
 
-        public static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
+        private static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements.ToArray();
 

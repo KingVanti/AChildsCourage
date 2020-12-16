@@ -28,13 +28,13 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        private static bool IsShade(Collider2D other, out ShadeBrain shadeBrain)
+        private static bool IsShade(Component other, out ShadeBrain shadeBrain)
         {
             shadeBrain = other.GetComponent<ShadeBrain>();
             return other.gameObject.CompareTag(EntityTags.Shade);
         }
 
-        private static bool IsChar(Collider2D other) => other.gameObject.CompareTag(EntityTags.Char);
+        private static bool IsChar(Component other) => other.gameObject.CompareTag(EntityTags.Char);
 
 
         private void OnCharEnter() => Activate();

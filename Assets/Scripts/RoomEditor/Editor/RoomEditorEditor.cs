@@ -48,7 +48,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
             EditorGUILayout.Space();
 
-            if (selectedAsset != null) RoomEditor.OnAssetSelected(selectedAsset);
+            if (selectedAsset) RoomEditor.OnAssetSelected(selectedAsset);
         }
 
         private void DrawEditingGUI()

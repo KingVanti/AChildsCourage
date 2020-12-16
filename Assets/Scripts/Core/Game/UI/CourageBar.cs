@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.UI
             StartCoroutine(FillLerp(newFillAmount));
         }
 
-        public void UpdateCourageCounter(int newValue, int neededValue)
+        private void UpdateCourageCounter(int newValue, int neededValue)
         {
             if (newValue >= neededValue)
                 courageCounterCurrentTextMesh.faceColor = textColor;

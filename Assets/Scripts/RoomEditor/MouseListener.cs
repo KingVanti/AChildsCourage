@@ -10,7 +10,7 @@ namespace AChildsCourage.RoomEditor
         #region Constants
 
         public const string LeftButtonName = "leftButton";
-        public const string RightButtonName = "rightButton";
+        private const string RightButtonName = "rightButton";
 
         #endregion
 

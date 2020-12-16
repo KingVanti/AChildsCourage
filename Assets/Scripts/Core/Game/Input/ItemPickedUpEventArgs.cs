@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Input
 
         #region Properties
 
-        internal int SlotId { get; set; }
+        internal int SlotId { get; }
 
         #endregion
 

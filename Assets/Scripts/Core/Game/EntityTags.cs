@@ -5,11 +5,6 @@
     {
 
         /// <summary>
-        ///     Unity tag for enemy entities
-        /// </summary>
-        internal const string Enemy = "Enemy";
-
-        /// <summary>
         ///     Unity tag for item entities
         /// </summary>
         internal const string Item = "Item";

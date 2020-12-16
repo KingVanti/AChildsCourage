@@ -7,6 +7,8 @@ namespace AChildsCourage.Game.Courage
 
     public class CouragePickupEntity : MonoBehaviour
     {
+        
+        private static readonly int emissionTextureKey = Shader.PropertyToID("_Emission");
 
         #region Methods
 
@@ -16,7 +18,7 @@ namespace AChildsCourage.Game.Courage
             Value = courageData.Value;
             spriteRenderer.sprite = courageData.Sprite;
             spriteRenderer.transform.localScale = courageData.Scale;
-            spriteRenderer.material.SetTexture(EmissionTextureKey, courageData.Emission);
+            spriteRenderer.material.SetTexture(emissionTextureKey, courageData.Emission);
             courageName = courageData.CourageName;
             courageLight.pointLightOuterRadius = courageData.LightOuterRadius;
             courageLight.intensity = courageData.LightIntensity;
@@ -32,15 +34,14 @@ namespace AChildsCourage.Game.Courage
 #pragma warning restore 649
 
         private string courageName = "";
-        private static readonly int EmissionTextureKey = Shader.PropertyToID("_Emission");
 
         #endregion
 
         #region Properties
 
-        public int Value { get; set; }
+        public int Value { get; private set; }
 
-        public CourageVariant Variant { get; set; }
+        public CourageVariant Variant { get; private set; }
 
         #endregion
 

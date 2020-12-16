@@ -43,13 +43,7 @@ namespace AChildsCourage.RoomEditor
 
 
         internal string CurrentAssetName => LoadedAsset.name;
-
-
-        internal bool CurrentRoomIsStartRoom => CurrentRoomType == RoomType.Start;
-
-
-        internal bool CurrentRoomIsEndRoom => CurrentRoomType == RoomType.End;
-
+        
         #endregion
 
         #region Methods

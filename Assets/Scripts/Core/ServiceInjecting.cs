@@ -62,7 +62,7 @@ namespace AChildsCourage
                             .BindAllInterfaces()
                             .Configure(b => b.InSingletonScope().RegisterOnEventBroker(DefaultEventBrokerName)));
 
-        private static void BindNonSingletons(IKernel kernel, Assembly assembly, IEnumerable<Type> monoBehaviourTypes) =>
+        private static void BindNonSingletons(IBindingRoot kernel, Assembly assembly, IEnumerable<Type> monoBehaviourTypes) =>
             kernel.Bind(x => x.From(assembly)
                               .IncludingNonPublicTypes()
                               .SelectAllClasses()

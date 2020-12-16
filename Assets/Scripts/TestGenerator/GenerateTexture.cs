@@ -80,7 +80,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                            -floorPlan.Rooms.Select(r => r.Transform.Position.Y)
                                      .Min());
 
-        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, CompleteRoomLoader roomLoader, Color[][] pixels)
+        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, CompleteRoomLoader roomLoader, IReadOnlyList<Color[]> pixels)
         {
             var position = GetPixelPos(room.Transform.Position, offset);
             var passages = roomLoader.GetPassagesFor(room);

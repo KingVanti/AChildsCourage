@@ -19,7 +19,7 @@ namespace AChildsCourage.Game
                 new FloorLayoutBuilder(ImmutableList<ChunkPosition>.Empty,
                                        ImmutableHashSet<ChunkPosition>.Empty);
 
-            public static Func<FloorLayoutBuilder, int> GetRoomCount =>
+            private static Func<FloorLayoutBuilder, int> GetRoomCount =>
                 builder =>
                     builder.OccupiedChunks.Count;
 

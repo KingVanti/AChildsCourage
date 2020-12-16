@@ -59,9 +59,8 @@ namespace AChildsCourage.Game.Floors
                 case PassageDirection.East: return HasEast;
                 case PassageDirection.South: return HasSouth;
                 case PassageDirection.West: return HasWest;
+                default: throw new Exception("Invalid passage!");
             }
-
-            throw new Exception("Invalid passage!");
         }
 
 

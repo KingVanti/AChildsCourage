@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
     public class ShadeEyesEditor : Editor
     {
 
-        private static readonly Color TileInVisionColor = new Color(0.31f, 0.37f, 0.9f, 1f);
+        private static readonly Color tileInVisionColor = new Color(0.31f, 0.37f, 0.9f, 1f);
 
 
         private ShadeEyes Eyes => target as ShadeEyes;
@@ -51,7 +51,7 @@ namespace AChildsCourage.Game.Shade
             {
                 var rect = new Rect(tilePosition.ToVector3(), Vector2.one);
 
-                Handles.DrawSolidRectangleWithOutline(rect, TileInVisionColor, TileInVisionColor);
+                Handles.DrawSolidRectangleWithOutline(rect, tileInVisionColor, tileInVisionColor);
             }
         }
 

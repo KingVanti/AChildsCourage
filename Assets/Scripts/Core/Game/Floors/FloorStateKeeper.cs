@@ -21,11 +21,10 @@ namespace AChildsCourage.Game.Floors
         {
             get
             {
-                if (outDatedFloorState)
-                {
-                    lastFloorState = GenerateFloorState();
-                    outDatedFloorState = false;
-                }
+                if (!outDatedFloorState) return lastFloorState;
+                
+                lastFloorState = GenerateFloorState();
+                outDatedFloorState = false;
 
                 return lastFloorState;
             }
@@ -54,9 +53,9 @@ namespace AChildsCourage.Game.Floors
         private class AoiState
         {
 
-            public AoiIndex Index { get; }
+            private AoiIndex Index { get; }
 
-            public List<PoiState> PoiStates { get; } = new List<PoiState>();
+            private List<PoiState> PoiStates { get; } = new List<PoiState>();
 
             private ImmutableArray<Poi> Pois =>
                 PoiStates.Select(poiState => poiState.ToPoi())
@@ -84,7 +83,7 @@ namespace AChildsCourage.Game.Floors
         private class PoiState
         {
 
-            public TilePosition Position { get; }
+            private TilePosition Position { get; }
 
 
             public PoiState(TilePosition position) => Position = position;

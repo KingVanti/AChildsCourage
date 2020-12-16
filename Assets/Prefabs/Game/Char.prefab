@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 0.3
-  _id: 0
+  cooldown: 0.1
+  id: 0
   lightComponent: {fileID: 788487158}
   maxFlashlightDistance: 12
   maxFlashlightIntensity: 0.85
@@ -536,16 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1266752489}
-  characterVision: {fileID: 1624709431971907045}
-  movementSpeed: 1.7
-  sprintSpeed: 4
-  courageCollectParticleSystem: {fileID: 6250614698386667104}
-  spriteRenderer: {fileID: 8820627343415363624}
-  rb: {fileID: 3546636511749136385}
-  characterGlowingLight: {fileID: 1604705283}
-  stamina: {fileID: 1871683216658508858}
-  knockbackMultiplier: 2
   OnPositionChanged:
     m_PersistentCalls:
       m_Calls:
@@ -728,6 +718,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  animator: {fileID: 1266752489}
+  characterVision: {fileID: 1624709431971907045}
+  movementSpeed: 1.7
+  sprintSpeed: 4
+  courageCollectParticleSystem: {fileID: 6250614698386667104}
+  spriteRenderer: {fileID: 8820627343415363624}
+  rb: {fileID: 3546636511749136385}
+  characterGlowingLight: {fileID: 1604705283}
+  stamina: {fileID: 1871683216658508858}
+  knockBackMultiplier: 2
 --- !u!114 &1871683216658508858
 MonoBehaviour:
   m_ObjectHideFlags: 0

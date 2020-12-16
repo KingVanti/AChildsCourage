@@ -32,19 +32,19 @@ namespace AChildsCourage.Game
                         .DoIf(Mirror, transform.IsMirrored);
             }
 
-            internal static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
+            private static TilePosition OffsetAround(TilePosition position, TilePosition chunkCorner) =>
                 new TilePosition(
                                  chunkCorner.X + position.X,
                                  chunkCorner.Y + position.Y);
 
-            internal static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
+            private static TilePosition YMirrorOver(TilePosition position, TilePosition chunkCenter)
             {
                 var yDiff = chunkCenter.Y - position.Y;
 
                 return new TilePosition(position.X, chunkCenter.Y + yDiff);
             }
 
-            internal static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
+            private static TilePosition RotateClockwiseAround(TilePosition position, TilePosition chunkCenter)
             {
                 var translated = new TilePosition(
                                                   position.X - chunkCenter.X,

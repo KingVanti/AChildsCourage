@@ -7,20 +7,19 @@ namespace AChildsCourage.Game.Items
     public class ItemDataAsset : ScriptableObject
     {
 
-        #region Properties
-
-        public ItemData Data => new ItemData((ItemId) _id, _name);
-
-        #endregion
-
         #region Fields
 
 #pragma warning disable 649
 
-        [SerializeField] private int _id;
-        [SerializeField] private string _name;
+        [SerializeField] private int id;
 
 #pragma warning restore 649
+
+        #endregion
+
+        #region Properties
+
+        public ItemData Data => new ItemData((ItemId) id, name);
 
         #endregion
 

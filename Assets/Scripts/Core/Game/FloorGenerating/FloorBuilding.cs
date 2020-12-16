@@ -51,8 +51,7 @@ namespace AChildsCourage.Game
                           GetEndRoomChunkPosition(floorBuilder));
 
             private static Room BuildRoom(RoomBuilder roomBuilder) =>
-                new Room(roomBuilder.AoiIndex,
-                         roomBuilder.GroundTiles,
+                new Room(roomBuilder.GroundTiles,
                          roomBuilder.StaticObjects);
 
         }

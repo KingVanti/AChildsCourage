@@ -11,7 +11,7 @@ namespace AChildsCourage.Game
     {
 
         public const int ChunkSize = 21;
-        public const int ChunkExtent = (ChunkSize - 1) / 2;
+        private const int ChunkExtent = (ChunkSize - 1) / 2;
 
 
         public static TilePosition GetChunkCenter(ChunkPosition position) => GetChunkCorner(position) + new TileOffset(ChunkExtent, ChunkExtent);
@@ -38,9 +38,8 @@ namespace AChildsCourage.Game
                 case PassageDirection.East: return new ChunkPosition(position.X + 1, position.Y);
                 case PassageDirection.South: return new ChunkPosition(position.X, position.Y - 1);
                 case PassageDirection.West: return new ChunkPosition(position.X - 1, position.Y);
+                default: throw new Exception("Invalid direction!");
             }
-
-            throw new Exception("Invalid direction!");
         }
 
         public readonly struct ChunkPosition

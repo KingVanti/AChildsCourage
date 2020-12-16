@@ -54,22 +54,22 @@ namespace AChildsCourage.Game
                 wallPositions
                     .Select(toWall);
 
-            internal static Wall CreateWall(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions)
+            private static Wall CreateWall(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions)
             {
                 var wallType = HasGroundBelow(wallPosition, groundPositions) ? WallType.Side : WallType.Top;
 
                 return new Wall(wallPosition, wallType);
             }
 
-            internal static bool HasGroundBelow(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions) =>
+            private static bool HasGroundBelow(TilePosition wallPosition, ImmutableHashSet<TilePosition> groundPositions) =>
                 GetCheckGroundPositions(wallPosition)
                     .Any(groundPositions.Contains);
 
-            internal static IEnumerable<TilePosition> GetCheckGroundPositions(TilePosition wallPosition) =>
+            private static IEnumerable<TilePosition> GetCheckGroundPositions(TilePosition wallPosition) =>
                 GetGroundOffsets()
                     .Select(offset => wallPosition + offset);
 
-            internal static IEnumerable<TileOffset> GetGroundOffsets() =>
+            private static IEnumerable<TileOffset> GetGroundOffsets() =>
                 Enumerable.Range(-WallHeight, WallHeight)
                           .Select(y => new TileOffset(0, y));
 

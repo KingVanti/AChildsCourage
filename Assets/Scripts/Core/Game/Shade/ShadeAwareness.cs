@@ -1,6 +1,6 @@
 ﻿using System;
-using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Char;
+using AChildsCourage.Game.Items;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;
 
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Properties
 
-        public AwarenessLevel CurrentAwarenessLevel
+        private AwarenessLevel CurrentAwarenessLevel
         {
             get => currentAwarenessLevel;
             set
@@ -69,7 +69,9 @@ namespace AChildsCourage.Game.Shade
 
         private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
-        private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
+        private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary
+            ? primaryVisionMultiplier
+            : 1;
 
         private float DistanceMultiplier => DistanceToCharacter.Remap(minDistance, maxDistance, maxDistanceMultiplier, 1);
 
@@ -79,7 +81,7 @@ namespace AChildsCourage.Game.Shade
         {
             get
             {
-                switch (charController.CurrentMovmentState)
+                switch (charController.CurrentMovementState)
                 {
                     case MovementState.Standing: return 1;
                     case MovementState.Walking: return walkingMultiplier;
@@ -89,7 +91,9 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private float FlashLightMultiplier => flashlight.IsTurnedOn ? flashLightMultiplier : 1;
+        private float FlashLightMultiplier => flashlight.IsTurnedOn
+            ? flashLightMultiplier
+            : 1;
 
         #endregion
 
