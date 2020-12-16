@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.Courage;
 using static AChildsCourage.Game.Floors.MRoom;
@@ -11,17 +12,22 @@ namespace AChildsCourage.Game.Floors
     public static class MFloor
     {
 
-        public static (TilePosition, TilePosition ) GetFloorCorners(Floor floor)
-        {
-            var groundPositions = floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToArray();
+        public static Func<Floor, (TilePosition LowerLeft, TilePosition UpperRight)> GetFloorCorners =>
+            floor =>
+            {
+                var groundPositions = GetGroundPositions(floor);
 
-            var minX = groundPositions.Min(p => p.X);
-            var minY = groundPositions.Min(p => p.Y);
-            var maxX = groundPositions.Max(p => p.X);
-            var maxY = groundPositions.Max(p => p.Y);
+                var minX = groundPositions.Min(p => p.X);
+                var minY = groundPositions.Min(p => p.Y);
+                var maxX = groundPositions.Max(p => p.X);
+                var maxY = groundPositions.Max(p => p.Y);
 
-            return (new TilePosition(minX, minY), new TilePosition(maxX, maxY));
-        }
+                return (new TilePosition(minX, minY), new TilePosition(maxX, maxY));
+            };
+
+        private static Func<Floor, ImmutableHashSet<TilePosition>> GetGroundPositions =>
+            floor =>
+                floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToImmutableHashSet();
 
         public readonly struct Floor
         {
