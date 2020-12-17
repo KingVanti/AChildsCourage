@@ -228,7 +228,7 @@ namespace AChildsCourage.Game.Shade
 
         public void Respawn()
         {
-            spriteRenderer.material = defaultMaterial;
+            
             gameObject.SetActive(true);
             collider.enabled = true;
             StartBehaviour(Investigate);
@@ -239,17 +239,20 @@ namespace AChildsCourage.Game.Shade
             isDissolving = true;
 
             spriteRenderer.material = dissolveMaterial;
-            dissolveMaterial.SetFloat(fadePropertyId, 1);
+            spriteRenderer.material.SetFloat(fadePropertyId, 1);
 
-            while (dissolveMaterial.GetFloat(fadePropertyId) > 0)
+            while (spriteRenderer.material.GetFloat(fadePropertyId) > 0)
             {
-                dissolveMaterial.SetFloat(fadePropertyId,
-                                          Mathf.MoveTowards(dissolveMaterial.GetFloat(fadePropertyId), 0, Time.deltaTime));
+                spriteRenderer.material.SetFloat(fadePropertyId,
+                                          Mathf.MoveTowards(spriteRenderer.material.GetFloat(fadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
             DeactivateShade();
-            dissolveMaterial.SetFloat(fadePropertyId, 1);
+
+            spriteRenderer.material.SetFloat(fadePropertyId, 1);
+            spriteRenderer.material = defaultMaterial;
+
             isDissolving = false;
         }
 
