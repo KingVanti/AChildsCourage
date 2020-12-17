@@ -4,11 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Game.UI
-{
+namespace AChildsCourage.Game.UI {
 
-    public class CourageBarEntity : MonoBehaviour
-    {
+    public class CourageBarEntity : MonoBehaviour {
 
         #region Fields
 
@@ -24,38 +22,38 @@ namespace AChildsCourage.Game.UI
 
         #region Methods
 
-        public void UpdateCourage(int newValue, int neededValue, int maxValue)
-        {
+        public void UpdateCourage(int newValue, int neededValue, int maxValue) {
             UpdateCourageBar(newValue, maxValue);
             UpdateCourageCounter(newValue, neededValue);
         }
 
-        private void UpdateCourageBar(int newValue, int maxValue)
-        {
+        private void UpdateCourageBar(int newValue, int maxValue) {
             var newFillAmount = MCustomMath.Map(newValue, 0, maxValue, 0, 1);
             StartCoroutine(FillLerp(newFillAmount));
         }
 
-        private void UpdateCourageCounter(int newValue, int neededValue)
-        {
-            if (newValue >= neededValue)
+        private void UpdateCourageCounter(int newValue, int neededValue) {
+
+            if (newValue >= neededValue) {
                 courageCounterCurrentTextMesh.faceColor = textColor;
-            else
+                courageCounterNeededTextMesh.faceColor = textColor;
+            } else {
                 courageCounterCurrentTextMesh.faceColor = new Color(1, 1, 1, 1);
+                courageCounterNeededTextMesh.faceColor = new Color(1, 1, 1, 1);
+            }
 
             courageCounterCurrentTextMesh.text = newValue.ToString();
             courageCounterNeededTextMesh.text = "/ " + neededValue;
+
         }
 
-        private IEnumerator FillLerp(float destination)
-        {
-            while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon)
-            {
+        private IEnumerator FillLerp(float destination) {
+            while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon) {
                 courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 4.0f);
                 yield return new WaitForEndOfFrame();
             }
 
-            UpdateCourageBarColor();
+            //UpdateCourageBarColor();
         }
 
         private void UpdateCourageBarColor() =>
