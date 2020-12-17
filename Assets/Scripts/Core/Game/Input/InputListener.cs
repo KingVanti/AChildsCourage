@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
@@ -126,13 +127,13 @@ namespace AChildsCourage.Game.Input
         }
 
         [Sub(nameof(CharControllerEntity.OnCharDeath))]
-        public void OnCharDeath(object _1, EventArgs _2) => UnsubscribeFromInputs();
+        private void OnCharDeath(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         [Sub(nameof(CourageRiftEntity.OnCharWin))]
-        public void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
+        private void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         [Sub(nameof(CourageManagerEntity.OnCharLose))]
-        public void OnCharLose(object _1, EventArgs _2) => UnsubscribeFromInputs();
+        private void OnCharLose(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()
         {
