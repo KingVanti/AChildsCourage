@@ -1,11 +1,9 @@
-﻿using Ninject.Extensions.Unity;
-using UnityEngine;
+﻿using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
-
-    [UseDi]
+    
     public class RuneSpawnerEntity : MonoBehaviour
     {
 

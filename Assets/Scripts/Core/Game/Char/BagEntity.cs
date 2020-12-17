@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Items;
 using AChildsCourage.Game.Items.Pickups;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.Events;
-using static ItemDataRepository;
+using static AChildsCourage.ItemDataRepo;
 
 namespace AChildsCourage.Game.Char
 {
@@ -19,6 +17,10 @@ namespace AChildsCourage.Game.Char
 #pragma warning disable 649
 
         [SerializeField] private List<GameObject> availableItems = new List<GameObject>();
+
+        [FindInScene] private ItemPickupSpawnerEntity pickupSpawner;
+
+        [FindService] private FindItemData findItemData;
 
 #pragma warning restore 649
 
@@ -33,14 +35,6 @@ namespace AChildsCourage.Game.Char
 
         #endregion
 
-        #region Properties
-
-        [AutoInject] internal FindItemData FindItemData { private get; set; }
-
-        [AutoInject] private ItemPickupSpawnerEntity PickupSpawner { get; set; }
-
-        #endregion
-
         #region Methods
 
         public void UseItem(int usedSlotId)
@@ -49,7 +43,7 @@ namespace AChildsCourage.Game.Char
 
             currentItems[usedSlotId].Toggle();
             StartCoroutine(Cooldown(usedSlotId));
-            itemUsedEvent?.Invoke(FindItemData(currentItems[usedSlotId]
+            itemUsedEvent?.Invoke(findItemData(currentItems[usedSlotId]
                                                    .Id));
         }
 
@@ -66,7 +60,7 @@ namespace AChildsCourage.Game.Char
         {
             var itemId = currentItems[slotId]
                 .Id;
-            PickupSpawner.SpawnPickupFor(itemId, transform.position);
+            pickupSpawner.SpawnPickupFor(itemId, transform.position);
 
             itemDroppedEvent?.Invoke();
         }
@@ -112,7 +106,6 @@ namespace AChildsCourage.Game.Char
         }
 
         #endregion
-        
 
     }
 

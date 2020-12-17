@@ -11,10 +11,11 @@ namespace AChildsCourage.Game.Char {
         public Events.Empty onStaminaDepleted;
         public Events.Empty onRefreshed;
 
-#pragma warning  disable 649
-
         [Header("Stats")]
         public float stamina = 100;
+
+#pragma warning disable 649
+
         [SerializeField] private float staminaDepletedCooldown;
         [SerializeField] private EnumArray<MovementState, float> staminaRates;
         [SerializeField] private float recoveredStaminaAmount;

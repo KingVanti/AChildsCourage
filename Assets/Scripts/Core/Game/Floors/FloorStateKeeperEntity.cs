@@ -2,14 +2,12 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Shade.Navigation;
-using Ninject.Extensions.Unity;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
-
-    [UseDi]
+    
     public class FloorStateKeeperEntity : MonoBehaviour
     {
 

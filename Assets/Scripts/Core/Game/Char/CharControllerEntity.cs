@@ -1,36 +1,31 @@
 ﻿using System;
 using System.Collections;
-using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Items.Pickups;
 using AChildsCourage.Game.Shade;
-using Appccelerate.EventBroker;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.MCustomMath;
 
 namespace AChildsCourage.Game.Char
 {
 
-    [UseDi]
     public class CharControllerEntity : MonoBehaviour
     {
-        
-        [EventPublication(nameof(OnCharDeath))]
-        public event EventHandler OnCharDeath;
-        
+
         private static readonly int rotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
         private static readonly int flashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
         private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
+        [Pub] public event EventHandler OnCharDeath;
+
         #region Fields
-        
-        [Header("Events")] 
+
+        [Header("Events")]
         public Events.Vector2 OnPositionChanged;
         public Events.Int OnUseItem;
         public Events.Int OnDamageReceived;
@@ -71,12 +66,6 @@ namespace AChildsCourage.Game.Char
         #endregion
 
         #region Properties
-
-        [AutoInject]
-        internal IInputListener InputListener
-        {
-            set => BindTo(value);
-        }
 
         /// <summary>
         ///     The angle the char is facing towards the mouse cursor.
@@ -162,14 +151,17 @@ namespace AChildsCourage.Game.Char
 
         public ItemPickupEntity CurrentItemInRange { get; set; }
 
-        public MovementState CurrentMovementState {
+        public MovementState CurrentMovementState
+        {
             get => movementState;
-            set { 
-                if(movementState != value) {
+            set
+            {
+                if (movementState != value)
+                {
                     movementState = value;
                     OnMovementStateChanged.Invoke(CurrentMovementState);
                 }
-            } 
+            }
         }
 
         #endregion
@@ -185,26 +177,12 @@ namespace AChildsCourage.Game.Char
 
         private void FixedUpdate() => Move();
 
-        private void BindTo(IInputListener listener)
-        {
-            listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
-            listener.OnMoveDirectionChanged += (_, e) => OnMoveDirectionChanged(e);
-            listener.OnItemPickedUp += (_, e) => OnItemPickedUp(e);
-            listener.OnEquippedItemUsed += (_, e) => OnEquippedItemUsed(e);
-            listener.OnItemSwapped += (_, e) => OnItemSwapped(e);
-            listener.OnStartSprinting += (_, e) => OnStartSprint(e);
-            listener.OnStopSprinting += (_, e) => OnStopSprint(e);
-        }
 
-        private void UpdateMovementState()
-        {
-
+        private void UpdateMovementState() =>
             CurrentMovementState =
                 IsSprinting ? MovementState.Sprinting
                 : IsMoving ? MovementState.Walking
                 : MovementState.Standing;
-
-        }
 
         private void UpdateAnimator()
         {
@@ -258,20 +236,23 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnMousePositionChanged))]
+        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs)
         {
             MousePos = eventArgs.MousePosition;
             Rotate();
         }
 
-        private void OnMoveDirectionChanged(MoveDirectionChangedEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnMoveDirectionChanged))]
+        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs)
         {
             if (!gettingKnockedBack) MovingDirection = eventArgs.MoveDirection;
         }
 
         #region Sprinting
 
-        private void OnStartSprint(StartSprintEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnStartSprinting))]
+        private void OnStartSprint(object _, StartSprintEventArgs eventArgs)
         {
             if (!IsMoving) return;
             if (hasStamina)
@@ -283,7 +264,8 @@ namespace AChildsCourage.Game.Char
             OnSprintStart?.Invoke();
         }
 
-        private void OnStopSprint(StopSprintEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnStopSprinting))]
+        private void OnStopSprint(object _, StopSprintEventArgs eventArgs)
         {
             if (hasStamina && IsSprinting) OnSprintStop?.Invoke();
 
@@ -306,9 +288,12 @@ namespace AChildsCourage.Game.Char
 
         #endregion
 
-        private void OnEquippedItemUsed(EquippedItemUsedEventArgs eventArgs) => OnUseItem?.Invoke(eventArgs.SlotId);
+        [Sub(nameof(InputListener.OnEquippedItemUsed))]
+        private void OnEquippedItemUsed(object _, EquippedItemUsedEventArgs eventArgs) => OnUseItem?.Invoke(eventArgs.SlotId);
 
-        private void OnItemPickedUp(ItemPickedUpEventArgs eventArgs)
+
+        [Sub(nameof(InputListener.OnItemPickedUp))]
+        private void OnItemPickedUp(object _, ItemPickedUpEventArgs eventArgs)
         {
             if (!IsInPickupRange) return;
 
@@ -319,7 +304,8 @@ namespace AChildsCourage.Game.Char
             Destroy(CurrentItemInRange.gameObject);
         }
 
-        private void OnItemSwapped(ItemSwappedEventArgs eventArgs) => OnSwapItem?.Invoke();
+        [Sub(nameof(InputListener.OnItemSwapped))]
+        private void OnItemSwapped(object _, ItemSwappedEventArgs eventArgs) => OnSwapItem?.Invoke();
 
         public void OnCouragePickUp(CouragePickupEntity courage)
         {

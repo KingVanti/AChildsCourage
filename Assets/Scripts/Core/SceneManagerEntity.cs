@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
-using static AChildsCourage.ServiceInjecting;
+using static AChildsCourage.Infrastructure.MInfrastructure;
 
 namespace AChildsCourage
 {
@@ -15,10 +14,10 @@ namespace AChildsCourage
 
         private void SetupScene()
         {
-            InjectServices();
+            SetupSceneInfrastructure();
             onSceneLoaded.Invoke();
         }
-        
+
     }
 
 }

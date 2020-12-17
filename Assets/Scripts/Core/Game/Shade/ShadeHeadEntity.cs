@@ -1,10 +1,9 @@
-﻿using Ninject.Extensions.Unity;
+﻿using AChildsCourage.Infrastructure;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
-
-    [UseDi]
+    
     public class ShadeHeadEntity : MonoBehaviour
     {
 
@@ -13,14 +12,10 @@ namespace AChildsCourage.Game.Shade
 #pragma warning disable 649
 
         [SerializeField] private float rotationDegreesPerSecond;
+        
+        [FindInScene] private ShadeMovementEntity shadeMovement;
 
 #pragma warning restore 649
-
-        #endregion
-
-        #region Properties
-
-        [AutoInject] public ShadeMovementEntity Movement { private get; set; }
 
         #endregion
 
@@ -28,7 +23,7 @@ namespace AChildsCourage.Game.Shade
 
         private void Update() => FaceMovementDirection();
 
-        private void FaceMovementDirection() => transform.right = Movement.CurrentDirection;
+        private void FaceMovementDirection() => transform.right = shadeMovement.CurrentDirection;
 
         #endregion
 

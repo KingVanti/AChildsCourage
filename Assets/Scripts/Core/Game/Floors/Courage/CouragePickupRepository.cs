@@ -1,39 +1,25 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    internal class CouragePickupRepository : ICouragePickupRepository
+    internal static class CouragePickupAppearanceRepo
     {
 
-        #region Constants
+        public delegate IEnumerable<CouragePickupAppearance> LoadCouragePickupAppearances();
 
-        private const string CouragePickupDataPath = "Courage-Pickup Appearances/";
 
-        #endregion
+        private const string RoomResourcePath = "Courage-Pickup Appearances/";
 
-        #region Fields
 
-        private readonly ImmutableHashSet<CouragePickupAppearance> couragePickups;
+        [Service]
+        public static LoadCouragePickupAppearances FromAssets => LoadAssets;
 
-        #endregion
-
-        #region Constructors
-
-        public CouragePickupRepository() => couragePickups = Resources.LoadAll<CouragePickupAppearance>(CouragePickupDataPath).ToImmutableHashSet();
-
-        #endregion
-
-        #region Methods
-
-        public CouragePickupAppearance GetCouragePickupData(CourageVariant variant) => couragePickups.First(cpd => cpd.Variant == variant);
-
-        public CouragePickupAppearance GetRandomPickupData(CreateRng createRng) => couragePickups.GetRandom(createRng);
-
-        #endregion
+        private static IEnumerable<CouragePickupAppearance> LoadAssets() =>
+            Resources.LoadAll<CouragePickupAppearance>(RoomResourcePath).ToImmutableHashSet();
 
     }
 

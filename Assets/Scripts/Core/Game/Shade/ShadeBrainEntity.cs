@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Shade.Navigation;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
@@ -11,8 +11,7 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
-
-    [UseDi]
+    
     public class ShadeBrainEntity : MonoBehaviour
     {
 
@@ -39,7 +38,10 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material dissolveMaterial;
         [SerializeField] private new Collider2D collider;
-        [SerializeField] private ShadeEyesEntity shadeEyes;
+
+        [FindInScene] private ShadeEyesEntity shadeEyes;
+        [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
+
 
 #pragma warning restore 649
 
@@ -56,8 +58,6 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Properties
-
-        [AutoInject] public FloorStateKeeperEntity FloorStateKeeper { private get; set; }
 
         public int TouchDamage => touchDamage;
 
@@ -118,7 +118,7 @@ namespace AChildsCourage.Game.Shade
             void StartInvestigation()
             {
                 behaviourType = ShadeBehaviourType.Investigating;
-                investigationBehaviour.StartNewInvestigation(FloorStateKeeper.CurrentFloorState, CurrentState);
+                investigationBehaviour.StartNewInvestigation(floorStateKeeper.CurrentFloorState, CurrentState);
                 CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
             }
 
@@ -228,7 +228,7 @@ namespace AChildsCourage.Game.Shade
 
         public void Respawn()
         {
-            spriteRenderer.material = defaultMaterial;
+            
             gameObject.SetActive(true);
             collider.enabled = true;
             StartBehaviour(Investigate);
@@ -239,17 +239,20 @@ namespace AChildsCourage.Game.Shade
             isDissolving = true;
 
             spriteRenderer.material = dissolveMaterial;
-            dissolveMaterial.SetFloat(fadePropertyId, 1);
+            spriteRenderer.material.SetFloat(fadePropertyId, 1);
 
-            while (dissolveMaterial.GetFloat(fadePropertyId) > 0)
+            while (spriteRenderer.material.GetFloat(fadePropertyId) > 0)
             {
-                dissolveMaterial.SetFloat(fadePropertyId,
-                                          Mathf.MoveTowards(dissolveMaterial.GetFloat(fadePropertyId), 0, Time.deltaTime));
+                spriteRenderer.material.SetFloat(fadePropertyId,
+                                          Mathf.MoveTowards(spriteRenderer.material.GetFloat(fadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 
             DeactivateShade();
-            dissolveMaterial.SetFloat(fadePropertyId, 1);
+
+            spriteRenderer.material.SetFloat(fadePropertyId, 1);
+            spriteRenderer.material = defaultMaterial;
+
             isDissolving = false;
         }
 

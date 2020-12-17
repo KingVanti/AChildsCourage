@@ -1,8 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
-using Appccelerate.EventBroker;
-using Appccelerate.EventBroker.Handlers;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
@@ -10,19 +9,38 @@ using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 namespace AChildsCourage.Game.Input
 {
 
-    [Singleton]
-    internal class InputListener : IInputListener, IEagerActivation
+    internal class InputListener : MonoBehaviour
     {
 
         #region Fields
 
-        private readonly CharControls charControls;
+        private CharControls charControls;
 
         #endregion
 
-        #region Constructors
+        #region Events
 
-        public InputListener()
+        [Pub] public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
+
+        [Pub] public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
+
+        [Pub] public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
+
+        [Pub] public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
+
+        [Pub] public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
+
+        [Pub] public event EventHandler<StartSprintEventArgs> OnStartSprinting;
+
+        [Pub] public event EventHandler<StopSprintEventArgs> OnStopSprinting;
+
+        #endregion
+
+        #region Methods
+
+        public void OnSceneLoaded() => SetupInputs();
+
+        private void SetupInputs()
         {
             charControls = new CharControls();
 
@@ -37,27 +55,6 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Enable();
         }
 
-        #endregion
-
-        #region Events
-
-        public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
-
-        public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
-
-        public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
-
-        public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
-
-        public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
-
-        public event EventHandler<StartSprintEventArgs> OnStartSprinting;
-
-        public event EventHandler<StopSprintEventArgs> OnStopSprinting;
-
-        #endregion
-
-        #region Methods
 
         private void OnLook(Context context)
         {
@@ -128,14 +125,14 @@ namespace AChildsCourage.Game.Input
             OnItemSwapped?.Invoke(this, eventArgs);
         }
 
-        [EventSubscription(nameof(CharControllerEntity.OnCharDeath), typeof(OnPublisher))]
-        public void OnCharDeath(EventArgs _) => UnsubscribeFromInputs();
+        [Sub(nameof(CharControllerEntity.OnCharDeath))]
+        public void OnCharDeath(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageRiftEntity.OnCharWin), typeof(OnPublisher))]
-        public void OnCharWin(EventArgs _) => UnsubscribeFromInputs();
+        [Sub(nameof(CourageRiftEntity.OnCharWin))]
+        public void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
-        [EventSubscription(nameof(CourageManagerEntity.OnCharLose), typeof(OnPublisher))]
-        public void OnCharLose(EventArgs _) => UnsubscribeFromInputs();
+        [Sub(nameof(CourageManagerEntity.OnCharLose))]
+        public void OnCharLose(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()
         {

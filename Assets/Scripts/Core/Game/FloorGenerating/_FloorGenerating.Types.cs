@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
+using UnityEngine;
 using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game
@@ -7,13 +9,16 @@ namespace AChildsCourage.Game
     public static partial class MFloorGenerating
     {
 
-        public readonly struct GenerationParameters
+        [Serializable]
+        public struct GenerationParameters
         {
 
-            public int RoomCount { get; }
+            [SerializeField] private int roomCount;
+
+            public int RoomCount => roomCount;
 
 
-            public GenerationParameters(int goalRoomCount) => RoomCount = goalRoomCount;
+            public GenerationParameters(int goalRoomCount) => roomCount = goalRoomCount;
 
         }
 

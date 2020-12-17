@@ -1,5 +1,4 @@
-﻿using Ninject.Extensions.Unity;
-using static UnityEngine.SceneManagement.SceneManager;
+﻿using static UnityEngine.SceneManagement.SceneManager;
 
 namespace AChildsCourage.Game
 {
@@ -7,15 +6,12 @@ namespace AChildsCourage.Game
     public class GameManager : SceneManagerEntity
     {
 
+        public Events.Empty onPrepareNight;
         public Events.Empty onNightPrepared;
-
-        
-        [AutoInject] public INightManager NightManager { private get; set; }
-
 
         public void PrepareGame()
         {
-            NightManager.PrepareNightForCurrentRun();
+            onPrepareNight.Invoke();
             onNightPrepared.Invoke();
         }
 

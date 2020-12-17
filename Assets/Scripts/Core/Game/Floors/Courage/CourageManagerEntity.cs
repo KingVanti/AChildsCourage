@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
-using Appccelerate.EventBroker;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    [UseDi]
     public class CourageManagerEntity : MonoBehaviour
     {
 
@@ -32,8 +30,7 @@ namespace AChildsCourage.Game.Floors.Courage
         public Events.Empty onCourageNotEnoughCompleted;
         public Events.Bool OnCouragePickupableChanged;
 
-        [EventPublication(nameof(OnCharLose))]
-        public event EventHandler OnCharLose;
+        [Pub] public event EventHandler OnCharLose;
 
         #endregion
 

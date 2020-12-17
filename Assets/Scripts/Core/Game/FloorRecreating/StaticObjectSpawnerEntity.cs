@@ -1,13 +1,11 @@
 ﻿using System;
-using Ninject.Extensions.Unity;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Floors
 {
-
-    [UseDi]
+    
     public class StaticObjectSpawnerEntity : MonoBehaviour
     {
 

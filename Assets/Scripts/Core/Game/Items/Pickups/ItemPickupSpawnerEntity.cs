@@ -1,20 +1,13 @@
 ﻿using System.Linq;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static ItemDataRepository;
+using static AChildsCourage.ItemDataRepo;
 
 namespace AChildsCourage.Game.Items.Pickups
 {
-
-    [UseDi]
+    
     public class ItemPickupSpawnerEntity : MonoBehaviour
     {
-
-        #region Properties
-
-        [AutoInject] internal FindItemData FindItemData { private get; set; }
-
-        #endregion
 
         #region Fields
 
@@ -22,6 +15,8 @@ namespace AChildsCourage.Game.Items.Pickups
 
         [SerializeField] private GameObject pickupPrefab;
         [SerializeField] private ItemIcon[] itemIcons;
+
+        [FindService] private FindItemData findItemData;
 
 #pragma warning restore 649
 
@@ -32,7 +27,7 @@ namespace AChildsCourage.Game.Items.Pickups
         public void SpawnPickupFor(ItemId itemId, Vector3 position)
         {
             var pickupEntity = SpawnItemPickup(position);
-            var itemData = FindItemData(itemId);
+            var itemData = findItemData(itemId);
             var icon = itemIcons.First(i => i.ItemId == itemData.Id);
 
             pickupEntity.SetItemData(itemData, icon);

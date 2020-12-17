@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using Ninject.Extensions.Unity;
 using Pathfinding;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
-
-    [UseDi]
+    
     public class ShadeMovementEntity : MonoBehaviour
     {
 

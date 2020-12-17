@@ -1,6 +1,5 @@
 ﻿using System;
-using Appccelerate.EventBroker;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
@@ -10,12 +9,10 @@ using static AChildsCourage.MCustomMath;
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    [UseDi]
     public class CourageRiftEntity : MonoBehaviour
     {
 
-        [EventPublication(nameof(OnCharWin))]
-        public event EventHandler OnCharWin;
+        [Pub] public event EventHandler OnCharWin;
 
         #region Fields
 

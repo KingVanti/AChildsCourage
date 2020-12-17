@@ -1,13 +1,11 @@
 ﻿using AChildsCourage.Game.Floors;
-using Ninject.Extensions.Unity;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
-
-    [UseDi]
+    
     public class TileRepositoryEntity : MonoBehaviour
     {
 

@@ -1,5 +1,5 @@
 ﻿using AChildsCourage.Game.Input;
-using Ninject.Extensions.Unity;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.MCustomMath;
@@ -30,12 +30,6 @@ namespace AChildsCourage.Game.Items
         #endregion
 
         #region Properties
-
-        [AutoInject]
-        internal IInputListener InputListener
-        {
-            set => BindTo(value);
-        }
 
         public bool IsTurnedOn { get; private set; }
 
@@ -69,9 +63,7 @@ namespace AChildsCourage.Game.Items
             lightComponent.pointLightOuterRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.65f, maxFlashlightOuterRadius), 2);
             lightComponent.pointLightInnerRadius = Mathf.Pow(Map(Mathf.Abs(DistanceToCharacter), 0f, maxFlashlightDistance, 0.25f, maxFlashlightInnerRadius), 2);
         }
-
-        private void BindTo(IInputListener listener) => listener.OnMousePositionChanged += (_, e) => OnMousePositionChanged(e);
-
+        
         private void UpdateFlashlight()
         {
             if (!IsTurnedOn) return;
@@ -81,7 +73,8 @@ namespace AChildsCourage.Game.Items
             ChangeLightRadius();
         }
 
-        private void OnMousePositionChanged(MousePositionChangedEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnMousePositionChanged))]
+        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs)
         {
             MousePos = eventArgs.MousePosition;
             UpdateFlashlight();
