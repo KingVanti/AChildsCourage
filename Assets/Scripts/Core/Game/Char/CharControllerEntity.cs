@@ -305,7 +305,7 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnItemSwapped))]
-        private void OnItemSwapped(object _, ItemSwappedEventArgs eventArgs) => OnSwapItem?.Invoke();
+        private void OnItemSwapped(object _1, ItemSwappedEventArgs _2) => OnSwapItem?.Invoke();
 
         public void OnCouragePickUp(CouragePickupEntity courage)
         {
