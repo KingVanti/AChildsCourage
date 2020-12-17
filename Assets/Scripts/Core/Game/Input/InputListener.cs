@@ -2,7 +2,6 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
