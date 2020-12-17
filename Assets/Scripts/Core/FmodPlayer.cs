@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using AChildsCourage.Game.Char;
-using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Game.Items;
+using AChildsCourage.Infrastructure;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -21,9 +20,7 @@ namespace AChildsCourage
 
         private readonly float Material = 0;
         private readonly float waitTime = 1.5f;
-        private bool blankie_status;
         private bool Char_sprint_stop_Is_playing;
-        private bool Flashlight_status;
         private EventInstance Footsteps;
         private EventInstance Stamina_eventInstance;
 
@@ -76,54 +73,12 @@ namespace AChildsCourage
             Footsteps.release();
         }
 
-        public void PlayItems(ItemData itemData)
-        {
-            switch (itemData.Id)
-            {
-                case 0: //flashlight
-                    PlayFlashlight();
-                    break;
+        [Sub(nameof(Flashlight.OnFlashlightToggled))]
+        public void OnFlashLightToggled(object _, FlashlightToggleEventArgs eventArgs) =>
+            RuntimeManager.PlayOneShot(eventArgs.IsTurnedOn ? Flashlight_ON_Path : Flashlight_OFF_Path, transform.position);
 
-                case 1: //Blankie
-                    PlayBlankie();
-                    break;
-                default:
-                    Debug.Log("ItemID wrong");
-                    break;
-            }
-        }
 
         public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
-
-        public void PlayBlankie()
-        {
-            if (blankie_status)
-            {
-                RuntimeManager.PlayOneShot(Blankie_ON_Path, GetComponent<Transform>().position);
-                blankie_status = !blankie_status;
-            }
-            else
-            {
-                RuntimeManager.PlayOneShot(Blankie_OFF_Path, GetComponent<Transform>().position);
-                blankie_status = !blankie_status;
-            }
-        }
-
-        public void PlayFlashlight()
-        {
-            if (Flashlight_status)
-            {
-                RuntimeManager.PlayOneShot(Flashlight_ON_Path, GetComponent<Transform>().position);
-                Flashlight_status = !Flashlight_status;
-            }
-            else
-            {
-                RuntimeManager.PlayOneShot(Flashlight_OFF_Path, GetComponent<Transform>().position);
-                Flashlight_status = !Flashlight_status;
-            }
-        }
-
-        public void PlayItemSwap() => RuntimeManager.PlayOneShot(ItemSwap_Path, GetComponent<Transform>().position);
 
         public void PlayCouragePickUp(CouragePickupEntity couragePickup)
         {

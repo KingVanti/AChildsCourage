@@ -37,28 +37,12 @@ namespace AChildsCourage.Game.Input
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Item1"",
+                    ""name"": ""Flashlight"",
                     ""type"": ""Button"",
                     ""id"": ""7d2e1401-9d8c-4294-a8e3-44f8e67d8311"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=0.6),Press(behavior=2)""
-                },
-                {
-                    ""name"": ""Item2"",
-                    ""type"": ""Button"",
-                    ""id"": ""918a9149-4af6-48b2-9095-084b814f9be4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.6),Press(behavior=2)""
-                },
-                {
-                    ""name"": ""Swap"",
-                    ""type"": ""Button"",
-                    ""id"": ""2b242a65-6c96-479c-a9fa-2ddc1c888fce"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Sprint"",
@@ -143,29 +127,7 @@ namespace AChildsCourage.Game.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Item1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03674e48-5055-4e76-8e11-e63e59a47fd9"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Item2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b9b019a4-d0c7-4942-a4b5-a164d83e3721"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Swap"",
+                    ""action"": ""Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -490,9 +452,7 @@ namespace AChildsCourage.Game.Input
             m_Char = asset.FindActionMap("Char", throwIfNotFound: true);
             m_Char_Move = m_Char.FindAction("Move", throwIfNotFound: true);
             m_Char_Look = m_Char.FindAction("Look", throwIfNotFound: true);
-            m_Char_Item1 = m_Char.FindAction("Item1", throwIfNotFound: true);
-            m_Char_Item2 = m_Char.FindAction("Item2", throwIfNotFound: true);
-            m_Char_Swap = m_Char.FindAction("Swap", throwIfNotFound: true);
+            m_Char_Flashlight = m_Char.FindAction("Flashlight", throwIfNotFound: true);
             m_Char_Sprint = m_Char.FindAction("Sprint", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -554,9 +514,7 @@ namespace AChildsCourage.Game.Input
         private ICharActions m_CharActionsCallbackInterface;
         private readonly InputAction m_Char_Move;
         private readonly InputAction m_Char_Look;
-        private readonly InputAction m_Char_Item1;
-        private readonly InputAction m_Char_Item2;
-        private readonly InputAction m_Char_Swap;
+        private readonly InputAction m_Char_Flashlight;
         private readonly InputAction m_Char_Sprint;
         public struct CharActions
         {
@@ -564,9 +522,7 @@ namespace AChildsCourage.Game.Input
             public CharActions(@CharControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Char_Move;
             public InputAction @Look => m_Wrapper.m_Char_Look;
-            public InputAction @Item1 => m_Wrapper.m_Char_Item1;
-            public InputAction @Item2 => m_Wrapper.m_Char_Item2;
-            public InputAction @Swap => m_Wrapper.m_Char_Swap;
+            public InputAction @Flashlight => m_Wrapper.m_Char_Flashlight;
             public InputAction @Sprint => m_Wrapper.m_Char_Sprint;
             public InputActionMap Get() { return m_Wrapper.m_Char; }
             public void Enable() { Get().Enable(); }
@@ -583,15 +539,9 @@ namespace AChildsCourage.Game.Input
                     @Look.started -= m_Wrapper.m_CharActionsCallbackInterface.OnLook;
                     @Look.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnLook;
                     @Look.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnLook;
-                    @Item1.started -= m_Wrapper.m_CharActionsCallbackInterface.OnItem1;
-                    @Item1.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnItem1;
-                    @Item1.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnItem1;
-                    @Item2.started -= m_Wrapper.m_CharActionsCallbackInterface.OnItem2;
-                    @Item2.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnItem2;
-                    @Item2.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnItem2;
-                    @Swap.started -= m_Wrapper.m_CharActionsCallbackInterface.OnSwap;
-                    @Swap.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnSwap;
-                    @Swap.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnSwap;
+                    @Flashlight.started -= m_Wrapper.m_CharActionsCallbackInterface.OnFlashlight;
+                    @Flashlight.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnFlashlight;
+                    @Flashlight.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnFlashlight;
                     @Sprint.started -= m_Wrapper.m_CharActionsCallbackInterface.OnSprint;
                     @Sprint.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnSprint;
                     @Sprint.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnSprint;
@@ -605,15 +555,9 @@ namespace AChildsCourage.Game.Input
                     @Look.started += instance.OnLook;
                     @Look.performed += instance.OnLook;
                     @Look.canceled += instance.OnLook;
-                    @Item1.started += instance.OnItem1;
-                    @Item1.performed += instance.OnItem1;
-                    @Item1.canceled += instance.OnItem1;
-                    @Item2.started += instance.OnItem2;
-                    @Item2.performed += instance.OnItem2;
-                    @Item2.canceled += instance.OnItem2;
-                    @Swap.started += instance.OnSwap;
-                    @Swap.performed += instance.OnSwap;
-                    @Swap.canceled += instance.OnSwap;
+                    @Flashlight.started += instance.OnFlashlight;
+                    @Flashlight.performed += instance.OnFlashlight;
+                    @Flashlight.canceled += instance.OnFlashlight;
                     @Sprint.started += instance.OnSprint;
                     @Sprint.performed += instance.OnSprint;
                     @Sprint.canceled += instance.OnSprint;
@@ -751,9 +695,7 @@ namespace AChildsCourage.Game.Input
         {
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
-            void OnItem1(InputAction.CallbackContext context);
-            void OnItem2(InputAction.CallbackContext context);
-            void OnSwap(InputAction.CallbackContext context);
+            void OnFlashlight(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
         }
         public interface IUIActions

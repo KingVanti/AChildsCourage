@@ -2,7 +2,6 @@
 using System.Collections;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
-using AChildsCourage.Game.Items.Pickups;
 using AChildsCourage.Game.Shade;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
@@ -18,7 +17,6 @@ namespace AChildsCourage.Game.Char
         private static readonly int rotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
-        private static readonly int flashlightEquippedAnimatorKey = Animator.StringToHash("HasFlashlightEquipped");
         private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
         [Pub] public event EventHandler OnCharDeath;
@@ -27,12 +25,9 @@ namespace AChildsCourage.Game.Char
 
         [Header("Events")]
         public Events.Vector2 OnPositionChanged;
-        public Events.Int OnUseItem;
         public Events.Int OnDamageReceived;
-        public Events.Empty OnSwapItem;
         public Events.Empty OnSprintStart;
         public Events.Empty OnSprintStop;
-        public CharEvents.PickUp OnPickUpItem;
         public CharEvents.CouragePickUp OnCouragePickedUp;
         public CharEvents.MovementState OnMovementStateChanged;
 
@@ -136,21 +131,7 @@ namespace AChildsCourage.Game.Char
                 UpdateAnimator();
             }
         }
-
-        public bool IsInPickupRange { get; set; }
-
-        public bool HasFlashlightEquipped
-        {
-            get => hasFlashlightEquipped;
-            set
-            {
-                hasFlashlightEquipped = value;
-                UpdateAnimator();
-            }
-        }
-
-        public ItemPickupEntity CurrentItemInRange { get; set; }
-
+        
         public MovementState CurrentMovementState
         {
             get => movementState;
@@ -192,8 +173,6 @@ namespace AChildsCourage.Game.Char
             animator.SetBool(movingAnimatorKey, IsMoving);
             animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
             animator.SetBool(sprintingAnimatorKey, IsSprinting);
-
-            if (HasFlashlightEquipped) animator.SetBool(flashlightEquippedAnimatorKey, hasFlashlightEquipped);
         }
 
 
@@ -288,25 +267,6 @@ namespace AChildsCourage.Game.Char
 
         #endregion
 
-        [Sub(nameof(InputListener.OnEquippedItemUsed))]
-        private void OnEquippedItemUsed(object _, EquippedItemUsedEventArgs eventArgs) => OnUseItem?.Invoke(eventArgs.SlotId);
-
-
-        [Sub(nameof(InputListener.OnItemPickedUp))]
-        private void OnItemPickedUp(object _, ItemPickedUpEventArgs eventArgs)
-        {
-            if (!IsInPickupRange) return;
-
-            OnPickUpItem?.Invoke(eventArgs.SlotId, CurrentItemInRange.Id);
-
-            if (CurrentItemInRange.Id == 0) HasFlashlightEquipped = true;
-
-            Destroy(CurrentItemInRange.gameObject);
-        }
-
-        [Sub(nameof(InputListener.OnItemSwapped))]
-        private void OnItemSwapped(object _1, ItemSwappedEventArgs _2) => OnSwapItem?.Invoke();
-
         public void OnCouragePickUp(CouragePickupEntity courage)
         {
             var emission = courageCollectParticleSystem.emission;
@@ -340,27 +300,10 @@ namespace AChildsCourage.Game.Char
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(EntityTags.Item))
-            {
-                IsInPickupRange = true;
-                CurrentItemInRange = collision.gameObject.GetComponent<ItemPickupEntity>();
-                CurrentItemInRange.ShowInfo(IsInPickupRange);
-            }
-
             if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
             OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
             Destroy(collision.gameObject);
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (!collision.CompareTag(EntityTags.Item)) return;
-
-            IsInPickupRange = false;
-            CurrentItemInRange.GetComponent<ItemPickupEntity>()
-                              .ShowInfo(IsInPickupRange);
-            CurrentItemInRange = null;
         }
 
         private void TakingDamage(int damage, Vector2 knockBackVector)

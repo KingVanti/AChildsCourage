@@ -1,6 +1,5 @@
 ﻿using System;
 using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Game.Items;
 using UnityEngine.Events;
 
 namespace AChildsCourage.Game.Char
@@ -11,12 +10,6 @@ namespace AChildsCourage.Game.Char
         
         [Serializable]
         public class Cooldown : UnityEvent<int, float, float> { }
-
-        [Serializable]
-        public class ItemData : UnityEvent<Items.ItemData> { }
-        
-        [Serializable]
-        public class PickUp : UnityEvent<int, int> { }
 
         [Serializable]
         public class CouragePickUp : UnityEvent<CouragePickupEntity> { }

@@ -6,7 +6,6 @@
 
         Ground,
         Courage,
-        Item,
         StaticObject,
         Runes
 

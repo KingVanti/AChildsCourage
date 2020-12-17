@@ -1,6 +1,5 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
-using AChildsCourage.Game.Items;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;

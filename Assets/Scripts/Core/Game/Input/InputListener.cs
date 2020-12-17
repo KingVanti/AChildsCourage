@@ -3,7 +3,6 @@ using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace AChildsCourage.Game.Input
@@ -24,11 +23,7 @@ namespace AChildsCourage.Game.Input
 
         [Pub] public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
 
-        [Pub] public event EventHandler<EquippedItemUsedEventArgs> OnEquippedItemUsed;
-
-        [Pub] public event EventHandler<ItemPickedUpEventArgs> OnItemPickedUp;
-
-        [Pub] public event EventHandler<ItemSwappedEventArgs> OnItemSwapped;
+        [Pub] public event EventHandler OnFlashLightInput;
 
         [Pub] public event EventHandler<StartSprintEventArgs> OnStartSprinting;
 
@@ -46,9 +41,7 @@ namespace AChildsCourage.Game.Input
 
             charControls.Char.Look.performed += OnLook;
             charControls.Char.Move.performed += OnMove;
-            charControls.Char.Item1.performed += OnItem1KeyPress;
-            charControls.Char.Item2.performed += OnItem2KeyPress;
-            charControls.Char.Swap.performed += OnItemSwap;
+            charControls.Char.Flashlight.performed += OnFlashLightInputOccurred;
             charControls.Char.Sprint.performed += OnSprintPressed;
             charControls.Char.Sprint.canceled += OnSprintReleased;
 
@@ -90,40 +83,7 @@ namespace AChildsCourage.Game.Input
             OnStopSprinting?.Invoke(this, eventArgs);
         }
 
-        private void OnItem1KeyPress(Context context)
-        {
-            if (context.interaction is HoldInteraction)
-                OnItemPickedUpTo(0, context);
-            else
-                OnEquippedItemUsedIn(0, context);
-        }
-
-        private void OnItem2KeyPress(Context context)
-        {
-            if (context.interaction is HoldInteraction)
-                OnItemPickedUpTo(1, context);
-            else
-                OnEquippedItemUsedIn(1, context);
-        }
-
-        private void OnEquippedItemUsedIn(int slotId, Context _)
-        {
-            var eventArgs = new EquippedItemUsedEventArgs(slotId);
-            OnEquippedItemUsed?.Invoke(this, eventArgs);
-        }
-
-
-        private void OnItemPickedUpTo(int slotId, Context _)
-        {
-            var eventArgs = new ItemPickedUpEventArgs(slotId);
-            OnItemPickedUp?.Invoke(this, eventArgs);
-        }
-
-        private void OnItemSwap(Context context)
-        {
-            var eventArgs = new ItemSwappedEventArgs();
-            OnItemSwapped?.Invoke(this, eventArgs);
-        }
+        private void OnFlashLightInputOccurred(Context _) => OnFlashLightInput?.Invoke(this, EventArgs.Empty);
 
         [Sub(nameof(CharControllerEntity.OnCharDeath))]
         private void OnCharDeath(object _1, EventArgs _2) => UnsubscribeFromInputs();
@@ -138,9 +98,7 @@ namespace AChildsCourage.Game.Input
         {
             charControls.Char.Look.performed -= OnLook;
             charControls.Char.Move.performed -= OnMove;
-            charControls.Char.Swap.performed -= OnItemSwap;
-            charControls.Char.Item1.performed -= OnItem1KeyPress;
-            charControls.Char.Item2.performed -= OnItem2KeyPress;
+            charControls.Char.Flashlight.performed -= OnFlashLightInputOccurred;
             charControls.Char.Sprint.performed -= OnSprintPressed;
             charControls.Char.Sprint.canceled -= OnSprintReleased;
         }

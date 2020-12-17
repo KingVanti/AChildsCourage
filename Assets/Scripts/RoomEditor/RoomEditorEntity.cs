@@ -17,7 +17,6 @@ namespace AChildsCourage.RoomEditor
 
         [SerializeField] private GroundTileLayerEntity groundLayer;
         [SerializeField] private CouragePickupLayerEntity courageLayer;
-        [SerializeField] private ItemPickupLayerEntity itemLayer;
         [SerializeField] private StaticObjectLayerEntity staticObjectLayer;
         [SerializeField] private RuneLayerEntity runeLayer;
 
@@ -63,7 +62,6 @@ namespace AChildsCourage.RoomEditor
         {
             groundLayer.PlaceAll(content.GroundData);
             courageLayer.PlaceAll(content.CourageData);
-            itemLayer.PlaceAll(content.ItemData);
             staticObjectLayer.PlaceAll(content.StaticObjects);
             runeLayer.PlaceAll(content.Runes);
         }
@@ -92,9 +90,6 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Courage:
                     courageLayer.PlaceAt(position, SelectedCourageVariant);
                     break;
-                case TileCategory.Item:
-                    itemLayer.PlaceAt(position);
-                    break;
                 case TileCategory.StaticObject:
                     staticObjectLayer.PlaceAt(position);
                     break;
@@ -115,9 +110,6 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Courage:
                     courageLayer.DeleteTileAt(position);
                     break;
-                case TileCategory.Item:
-                    itemLayer.DeleteTileAt(position);
-                    break;
                 case TileCategory.StaticObject:
                     staticObjectLayer.DeleteTileAt(position);
                     break;
@@ -136,10 +128,8 @@ namespace AChildsCourage.RoomEditor
         }
 
         private RoomContentData ReadContent() =>
-            new RoomContentData(
-                                groundLayer.ReadAll(),
+            new RoomContentData(groundLayer.ReadAll(),
                                 courageLayer.ReadAll(),
-                                itemLayer.ReadAll(),
                                 staticObjectLayer.ReadAll(),
                                 runeLayer.ReadAll());
 
@@ -150,7 +140,6 @@ namespace AChildsCourage.RoomEditor
 
             groundLayer.Clear();
             courageLayer.Clear();
-            itemLayer.Clear();
             staticObjectLayer.Clear();
             runeLayer.Clear();
         }

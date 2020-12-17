@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788487156}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 2.36, y: 0.5, z: 0}
+  m_LocalPosition: {x: 2.3599997, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1668216620}
-  m_RootOrder: 0
+  m_Father: {fileID: 8820627343415363623}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &788487158
 MonoBehaviour:
@@ -85,136 +85,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e891d8b4a089d4cab88950d2d15fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.1
-  id: 0
   lightComponent: {fileID: 788487158}
-  maxFlashlightDistance: 12
-  maxFlashlightIntensity: 0.85
-  maxFlashlightOuterRadius: 3
-  maxFlashlightInnerRadius: 1
---- !u!1 &1668216619
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1668216620}
-  - component: {fileID: 1668216621}
-  m_Layer: 8
-  m_Name: Bag
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1668216620
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668216619}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 788487157}
-  - {fileID: 8652448123885813329}
-  m_Father: {fileID: 8820627343415363623}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1668216621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668216619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f26f6392eec67064e9a31176355d41f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  availableItems:
-  - {fileID: 788487156}
-  - {fileID: 8573944650217283424}
-  cooldownEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
-        m_MethodName: UpdateCooldown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  itemUsedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlayItems
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  itemDroppedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemSwappedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlayItemSwap
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
-        m_MethodName: SwapItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  itemPickUpEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlayPickUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  obstructionLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  maxShineDistance: 12
+  maxIntensity: 0
+  minOuterRadius: 0
+  minInnerRadius: 0
+  maxOuterRadius: 0
+  maxInnerRadius: 0
 --- !u!1 &1928652341
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,36 +227,6 @@ Transform:
   m_Father: {fileID: 8820627343415363623}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8573944650217283424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8652448123885813329}
-  m_Layer: 8
-  m_Name: Blanket
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8652448123885813329
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8573944650217283424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1668216620}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8787152003741793889
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +298,7 @@ Transform:
   - {fileID: 555895927203934551}
   - {fileID: 853869650153857379}
   - {fileID: 1624709431971907045}
-  - {fileID: 1668216620}
+  - {fileID: 788487157}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -492,7 +342,7 @@ SpriteRenderer:
   m_SortingLayerID: 1316811689
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -776474863298432979, guid: 62d4fca58215d634ebb8b29b0112f2ee, type: 3}
+  m_Sprite: {fileID: -1925450053221866146, guid: 32ae5b3fa3e67914fb6abf865c0186c8, type: 3}
   m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -564,21 +414,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnUseItem:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: UseItem
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnDamageReceived:
     m_PersistentCalls:
       m_Calls:
@@ -594,82 +429,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnSwapItem:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: OnItemSwapInventory
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   OnSprintStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1871683216658508858}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Stamina, AChildsCourage.Unity
-        m_MethodName: StartSprinting
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnSprintStop:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1871683216658508858}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Stamina, AChildsCourage.Unity
-        m_MethodName: StopSprinting
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 703323583}
         m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
         m_MethodName: PlaySprint_stop
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnPickUpItem:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1668216621}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.Bag, AChildsCourage.Unity
-        m_MethodName: PickUpItem
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.ItemSlots, AChildsCourage.Unity
-        m_MethodName: AddItem
-        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
