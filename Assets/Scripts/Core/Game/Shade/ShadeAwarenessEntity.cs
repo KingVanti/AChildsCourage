@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Items;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;
 
@@ -28,8 +29,9 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float flashLightMultiplier;
         [SerializeField] private float minSuspiciousAwareness;
         [SerializeField] private float minHuntingAwareness;
-        [SerializeField] private CharControllerEntity charController;
-        [SerializeField] private Flashlight flashlight;
+        
+        [FindInScene] private CharControllerEntity charController;
+        [FindInScene] private Flashlight flashlight;
 
 #pragma warning  restore 649
 

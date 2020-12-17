@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Events;
 using static AChildsCourage.Game.Floors.MFloor;
@@ -41,9 +42,10 @@ namespace AChildsCourage.Game.Shade
         }
 
 #pragma warning disable 649
-
-        [SerializeField] private ShadeBrainEntity shadeBrain;
+        
         [SerializeField] private float shadeTimeoutTime;
+        
+        [FindInScene] private ShadeBrainEntity shadeBrain;
 
 #pragma warning restore 649
 
