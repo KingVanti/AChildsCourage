@@ -17,8 +17,6 @@ namespace AChildsCourage.Game.Floors.Courage
 #pragma warning disable 649
 
         [SerializeField] private int _maxNightCourage;
-        [SerializeField] private float messageTime;
-        [SerializeField] private CanvasGroup messageCanvas;
 
 #pragma warning restore 649
 
