@@ -1,5 +1,4 @@
 ﻿using System;
-using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
@@ -64,13 +63,6 @@ namespace AChildsCourage.Game.Input
             OnMoveDirectionChanged?.Invoke(this, eventArgs);
         }
 
-        private void OnSprint(Context context)
-        {
-            if (context.performed) OnSprintPressed(context);
-
-            if (context.canceled) OnSprintReleased(context);
-        }
-
         private void OnSprintPressed(Context context)
         {
             var eventArgs = new StartSprintEventArgs();
@@ -90,7 +82,7 @@ namespace AChildsCourage.Game.Input
 
         [Sub(nameof(CourageRiftEntity.OnCharWin))]
         private void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
-        
+
         private void UnsubscribeFromInputs()
         {
             charControls.Char.Look.performed -= OnLook;
