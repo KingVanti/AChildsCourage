@@ -3,6 +3,7 @@ using AChildsCourage.Game.Input;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using static AChildsCourage.MRange;
 
 namespace AChildsCourage.Game.Char
 {
@@ -24,11 +25,9 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private float maxShineDistance;
         [SerializeField] private float maxIntensity;
-        [SerializeField] private float minOuterRadius;
-        [SerializeField] private float minInnerRadius;
-        [SerializeField] private float maxOuterRadius;
-        [SerializeField] private float maxInnerRadius;
-
+        [SerializeField] private Range<float> innerRadiusRange;
+        [SerializeField] private Range<float> outerRadiusRange;
+        
         [FindInScene] private Camera mainCamera;
 
 #pragma warning restore 649
@@ -122,8 +121,8 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = Mathf.Lerp(maxInnerRadius, minInnerRadius, ShineDistanceInterpolation);
-            lightComponent.pointLightOuterRadius = Mathf.Lerp(maxOuterRadius, minOuterRadius, ShineDistanceInterpolation);
+            lightComponent.pointLightInnerRadius = Lerp(innerRadiusRange, ShineDistanceInterpolation);
+            lightComponent.pointLightOuterRadius = Lerp(outerRadiusRange, ShineDistanceInterpolation);
         }
 
 
