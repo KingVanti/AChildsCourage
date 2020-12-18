@@ -93,7 +93,8 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        private void Awake() => indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) => indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
 
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
@@ -235,7 +236,7 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) => Activate();
-        
+
         private void Activate()
         {
             gameObject.SetActive(true);
