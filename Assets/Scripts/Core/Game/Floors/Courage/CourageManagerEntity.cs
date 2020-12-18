@@ -26,8 +26,6 @@ namespace AChildsCourage.Game.Floors.Courage
         public CourageEvents.CourageChanged OnCourageChanged;
         public CourageEvents.CourageChanged OnInitialize;
         public Events.Empty OnCourageDepleted;
-        public Events.Empty onCourageNotEnoughStarted;
-        public Events.Empty onCourageNotEnoughCompleted;
         public Events.Bool OnCouragePickupableChanged;
 
         [Pub] public event EventHandler OnCharLose;
@@ -42,10 +40,8 @@ namespace AChildsCourage.Game.Floors.Courage
             set
             {
                 _currentNightCourage = value;
-                OnCourageChanged?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
+                OnCourageChanged?.Invoke(CurrentNightCourage, MaxNightCourage);
                 OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
-
-                if (CurrentNightCourage + AvailableNightCourage < NeededNightCourage) StartCoroutine(CourageLoss());
             }
         }
 
@@ -55,18 +51,6 @@ namespace AChildsCourage.Game.Floors.Courage
             set => _maxNightCourage = value;
         }
 
-        public int NeededNightCourage => Mathf.CeilToInt((float) MaxNightCourage / 100 * 72.5f);
-
-        private int AvailableNightCourage { get; set; }
-
-        private int OverfilledNightCourage
-        {
-            get
-            {
-                if (CurrentNightCourage > NeededNightCourage) return CurrentNightCourage - NeededNightCourage;
-                return 0;
-            }
-        }
 
         #endregion
 
@@ -74,9 +58,8 @@ namespace AChildsCourage.Game.Floors.Courage
 
         public void Initialize()
         {
-            OnInitialize?.Invoke(CurrentNightCourage, NeededNightCourage, MaxNightCourage);
-            AvailableNightCourage = MaxNightCourage;
-            CurrentNightCourage = 1 + OverfilledNightCourage;
+            OnInitialize?.Invoke(CurrentNightCourage, MaxNightCourage);
+            CurrentNightCourage = 0;
         }
 
         public void Add(CouragePickupEntity pickedUpCourage)
@@ -84,8 +67,6 @@ namespace AChildsCourage.Game.Floors.Courage
             CurrentNightCourage += pickedUpCourage.Value;
 
             if (CurrentNightCourage > MaxNightCourage) CurrentNightCourage = MaxNightCourage;
-
-            AvailableNightCourage -= pickedUpCourage.Value;
         }
 
         public void Subtract(int value)
@@ -99,14 +80,6 @@ namespace AChildsCourage.Game.Floors.Courage
         }
 
         public void GameLost() => OnCharLose?.Invoke(this, EventArgs.Empty);
-
-        private IEnumerator CourageLoss()
-        {
-            messageCanvas.alpha = 1;
-            yield return new WaitForSeconds(messageTime);
-            onCourageNotEnoughCompleted?.Invoke();
-            GameLost();
-        }
 
         #endregion
 

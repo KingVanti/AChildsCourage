@@ -44,10 +44,10 @@ namespace AChildsCourage.Game.Floors.Courage
                                                                      .Map(GetCenter)
                                                                      .Map(GetTileCenter);
 
-        public void SetRiftStats(int currentCourage, int neededCourage, int maxCourage)
+        public void SetRiftStats(int currentCourage, int maxCourage)
         {
             spriteRenderer.sprite = riftStageSprites[currentStage];
-            needed = neededCourage;
+            needed = maxCourage;
             threshold = Mathf.RoundToInt(needed / ((float) riftStageSprites.Length - 1));
 
             for (var i = 0; i < stageThresholds.Length; i++) stageThresholds[i] = threshold * i;
@@ -55,7 +55,7 @@ namespace AChildsCourage.Game.Floors.Courage
             courage = currentCourage;
         }
 
-        public void UpdateStage(int currentCourage, int neededCourage, int maxCourage)
+        public void UpdateStage(int currentCourage, int maxCourage)
         {
             lastCourageCount = courage;
             courage = currentCourage;

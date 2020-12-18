@@ -435,7 +435,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   behaviourUpdatesPerSecond: 10
-  touchDamage: 5
+  touchDamage: 100
   characterRigidbody: {fileID: 0}
   spriteRenderer: {fileID: 537825537936044894}
   defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
