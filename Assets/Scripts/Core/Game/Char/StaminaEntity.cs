@@ -36,7 +36,7 @@ namespace AChildsCourage.Game.Char
 
 
         [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
-        private void OnMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs) => SetStaminaDrainRate(eventArgs.MovementState);
+        private void OnMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs) => SetStaminaDrainRate(eventArgs.Current);
 
         private void SetStaminaDrainRate(MovementState movementState) => staminaDrainRate = staminaRates[movementState];
 

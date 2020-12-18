@@ -103,7 +103,15 @@ namespace AChildsCourage
 
         public void PlayChar_Death() => RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
 
-        public void PlaySprint_stop()
+
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
+        private void OnCharMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs)
+        {
+            if(eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting)
+                PlaySprint_stop();
+        }
+        
+        private void PlaySprint_stop()
         {
             if (Char_sprint_stop_Is_playing == false)
             {

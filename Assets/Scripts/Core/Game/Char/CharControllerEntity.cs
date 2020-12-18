@@ -31,10 +31,6 @@ namespace AChildsCourage.Game.Char
 
         #region Fields
 
-        [Header("Events")]
-        public Events.Empty OnSprintStart;
-        public Events.Empty OnSprintStop;
-
 #pragma warning disable 649
 
         [SerializeField] private Animator animator;
@@ -126,11 +122,7 @@ namespace AChildsCourage.Game.Char
             {
                 movingDirection = value;
 
-                if (MovingDirection == Vector2.zero && IsSprinting)
-                {
-                    StopSprinting();
-                    OnSprintStop?.Invoke();
-                }
+                if (MovingDirection == Vector2.zero && IsSprinting) StopSprinting();
 
                 UpdateAnimator();
             }
@@ -139,13 +131,12 @@ namespace AChildsCourage.Game.Char
         public MovementState CurrentMovementState
         {
             get => movementState;
-            set
+            private set
             {
-                if (movementState != value)
-                {
-                    movementState = value;
-                    OnMovementStateChanged?.Invoke(this, new MovementStateChangedEventArgs(CurrentMovementState));
-                }
+                if (movementState == value) return;
+
+                OnMovementStateChanged?.Invoke(this, new MovementStateChangedEventArgs(value, CurrentMovementState));
+                movementState = value;
             }
         }
 
@@ -237,23 +228,14 @@ namespace AChildsCourage.Game.Char
         [Sub(nameof(InputListener.OnStartSprinting))]
         private void OnStartSprint(object _, StartSprintEventArgs eventArgs)
         {
-            if (!IsMoving) return;
-            if (hasStamina)
-            {
-                movementSpeed = sprintSpeed;
-                IsSprinting = true;
-            }
+            if (!hasStamina || !IsMoving) return;
 
-            OnSprintStart?.Invoke();
+            movementSpeed = sprintSpeed;
+            IsSprinting = true;
         }
 
         [Sub(nameof(InputListener.OnStopSprinting))]
-        private void OnStopSprint(object _, StopSprintEventArgs eventArgs)
-        {
-            if (hasStamina && IsSprinting) OnSprintStop?.Invoke();
-
-            StopSprinting();
-        }
+        private void OnStopSprint(object _, StopSprintEventArgs eventArgs) => StopSprinting();
 
         private void StopSprinting()
         {
