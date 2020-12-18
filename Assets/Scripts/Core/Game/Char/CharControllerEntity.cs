@@ -243,7 +243,9 @@ namespace AChildsCourage.Game.Char
             movementSpeed = defaultSpeed;
         }
 
-        public void OnStaminaDepleted()
+
+        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
+        private void OnStaminaDepleted(object _1, EventArgs _2)
         {
             StopSprinting();
             hasStamina = false;

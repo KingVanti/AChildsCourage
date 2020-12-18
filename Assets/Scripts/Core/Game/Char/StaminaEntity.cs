@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 
@@ -8,10 +9,11 @@ namespace AChildsCourage.Game.Char
     public class StaminaEntity : MonoBehaviour
     {
 
+        [Pub] public event EventHandler OnStaminaDepleted;
+
         #region Fields
 
         [Header("Events")]
-        public Events.Empty onStaminaDepleted;
         public Events.Empty onRefreshed;
 
         [Header("Stats")]
@@ -51,7 +53,7 @@ namespace AChildsCourage.Game.Char
                     if (stamina <= 0.05f)
                     {
                         StartCoroutine(Cooldown());
-                        onStaminaDepleted?.Invoke();
+                        OnStaminaDepleted?.Invoke(this, EventArgs.Empty);
                     }
 
                     yield return null;

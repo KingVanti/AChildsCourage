@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
@@ -120,7 +121,11 @@ namespace AChildsCourage
             }
         }
 
-        public void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
+
+        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
+        private void OnCharStaminaDepleted(object _1, EventArgs _2) => PlaySprint_depleted();
+        
+        private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
 
 
         private IEnumerator SprintTimer()
