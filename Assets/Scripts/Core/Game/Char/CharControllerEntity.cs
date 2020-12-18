@@ -28,20 +28,22 @@ namespace AChildsCourage.Game.Char
         [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
 
         [Pub] public event EventHandler<CharDamageReceivedEventArgs> OnReceivedDamage;
-
+        
         #region Fields
 
 #pragma warning disable 649
 
+        [Header("References")]
         [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float sprintSpeed;
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Light2D characterGlowingLight;
         [SerializeField] private StaminaEntity stamina;
+        [Header("Stats")]
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private float sprintSpeed;
         [SerializeField] private float knockBackMultiplier;
 
 #pragma warning restore 649
