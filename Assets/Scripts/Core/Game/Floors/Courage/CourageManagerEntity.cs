@@ -35,8 +35,6 @@ namespace AChildsCourage.Game.Floors.Courage
             {
                 _currentNightCourage = value.Clamp(0, MaxNightCourage);
                 OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentNightCourage));
-
-                if (CurrentNightCourage == 0) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -66,10 +64,12 @@ namespace AChildsCourage.Game.Floors.Courage
         [Sub(nameof(CharControllerEntity.OnReceivedDamage))]
         private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) => Subtract(eventArgs.ReceivedDamage);
 
-        private void Subtract(int amount) => CurrentNightCourage -= amount;
-
-
-        public void GameLost() => OnCourageDepleted?.Invoke(this, EventArgs.Empty);
+        private void Subtract(int amount)
+        {
+            CurrentNightCourage -= amount;
+            
+            if (CurrentNightCourage == 0) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
+        }
 
         #endregion
 
