@@ -25,10 +25,11 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
 
+        [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
+
         #region Fields
 
         [Header("Events")]
-        public Events.Vector2 OnPositionChanged;
         public Events.Int OnDamageReceived;
         public Events.Empty OnSprintStart;
         public Events.Empty OnSprintStop;
@@ -212,7 +213,7 @@ namespace AChildsCourage.Game.Char
         {
             if (!gettingKnockedBack) rb.velocity = MovingDirection * movementSpeed;
 
-            OnPositionChanged.Invoke(transform.position);
+            OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
             UpdateMovementState();
         }
 

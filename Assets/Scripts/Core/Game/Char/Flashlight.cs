@@ -126,8 +126,8 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        public void UpdateCharacterPosition(Vector2 charPos) =>
-            CharPosition = charPos;
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => CharPosition = eventArgs.NewPosition;
 
 
         [Sub(nameof(InputListener.OnMousePositionChanged))]

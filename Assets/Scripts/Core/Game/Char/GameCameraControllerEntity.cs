@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Infrastructure;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Char
 {
@@ -8,7 +9,10 @@ namespace AChildsCourage.Game.Char
 
         #region Methods
 
-        public void UpdatePosition(Vector2 newPosition) => transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => FocusOn(eventArgs.NewPosition);
+        
+        private void FocusOn(Vector2 newPosition) => transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
 
         #endregion
 
