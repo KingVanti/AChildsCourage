@@ -23,6 +23,23 @@ namespace AChildsCourage.Game.Char
 
         #region Fields
 
+#pragma warning disable 649
+
+        [Header("References")]
+        [SerializeField] private Animator animator;
+        [SerializeField] private Transform characterVision;
+        [SerializeField] private ParticleSystem courageCollectParticleSystem;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Light2D characterGlowingLight;
+        [SerializeField] private StaminaEntity stamina;
+        [Header("Stats")]
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private float sprintSpeed;
+        [SerializeField] private float knockBackMultiplier;
+
+#pragma warning restore 649
+
         [Header("Events")]
         public Events.Vector2 OnPositionChanged;
         public Events.Int OnDamageReceived;
@@ -30,21 +47,6 @@ namespace AChildsCourage.Game.Char
         public Events.Empty OnSprintStop;
         public CharEvents.CouragePickUp OnCouragePickedUp;
         public CharEvents.MovementState OnMovementStateChanged;
-
-#pragma warning disable 649
-
-        [SerializeField] private Animator animator;
-        [SerializeField] private Transform characterVision;
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float sprintSpeed;
-        [SerializeField] private ParticleSystem courageCollectParticleSystem;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Light2D characterGlowingLight;
-        [SerializeField] private StaminaEntity stamina;
-        [SerializeField] private float knockBackMultiplier;
-
-#pragma warning restore 649
 
         private Camera mainCamera;
         private Vector2 movingDirection;
