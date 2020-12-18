@@ -12,8 +12,7 @@ namespace AChildsCourage.Game.UI {
 
 #pragma warning disable 649
         [SerializeField] private Image courageBarFill;
-        [SerializeField] private TextMeshProUGUI courageCounterCurrentTextMesh;
-        [SerializeField] private TextMeshProUGUI courageCounterNeededTextMesh;
+        [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
         [SerializeField] private Color32 textColor;
 #pragma warning restore 649
 
@@ -34,15 +33,12 @@ namespace AChildsCourage.Game.UI {
         private void UpdateCourageCounter(int newValue, int maxValue) {
 
             if (newValue >= maxValue) {
-                courageCounterCurrentTextMesh.faceColor = textColor;
-                courageCounterNeededTextMesh.faceColor = textColor;
+                courageCounterTextMesh.faceColor = textColor;
             } else {
-                courageCounterCurrentTextMesh.faceColor = new Color(1, 1, 1, 1);
-                courageCounterNeededTextMesh.faceColor = new Color(1, 1, 1, 1);
+                courageCounterTextMesh.faceColor = new Color(1, 1, 1, 1);
             }
 
-            courageCounterCurrentTextMesh.text = newValue.ToString();
-            courageCounterNeededTextMesh.text = "/ " + maxValue;
+            courageCounterTextMesh.text = newValue + " / " + maxValue;
 
         }
 
