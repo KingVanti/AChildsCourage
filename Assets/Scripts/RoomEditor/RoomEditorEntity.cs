@@ -33,9 +33,7 @@ namespace AChildsCourage.RoomEditor
         internal CourageVariant SelectedCourageVariant { get; set; }
 
         internal ChunkPassages CurrentPassages { get; set; }
-
-        internal RoomType CurrentRoomType { get; set; }
-
+        
 
         internal int CurrentAssetId => LoadedAsset.Id;
 
@@ -53,7 +51,6 @@ namespace AChildsCourage.RoomEditor
         {
             LoadedAsset = asset;
             CurrentPassages = asset.Passages;
-            CurrentRoomType = asset.Type;
 
             LoadContent(asset.Content);
         }

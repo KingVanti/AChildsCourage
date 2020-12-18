@@ -65,17 +65,13 @@ namespace AChildsCourage.RoomEditor.Editor
 
         private void DrawTileSelectionGUI()
         {
-            DrawRoomTypeSelectionGUI();
-
             DrawTileCategorySelectionGUI();
 
             if (RoomEditor.SelectedTileCategory == TileCategory.Courage) DrawCourageSelectionGUI();
 
             DrawPassageEditorGUI();
         }
-
-        private void DrawRoomTypeSelectionGUI() => RoomEditor.CurrentRoomType = (RoomType) EditorGUILayout.EnumPopup("Room type:", RoomEditor.CurrentRoomType);
-
+        
         private void DrawTileCategorySelectionGUI()
         {
             EditorGUILayout.BeginHorizontal();
