@@ -117,7 +117,7 @@ namespace AChildsCourage.Game.Char
             Physics2D.Raycast(CharPosition, ShineDirection, ProjectionDistance, obstructionLayers);
 
         private void UpdateShineIntensity() =>
-            lightComponent.intensity = ShineDistanceInterpolation * maxIntensity;
+            lightComponent.intensity = (1 - ShineDistanceInterpolation) * maxIntensity;
 
         private void UpdateShineRadius()
         {
