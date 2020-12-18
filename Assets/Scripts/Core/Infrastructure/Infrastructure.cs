@@ -46,6 +46,7 @@ namespace AChildsCourage.Infrastructure
         public static void SetupSceneInfrastructure()
         {
             if (services.Count == 0) SetupServices();
+            events.Clear();
 
             SetupMonoBehaviourInfrastructure();
         }
