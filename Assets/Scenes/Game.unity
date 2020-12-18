@@ -582,17 +582,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 5279824009173731126, guid: 072202f857711464f808dae5c11ee1c4, type: 3}
   m_PrefabInstance: {fileID: 170224888}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &170224890 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5279824009173731125, guid: 072202f857711464f808dae5c11ee1c4, type: 3}
-  m_PrefabInstance: {fileID: 170224888}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989839e7b864821429905a6c870f6643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &269662566
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,8 +626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxNightCourage: 44
-  messageTime: 8
-  messageCanvas: {fileID: 0}
   OnCourageChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1108,18 +1095,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: OnPositionChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 170224890}
-    - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: OnDamageReceived.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 269662568}
-    - target: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: OnCouragePickedUp.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 269662568}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
 --- !u!114 &489588451 stripped

@@ -388,24 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSprintStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSprintStop:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlaySprint_stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
   movementSpeed: 1.7
@@ -428,50 +410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa7214ea7258aa4f8d9b0e65e2c892d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onStaminaDepleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8820627343415363625}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: OnStaminaDepleted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 703323583}
-        m_TargetAssemblyTypeName: FmodPlayer, Assembly-CSharp
-        m_MethodName: PlaySprint_depleted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRefreshed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8820627343415363625}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: OnStaminaRefresh
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   stamina: 100
   staminaDepletedCooldown: 5
   staminaRates:
