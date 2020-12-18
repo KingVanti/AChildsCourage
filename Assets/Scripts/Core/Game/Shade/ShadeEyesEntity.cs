@@ -5,7 +5,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.Shade.ShadeEvents;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
@@ -16,9 +15,9 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<CharVisibilityChangedEventArgs> OnCharVisibilityChanged;
 
-        #region Fields
+        [Pub] public event EventHandler<TilesInViewChangedEventArgs> OnTilesInViewChanged;
 
-        public TilesInViewEvent onTilesInViewChanged;
+        #region Fields
 
 #pragma warning disable 649
 
@@ -119,7 +118,7 @@ namespace AChildsCourage.Game.Shade
         {
             currentTilesInView.Clear();
             currentTilesInView.UnionWith(GetTilePositionsInView());
-            onTilesInViewChanged?.Invoke(CurrentTilesInView);
+            OnTilesInViewChanged?.Invoke(this, new TilesInViewChangedEventArgs(CurrentTilesInView));
         }
 
         private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(ToTile);

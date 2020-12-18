@@ -105,11 +105,12 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
         private void OnAwarenessLevelChanged(object _, AwarenessChangedEventArgs eventArgs)
         {
-            if (behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level== AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
+            if (behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level == AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
         }
 
 
-        public void OnTilesInVisionChanged(TilesInView tilesInView) => investigatedPositions.UnionWith(tilesInView);
+        [Sub(nameof(ShadeEyesEntity.OnTilesInViewChanged))]
+        private void OnTilesInVisionChanged(object _, TilesInViewChangedEventArgs eventArgs) => investigatedPositions.UnionWith(eventArgs.TilesInView);
 
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
@@ -117,7 +118,7 @@ namespace AChildsCourage.Game.Shade
         {
             if (eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
         }
-        
+
 
         private IEnumerator Investigate()
         {
