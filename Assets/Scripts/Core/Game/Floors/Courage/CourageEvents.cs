@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors.Courage
     {
 
         [Serializable]
-        public class CourageChanged : UnityEvent<int, int, int> { }
+        public class CourageChanged : UnityEvent<int, int> { }
 
     }
 

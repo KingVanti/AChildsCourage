@@ -15,16 +15,15 @@ namespace AChildsCourage.Game.UI {
         [SerializeField] private TextMeshProUGUI courageCounterCurrentTextMesh;
         [SerializeField] private TextMeshProUGUI courageCounterNeededTextMesh;
         [SerializeField] private Color32 textColor;
-        [SerializeField] private Color fillColor;
 #pragma warning restore 649
 
         #endregion
 
         #region Methods
 
-        public void UpdateCourage(int newValue, int neededValue, int maxValue) {
+        public void UpdateCourage(int newValue, int maxValue) {
             UpdateCourageBar(newValue, maxValue);
-            UpdateCourageCounter(newValue, neededValue);
+            UpdateCourageCounter(newValue, maxValue);
         }
 
         private void UpdateCourageBar(int newValue, int maxValue) {
@@ -32,9 +31,9 @@ namespace AChildsCourage.Game.UI {
             StartCoroutine(FillLerp(newFillAmount));
         }
 
-        private void UpdateCourageCounter(int newValue, int neededValue) {
+        private void UpdateCourageCounter(int newValue, int maxValue) {
 
-            if (newValue >= neededValue) {
+            if (newValue >= maxValue) {
                 courageCounterCurrentTextMesh.faceColor = textColor;
                 courageCounterNeededTextMesh.faceColor = textColor;
             } else {
@@ -43,24 +42,18 @@ namespace AChildsCourage.Game.UI {
             }
 
             courageCounterCurrentTextMesh.text = newValue.ToString();
-            courageCounterNeededTextMesh.text = "/ " + neededValue;
+            courageCounterNeededTextMesh.text = "/ " + maxValue;
 
         }
 
         private IEnumerator FillLerp(float destination) {
+
             while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon) {
                 courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 4.0f);
                 yield return new WaitForEndOfFrame();
             }
 
-            //UpdateCourageBarColor();
         }
-
-        private void UpdateCourageBarColor() =>
-            courageBarFill.color = new Color(
-                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.r),
-                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.g),
-                                             MCustomMath.Map(courageBarFill.fillAmount, 0, 0.75f, 1, fillColor.b));
 
         #endregion
 
