@@ -21,7 +21,9 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler OnCharDeath;
 
-        [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp; 
+        [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp;
+
+        [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
 
         #region Fields
 
@@ -30,7 +32,6 @@ namespace AChildsCourage.Game.Char
         public Events.Int OnDamageReceived;
         public Events.Empty OnSprintStart;
         public Events.Empty OnSprintStop;
-        public CharEvents.MovementState OnMovementStateChanged;
 
 #pragma warning disable 649
 
@@ -132,7 +133,7 @@ namespace AChildsCourage.Game.Char
                 UpdateAnimator();
             }
         }
-        
+
         public MovementState CurrentMovementState
         {
             get => movementState;
@@ -141,7 +142,7 @@ namespace AChildsCourage.Game.Char
                 if (movementState != value)
                 {
                     movementState = value;
-                    OnMovementStateChanged.Invoke(CurrentMovementState);
+                    OnMovementStateChanged?.Invoke(this, new MovementStateChangedEventArgs(CurrentMovementState));
                 }
             }
         }
