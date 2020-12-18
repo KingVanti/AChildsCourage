@@ -396,60 +396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAwarenessLevelChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6287393413328556662}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Shade.ShadeBrain, AChildsCourage.Unity
-        m_MethodName: OnAwarenessLevelChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.Veins, AChildsCourage.Unity
-        m_MethodName: SetVeinSprite
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3943784392033496761}
-        m_TargetAssemblyTypeName: FmodShade, Assembly-CSharp
-        m_MethodName: AwarenessCues
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onAwarenessChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.Veins, AChildsCourage.Unity
-        m_MethodName: SetTransparency
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   awarenessLossPerSecond: 0.5
   baseAwarenessGainPerSecond: 0.4
   primaryVisionMultiplier: 2

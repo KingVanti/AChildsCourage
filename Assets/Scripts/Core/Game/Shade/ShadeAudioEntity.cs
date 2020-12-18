@@ -27,13 +27,17 @@ namespace AChildsCourage.Game.Shade
             emitter = target.GetComponent<StudioEventEmitter>();
         }
 
-        
+
         [Sub(nameof(ShadeBrainEntity.OnShadeSteppedOnRune))]
         public void OnShadeBanishingStarted(object _1, EventArgs _2) => RuntimeManager.PlayOneShot(ShadeBanished_path, GetComponent<Transform>().position);
 
         public void Shade_spawn() => RuntimeManager.PlayOneShot(ShadeSpawn_path, GetComponent<Transform>().position);
 
-        public void AwarenessCues(AwarenessLevel awareness)
+
+        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
+        private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs) => AwarenessCues(eventArgs.Level);
+
+        private void AwarenessCues(AwarenessLevel awareness)
         {
             if (!shade_awarness_is_playing)
             {

@@ -102,9 +102,10 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        public void OnAwarenessLevelChanged(AwarenessLevel awarenessLevel)
+        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
+        private void OnAwarenessLevelChanged(object _, AwarenessChangedEventArgs eventArgs)
         {
-            if (behaviourType != ShadeBehaviourType.DirectHunting && awarenessLevel == AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
+            if (behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level== AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
         }
 
 

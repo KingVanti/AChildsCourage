@@ -10,10 +10,9 @@ namespace AChildsCourage.Game.Shade
     public class ShadeAwarenessEntity : MonoBehaviour
     {
 
-        #region Fields
+        [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
-        public ShadeEvents.AwarenessLevel onAwarenessLevelChanged;
-        public Events.Float onAwarenessChanged;
+        #region Fields
 
 #pragma warning disable 649
 
@@ -28,7 +27,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float flashLightMultiplier;
         [SerializeField] private float minSuspiciousAwareness;
         [SerializeField] private float minHuntingAwareness;
-        
+
         [FindInScene] private CharControllerEntity charController;
         [FindInScene] private Flashlight flashlight;
 
@@ -41,17 +40,6 @@ namespace AChildsCourage.Game.Shade
 
         #region Properties
 
-        private AwarenessLevel CurrentAwarenessLevel
-        {
-            get => currentAwarenessLevel;
-            set
-            {
-                if (currentAwarenessLevel == value) return;
-                currentAwarenessLevel = value;
-                onAwarenessLevelChanged.Invoke(CurrentAwarenessLevel);
-            }
-        }
-
         public Visibility CurrentCharacterVisibility { get; set; }
 
         public Awareness CurrentAwareness
@@ -62,8 +50,8 @@ namespace AChildsCourage.Game.Shade
                 if (currentAwareness.Equals(value)) return;
 
                 currentAwareness = value;
-                onAwarenessChanged.Invoke(currentAwareness.Value);
                 UpdateAwarenessLevel();
+                OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, currentAwarenessLevel));
             }
         }
 
@@ -102,7 +90,7 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
         private void OnShadeBanished(object _1, EventArgs _2) => ClearAwareness();
-        
+
         private void ClearAwareness() => CurrentAwareness = NoAwareness;
 
 
@@ -121,11 +109,11 @@ namespace AChildsCourage.Game.Shade
         private void UpdateAwarenessLevel()
         {
             if (CurrentAwareness.Value >= minHuntingAwareness)
-                CurrentAwarenessLevel = AwarenessLevel.Hunting;
+                currentAwarenessLevel = AwarenessLevel.Hunting;
             else if (CurrentAwareness.Value >= minSuspiciousAwareness)
-                CurrentAwarenessLevel = AwarenessLevel.Suspicious;
+                currentAwarenessLevel = AwarenessLevel.Suspicious;
             else
-                CurrentAwarenessLevel = AwarenessLevel.Oblivious;
+                currentAwarenessLevel = AwarenessLevel.Oblivious;
         }
 
         #endregion
