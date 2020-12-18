@@ -7,9 +7,6 @@ namespace AChildsCourage.Game.Char
 
     public static class CharEvents
     {
-        
-        [Serializable]
-        public class Cooldown : UnityEvent<int, float, float> { }
 
         [Serializable]
         public class CouragePickUp : UnityEvent<CouragePickupEntity> { }
