@@ -1,7 +1,6 @@
 ﻿using System;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.Video;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
@@ -22,7 +21,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [Pub] public event EventHandler OnCharEnteredRift;
 
         #region Fields
-        
+
 #pragma warning disable 649
 
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -49,7 +48,8 @@ namespace AChildsCourage.Game.Floors.Courage
                                                                      .Map(GetCenter)
                                                                      .Map(GetTileCenter);
 
-        private void Awake() => SetThresholds();
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) => SetThresholds();
 
         private void SetThresholds()
         {
@@ -59,10 +59,9 @@ namespace AChildsCourage.Game.Floors.Courage
         }
 
 
-
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) => UpdateStage(eventArgs.Collected);
-        
+
         private void UpdateStage(int courage)
         {
             lastCourageCount = courage;
