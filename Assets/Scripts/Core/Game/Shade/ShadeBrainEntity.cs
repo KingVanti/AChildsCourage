@@ -19,8 +19,10 @@ namespace AChildsCourage.Game.Shade
 
 
         [Pub] public event EventHandler OnShadeSteppedOnRune;
-        
+
         [Pub] public event EventHandler OnShadeBanished;
+
+        [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
         #region Subtypes
 
@@ -29,8 +31,6 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Fields
-        
-        public Events.Vector3 onTargetPositionChanged;
 
 #pragma warning disable 649
 
@@ -70,7 +70,7 @@ namespace AChildsCourage.Game.Shade
             private set
             {
                 currentTargetPosition = value;
-                onTargetPositionChanged.Invoke(currentTargetPosition);
+                OnTargetPositionChanged?.Invoke(this, new ShadeTargetPositionChangedEventArgs(currentTargetPosition));
             }
         }
 
