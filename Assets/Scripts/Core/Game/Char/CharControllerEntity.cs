@@ -19,8 +19,6 @@ namespace AChildsCourage.Game.Char
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
         private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
-        [Pub] public event EventHandler OnCharDeath;
-
         [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp;
 
         [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
@@ -45,6 +43,8 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
         [SerializeField] private float knockBackMultiplier;
+
+        [FindInScene] private CourageManagerEntity courageManager;
 
 #pragma warning restore 649
 
@@ -171,9 +171,7 @@ namespace AChildsCourage.Game.Char
             animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
             animator.SetBool(sprintingAnimatorKey, IsSprinting);
         }
-
-
-        public void Kill() => OnCharDeath?.Invoke(this, EventArgs.Empty);
+        
 
         private void Rotate()
         {
@@ -259,7 +257,7 @@ namespace AChildsCourage.Game.Char
         #endregion
 
         [Sub(nameof(OnCouragePickedUp))]
-        public void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
+        private void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
             var emission = courageCollectParticleSystem.emission;
 
@@ -277,7 +275,10 @@ namespace AChildsCourage.Game.Char
             courageCollectParticleSystem.Play();
         }
 
-        public void SwitchCourageCollectable(bool canCollect) => canCollectCourage = !canCollect;
+
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+            canCollectCourage = eventArgs.Collected < courageManager.MaxNightCourage;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

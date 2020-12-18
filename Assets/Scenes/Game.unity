@@ -626,104 +626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxNightCourage: 44
-  OnCourageChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1171723089}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
-        m_MethodName: UpdateCourage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2025621520}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
-        m_MethodName: UpdateStage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnInitialize:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1171723089}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.UI.CourageBar, AChildsCourage.Unity
-        m_MethodName: UpdateCourage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2025621520}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Courage.CourageRift, AChildsCourage.Unity
-        m_MethodName: SetRiftStats
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnCourageDepleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 61644404}
-        m_TargetAssemblyTypeName: AChildsCourage.Unity.GameManager, AChildsCourage.Unity
-        m_MethodName: OnLose
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 489588451}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: Kill
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnCouragePickupableChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 489588451}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Player.CharacterController,
-          AChildsCourage.Unity
-        m_MethodName: SwitchCourageCollectable
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &316459170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,17 +999,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
---- !u!114 &489588451 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8820627343415363625, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 489588450}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 104577611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &489588452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 853869650153857379, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
@@ -2387,17 +2278,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
---- !u!114 &2025621520 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
-  m_PrefabInstance: {fileID: 2025621519}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd0e091db11ef34994d1e2344f8301f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2064087350
 PrefabInstance:
   m_ObjectHideFlags: 0

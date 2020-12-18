@@ -14,19 +14,15 @@ namespace AChildsCourage.Game.Floors.Courage
         private int _currentNightCourage;
         private int _neededNightCourage;
 
+        [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
+
+        [Pub] public event EventHandler OnCourageDepleted;
+
 #pragma warning disable 649
 
         [SerializeField] private int _maxNightCourage;
 
 #pragma warning restore 649
-
-        [Header("Events")]
-        public CourageEvents.CourageChanged OnCourageChanged;
-        public CourageEvents.CourageChanged OnInitialize;
-        public Events.Empty OnCourageDepleted;
-        public Events.Bool OnCouragePickupableChanged;
-
-        [Pub] public event EventHandler OnCharLose;
 
         #endregion
 
@@ -37,9 +33,10 @@ namespace AChildsCourage.Game.Floors.Courage
             get => _currentNightCourage;
             set
             {
-                _currentNightCourage = value;
-                OnCourageChanged?.Invoke(CurrentNightCourage, MaxNightCourage);
-                OnCouragePickupableChanged?.Invoke(CurrentNightCourage >= MaxNightCourage);
+                _currentNightCourage = value.Clamp(0, MaxNightCourage);
+                OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentNightCourage));
+
+                if (CurrentNightCourage == 0) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -53,11 +50,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Methods
 
-        public void Initialize()
-        {
-            OnInitialize?.Invoke(CurrentNightCourage, MaxNightCourage);
-            CurrentNightCourage = 0;
-        }
+        public void Initialize() => CurrentNightCourage = 0;
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
         private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) => Add(eventArgs.Value);
@@ -69,22 +62,14 @@ namespace AChildsCourage.Game.Floors.Courage
             if (CurrentNightCourage > MaxNightCourage) CurrentNightCourage = MaxNightCourage;
         }
 
-        
+
         [Sub(nameof(CharControllerEntity.OnReceivedDamage))]
         private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) => Subtract(eventArgs.ReceivedDamage);
-        
-        private void Subtract(int amount)
-        {
-            CurrentNightCourage -= amount;
 
-            if (CurrentNightCourage >= 0) return;
+        private void Subtract(int amount) => CurrentNightCourage -= amount;
 
-            CurrentNightCourage = 0;
-            OnCourageDepleted?.Invoke();
-        }
 
-        
-        public void GameLost() => OnCharLose?.Invoke(this, EventArgs.Empty);
+        public void GameLost() => OnCourageDepleted?.Invoke(this, EventArgs.Empty);
 
         #endregion
 

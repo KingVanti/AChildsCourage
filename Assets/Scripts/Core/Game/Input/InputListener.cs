@@ -85,15 +85,12 @@ namespace AChildsCourage.Game.Input
 
         private void OnFlashLightInputOccurred(Context _) => OnFlashLightInput?.Invoke(this, EventArgs.Empty);
 
-        [Sub(nameof(CharControllerEntity.OnCharDeath))]
-        private void OnCharDeath(object _1, EventArgs _2) => UnsubscribeFromInputs();
+        [Sub(nameof(CourageManagerEntity.OnCourageDepleted))]
+        private void OnCourageDepleted(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         [Sub(nameof(CourageRiftEntity.OnCharWin))]
         private void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
-
-        [Sub(nameof(CourageManagerEntity.OnCharLose))]
-        private void OnCharLose(object _1, EventArgs _2) => UnsubscribeFromInputs();
-
+        
         private void UnsubscribeFromInputs()
         {
             charControls.Char.Look.performed -= OnLook;

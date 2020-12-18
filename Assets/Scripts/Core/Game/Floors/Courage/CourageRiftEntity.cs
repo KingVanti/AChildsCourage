@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
+using UnityEngine.Video;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
@@ -12,6 +13,12 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CourageRiftEntity : MonoBehaviour
     {
 
+        #region Properties
+
+        private int TotalToCollect => courageManager.MaxNightCourage;
+
+        #endregion
+
         [Pub] public event EventHandler OnCharWin;
 
         #region Fields
@@ -20,17 +27,17 @@ namespace AChildsCourage.Game.Floors.Courage
         public Events.Empty onRiftEntered;
 
 #pragma warning disable 649
+
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private CourageManagerEntity courageManager;
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
         [SerializeField] private ParticleSystem riftParticleSystem;
+
+        [FindInScene] private CourageManagerEntity courageManager;
+
 #pragma warning restore 649
 
         private int currentStage;
-        private int needed;
-        private int threshold;
         private readonly int[] stageThresholds = new int[5];
-        private int courage;
         private int lastCourageCount;
 
         #endregion
@@ -45,22 +52,24 @@ namespace AChildsCourage.Game.Floors.Courage
                                                                      .Map(GetCenter)
                                                                      .Map(GetTileCenter);
 
-        public void SetRiftStats(int currentCourage, int maxCourage)
+        private void Awake() => SetThresholds();
+
+        private void SetThresholds()
         {
-            spriteRenderer.sprite = riftStageSprites[currentStage];
-            needed = maxCourage;
-            threshold = Mathf.RoundToInt(needed / ((float) riftStageSprites.Length - 1));
+            var threshold = Mathf.RoundToInt(TotalToCollect / ((float) riftStageSprites.Length - 1));
 
             for (var i = 0; i < stageThresholds.Length; i++) stageThresholds[i] = threshold * i;
-
-            courage = currentCourage;
         }
 
-        public void UpdateStage(int currentCourage, int maxCourage)
+
+
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) => UpdateStage(eventArgs.Collected);
+        
+        private void UpdateStage(int courage)
         {
             lastCourageCount = courage;
-            courage = currentCourage;
-            UpdateParticleSystem();
+            UpdateParticleSystem(courage);
 
             if (lastCourageCount > courage)
             {
@@ -73,7 +82,7 @@ namespace AChildsCourage.Game.Floors.Courage
             }
             else
             {
-                if (courage >= needed)
+                if (courage >= TotalToCollect)
                     currentStage = stageThresholds.Length - 1;
                 else
                 {
@@ -86,11 +95,11 @@ namespace AChildsCourage.Game.Floors.Courage
             spriteRenderer.sprite = riftStageSprites[currentStage];
         }
 
-        private void UpdateParticleSystem()
+        private void UpdateParticleSystem(int courage)
         {
             var emission = riftParticleSystem.emission;
 
-            var newRateOverTime = Map(courage, 0f, needed, 2f, 20f);
+            var newRateOverTime = Map(courage, 0f, TotalToCollect, 2f, 20f);
             emission.rateOverTime = newRateOverTime;
         }
 
