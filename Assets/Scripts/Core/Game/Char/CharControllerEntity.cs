@@ -251,7 +251,8 @@ namespace AChildsCourage.Game.Char
             hasStamina = false;
         }
 
-        public void OnStaminaRefresh() => hasStamina = true;
+        [Sub(nameof(StaminaEntity.OnStaminaRefreshed))]
+        private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
 
         #endregion
 

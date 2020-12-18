@@ -11,11 +11,10 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler OnStaminaDepleted;
 
+        [Pub] public event EventHandler OnStaminaRefreshed;
+
         #region Fields
-
-        [Header("Events")]
-        public Events.Empty onRefreshed;
-
+        
         [Header("Stats")]
         public float stamina = 100;
 
@@ -74,7 +73,7 @@ namespace AChildsCourage.Game.Char
         private void RefreshStamina(float recoveredStaminaAmount)
         {
             stamina = recoveredStaminaAmount;
-            onRefreshed?.Invoke();
+            OnStaminaRefreshed?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
