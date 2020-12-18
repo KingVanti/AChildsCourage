@@ -1,4 +1,4 @@
-﻿using static System.Math;
+﻿using static UnityEngine.Mathf;
 
 namespace AChildsCourage
 {
@@ -16,7 +16,7 @@ namespace AChildsCourage
             return tA + (tB - tA) * t * t;
         }
 
-        public static float CalculateAngle(float yPos, float xPos) => (float) (Atan2(yPos, xPos) * (180d / PI));
+        public static float CalculateAngle(float yPos, float xPos) => Atan2(yPos, xPos) * (180f / PI);
 
         public static float Clamp(this float f, float min, float max) => f <= min ? min : f >= max ? max : f;
 
@@ -24,7 +24,7 @@ namespace AChildsCourage
 
         public static float Inverse(this float f) => 1f / f;
 
-        public static float Raise(this float f, float pow) => (float) Pow(f, pow);
+        public static float Raise(this float f, float pow) => Pow(f, pow);
 
         public static int Minus(this int i, int sub) => i - sub;
 
