@@ -37,8 +37,9 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Methods
 
-        public void OnFloorBuilt(Floor floor) =>
-            transform.position = GetEndRoomCenter(floor);
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
+            transform.position = GetEndRoomCenter(eventArgs.Floor);
 
         private static Vector2 GetEndRoomCenter(Floor floor) => floor.EndRoomChunkPosition
                                                                      .Map(GetCenter)

@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
@@ -22,9 +21,9 @@ namespace AChildsCourage.Game
     public class FloorRecreatorEntity : MonoBehaviour
     {
 
-        #region Fields
+        [Pub] public event EventHandler<FloorRecreatedEventArgs> OnFloorRecreated;
 
-        public FloorEvents.Floor onFloorRecreated;
+        #region Fields
 
 #pragma warning disable 649
 
@@ -51,10 +50,10 @@ namespace AChildsCourage.Game
 
         #region Properties
 
-        private IEnumerable<RoomData> RoomData => 
+        private IEnumerable<RoomData> RoomData =>
             roomData ?? (roomData = loadRoomData().ToImmutableHashSet());
 
-        private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances => 
+        private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances =>
             couragePickupAppearances ?? (couragePickupAppearances = loadCouragePickupAppearances().ToImmutableDictionary(a => a.Variant));
 
         #endregion
@@ -77,7 +76,7 @@ namespace AChildsCourage.Game
             floor.CouragePickups.ForEach(PlaceCouragePickup);
             floor.Runes.ForEach(runeSpawner.Spawn);
 
-            onFloorRecreated.Invoke(floor);
+            OnFloorRecreated?.Invoke(this, new FloorRecreatedEventArgs(floor));
         }
 
         private void RecreateRoom(Room room)

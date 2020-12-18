@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
@@ -26,9 +27,10 @@ namespace AChildsCourage.Game.Shade
         private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.Map(ToVector2);
 
 
-        public void OnFloorBuilt(Floor floor)
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
         {
-            spawnTile = GetCenter(floor.EndRoomChunkPosition);
+            spawnTile = GetCenter(eventArgs.Floor.EndRoomChunkPosition);
             SpawnShade();
         }
 

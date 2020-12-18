@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AChildsCourage.Infrastructure;
 using Pathfinding;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
@@ -10,9 +11,9 @@ namespace AChildsCourage.Game.Floors
     {
 
 #pragma warning disable 649
-        
+
         [SerializeField] private AstarPath astarPath;
-        
+
 #pragma warning restore 649
 
         private Floor mapFloor;
@@ -20,9 +21,10 @@ namespace AChildsCourage.Game.Floors
         private GridGraph GridGraph => astarPath.graphs.First() as GridGraph;
 
 
-        public void OnFloorRecreated(Floor floor)
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        public void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
         {
-            mapFloor = floor;
+            mapFloor = eventArgs.Floor;
             Invoke(nameof(FitMapToFloor), 1);
         }
 
@@ -31,7 +33,7 @@ namespace AChildsCourage.Game.Floors
             ScaleToFit(mapFloor);
             astarPath.Scan(GridGraph);
         }
-        
+
         private void ScaleToFit(Floor floor)
         {
             var (lowerRight, upperLeft) = GetFloorCorners(floor);
