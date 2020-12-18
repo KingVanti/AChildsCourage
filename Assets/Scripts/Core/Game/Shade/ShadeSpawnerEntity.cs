@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Shade
 
         private TilePosition spawnTile;
 
-        public event EventHandler OnShadeSpawned;
+        [Pub] public event EventHandler OnShadeSpawned;
 
 
         public void SpawnShade()
