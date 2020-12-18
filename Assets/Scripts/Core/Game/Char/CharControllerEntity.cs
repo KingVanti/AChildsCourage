@@ -21,15 +21,15 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler OnCharDeath;
 
-        #region Fields
+        [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp;
 
-        [Header("Events")]
-        public Events.Vector2 OnPositionChanged;
-        public Events.Int OnDamageReceived;
-        public Events.Empty OnSprintStart;
-        public Events.Empty OnSprintStop;
-        public CharEvents.CouragePickUp OnCouragePickedUp;
-        public CharEvents.MovementState OnMovementStateChanged;
+        [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
+
+        [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
+
+        [Pub] public event EventHandler<CharDamageReceivedEventArgs> OnReceivedDamage;
+
+        #region Fields
 
 #pragma warning disable 649
 
@@ -122,26 +122,21 @@ namespace AChildsCourage.Game.Char
             {
                 movingDirection = value;
 
-                if (MovingDirection == Vector2.zero && IsSprinting)
-                {
-                    StopSprinting();
-                    OnSprintStop?.Invoke();
-                }
+                if (MovingDirection == Vector2.zero && IsSprinting) StopSprinting();
 
                 UpdateAnimator();
             }
         }
-        
+
         public MovementState CurrentMovementState
         {
             get => movementState;
-            set
+            private set
             {
-                if (movementState != value)
-                {
-                    movementState = value;
-                    OnMovementStateChanged.Invoke(CurrentMovementState);
-                }
+                if (movementState == value) return;
+
+                OnMovementStateChanged?.Invoke(this, new MovementStateChangedEventArgs(value, CurrentMovementState));
+                movementState = value;
             }
         }
 
@@ -210,7 +205,7 @@ namespace AChildsCourage.Game.Char
         {
             if (!gettingKnockedBack) rb.velocity = MovingDirection * movementSpeed;
 
-            OnPositionChanged.Invoke(transform.position);
+            OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
             UpdateMovementState();
         }
 
@@ -233,23 +228,14 @@ namespace AChildsCourage.Game.Char
         [Sub(nameof(InputListener.OnStartSprinting))]
         private void OnStartSprint(object _, StartSprintEventArgs eventArgs)
         {
-            if (!IsMoving) return;
-            if (hasStamina)
-            {
-                movementSpeed = sprintSpeed;
-                IsSprinting = true;
-            }
+            if (!hasStamina || !IsMoving) return;
 
-            OnSprintStart?.Invoke();
+            movementSpeed = sprintSpeed;
+            IsSprinting = true;
         }
 
         [Sub(nameof(InputListener.OnStopSprinting))]
-        private void OnStopSprint(object _, StopSprintEventArgs eventArgs)
-        {
-            if (hasStamina && IsSprinting) OnSprintStop?.Invoke();
-
-            StopSprinting();
-        }
+        private void OnStopSprint(object _, StopSprintEventArgs eventArgs) => StopSprinting();
 
         private void StopSprinting()
         {
@@ -257,21 +243,25 @@ namespace AChildsCourage.Game.Char
             movementSpeed = defaultSpeed;
         }
 
-        public void OnStaminaDepleted()
+
+        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
+        private void OnStaminaDepleted(object _1, EventArgs _2)
         {
             StopSprinting();
             hasStamina = false;
         }
 
-        public void OnStaminaRefresh() => hasStamina = true;
+        [Sub(nameof(StaminaEntity.OnStaminaRefreshed))]
+        private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
 
         #endregion
 
-        public void OnCouragePickUp(CouragePickupEntity courage)
+        [Sub(nameof(OnCouragePickedUp))]
+        public void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
             var emission = courageCollectParticleSystem.emission;
 
-            switch (courage.Variant)
+            switch (eventArgs.Variant)
             {
                 case CourageVariant.Orb:
                     emission.rateOverTime = 25;
@@ -298,12 +288,13 @@ namespace AChildsCourage.Game.Char
             TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
+            if (!collider.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
-            OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
-            Destroy(collision.gameObject);
+            var couragePickup = collider.GetComponent<CouragePickupEntity>();
+            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Value, couragePickup.Variant));
+            Destroy(collider.gameObject);
         }
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
@@ -311,7 +302,7 @@ namespace AChildsCourage.Game.Char
             StartCoroutine(KnockBack(damage * movementSpeed * knockBackMultiplier, 0.175f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
-            OnDamageReceived?.Invoke(damage);
+            OnReceivedDamage?.Invoke(this, new CharDamageReceivedEventArgs(damage));
         }
 
         private IEnumerator DamageTaken(float duration)

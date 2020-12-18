@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using AChildsCourage.Game.Char;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 
@@ -49,7 +49,6 @@ namespace AChildsCourage.Game.Floors.Courage
             set => _maxNightCourage = value;
         }
 
-
         #endregion
 
         #region Methods
@@ -60,16 +59,23 @@ namespace AChildsCourage.Game.Floors.Courage
             CurrentNightCourage = 0;
         }
 
-        public void Add(CouragePickupEntity pickedUpCourage)
+        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
+        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) => Add(eventArgs.Value);
+
+        private void Add(int amount)
         {
-            CurrentNightCourage += pickedUpCourage.Value;
+            CurrentNightCourage += amount;
 
             if (CurrentNightCourage > MaxNightCourage) CurrentNightCourage = MaxNightCourage;
         }
 
-        public void Subtract(int value)
+        
+        [Sub(nameof(CharControllerEntity.OnReceivedDamage))]
+        private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) => Subtract(eventArgs.ReceivedDamage);
+        
+        private void Subtract(int amount)
         {
-            CurrentNightCourage -= value;
+            CurrentNightCourage -= amount;
 
             if (CurrentNightCourage >= 0) return;
 
@@ -77,6 +83,7 @@ namespace AChildsCourage.Game.Floors.Courage
             OnCourageDepleted?.Invoke();
         }
 
+        
         public void GameLost() => OnCharLose?.Invoke(this, EventArgs.Empty);
 
         #endregion

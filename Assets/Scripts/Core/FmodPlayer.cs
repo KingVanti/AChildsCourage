@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
@@ -80,9 +81,10 @@ namespace AChildsCourage
 
         public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
 
-        public void PlayCouragePickUp(CouragePickupEntity couragePickup)
+        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
+        public void PlayCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
-            switch (couragePickup.Variant)
+            switch (eventArgs.Variant)
             {
                 case CourageVariant.Spark:
                     RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
@@ -102,7 +104,15 @@ namespace AChildsCourage
 
         public void PlayChar_Death() => RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
 
-        public void PlaySprint_stop()
+
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
+        private void OnCharMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs)
+        {
+            if(eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting)
+                PlaySprint_stop();
+        }
+        
+        private void PlaySprint_stop()
         {
             if (Char_sprint_stop_Is_playing == false)
             {
@@ -111,7 +121,11 @@ namespace AChildsCourage
             }
         }
 
-        public void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
+
+        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
+        private void OnCharStaminaDepleted(object _1, EventArgs _2) => PlaySprint_depleted();
+        
+        private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
 
 
         private IEnumerator SprintTimer()

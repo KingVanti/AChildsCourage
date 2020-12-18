@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Char {
+namespace AChildsCourage.Game.Char
+{
 
-    public class StaminaEntity : MonoBehaviour {
+    public class StaminaEntity : MonoBehaviour
+    {
+
+        [Pub] public event EventHandler OnStaminaDepleted;
+
+        [Pub] public event EventHandler OnStaminaRefreshed;
 
         #region Fields
-
-        [Header("Events")]
-        public Events.Empty onStaminaDepleted;
-        public Events.Empty onRefreshed;
-
+        
         [Header("Stats")]
         public float stamina = 100;
 
@@ -31,41 +35,45 @@ namespace AChildsCourage.Game.Char {
 
         private void Start() => StartCoroutine(Sprint());
 
-        public void SetStaminaDrainRate(MovementState movementState)
+
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
+        private void OnMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs) => SetStaminaDrainRate(eventArgs.Current);
+
+        private void SetStaminaDrainRate(MovementState movementState) => staminaDrainRate = staminaRates[movementState];
+
+        private IEnumerator Sprint()
         {
-            staminaDrainRate = staminaRates[movementState];
-        }
-
-        private IEnumerator Sprint() {
-
-            while (true) {
-                if (!isOnCooldown) {
-
+            while (true)
+            {
+                if (!isOnCooldown)
+                {
                     stamina = stamina.Plus(staminaDrainRate * Time.deltaTime).Clamp(0, 100);
 
-                    if (stamina <= 0.05f) {
+                    if (stamina <= 0.05f)
+                    {
                         StartCoroutine(Cooldown());
-                        onStaminaDepleted?.Invoke();
+                        OnStaminaDepleted?.Invoke(this, EventArgs.Empty);
                     }
 
                     yield return null;
-
                 }
 
                 yield return null;
             }
         }
 
-        private IEnumerator Cooldown() {
+        private IEnumerator Cooldown()
+        {
             isOnCooldown = true;
             yield return new WaitForSeconds(staminaDepletedCooldown);
             isOnCooldown = false;
             RefreshStamina(recoveredStaminaAmount);
         }
 
-        private void RefreshStamina(float recoveredStaminaAmount) {
+        private void RefreshStamina(float recoveredStaminaAmount)
+        {
             stamina = recoveredStaminaAmount;
-            onRefreshed?.Invoke();
+            OnStaminaRefreshed?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
