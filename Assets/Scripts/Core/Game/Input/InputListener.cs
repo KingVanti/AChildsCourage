@@ -32,7 +32,8 @@ namespace AChildsCourage.Game.Input
 
         #region Methods
 
-        public void OnSceneLoaded() => SetupInputs();
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) => SetupInputs();
 
         private void SetupInputs()
         {

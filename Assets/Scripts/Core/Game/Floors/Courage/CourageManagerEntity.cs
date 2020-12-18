@@ -48,7 +48,9 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Methods
 
-        public void Initialize() => CurrentNightCourage = 0;
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) => CurrentNightCourage = 0;
+
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
         private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) => Add(eventArgs.Value);
@@ -67,7 +69,7 @@ namespace AChildsCourage.Game.Floors.Courage
         private void Subtract(int amount)
         {
             CurrentNightCourage -= amount;
-            
+
             if (CurrentNightCourage == 0) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
         }
 

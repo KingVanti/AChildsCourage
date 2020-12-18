@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using AChildsCourage.Infrastructure;
+using UnityEngine;
 using static AChildsCourage.Infrastructure.MInfrastructure;
 
 namespace AChildsCourage
@@ -7,15 +9,14 @@ namespace AChildsCourage
     public class SceneManagerEntity : MonoBehaviour
     {
 
-        public Events.Empty onSceneLoaded;
-
-
         private void Awake() => SetupScene();
+
+        [Pub] public event EventHandler OnSceneLoaded;
 
         private void SetupScene()
         {
             SetupSceneInfrastructure();
-            onSceneLoaded.Invoke();
+            OnSceneLoaded?.Invoke(this, EventArgs.Empty);
         }
 
     }

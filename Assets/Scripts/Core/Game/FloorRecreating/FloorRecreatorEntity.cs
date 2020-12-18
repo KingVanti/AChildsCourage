@@ -60,7 +60,10 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        public void PrepareNightForCurrentRun()
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) => PrepareNightForCurrentRun();
+        
+        private void PrepareNightForCurrentRun()
         {
             var nightData = CreateNightWithRandomSeed(RandomRng());
             var rng = RngFromSeed(nightData.Seed);
