@@ -11,11 +11,14 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
-    
+
     public class ShadeBrainEntity : MonoBehaviour
     {
 
         private static readonly int fadePropertyId = Shader.PropertyToID("_Fade");
+
+
+        [Pub] public event EventHandler OnBanishingStarted;
 
         #region Subtypes
 
@@ -26,7 +29,6 @@ namespace AChildsCourage.Game.Shade
         #region Fields
 
         public Events.Empty onBanishedCompleted;
-        public Events.Empty onBanishedStarted;
         public Events.Vector3 onTargetPositionChanged;
 
 #pragma warning disable 649
@@ -210,7 +212,7 @@ namespace AChildsCourage.Game.Shade
 
         public void Banish()
         {
-            onBanishedStarted?.Invoke();
+            OnBanishingStarted?.Invoke(this, EventArgs.Empty);
             StartBehaviour(None);
             CurrentTargetPosition = transform.position;
             collider.enabled = false;
@@ -228,7 +230,6 @@ namespace AChildsCourage.Game.Shade
 
         public void Respawn()
         {
-            
             gameObject.SetActive(true);
             collider.enabled = true;
             StartBehaviour(Investigate);
@@ -244,7 +245,7 @@ namespace AChildsCourage.Game.Shade
             while (spriteRenderer.material.GetFloat(fadePropertyId) > 0)
             {
                 spriteRenderer.material.SetFloat(fadePropertyId,
-                                          Mathf.MoveTowards(spriteRenderer.material.GetFloat(fadePropertyId), 0, Time.deltaTime));
+                                                 Mathf.MoveTowards(spriteRenderer.material.GetFloat(fadePropertyId), 0, Time.deltaTime));
                 yield return null;
             }
 

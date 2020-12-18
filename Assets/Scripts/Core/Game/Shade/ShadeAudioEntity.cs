@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using AChildsCourage.Infrastructure;
 using FMODUnity;
 using UnityEngine;
 
@@ -25,7 +27,9 @@ namespace AChildsCourage.Game.Shade
             emitter = target.GetComponent<StudioEventEmitter>();
         }
 
-        public void Shade_getBanished() => RuntimeManager.PlayOneShot(ShadeBanished_path, GetComponent<Transform>().position);
+        
+        [Sub(nameof(ShadeBrainEntity.OnBanishingStarted))]
+        public void OnShadeBanishingStarted(object _1, EventArgs _2) => RuntimeManager.PlayOneShot(ShadeBanished_path, GetComponent<Transform>().position);
 
         public void Shade_spawn() => RuntimeManager.PlayOneShot(ShadeSpawn_path, GetComponent<Transform>().position);
 
