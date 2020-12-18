@@ -27,10 +27,11 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
 
+        [Pub] public event EventHandler<CharDamageReceivedEventArgs> OnReceivedDamage;
+
         #region Fields
 
         [Header("Events")]
-        public Events.Int OnDamageReceived;
         public Events.Empty OnSprintStart;
         public Events.Empty OnSprintStop;
 
@@ -316,7 +317,7 @@ namespace AChildsCourage.Game.Char
             StartCoroutine(KnockBack(damage * movementSpeed * knockBackMultiplier, 0.175f, knockBackVector));
             StartCoroutine(DamageTaken(2f));
 
-            OnDamageReceived?.Invoke(damage);
+            OnReceivedDamage?.Invoke(this, new CharDamageReceivedEventArgs(damage));
         }
 
         private IEnumerator DamageTaken(float duration)
