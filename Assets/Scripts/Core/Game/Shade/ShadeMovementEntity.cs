@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Infrastructure;
 using Pathfinding;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
-    
+
     public class ShadeMovementEntity : MonoBehaviour
     {
 
@@ -43,14 +44,16 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) => SetMovementTarget(eventArgs.NewTargetPosition);
-        
+
         private void SetMovementTarget(Vector3 position) => aiPath.destination = position;
 
-        
-        public void ResetSpeed() => aiPath.maxSpeed = movementSpeed;
+
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        private void OnShadeSpawned(object _1, EventArgs _2) => ResetSpeed();
+
+        private void ResetSpeed() => aiPath.maxSpeed = movementSpeed;
 
 
         private void Update() => UpdateAnimator();

@@ -3,7 +3,6 @@ using System.Collections;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -13,15 +12,15 @@ namespace AChildsCourage.Game.Shade
     public class ShadeSpawnerEntity : MonoBehaviour
     {
 
-        public Events.Empty onShadeSpawned;
-
         private TilePosition spawnTile;
+
+        public event EventHandler OnShadeSpawned;
 
 
         public void SpawnShade()
         {
             TeleportShadeToSpawn();
-            onShadeSpawned.Invoke();
+            OnShadeSpawned?.Invoke(this, EventArgs.Empty);
         }
 
         private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.Map(ToVector2);

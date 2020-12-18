@@ -1971,45 +1971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe8e67a97d39a245a43a66f6e605ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onShadeSpawned:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2064087351}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Shade.ShadeBrain, AChildsCourage.Unity
-        m_MethodName: Respawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1575949616}
-        m_TargetAssemblyTypeName: FmodShade, Assembly-CSharp
-        m_MethodName: Shade_spawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2064087352}
-        m_TargetAssemblyTypeName: AChildsCourage.Game.Shade.ShadeMovement, AChildsCourage.Unity
-        m_MethodName: ResetSpeed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   shadeTimeoutTime: 15
 --- !u!1 &1268513529
 GameObject:
@@ -2168,17 +2129,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1575949616 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3943784392033496761, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-  m_PrefabInstance: {fileID: 2064087350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60955c7f1932fe449820b5ce6ad39609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1609446190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,28 +2471,6 @@ PrefabInstance:
       objectReference: {fileID: 489588455}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
---- !u!114 &2064087351 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-  m_PrefabInstance: {fileID: 2064087350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2064087352 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7337468781757878326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-  m_PrefabInstance: {fileID: 2064087350}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2074507388
 GameObject:
   m_ObjectHideFlags: 0

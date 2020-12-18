@@ -233,7 +233,10 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        public void Respawn()
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        private void OnShadeSpawned(object _1, EventArgs _2) => Activate();
+        
+        private void Activate()
         {
             gameObject.SetActive(true);
             collider.enabled = true;
