@@ -80,9 +80,10 @@ namespace AChildsCourage
 
         public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
 
-        public void PlayCouragePickUp(CouragePickupEntity couragePickup)
+        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
+        public void PlayCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
-            switch (couragePickup.Variant)
+            switch (eventArgs.Variant)
             {
                 case CourageVariant.Spark:
                     RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);

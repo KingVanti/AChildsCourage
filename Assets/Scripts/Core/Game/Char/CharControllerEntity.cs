@@ -21,6 +21,8 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler OnCharDeath;
 
+        [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp; 
+
         #region Fields
 
         [Header("Events")]
@@ -28,7 +30,6 @@ namespace AChildsCourage.Game.Char
         public Events.Int OnDamageReceived;
         public Events.Empty OnSprintStart;
         public Events.Empty OnSprintStop;
-        public CharEvents.CouragePickUp OnCouragePickedUp;
         public CharEvents.MovementState OnMovementStateChanged;
 
 #pragma warning disable 649
@@ -267,11 +268,12 @@ namespace AChildsCourage.Game.Char
 
         #endregion
 
-        public void OnCouragePickUp(CouragePickupEntity courage)
+        [Sub(nameof(OnCouragePickedUp))]
+        public void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
             var emission = courageCollectParticleSystem.emission;
 
-            switch (courage.Variant)
+            switch (eventArgs.Variant)
             {
                 case CourageVariant.Orb:
                     emission.rateOverTime = 25;
@@ -298,12 +300,13 @@ namespace AChildsCourage.Game.Char
             TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collision.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
+            if (!collider.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
-            OnCouragePickedUp?.Invoke(collision.gameObject.GetComponent<CouragePickupEntity>());
-            Destroy(collision.gameObject);
+            var couragePickup = collider.GetComponent<CouragePickupEntity>();
+            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Value, couragePickup.Variant));
+            Destroy(collider.gameObject);
         }
 
         private void TakingDamage(int damage, Vector2 knockBackVector)
