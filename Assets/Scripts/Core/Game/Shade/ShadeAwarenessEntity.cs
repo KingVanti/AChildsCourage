@@ -100,7 +100,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Methods
 
-        [Sub(nameof(ShadeBrainEntity.OnBanishingCompleted))]
+        [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
         private void OnShadeBanished(object _1, EventArgs _2) => ClearAwareness();
         
         private void ClearAwareness() => CurrentAwareness = NoAwareness;

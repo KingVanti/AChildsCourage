@@ -18,9 +18,9 @@ namespace AChildsCourage.Game.Shade
         private static readonly int fadePropertyId = Shader.PropertyToID("_Fade");
 
 
-        [Pub] public event EventHandler OnBanishingStarted;
+        [Pub] public event EventHandler OnShadeSteppedOnRune;
         
-        [Pub] public event EventHandler OnBanishingCompleted;
+        [Pub] public event EventHandler OnShadeBanished;
 
         #region Subtypes
 
@@ -213,7 +213,7 @@ namespace AChildsCourage.Game.Shade
 
         public void Banish()
         {
-            OnBanishingStarted?.Invoke(this, EventArgs.Empty);
+            OnShadeSteppedOnRune?.Invoke(this, EventArgs.Empty);
             StartBehaviour(None);
             CurrentTargetPosition = transform.position;
             collider.enabled = false;
@@ -224,7 +224,7 @@ namespace AChildsCourage.Game.Shade
         private void DeactivateShade()
         {
             transform.position = new Vector3(100, 100, 0);
-            OnBanishingCompleted?.Invoke(this, EventArgs.Empty);
+            OnShadeBanished?.Invoke(this, EventArgs.Empty);
             gameObject.SetActive(false);
         }
 
