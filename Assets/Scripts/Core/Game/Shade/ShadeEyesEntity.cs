@@ -77,12 +77,17 @@ namespace AChildsCourage.Game.Shade
             while (true)
             {
                 yield return new WaitForSeconds(WaitTime);
-                UpdateCharacterVision();
-                UpdateTilesInVision();
+                UpdateVision();
             }
         }
 
-        private void UpdateCharacterVision()
+        private void UpdateVision()
+        {
+            UpdateCharVision();
+            UpdateTilesInVision();
+        }
+
+        private void UpdateCharVision()
         {
             var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
 
