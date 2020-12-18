@@ -9,24 +9,17 @@ namespace AChildsCourage
     public class EnumArray<TEnum, TMapped> where TEnum : Enum
     {
 
-        [SerializeField] [HideInInspector] private string enumTypeName;
-        [SerializeField] [HideInInspector] private string mappedTypeName;
         [SerializeField] private MappedEnum[] enums;
 
 
         public TMapped this[TEnum @enum] => enums.First(e => e.enumValue.Equals(@enum)).mappedValue;
 
 
-        public EnumArray()
-        {
+        public EnumArray() =>
             enums = Enum.GetValues(typeof(TEnum))
                         .Cast<TEnum>()
                         .Select(e => new MappedEnum(e, default))
                         .ToArray();
-
-            enumTypeName = typeof(TEnum).FullName;
-            mappedTypeName = typeof(TMapped).FullName;
-        }
 
 
         [Serializable]
