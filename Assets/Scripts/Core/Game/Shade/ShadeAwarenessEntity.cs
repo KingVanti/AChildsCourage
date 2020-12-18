@@ -33,15 +33,14 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning  restore 649
 
+        private Visibility currentCharVisibility;
         private Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
 
         #endregion
 
         #region Properties
-
-        public Visibility CurrentCharacterVisibility { get; set; }
-
+        
         public Awareness CurrentAwareness
         {
             get => currentAwareness;
@@ -58,7 +57,7 @@ namespace AChildsCourage.Game.Shade
 
         private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
-        private float PrimaryVisionMultiplier => CurrentCharacterVisibility == Visibility.Primary
+        private float PrimaryVisionMultiplier => currentCharVisibility == Visibility.Primary
             ? primaryVisionMultiplier
             : 1;
 
@@ -96,7 +95,7 @@ namespace AChildsCourage.Game.Shade
 
         private void Update()
         {
-            if (CurrentCharacterVisibility == Visibility.NotVisible)
+            if (currentCharVisibility == Visibility.NotVisible)
                 LooseAwareness();
             else
                 GainAwareness();
@@ -115,6 +114,10 @@ namespace AChildsCourage.Game.Shade
             else
                 currentAwarenessLevel = AwarenessLevel.Oblivious;
         }
+
+
+        [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
+        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) => currentCharVisibility = eventArgs.CharVisibility;
 
         #endregion
 

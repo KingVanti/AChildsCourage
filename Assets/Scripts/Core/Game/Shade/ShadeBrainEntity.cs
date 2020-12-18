@@ -112,10 +112,12 @@ namespace AChildsCourage.Game.Shade
         public void OnTilesInVisionChanged(TilesInView tilesInView) => investigatedPositions.UnionWith(tilesInView);
 
 
-        public void OnCharacterVisibilityChanged(Visibility characterVisibility)
+        [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
+        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs)
         {
-            if (characterVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
+            if (eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
         }
+        
 
         private IEnumerator Investigate()
         {

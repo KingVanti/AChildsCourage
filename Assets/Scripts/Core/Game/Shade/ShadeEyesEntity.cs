@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.ShadeEvents;
 using static AChildsCourage.Game.MTilePosition;
@@ -12,9 +14,10 @@ namespace AChildsCourage.Game.Shade
     public class ShadeEyesEntity : MonoBehaviour
     {
 
+        [Pub] public event EventHandler<CharVisibilityChangedEventArgs> OnCharVisibilityChanged;
+
         #region Fields
 
-        public VisibilityEvent onCharacterVisibilityChanged;
         public TilesInViewEvent onTilesInViewChanged;
 
 #pragma warning disable 649
@@ -47,7 +50,7 @@ namespace AChildsCourage.Game.Shade
                 if (characterVisibility == value) return;
 
                 characterVisibility = value;
-                onCharacterVisibilityChanged.Invoke(characterVisibility);
+                OnCharVisibilityChanged?.Invoke(this, new CharVisibilityChangedEventArgs(characterVisibility));
             }
         }
 
