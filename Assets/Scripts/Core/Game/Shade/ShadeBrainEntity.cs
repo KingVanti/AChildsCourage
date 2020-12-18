@@ -19,6 +19,8 @@ namespace AChildsCourage.Game.Shade
 
 
         [Pub] public event EventHandler OnBanishingStarted;
+        
+        [Pub] public event EventHandler OnBanishingCompleted;
 
         #region Subtypes
 
@@ -27,8 +29,7 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Fields
-
-        public Events.Empty onBanishedCompleted;
+        
         public Events.Vector3 onTargetPositionChanged;
 
 #pragma warning disable 649
@@ -223,7 +224,7 @@ namespace AChildsCourage.Game.Shade
         private void DeactivateShade()
         {
             transform.position = new Vector3(100, 100, 0);
-            onBanishedCompleted?.Invoke();
+            OnBanishingCompleted?.Invoke(this, EventArgs.Empty);
             gameObject.SetActive(false);
         }
 

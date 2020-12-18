@@ -2564,10 +2564,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 489588452}
     - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: onBanishedCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1187637746}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: characterRigidbody
       value: 
       objectReference: {fileID: 489588455}

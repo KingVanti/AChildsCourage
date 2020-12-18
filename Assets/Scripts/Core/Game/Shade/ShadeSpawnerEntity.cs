@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.Events;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
@@ -33,7 +33,8 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        public void OnShadeBanished() => StartCoroutine(TimeoutShade());
+        [Sub(nameof(ShadeBrainEntity.OnBanishingCompleted))]
+        private void OnShadeBanished(object _1, EventArgs _2) => StartCoroutine(TimeoutShade());
 
         private IEnumerator TimeoutShade()
         {
@@ -42,9 +43,9 @@ namespace AChildsCourage.Game.Shade
         }
 
 #pragma warning disable 649
-        
+
         [SerializeField] private float shadeTimeoutTime;
-        
+
         [FindInScene] private ShadeBrainEntity shadeBrain;
 
 #pragma warning restore 649
