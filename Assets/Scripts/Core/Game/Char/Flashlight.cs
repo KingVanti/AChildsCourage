@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float maxIntensity;
         [SerializeField] private Range<float> innerRadiusRange;
         [SerializeField] private Range<float> outerRadiusRange;
-        
+
         [FindInScene] private Camera mainCamera;
 
 #pragma warning restore 649
@@ -100,7 +100,7 @@ namespace AChildsCourage.Game.Char
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0).Clamp(0, 1), 2);
+        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 0, 1).Clamp(0, 1), 2);
 
         #endregion
 
