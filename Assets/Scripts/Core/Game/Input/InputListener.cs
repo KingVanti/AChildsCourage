@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.Input
         [Sub(nameof(CourageManagerEntity.OnCourageDepleted))]
         private void OnCourageDepleted(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
-        [Sub(nameof(CourageRiftEntity.OnCharWin))]
+        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
         private void OnCharWin(object _1, EventArgs _2) => UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()

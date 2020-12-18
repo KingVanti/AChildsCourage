@@ -19,13 +19,10 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #endregion
 
-        [Pub] public event EventHandler OnCharWin;
+        [Pub] public event EventHandler OnCharEnteredRift;
 
         #region Fields
-
-        [Header("Events")]
-        public Events.Empty onRiftEntered;
-
+        
 #pragma warning disable 649
 
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -108,8 +105,7 @@ namespace AChildsCourage.Game.Floors.Courage
         {
             if (!collision.CompareTag(EntityTags.Char) || currentStage != 4) return;
 
-            OnCharWin?.Invoke(this, EventArgs.Empty);
-            onRiftEntered?.Invoke();
+            OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

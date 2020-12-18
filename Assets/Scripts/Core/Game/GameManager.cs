@@ -15,7 +15,10 @@ namespace AChildsCourage.Game
         private void OnLose() => LoadScene(SceneNames.End);
 
 
-        public void OnWin() => LoadScene(SceneNames.End);
+        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
+        private void OnCharEnteredRift(object _1, EventArgs _2) => OnWin();
+        
+        private void OnWin() => LoadScene(SceneNames.End);
 
     }
 
