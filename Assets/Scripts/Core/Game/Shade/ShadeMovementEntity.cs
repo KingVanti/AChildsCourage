@@ -20,14 +20,14 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float movementSpeed;
         [SerializeField] private float waitTimeAfterDealingDamage;
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
 
-#pragma warning restore 649
+
 
         private float standardSpeed;
 

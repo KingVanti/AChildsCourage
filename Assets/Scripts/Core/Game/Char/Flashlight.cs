@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Char
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private Light2D lightComponent;
         [SerializeField] private LayerMask obstructionLayers;
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Char
 
         [FindInScene] private Camera mainCamera;
 
-#pragma warning restore 649
+
 
         private bool isTurnedOn;
         private Vector2 mousePosition;

@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Floors
     public class RuneEntity : MonoBehaviour
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private float activeTime;
         [SerializeField] private float deactivationTime;
@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Material litMaterial;
         [SerializeField] private Light2D runeLight;
 
-#pragma warning restore 649
+
         
         private bool isActive;
         private bool wasUsed;

@@ -48,14 +48,14 @@ namespace AChildsCourage.Game.Shade
                 this.canSeeThroughWalls = canSeeThroughWalls;
             }
 
-#pragma warning disable 649
+
 
             [SerializeField] private Visibility visibility;
             [SerializeField] private float viewRadius;
             [SerializeField] private float viewAngle;
             [SerializeField] private bool canSeeThroughWalls;
 
-#pragma warning restore 649
+
 
         }
 

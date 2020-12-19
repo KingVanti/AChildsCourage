@@ -18,7 +18,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float speed;
         [SerializeField] private float zoomSpeed;
@@ -27,7 +27,7 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private float focusZoom;
         [SerializeField] private new Camera camera;
 
-#pragma warning restore 649
+
 
         private Vector2 currentMovement;
         private RoomEditorInput input;

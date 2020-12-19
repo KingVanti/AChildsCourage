@@ -11,13 +11,13 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private TileCollection groundTiles;
         [SerializeField] private TileCollection wallSideTiles;
         [SerializeField] private TileCollection wallTopTiles;
 
-#pragma warning restore 649
+
 
         private readonly CreateRng createRng = RngFromSeed(0);
 

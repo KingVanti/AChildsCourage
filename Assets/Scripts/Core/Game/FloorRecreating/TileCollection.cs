@@ -23,13 +23,13 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] [Range(0, 100)] private float _variantProb;
         [SerializeField] private Tile _baseTile;
         [SerializeField] private Tile[] _variants;
 
-#pragma warning restore 649
+
 
         #endregion
 

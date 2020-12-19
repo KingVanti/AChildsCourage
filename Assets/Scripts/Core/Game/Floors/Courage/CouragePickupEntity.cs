@@ -28,10 +28,10 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Fields
 
-#pragma warning disable 649
+
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Light2D courageLight;
-#pragma warning restore 649
+
 
         private string courageName = "";
 

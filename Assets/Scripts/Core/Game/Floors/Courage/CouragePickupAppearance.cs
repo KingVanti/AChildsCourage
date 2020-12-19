@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CouragePickupAppearance : ScriptableObject
     {
         
-#pragma warning disable 649
+
 
         [SerializeField] private int _value;
         [SerializeField] private string _courageName;
@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float _lightOuterRadius;
         [SerializeField] private float _lightIntensity;
 
-#pragma warning restore 649
+
         
 
         public CourageVariant Variant => _variant;

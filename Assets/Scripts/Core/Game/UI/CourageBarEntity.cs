@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.UI
 
         #region Fields
 
-#pragma warning disable 649
+
         
         [SerializeField] private Image courageBarFill;
         [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.UI
 
         [FindInScene] private CourageManagerEntity courageManager;
         
-#pragma warning restore 649
+
 
         #endregion
 

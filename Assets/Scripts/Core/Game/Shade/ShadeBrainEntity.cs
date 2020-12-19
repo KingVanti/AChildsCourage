@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
@@ -47,7 +47,7 @@ namespace AChildsCourage.Game.Shade
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
 
 
-#pragma warning restore 649
+
 
         private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;

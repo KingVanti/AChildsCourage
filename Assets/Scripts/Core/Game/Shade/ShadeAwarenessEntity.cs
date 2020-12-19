@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;

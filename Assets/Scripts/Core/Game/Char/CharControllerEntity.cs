@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Char
         
         #region Fields
 
-#pragma warning disable 649
+
 
         [Header("References")]
         [SerializeField] private Animator animator;
@@ -46,7 +46,7 @@ namespace AChildsCourage.Game.Char
 
         [FindInScene] private CourageManagerEntity courageManager;
 
-#pragma warning restore 649
+
 
         private Camera mainCamera;
         private Vector2 movingDirection;

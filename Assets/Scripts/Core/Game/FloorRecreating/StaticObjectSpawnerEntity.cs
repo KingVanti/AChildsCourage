@@ -43,7 +43,7 @@ namespace AChildsCourage.Game.Floors
                 this.weight = weight;
             }
 
-#pragma warning disable 649
+
 
             [SerializeField] private StaticObjectAppearance appearance;
             [SerializeField] [Range(1, 10)] private float weight;
@@ -52,7 +52,7 @@ namespace AChildsCourage.Game.Floors
 
         }
 
-#pragma warning disable 649
+
 
         [SerializeField] private GameObject staticObjectPrefab;
         [SerializeField] private StaticObjectWeights[] appearanceWeights;

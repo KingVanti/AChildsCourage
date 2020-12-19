@@ -9,13 +9,13 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float rotationDegreesPerSecond;
         
         [FindInScene] private ShadeMovementEntity shadeMovement;
 
-#pragma warning restore 649
+
 
         #endregion
 

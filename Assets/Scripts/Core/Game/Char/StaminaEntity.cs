@@ -18,13 +18,13 @@ namespace AChildsCourage.Game.Char
         [Header("Stats")]
         public float stamina = 100;
 
-#pragma warning disable 649
+
 
         [SerializeField] private float staminaDepletedCooldown;
         [SerializeField] private EnumArray<MovementState, float> staminaRates;
         [SerializeField] private float recoveredStaminaAmount;
 
-#pragma warning restore 649
+
 
         private float staminaDrainRate = 1f;
         private bool isOnCooldown;

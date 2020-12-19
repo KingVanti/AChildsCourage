@@ -25,7 +25,7 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
@@ -41,7 +41,7 @@ namespace AChildsCourage.Game
         [FindService] private LoadRoomData loadRoomData;
         [FindService] private LoadCouragePickupAppearances loadCouragePickupAppearances;
 
-#pragma warning restore 649
+
 
         private ImmutableHashSet<RoomData> roomData;
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> couragePickupAppearances;

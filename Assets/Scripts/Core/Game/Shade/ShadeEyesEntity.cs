@@ -22,14 +22,14 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private VisionCone[] visionCones;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
-#pragma warning restore 649
+
 
         private Visibility charVisibility;
 

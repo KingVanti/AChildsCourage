@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [FindInScene] private CourageManagerEntity courageManager;
 
-#pragma warning restore 649
+
 
         private int currentStage;
         private readonly int[] stageThresholds = new int[5];

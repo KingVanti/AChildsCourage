@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectEntity : MonoBehaviour
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private SpriteRenderer spriteRenderer;
 

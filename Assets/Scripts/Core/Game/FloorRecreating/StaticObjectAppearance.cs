@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectAppearance : ScriptableObject
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private Sprite sprite;
 

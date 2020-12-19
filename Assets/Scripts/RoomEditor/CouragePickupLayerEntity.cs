@@ -17,12 +17,12 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private Tile courageSparkTile;
         [SerializeField] private Tile courageOrbTile;
 
-#pragma warning restore 649
+
 
         #endregion
 

@@ -13,11 +13,11 @@ namespace AChildsCourage
     public class FmodPlayer : MonoBehaviour
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private StaminaEntity stamina;
 
-#pragma warning restore 649
+
 
         private readonly float Material = 0;
         private readonly float waitTime = 1.5f;

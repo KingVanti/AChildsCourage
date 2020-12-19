@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Floors
     public class RuneSpawnerEntity : MonoBehaviour
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private GameObject runePrefab;
 

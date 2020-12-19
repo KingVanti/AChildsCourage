@@ -10,11 +10,11 @@ namespace AChildsCourage.Game.Floors
     public class NavigationMapEntity : MonoBehaviour
     {
 
-#pragma warning disable 649
+
 
         [SerializeField] private AstarPath astarPath;
 
-#pragma warning restore 649
+
 
         private Floor mapFloor;
 

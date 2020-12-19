@@ -13,14 +13,14 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-#pragma warning disable 649
+
 
         [SerializeField] private GroundTileLayerEntity groundLayer;
         [SerializeField] private CouragePickupLayerEntity courageLayer;
         [SerializeField] private StaticObjectLayerEntity staticObjectLayer;
         [SerializeField] private RuneLayerEntity runeLayer;
 
-#pragma warning restore 649
+
 
         #endregion
 

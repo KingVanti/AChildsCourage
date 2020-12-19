@@ -18,11 +18,11 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [Pub] public event EventHandler OnCourageDepleted;
 
-#pragma warning disable 649
+
 
         [SerializeField] private int _maxNightCourage;
 
-#pragma warning restore 649
+
 
         #endregion
 

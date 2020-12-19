@@ -12,12 +12,16 @@ namespace AChildsCourage.Game.Shade
     public class ShadeSpawnerEntity : MonoBehaviour
     {
 
-        private TilePosition spawnTile;
-
         [Pub] public event EventHandler OnShadeSpawned;
 
 
-        public void SpawnShade()
+        [SerializeField] private float shadeTimeoutTime;
+        [FindInScene] private readonly ShadeBrainEntity shadeBrain = default;
+
+        private TilePosition spawnTile;
+
+
+        private void SpawnShade()
         {
             TeleportShadeToSpawn();
             OnShadeSpawned?.Invoke(this, EventArgs.Empty);
@@ -42,14 +46,6 @@ namespace AChildsCourage.Game.Shade
             yield return new WaitForSeconds(shadeTimeoutTime);
             SpawnShade();
         }
-
-#pragma warning disable 649
-
-        [SerializeField] private float shadeTimeoutTime;
-
-        [FindInScene] private ShadeBrainEntity shadeBrain;
-
-#pragma warning restore 649
 
     }
 

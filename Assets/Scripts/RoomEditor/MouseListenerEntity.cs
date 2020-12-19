@@ -18,11 +18,11 @@ namespace AChildsCourage.RoomEditor
 
         public MouseDownEvent onMouseDown;
 
-#pragma warning disable 649
+
 
         [SerializeField] private Camera cam;
 
-#pragma warning restore 649
+
 
         private RoomEditorInput input;
 

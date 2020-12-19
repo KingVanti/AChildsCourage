@@ -17,12 +17,12 @@ namespace AChildsCourage
 
             public TValue Max => max;
 
-#pragma warning disable 649
+
 
             [SerializeField] private TValue min;
             [SerializeField] private TValue max;
 
-#pragma warning restore 649
+
 
         }
 
