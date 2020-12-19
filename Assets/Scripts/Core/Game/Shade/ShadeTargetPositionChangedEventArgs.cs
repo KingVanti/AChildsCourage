@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
     {
 
         public Vector2 NewTargetPosition { get; }
-        
+
 
         public ShadeTargetPositionChangedEventArgs(Vector2 newTargetPosition) => NewTargetPosition = newTargetPosition;
 

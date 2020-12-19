@@ -9,8 +9,6 @@ namespace AChildsCourage.Game.Floors
     public class RuneEntity : MonoBehaviour
     {
 
-
-
         [SerializeField] private float activeTime;
         [SerializeField] private float deactivationTime;
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -21,7 +19,6 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Light2D runeLight;
 
 
-        
         private bool isActive;
         private bool wasUsed;
 

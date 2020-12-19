@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.UI
             SetTransparency(eventArgs.NewAwareness.Value);
             SetVeinSprite(eventArgs.Level);
         }
-        
+
         private void SetTransparency(float awareness) => image.color = new Color(image.color.r, image.color.g, image.color.b, awareness);
 
         private void SetVeinSprite(AwarenessLevel level) =>

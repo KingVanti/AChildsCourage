@@ -22,13 +22,10 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-
-
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private VisionCone[] visionCones;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
-
 
 
         private Visibility charVisibility;
@@ -79,7 +76,7 @@ namespace AChildsCourage.Game.Shade
 
 
         private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
-        
+
 
         public Visibility CalculateCharacterVisibility() =>
             CurrentCharacterVisionPoints
@@ -100,8 +97,8 @@ namespace AChildsCourage.Game.Shade
             var dirToPoint = point2 - point1;
             return Physics2D.Raycast(point1, dirToPoint, dirToPoint.magnitude, obstructionLayers);
         }
-        
-        
+
+
         private IEnumerator ContinuallyUpdateVision()
         {
             while (true)
@@ -116,7 +113,7 @@ namespace AChildsCourage.Game.Shade
             CharVisibility = CalculateCharacterVisibility();
             TilesInView = CalculateTilesInView();
         }
-        
+
         #endregion
 
     }

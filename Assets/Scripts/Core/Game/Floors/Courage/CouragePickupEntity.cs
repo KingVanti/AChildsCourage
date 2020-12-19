@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Floors.Courage
@@ -7,7 +6,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
     public class CouragePickupEntity : MonoBehaviour
     {
-        
+
         private static readonly int emissionTextureKey = Shader.PropertyToID("_Emission");
 
         #region Methods
@@ -27,7 +26,6 @@ namespace AChildsCourage.Game.Floors.Courage
         #endregion
 
         #region Fields
-
 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Light2D courageLight;

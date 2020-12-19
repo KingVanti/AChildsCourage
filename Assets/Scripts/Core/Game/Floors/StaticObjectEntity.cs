@@ -6,8 +6,6 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectEntity : MonoBehaviour
     {
 
-
-
         [SerializeField] private SpriteRenderer spriteRenderer;
 
 #pragma warning  restore 649

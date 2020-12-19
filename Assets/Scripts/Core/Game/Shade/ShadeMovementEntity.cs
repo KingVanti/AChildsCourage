@@ -20,13 +20,10 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-
-
         [SerializeField] private float movementSpeed;
         [SerializeField] private float waitTimeAfterDealingDamage;
         [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
-
 
 
         private float standardSpeed;

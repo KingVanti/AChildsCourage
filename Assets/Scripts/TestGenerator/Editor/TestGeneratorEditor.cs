@@ -4,7 +4,6 @@ using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutGenerating;
 using static AChildsCourage.Game.MFloorGenerating.MFloorPlanGenerating;
-using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {

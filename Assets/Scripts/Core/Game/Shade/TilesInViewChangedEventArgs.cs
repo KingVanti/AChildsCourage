@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
     {
 
         public TilesInView TilesInView { get; }
-        
+
 
         public TilesInViewChangedEventArgs(TilesInView tilesInView) => TilesInView = tilesInView;
 

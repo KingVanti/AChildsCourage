@@ -20,11 +20,11 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
             () => LoadAssets()
                 .Select(ReadData);
 
-        private static IEnumerable<RoomAsset> LoadAssets() => 
+        private static IEnumerable<RoomAsset> LoadAssets() =>
             Resources.LoadAll<RoomAsset>(RoomResourcePath);
 
         private static RoomData ReadData(RoomAsset asset) =>
-            new RoomData(asset.Id, asset.Type,asset.Passages, asset.Content);
+            new RoomData(asset.Id, asset.Type, asset.Passages, asset.Content);
 
     }
 

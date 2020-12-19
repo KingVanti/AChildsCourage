@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors
 
     public readonly struct GroundTile
     {
-        
+
         public AoiIndex AoiIndex { get; }
 
         public TilePosition Position { get; }

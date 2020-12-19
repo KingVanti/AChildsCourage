@@ -31,8 +31,8 @@ namespace AChildsCourage
             LabelField(PositionWith(EditorGUIUtility.labelWidth + propertyWidth + ValueSpacing, ValueLabelWidth), "Max");
             PropertyField(PositionWith(EditorGUIUtility.labelWidth + propertyWidth + ValueLabelWidth + ValueSpacing, valueWidth), property.FindPropertyRelative("max"), GUIContent.none);
         }
-        
-        
+
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => lineHeight + spacing;
 
     }

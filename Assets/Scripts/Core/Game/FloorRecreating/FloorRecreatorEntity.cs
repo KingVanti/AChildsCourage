@@ -25,8 +25,6 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-
-
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GameObject couragePickupPrefab;
@@ -40,7 +38,6 @@ namespace AChildsCourage.Game
 
         [FindService] private LoadRoomData loadRoomData;
         [FindService] private LoadCouragePickupAppearances loadCouragePickupAppearances;
-
 
 
         private ImmutableHashSet<RoomData> roomData;
@@ -62,7 +59,7 @@ namespace AChildsCourage.Game
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) => PrepareNightForCurrentRun();
-        
+
         private void PrepareNightForCurrentRun()
         {
             var nightData = CreateNightWithRandomSeed(RandomRng());

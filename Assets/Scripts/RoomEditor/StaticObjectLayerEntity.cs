@@ -12,11 +12,7 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-
-
         [SerializeField] private Tile tile;
-
-
 
         #endregion
 

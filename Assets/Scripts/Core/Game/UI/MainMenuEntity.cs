@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AChildsCourage.Game.UI
 {
@@ -7,7 +8,7 @@ namespace AChildsCourage.Game.UI
     public class MainMenuEntity : MonoBehaviour
     {
 
-        public void OnPlayButtonPressed() => UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.Game);
+        public void OnPlayButtonPressed() => SceneManager.LoadScene(SceneNames.Game);
 
         public void OnQuitButtonPressed()
         {

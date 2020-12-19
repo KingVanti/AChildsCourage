@@ -32,6 +32,11 @@ namespace AChildsCourage.Game.Shade
         public struct VisionCone
         {
 
+            [SerializeField] private Visibility visibility;
+            [SerializeField] private float viewRadius;
+            [SerializeField] private float viewAngle;
+            [SerializeField] private bool canSeeThroughWalls;
+
             public Visibility Visibility => visibility;
 
             public float ViewRadius => viewRadius;
@@ -47,15 +52,6 @@ namespace AChildsCourage.Game.Shade
                 this.viewAngle = viewAngle;
                 this.canSeeThroughWalls = canSeeThroughWalls;
             }
-
-
-
-            [SerializeField] private Visibility visibility;
-            [SerializeField] private float viewRadius;
-            [SerializeField] private float viewAngle;
-            [SerializeField] private bool canSeeThroughWalls;
-
-
 
         }
 

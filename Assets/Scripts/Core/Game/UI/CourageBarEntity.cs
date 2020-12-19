@@ -12,26 +12,22 @@ namespace AChildsCourage.Game.UI
     public class CourageBarEntity : MonoBehaviour
     {
 
-        #region Fields
-
-
-        
-        [SerializeField] private Image courageBarFill;
-        [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
-        [SerializeField] private Color32 textColor;
-
-        [FindInScene] private CourageManagerEntity courageManager;
-        
-
-
-        #endregion
-
         #region Properties
 
         private int TotalToCollect => courageManager.MaxNightCourage;
 
         #endregion
-        
+
+        #region Fields
+
+        [SerializeField] private Image courageBarFill;
+        [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
+        [SerializeField] private Color32 textColor;
+
+        [FindInScene] private CourageManagerEntity courageManager;
+
+        #endregion
+
         #region Methods
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]

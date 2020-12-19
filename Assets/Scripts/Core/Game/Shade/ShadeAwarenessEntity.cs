@@ -15,8 +15,6 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-
-
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
         [SerializeField] private float primaryVisionMultiplier;

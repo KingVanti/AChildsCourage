@@ -14,16 +14,14 @@ namespace AChildsCourage.Game.Char
         [Pub] public event EventHandler OnStaminaRefreshed;
 
         #region Fields
-        
+
         [Header("Stats")]
         public float stamina = 100;
-
 
 
         [SerializeField] private float staminaDepletedCooldown;
         [SerializeField] private EnumArray<MovementState, float> staminaRates;
         [SerializeField] private float recoveredStaminaAmount;
-
 
 
         private float staminaDrainRate = 1f;

@@ -18,10 +18,10 @@ namespace AChildsCourage.Game.Shade
 
         private static readonly int fadePropertyId = Shader.PropertyToID("_Fade");
 
+        [Pub] public event EventHandler OnShadeBanished;
+
 
         [Pub] public event EventHandler OnShadeSteppedOnRune;
-
-        [Pub] public event EventHandler OnShadeBanished;
 
         [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
@@ -33,8 +33,6 @@ namespace AChildsCourage.Game.Shade
 
         #region Fields
 
-
-
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
         [SerializeField] private Rigidbody2D characterRigidbody;
@@ -45,8 +43,6 @@ namespace AChildsCourage.Game.Shade
 
         [FindInScene] private ShadeEyesEntity shadeEyes;
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
-
-
 
 
         private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();

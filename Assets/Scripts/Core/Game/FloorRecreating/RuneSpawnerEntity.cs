@@ -3,11 +3,9 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
-    
+
     public class RuneSpawnerEntity : MonoBehaviour
     {
-
-
 
         [SerializeField] private GameObject runePrefab;
 

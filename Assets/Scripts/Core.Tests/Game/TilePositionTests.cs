@@ -99,7 +99,7 @@ namespace AChildsCourage.Game
 
             Assert.That(positions.All(p => p.Map(DistanceTo, center) <= radius));
         }
-        
+
         [Test]
         public void PositionsInRadius_Are_Distinct()
         {

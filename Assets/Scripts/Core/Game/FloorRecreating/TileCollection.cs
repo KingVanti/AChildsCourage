@@ -23,13 +23,9 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-
-
         [SerializeField] [Range(0, 100)] private float _variantProb;
         [SerializeField] private Tile _baseTile;
         [SerializeField] private Tile[] _variants;
-
-
 
         #endregion
 

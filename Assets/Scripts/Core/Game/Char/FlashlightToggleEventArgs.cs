@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Char
     {
 
         public bool IsTurnedOn { get; }
-        
+
 
         public FlashlightToggleEventArgs(bool isTurnedOn) => IsTurnedOn = isTurnedOn;
 

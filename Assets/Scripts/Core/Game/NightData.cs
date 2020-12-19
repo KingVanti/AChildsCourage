@@ -16,7 +16,7 @@ namespace AChildsCourage.Game
 
             public int Seed { get; }
 
-            
+
             public NightData(int seed) => Seed = seed;
 
         }

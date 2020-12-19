@@ -13,10 +13,7 @@ namespace AChildsCourage
     public class FmodPlayer : MonoBehaviour
     {
 
-
-
         [SerializeField] private StaminaEntity stamina;
-
 
 
         private readonly float Material = 0;
@@ -108,10 +105,9 @@ namespace AChildsCourage
         [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
         private void OnCharMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs)
         {
-            if(eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting)
-                PlaySprint_stop();
+            if (eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting) PlaySprint_stop();
         }
-        
+
         private void PlaySprint_stop()
         {
             if (Char_sprint_stop_Is_playing == false)
@@ -124,7 +120,7 @@ namespace AChildsCourage
 
         [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
         private void OnCharStaminaDepleted(object _1, EventArgs _2) => PlaySprint_depleted();
-        
+
         private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
 
 

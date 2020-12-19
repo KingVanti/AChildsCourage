@@ -3,19 +3,15 @@ using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
-    
+
     public class ShadeHeadEntity : MonoBehaviour
     {
 
         #region Fields
 
-
-
         [SerializeField] private float rotationDegreesPerSecond;
-        
+
         [FindInScene] private ShadeMovementEntity shadeMovement;
-
-
 
         #endregion
 

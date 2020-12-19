@@ -9,9 +9,9 @@ namespace AChildsCourage
     public class SceneManagerEntity : MonoBehaviour
     {
 
-        private void Awake() => SetupScene();
-
         [Pub] public event EventHandler OnSceneLoaded;
+
+        private void Awake() => SetupScene();
 
         private void SetupScene()
         {

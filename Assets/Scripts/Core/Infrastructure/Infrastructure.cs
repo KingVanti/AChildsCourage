@@ -77,8 +77,7 @@ namespace AChildsCourage.Infrastructure
 
         private static void PublishEvents(MonoBehaviour monoBehaviour)
         {
-            foreach (var @event in monoBehaviour.GetType().GetEvents(DefaultBindingFlags).Where(HasAttribute<PubAttribute>))
-                events.Add(@event.Name, (@event, monoBehaviour));
+            foreach (var @event in monoBehaviour.GetType().GetEvents(DefaultBindingFlags).Where(HasAttribute<PubAttribute>)) events.Add(@event.Name, (@event, monoBehaviour));
         }
 
 

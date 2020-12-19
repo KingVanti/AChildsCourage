@@ -13,16 +13,12 @@ namespace AChildsCourage
         public struct Range<TValue> where TValue : IComparable<TValue>
         {
 
-            public TValue Min => min;
-
-            public TValue Max => max;
-
-
-
             [SerializeField] private TValue min;
             [SerializeField] private TValue max;
 
+            public TValue Min => min;
 
+            public TValue Max => max;
 
         }
 

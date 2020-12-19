@@ -26,10 +26,8 @@ namespace AChildsCourage.Game.Char
         [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
 
         [Pub] public event EventHandler<CharDamageReceivedEventArgs> OnReceivedDamage;
-        
+
         #region Fields
-
-
 
         [Header("References")]
         [SerializeField] private Animator animator;
@@ -45,7 +43,6 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float knockBackMultiplier;
 
         [FindInScene] private CourageManagerEntity courageManager;
-
 
 
         private Camera mainCamera;
@@ -171,7 +168,7 @@ namespace AChildsCourage.Game.Char
             animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
             animator.SetBool(sprintingAnimatorKey, IsSprinting);
         }
-        
+
 
         private void Rotate()
         {

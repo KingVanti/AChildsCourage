@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Immutable;
-using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MFloorGenerating.MRoomPassageFiltering;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;

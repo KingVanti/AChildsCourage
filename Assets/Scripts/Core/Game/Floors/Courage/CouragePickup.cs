@@ -5,7 +5,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
     public readonly struct CouragePickup
     {
-        
+
         public TilePosition Position { get; }
 
         public CourageVariant Variant { get; }
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors.Courage
             Position = position;
             Variant = variant;
         }
-        
+
     }
 
 }

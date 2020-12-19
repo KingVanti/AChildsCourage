@@ -5,7 +5,7 @@ using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Floors
 {
-    
+
     public class StaticObjectSpawnerEntity : MonoBehaviour
     {
 
@@ -44,14 +44,12 @@ namespace AChildsCourage.Game.Floors
             }
 
 
-
             [SerializeField] private StaticObjectAppearance appearance;
             [SerializeField] [Range(1, 10)] private float weight;
 
 #pragma warning  restore 649
 
         }
-
 
 
         [SerializeField] private GameObject staticObjectPrefab;

@@ -11,15 +11,11 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         #region Fields
 
-
-
         [SerializeField] private int _id;
         [SerializeField] private RoomType _type;
         [SerializeField] [TextArea(10, 15)] private string passageJson;
         [SerializeField] [TextArea(10, 40)] private string contentJson;
         [SerializeField] [HideInInspector] private string roomJson;
-
-
 
         #endregion
 

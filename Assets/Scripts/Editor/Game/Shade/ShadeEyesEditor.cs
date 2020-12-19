@@ -21,9 +21,8 @@ namespace AChildsCourage.Game.Shade
         {
             var shadePosition = Eyes.transform.position;
 
-            foreach (var visionCone in Eyes.VisionCones)
-                DrawVisionCone(shadePosition, visionCone);
-            
+            foreach (var visionCone in Eyes.VisionCones) DrawVisionCone(shadePosition, visionCone);
+
             DrawTilesInView();
         }
 
@@ -34,7 +33,7 @@ namespace AChildsCourage.Game.Shade
                 : new Color(1f, 0.69f, 0.24f, 0.2f);
 
             Handles.DrawWireArc(shadePosition, Vector3.forward, Vector3.right, 360, visionCone.ViewRadius);
-            
+
 
             Handles.DrawSolidArc(shadePosition, Vector3.forward, ToVector(Eyes.transform.eulerAngles.z - visionCone.ViewAngle / 2f), visionCone.ViewAngle, visionCone.ViewRadius);
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEditor;
@@ -71,7 +70,7 @@ namespace AChildsCourage.RoomEditor.Editor
 
             DrawPassageEditorGUI();
         }
-        
+
         private void DrawTileCategorySelectionGUI()
         {
             EditorGUILayout.BeginHorizontal();

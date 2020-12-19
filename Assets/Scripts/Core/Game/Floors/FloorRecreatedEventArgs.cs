@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors
     {
 
         public Floor Floor { get; }
-        
+
 
         public FloorRecreatedEventArgs(Floor floor) => Floor = floor;
 

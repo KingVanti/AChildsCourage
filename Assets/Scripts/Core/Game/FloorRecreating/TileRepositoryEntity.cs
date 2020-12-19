@@ -5,18 +5,15 @@ using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
-    
+
     public class TileRepositoryEntity : MonoBehaviour
     {
 
         #region Fields
 
-
-
         [SerializeField] private TileCollection groundTiles;
         [SerializeField] private TileCollection wallSideTiles;
         [SerializeField] private TileCollection wallTopTiles;
-
 
 
         private readonly CreateRng createRng = RngFromSeed(0);

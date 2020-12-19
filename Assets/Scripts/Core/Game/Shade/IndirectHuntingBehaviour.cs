@@ -7,11 +7,11 @@ namespace AChildsCourage.Game.Shade
     {
 
         private const int HuntCancelTime = 5;
+
+        private readonly ShadeEyesEntity shadeEyes;
         private Vector3 lastSeenPosition;
         private float lastSeenTime;
         private Vector2 lastSeenVelocity;
-
-        private readonly ShadeEyesEntity shadeEyes;
 
 
         public Vector3 TargetPosition { get; private set; }

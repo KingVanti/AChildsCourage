@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Char
     {
 
         public int ReceivedDamage { get; }
-        
+
 
         public CharDamageReceivedEventArgs(int receivedDamage) => ReceivedDamage = receivedDamage;
 

@@ -12,24 +12,21 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CourageRiftEntity : MonoBehaviour
     {
 
+        [Pub] public event EventHandler OnCharEnteredRift;
+
         #region Properties
 
         private int TotalToCollect => courageManager.MaxNightCourage;
 
         #endregion
 
-        [Pub] public event EventHandler OnCharEnteredRift;
-
         #region Fields
-
-
 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
         [SerializeField] private ParticleSystem riftParticleSystem;
 
         [FindInScene] private CourageManagerEntity courageManager;
-
 
 
         private int currentStage;

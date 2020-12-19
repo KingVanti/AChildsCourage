@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Game.Floors;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
@@ -7,8 +6,6 @@ namespace AChildsCourage.Game.Floors.Courage
     [CreateAssetMenu(fileName = "New courage-pickup appearance", menuName = "A Child's Courage/Courage-pickup appearance")]
     public class CouragePickupAppearance : ScriptableObject
     {
-        
-
 
         [SerializeField] private int _value;
         [SerializeField] private string _courageName;
@@ -19,8 +16,6 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float _lightOuterRadius;
         [SerializeField] private float _lightIntensity;
 
-
-        
 
         public CourageVariant Variant => _variant;
 
@@ -37,7 +32,7 @@ namespace AChildsCourage.Game.Floors.Courage
         public float LightOuterRadius => _lightOuterRadius;
 
         public float LightIntensity => _lightIntensity;
-        
+
     }
 
 }

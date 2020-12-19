@@ -18,15 +18,12 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-
-
         [SerializeField] private float speed;
         [SerializeField] private float zoomSpeed;
         [SerializeField] private float minZoom;
         [SerializeField] private float maxZoom;
         [SerializeField] private float focusZoom;
         [SerializeField] private new Camera camera;
-
 
 
         private Vector2 currentMovement;

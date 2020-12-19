@@ -19,9 +19,7 @@ namespace AChildsCourage.RoomEditor
         public MouseDownEvent onMouseDown;
 
 
-
         [SerializeField] private Camera cam;
-
 
 
         private RoomEditorInput input;

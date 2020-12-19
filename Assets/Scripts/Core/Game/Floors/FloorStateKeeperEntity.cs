@@ -7,7 +7,7 @@ using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
-    
+
     public class FloorStateKeeperEntity : MonoBehaviour
     {
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
@@ -13,14 +12,10 @@ namespace AChildsCourage.RoomEditor
 
         #region Fields
 
-
-
         [SerializeField] private GroundTileLayerEntity groundLayer;
         [SerializeField] private CouragePickupLayerEntity courageLayer;
         [SerializeField] private StaticObjectLayerEntity staticObjectLayer;
         [SerializeField] private RuneLayerEntity runeLayer;
-
-
 
         #endregion
 
@@ -33,7 +28,7 @@ namespace AChildsCourage.RoomEditor
         internal CourageVariant SelectedCourageVariant { get; set; }
 
         internal ChunkPassages CurrentPassages { get; set; }
-        
+
 
         internal int CurrentAssetId => LoadedAsset.Id;
 
@@ -42,7 +37,7 @@ namespace AChildsCourage.RoomEditor
 
 
         internal string CurrentAssetName => LoadedAsset.name;
-        
+
         #endregion
 
         #region Methods

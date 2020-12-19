@@ -10,10 +10,7 @@ namespace AChildsCourage.Game.Floors
     public class NavigationMapEntity : MonoBehaviour
     {
 
-
-
         [SerializeField] private AstarPath astarPath;
-
 
 
         private Floor mapFloor;

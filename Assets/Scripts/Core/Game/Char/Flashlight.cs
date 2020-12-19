@@ -19,8 +19,6 @@ namespace AChildsCourage.Game.Char
 
         #region Fields
 
-
-
         [SerializeField] private Light2D lightComponent;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private float maxShineDistance;
@@ -29,7 +27,6 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private Range<float> outerRadiusRange;
 
         [FindInScene] private Camera mainCamera;
-
 
 
         private bool isTurnedOn;

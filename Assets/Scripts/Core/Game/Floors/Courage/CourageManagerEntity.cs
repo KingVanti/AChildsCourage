@@ -19,10 +19,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [Pub] public event EventHandler OnCourageDepleted;
 
 
-
         [SerializeField] private int _maxNightCourage;
-
-
 
         #endregion
 

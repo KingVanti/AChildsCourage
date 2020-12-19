@@ -10,7 +10,7 @@
         public GroundTileData[] GroundData { get; }
 
         public CouragePickupData[] CourageData { get; }
-        
+
         public StaticObjectData[] StaticObjects { get; }
 
         public RuneData[] Runes { get; }
