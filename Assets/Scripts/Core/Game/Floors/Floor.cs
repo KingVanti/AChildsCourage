@@ -28,6 +28,11 @@ namespace AChildsCourage.Game.Floors
             floor =>
                 floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToImmutableHashSet();
 
+
+        public static Func<Floor, TilePosition> FindEndChunkCenter =>
+            floor =>
+                floor.EndRoomChunkPosition.Map(GetCenter);
+
         public readonly struct Floor
         {
 

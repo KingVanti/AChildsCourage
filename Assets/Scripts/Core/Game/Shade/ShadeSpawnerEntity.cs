@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade
@@ -16,9 +15,28 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float shadeTimeoutTime;
-        [FindInScene] private readonly ShadeBrainEntity shadeBrain = default;
+        [FindInScene] private ShadeBrainEntity shadeBrain;
 
-        private TilePosition spawnTile;
+        private Vector2 spawnPosition;
+
+
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
+        {
+            FindSpawnPosition(eventArgs.Floor);
+            SpawnShade();
+        }
+
+        private void FindSpawnPosition(Floor floor) =>
+            spawnPosition = floor.Map(FindEndChunkCenter).Map(ToVector2);
+
+
+        [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
+        private void OnShadeBanished(object _1, EventArgs _2) =>
+            TimeoutShade();
+
+        private void TimeoutShade() =>
+            Invoke(nameof(SpawnShade), shadeTimeoutTime);
 
 
         private void SpawnShade()
@@ -27,25 +45,7 @@ namespace AChildsCourage.Game.Shade
             OnShadeSpawned?.Invoke(this, EventArgs.Empty);
         }
 
-        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnTile.Map(ToVector2);
-
-
-        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
-        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
-        {
-            spawnTile = GetCenter(eventArgs.Floor.EndRoomChunkPosition);
-            SpawnShade();
-        }
-
-
-        [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
-        private void OnShadeBanished(object _1, EventArgs _2) => StartCoroutine(TimeoutShade());
-
-        private IEnumerator TimeoutShade()
-        {
-            yield return new WaitForSeconds(shadeTimeoutTime);
-            SpawnShade();
-        }
+        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnPosition;
 
     }
 
