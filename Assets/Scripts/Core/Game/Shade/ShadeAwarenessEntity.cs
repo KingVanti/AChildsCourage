@@ -4,6 +4,7 @@ using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;
 using static AChildsCourage.Game.Shade.MVisibility;
+using static AChildsCourage.MRange;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -13,32 +14,22 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
-        #region Fields
-
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
         [SerializeField] private float primaryVisionMultiplier;
-        [SerializeField] private float minDistance;
-        [SerializeField] private float maxDistance;
         [SerializeField] private float maxDistanceMultiplier;
-        [SerializeField] private float walkingMultiplier;
-        [SerializeField] private float sprintingMultiplier;
         [SerializeField] private float flashLightMultiplier;
-        [SerializeField] private float minSuspiciousAwareness;
-        [SerializeField] private float minHuntingAwareness;
+        [SerializeField] private Range<float> distanceRange;
+        [SerializeField] private EnumArray<MovementState, float> movementStateMultipliers;
+        [SerializeField] private EnumArray<AwarenessLevel, float> minAwarenessForAwarenessLevel;
 
         [FindInScene] private CharControllerEntity charController;
         [FindInScene] private Flashlight flashlight;
-
-#pragma warning  restore 649
 
         private Visibility currentCharVisibility;
         private Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
 
-        #endregion
-
-        #region Properties
 
         public Awareness CurrentAwareness
         {
@@ -48,77 +39,55 @@ namespace AChildsCourage.Game.Shade
                 if (currentAwareness.Equals(value)) return;
 
                 currentAwareness = value;
-                UpdateAwarenessLevel();
+                currentAwarenessLevel = CalculateAwarenessLevel();
                 OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, currentAwarenessLevel));
             }
         }
 
 
-        private float CurrentAwarenessGain => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
+        private float AwarenessGainPerSecond => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
-        private float PrimaryVisionMultiplier => currentCharVisibility == Visibility.Primary
-            ? primaryVisionMultiplier
-            : 1;
+        private float PrimaryVisionMultiplier => currentCharVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
 
-        private float DistanceMultiplier => DistanceToCharacter.Remap(minDistance, maxDistance, maxDistanceMultiplier, 1);
+        private float DistanceMultiplier => Remap(DistanceToCharacter, distanceRange, Between(maxDistanceMultiplier, 1));
 
         private float DistanceToCharacter => Vector3.Distance(transform.position, charController.transform.position);
 
-        private float MovementMultiplier
-        {
-            get
-            {
-                switch (charController.CurrentMovementState)
-                {
-                    case MovementState.Standing: return 1;
-                    case MovementState.Walking: return walkingMultiplier;
-                    case MovementState.Sprinting: return sprintingMultiplier;
-                    default: throw new Exception("Invalid movement state!");
-                }
-            }
-        }
+        private float MovementMultiplier => movementStateMultipliers[charController.CurrentMovementState];
 
-        private float FlashLightMultiplier => flashlight.IsTurnedOn
-            ? flashLightMultiplier
-            : 1;
+        private float FlashLightMultiplier => flashlight.IsTurnedOn ? flashLightMultiplier : 1;
 
-        #endregion
+        private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond;
 
-        #region Methods
+        private bool CanSeeChar => currentCharVisibility != Visibility.NotVisible;
+
+
+        private void Update() =>
+            UpdateAwareness();
+
+        private void UpdateAwareness() =>
+            CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
+
 
         [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
-        private void OnShadeBanished(object _1, EventArgs _2) => ClearAwareness();
+        private void OnShadeBanished(object _1, EventArgs _2) =>
+            ClearAwareness();
 
-        private void ClearAwareness() => CurrentAwareness = NoAwareness;
+        private void ClearAwareness() =>
+            CurrentAwareness = NoAwareness;
 
+        private AwarenessLevel CalculateAwarenessLevel() =>
+            HasEnoughAwarenessForLevel(AwarenessLevel.Hunting) ? AwarenessLevel.Hunting
+            : HasEnoughAwarenessForLevel(AwarenessLevel.Suspicious) ? AwarenessLevel.Suspicious
+            : AwarenessLevel.Oblivious;
 
-        private void Update()
-        {
-            if (currentCharVisibility == Visibility.NotVisible)
-                LooseAwareness();
-            else
-                GainAwareness();
-        }
-
-        private void LooseAwareness() => CurrentAwareness = MAwareness.LooseAwareness(CurrentAwareness, awarenessLossPerSecond * Time.deltaTime);
-
-        private void GainAwareness() => CurrentAwareness = MAwareness.GainAwareness(CurrentAwareness, CurrentAwarenessGain * Time.deltaTime);
-
-        private void UpdateAwarenessLevel()
-        {
-            if (CurrentAwareness.Value >= minHuntingAwareness)
-                currentAwarenessLevel = AwarenessLevel.Hunting;
-            else if (CurrentAwareness.Value >= minSuspiciousAwareness)
-                currentAwarenessLevel = AwarenessLevel.Suspicious;
-            else
-                currentAwarenessLevel = AwarenessLevel.Oblivious;
-        }
+        private bool HasEnoughAwarenessForLevel(AwarenessLevel level) =>
+            CurrentAwareness.Value >= minAwarenessForAwarenessLevel[level];
 
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
-        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) => currentCharVisibility = eventArgs.CharVisibility;
-
-        #endregion
+        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
+            currentCharVisibility = eventArgs.CharVisibility;
 
     }
 

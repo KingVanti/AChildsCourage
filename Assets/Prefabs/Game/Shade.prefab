@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da14756bb389b4c42939be0375971446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationDegreesPerSecond: 90
 --- !u!114 &4616488904359167555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,14 +362,31 @@ MonoBehaviour:
   awarenessLossPerSecond: 0.5
   baseAwarenessGainPerSecond: 0.4
   primaryVisionMultiplier: 2
-  minDistance: 1
-  maxDistance: 15
   maxDistanceMultiplier: 2
-  walkingMultiplier: 1.5
-  sprintingMultiplier: 2
   flashLightMultiplier: 2
-  minSuspiciousAwareness: 0.25
-  minHuntingAwareness: 1
+  distanceRange:
+    min: 0
+    max: 15
+  movementStateMultipliers:
+    enumTypeName: AChildsCourage.Game.Char.MovementState
+    mappedTypeName: System.Single
+    enums:
+    - enumValue: 0
+      mappedValue: 1
+    - enumValue: 1
+      mappedValue: 1.5
+    - enumValue: 2
+      mappedValue: 2
+  minAwarenessForAwarenessLevel:
+    enumTypeName: AChildsCourage.Game.Shade.AwarenessLevel
+    mappedTypeName: System.Single
+    enums:
+    - enumValue: 0
+      mappedValue: 0
+    - enumValue: 1
+      mappedValue: 0.5
+    - enumValue: 2
+      mappedValue: 1
 --- !u!114 &7337468781757878326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +401,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 2.2
   waitTimeAfterDealingDamage: 4
-  aiPath: {fileID: 3696624342232356208}
   shadeAnimator: {fileID: 537825537936044893}
 --- !u!1 &5451311742915600013
 GameObject:

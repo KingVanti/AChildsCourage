@@ -12,11 +12,7 @@ namespace AChildsCourage.Game.Shade
         public static Awareness NoAwareness => new Awareness(MinAwareness);
 
 
-        public static Func<Awareness, float, Awareness> LooseAwareness =>
-            (awareness, amount) =>
-                new Awareness(awareness.Value - amount);
-
-        public static Func<Awareness, float, Awareness> GainAwareness =>
+        public static Func<Awareness, float, Awareness> ChangeBy =>
             (awareness, amount) =>
                 new Awareness(awareness.Value + amount);
 
