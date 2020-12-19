@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using NUnit.Framework;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game
@@ -25,6 +27,7 @@ namespace AChildsCourage.Game
             Assert.That(position.X, Is.EqualTo(x), "Incorrect X coordinate!");
             Assert.That(position.Y, Is.EqualTo(y), "Incorrect Y coordinate!");
         }
+
 
         [Test]
         public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Coordinates_Are_Added()
@@ -77,6 +80,41 @@ namespace AChildsCourage.Game
             // When
 
             Assert.That(distance, Is.EqualTo(2), "Incorrect distance calculated!");
+        }
+
+
+        [Test]
+        public void PositionsInRadius_Are_In_Radius()
+        {
+            // Given
+
+            var center = new TilePosition(0, 0);
+            var radius = 5;
+
+            // When
+
+            var positions = FindPositionsInRadius(center, radius);
+
+            // Then
+
+            Assert.That(positions.All(p => p.Map(DistanceTo, center) <= radius));
+        }
+        
+        [Test]
+        public void PositionsInRadius_Are_Distinct()
+        {
+            // Given
+
+            var center = new TilePosition(0, 0);
+            var radius = 5;
+
+            // When
+
+            var positions = FindPositionsInRadius(center, radius).ToImmutableHashSet();
+
+            // Then
+
+            Assert.That(positions, Is.EqualTo(positions.Distinct()));
         }
 
     }

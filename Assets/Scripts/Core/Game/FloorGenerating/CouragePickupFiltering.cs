@@ -66,7 +66,7 @@ namespace AChildsCourage.Game
                         .Remap(20f, 40f, 1, 10f);
 
                 var distanceToClosestWeight = taken.Any() ?
-                    taken.Select(p => p.MapWith(DistanceTo, position)).Min()
+                    taken.Select(p => p.Map(DistanceTo, position)).Min()
                          .Clamp(10, 30)
                          .Remap(10, 30, 1, 20) :
                     20;
@@ -77,7 +77,7 @@ namespace AChildsCourage.Game
             private static float CalculateCourageSparkWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
                 var distanceToClosestWeight = taken.Any() ?
-                    taken.Select(p => p.MapWith(DistanceTo, position)).Min()
+                    taken.Select(p => p.Map(DistanceTo, position)).Min()
                          .Clamp(1, 10)
                          .Remap(1, 10, 4, 1) :
                     1;

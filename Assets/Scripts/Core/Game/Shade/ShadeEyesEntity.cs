@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Shade.MShadeVision;
+using static AChildsCourage.Game.Shade.MTilesInView;
+using static AChildsCourage.Game.Shade.MVisibility;
+using static AChildsCourage.Game.Shade.MVisionCone;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -21,57 +24,84 @@ namespace AChildsCourage.Game.Shade
 
 #pragma warning disable 649
 
-        [SerializeField] private float smallVisionRadius;
         [SerializeField] private float updatesPerSecond;
-        [SerializeField] private VisionCone primaryVision;
-        [SerializeField] private VisionCone secondaryVision;
+        [SerializeField] private VisionCone[] visionCones;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
 #pragma warning restore 649
 
-        private Visibility characterVisibility;
-        private readonly HashSet<TilePosition> currentTilesInView = new HashSet<TilePosition>();
+        private Visibility charVisibility;
 
         #endregion
 
         #region Properties
 
-        public VisionCone PrimaryVision => primaryVision;
-
-        public VisionCone SecondaryVision => secondaryVision;
-
-        public Visibility CharacterVisibility
-        {
-            get => characterVisibility;
-            private set
-            {
-                if (characterVisibility == value) return;
-
-                characterVisibility = value;
-                OnCharVisibilityChanged?.Invoke(this, new CharVisibilityChangedEventArgs(characterVisibility));
-            }
-        }
-
-        public TilesInView CurrentTilesInView => new TilesInView(currentTilesInView);
+        public IEnumerable<VisionCone> VisionCones => visionCones;
 
 
         private float WaitTime => 1f / updatesPerSecond;
 
+        private float LargestViewRadius => visionCones.Max(c => c.ViewRadius);
+
+        private Visibility CharVisibility
+        {
+            get => charVisibility;
+            set
+            {
+                if (CharVisibility == value) return;
+
+                charVisibility = value;
+                OnCharVisibilityChanged?.Invoke(this, new CharVisibilityChangedEventArgs(CharVisibility));
+            }
+        }
+
         private Vector2 CurrentPosition => transform.position;
 
-        private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
+        private TilePosition CurrentTilePosition => CurrentPosition.Map(ToTile);
 
-        private Vector2 CurrentTileCenterPosition => CurrentPosition
-                                                     .Map(ToTile)
-                                                     .Map(GetTileCenter);
+        private ShadeVision Vision => new ShadeVision(Head, visionCones);
+
+        private ShadeHead Head => new ShadeHead(transform.position, transform.right, ObstacleExistsBetween);
+
+        private TilesInView TilesInView
+        {
+            set => OnTilesInViewChanged?.Invoke(this, new TilesInViewChangedEventArgs(value));
+        }
+
+        private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
 
         #endregion
 
         #region Methods
 
-        private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
+        public bool CanSee(Vector2 point) => CanSeePoint(Vision, point);
 
+
+        private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
+        
+
+        public Visibility CalculateCharacterVisibility() =>
+            CurrentCharacterVisionPoints
+                .Select(point => GetPointVisibility(Vision, point))
+                .Map(GetHighestValue);
+
+
+        public TilesInView CalculateTilesInView() =>
+            FindPositionsInRadius(CurrentTilePosition, LargestViewRadius)
+                .Where(CanSee)
+                .Map(ToTilesInView);
+
+        private bool CanSee(TilePosition position) => CanSeePoint(Vision, GetTileCenter(position));
+
+
+        private bool ObstacleExistsBetween(Vector2 point1, Vector2 point2)
+        {
+            var dirToPoint = point2 - point1;
+            return Physics2D.Raycast(point1, dirToPoint, dirToPoint.magnitude, obstructionLayers);
+        }
+        
+        
         private IEnumerator ContinuallyUpdateVision()
         {
             while (true)
@@ -83,64 +113,10 @@ namespace AChildsCourage.Game.Shade
 
         private void UpdateVision()
         {
-            UpdateCharVision();
-            UpdateTilesInVision();
+            CharVisibility = CalculateCharacterVisibility();
+            TilesInView = CalculateTilesInView();
         }
-
-        private void UpdateCharVision()
-        {
-            var visionPoints = CurrentCharacterVisionPoints.ToImmutableArray();
-
-            CharacterVisibility = visionPoints.Any(IsInPrimaryVision) ? Visibility.Primary
-                : visionPoints.Any(IsInSecondaryVision) ? Visibility.Secondary
-                : Visibility.NotVisible;
-        }
-
-        private bool IsInPrimaryVision(Vector2 visionPoint) => IsInView(primaryVision, visionPoint);
-
-        private bool IsInSecondaryVision(Vector2 visionPoint) => IsInView(secondaryVision, visionPoint);
-
-        private bool IsInView(VisionCone cone, Vector2 visionPoint) =>
-            IsInViewRadius(cone, visionPoint) &&
-            IsInViewAngle(cone, visionPoint) &&
-            IsUnobstructed(visionPoint);
-
-        private bool IsInViewRadius(VisionCone cone, Vector2 visionPoint) => Vector3.Distance(CurrentPosition, visionPoint) <= cone.ViewRadius;
-
-        private bool IsInViewAngle(VisionCone cone, Vector2 visionPoint)
-        {
-            var dirToPoint = visionPoint - CurrentPosition;
-            return Vector3.Angle(transform.right, dirToPoint) < cone.ViewAngle / 2f;
-        }
-
-        private bool IsUnobstructed(Vector2 visionPoint)
-        {
-            var dirToPoint = visionPoint - CurrentPosition;
-            return !Physics2D.Raycast(CurrentPosition, dirToPoint, dirToPoint.magnitude, obstructionLayers);
-        }
-
-        private void UpdateTilesInVision()
-        {
-            currentTilesInView.Clear();
-            currentTilesInView.UnionWith(GetTilePositionsInView());
-            OnTilesInViewChanged?.Invoke(this, new TilesInViewChangedEventArgs(CurrentTilesInView));
-        }
-
-        private IEnumerable<TilePosition> GetTilePositionsInView() => GetPositionsInView().Select(ToTile);
-
-        private IEnumerable<Vector2> GetPositionsInView() => GetPositionsInViewCone().Where(PositionIsVisible);
-
-        private IEnumerable<Vector2> GetPositionsInViewCone()
-        {
-            for (var dX = -secondaryVision.ViewRadius; dX <= secondaryVision.ViewRadius; dX++)
-                for (var dY = -secondaryVision.ViewRadius; dY <= secondaryVision.ViewRadius; dY++)
-                    yield return new Vector2(CurrentTileCenterPosition.x + dX, CurrentTileCenterPosition.y + dY);
-        }
-
-        public bool PositionIsVisible(Vector2 position) => PositionIsInSmallRadius(position) || IsInView(secondaryVision, position);
-
-        private bool PositionIsInSmallRadius(Vector2 position) => Vector2.Distance(transform.position, position) <= smallVisionRadius;
-
+        
         #endregion
 
     }

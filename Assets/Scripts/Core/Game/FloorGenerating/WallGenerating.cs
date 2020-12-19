@@ -47,7 +47,7 @@ namespace AChildsCourage.Game
                 for (var dX = -1; dX <= 1; dX++)
                     for (var dY = -1; dY <= 3; dY++)
                         if (dX != 0 || dY != 0)
-                            yield return groundPosition.MapWith(OffsetBy, new TileOffset(dX, dY));
+                            yield return groundPosition.Map(OffsetBy, new TileOffset(dX, dY));
             }
 
             private static IEnumerable<Wall> GetWalls(IEnumerable<TilePosition> wallPositions, Func<TilePosition, Wall> toWall) =>
@@ -69,7 +69,7 @@ namespace AChildsCourage.Game
 
             private static IEnumerable<TilePosition> GetCheckGroundPositions(TilePosition wallPosition) =>
                 GetGroundOffsets()
-                    .Select(offset => wallPosition.MapWith(OffsetBy, offset));
+                    .Select(offset => wallPosition.Map(OffsetBy, offset));
 
             private static IEnumerable<TileOffset> GetGroundOffsets() =>
                 Enumerable.Range(-WallHeight, WallHeight)

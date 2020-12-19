@@ -19,7 +19,7 @@ namespace AChildsCourage.Game
             position =>
                 position
                     .Map(GetCorner)
-                    .MapWith(OffsetBy, ChunkCenterTileOffset);
+                    .Map(OffsetBy, ChunkCenterTileOffset);
 
         internal static Func<ChunkPosition, TilePosition> GetCorner =>
             chunkPosition =>

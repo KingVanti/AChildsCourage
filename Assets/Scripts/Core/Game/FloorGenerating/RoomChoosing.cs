@@ -19,7 +19,7 @@ namespace AChildsCourage.Game
                 (room, layout, roomPassages, rng) =>
                     CreateFilter(layout, room)
                         .Map(filter => FilterPassagesMatching(filter, roomPassages))
-                        .MapWith(ChooseRandom, rng)
+                        .Map(ChooseRandom, rng)
                         .Map(passages => new RoomPassagesInChunk(passages, room.Chunk));
 
             private static RoomPassageFilter CreateFilter(FloorLayout layout, RoomInChunk room) => new RoomPassageFilter(room.RoomType, GetPassagesForChunk(layout, room.Chunk));

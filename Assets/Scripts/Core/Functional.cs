@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace AChildsCourage
@@ -51,9 +52,11 @@ namespace AChildsCourage
 
         public static TResult Map<TItem, TResult>(this TItem item, Func<TItem, TResult> function) => function(item);
 
-        public static void Do<TItem>(this TItem item, Action<TItem> action) => action(item);
+        public static TResult Map<TItem, TResult, TP1>(this TItem item, Func<TItem, TP1, TResult> function, TP1 p1) => function(item, p1);
 
-        public static TResult MapWith<TItem, TResult, TParam>(this TItem item, Func<TItem, TParam, TResult> function, TParam param) => function(item, param);
+        public static TResult Map<TItem, TResult, TP1, TP2>(this TItem item, Func<TItem, TP1, TP2, TResult> function, TP1 p1, TP2 p2) => function(item, p1, p2);
+
+        public static void Do<TItem>(this TItem item, Action<TItem> action) => action(item);
 
         public static void ForEach<TItem>(this IEnumerable<TItem> elements, Action<TItem> action)
         {
@@ -95,6 +98,12 @@ namespace AChildsCourage
 
             return accumulate;
         }
+
+        public static TResult Match<TItem, TResult>(this IEnumerable<TItem> items, Func<IEnumerable<TItem>, TResult> notEmpty, Func<TResult> empty) =>
+            items.ToImmutableArray()
+                 .Map(its => its.Any()
+                          ? notEmpty(its)
+                          : empty());
 
     }
 

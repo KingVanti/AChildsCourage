@@ -50,7 +50,7 @@ namespace AChildsCourage.Game
             private static float CalculateRuneWeight(TilePosition position, ImmutableHashSet<TilePosition> taken)
             {
                 var distanceToClosestWeight = taken.Any()
-                    ? taken.Select(p => p.MapWith(DistanceTo, position)).Min()
+                    ? taken.Select(p => p.Map(DistanceTo, position)).Min()
                            .Clamp(25, 60)
                            .Remap(25, 60, 1, 20)
                     : 20;

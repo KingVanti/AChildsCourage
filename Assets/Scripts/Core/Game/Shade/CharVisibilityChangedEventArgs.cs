@@ -1,4 +1,5 @@
 ﻿using System;
+using static AChildsCourage.Game.Shade.MVisibility;
 
 namespace AChildsCourage.Game.Shade
 {

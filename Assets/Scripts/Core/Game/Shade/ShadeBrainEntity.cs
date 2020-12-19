@@ -8,6 +8,7 @@ using UnityEngine;
 using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Shade.MVisibility;
 
 namespace AChildsCourage.Game.Shade
 {

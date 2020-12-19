@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.Shade
 
         private bool SearchedEnoughTime => TimeSinceLastSeen >= HuntCancelTime;
 
-        private bool CanSeeTarget => shadeEyes.PositionIsVisible(PredictedPosition);
+        private bool CanSeeTarget => shadeEyes.CanSee(PredictedPosition);
 
 
         public IndirectHuntingBehaviour(ShadeEyesEntity shadeEyes) => this.shadeEyes = shadeEyes;

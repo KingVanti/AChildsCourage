@@ -89,7 +89,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var has = passages.MapWith(HasPassageWithDirection, PassageDirection.North);
+            var has = passages.Map(HasPassageWithDirection, PassageDirection.North);
 
             // Then
 
@@ -105,7 +105,7 @@ namespace AChildsCourage.Game.Floors
 
             // When
 
-            var has = passages.MapWith(HasPassageWithDirection, PassageDirection.East);
+            var has = passages.Map(HasPassageWithDirection, PassageDirection.East);
 
             // Then
 

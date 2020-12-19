@@ -3,6 +3,7 @@ using AChildsCourage.Game.Char;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.MAwareness;
+using static AChildsCourage.Game.Shade.MVisibility;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -40,7 +41,7 @@ namespace AChildsCourage.Game.Shade
         #endregion
 
         #region Properties
-        
+
         public Awareness CurrentAwareness
         {
             get => currentAwareness;

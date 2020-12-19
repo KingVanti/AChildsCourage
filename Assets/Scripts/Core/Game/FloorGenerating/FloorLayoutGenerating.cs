@@ -29,11 +29,11 @@ namespace AChildsCourage.Game
             private static Func<FloorLayoutBuilder, FloorLayoutBuilder> OccupyFixedRooms =>
                 builder =>
                     Take(builder)
-                        .MapWith(AddRoom, new ChunkPosition(0, 0))
-                        .MapWith(AddRoom, new ChunkPosition(1, 0))
-                        .MapWith(AddRoom, new ChunkPosition(-1, 0))
-                        .MapWith(AddRoom, new ChunkPosition(0, 1))
-                        .MapWith(AddRoom, new ChunkPosition(0, -1));
+                        .Map(AddRoom, new ChunkPosition(0, 0))
+                        .Map(AddRoom, new ChunkPosition(1, 0))
+                        .Map(AddRoom, new ChunkPosition(-1, 0))
+                        .Map(AddRoom, new ChunkPosition(0, 1))
+                        .Map(AddRoom, new ChunkPosition(0, -1));
 
             private static Func<FloorLayoutBuilder, CreateRng, GenerationParameters, FloorLayoutBuilder> OccupyNextChunk =>
                 (builder, rng, parameters) =>

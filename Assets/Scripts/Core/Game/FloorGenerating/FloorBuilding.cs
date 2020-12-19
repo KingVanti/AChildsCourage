@@ -29,7 +29,7 @@ namespace AChildsCourage.Game
                     TransformRooms(floorPlan, roomData)
                         .Map(BuildRooms)
                         .Map(GenerateWalls)
-                        .MapWith(CreateFloor, rng);
+                        .Map(CreateFloor, rng);
 
             private static Func<IEnumerable<TransformedRoomData>, FloorBuilder> BuildRooms =>
                 rooms =>
@@ -37,10 +37,10 @@ namespace AChildsCourage.Game
 
             private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
                 Take(EmptyRoomBuilder((AoiIndex) roomIndex, transformedRoomData.RoomType, transformedRoomData.ChunkPosition))
-                    .MapWith(BuildGround, transformedRoomData.GroundData)
-                    .MapWith(BuildStaticObjects, transformedRoomData.StaticObjectData)
-                    .MapWith(BuildCouragePickups, transformedRoomData.CouragePickupData)
-                    .MapWith(BuildRunes, transformedRoomData.RuneData)
+                    .Map(BuildGround, transformedRoomData.GroundData)
+                    .Map(BuildStaticObjects, transformedRoomData.StaticObjectData)
+                    .Map(BuildCouragePickups, transformedRoomData.CouragePickupData)
+                    .Map(BuildRunes, transformedRoomData.RuneData)
                     .Map(room => PlaceRoom(floorBuilder, room));
 
             private static Floor CreateFloor(FloorBuilder floorBuilder, CreateRng rng) =>

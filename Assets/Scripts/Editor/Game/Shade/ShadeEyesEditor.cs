@@ -2,6 +2,7 @@
 using UnityEngine;
 using static UnityEngine.Mathf;
 using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Shade.MVisionCone;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -20,40 +21,27 @@ namespace AChildsCourage.Game.Shade
         {
             var shadePosition = Eyes.transform.position;
 
-            DrawPrimaryVision(shadePosition, Eyes.PrimaryVision);
-            DrawSecondaryVision(shadePosition, Eyes.SecondaryVision);
+            foreach (var visionCone in Eyes.VisionCones)
+                DrawVisionCone(shadePosition, visionCone);
+            
             DrawTilesInView();
         }
 
-        private void DrawPrimaryVision(Vector3 shadePosition, VisionCone visionCone)
+        private void DrawVisionCone(Vector3 shadePosition, VisionCone visionCone)
         {
-            Handles.color = Eyes.CharacterVisibility == Visibility.Primary
-                ? Color.red
-                : Color.white;
+            Handles.color = visionCone.Visibility == MVisibility.Visibility.Primary
+                ? new Color(1f, 0.22f, 0.25f, 0.2f)
+                : new Color(1f, 0.69f, 0.24f, 0.2f);
 
             Handles.DrawWireArc(shadePosition, Vector3.forward, Vector3.right, 360, visionCone.ViewRadius);
-
-            Handles.color = new Color(1, 1, 1, 0.25f);
-
-            Handles.DrawSolidArc(shadePosition, Vector3.forward, ToVector(Eyes.transform.eulerAngles.z - visionCone.ViewAngle / 2f), visionCone.ViewAngle, visionCone.ViewRadius);
-        }
-
-        private void DrawSecondaryVision(Vector3 shadePosition, VisionCone visionCone)
-        {
-            Handles.color = Eyes.CharacterVisibility == Visibility.Secondary
-                ? Color.red
-                : Color.white;
-
-            Handles.DrawWireArc(shadePosition, Vector3.forward, Vector3.right, 360, visionCone.ViewRadius);
-
-            Handles.color = new Color(1, 1, 1, 0.125f);
+            
 
             Handles.DrawSolidArc(shadePosition, Vector3.forward, ToVector(Eyes.transform.eulerAngles.z - visionCone.ViewAngle / 2f), visionCone.ViewAngle, visionCone.ViewRadius);
         }
 
         private void DrawTilesInView()
         {
-            foreach (var tilePosition in Eyes.CurrentTilesInView)
+            foreach (var tilePosition in Eyes.CalculateTilesInView())
             {
                 var rect = new Rect(tilePosition.Map(ToVector2), Vector2.one);
 
@@ -61,7 +49,7 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private Vector3 ToVector(float angle) =>
+        private static Vector3 ToVector(float angle) =>
             new Vector3(Cos(angle * Deg2Rad),
                         Sin(angle * Deg2Rad));
 

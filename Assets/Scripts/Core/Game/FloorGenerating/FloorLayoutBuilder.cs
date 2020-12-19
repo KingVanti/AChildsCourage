@@ -44,9 +44,9 @@ namespace AChildsCourage.Game
             internal static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> AddRoom =>
                 (builder, chunk) =>
                     Take(builder)
-                        .MapWith(OccupyChunk, chunk)
-                        .MapWith(ClearChunkReservation, chunk)
-                        .MapWith(ReserveSurroundingChunks, chunk);
+                        .Map(OccupyChunk, chunk)
+                        .Map(ClearChunkReservation, chunk)
+                        .Map(ReserveSurroundingChunks, chunk);
 
             private static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> OccupyChunk =>
                 (builder, chunk) =>

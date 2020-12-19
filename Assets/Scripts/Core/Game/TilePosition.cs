@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.Mathf;
 
@@ -43,6 +45,23 @@ namespace AChildsCourage.Game
                 new TilePosition(FloorToInt(vector.x),
                                  FloorToInt(vector.y));
 
+        public static Func<TilePosition, float, IEnumerable<TilePosition>> FindPositionsInRadius =>
+            (center, radius) =>
+                GeneratePositionsInRadius(GetTileCenter(center), radius)
+                    .Select(ToTile);
+
+
+        private static Func<Vector2, float, IEnumerable<Vector2>> GeneratePositionsInRadius =>
+            (center, radius) =>
+                GeneratePositionsInSquare(center, radius)
+                    .Where(v => Vector2.Distance(v, center) <= radius);
+
+        private static IEnumerable<Vector2> GeneratePositionsInSquare(Vector2 center, float extend)
+        {
+            for (var dX = -extend; dX <= extend; dX++)
+                for (var dY = -extend; dY <= extend; dY++)
+                    yield return new Vector2(center.x + dX, center.y + dY);
+        }
 
         public readonly struct TilePosition
         {
