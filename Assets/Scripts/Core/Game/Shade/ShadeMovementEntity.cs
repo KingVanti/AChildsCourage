@@ -10,50 +10,25 @@ namespace AChildsCourage.Game.Shade
     public class ShadeMovementEntity : MonoBehaviour
     {
 
-        #region Static Fields
-
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int xAnimatorKey = Animator.StringToHash("X");
         private static readonly int yAnimatorKey = Animator.StringToHash("Y");
 
-        #endregion
-
-        #region Fields
 
         [SerializeField] private float movementSpeed;
         [SerializeField] private float waitTimeAfterDealingDamage;
-        [SerializeField] private AIPath aiPath;
         [SerializeField] private Animator shadeAnimator;
 
+        [FindInScene] private AIPath aiPath;
 
-        private float standardSpeed;
-
-        #endregion
-
-        #region Properties
 
         public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
 
-
-        private bool IsMoving => aiPath.velocity != Vector3.zero;
-
-        #endregion
-
-        #region Methods
-
-        [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
-        private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) => SetMovementTarget(eventArgs.NewTargetPosition);
-
-        private void SetMovementTarget(Vector3 position) => aiPath.destination = position;
+        private bool IsMoving => CurrentDirection.magnitude > float.Epsilon;
 
 
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
-        private void OnShadeSpawned(object _1, EventArgs _2) => ResetSpeed();
-
-        private void ResetSpeed() => aiPath.maxSpeed = movementSpeed;
-
-
-        private void Update() => UpdateAnimator();
+        private void Update() =>
+            UpdateAnimator();
 
         private void UpdateAnimator()
         {
@@ -62,7 +37,25 @@ namespace AChildsCourage.Game.Shade
             shadeAnimator.SetFloat(yAnimatorKey, CurrentDirection.y);
         }
 
-        public void WaitAfterDealingDamage() => StartCoroutine(WaitAndContinue());
+
+        [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
+        private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
+            SetMovementTarget(eventArgs.NewTargetPosition);
+
+        private void SetMovementTarget(Vector3 position) => 
+            aiPath.destination = position;
+
+
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        private void OnShadeSpawned(object _1, EventArgs _2) => 
+            ResetSpeed();
+
+        private void ResetSpeed() =>
+            aiPath.maxSpeed = movementSpeed;
+
+
+        public void WaitAfterDealingDamage() =>
+            StartCoroutine(WaitAndContinue());
 
         private IEnumerator WaitAndContinue()
         {
@@ -72,8 +65,6 @@ namespace AChildsCourage.Game.Shade
 
             ResetSpeed();
         }
-
-        #endregion
 
     }
 
