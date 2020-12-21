@@ -19,9 +19,8 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<CharVisibilityChangedEventArgs> OnCharVisibilityChanged;
 
         [Pub] public event EventHandler<TilesInViewChangedEventArgs> OnTilesInViewChanged;
-
-        #region Fields
-
+        
+        
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private VisionCone[] visionCones;
         [SerializeField] private LayerMask obstructionLayers;
@@ -29,10 +28,7 @@ namespace AChildsCourage.Game.Shade
 
 
         private Visibility charVisibility;
-
-        #endregion
-
-        #region Properties
+        
 
         public IEnumerable<VisionCone> VisionCones => visionCones;
 
@@ -68,10 +64,7 @@ namespace AChildsCourage.Game.Shade
 
         private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
 
-        #endregion
-
-        #region Methods
-
+        
         public bool CanSee(Vector2 point) => CanSeePoint(Vision, point);
 
 
@@ -113,9 +106,7 @@ namespace AChildsCourage.Game.Shade
             CharVisibility = CalculateCharacterVisibility();
             TilesInView = CalculateTilesInView();
         }
-
-        #endregion
-
+        
     }
 
 }
