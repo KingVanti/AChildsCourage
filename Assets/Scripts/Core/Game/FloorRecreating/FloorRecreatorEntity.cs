@@ -63,7 +63,7 @@ namespace AChildsCourage.Game
 
         private void PrepareNightForCurrentRun()
         {
-            var nightData = CreateNightWithRandomSeed(RandomRng());
+            var nightData = CreateNightWithRandomSeed();
             var rng = RngFromSeed(nightData.Seed);
 
             GenerateFloor(rng, RoomData, generationParameters)
@@ -113,7 +113,7 @@ namespace AChildsCourage.Game
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
-            Spawn(couragePickupPrefab, new Vector3(tilePosition.X + 0.5f, tilePosition.Y + 0.5f, 0), Quaternion.identity, couragePickupParent)
+            Spawn(couragePickupPrefab, tilePosition.Map(GetTileCenter), couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
 
         #endregion

@@ -84,6 +84,9 @@ namespace AChildsCourage.Infrastructure
 
         public static GameObject Spawn(GameObject prefab, Transform parent) =>
             Spawn(prefab, Vector3.zero, Quaternion.identity, parent);
+        
+        public static GameObject Spawn(GameObject prefab, Vector3 position,Transform parent) =>
+            Spawn(prefab, position, Quaternion.identity, parent);
 
         public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
