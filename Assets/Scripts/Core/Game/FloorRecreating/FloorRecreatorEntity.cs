@@ -14,6 +14,7 @@ using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MNightData;
+using static AChildsCourage.Infrastructure.MInfrastructure;
 
 namespace AChildsCourage.Game
 {
@@ -112,7 +113,7 @@ namespace AChildsCourage.Game
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
-            Instantiate(couragePickupPrefab, new Vector3(tilePosition.X + 0.5f, tilePosition.Y + 0.5f, 0), Quaternion.identity, couragePickupParent)
+            Spawn(couragePickupPrefab, new Vector3(tilePosition.X + 0.5f, tilePosition.Y + 0.5f, 0), Quaternion.identity, couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
 
         #endregion

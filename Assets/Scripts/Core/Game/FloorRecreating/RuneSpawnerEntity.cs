@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Infrastructure;
+using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -17,7 +18,7 @@ namespace AChildsCourage.Game.Floors
         private void InstantiateStaticObjectAt(TilePosition tilePosition)
         {
             var position = ToVector2(tilePosition) + new Vector2(0.5f, 0);
-            Instantiate(runePrefab, position, Quaternion.identity, transform);
+            MInfrastructure.Spawn(runePrefab, position, Quaternion.identity, transform);
         }
 
     }

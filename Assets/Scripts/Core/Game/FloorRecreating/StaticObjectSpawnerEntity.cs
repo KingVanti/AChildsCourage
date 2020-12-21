@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MRng;
@@ -24,7 +25,7 @@ namespace AChildsCourage.Game.Floors
         private StaticObjectEntity InstantiateStaticObjectAt(TilePosition tilePosition)
         {
             var position = ToVector2(tilePosition) + new Vector2(0.5f, 0);
-            return Instantiate(staticObjectPrefab, position, Quaternion.identity, transform).GetComponent<StaticObjectEntity>();
+            return MInfrastructure.Spawn(staticObjectPrefab, position, Quaternion.identity, transform).GetComponent<StaticObjectEntity>();
         }
 
 
