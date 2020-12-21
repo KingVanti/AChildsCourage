@@ -59,16 +59,20 @@ namespace AChildsCourage.Game
         #region Methods
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) => PrepareNightForCurrentRun();
+        private void OnSceneLoaded(object _1, EventArgs _2) =>
+            PrepareNightForCurrentRun();
 
-        private void PrepareNightForCurrentRun()
-        {
-            var nightData = CreateNightWithRandomSeed();
-            var rng = RngFromSeed(nightData.Seed);
-
-            GenerateFloor(rng, RoomData, generationParameters)
+        private void PrepareNightForCurrentRun() =>
+            CreateNightWithRandomSeed()
+                .Map(GenerateFromNightData)
                 .Do(Recreate);
-        }
+
+        private Floor GenerateFromNightData(NightData nightData) =>
+            RngFromSeed(nightData.Seed)
+                .Map(GenerateFromRng);
+
+        private Floor GenerateFromRng(CreateRng rng) =>
+            GenerateFloor(rng, RoomData, generationParameters);
 
         private void Recreate(Floor floor)
         {
