@@ -26,4 +26,16 @@ namespace AChildsCourage.Infrastructure
 
     }
 
+    [AttributeUsage(AttributeTargets.Field)]
+    public class FindComponentAttribute : Attribute
+    {
+
+        public ComponentFindMode FindMode { get; }
+
+  
+        public FindComponentAttribute(ComponentFindMode findMode = ComponentFindMode.OnSelf) => 
+            FindMode = findMode;
+
+    }
+
 }

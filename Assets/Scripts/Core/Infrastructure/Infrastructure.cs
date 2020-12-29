@@ -80,6 +80,7 @@ namespace AChildsCourage.Infrastructure
             FindComponentsInSceneFor(monoBehaviour);
             FindServicesFor(monoBehaviour);
             SubscribeToEvents(monoBehaviour);
+            FindComponents(monoBehaviour);
         }
 
         private static void FindComponentsInSceneFor(MonoBehaviour monoBehaviour) =>
@@ -126,6 +127,32 @@ namespace AChildsCourage.Infrastructure
                     {
                         throw new Exception($"\"{monoBehaviour.GetType().Name}.{method.Name}\"s signature does not match event {eventName}!");
                     }
+                });
+
+        private static void FindComponents(MonoBehaviour monoBehaviour) =>
+            GetFieldsWith<FindComponentAttribute>(monoBehaviour)
+                .ForEach(field =>
+                {
+                    var findMode = field.GetCustomAttribute<FindComponentAttribute>().FindMode;
+                    var component = (Component) null;
+
+                    switch (findMode)
+                    {
+                        case ComponentFindMode.OnSelf:
+                            component = monoBehaviour.GetComponent(field.FieldType);
+                            break;
+                        case ComponentFindMode.OnParent:   
+                            component = monoBehaviour.GetComponentInParent(field.FieldType);
+                            break;
+                        case ComponentFindMode.OnChildren: 
+                            component = monoBehaviour.GetComponentInChildren(field.FieldType);
+                            break;
+                        default: throw new Exception($"Invalid find mode {findMode}!");
+                    }
+
+                    if (component == null) throw new Exception($"Could not find component {field.FieldType.Name} on {monoBehaviour}");
+                    
+                    field.SetValue(monoBehaviour, component);
                 });
 
         private static IEnumerable<FieldInfo> GetFieldsWith<TAttr>(MonoBehaviour monoBehaviour) where TAttr : Attribute =>
