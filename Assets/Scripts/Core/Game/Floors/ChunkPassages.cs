@@ -5,9 +5,7 @@ namespace AChildsCourage.Game.Floors
 
     public static class MChunkPassages
     {
-
-        public static ChunkPassages NoPassages => new ChunkPassages(false, false, false, false);
-
+        
         public static ChunkPassages AllPassages => new ChunkPassages(true, true, true, true);
 
         public static Func<ChunkPassages, int> GetPassageCount =>
