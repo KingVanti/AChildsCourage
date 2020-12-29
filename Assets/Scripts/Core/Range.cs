@@ -16,6 +16,7 @@ namespace AChildsCourage
         public static Range<TValue> Between<TValue>(TValue from, TValue to) where TValue : IComparable<TValue> =>
             new Range<TValue>(from, to);
 
+        
         [Serializable]
         public struct Range<TValue> where TValue : IComparable<TValue>
         {
