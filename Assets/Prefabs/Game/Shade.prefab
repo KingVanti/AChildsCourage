@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 6287393413328556662}
   - component: {fileID: 2064087353}
   - component: {fileID: 7337468781757878326}
+  - component: {fileID: 1705656334}
+  - component: {fileID: 996754674}
   m_Layer: 12
   m_Name: Shade
   m_TagString: Shade
@@ -343,10 +345,6 @@ MonoBehaviour:
   behaviourUpdatesPerSecond: 10
   touchDamage: 100
   characterRigidbody: {fileID: 0}
-  spriteRenderer: {fileID: 537825537936044894}
-  defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
-  dissolveMaterial: {fileID: 2100000, guid: 43a50397f36e9e94389729784f852392, type: 2}
-  collider: {fileID: 1496831347808597378}
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +400,35 @@ MonoBehaviour:
   movementSpeed: 2.2
   waitTimeAfterDealingDamage: 4
   shadeAnimator: {fileID: 537825537936044893}
+--- !u!114 &1705656334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed6ca2b308ae294ab87fc2ba65800e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveTime: 1
+  spriteRenderer: {fileID: 537825537936044894}
+  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  dissolveMaterial: {fileID: 2100000, guid: 43a50397f36e9e94389729784f852392, type: 2}
+--- !u!114 &996754674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537825537936044892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69bf9f57e617914184977610db3ddcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 1496831347808597378}
 --- !u!1 &5451311742915600013
 GameObject:
   m_ObjectHideFlags: 0

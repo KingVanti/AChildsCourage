@@ -6,22 +6,15 @@ using AChildsCourage.Game.Shade.Navigation;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.Shade.MVisibility;
+using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Shade
 {
 
     public class ShadeBrainEntity : MonoBehaviour
     {
-
-        private static readonly int fadePropertyId = Shader.PropertyToID("_Fade");
-
-        [Pub] public event EventHandler OnShadeBanished;
-
-
-        [Pub] public event EventHandler OnShadeSteppedOnRune;
 
         [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
@@ -36,14 +29,9 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
         [SerializeField] private Rigidbody2D characterRigidbody;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Material defaultMaterial;
-        [SerializeField] private Material dissolveMaterial;
-        [SerializeField] private new Collider2D collider;
 
         [FindInScene] private ShadeEyesEntity shadeEyes;
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
-
 
         private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
         private InvestigationHistory investigationHistory = Empty;
@@ -53,7 +41,6 @@ namespace AChildsCourage.Game.Shade
         private IndirectHuntingBehaviour indirectHuntingBehaviour;
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
-        private bool isDissolving;
 
         #endregion
 
@@ -91,7 +78,8 @@ namespace AChildsCourage.Game.Shade
         #region Methods
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) => indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
+        private void OnSceneLoaded(object _1, EventArgs _2) =>
+            indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
 
         private void StartBehaviour(BehaviourFunction behaviourFunction)
         {
@@ -108,7 +96,8 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(ShadeEyesEntity.OnTilesInViewChanged))]
-        private void OnTilesInVisionChanged(object _, TilesInViewChangedEventArgs eventArgs) => investigatedPositions.UnionWith(eventArgs.TilesInView);
+        private void OnTilesInVisionChanged(object _, TilesInViewChangedEventArgs eventArgs) =>
+            investigatedPositions.UnionWith(eventArgs.TilesInView);
 
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
@@ -116,6 +105,10 @@ namespace AChildsCourage.Game.Shade
         {
             if (eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
         }
+
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        private void OnShadeSpawned(object _1, EventArgs _2) =>
+            StartBehaviour(Investigate);
 
 
         private IEnumerator Investigate()
@@ -211,57 +204,6 @@ namespace AChildsCourage.Game.Shade
         }
 
         private static IEnumerator None() { yield return null; }
-
-
-        public void Banish()
-        {
-            OnShadeSteppedOnRune?.Invoke(this, EventArgs.Empty);
-            StartBehaviour(None);
-            CurrentTargetPosition = transform.position;
-            collider.enabled = false;
-
-            if (!isDissolving) StartCoroutine(Dissolve());
-        }
-
-        private void DeactivateShade()
-        {
-            transform.position = new Vector3(100, 100, 0);
-            OnShadeBanished?.Invoke(this, EventArgs.Empty);
-            gameObject.SetActive(false);
-        }
-
-
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
-        private void OnShadeSpawned(object _1, EventArgs _2) => Activate();
-
-        private void Activate()
-        {
-            gameObject.SetActive(true);
-            collider.enabled = true;
-            StartBehaviour(Investigate);
-        }
-
-        private IEnumerator Dissolve()
-        {
-            isDissolving = true;
-
-            spriteRenderer.material = dissolveMaterial;
-            spriteRenderer.material.SetFloat(fadePropertyId, 1);
-
-            while (spriteRenderer.material.GetFloat(fadePropertyId) > 0)
-            {
-                spriteRenderer.material.SetFloat(fadePropertyId,
-                                                 Mathf.MoveTowards(spriteRenderer.material.GetFloat(fadePropertyId), 0, Time.deltaTime));
-                yield return null;
-            }
-
-            DeactivateShade();
-
-            spriteRenderer.material.SetFloat(fadePropertyId, 1);
-            spriteRenderer.material = defaultMaterial;
-
-            isDissolving = false;
-        }
 
         #endregion
 

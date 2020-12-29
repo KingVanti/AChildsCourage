@@ -27,8 +27,8 @@ namespace AChildsCourage.Game.Floors
         {
             if (wasUsed) return;
 
-            if (isActive && IsShade(other, out var shadeBrain))
-                OnShadeEnter(shadeBrain);
+            if (isActive && IsShade(other, out var shade))
+                OnShadeEnter(shade);
             else if (IsChar(other)) OnCharEnter();
         }
 
@@ -37,9 +37,9 @@ namespace AChildsCourage.Game.Floors
             if (IsChar(other)) OnCharExit();
         }
 
-        private static bool IsShade(Component other, out ShadeBrainEntity shadeBrain)
+        private static bool IsShade(Component other, out ShadeBodyEntity shade)
         {
-            shadeBrain = other.GetComponent<ShadeBrainEntity>();
+            shade = other.GetComponent<ShadeBodyEntity>();
             return other.gameObject.CompareTag(EntityTags.Shade);
         }
 
@@ -54,7 +54,7 @@ namespace AChildsCourage.Game.Floors
             StartCoroutine(WaitAndDeactivate());
         }
 
-        private void OnShadeEnter(ShadeBrainEntity shadeBrain) => UseRuneOn(shadeBrain);
+        private void OnShadeEnter(ShadeBodyEntity shade) => UseRuneOn(shade);
 
 
         private void Activate()
@@ -69,9 +69,9 @@ namespace AChildsCourage.Game.Floors
             isActive = false;
         }
 
-        private void UseRuneOn(ShadeBrainEntity shadeBrain)
+        private void UseRuneOn(ShadeBodyEntity shade)
         {
-            shadeBrain.Banish();
+            shade.Banish();
             wasUsed = true;
             Invoke(nameof(Disable), deactivationTime);
         }

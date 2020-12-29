@@ -69,7 +69,7 @@ namespace AChildsCourage.Game.Shade
             CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
 
 
-        [Sub(nameof(ShadeBrainEntity.OnShadeBanished))]
+        [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
             ClearAwareness();
 

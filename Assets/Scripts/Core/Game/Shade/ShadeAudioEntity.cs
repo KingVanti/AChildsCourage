@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        [Sub(nameof(ShadeBrainEntity.OnShadeSteppedOnRune))]
+        [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))]
         public void OnShadeBanishingStarted(object _1, EventArgs _2) => RuntimeManager.PlayOneShot(ShadeBanished_path, GetComponent<Transform>().position);
 
 
