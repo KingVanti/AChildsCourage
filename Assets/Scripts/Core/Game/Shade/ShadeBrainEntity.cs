@@ -88,8 +88,11 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
         private void OnAwarenessLevelChanged(object _, AwarenessChangedEventArgs eventArgs) =>
-            If(behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level == AwarenessLevel.Hunting)
+            If(ShouldStartDirectHunt(eventArgs.Level))
                 .Then(() => StartBehaviour(DirectHunt));
+
+        private bool ShouldStartDirectHunt(AwarenessLevel level) =>
+            behaviourType != ShadeBehaviourType.DirectHunting && level == AwarenessLevel.Hunting;
 
 
         [Sub(nameof(ShadeEyesEntity.OnTilesInViewChanged))]
@@ -99,8 +102,11 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
-            If(eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly)
+            If(ShouldStartIndirectHunt(eventArgs.CharVisibility))
                 .Then(() => StartBehaviour(IndirectHunt));
+
+        private bool ShouldStartIndirectHunt(Visibility charVisibility) =>
+            charVisibility == Visibility.NotVisible && IsHuntingDirectly;
 
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
