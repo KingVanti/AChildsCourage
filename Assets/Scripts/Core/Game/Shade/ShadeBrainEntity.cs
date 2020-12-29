@@ -9,6 +9,7 @@ using static AChildsCourage.Game.MEntityPosition;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.Shade.MVisibility;
 using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
+using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -89,10 +90,9 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
-        private void OnAwarenessLevelChanged(object _, AwarenessChangedEventArgs eventArgs)
-        {
-            if (behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level == AwarenessLevel.Hunting) StartBehaviour(DirectHunt);
-        }
+        private void OnAwarenessLevelChanged(object _, AwarenessChangedEventArgs eventArgs) =>
+            If(behaviourType != ShadeBehaviourType.DirectHunting && eventArgs.Level == AwarenessLevel.Hunting)
+                .Then(() => StartBehaviour(DirectHunt));
 
 
         [Sub(nameof(ShadeEyesEntity.OnTilesInViewChanged))]
@@ -101,10 +101,9 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
-        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs)
-        {
-            if (eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly) StartBehaviour(IndirectHunt);
-        }
+        private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
+            If(eventArgs.CharVisibility == Visibility.NotVisible && IsHuntingDirectly)
+                .Then(() => StartBehaviour(IndirectHunt));
 
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
