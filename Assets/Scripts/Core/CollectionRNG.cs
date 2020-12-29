@@ -17,10 +17,9 @@ namespace AChildsCourage
 
         private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
         {
-            var elementsArray = elements as T[] ?? elements.ToArray();
-            if (!elementsArray.Any()) return default;
-
-            var weightedElements = elementsArray.AttachWeights(calculateWeight).ToArray();
+            var weightedElements = elements.AttachWeights(calculateWeight).ToArray();
+            
+            if (!weightedElements.Any()) return default;
 
             var totalWeight = weightedElements.Sum(o => o.Weight);
             var itemWeightIndex = createRng.GetValueUnder(totalWeight);
@@ -41,17 +40,19 @@ namespace AChildsCourage
                 .Select(o => AttachWeight(o, calculateWeight));
 
 
-        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => new Weighted<T>(element, calculateWeight(element));
+        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => 
+            new Weighted<T>(element, calculateWeight(element));
 
 
-        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRng createRng) => GetRandom(createRng, elements);
+        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRng createRng) =>
+            GetRandom(createRng, elements);
 
 
         private static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
         {
             var elementsArray = elements.ToArray();
 
-            if (elementsArray.Length == 0) return default;
+            if (!elementsArray.Any()) return default;
 
             var index = createRng.GetValueUnder(elementsArray.Length);
             return elementsArray[index];
