@@ -19,13 +19,6 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
-        #region Subtypes
-
-        private delegate IEnumerator BehaviourFunction();
-
-        #endregion
-
-        #region Fields
 
         [SerializeField] private float behaviourUpdatesPerSecond;
         [SerializeField] private int touchDamage;
@@ -43,9 +36,6 @@ namespace AChildsCourage.Game.Shade
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
 
-        #endregion
-
-        #region Properties
 
         public int TouchDamage => touchDamage;
 
@@ -58,8 +48,7 @@ namespace AChildsCourage.Game.Shade
                 OnTargetPositionChanged?.Invoke(this, new ShadeTargetPositionChangedEventArgs(currentTargetPosition));
             }
         }
-
-
+        
         private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
@@ -74,9 +63,6 @@ namespace AChildsCourage.Game.Shade
 
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
-        #endregion
-
-        #region Methods
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
@@ -207,7 +193,8 @@ namespace AChildsCourage.Game.Shade
 
         private static IEnumerator None() { yield return null; }
 
-        #endregion
+        
+        private delegate IEnumerator BehaviourFunction();
 
     }
 
