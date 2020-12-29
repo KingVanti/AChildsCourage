@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private EnumArray<AwarenessLevel, float> minAwarenessForAwarenessLevel;
 
         [FindInScene] private CharControllerEntity charController;
-        [FindInScene] private Flashlight flashlight;
+        [FindInScene] private FlashlightEntity flashlight;
 
         private Visibility currentCharVisibility;
         private Awareness currentAwareness;

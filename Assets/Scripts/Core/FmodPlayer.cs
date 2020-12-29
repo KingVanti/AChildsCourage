@@ -65,7 +65,7 @@ namespace AChildsCourage
             Footsteps.release();
         }
 
-        [Sub(nameof(Flashlight.OnFlashlightToggled))]
+        [Sub(nameof(FlashlightEntity.OnFlashlightToggled))]
         public void OnFlashLightToggled(object _, FlashlightToggleEventArgs eventArgs) =>
             RuntimeManager.PlayOneShot(eventArgs.IsTurnedOn ? Flashlight_ON_Path : Flashlight_OFF_Path, transform.position);
 

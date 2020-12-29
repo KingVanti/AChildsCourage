@@ -8,7 +8,7 @@ using static AChildsCourage.MRange;
 namespace AChildsCourage.Game.Char
 {
 
-    public class Flashlight : MonoBehaviour
+    public class FlashlightEntity : MonoBehaviour
     {
 
         #region Events
