@@ -393,7 +393,6 @@ MonoBehaviour:
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
   rb: {fileID: 3546636511749136385}
-  characterGlowingLight: {fileID: 1604705283}
   movementSpeed: 1.7
   sprintSpeed: 4
   knockBackMultiplier: 2

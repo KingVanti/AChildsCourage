@@ -35,7 +35,6 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private ParticleSystem courageCollectParticleSystem;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Light2D characterGlowingLight;
         [Header("Stats")]
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
