@@ -36,12 +36,12 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Light2D characterGlowingLight;
-        [SerializeField] private StaminaEntity stamina;
         [Header("Stats")]
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
         [SerializeField] private float knockBackMultiplier;
 
+        [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
 
 
@@ -241,14 +241,19 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
-        private void OnStaminaDepleted(object _1, EventArgs _2)
+        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
+        private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
+        {
+            if (eventArgs.Stamina == 0) OnStaminaDepleted();
+        }
+
+        private void OnStaminaDepleted()
         {
             StopSprinting();
             hasStamina = false;
         }
 
-        [Sub(nameof(StaminaEntity.OnStaminaRefreshed))]
+        [Sub(nameof(CharStaminaEntity.OnStaminaRefreshed))]
         private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
 
         #endregion

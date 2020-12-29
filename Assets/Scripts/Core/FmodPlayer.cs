@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
@@ -12,9 +11,6 @@ namespace AChildsCourage
 
     public class FmodPlayer : MonoBehaviour
     {
-
-        [SerializeField] private StaminaEntity stamina;
-
 
         private readonly float Material = 0;
         private readonly float waitTime = 1.5f;
@@ -56,8 +52,6 @@ namespace AChildsCourage
     }
     */
 
-
-        public void Update() => Stamina_eventInstance.setParameterByName("stamina", stamina.stamina);
 
         public void OnDestroy() => Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
@@ -118,8 +112,13 @@ namespace AChildsCourage
         }
 
 
-        [Sub(nameof(StaminaEntity.OnStaminaDepleted))]
-        private void OnCharStaminaDepleted(object _1, EventArgs _2) => PlaySprint_depleted();
+        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
+        private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
+        {
+            Stamina_eventInstance.setParameterByName("stamina", eventArgs.Stamina);
+
+            if (eventArgs.Stamina == 0) PlaySprint_depleted();
+        }
 
         private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
 

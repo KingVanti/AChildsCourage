@@ -390,13 +390,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
-  movementSpeed: 1.7
-  sprintSpeed: 4
   courageCollectParticleSystem: {fileID: 6250614698386667104}
   spriteRenderer: {fileID: 8820627343415363624}
   rb: {fileID: 3546636511749136385}
   characterGlowingLight: {fileID: 1604705283}
-  stamina: {fileID: 1871683216658508858}
+  movementSpeed: 1.7
+  sprintSpeed: 4
   knockBackMultiplier: 2
 --- !u!114 &1871683216658508858
 MonoBehaviour:
@@ -410,9 +409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa7214ea7258aa4f8d9b0e65e2c892d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: 100
-  staminaDepletedCooldown: 5
-  staminaRates:
+  maxStamina: 100
+  staminaRechargeCooldown: 5
+  refreshStamina: 15
+  staminaChangeRates:
+    enumTypeName: AChildsCourage.Game.Char.MovementState
     enums:
     - enumValue: 0
       mappedValue: 10
@@ -420,7 +421,6 @@ MonoBehaviour:
       mappedValue: 8
     - enumValue: 2
       mappedValue: -15
-  recoveredStaminaAmount: 15
 --- !u!95 &1266752489
 Animator:
   serializedVersion: 3
@@ -493,7 +493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afff565ceb00a44ea2a481941699db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: {fileID: 1871683216658508858}
 --- !u!198 &6250614698386667104
 ParticleSystem:
   m_ObjectHideFlags: 0
