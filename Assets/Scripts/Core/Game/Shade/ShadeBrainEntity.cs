@@ -48,7 +48,7 @@ namespace AChildsCourage.Game.Shade
                 OnTargetPositionChanged?.Invoke(this, new ShadeTargetPositionChangedEventArgs(currentTargetPosition));
             }
         }
-        
+
         private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
@@ -68,8 +68,8 @@ namespace AChildsCourage.Game.Shade
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
 
-        private void StartBehaviour(BehaviourFunction behaviourFunction) =>
-            behaviourRoutine = this.RestartCoroutine(behaviourRoutine, behaviourFunction.Invoke);
+        private void StartBehaviour(Func<IEnumerator> behaviourFunction) =>
+            behaviourRoutine = this.RestartCoroutine(behaviourRoutine, behaviourFunction);
 
 
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
@@ -192,9 +192,6 @@ namespace AChildsCourage.Game.Shade
         }
 
         private static IEnumerator None() { yield return null; }
-
-        
-        private delegate IEnumerator BehaviourFunction();
 
     }
 
