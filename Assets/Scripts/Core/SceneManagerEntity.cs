@@ -11,7 +11,9 @@ namespace AChildsCourage
 
         [Pub] public event EventHandler OnSceneLoaded;
 
-        private void Awake() => SetupScene();
+
+        private void Awake() =>
+            SetupScene();
 
         private void SetupScene()
         {
