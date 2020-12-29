@@ -5,11 +5,6 @@
     {
 
         /// <summary>
-        ///     Unity tag for item entities
-        /// </summary>
-        internal const string Item = "Item";
-
-        /// <summary>
         ///     Unity tag for char entities
         /// </summary>
         internal const string Char = "Char";
