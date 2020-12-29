@@ -10,38 +10,29 @@ namespace AChildsCourage.Game.Floors
     public class NavigationMapEntity : MonoBehaviour
     {
 
-        [SerializeField] private AstarPath astarPath;
+        [SerializeField] private AstarPath pathfinder;
 
 
-        private Floor mapFloor;
+        private GridGraph GridGraph => pathfinder.graphs.First() as GridGraph;
+        
+        private FloorDimensions CurrentDimensions
+        {
+            set
+            {
+                GridGraph.center = value.Center;
+                GridGraph.SetDimensions(value.Width, value.Height, 1);
 
-        private GridGraph GridGraph => astarPath.graphs.First() as GridGraph;
+                pathfinder.Scan(GridGraph);
+            }
+        }
 
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
-        public void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
-        {
-            mapFloor = eventArgs.Floor;
-            Invoke(nameof(FitMapToFloor), 1);
-        }
+        public void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
+            this.DoAfter(() => ScaleToFit(eventArgs.Floor), 1);
 
-        private void FitMapToFloor()
-        {
-            ScaleToFit(mapFloor);
-            astarPath.Scan(GridGraph);
-        }
-
-        private void ScaleToFit(Floor floor)
-        {
-            var (lowerRight, upperLeft) = GetFloorCorners(floor);
-
-            var width = upperLeft.X - lowerRight.X + 1;
-            var depth = upperLeft.Y - lowerRight.Y + 1;
-            var center = new Vector3(lowerRight.X + width / 2f, lowerRight.Y + depth / 2f, 0);
-
-            GridGraph.center = center;
-            GridGraph.SetDimensions(width, depth, 1);
-        }
+        private void ScaleToFit(Floor floor) => 
+            CurrentDimensions = GetFloorDimensions(floor);
 
     }
 

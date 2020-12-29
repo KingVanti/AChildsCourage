@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AChildsCourage
@@ -20,11 +19,22 @@ namespace AChildsCourage
             Debug.Log(formatter(item));
             return item;
         }
-        
+
         public static Coroutine RestartCoroutine(this MonoBehaviour monoBehaviour, Coroutine coroutine, Func<IEnumerator> routineFunction)
         {
             if (coroutine != null) monoBehaviour.StopCoroutine(coroutine);
             return monoBehaviour.StartCoroutine(routineFunction());
+        }
+
+        public static Coroutine DoAfter(this MonoBehaviour monoBehaviour, Action action, float time)
+        {
+            IEnumerator WaitAndDo()
+            {
+                yield return new WaitForSeconds(time);
+                action();
+            }
+
+            return monoBehaviour.StartCoroutine(WaitAndDo());
         }
 
     }
