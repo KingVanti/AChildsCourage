@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ namespace AChildsCourage
     {
 
         [SerializeField] [HideInInspector] private string enumTypeName;
-        [SerializeField] [HideInInspector] private string mappedTypeName;
         [SerializeField] private MappedEnum[] enums;
 
 
@@ -19,14 +19,14 @@ namespace AChildsCourage
 
         public EnumArray()
         {
-            enums = Enum.GetValues(typeof(TEnum))
-                        .Cast<TEnum>()
-                        .Select(e => new MappedEnum(e, default))
-                        .ToArray();
-
+            enums = MapEnum().ToArray();
             enumTypeName = typeof(TEnum).FullName;
-            mappedTypeName = typeof(TMapped).FullName;
         }
+
+        private IEnumerable<MappedEnum> MapEnum() =>
+            Enum.GetValues(typeof(TEnum))
+                .Cast<TEnum>()
+                .Select(e => new MappedEnum(e, default));
 
 
         [Serializable]

@@ -367,7 +367,6 @@ MonoBehaviour:
     max: 15
   movementStateMultipliers:
     enumTypeName: AChildsCourage.Game.Char.MovementState
-    mappedTypeName: System.Single
     enums:
     - enumValue: 0
       mappedValue: 1
@@ -377,7 +376,6 @@ MonoBehaviour:
       mappedValue: 2
   minAwarenessForAwarenessLevel:
     enumTypeName: AChildsCourage.Game.Shade.AwarenessLevel
-    mappedTypeName: System.Single
     enums:
     - enumValue: 0
       mappedValue: 0
