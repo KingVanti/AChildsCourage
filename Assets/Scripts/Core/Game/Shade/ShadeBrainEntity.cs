@@ -82,11 +82,8 @@ namespace AChildsCourage.Game.Shade
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             indirectHuntingBehaviour = new IndirectHuntingBehaviour(shadeEyes);
 
-        private void StartBehaviour(BehaviourFunction behaviourFunction)
-        {
-            if (behaviourRoutine != null) StopCoroutine(behaviourRoutine);
-            behaviourRoutine = StartCoroutine(behaviourFunction());
-        }
+        private void StartBehaviour(BehaviourFunction behaviourFunction) =>
+            behaviourRoutine = this.RestartCoroutine(behaviourRoutine, behaviourFunction.Invoke);
 
 
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
