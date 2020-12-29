@@ -3,36 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityObject = UnityEngine.Object;
 
 namespace AChildsCourage.Infrastructure
 {
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public class FindInSceneAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Field)]
-    public class FindServiceAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Property)]
-    public class ServiceAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Event)]
-    public class PubAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Method)]
-    public class SubAttribute : Attribute
-    {
-
-        public string EventName { get; }
-
-
-        public SubAttribute(string eventName) => EventName = eventName;
-
-    }
-
 
     public static class MInfrastructure
     {
@@ -84,8 +59,8 @@ namespace AChildsCourage.Infrastructure
 
         public static GameObject Spawn(GameObject prefab, Transform parent) =>
             Spawn(prefab, Vector3.zero, Quaternion.identity, parent);
-        
-        public static GameObject Spawn(GameObject prefab, Vector3 position,Transform parent) =>
+
+        public static GameObject Spawn(GameObject prefab, Vector3 position, Transform parent) =>
             Spawn(prefab, position, Quaternion.identity, parent);
 
         public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
