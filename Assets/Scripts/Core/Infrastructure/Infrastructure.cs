@@ -141,17 +141,17 @@ namespace AChildsCourage.Infrastructure
                         case ComponentFindMode.OnSelf:
                             component = monoBehaviour.GetComponent(field.FieldType);
                             break;
-                        case ComponentFindMode.OnParent:   
+                        case ComponentFindMode.OnParent:
                             component = monoBehaviour.GetComponentInParent(field.FieldType);
                             break;
-                        case ComponentFindMode.OnChildren: 
+                        case ComponentFindMode.OnChildren:
                             component = monoBehaviour.GetComponentInChildren(field.FieldType);
                             break;
                         default: throw new Exception($"Invalid find mode {findMode}!");
                     }
 
                     if (component == null) throw new Exception($"Could not find component {field.FieldType.Name} on {monoBehaviour}");
-                    
+
                     field.SetValue(monoBehaviour, component);
                 });
 

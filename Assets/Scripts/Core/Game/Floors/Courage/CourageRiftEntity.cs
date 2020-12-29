@@ -22,13 +22,14 @@ namespace AChildsCourage.Game.Floors.Courage
 
         #region Fields
 
-        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
-        [SerializeField] private ParticleSystem riftParticleSystem;
+        
+        [FindComponent] private SpriteRenderer spriteRenderer;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private ParticleSystem riftParticleSystem;
 
         [FindInScene] private CourageManagerEntity courageManager;
-
-
+        
         private int currentStage;
         private readonly int[] stageThresholds = new int[5];
         private int lastCourageCount;

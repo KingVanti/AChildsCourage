@@ -17,7 +17,8 @@ namespace AChildsCourage.Game.Shade
 
         [SerializeField] private float movementSpeed;
         [SerializeField] private float waitTimeAfterDealingDamage;
-        [SerializeField] private Animator shadeAnimator;
+
+        [FindComponent] private Animator animator;
 
         [FindInScene] private AIPath aiPath;
 
@@ -32,9 +33,9 @@ namespace AChildsCourage.Game.Shade
 
         private void UpdateAnimator()
         {
-            shadeAnimator.SetBool(movingAnimatorKey, IsMoving);
-            shadeAnimator.SetFloat(xAnimatorKey, CurrentDirection.x);
-            shadeAnimator.SetFloat(yAnimatorKey, CurrentDirection.y);
+            animator.SetBool(movingAnimatorKey, IsMoving);
+            animator.SetFloat(xAnimatorKey, CurrentDirection.x);
+            animator.SetFloat(yAnimatorKey, CurrentDirection.y);
         }
 
 
@@ -42,12 +43,12 @@ namespace AChildsCourage.Game.Shade
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
             SetMovementTarget(eventArgs.NewTargetPosition);
 
-        private void SetMovementTarget(Vector3 position) => 
+        private void SetMovementTarget(Vector3 position) =>
             aiPath.destination = position;
 
 
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
-        private void OnShadeSpawned(object _1, EventArgs _2) => 
+        private void OnShadeSpawned(object _1, EventArgs _2) =>
             ResetSpeed();
 
         private void ResetSpeed() =>

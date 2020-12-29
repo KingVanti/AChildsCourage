@@ -30,20 +30,21 @@ namespace AChildsCourage.Game.Char
         #region Fields
 
         [Header("References")]
-        [SerializeField] private Animator animator;
         [SerializeField] private Transform characterVision;
-        [SerializeField] private ParticleSystem courageCollectParticleSystem;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Rigidbody2D rb;
+        
         [Header("Stats")]
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
         [SerializeField] private float knockBackMultiplier;
-
+        
+        [FindComponent] private Animator animator;
+        [FindComponent] private ParticleSystem courageCollectParticleSystem;
+        [FindComponent] private SpriteRenderer spriteRenderer;
+        [FindComponent] private Rigidbody2D rb;
+        
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
-
-
+        
         private Camera mainCamera;
         private Vector2 movingDirection;
         private int rotationIndex;

@@ -18,9 +18,10 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float dissolveTime;
-        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material dissolveMaterial;
+
+        [FindComponent] private SpriteRenderer spriteRenderer;
 
         private bool isDissolving;
 
@@ -36,9 +37,9 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))]
-        private void OnShadeSteppedOnRune(object _1, EventArgs _2) => 
+        private void OnShadeSteppedOnRune(object _1, EventArgs _2) =>
             If(!isDissolving).Then(StartDissolving);
-        
+
         private void StartDissolving() =>
             StartCoroutine(Dissolve());
 

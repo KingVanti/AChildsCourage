@@ -26,11 +26,14 @@ namespace AChildsCourage.Game
 
         #region Fields
 
-        [SerializeField] private Tilemap groundTilemap;
-        [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GameObject couragePickupPrefab;
         [SerializeField] private Transform couragePickupParent;
         [SerializeField] private GenerationParameters generationParameters;
+
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private Tilemap groundTilemap;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private Tilemap staticTilemap;
 
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
         [FindInScene] private TileRepositoryEntity tileRepository;
@@ -39,8 +42,7 @@ namespace AChildsCourage.Game
 
         [FindService] private LoadRoomData loadRoomData;
         [FindService] private LoadCouragePickupAppearances loadCouragePickupAppearances;
-
-
+        
         private ImmutableHashSet<RoomData> roomData;
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> couragePickupAppearances;
 

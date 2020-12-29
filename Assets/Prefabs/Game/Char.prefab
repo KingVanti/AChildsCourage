@@ -388,11 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c5f4de6361d13418c09ae1161483b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1266752489}
   characterVision: {fileID: 1624709431971907045}
-  courageCollectParticleSystem: {fileID: 6250614698386667104}
-  spriteRenderer: {fileID: 8820627343415363624}
-  rb: {fileID: 3546636511749136385}
   movementSpeed: 1.7
   sprintSpeed: 4
   knockBackMultiplier: 2
