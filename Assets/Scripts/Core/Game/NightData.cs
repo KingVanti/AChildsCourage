@@ -1,5 +1,4 @@
-﻿using System;
-using static AChildsCourage.MRng;
+﻿using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
@@ -7,9 +6,10 @@ namespace AChildsCourage.Game
     public static class MNightData
     {
 
-        public static Func<NightData> CreateNightWithRandomSeed =>
-            () => new NightData(RandomRng().GetValueBetween(int.MinValue, int.MaxValue));
+        public static NightData CreateNightWithRandomSeed() =>
+            new NightData(RandomRng().GetValueBetween(int.MinValue, int.MaxValue));
 
+        
         public class NightData
         {
 
