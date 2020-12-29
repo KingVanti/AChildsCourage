@@ -15,6 +15,7 @@ namespace AChildsCourage.Game.Floors
         private FloorState lastFloorState;
         private bool outDatedFloorState;
 
+        
         public FloorState CurrentFloorState
         {
             get
@@ -39,15 +40,16 @@ namespace AChildsCourage.Game.Floors
             outDatedFloorState = true;
         }
 
-        private bool HasStateForIndex(AoiIndex index) => aoiStates.ContainsKey(index);
-
-
+        private bool HasStateForIndex(AoiIndex index) =>
+            aoiStates.ContainsKey(index);
+        
         private FloorState GenerateFloorState() =>
             CurrentAoiStates
                 .Select(aoiState => aoiState.ToAoi())
                 .ToImmutableArray()
                 .Map(array => new FloorState(array));
 
+        
         private class AoiState
         {
 
@@ -58,8 +60,7 @@ namespace AChildsCourage.Game.Floors
             private ImmutableArray<Poi> Pois =>
                 PoiStates.Select(poiState => poiState.ToPoi())
                          .ToImmutableArray();
-
-
+            
             public AoiState(AoiIndex index) => Index = index;
 
 
