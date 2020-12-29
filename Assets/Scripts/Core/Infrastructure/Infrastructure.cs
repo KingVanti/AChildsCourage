@@ -12,7 +12,7 @@ namespace AChildsCourage.Infrastructure
     public static class MInfrastructure
     {
 
-        private const BindingFlags DefaultBindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        public const BindingFlags DefaultBindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
 
         private static readonly Dictionary<Type, Delegate> services = new Dictionary<Type, Delegate>();
@@ -167,7 +167,7 @@ namespace AChildsCourage.Infrastructure
                 .GetMethods(DefaultBindingFlags)
                 .Where(HasAttribute<TAttr>);
 
-        private static bool HasAttribute<TAttr>(MemberInfo member) where TAttr : Attribute =>
+        public static bool HasAttribute<TAttr>(MemberInfo member) where TAttr : Attribute =>
             member.GetCustomAttribute<TAttr>() != null;
 
     }
