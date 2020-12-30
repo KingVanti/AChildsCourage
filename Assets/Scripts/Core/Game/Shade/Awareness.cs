@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AChildsCourage.Game.Shade
+﻿namespace AChildsCourage.Game.Shade
 {
 
     public static class MAwareness
@@ -12,9 +10,8 @@ namespace AChildsCourage.Game.Shade
         public static Awareness NoAwareness => new Awareness(MinAwareness);
 
 
-        public static Func<Awareness, float, Awareness> ChangeBy =>
-            (awareness, amount) =>
-                new Awareness(awareness.Value + amount);
+        public static Awareness ChangeBy(Awareness awareness, float amount) =>
+            new Awareness(awareness.Value + amount);
 
 
         public readonly struct Awareness
@@ -22,7 +19,9 @@ namespace AChildsCourage.Game.Shade
 
             public float Value { get; }
 
-            public Awareness(float value) => Value = value.Clamp(MinAwareness, MaxAwareness);
+
+            public Awareness(float value) =>
+                Value = value.Clamp(MinAwareness, MaxAwareness);
 
         }
 
