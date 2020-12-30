@@ -50,7 +50,7 @@ namespace AChildsCourage.Game
 
         #region Properties
 
-        private IEnumerable<RoomData> RoomData =>
+        private ImmutableHashSet<RoomData> RoomData =>
             roomData ?? (roomData = loadRoomData().ToImmutableHashSet());
 
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances =>

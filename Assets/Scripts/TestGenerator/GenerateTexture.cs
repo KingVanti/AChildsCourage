@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AChildsCourage.Game.Floors.Courage;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.Game.Floors.MFloor;
+using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
@@ -12,121 +9,79 @@ namespace AChildsCourage.Game.Floors.TestGenerator
     internal static class GenerateTexture
     {
 
-        #region Methods
+        private static readonly Color backGroundColor = Color.clear;
+        private static readonly Color groundTileColor = new Color(0.51f, 0.51f, 0.51f);
+        private static readonly Color staticObjectColor = new Color(0.43f, 0.1f, 0.14f);
+        private static readonly Color runeColor = new Color(0.36f, 0.95f, 0.97f);
+        private static readonly Color sparkColor = new Color(0.97f, 0.95f, 0.07f);
+        private static readonly Color orbColor = new Color(0.97f, 0.65f, 0.26f);
 
-        internal static Texture2D From(FloorPlan floorPlan, CompleteRoomLoader roomLoader)
+        internal static Texture2D From(Floor floor)
         {
-            var pixels = ConvertToColorArray(floorPlan, roomLoader);
-            var texture = new Texture2D(pixels[0]
-                                            .Length, pixels.Length) {filterMode = FilterMode.Point};
-
-            texture.SetPixels(pixels.SelectMany(x => x)
-                                    .ToArray());
-            texture.Apply();
-
+            var texture = CreateFittingTexture(floor);
+            FillTexture(texture, backGroundColor);
+            PrintFloorToTexture(floor, texture);
             return texture;
         }
 
-        private static Color[][] ConvertToColorArray(FloorPlan floorPlan, CompleteRoomLoader roomLoader)
+        private static Texture2D CreateFittingTexture(Floor floor)
         {
-            var pixels = CreateColorArray(floorPlan);
-            var offset = CalculateChunkOffset(floorPlan);
-
-            foreach (var room in floorPlan.Rooms)
+            var dimensions = floor.Map(GetFloorDimensions);
+            return new Texture2D(dimensions.Width, dimensions.Height)
             {
-                var type = roomLoader.GetRoomType(room);
-
-                PrintRoom(type, room, offset, roomLoader, pixels);
-            }
-
-            return pixels;
+                filterMode = FilterMode.Point
+            };
         }
 
-        private static Color[][] CreateColorArray(FloorPlan floorPlan)
+        private static void FillTexture(Texture2D texture, Color color)
         {
-            var width = GetFloorPlanWidth(floorPlan) * 5;
-            var height = GetFloorPlanHeight(floorPlan) * 5;
-
-            var pixels = new Color[width][];
-
-            for (var x = 0; x < width; x++) pixels[x] = new Color[height];
-
-            return pixels;
+            for (var x = 0; x < texture.width; x++)
+                for (var y = 0; y < texture.height; y++)
+                    texture.SetPixel(x, y, color);
         }
 
-        private static int GetFloorPlanWidth(FloorPlan floorPlan)
+        private static void PrintFloorToTexture(Floor floor, Texture2D texture)
         {
-            var minX = floorPlan.Rooms.Select(r => r.Transform.Position.X)
-                                .Min();
-            var maxX = floorPlan.Rooms.Select(r => r.Transform.Position.X)
-                                .Max();
+            var print = CreatePrinter(floor, texture);
 
-            return Mathf.Abs(minX - maxX) + 1;
+            foreach (var room in floor.Rooms) PrintRoom(room, print);
+            foreach (var rune in floor.Runes) PrintRune(rune, print);
+            foreach (var couragePickup in floor.CouragePickups) PrintCouragePickup(couragePickup, print);
+
+            texture.Apply();
         }
 
-        private static int GetFloorPlanHeight(FloorPlan floorPlan)
+        private static PrintToTexture CreatePrinter(Floor floor, Texture2D texture)
         {
-            var minY = floorPlan.Rooms.Select(r => r.Transform.Position.Y)
-                                .Min();
-            var maxY = floorPlan.Rooms.Select(r => r.Transform.Position.Y)
-                                .Max();
+            var offset = floor.Map(GetFloorDimensions).LowerRight.Map(AsOffset);
 
-            return Mathf.Abs(minY - maxY) + 1;
+            return (pos, col) => texture.SetPixel(pos.X - offset.X, pos.Y - offset.Y, col);
         }
 
-        private static Vector2Int CalculateChunkOffset(FloorPlan floorPlan) =>
-            new Vector2Int(
-                           -floorPlan.Rooms.Select(r => r.Transform.Position.X)
-                                     .Min(),
-                           -floorPlan.Rooms.Select(r => r.Transform.Position.Y)
-                                     .Min());
-
-        private static void PrintRoom(RoomType type, RoomPlan room, Vector2Int offset, CompleteRoomLoader roomLoader, IReadOnlyList<Color[]> pixels)
+        private static void PrintRoom(Room room, PrintToTexture print)
         {
-            var position = GetPixelPos(room.Transform.Position, offset);
-            var passages = roomLoader.GetPassagesFor(room);
-
-            PrintPassages(type, position, passages, pixels);
+            foreach (var groundTile in room.GroundTiles) PrintGroundTile(groundTile, print);
+            foreach (var staticObject in room.StaticObjects) PrintStaticObject(staticObject, print);
         }
 
-        private static void PrintPassages(RoomType type, Vector2Int pixelPos, ChunkPassages passages, IReadOnlyList<Color[]> pixels)
+        private static void PrintGroundTile(GroundTile groundTile, PrintToTexture print) =>
+            print(groundTile.Position, groundTileColor);
+
+        private static void PrintStaticObject(StaticObject staticObject, PrintToTexture print) =>
+            print(staticObject.Position, staticObjectColor);
+
+        private static void PrintRune(Rune rune, PrintToTexture print)
         {
-            for (var dx = 1; dx < 4; dx++)
-                for (var dy = 1; dy < 4; dy++)
-                    pixels[pixelPos.x + dx][pixelPos.y + dy] = GetRoomTypeColor(type);
-
-            if (passages.HasNorth) pixels[pixelPos.x + 2][pixelPos.y + 4] = Color.white;
-            if (passages.HasEast) pixels[pixelPos.x + 4][pixelPos.y + 2] = Color.white;
-            if (passages.HasSouth) pixels[pixelPos.x + 2][pixelPos.y] = Color.white;
-            if (passages.HasWest) pixels[pixelPos.x][pixelPos.y + 2] = Color.white;
+            for (var dX = -1; dX <= 1; dX++)
+                for (var dY = -1; dY <= 1; dY++)
+                    print(rune.Position.Map(OffsetBy, new TileOffset(dX, dY)), runeColor);
         }
 
-        private static Color GetRoomTypeColor(RoomType type)
-        {
-            switch (type)
-            {
-                case RoomType.Start: return Color.cyan;
-                case RoomType.Normal: return Color.white;
-                case RoomType.End: return Color.magenta;
-                default: throw new Exception("Invalid room type!");
-            }
-        }
+        private static void PrintCouragePickup(CouragePickup couragePickup, PrintToTexture print) =>
+            print(couragePickup.Position, couragePickup.Variant == CourageVariant.Orb ? orbColor : sparkColor);
 
-        private static Vector2Int GetPixelPos(ChunkPosition position, Vector2Int offset)
-        {
-            var offsetPosition = GetOffsetPosition(position, offset);
 
-            return new Vector2Int(
-                                  offsetPosition.x * 5,
-                                  offsetPosition.y * 5);
-        }
-
-        private static Vector2Int GetOffsetPosition(ChunkPosition position, Vector2Int offset) =>
-            new Vector2Int(
-                           position.X + offset.x,
-                           position.Y + offset.y);
-
-        #endregion
+        private delegate void PrintToTexture(TilePosition position, Color color);
 
     }
 

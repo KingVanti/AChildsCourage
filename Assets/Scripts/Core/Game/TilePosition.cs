@@ -56,6 +56,10 @@ namespace AChildsCourage.Game
             new TilePosition((int) positions.Select(p => p.X).Average(),
                              (int) positions.Select(p => p.Y).Average());
 
+        public static TileOffset AsOffset(TilePosition position) =>
+            new TileOffset(position.X,
+                           position.Y);
+
         
         public readonly struct TilePosition
         {

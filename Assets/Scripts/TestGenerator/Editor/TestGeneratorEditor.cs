@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+﻿using System.Collections.Immutable;
+using AChildsCourage.Game.Floors.RoomPersistence;
+using UnityEditor;
 using UnityEngine;
 using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.MRng;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutGenerating;
-using static AChildsCourage.Game.MFloorGenerating.MFloorPlanGenerating;
 
 namespace AChildsCourage.Game.Floors.TestGenerator
 {
@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private int seed;
         private Texture2D floorImage;
-        private readonly CompleteRoomLoader completeRoomLoader = new CompleteRoomLoader();
+        private ImmutableHashSet<RoomData> roomData;
 
         #endregion
 
@@ -38,6 +38,8 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private void OnGUI()
         {
+            if (roomData == null) roomData = RoomDataRepo.FromAssets().ToImmutableHashSet();
+
             OnConfigGUI();
 
             EditorGUILayout.Space();
@@ -57,19 +59,20 @@ namespace AChildsCourage.Game.Floors.TestGenerator
                 EditorGUILayout.LabelField("Press \"Generate\" to test generation!");
         }
 
-        private void OnConfigGUI() => seed = EditorGUILayout.IntField("Seed", seed);
+        private void OnConfigGUI() =>
+            seed = EditorGUILayout.IntField("Seed", seed);
 
-        private void OnFloorGUI() => GUI.DrawTexture(new Rect(10, 100, floorImage.width * 10, floorImage.height * 10), floorImage);
+        private void OnFloorGUI() =>
+            GUI.DrawTexture(new Rect(10, 100, floorImage.width * 4, floorImage.height * 4), floorImage);
 
 
         private void GenerateFloorImage()
         {
             var parameters = new GenerationParameters(12);
             var rng = RngFromSeed(seed);
-            var floorPlan = GenerateFloorLayout(rng, parameters)
-                .Map(layout => GenerateFloorPlan(layout, completeRoomLoader.All(), rng));
+            var floor = GenerateFloor(rng, roomData, parameters);
 
-            floorImage = GenerateTexture.From(floorPlan, completeRoomLoader);
+            floorImage = GenerateTexture.From(floor);
         }
 
         #endregion
