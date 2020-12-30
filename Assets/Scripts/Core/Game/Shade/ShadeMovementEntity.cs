@@ -38,23 +38,20 @@ namespace AChildsCourage.Game.Shade
             animator.SetFloat(yAnimatorKey, CurrentDirection.y);
         }
 
-
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
             SetMovementTarget(eventArgs.NewTargetPosition);
 
         private void SetMovementTarget(Vector3 position) =>
             aiPath.destination = position;
-
-
+        
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             ResetSpeed();
 
         private void ResetSpeed() =>
             aiPath.maxSpeed = movementSpeed;
-
-
+        
         public void WaitAfterDealingDamage() =>
             StartCoroutine(WaitAndContinue());
 
