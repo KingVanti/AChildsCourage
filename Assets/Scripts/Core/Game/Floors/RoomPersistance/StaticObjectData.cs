@@ -9,7 +9,8 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
         public TilePosition Position { get; }
 
 
-        public StaticObjectData(TilePosition position) => Position = position;
+        public StaticObjectData(TilePosition position) =>
+            Position = position;
 
     }
 
