@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Infrastructure;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -6,10 +7,9 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectEntity : MonoBehaviour
     {
 
-        [SerializeField] private SpriteRenderer spriteRenderer;
-
-#pragma warning  restore 649
-
+        [FindComponent] private SpriteRenderer spriteRenderer;
+        
+        
         public StaticObjectAppearance Appearance
         {
             set => spriteRenderer.sprite = value.Sprite;
