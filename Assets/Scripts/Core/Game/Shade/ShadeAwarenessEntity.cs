@@ -44,7 +44,6 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-
         private float AwarenessGainPerSecond => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
         private float PrimaryVisionMultiplier => currentCharVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
@@ -68,7 +67,6 @@ namespace AChildsCourage.Game.Shade
         private void UpdateAwareness() =>
             CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
 
-
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
             ClearAwareness();
@@ -83,7 +81,6 @@ namespace AChildsCourage.Game.Shade
 
         private bool HasEnoughAwarenessForLevel(AwarenessLevel level) =>
             CurrentAwareness.Value >= minAwarenessForAwarenessLevel[level];
-
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
