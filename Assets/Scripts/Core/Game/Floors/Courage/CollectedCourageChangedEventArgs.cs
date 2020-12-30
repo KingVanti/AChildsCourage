@@ -9,7 +9,8 @@ namespace AChildsCourage.Game.Floors.Courage
         public int Collected { get; }
 
 
-        public CollectedCourageChangedEventArgs(int collected) => Collected = collected;
+        public CollectedCourageChangedEventArgs(int collected) =>
+            Collected = collected;
 
     }
 
