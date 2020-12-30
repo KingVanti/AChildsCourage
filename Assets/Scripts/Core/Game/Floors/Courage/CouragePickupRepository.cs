@@ -18,10 +18,18 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [Service]
         public static LoadCouragePickupAppearances FromAssets =>
-            () => LoadAssets().Select(a => a.Appearance);
+            () => LoadAssets().Select(ReadData);
 
         private static IEnumerable<CouragePickupAppearanceAsset> LoadAssets() =>
             Resources.LoadAll<CouragePickupAppearanceAsset>(RoomResourcePath).ToImmutableHashSet();
+        
+        private static CouragePickupAppearance ReadData(CouragePickupAppearanceAsset asset) =>
+            new CouragePickupAppearance(asset.Variant,
+                                        asset.LightOuterRadius,
+                                        asset.LightIntensity,
+                                        asset.Emission,
+                                        asset.Sprite,
+                                        asset.Scale);
 
     }
 

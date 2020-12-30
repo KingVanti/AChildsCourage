@@ -6,6 +6,7 @@ namespace AChildsCourage.Game.Floors.Courage
     [CreateAssetMenu(fileName = "New courage-pickup appearance", menuName = "A Child's Courage/Courage-pickup appearance")]
     public class CouragePickupAppearanceAsset : ScriptableObject
     {
+        
         [SerializeField] private CourageVariant variant;
         [SerializeField] private float lightOuterRadius;
         [SerializeField] private float lightIntensity;
@@ -13,14 +14,17 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private Sprite sprite;
         [SerializeField] private Vector3 scale;
 
+        public CourageVariant Variant => variant;
 
-        public CouragePickupAppearance Appearance =>
-            new CouragePickupAppearance(variant,
-                                        lightOuterRadius,
-                                        lightIntensity,
-                                        emission,
-                                        sprite,
-                                        scale);
+        public float LightOuterRadius => lightOuterRadius;
+
+        public float LightIntensity => lightIntensity;
+
+        public Texture2D Emission => emission;
+
+        public Sprite Sprite => sprite;
+
+        public Vector3 Scale => scale;
 
     }
 
