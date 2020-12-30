@@ -38,7 +38,7 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))]
         private void OnShadeSteppedOnRune(object _1, EventArgs _2) =>
-            If(!isDissolving).Then(StartDissolving);
+            If(!IsDissolving).Then(StartDissolving);
 
         private void StartDissolving() =>
             StartCoroutine(Dissolve());
