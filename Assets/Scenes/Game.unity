@@ -1177,7 +1177,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1776,6 +1776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
   couragePickupParent: {fileID: 733911144}
+  groundTilemap: {fileID: 118822148}
+  staticTilemap: {fileID: 465115103}
   generationParameters:
     roomCount: 12
 --- !u!4 &1187637745

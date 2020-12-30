@@ -28,13 +28,10 @@ namespace AChildsCourage.Game
 
         [SerializeField] private GameObject couragePickupPrefab;
         [SerializeField] private Transform couragePickupParent;
+        [SerializeField] private Tilemap groundTilemap;
+        [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private GenerationParameters generationParameters;
-
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private Tilemap groundTilemap;
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private Tilemap staticTilemap;
-
+        
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
         [FindInScene] private TileRepositoryEntity tileRepository;
         [FindInScene] private StaticObjectSpawnerEntity staticObjectSpawner;

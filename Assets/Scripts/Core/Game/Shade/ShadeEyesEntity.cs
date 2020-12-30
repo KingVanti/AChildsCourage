@@ -63,7 +63,7 @@ namespace AChildsCourage.Game.Shade
 
         private void OnEnable() =>
             this.DoContinually(UpdateVision, WaitTime);
-        
+
         public bool CanSee(Vector2 point) =>
             CanSeePoint(Vision, point);
 
