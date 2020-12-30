@@ -6,20 +6,6 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
     public class RoomData
     {
 
-        #region Constructors
-
-        public RoomData(RoomId id, RoomType type, ChunkPassages passages, RoomContentData content)
-        {
-            Id = id;
-            Type = type;
-            Passages = passages;
-            Content = content;
-        }
-
-        #endregion
-
-        #region Properties
-
         public RoomId Id { get; }
 
         public RoomType Type { get; }
@@ -28,7 +14,14 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public RoomContentData Content { get; }
 
-        #endregion
+        
+        public RoomData(RoomId id, RoomType type, ChunkPassages passages, RoomContentData content)
+        {
+            Id = id;
+            Type = type;
+            Passages = passages;
+            Content = content;
+        }
 
     }
 
