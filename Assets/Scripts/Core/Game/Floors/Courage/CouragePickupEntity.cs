@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.Courage
             spriteRenderer.sprite = courageAppearance.Sprite;
             spriteRenderer.transform.localScale = courageAppearance.Scale;
             spriteRenderer.material.SetTexture(emissionTextureKey, courageAppearance.Emission);
-            courageName = courageAppearance.CourageName;
+            courageName = courageAppearance.name;
             courageLight.pointLightOuterRadius = courageAppearance.LightOuterRadius;
             courageLight.intensity = courageAppearance.LightIntensity;
         }

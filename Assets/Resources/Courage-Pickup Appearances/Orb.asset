@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ca9672b6835164daf1cb9cfb89b9c0, type: 3}
   m_Name: Orb
   m_EditorClassIdentifier: 
-  _value: 5
-  _courageName: Orb
-  _variant: 1
-  _sprite: {fileID: 21300000, guid: cb39509ea25a46e43adea09dc232b47d, type: 3}
-  _scale: {x: 0.4, y: 0.4, z: 0.4}
-  _emission: {fileID: 2800000, guid: e5136bd406a8cb640ad05a3c2369dd60, type: 3}
-  _lightOuterRadius: 2.25
-  _lightIntensity: 0.75
+  value: 5
+  courageName: Orb
+  variant: 1
+  sprite: {fileID: 21300000, guid: cb39509ea25a46e43adea09dc232b47d, type: 3}
+  scale: {x: 0.4, y: 0.4, z: 0.4}
+  emission: {fileID: 2800000, guid: e5136bd406a8cb640ad05a3c2369dd60, type: 3}
+  lightOuterRadius: 2.25
+  lightIntensity: 0.75

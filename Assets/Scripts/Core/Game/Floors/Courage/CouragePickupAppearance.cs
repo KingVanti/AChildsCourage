@@ -7,31 +7,27 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CouragePickupAppearance : ScriptableObject
     {
 
-        [SerializeField] private int _value;
-        [SerializeField] private string _courageName;
-        [SerializeField] private CourageVariant _variant;
-        [SerializeField] private Sprite _sprite;
-        [SerializeField] private Vector3 _scale;
-        [SerializeField] private Texture2D _emission;
-        [SerializeField] private float _lightOuterRadius;
-        [SerializeField] private float _lightIntensity;
+        [SerializeField] private int value;
+        [SerializeField] private float lightOuterRadius;
+        [SerializeField] private float lightIntensity;
+        [SerializeField] private Texture2D emission;
+        [SerializeField] private Sprite sprite;
+        [SerializeField] private CourageVariant variant;
+        [SerializeField] private Vector3 scale;
 
+        public int Value => value;
 
-        public CourageVariant Variant => _variant;
+        public float LightOuterRadius => lightOuterRadius;
 
-        public int Value => _value;
+        public float LightIntensity => lightIntensity;
+        
+        public Texture2D Emission => emission;
 
-        public string CourageName => _courageName;
+        public Sprite Sprite => sprite;
 
-        public Sprite Sprite => _sprite;
+        public CourageVariant Variant => variant;
 
-        public Vector3 Scale => _scale;
-
-        public Texture2D Emission => _emission;
-
-        public float LightOuterRadius => _lightOuterRadius;
-
-        public float LightIntensity => _lightIntensity;
+        public Vector3 Scale => scale;
 
     }
 
