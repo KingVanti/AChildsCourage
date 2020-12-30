@@ -37,7 +37,6 @@ namespace AChildsCourage.Game.Shade
             gameObject.SetActive(false);
         }
 
-
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             Activate();
