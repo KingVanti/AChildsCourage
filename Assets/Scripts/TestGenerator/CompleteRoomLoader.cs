@@ -2,6 +2,7 @@
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static AChildsCourage.Game.MFloorGenerating;
 using static AChildsCourage.Game.MFloorGenerating.MRoomPassageGenerating;
 
@@ -18,13 +19,13 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         internal CompleteRoomLoader()
         {
-            var startRoom = new RoomData((RoomId) 0, RoomType.Start, AllPassages, RoomContentData.Empty);
+            var startRoom = new RoomData((RoomId) 0, RoomType.Start, AllPassages, NoContent);
 
             var id = 1;
             var query =
                 from basePassage in basePassages
                 from type in new[] {RoomType.Normal, RoomType.End}
-                select new RoomData((RoomId) id++, type, basePassage, RoomContentData.Empty);
+                select new RoomData((RoomId) id++, type, basePassage, NoContent);
 
             allData = query.Prepend(startRoom)
                            .ToArray();

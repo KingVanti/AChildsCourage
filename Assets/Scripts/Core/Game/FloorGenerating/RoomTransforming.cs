@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.RoomPersistence;
+using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.Game.MFloorGenerating.MTileTransforming;

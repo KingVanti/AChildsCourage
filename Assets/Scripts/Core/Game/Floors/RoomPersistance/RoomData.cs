@@ -1,4 +1,5 @@
 ﻿using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {

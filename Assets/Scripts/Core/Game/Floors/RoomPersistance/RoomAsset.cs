@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence

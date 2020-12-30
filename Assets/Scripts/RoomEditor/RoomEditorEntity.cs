@@ -3,6 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -121,9 +122,9 @@ namespace AChildsCourage.RoomEditor
 
         private RoomContentData ReadContent() =>
             new RoomContentData(groundLayer.ReadAll(),
-                                courageLayer.ReadAll(),
-                                staticObjectLayer.ReadAll(),
-                                runeLayer.ReadAll());
+                                                 courageLayer.ReadAll(),
+                                                 staticObjectLayer.ReadAll(),
+                                                 runeLayer.ReadAll());
 
 
         internal void Unload()
