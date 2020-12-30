@@ -43,6 +43,20 @@ namespace AChildsCourage
             return monoBehaviour.StartCoroutine(routineFunction());
         }
 
+        public static Coroutine DoContinually(this MonoBehaviour monoBehaviour, Action action, float waitTime = 0)
+        {
+            IEnumerator DoAction()
+            {
+                while (true)
+                {
+                    action();
+                    yield return new WaitForSeconds(waitTime);
+                }
+            }
+
+            return monoBehaviour.StartCoroutine(DoAction());
+        }
+
     }
 
 }

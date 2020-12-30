@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Infrastructure;
@@ -62,10 +61,11 @@ namespace AChildsCourage.Game.Shade
 
         private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
 
-        private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
-
-
-        public bool CanSee(Vector2 point) => CanSeePoint(Vision, point);
+        private void OnEnable() =>
+            this.DoContinually(UpdateVision, WaitTime);
+        
+        public bool CanSee(Vector2 point) =>
+            CanSeePoint(Vision, point);
 
         private Visibility CalculateCharacterVisibility() =>
             CurrentCharacterVisionPoints
@@ -77,21 +77,13 @@ namespace AChildsCourage.Game.Shade
                 .Where(CanSee)
                 .Map(ToTilesInView);
 
-        private bool CanSee(TilePosition position) => CanSeePoint(Vision, GetTileCenter(position));
+        private bool CanSee(TilePosition position) =>
+            CanSeePoint(Vision, GetTileCenter(position));
 
         private bool ObstacleExistsBetween(Vector2 point1, Vector2 point2)
         {
             var dirToPoint = point2 - point1;
             return Physics2D.Raycast(point1, dirToPoint, dirToPoint.magnitude, obstructionLayers);
-        }
-
-        private IEnumerator ContinuallyUpdateVision()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(WaitTime);
-                UpdateVision();
-            }
         }
 
         private void UpdateVision()
