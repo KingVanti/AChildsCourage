@@ -19,9 +19,9 @@ namespace AChildsCourage.Game.Shade
             target = targetRigidbody;
             HuntIsInProgress = true;
         }
-
-
-        public void ProgressHunt() => TargetPosition = target.position;
+        
+        public void ProgressHunt() =>
+            TargetPosition = target.position;
 
     }
 
