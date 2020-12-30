@@ -14,6 +14,8 @@ namespace AChildsCourage.Game.Char
     public class CharControllerEntity : MonoBehaviour
     {
 
+        private const float HundredPercent = 1;
+
         private static readonly int rotationIndexAnimatorKey = Animator.StringToHash("RotationIndex");
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
@@ -280,7 +282,7 @@ namespace AChildsCourage.Game.Char
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
-            canCollectCourage = eventArgs.Collected < courageManager.MaxNightCourage;
+            canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {

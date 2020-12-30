@@ -9,68 +9,53 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CourageManagerEntity : MonoBehaviour
     {
 
-        #region Fields
-
-        private int _currentNightCourage;
-        private int _neededNightCourage;
+        private const int NoCourage = 0;
+        private const int BaseCourage = 1;
 
         [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
 
         [Pub] public event EventHandler OnCourageDepleted;
 
 
-        [SerializeField] private int _maxNightCourage;
+        [SerializeField] private int targetCourage;
 
-        #endregion
+        private int currentCourage;
+        private int neededNightCourage;
 
-        #region Properties
-
-        public int CurrentNightCourage
+        private int CurrentCourage
         {
-            get => _currentNightCourage;
+            get => currentCourage;
             set
             {
-                _currentNightCourage = value.Clamp(0, MaxNightCourage);
-                OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentNightCourage));
+                currentCourage = value.Clamp(0, targetCourage);
+                OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentCourage, CompletionPercent));
+
+                if (HasNoCourage) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        public int MaxNightCourage
-        {
-            get => _maxNightCourage;
-            set => _maxNightCourage = value;
-        }
+        private float CompletionPercent => CurrentCourage / (float) targetCourage;
 
-        #endregion
+        private bool HasNoCourage => CurrentCourage == NoCourage;
 
-        #region Methods
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) => CurrentNightCourage = 0;
-
+        private void OnSceneLoaded(object _1, EventArgs _2) =>
+            CurrentCourage = BaseCourage;
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
-        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) => Add(eventArgs.Value);
+        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) =>
+            AddCourage(eventArgs.Value);
 
-        private void Add(int amount)
-        {
-            CurrentNightCourage += amount;
-
-            if (CurrentNightCourage > MaxNightCourage) CurrentNightCourage = MaxNightCourage;
-        }
-
+        private void AddCourage(int amount) =>
+            CurrentCourage += amount;
 
         [Sub(nameof(CharControllerEntity.OnReceivedDamage))]
-        private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) => Subtract(eventArgs.ReceivedDamage);
+        private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) =>
+            LooseCourage(eventArgs.ReceivedDamage);
 
-        private void Subtract(int amount)
-        {
-            CurrentNightCourage -= amount;
-
-            if (CurrentNightCourage == 0) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
+        private void LooseCourage(int amount) =>
+            CurrentCourage -= amount;
 
     }
 

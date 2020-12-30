@@ -27,6 +27,12 @@ namespace AChildsCourage.Game.Floors
         private static ImmutableHashSet<TilePosition> GetGroundPositions(Floor floor) =>
             floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToImmutableHashSet();
 
+
+        public static Vector2 GetEndRoomCenter(Floor floor) =>
+            floor.EndRoomChunkPosition
+                 .Map(GetCenter)
+                 .Map(GetTileCenter);
+
         public static TilePosition FindEndChunkCenter(Floor floor) =>
             floor.EndRoomChunkPosition.Map(GetCenter);
 

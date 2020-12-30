@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
-using AChildsCourage.Game.Floors.Courage;
+﻿using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Infrastructure;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static AChildsCourage.MLerper;
+using static AChildsCourage.MRange;
 
 namespace AChildsCourage.Game.UI
 {
@@ -12,57 +12,51 @@ namespace AChildsCourage.Game.UI
     public class CourageBarEntity : MonoBehaviour
     {
 
-        #region Properties
+        private const float HundredPercent = 1;
 
-        private int TotalToCollect => courageManager.MaxNightCourage;
+        private static readonly Color defaultTextColor = new Color(1, 1, 1, 1);
 
-        #endregion
-
-        #region Fields
-
+        [SerializeField] private float barFillTime;
         [SerializeField] private Image courageBarFill;
         [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
-        [SerializeField] private Color32 textColor;
+        [SerializeField] private Color textColor;
 
-        [FindInScene] private CourageManagerEntity courageManager;
 
-        #endregion
-
-        #region Methods
-
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
-        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs)
+        private float FillPercent
         {
-            UpdateCourageBar(eventArgs.Collected);
-            UpdateCourageCounter(eventArgs.Collected);
+            get => courageBarFill.fillAmount;
+            set => courageBarFill.fillAmount = value.Clamp(0, 1);
         }
 
-        private void UpdateCourageBar(int newValue)
+        private float CompletionPercent
         {
-            var newFillAmount = MCustomMath.Map(newValue, 0, TotalToCollect, 0, 1);
-            StartCoroutine(FillLerp(newFillAmount));
-        }
-
-        private void UpdateCourageCounter(int newValue)
-        {
-            if (newValue >= TotalToCollect)
-                courageCounterTextMesh.faceColor = textColor;
-            else
-                courageCounterTextMesh.faceColor = new Color(1, 1, 1, 1);
-
-            courageCounterTextMesh.text = newValue + " / " + TotalToCollect;
-        }
-
-        private IEnumerator FillLerp(float destination)
-        {
-            while (Math.Abs(courageBarFill.fillAmount - destination) > float.Epsilon)
+            set
             {
-                courageBarFill.fillAmount = Mathf.MoveTowards(courageBarFill.fillAmount, destination, Time.deltaTime / 4.0f);
-                yield return new WaitForEndOfFrame();
+                TextColor = value >= HundredPercent ? textColor : defaultTextColor;
+                Text = $"{Mathf.FloorToInt(value * 100)}%";
+                UpdateBarFill(value);
             }
         }
 
-        #endregion
+        private Color TextColor
+        {
+            set => courageCounterTextMesh.color = value;
+        }
+
+        private string Text
+        {
+            set => courageCounterTextMesh.text = value;
+        }
+
+
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+            CompletionPercent = eventArgs.CompletionPercent;
+
+        private void UpdateBarFill(float percent) =>
+            this.StartOnly(() => TimeLerp(new Range<float>(FillPercent, percent),
+                                          t => FillPercent = t,
+                                          barFillTime));
 
     }
 

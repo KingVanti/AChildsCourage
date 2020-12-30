@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using static AChildsCourage.MRange;
 
 namespace AChildsCourage
 {
@@ -25,27 +26,25 @@ namespace AChildsCourage
         }
 
 
-        internal static IEnumerator TimeLerp(Action<float> stepFunction, float time, Action onLerpCompleted = null)
+        internal static IEnumerator TimeLerp(Action<float> stepFunction, float time, Action onLerpCompleted = null) =>
+            TimeLerp(new Range<float>(0, 1), stepFunction, time, onLerpCompleted);
+
+        internal static IEnumerator TimeLerp(Range<float> range, Action<float> stepFunction, float time, Action onLerpCompleted = null)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
+            var t = 0f;
+            
+            void UpdateStepFunction() =>
+                stepFunction?.Invoke(range.Map(Lerp, t));
 
-            stepFunction?.Invoke(0);
-            yield return 0;
+            UpdateStepFunction();
 
-            while (stopwatch.Elapsed.TotalSeconds < time)
+            while (t < 1)
             {
-                var t = Mathf.Clamp((float) (stopwatch.Elapsed.TotalSeconds / time), 0, 1);
-
-                stepFunction?.Invoke(t);
-                yield return t;
+                t = Mathf.MoveTowards(t, 1, Time.deltaTime / time);
+                UpdateStepFunction();
+                yield return null;
             }
-
-            stepFunction?.Invoke(1);
-            yield return 1;
-
-            stopwatch.Stop();
-
+            
             onLerpCompleted?.Invoke();
         }
 

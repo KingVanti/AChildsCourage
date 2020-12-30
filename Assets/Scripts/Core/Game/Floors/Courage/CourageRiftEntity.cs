@@ -2,9 +2,6 @@
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.MCustomMath;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
@@ -12,100 +9,70 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CourageRiftEntity : MonoBehaviour
     {
 
+        private const float HundredPercent = 1;
+
         [Pub] public event EventHandler OnCharEnteredRift;
 
-        #region Properties
-
-        private int TotalToCollect => courageManager.MaxNightCourage;
-
-        #endregion
-
-        #region Fields
-
         [SerializeField] private Sprite[] riftStageSprites = new Sprite[5];
-        
+
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent(ComponentFindMode.OnChildren)]
         private ParticleSystem riftParticleSystem;
 
         [FindInScene] private CourageManagerEntity courageManager;
+
+        private bool isOpen;
+
+        private float EmissionRate
+        {
+            set
+            {
+                var emission = riftParticleSystem.emission;
+                emission.rateOverTime = value;
+            }
+        }
+
+        private Sprite Sprite
+        {
+            set => spriteRenderer.sprite = value;
+        }
+
+        private int MaxSpriteIndex => riftStageSprites.Length - 1;
+
         
-        private int currentStage;
-        private readonly int[] stageThresholds = new int[5];
-        private int lastCourageCount;
-
-        #endregion
-
-        #region Methods
-
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag(EntityTags.Char) && isOpen) OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
+        }
+        
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
-            transform.position = GetEndRoomCenter(eventArgs.Floor);
-
-        private static Vector2 GetEndRoomCenter(Floor floor) => floor.EndRoomChunkPosition
-                                                                     .Map(GetCenter)
-                                                                     .Map(GetTileCenter);
-
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) => SetThresholds();
-
-        private void SetThresholds()
-        {
-            var threshold = Mathf.RoundToInt(TotalToCollect / ((float) riftStageSprites.Length - 1));
-
-            for (var i = 0; i < stageThresholds.Length; i++) stageThresholds[i] = threshold * i;
-        }
-
-
+            transform.position = eventArgs.Floor.Map(GetEndRoomCenter);
+        
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
-        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) => UpdateStage(eventArgs.Collected);
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+            UpdateRift(eventArgs.CompletionPercent);
 
-        private void UpdateStage(int courage)
+        private void UpdateRift(float completionPercent)
         {
-            lastCourageCount = courage;
-            UpdateParticleSystem(courage);
-
-            if (lastCourageCount > courage)
-            {
-                if (courage >= stageThresholds[currentStage]) return;
-
-                if (courage < 0)
-                    currentStage = stageThresholds[0];
-                else
-                    currentStage--;
-            }
-            else
-            {
-                if (courage >= TotalToCollect)
-                    currentStage = stageThresholds.Length - 1;
-                else
-                {
-                    if (courage < stageThresholds[currentStage + 1]) return;
-
-                    currentStage++;
-                }
-            }
-
-            spriteRenderer.sprite = riftStageSprites[currentStage];
+            isOpen = Mathf.Approximately(completionPercent, HundredPercent);
+            UpdateRiftAppearance(completionPercent);
         }
 
-        private void UpdateParticleSystem(int courage)
+        private void UpdateRiftAppearance(float completionPercent)
         {
-            var emission = riftParticleSystem.emission;
-
-            var newRateOverTime = Map(courage, 0f, TotalToCollect, 2f, 20f);
-            emission.rateOverTime = newRateOverTime;
+            UpdateEmissionRate(completionPercent);
+            Sprite = GetSpriteFor(completionPercent);
         }
 
-
-        private void OnTriggerEnter2D(Collider2D collision)
+        private Sprite GetSpriteFor(float completionPercent)
         {
-            if (!collision.CompareTag(EntityTags.Char) || currentStage != 4) return;
-
-            OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
+            var spriteIndex = Mathf.FloorToInt(MaxSpriteIndex * completionPercent);
+            return riftStageSprites[spriteIndex];
         }
 
-        #endregion
+        private void UpdateEmissionRate(float completionPercent) =>
+            EmissionRate = Mathf.Lerp(2f, 20f, completionPercent);
 
     }
 

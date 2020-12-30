@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxNightCourage: 44
+  targetCourage: 44
 --- !u!1 &316459170
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 316459173}
   - component: {fileID: 316459172}
   m_Layer: 5
-  m_Name: CourageCounter
+  m_Name: CouragePercent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: / 00
+  m_text: 0%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
   m_sharedMaterial: {fileID: 512608796327164621, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
@@ -1689,11 +1689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4229e07e2376c418eae8fb5df319f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barFillTime: 0.25
   courageBarFill: {fileID: 531418079}
   courageCounterTextMesh: {fileID: 316459172}
-  textColor:
-    serializedVersion: 2
-    rgba: 4278244095
+  textColor: {r: 0.8490566, g: 0.71515983, b: 0.1481844, a: 1}
 --- !u!1 &1187637741
 GameObject:
   m_ObjectHideFlags: 0

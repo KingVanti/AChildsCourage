@@ -8,9 +8,14 @@ namespace AChildsCourage.Game.Floors.Courage
 
         public int Collected { get; }
 
+        public float CompletionPercent { get; }
 
-        public CollectedCourageChangedEventArgs(int collected) =>
+
+        public CollectedCourageChangedEventArgs(int collected, float completionPercent)
+        {
             Collected = collected;
+            CompletionPercent = completionPercent;
+        }
 
     }
 
