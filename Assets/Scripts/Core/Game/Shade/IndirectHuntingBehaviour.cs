@@ -17,18 +17,15 @@ namespace AChildsCourage.Game.Shade
         public Vector3 TargetPosition { get; private set; }
 
         public bool HuntIsInProgress { get; private set; }
-
-
+        
         private Vector3 PredictedPosition => lastSeenPosition + (Vector3) (lastSeenVelocity * TimeSinceLastSeen);
 
         private float TimeSinceLastSeen => Time.time - lastSeenTime;
-
-
+        
         private bool SearchedEnoughTime => TimeSinceLastSeen >= HuntCancelTime;
 
         private bool CanSeeTarget => shadeEyes.CanSee(PredictedPosition);
-
-
+        
         public IndirectHuntingBehaviour(ShadeEyesEntity shadeEyes) => this.shadeEyes = shadeEyes;
 
 
@@ -40,8 +37,7 @@ namespace AChildsCourage.Game.Shade
 
             HuntIsInProgress = true;
         }
-
-
+        
         public void ProgressHunt()
         {
             TargetPosition = PredictedPosition;
