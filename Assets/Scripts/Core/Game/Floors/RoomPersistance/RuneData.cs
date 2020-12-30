@@ -9,7 +9,8 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
         public TilePosition Position { get; }
 
 
-        public RuneData(TilePosition position) => Position = position;
+        public RuneData(TilePosition position) => 
+            Position = position;
 
     }
 
