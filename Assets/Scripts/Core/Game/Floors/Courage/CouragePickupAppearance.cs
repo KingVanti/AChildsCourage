@@ -1,30 +1,33 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    [CreateAssetMenu(fileName = "New courage-pickup appearance", menuName = "A Child's Courage/Courage-pickup appearance")]
-    public class CouragePickupAppearance : ScriptableObject
+    public class CouragePickupAppearance
     {
-        [SerializeField] private CourageVariant variant;
-        [SerializeField] private float lightOuterRadius;
-        [SerializeField] private float lightIntensity;
-        [SerializeField] private Texture2D emission;
-        [SerializeField] private Sprite sprite;
-        [SerializeField] private Vector3 scale;
-        
-        
-        public CourageVariant Variant => variant;
-        
-        public float LightOuterRadius => lightOuterRadius;
 
-        public float LightIntensity => lightIntensity;
-        
-        public Texture2D Emission => emission;
+        public CourageVariant Variant { get; }
 
-        public Sprite Sprite => sprite;
-        
-        public Vector3 Scale => scale;
+        public float LightOuterRadius { get; }
+
+        public float LightIntensity { get; }
+
+        public Texture2D Emission { get; }
+
+        public Sprite Sprite { get; }
+
+        public Vector3 Scale { get; }
+
+
+        public CouragePickupAppearance(CourageVariant variant, float lightOuterRadius, float lightIntensity, Texture2D emission, Sprite sprite, Vector3 scale)
+        {
+            Variant = variant;
+            LightOuterRadius = lightOuterRadius;
+            LightIntensity = lightIntensity;
+            Emission = emission;
+            Sprite = sprite;
+            Scale = scale;
+        }
 
     }
 

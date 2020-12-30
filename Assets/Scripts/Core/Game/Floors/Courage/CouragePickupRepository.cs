@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 
@@ -16,10 +17,11 @@ namespace AChildsCourage.Game.Floors.Courage
 
 
         [Service]
-        public static LoadCouragePickupAppearances FromAssets => LoadAssets;
+        public static LoadCouragePickupAppearances FromAssets =>
+            () => LoadAssets().Select(a => a.Appearance);
 
-        private static IEnumerable<CouragePickupAppearance> LoadAssets() =>
-            Resources.LoadAll<CouragePickupAppearance>(RoomResourcePath).ToImmutableHashSet();
+        private static IEnumerable<CouragePickupAppearanceAsset> LoadAssets() =>
+            Resources.LoadAll<CouragePickupAppearanceAsset>(RoomResourcePath).ToImmutableHashSet();
 
     }
 
