@@ -19,19 +19,17 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<CharVisibilityChangedEventArgs> OnCharVisibilityChanged;
 
         [Pub] public event EventHandler<TilesInViewChangedEventArgs> OnTilesInViewChanged;
-        
-        
+
+
         [SerializeField] private float updatesPerSecond;
         [SerializeField] private VisionCone[] visionCones;
         [SerializeField] private LayerMask obstructionLayers;
         [SerializeField] private Transform[] characterVisionPoints;
 
-
         private Visibility charVisibility;
-        
+
 
         public IEnumerable<VisionCone> VisionCones => visionCones;
-
 
         private float WaitTime => 1f / updatesPerSecond;
 
@@ -64,18 +62,15 @@ namespace AChildsCourage.Game.Shade
 
         private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
 
-        
-        public bool CanSee(Vector2 point) => CanSeePoint(Vision, point);
-
-
         private void OnEnable() => StartCoroutine(ContinuallyUpdateVision());
 
 
-        public Visibility CalculateCharacterVisibility() =>
+        public bool CanSee(Vector2 point) => CanSeePoint(Vision, point);
+
+        private Visibility CalculateCharacterVisibility() =>
             CurrentCharacterVisionPoints
                 .Select(point => GetPointVisibility(Vision, point))
                 .Map(GetHighestValue);
-
 
         public TilesInView CalculateTilesInView() =>
             FindPositionsInRadius(CurrentTilePosition, LargestViewRadius)
@@ -84,13 +79,11 @@ namespace AChildsCourage.Game.Shade
 
         private bool CanSee(TilePosition position) => CanSeePoint(Vision, GetTileCenter(position));
 
-
         private bool ObstacleExistsBetween(Vector2 point1, Vector2 point2)
         {
             var dirToPoint = point2 - point1;
             return Physics2D.Raycast(point1, dirToPoint, dirToPoint.magnitude, obstructionLayers);
         }
-
 
         private IEnumerator ContinuallyUpdateVision()
         {
@@ -106,7 +99,7 @@ namespace AChildsCourage.Game.Shade
             CharVisibility = CalculateCharacterVisibility();
             TilesInView = CalculateTilesInView();
         }
-        
+
     }
 
 }
