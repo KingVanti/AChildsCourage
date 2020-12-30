@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
@@ -12,19 +11,17 @@ namespace AChildsCourage.Game.Shade
     public static class MShadeVision
     {
 
-        public static Func<ShadeVision, Vector2, bool> CanSeePoint =>
-            (vision, point) =>
-                vision.VisionCones
-                      .Any(cone => cone.Map(Contains, vision.Head, point));
+        public static bool CanSeePoint(ShadeVision vision, Vector2 point) =>
+            vision.VisionCones
+                  .Any(cone => cone.Map(Contains, vision.Head, point));
 
+        public static Visibility GetPointVisibility(ShadeVision vision, Vector2 point) =>
+            vision.VisionCones
+                  .Where(cone => cone.Map(Contains, vision.Head, point))
+                  .Select(cone => cone.Visibility)
+                  .Match(visibilities => GetHighestValue(visibilities),
+                         () => Visibility.NotVisible);
 
-        public static Func<ShadeVision, Vector2, Visibility> GetPointVisibility =>
-            (vision, point) =>
-                vision.VisionCones
-                      .Where(cone => cone.Map(Contains, vision.Head, point))
-                      .Select(cone => cone.Visibility)
-                      .Match(visibilities => GetHighestValue(visibilities),
-                             () => Visibility.NotVisible);
 
         public readonly struct ShadeVision
         {
