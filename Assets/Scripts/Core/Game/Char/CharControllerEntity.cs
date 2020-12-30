@@ -5,7 +5,6 @@ using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Shade;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.MCustomMath;
 
 namespace AChildsCourage.Game.Char
@@ -33,20 +32,20 @@ namespace AChildsCourage.Game.Char
 
         [Header("References")]
         [SerializeField] private Transform characterVision;
-        
+
         [Header("Stats")]
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
         [SerializeField] private float knockBackMultiplier;
-        
+
         [FindComponent] private Animator animator;
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
-        
+
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
-        
+
         private Camera mainCamera;
         private Vector2 movingDirection;
         private int rotationIndex;
@@ -224,8 +223,16 @@ namespace AChildsCourage.Game.Char
 
         #region Sprinting
 
-        [Sub(nameof(InputListener.OnStartSprinting))]
-        private void OnStartSprint(object _, StartSprintEventArgs eventArgs)
+        [Sub(nameof(InputListener.OnSprintInput))]
+        private void OnSprintInput(object _, SprintInputEventArgs eventArgs)
+        {
+            if (eventArgs.HasSprintInput)
+                OnStartSprintInput();
+            else
+                OnStopSprintInput();
+        }
+
+        private void OnStartSprintInput()
         {
             if (!hasStamina || !IsMoving) return;
 
@@ -233,8 +240,8 @@ namespace AChildsCourage.Game.Char
             IsSprinting = true;
         }
 
-        [Sub(nameof(InputListener.OnStopSprinting))]
-        private void OnStopSprint(object _, StopSprintEventArgs eventArgs) => StopSprinting();
+        private void OnStopSprintInput() =>
+            StopSprinting();
 
         private void StopSprinting()
         {
