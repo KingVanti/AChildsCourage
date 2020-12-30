@@ -30,7 +30,6 @@ namespace AChildsCourage.Game.Shade
         private void FindSpawnPosition(Floor floor) =>
             spawnPosition = floor.Map(FindEndChunkCenter).Map(ToVector2);
 
-
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
             TimeoutShade();
@@ -38,14 +37,14 @@ namespace AChildsCourage.Game.Shade
         private void TimeoutShade() =>
             Invoke(nameof(SpawnShade), shadeTimeoutTime);
 
-
         private void SpawnShade()
         {
             TeleportShadeToSpawn();
             OnShadeSpawned?.Invoke(this, EventArgs.Empty);
         }
 
-        private void TeleportShadeToSpawn() => shadeBrain.transform.position = spawnPosition;
+        private void TeleportShadeToSpawn() =>
+            shadeBrain.transform.position = spawnPosition;
 
     }
 
