@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AChildsCourage.Game.UI
+namespace AChildsCourage.Menu.UI
 {
 
     public class MainMenuEntity : MonoBehaviour
