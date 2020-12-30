@@ -8,24 +8,20 @@ namespace AChildsCourage.Game.Shade
     public static class MVisionCone
     {
 
-        public static Func<VisionCone, ShadeHead, Vector2, bool> Contains =>
-            (cone, head, point) =>
-                PointIsInRadius(point, head.Position, cone.ViewRadius) &&
-                PointIsInAngle(point, head.Position, head.Direction, cone.ViewAngle) &&
-                (cone.CanSeeThroughWalls ||
-                 HasLineOfSight(point, head.Position, head.ObstacleExistsBetween));
+        public static bool Contains(VisionCone cone, ShadeHead head, Vector2 point) =>
+            PointIsInRadius(point, head.Position, cone.ViewRadius) &&
+            PointIsInAngle(point, head.Position, head.Direction, cone.ViewAngle) &&
+            (cone.CanSeeThroughWalls ||
+             HasLineOfSight(point, head.Position, head.ObstacleExistsBetween));
 
-        private static Func<Vector2, Vector2, float, bool> PointIsInRadius =>
-            (point, headPosition, viewRadius) =>
-                Vector2.Distance(point, headPosition) <= viewRadius;
+        private static bool PointIsInRadius(Vector2 point, Vector2 headPosition, float viewRadius) =>
+            Vector2.Distance(point, headPosition) <= viewRadius;
 
-        private static Func<Vector2, Vector2, Vector2, float, bool> PointIsInAngle =>
-            (point, headPosition, viewDirection, viewAngle) =>
-                Vector2.Angle(viewDirection, point - headPosition) < viewAngle / 2f;
+        private static bool PointIsInAngle(Vector2 point, Vector2 headPosition, Vector2 viewDirection, float viewAngle) =>
+            Vector2.Angle(viewDirection, point - headPosition) < viewAngle / 2f;
 
-        private static Func<Vector2, Vector2, Func<Vector2, Vector2, bool>, bool> HasLineOfSight =>
-            (point, headPosition, obstacleExistsBetween) =>
-                !obstacleExistsBetween(point, headPosition);
+        private static bool HasLineOfSight(Vector2 point, Vector2 headPosition, Func<Vector2, Vector2, bool> obstacleExistsBetween) =>
+            !obstacleExistsBetween(point, headPosition);
 
 
         [Serializable]
@@ -37,6 +33,7 @@ namespace AChildsCourage.Game.Shade
             [SerializeField] private float viewAngle;
             [SerializeField] private bool canSeeThroughWalls;
 
+            
             public Visibility Visibility => visibility;
 
             public float ViewRadius => viewRadius;
@@ -45,6 +42,7 @@ namespace AChildsCourage.Game.Shade
 
             public bool CanSeeThroughWalls => canSeeThroughWalls;
 
+            
             public VisionCone(Visibility visibility, float viewRadius, float viewAngle, bool canSeeThroughWalls)
             {
                 this.visibility = visibility;
