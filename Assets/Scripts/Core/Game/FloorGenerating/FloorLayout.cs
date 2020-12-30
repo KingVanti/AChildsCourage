@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.Floors.MChunkPassages;
@@ -14,16 +13,14 @@ namespace AChildsCourage.Game
         public static class MFloorLayout
         {
 
-            public static Func<FloorLayout, ChunkPosition, ChunkPassages> GetPassagesForChunk =>
-                (layout, chunk) =>
-                    new ChunkPassages(IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
-                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.East)),
-                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.South)),
-                                      IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.West)));
+            public static ChunkPassages GetPassagesForChunk(FloorLayout layout, ChunkPosition chunk) =>
+                new ChunkPassages(IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.North)),
+                                  IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.East)),
+                                  IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.South)),
+                                  IsOccupied(layout, GetAdjacentChunk(chunk, PassageDirection.West)));
 
-            private static Func<FloorLayout, ChunkPosition, bool> IsOccupied =>
-                (layout, position) =>
-                    layout.Rooms.Any(r => r.Chunk.Equals(position));
+            private static bool IsOccupied(FloorLayout layout, ChunkPosition position) =>
+                layout.Rooms.Any(r => r.Chunk.Equals(position));
 
             public readonly struct FloorLayout
             {

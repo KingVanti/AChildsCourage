@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutGenerating;
@@ -13,11 +12,10 @@ namespace AChildsCourage.Game
     public static partial class MFloorGenerating
     {
 
-        public static Func<CreateRng, IEnumerable<RoomData>, GenerationParameters, Floor> GenerateFloor =>
-            (rng, roomData, parameters) =>
-                GenerateFloorLayout(rng, parameters)
-                    .Map(layout => GenerateFloorPlan(layout, roomData, rng))
-                    .Map(floorPlan => BuildFloor(floorPlan, roomData, rng));
+        public static Floor GenerateFloor(CreateRng rng, IEnumerable<RoomData> roomData, GenerationParameters parameters) =>
+            GenerateFloorLayout(rng, parameters)
+                .Map(layout => GenerateFloorPlan(layout, roomData, rng))
+                .Map(floorPlan => BuildFloor(floorPlan, roomData, rng));
 
     }
 

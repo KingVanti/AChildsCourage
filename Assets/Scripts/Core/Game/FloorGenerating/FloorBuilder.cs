@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.Game.MChunkPosition;
@@ -15,21 +14,17 @@ namespace AChildsCourage.Game
         {
 
             public static FloorBuilder EmptyFloorBuilder =>
-                new FloorBuilder(
-                                 ImmutableHashSet<Wall>.Empty,
+                new FloorBuilder(ImmutableHashSet<Wall>.Empty,
                                  ImmutableHashSet<RoomBuilder>.Empty);
 
-            public static Func<FloorBuilder, RoomBuilder, FloorBuilder> PlaceRoom =>
-                (floor, room) =>
-                    new FloorBuilder(floor.Walls, floor.Rooms.Add(room));
+            public static FloorBuilder PlaceRoom(FloorBuilder floor, RoomBuilder room) =>
+                new FloorBuilder(floor.Walls, floor.Rooms.Add(room));
 
-            public static Func<FloorBuilder, ChunkPosition> GetEndRoomChunkPosition =>
-                floorBuilder =>
-                    GetEndRoom(floorBuilder).ChunkPosition;
+            public static ChunkPosition GetEndRoomChunkPosition(FloorBuilder floorBuilder) =>
+                GetEndRoom(floorBuilder).ChunkPosition;
 
-            private static Func<FloorBuilder, RoomBuilder> GetEndRoom =>
-                floorBuilder =>
-                    floorBuilder.Rooms.First(r => r.RoomType == RoomType.End);
+            private static RoomBuilder GetEndRoom(FloorBuilder floorBuilder) =>
+                floorBuilder.Rooms.First(r => r.RoomType == RoomType.End);
 
 
             public readonly struct FloorBuilder

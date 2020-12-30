@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
@@ -24,16 +23,14 @@ namespace AChildsCourage.Game
         public static class MFloorBuilding
         {
 
-            internal static Func<FloorPlan, IEnumerable<RoomData>, CreateRng, Floor> BuildFloor =>
-                (floorPlan, roomData, rng) =>
-                    TransformRooms(floorPlan, roomData)
-                        .Map(BuildRooms)
-                        .Map(GenerateWalls)
-                        .Map(CreateFloor, rng);
+            internal static Floor BuildFloor(FloorPlan floorPlan, IEnumerable<RoomData> roomData, CreateRng rng) =>
+                TransformRooms(floorPlan, roomData)
+                    .Map(BuildRooms)
+                    .Map(GenerateWalls)
+                    .Map(CreateFloor, rng);
 
-            private static Func<IEnumerable<TransformedRoomData>, FloorBuilder> BuildRooms =>
-                rooms =>
-                    rooms.AggregateI(EmptyFloorBuilder, BuildRoom);
+            private static FloorBuilder BuildRooms(IEnumerable<TransformedRoomData> rooms) =>
+                rooms.AggregateI(EmptyFloorBuilder, BuildRoom);
 
             private static FloorBuilder BuildRoom(int roomIndex, FloorBuilder floorBuilder, TransformedRoomData transformedRoomData) =>
                 Take(EmptyRoomBuilder((AoiIndex) roomIndex, transformedRoomData.RoomType, transformedRoomData.ChunkPosition))

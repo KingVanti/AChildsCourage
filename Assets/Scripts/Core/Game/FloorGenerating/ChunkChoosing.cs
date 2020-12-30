@@ -15,35 +15,31 @@ namespace AChildsCourage.Game
 
             private const float BaseWeight = 1;
 
+            private static readonly ChunkPosition startRoomChunk = new ChunkPosition(0, 0);
 
-            public static Func<FloorLayoutBuilder, CreateRng, GenerationParameters, ChunkPosition> ChooseNextChunk =>
-                (builder, createRng, parameters) =>
+
+            public static ChunkPosition ChooseNextChunk(FloorLayoutBuilder builder, CreateRng createRng, GenerationParameters parameters)
+            {
+                switch (GetCurrentPhase(builder, parameters))
                 {
-                    switch (GetCurrentPhase(builder, parameters))
-                    {
-                        case LayoutGenerationPhase.StartRoom: return GetStartRoomChunk();
+                    case LayoutGenerationPhase.StartRoom: return startRoomChunk;
 
-                        case LayoutGenerationPhase.NormalRooms:
-                        case LayoutGenerationPhase.EndRoom:
-                            return ChooseRandomNextChunk(builder, createRng);
+                    case LayoutGenerationPhase.NormalRooms:
+                    case LayoutGenerationPhase.EndRoom:
+                        return ChooseRandomNextChunk(builder, createRng);
 
-                        default: throw new Exception("Invalid building phase!");
-                    }
-                };
+                    default: throw new Exception("Invalid building phase!");
+                }
+            }
 
-            private static Func<ChunkPosition> GetStartRoomChunk =>
-                () =>
-                    new ChunkPosition(0, 0);
+            private static ChunkPosition ChooseRandomNextChunk(FloorLayoutBuilder builder, CreateRng createRng)
+            {
+                if (!HasReservedChunks(builder)) throw new Exception("Could not find any more possible chunks!");
 
-            private static Func<FloorLayoutBuilder, CreateRng, ChunkPosition> ChooseRandomNextChunk =>
-                (builder, createRng) =>
-                {
-                    if (!HasReservedChunks(builder)) throw new Exception("Could not find any more possible chunks!");
+                float WeightFunction(ChunkPosition chunk) => CalculateChunkWeight(builder, chunk);
 
-                    float WeightFunction(ChunkPosition chunk) => CalculateChunkWeight(builder, chunk);
-
-                    return builder.ReservedChunks.GetWeightedRandom(WeightFunction, createRng);
-                };
+                return builder.ReservedChunks.GetWeightedRandom(WeightFunction, createRng);
+            }
 
             // [1 .. 27]
             private static float CalculateChunkWeight(FloorLayoutBuilder builder, ChunkPosition chunk) =>

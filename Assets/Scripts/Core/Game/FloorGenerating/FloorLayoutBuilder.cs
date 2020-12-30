@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
@@ -19,81 +18,64 @@ namespace AChildsCourage.Game
                 new FloorLayoutBuilder(ImmutableList<ChunkPosition>.Empty,
                                        ImmutableHashSet<ChunkPosition>.Empty);
 
-            private static Func<FloorLayoutBuilder, int> GetRoomCount =>
-                builder =>
-                    builder.OccupiedChunks.Count;
+            private static RoomType GetRoomTypeByIndex(FloorLayoutBuilder builder, int roomIndex) =>
+                roomIndex == 0 ? RoomType.Start
+                : roomIndex == GetRoomCount(builder) - 1 ? RoomType.End
+                : RoomType.Normal;
 
-            internal static Func<FloorLayoutBuilder, bool> HasReservedChunks =>
-                builder =>
-                    builder.ReservedChunks.Any();
+            private static int GetRoomCount(FloorLayoutBuilder builder) =>
+                builder.OccupiedChunks.Count;
 
-            public static Func<FloorLayoutBuilder, GenerationParameters, LayoutGenerationPhase> GetCurrentPhase =>
-                (builder, parameters) =>
-                {
-                    var roomCount = GetRoomCount(builder);
+            internal static bool HasReservedChunks(FloorLayoutBuilder builder) =>
+                builder.ReservedChunks.Any();
 
-                    return roomCount == 0 ? LayoutGenerationPhase.StartRoom
-                        : roomCount == parameters.RoomCount - 1 ? LayoutGenerationPhase.EndRoom
-                        : LayoutGenerationPhase.NormalRooms;
-                };
+            public static LayoutGenerationPhase GetCurrentPhase(FloorLayoutBuilder builder, GenerationParameters parameters)
+            {
+                var roomCount = GetRoomCount(builder);
 
-            internal static Func<FloorLayoutBuilder, ChunkPosition, bool> IsOccupied =>
-                (builder, chunk) =>
-                    builder.OccupiedChunks.Contains(chunk);
+                return roomCount == 0 ? LayoutGenerationPhase.StartRoom
+                    : roomCount == parameters.RoomCount - 1 ? LayoutGenerationPhase.EndRoom
+                    : LayoutGenerationPhase.NormalRooms;
+            }
 
-            internal static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> AddRoom =>
-                (builder, chunk) =>
-                    Take(builder)
-                        .Map(OccupyChunk, chunk)
-                        .Map(ClearChunkReservation, chunk)
-                        .Map(ReserveSurroundingChunks, chunk);
+            internal static bool IsOccupied(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                builder.OccupiedChunks.Contains(chunk);
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> OccupyChunk =>
-                (builder, chunk) =>
-                    new FloorLayoutBuilder(
-                                           builder.OccupiedChunks.Add(chunk),
-                                           builder.ReservedChunks);
+            internal static FloorLayoutBuilder AddRoom(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                Take(builder)
+                    .Map(OccupyChunk, chunk)
+                    .Map(ClearChunkReservation, chunk)
+                    .Map(ReserveSurroundingChunks, chunk);
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> ClearChunkReservation =>
-                (builder, chunk) =>
-                    new FloorLayoutBuilder(
-                                           builder.OccupiedChunks,
-                                           builder.ReservedChunks.Remove(chunk));
+            private static FloorLayoutBuilder OccupyChunk(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                new FloorLayoutBuilder(builder.OccupiedChunks.Add(chunk),
+                                       builder.ReservedChunks);
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> ReserveSurroundingChunks =>
-                (builder, chunk) =>
-                    Take(chunk)
-                        .Map(GetAdjacentChunks)
-                        .Where(c => CanReserve(builder, c))
-                        .Aggregate(builder, ReserveChunk);
+            private static FloorLayoutBuilder ClearChunkReservation(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                new FloorLayoutBuilder(builder.OccupiedChunks,
+                                       builder.ReservedChunks.Remove(chunk));
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, bool> CanReserve =>
-                (builder, position) =>
-                    !HasReserved(builder, position) &&
-                    !IsOccupied(builder, position);
+            private static FloorLayoutBuilder ReserveSurroundingChunks(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                Take(chunk)
+                    .Map(GetAdjacentChunks)
+                    .Where(c => CanReserve(builder, c))
+                    .Aggregate(builder, ReserveChunk);
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, bool> HasReserved =>
-                (builder, position) =>
-                    builder.ReservedChunks.Contains(position);
+            private static bool CanReserve(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                !HasReserved(builder, chunk) &&
+                !IsOccupied(builder, chunk);
 
-            private static Func<FloorLayoutBuilder, ChunkPosition, FloorLayoutBuilder> ReserveChunk =>
-                (builder, chunk) =>
-                    new FloorLayoutBuilder(
-                                           builder.OccupiedChunks,
-                                           builder.ReservedChunks.Add(chunk));
+            private static bool HasReserved(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                builder.ReservedChunks.Contains(chunk);
 
-            internal static Func<FloorLayoutBuilder, FloorLayout> CreateFloorLayout =>
-                builder =>
-                    new FloorLayout(
-                                    builder.OccupiedChunks
-                                           .Select((chunk, index) => new RoomInChunk(chunk, GetRoomTypeByIndex(builder, index)))
-                                           .ToImmutableArray());
+            private static FloorLayoutBuilder ReserveChunk(FloorLayoutBuilder builder, ChunkPosition chunk) =>
+                new FloorLayoutBuilder(builder.OccupiedChunks,
+                                       builder.ReservedChunks.Add(chunk));
 
-            private static Func<FloorLayoutBuilder, int, RoomType> GetRoomTypeByIndex =>
-                (builder, roomIndex) =>
-                    roomIndex == 0 ? RoomType.Start
-                    : roomIndex == GetRoomCount(builder) - 1 ? RoomType.End
-                    : RoomType.Normal;
+            internal static FloorLayout CreateFloorLayout(FloorLayoutBuilder builder) =>
+                new FloorLayout(builder.OccupiedChunks
+                                       .Select((chunk, index) => new RoomInChunk(chunk, GetRoomTypeByIndex(builder, index)))
+                                       .ToImmutableArray());
 
             public readonly struct FloorLayoutBuilder
             {

@@ -12,64 +12,11 @@ namespace AChildsCourage.Game.Shade.Navigation
     public static class MInvestigation
     {
 
-        #region Functions
-
-        public static StartInvestigation StartNew =>
-            (floorState, monsterState, rng) =>
-                new Investigation(
-                                  ChooseAoi(floorState, monsterState, rng),
-                                  ImmutableHashSet<TilePosition>.Empty);
-
-
-        public static InvestigationIsComplete IsComplete =>
-            investigation =>
-                ExplorationRatio(investigation) >= CompletionExplorationRation;
-
-        private static Func<Investigation, float> ExplorationRatio =>
-            investigation =>
-                InvestigatedPoiCount(investigation) / (float) PoiToInvestigateCount(investigation);
-
-        private static Func<Investigation, int> InvestigatedPoiCount =>
-            investigation =>
-                investigation.InvestigatedPositions.Count;
-
-        private static Func<Investigation, int> PoiToInvestigateCount =>
-            investigation =>
-                investigation.Aoi.Pois.Length;
-
-
-        public static ProgressInvestigation Progress =>
-            (investigation, positions) =>
-                new Investigation(
-                                  investigation.Aoi,
-                                  investigation.InvestigatedPositions.Union(
-                                                                            positions.Where(p => IsPartOfInvestigation(investigation, p))));
-
-        private static Func<Investigation, TilePosition, bool> IsPartOfInvestigation =>
-            (investigation, position) =>
-                investigation.Aoi.Pois.Any(poi => poi.Position.Equals(position));
-
-
-        public static ChooseNextTarget NextTarget =>
-            (investigation, monsterPosition) =>
-                UninvestigatedPois(investigation)
-                    .OrderBy(poi => DistanceTo(poi.Position, GetEntityTile(monsterPosition)))
-                    .First().Position;
-
-        private static Func<Investigation, IEnumerable<Poi>> UninvestigatedPois =>
-            investigation =>
-                investigation.Aoi.Pois
-                             .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
-
-
-        public static CompleteInvestigation Complete =>
-            investigation =>
-                new CompletedInvestigation(investigation.Aoi.Index, DateTime.Now);
-
-
-        private static ChooseInvestigationAoi ChooseAoi =>
-            (floorState, monsterState, rng) =>
-                floorState.AOIs.GetWeightedRandom(aoi => CalcTotalWeight(aoi, monsterState), rng);
+        private const float MinDistance = 30;
+        private const float MaxDistance = 60;
+        private const float MinTime = 1;
+        private const float MaxTime = 300;
+        private const float CompletionExplorationRation = 0.75f;
 
 
         // [0 .. 15]
@@ -84,10 +31,6 @@ namespace AChildsCourage.Game.Shade.Navigation
                     .Clamp(MinDistance, MaxDistance)
                     .RemapSquared(MaxDistance, MinDistance, 0, 10);
 
-        private static Func<Aoi, ShadeState, float> DistanceBetweenAoiAndMonster =>
-            (aoi, monsterState) =>
-                DistanceTo(aoi.Center, GetEntityTile(monsterState.Position));
-
         // [0 .. 10]
         private static CalculateAoiWeight CalcTimeWeight =>
             (aoi, monsterState) =>
@@ -96,38 +39,54 @@ namespace AChildsCourage.Game.Shade.Navigation
                     .Clamp(MinTime, MaxTime)
                     .Remap(MinTime, MaxTime, 0, 10);
 
-        private static Func<Aoi, ShadeState, float?> SecondsSinceLastVisit =>
-            (aoi, monsterState) =>
-                monsterState.InvestigationHistory.FindLastIn(aoi.Index)
-                            .Bind(i => monsterState.CurrentTime - i.CompletionTime)
-                            .Bind(time => (float) time.TotalSeconds);
+        public static Investigation StartNew(FloorState floorState, ShadeState monsterState, CreateRng rng) =>
+            new Investigation(ChooseAoi(floorState, monsterState, rng),
+                              ImmutableHashSet<TilePosition>.Empty);
 
-        #endregion
+        public static bool IsComplete(Investigation investigation) =>
+            ExplorationRatio(investigation) >= CompletionExplorationRation;
 
-        #region Values
+        private static float ExplorationRatio(Investigation investigation) =>
+            InvestigatedPoiCount(investigation) / (float) PoiToInvestigateCount(investigation);
 
-        private const float MinDistance = 30;
-        private const float MaxDistance = 60;
-        private const float MinTime = 1;
-        private const float MaxTime = 300;
-        private const float CompletionExplorationRation = 0.75f;
+        private static int InvestigatedPoiCount(Investigation investigation) =>
+            investigation.InvestigatedPositions.Count;
 
-        #endregion
+        private static int PoiToInvestigateCount(Investigation investigation) =>
+            investigation.Aoi.Pois.Length;
 
-        #region Types
 
-        public delegate Investigation StartInvestigation(FloorState floorState, ShadeState shadeState, CreateRng rng);
+        public static Investigation Progress(Investigation investigation, IEnumerable<TilePosition> positions) =>
+            new Investigation(investigation.Aoi,
+                              investigation.InvestigatedPositions.Union(positions.Where(p => IsPartOfInvestigation(investigation, p))));
 
-        public delegate Investigation ProgressInvestigation(Investigation investigation, IEnumerable<TilePosition> investigatedPositions);
+        private static bool IsPartOfInvestigation(Investigation investigation, TilePosition position) =>
+            investigation.Aoi.Pois.Any(poi => poi.Position.Equals(position));
 
-        public delegate bool InvestigationIsComplete(Investigation investigation);
+        public static TilePosition NextTarget(Investigation investigation, EntityPosition monsterPosition) =>
+            UninvestigatedPois(investigation)
+                .OrderBy(poi => DistanceTo(poi.Position, GetEntityTile(monsterPosition)))
+                .First().Position;
 
-        public delegate CompletedInvestigation CompleteInvestigation(Investigation investigation);
+        private static IEnumerable<Poi> UninvestigatedPois(Investigation investigation) =>
+            investigation.Aoi.Pois
+                         .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
+        
+        public static CompletedInvestigation Complete(Investigation investigation) =>
+            new CompletedInvestigation(investigation.Aoi.Index, DateTime.Now);
+        
+        private static Aoi ChooseAoi(FloorState floorState, ShadeState monsterState, CreateRng rng) =>
+            floorState.AOIs.GetWeightedRandom(aoi => CalcTotalWeight(aoi, monsterState), rng);
 
-        public delegate TilePosition ChooseNextTarget(Investigation investigation, EntityPosition monsterPosition);
+        private static float DistanceBetweenAoiAndMonster(Aoi aoi, ShadeState monsterState) =>
+            DistanceTo(aoi.Center, GetEntityTile(monsterState.Position));
 
-        private delegate Aoi ChooseInvestigationAoi(FloorState floorState, ShadeState shadeState, CreateRng rng);
+        private static float? SecondsSinceLastVisit(Aoi aoi, ShadeState monsterState) =>
+            monsterState.InvestigationHistory.FindLastIn(aoi.Index)
+                        .Bind(i => monsterState.CurrentTime - i.CompletionTime)
+                        .Bind(time => (float) time.TotalSeconds);
 
+        
         internal delegate float CalculateAoiWeight(Aoi aoi, ShadeState shadeState);
 
 
@@ -146,8 +105,6 @@ namespace AChildsCourage.Game.Shade.Navigation
             }
 
         }
-
-        #endregion
 
     }
 

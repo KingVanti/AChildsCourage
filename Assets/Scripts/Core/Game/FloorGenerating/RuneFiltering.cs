@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
@@ -20,20 +19,19 @@ namespace AChildsCourage.Game
             private const int RuneCount = 5;
 
 
-            public static Func<FloorBuilder, CreateRng, IEnumerable<Rune>> ChooseRunes =>
-                (floorBuilder, rng) =>
-                {
-                    var runePositions = floorBuilder
-                                        .Rooms
-                                        .SelectMany(r => r.Runes)
-                                        .Select(r => r.Position)
-                                        .ToImmutableHashSet();
+            public static IEnumerable<Rune> ChooseRunes(FloorBuilder floorBuilder, CreateRng rng)
+            {
+                var runePositions = floorBuilder
+                                    .Rooms
+                                    .SelectMany(r => r.Runes)
+                                    .Select(r => r.Position)
+                                    .ToImmutableHashSet();
 
-                    ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => taken.Add(ChooseNextRunePosition(runePositions, taken, rng));
+                ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => taken.Add(ChooseNextRunePosition(runePositions, taken, rng));
 
-                    return AggregateTimes(ImmutableHashSet<TilePosition>.Empty, AddNext, RuneCount)
-                        .Select(p => new Rune(p));
-                };
+                return AggregateTimes(ImmutableHashSet<TilePosition>.Empty, AddNext, RuneCount)
+                    .Select(p => new Rune(p));
+            }
 
 
             private static TilePosition ChooseNextRunePosition(IEnumerable<TilePosition> positions, ImmutableHashSet<TilePosition> taken, CreateRng rng)
