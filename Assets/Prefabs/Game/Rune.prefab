@@ -114,13 +114,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTime: 1
-  deactivationTime: 2
-  spriteRenderer: {fileID: 6417160014689851344}
-  activeSprite: {fileID: 21300000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
-  inactiveSprite: {fileID: 21300000, guid: 29302e9a62b2b984083ade44747b1427, type: 3}
-  usedSprite: {fileID: 21300000, guid: e662447a9cdd4f14493b6c346329d099, type: 3}
+  litTimeAfterUsed: 1
+  stateSprites:
+    enumTypeName: AChildsCourage.Game.Floors.RuneEntity+RuneState
+    enums:
+    - enumValue: 0
+      mappedValue: {fileID: 21300000, guid: 29302e9a62b2b984083ade44747b1427, type: 3}
+    - enumValue: 1
+      mappedValue: {fileID: 21300000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
+    - enumValue: 2
+      mappedValue: {fileID: 21300000, guid: e662447a9cdd4f14493b6c346329d099, type: 3}
   litMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
-  runeLight: {fileID: 4519919233166702236}
 --- !u!1 &8492341495005754838
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +136,7 @@ GameObject:
   - component: {fileID: 7214293504306767016}
   - component: {fileID: 4519919233166702236}
   m_Layer: 14
-  m_Name: Point Light 2D
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

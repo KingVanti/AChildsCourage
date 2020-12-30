@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using AChildsCourage.Game.Shade;
+using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -10,29 +11,42 @@ namespace AChildsCourage.Game.Floors
     {
 
         [SerializeField] private float activeTime;
-        [SerializeField] private float deactivationTime;
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite activeSprite;
-        [SerializeField] private Sprite inactiveSprite;
-        [SerializeField] private Sprite usedSprite;
+        [SerializeField] private float litTimeAfterUsed;
+        [SerializeField] private EnumArray<RuneState, Sprite> stateSprites;
         [SerializeField] private Material litMaterial;
-        [SerializeField] private Light2D runeLight;
+
+        [FindComponent] private SpriteRenderer spriteRenderer;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private Light2D runeLight;
+
+        private RuneState state;
 
 
-        private bool isActive;
-        private bool wasUsed;
-
-
-        public void OnTriggerEnter2D(Collider2D other)
+        private RuneState State
         {
-            if (wasUsed) return;
+            get => state;
+            set
+            {
+                state = value;
+                spriteRenderer.sprite = stateSprites[state];
+            }
+        }
 
-            if (isActive && IsShade(other, out var shade))
+        private bool WasUsed => state == RuneState.Used;
+
+        private bool IsActive => state == RuneState.Active;
+
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (WasUsed) return;
+
+            if (IsActive && IsShade(other, out var shade))
                 OnShadeEnter(shade);
             else if (IsChar(other)) OnCharEnter();
         }
 
-        public void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (IsChar(other)) OnCharExit();
         }
@@ -43,38 +57,14 @@ namespace AChildsCourage.Game.Floors
             return other.gameObject.CompareTag(EntityTags.Shade);
         }
 
-        private static bool IsChar(Component other) => other.gameObject.CompareTag(EntityTags.Char);
+        private static bool IsChar(Component other) =>
+            other.gameObject.CompareTag(EntityTags.Char);
 
+        private void OnCharEnter() =>
+            Activate();
 
-        private void OnCharEnter() => Activate();
-
-        private void OnCharExit()
-        {
-            StopAllCoroutines();
-            StartCoroutine(WaitAndDeactivate());
-        }
-
-        private void OnShadeEnter(ShadeBodyEntity shade) => UseRuneOn(shade);
-
-
-        private void Activate()
-        {
-            spriteRenderer.sprite = activeSprite;
-            isActive = true;
-        }
-
-        private void Deactivate()
-        {
-            spriteRenderer.sprite = inactiveSprite;
-            isActive = false;
-        }
-
-        private void UseRuneOn(ShadeBodyEntity shade)
-        {
-            shade.Banish();
-            wasUsed = true;
-            Invoke(nameof(Disable), deactivationTime);
-        }
+        private void OnCharExit() =>
+            this.StartOnly(WaitAndDeactivate);
 
         private IEnumerator WaitAndDeactivate()
         {
@@ -82,11 +72,36 @@ namespace AChildsCourage.Game.Floors
             Deactivate();
         }
 
-        private void Disable()
+        private void OnShadeEnter(ShadeBodyEntity shade) =>
+            UseRuneOn(shade);
+
+        private void Activate() =>
+            State = RuneState.Active;
+
+        private void Deactivate() =>
+            State = RuneState.Inactive;
+
+        private void UseRuneOn(ShadeBodyEntity shade)
+        {
+            shade.Banish();
+            State = RuneState.Used;
+            this.DoAfter(TurnOffLight, litTimeAfterUsed);
+        }
+
+        private void TurnOffLight()
         {
             spriteRenderer.material = litMaterial;
-            spriteRenderer.sprite = usedSprite;
             runeLight.intensity = 0.1f;
+        }
+
+
+        private enum RuneState
+        {
+
+            Inactive,
+            Active,
+            Used
+
         }
 
     }
