@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.Mathf;
@@ -50,8 +51,12 @@ namespace AChildsCourage.Game
                 for (var dY = -extend; dY <= extend; dY++)
                     yield return new Vector2(center.x + dX, center.y + dY);
         }
+        
+        public static TilePosition Average(ImmutableHashSet<TilePosition> positions) =>
+            new TilePosition((int) positions.Select(p => p.X).Average(),
+                             (int) positions.Select(p => p.Y).Average());
 
-
+        
         public readonly struct TilePosition
         {
 

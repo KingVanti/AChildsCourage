@@ -12,20 +12,17 @@ namespace AChildsCourage.Game.Floors
     {
 
         private readonly Dictionary<AoiIndex, AoiState> aoiStates = new Dictionary<AoiIndex, AoiState>();
-        private FloorState lastFloorState;
+        private FloorState currentFloorState;
         private bool outDatedFloorState;
 
-        
+
         public FloorState CurrentFloorState
         {
             get
             {
-                if (!outDatedFloorState) return lastFloorState;
+                if (outDatedFloorState) UpdateFloorState();
 
-                lastFloorState = GenerateFloorState();
-                outDatedFloorState = false;
-
-                return lastFloorState;
+                return currentFloorState;
             }
         }
 
@@ -34,22 +31,34 @@ namespace AChildsCourage.Game.Floors
 
         public void OnGroundTilePlaced(GroundTile groundTile)
         {
-            if (!HasStateForIndex(groundTile.AoiIndex)) aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
+            if (!HasStateForIndex(groundTile.AoiIndex)) AddAoiFor(groundTile);
 
-            aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
+            AddPoiFor(groundTile);
             outDatedFloorState = true;
         }
 
         private bool HasStateForIndex(AoiIndex index) =>
             aoiStates.ContainsKey(index);
-        
+
+        private void AddAoiFor(GroundTile groundTile) =>
+            aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
+
+        private void AddPoiFor(GroundTile groundTile) =>
+            aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
+
+        private void UpdateFloorState()
+        {
+            currentFloorState = GenerateFloorState();
+            outDatedFloorState = false;
+        }
+
         private FloorState GenerateFloorState() =>
             CurrentAoiStates
                 .Select(aoiState => aoiState.ToAoi())
                 .ToImmutableArray()
                 .Map(array => new FloorState(array));
 
-        
+
         private class AoiState
         {
 
@@ -60,22 +69,19 @@ namespace AChildsCourage.Game.Floors
             private ImmutableArray<Poi> Pois =>
                 PoiStates.Select(poiState => poiState.ToPoi())
                          .ToImmutableArray();
-            
+
             public AoiState(AoiIndex index) => Index = index;
 
 
             public Aoi ToAoi() => new Aoi(Index, CalculateCenter(), Pois);
 
-            private TilePosition CalculateCenter()
-            {
-                var positions = Pois.Select(p => p.Position).ToImmutableHashSet();
+            private TilePosition CalculateCenter() =>
+                Pois.Select(p => p.Position)
+                    .ToImmutableHashSet()
+                    .Map(Average);
 
-                return new TilePosition(
-                                        (int) positions.Select(p => p.X).Average(),
-                                        (int) positions.Select(p => p.Y).Average());
-            }
-
-            public void AddPoi(TilePosition position) => PoiStates.Add(new PoiState(position));
+            public void AddPoi(TilePosition position) =>
+                PoiStates.Add(new PoiState(position));
 
         }
 
@@ -88,7 +94,8 @@ namespace AChildsCourage.Game.Floors
             public PoiState(TilePosition position) => Position = position;
 
 
-            public Poi ToPoi() => new Poi(Position);
+            public Poi ToPoi() =>
+                new Poi(Position);
 
         }
 
