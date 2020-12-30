@@ -112,10 +112,9 @@ namespace AChildsCourage.Game
 
         private void PlaceCouragePickup(CouragePickup pickup)
         {
-            var pickupData = CouragePickupAppearances[pickup.Variant];
             var entity = SpawnCouragePickup(pickup.Position);
-
-            entity.SetCouragePickupData(pickupData);
+            var appearance = CouragePickupAppearances[pickup.Variant];
+            entity.Initialize(pickup.Variant, appearance);
         }
 
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>

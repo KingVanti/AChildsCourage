@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ca9672b6835164daf1cb9cfb89b9c0, type: 3}
   m_Name: Spark
   m_EditorClassIdentifier: 
-  value: 1
-  courageName: Spark
   variant: 0
-  sprite: {fileID: 21300000, guid: 0f477bf9662440c43a6fe44d42739000, type: 3}
-  scale: {x: 0.25, y: 0.25, z: 0}
-  emission: {fileID: 2800000, guid: ad8ab87f7d71d0847a8904d19d13332d, type: 3}
   lightOuterRadius: 1.55
   lightIntensity: 0.35
+  emission: {fileID: 2800000, guid: ad8ab87f7d71d0847a8904d19d13332d, type: 3}
+  sprite: {fileID: 21300000, guid: 0f477bf9662440c43a6fe44d42739000, type: 3}
+  scale: {x: 0.25, y: 0.25, z: 0}

@@ -295,13 +295,13 @@ namespace AChildsCourage.Game.Char
             TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
         }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!collider.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
+            if (!other.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
-            var couragePickup = collider.GetComponent<CouragePickupEntity>();
-            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Value, couragePickup.Variant));
-            Destroy(collider.gameObject);
+            var couragePickup = other.GetComponent<CouragePickupEntity>();
+            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
+            Destroy(other.gameObject);
         }
 
         private void TakingDamage(int damage, Vector2 knockBackVector)

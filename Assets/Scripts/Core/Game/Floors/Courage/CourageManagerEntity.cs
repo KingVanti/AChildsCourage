@@ -18,6 +18,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
 
         [SerializeField] private int targetCourage;
+        [SerializeField] private EnumArray<CourageVariant, int> courageValues;
 
         private int currentCourage;
         private int neededNightCourage;
@@ -45,7 +46,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
         private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) =>
-            AddCourage(eventArgs.Value);
+            AddCourage(courageValues[eventArgs.Variant]);
 
         private void AddCourage(int amount) =>
             CurrentCourage += amount;

@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Floors.Courage
         public TilePosition Position { get; }
 
         public CourageVariant Variant { get; }
-
+        
 
         public CouragePickup(TilePosition position, CourageVariant variant)
         {
