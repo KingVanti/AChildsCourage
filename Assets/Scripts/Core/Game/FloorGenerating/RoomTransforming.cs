@@ -49,29 +49,21 @@ namespace AChildsCourage.Game
                 return position => Transform(position, transform);
             }
 
-            private static GroundTileData TransformGroundTile(GroundTileData groundTile, TransformTile transformer) => With(groundTile, transformer(groundTile.Position));
+            private static GroundTileData TransformGroundTile(GroundTileData groundTile, TransformTile transformer) =>
+                new GroundTileData(transformer(groundTile.Position));
 
-            private static GroundTileData With(GroundTileData groundTile, TilePosition position) =>
-                new GroundTileData(
-                                   position,
-                                   groundTile.DistanceToWall,
-                                   groundTile.AoiIndex);
+            private static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) =>
+                new StaticObjectData(transformer(staticObject.Position));
 
-            private static StaticObjectData TransformStaticObject(StaticObjectData staticObject, TransformTile transformer) => With(staticObject, transformer(staticObject.Position));
 
-            private static StaticObjectData With(StaticObjectData staticObject, TilePosition position) =>
-                new StaticObjectData(position);
+            private static RuneData TransformRune(RuneData rune, TransformTile transformer) =>
+                new RuneData(transformer(rune.Position));
 
-            private static RuneData TransformRune(RuneData rune, TransformTile transformer) => With(rune, transformer(rune.Position));
-
-            private static RuneData With(RuneData rune, TilePosition position) =>
-                new RuneData(position);
-
-            private static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) => With(pickup, transformer(pickup.Position));
+            private static CouragePickupData TransformCouragePickup(CouragePickupData pickup, TransformTile transformer) =>
+                With(pickup, transformer(pickup.Position));
 
             private static CouragePickupData With(CouragePickupData pickup, TilePosition position) =>
-                new CouragePickupData(
-                                      position,
+                new CouragePickupData(position,
                                       pickup.Variant);
 
 

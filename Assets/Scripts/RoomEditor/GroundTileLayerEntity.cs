@@ -33,7 +33,7 @@ namespace AChildsCourage.RoomEditor
 
         public GroundTileData[] ReadAll() =>
             GetTiles()
-                .Select(t => new GroundTileData(t.Position, 0, 0))
+                .Select(t => new GroundTileData(t.Position))
                 .ToArray();
 
         #endregion

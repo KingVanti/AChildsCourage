@@ -7,17 +7,11 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
     {
 
         public TilePosition Position { get; }
+        
 
-        public int DistanceToWall { get; }
-
-        public int AoiIndex { get; }
-
-
-        public GroundTileData(TilePosition position, int distanceToWall, int aoiIndex)
+        public GroundTileData(TilePosition position)
         {
             Position = position;
-            DistanceToWall = distanceToWall;
-            AoiIndex = aoiIndex;
         }
 
     }
