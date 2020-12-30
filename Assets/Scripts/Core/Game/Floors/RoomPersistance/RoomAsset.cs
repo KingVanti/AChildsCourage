@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using static AChildsCourage.Game.Floors.MChunkPassages;
 using static Newtonsoft.Json.JsonConvert;
 
@@ -9,21 +10,14 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
     public class RoomAsset : ScriptableObject
     {
 
-        #region Fields
-
-        [SerializeField] private int _id;
-        [SerializeField] private RoomType _type;
+        [FormerlySerializedAs("_id")] [SerializeField] private int id;
+        [FormerlySerializedAs("_type")] [SerializeField] private RoomType type;
         [SerializeField] [TextArea(10, 15)] private string passageJson;
         [SerializeField] [TextArea(10, 40)] private string contentJson;
-        [SerializeField] [HideInInspector] private string roomJson;
 
-        #endregion
+        public RoomId Id => (RoomId) id;
 
-        #region Properties
-
-        public RoomId Id => (RoomId) _id;
-
-        public RoomType Type => _type;
+        public RoomType Type => type;
 
         public ChunkPassages Passages
         {
@@ -36,8 +30,6 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
             get => DeserializeObject<RoomContentData>(contentJson);
             set => contentJson = SerializeObject(value);
         }
-
-        #endregion
 
     }
 
