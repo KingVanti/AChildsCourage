@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using static AChildsCourage.Game.MTilePosition;
@@ -10,8 +9,8 @@ namespace AChildsCourage.Game.Shade
     public static class MTilesInView
     {
 
-        public static Func<IEnumerable<TilePosition>, TilesInView> ToTilesInView =>
-            positions => new TilesInView(positions);
+        public static TilesInView ToTilesInView(IEnumerable<TilePosition> positions) =>
+            new TilesInView(positions);
 
         public readonly struct TilesInView : IEnumerable<TilePosition>
         {
