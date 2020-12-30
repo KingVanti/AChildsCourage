@@ -8,7 +8,8 @@ namespace AChildsCourage.Menu.UI
     public class MainMenuEntity : MonoBehaviour
     {
 
-        public void OnPlayButtonPressed() => SceneManager.LoadScene(SceneNames.Game);
+        public void OnPlayButtonPressed() =>
+            SceneManager.LoadScene(SceneNames.Game);
 
         public void OnQuitButtonPressed()
         {
