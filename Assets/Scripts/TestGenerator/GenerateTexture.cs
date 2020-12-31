@@ -3,7 +3,7 @@ using UnityEngine;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.MTilePosition;
 
-namespace AChildsCourage.Game.Floors.TestGenerator
+namespace AChildsCourage.Game.Floors.Gen
 {
 
     internal static class GenerateTexture

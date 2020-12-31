@@ -5,7 +5,7 @@ using UnityEngine;
 using static AChildsCourage.Game.MOldFloorGenerating;
 using static AChildsCourage.MRng;
 
-namespace AChildsCourage.Game.Floors.TestGenerator
+namespace AChildsCourage.Game.Floors.Gen
 {
 
     public class TestGeneratorEditor : EditorWindow
