@@ -16,7 +16,7 @@ namespace AChildsCourage.Game
 
         internal static float GetDistanceFromOrigin(TilePosition position) =>
             new Vector2(position.X, position.Y).magnitude;
-        
+
         internal static float DistanceTo(TilePosition p1, TilePosition p2) =>
             Vector2.Distance(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y));
 
@@ -40,7 +40,7 @@ namespace AChildsCourage.Game
         public static IEnumerable<TilePosition> FindPositionsInRadius(TilePosition center, float radius) =>
             GeneratePositionsInRadius(GetTileCenter(center), radius)
                 .Select(ToTile);
-        
+
         private static IEnumerable<Vector2> GeneratePositionsInRadius(Vector2 center, float radius) =>
             GeneratePositionsInSquare(center, radius)
                 .Where(v => Vector2.Distance(v, center) <= radius);
@@ -51,7 +51,7 @@ namespace AChildsCourage.Game
                 for (var dY = -extend; dY <= extend; dY++)
                     yield return new Vector2(center.x + dX, center.y + dY);
         }
-        
+
         public static TilePosition Average(ImmutableHashSet<TilePosition> positions) =>
             new TilePosition((int) positions.Select(p => p.X).Average(),
                              (int) positions.Select(p => p.Y).Average());
@@ -60,7 +60,11 @@ namespace AChildsCourage.Game
             new TileOffset(position.X,
                            position.Y);
 
-        
+        public static TileOffset Absolute(TileOffset offset) =>
+            new TileOffset(Abs(offset.X),
+                           Abs(offset.Y));
+
+
         public readonly struct TilePosition
         {
 

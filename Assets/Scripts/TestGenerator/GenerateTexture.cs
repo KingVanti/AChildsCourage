@@ -9,12 +9,21 @@ namespace AChildsCourage.Game.Floors.TestGenerator
     internal static class GenerateTexture
     {
 
+        private const int SidePadding = 1;
+        private const int BottomPadding = 1;
+        private const int TopPadding = 3;
+        private const int HorizontalPadding = SidePadding * 2;
+        private const int VerticalPassing = BottomPadding + TopPadding;
+
+
         private static readonly Color backGroundColor = Color.clear;
         private static readonly Color groundTileColor = new Color(0.51f, 0.51f, 0.51f);
+        private static readonly Color wallColor = new Color(0.78f, 0.78f, 0.78f);
         private static readonly Color staticObjectColor = new Color(0.43f, 0.1f, 0.14f);
         private static readonly Color runeColor = new Color(0.36f, 0.95f, 0.97f);
         private static readonly Color sparkColor = new Color(0.97f, 0.95f, 0.07f);
         private static readonly Color orbColor = new Color(0.97f, 0.65f, 0.26f);
+
 
         internal static Texture2D From(Floor floor)
         {
@@ -27,7 +36,7 @@ namespace AChildsCourage.Game.Floors.TestGenerator
         private static Texture2D CreateFittingTexture(Floor floor)
         {
             var dimensions = floor.Map(GetFloorDimensions);
-            return new Texture2D(dimensions.Width, dimensions.Height)
+            return new Texture2D(dimensions.Width + HorizontalPadding, dimensions.Height + VerticalPassing)
             {
                 filterMode = FilterMode.Point
             };
@@ -47,16 +56,25 @@ namespace AChildsCourage.Game.Floors.TestGenerator
             foreach (var room in floor.Rooms) PrintRoom(room, print);
             foreach (var rune in floor.Runes) PrintRune(rune, print);
             foreach (var couragePickup in floor.CouragePickups) PrintCouragePickup(couragePickup, print);
+            foreach (var wall in floor.Walls) PrintWall(wall, print);
 
             texture.Apply();
         }
 
         private static PrintToTexture CreatePrinter(Floor floor, Texture2D texture)
         {
-            var offset = floor.Map(GetFloorDimensions).LowerRight.Map(AsOffset);
+            var offset = floor.Map(GetLowerRightOffset);
 
-            return (pos, col) => texture.SetPixel(pos.X - offset.X, pos.Y - offset.Y, col);
+            return (pos, col) => texture.SetPixel(pos.X + offset.X, pos.Y + offset.Y, col);
         }
+
+        private static TileOffset GetLowerRightOffset(Floor floor) =>
+            floor
+                .Map(GetFloorDimensions)
+                .LowerRight
+                .Map(OffsetBy, new TileOffset(-SidePadding, -BottomPadding))
+                .Map(AsOffset)
+                .Map(Absolute);
 
         private static void PrintRoom(Room room, PrintToTexture print)
         {
@@ -66,6 +84,9 @@ namespace AChildsCourage.Game.Floors.TestGenerator
 
         private static void PrintGroundTile(GroundTile groundTile, PrintToTexture print) =>
             print(groundTile.Position, groundTileColor);
+
+        private static void PrintWall(Wall wall, PrintToTexture print) =>
+            print(wall.Position, wallColor);
 
         private static void PrintStaticObject(StaticObject staticObject, PrintToTexture print) =>
             print(staticObject.Position, staticObjectColor);
