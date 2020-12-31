@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
-using static AChildsCourage.Game.MFloorGenerating.MFloorBuilder;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorBuilder;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.F;
 using static AChildsCourage.MRng;
@@ -10,7 +10,7 @@ using static AChildsCourage.MRng;
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MRuneFiltering

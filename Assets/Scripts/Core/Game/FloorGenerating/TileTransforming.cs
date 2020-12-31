@@ -5,7 +5,7 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MTileTransforming

@@ -1,14 +1,14 @@
 ﻿using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MFloorGenerating.MChunkChoosing;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutBuilder;
+using static AChildsCourage.Game.MOldFloorGenerating.MChunkChoosing;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayout;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayoutBuilder;
 using static AChildsCourage.MRng;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MFloorLayoutGenerating

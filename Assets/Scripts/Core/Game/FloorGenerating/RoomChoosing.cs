@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MFloorGenerating.MRoomPassageFiltering;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
+using static AChildsCourage.Game.MOldFloorGenerating.MRoomPassageFiltering;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayout;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MRoomChoosing

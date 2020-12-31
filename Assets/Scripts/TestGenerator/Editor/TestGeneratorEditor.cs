@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Floors.TestGenerator

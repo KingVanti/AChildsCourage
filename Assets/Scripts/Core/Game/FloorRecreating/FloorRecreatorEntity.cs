@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 using static AChildsCourage.Game.Floors.Courage.CouragePickupAppearanceRepo;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.Floors.RoomPersistence.RoomDataRepo;
-using static AChildsCourage.Game.MFloorGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MNightData;

@@ -6,18 +6,18 @@ using AChildsCourage.Game.Floors.RoomPersistence;
 using AChildsCourage.Game.Shade.Navigation;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.MFloorGenerating.MFloorBuilder;
-using static AChildsCourage.Game.MFloorGenerating.MWallGenerating;
-using static AChildsCourage.Game.MFloorGenerating.MCouragePickupFiltering;
-using static AChildsCourage.Game.MFloorGenerating.MRoomBuilder;
-using static AChildsCourage.Game.MFloorGenerating.MRoomTransforming;
-using static AChildsCourage.Game.MFloorGenerating.MRuneFiltering;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorBuilder;
+using static AChildsCourage.Game.MOldFloorGenerating.MWallGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating.MCouragePickupFiltering;
+using static AChildsCourage.Game.MOldFloorGenerating.MRoomBuilder;
+using static AChildsCourage.Game.MOldFloorGenerating.MRoomTransforming;
+using static AChildsCourage.Game.MOldFloorGenerating.MRuneFiltering;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MFloorBuilding

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Immutable;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayoutGenerating;
-using static AChildsCourage.Game.MFloorGenerating.MFloorPlanGenerating;
-using static AChildsCourage.Game.MFloorGenerating.MFloorBuilding;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayoutGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorPlanGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorBuilding;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static Floor GenerateFloor(CreateRng rng, ImmutableHashSet<RoomData> roomData, GenerationParameters parameters) =>

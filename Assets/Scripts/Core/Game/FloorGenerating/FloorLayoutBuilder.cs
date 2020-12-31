@@ -3,12 +3,12 @@ using System.Linq;
 using AChildsCourage.Game.Floors;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayout;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MFloorLayoutBuilder

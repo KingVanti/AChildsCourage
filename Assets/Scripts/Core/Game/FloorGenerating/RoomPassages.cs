@@ -5,7 +5,7 @@ using static AChildsCourage.Game.Floors.MChunkPassages;
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public class RoomPassages

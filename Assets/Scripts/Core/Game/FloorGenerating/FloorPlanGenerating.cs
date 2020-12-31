@@ -2,16 +2,16 @@
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.Game.MFloorGenerating.MFloorLayout;
+using static AChildsCourage.Game.MOldFloorGenerating.MFloorLayout;
 using static AChildsCourage.F;
-using static AChildsCourage.Game.MFloorGenerating.MRoomChoosing;
-using static AChildsCourage.Game.MFloorGenerating.MRoomPassageGenerating;
+using static AChildsCourage.Game.MOldFloorGenerating.MRoomChoosing;
+using static AChildsCourage.Game.MOldFloorGenerating.MRoomPassageGenerating;
 using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MFloorPlanGenerating

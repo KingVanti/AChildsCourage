@@ -10,7 +10,7 @@ using static AChildsCourage.F;
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MRoomBuilder

@@ -6,12 +6,12 @@ using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.Game.MFloorGenerating.MTileTransforming;
+using static AChildsCourage.Game.MOldFloorGenerating.MTileTransforming;
 
 namespace AChildsCourage.Game
 {
 
-    public static partial class MFloorGenerating
+    public static partial class MOldFloorGenerating
     {
 
         public static class MRoomTransforming
