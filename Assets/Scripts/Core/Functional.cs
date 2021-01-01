@@ -64,6 +64,9 @@ namespace AChildsCourage
         public static TResult Map<TItem, TResult, TP1, TP2, TP3>(this TItem item, Func<TItem, TP1, TP2, TP3, TResult> function, TP1 p1, TP2 p2, TP3 p3) =>
             function(item, p1, p2, p3);
 
+        public static void Do<TItem, TP1>(this TItem item, Action<TItem, TP1> action, TP1 p1) =>
+            action(item, p1);
+
         public static void Do<TItem>(this TItem item, Action<TItem> action) =>
             action(item);
 

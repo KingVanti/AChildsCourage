@@ -48,6 +48,9 @@ namespace AChildsCourage
 
         public static int Times(this int i, int mult) =>
             i * mult;
+        
+        public static float Times(this int i, float mult) =>
+            i * mult;
 
     }
 
