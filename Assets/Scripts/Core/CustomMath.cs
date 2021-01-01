@@ -11,6 +11,9 @@ namespace AChildsCourage
 
         public static float Remap(this float f, float sA, float sB, float tA, float tB) =>
             Map(f, sA, sB, tA, tB);
+        
+        public static float Remap(this int i, int sA, int sB, float tA, float tB) =>
+            Map(i, sA, sB, tA, tB);
 
         public static float RemapSquared(this float f, float sA, float sB, float tA, float tB) =>
             Lerp(tA, tB, InverseLerp(sA, sB, f).Squared());
