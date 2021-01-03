@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

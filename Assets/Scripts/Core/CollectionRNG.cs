@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static AChildsCourage.MRng;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage
 {
 
-    public static class MCollectionRng
+    public static class CollectionRng
     {
 
         public delegate float CalculateWeight<in T>(T element);

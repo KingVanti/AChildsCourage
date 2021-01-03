@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public static (int Width, int Height) GetDimensions(ChunkLayout layout) =>
             layout.Map(IsEmpty)
                 ? noSize
-                : layout.occupiedChunks.Map(MChunkPosition.GetDimensions);
+                : layout.occupiedChunks.Map(ChunkPosition.GetDimensions);
 
         private static bool IsEmpty(ChunkLayout layout) =>
             layout.occupiedChunks.IsEmpty;

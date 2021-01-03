@@ -1,5 +1,4 @@
 ﻿using System;
-using static AChildsCourage.Game.Shade.MTilesInView;
 
 namespace AChildsCourage.Game.Shade
 {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
-using static AChildsCourage.Game.MTilePosition;
 using static UnityEngine.Mathf;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game
 {
 
-    public static class MChunkPosition
+    public readonly struct ChunkPosition
     {
 
         public const int ChunkSize = 21;
@@ -103,23 +103,18 @@ namespace AChildsCourage.Game
                 .Select(pos => new TilePosition(pos.X, pos.Y));
 
 
-        public readonly struct ChunkPosition
+        public int X { get; }
+
+        public int Y { get; }
+
+
+        public ChunkPosition(int x, int y)
         {
-
-            public int X { get; }
-
-            public int Y { get; }
-
-
-            public ChunkPosition(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
-
-            public override string ToString() => $"({X}, {Y})";
-
+            X = x;
+            Y = y;
         }
+
+        public override string ToString() => $"({X}, {Y})";
 
     }
 

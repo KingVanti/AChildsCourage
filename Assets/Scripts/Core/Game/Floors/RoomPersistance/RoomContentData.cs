@@ -4,10 +4,27 @@ using System.Linq;
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
-    public static class MSerializedRoomContent
+    public class SerializedRoomContent
     {
 
         public static SerializedRoomContent NoContent => new SerializedRoomContent(null, null, null, null);
+
+        public SerializedGroundTile[] GroundData { get; }
+
+        public SerializedCouragePickup[] CourageData { get; }
+
+        public SerializedStaticObject[] StaticObjects { get; }
+
+        public SerializedRune[] Runes { get; }
+
+
+        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes)
+        {
+            GroundData = groundData ?? new SerializedGroundTile[0];
+            CourageData = courageData ?? new SerializedCouragePickup[0];
+            StaticObjects = staticObjects ?? new SerializedStaticObject[0];
+            Runes = runes ?? new SerializedRune[0];
+        }
 
         public static RoomContent ReadContent(SerializedRoomContent content)
         {
@@ -28,28 +45,6 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
                    .Concat(ReadStaticObjectData())
                    .Concat(ReadRuneData())
                    .Map(RoomContent.Create);
-        }
-
-        public class SerializedRoomContent
-        {
-
-            public SerializedGroundTile[] GroundData { get; }
-
-            public SerializedCouragePickup[] CourageData { get; }
-
-            public SerializedStaticObject[] StaticObjects { get; }
-
-            public SerializedRune[] Runes { get; }
-
-
-            public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes)
-            {
-                GroundData = groundData ?? new SerializedGroundTile[0];
-                CourageData = courageData ?? new SerializedCouragePickup[0];
-                StaticObjects = staticObjects ?? new SerializedStaticObject[0];
-                Runes = runes ?? new SerializedRune[0];
-            }
-
         }
 
     }

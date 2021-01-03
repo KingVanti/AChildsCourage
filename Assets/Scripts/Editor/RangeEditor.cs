@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.MRange;
 using static UnityEditor.EditorGUI;
 
 namespace AChildsCourage

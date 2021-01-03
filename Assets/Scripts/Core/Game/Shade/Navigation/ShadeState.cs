@@ -1,6 +1,4 @@
 ﻿using System;
-using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
 
 namespace AChildsCourage.Game.Shade.Navigation
 {

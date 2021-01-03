@@ -2,8 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
-using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -15,7 +14,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
         public static (int Width, int Height) GetDimensions(PassagePlan plan) =>
             plan.passages.Keys
-                .Map(MChunkPosition.GetDimensions);
+                .Map(ChunkPosition.GetDimensions);
 
         public static PassagePlan CreatePassagePlan(ChunkLayout layout)
         {

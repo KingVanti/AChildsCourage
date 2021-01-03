@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using AChildsCourage.Infrastructure;
 using Pathfinding;
 using UnityEngine;
 
@@ -44,14 +43,14 @@ namespace AChildsCourage.Game.Shade
 
         private void SetMovementTarget(Vector3 position) =>
             aiPath.destination = position;
-        
+
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             ResetSpeed();
 
         private void ResetSpeed() =>
             aiPath.maxSpeed = movementSpeed;
-        
+
         public void WaitAfterDealingDamage() =>
             StartCoroutine(WaitAndContinue());
 

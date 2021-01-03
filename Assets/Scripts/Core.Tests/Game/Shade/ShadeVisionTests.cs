@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
 using UnityEngine;
-using static AChildsCourage.Game.Shade.MShadeVision;
-using static AChildsCourage.Game.Shade.MVisionCone;
-using static AChildsCourage.Game.Shade.MVisibility.Visibility;
+using static AChildsCourage.Game.Shade.ShadeVision;
+using static AChildsCourage.Game.Shade.Visibility;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -21,7 +20,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = CanSeePoint(vision, point);
+            var canSeePoint = vision.Map(CanSeePoint, point);
 
             // Then
 
@@ -38,7 +37,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = CanSeePoint(vision, point);
+            var canSeePoint = vision.Map(CanSeePoint, point);
 
             // Then
 

@@ -1,10 +1,9 @@
-﻿using static AChildsCourage.Game.MTilePosition;
-using static UnityEngine.Mathf;
+﻿using static UnityEngine.Mathf;
 
 namespace AChildsCourage.Game
 {
 
-    public static class MEntityPosition
+    public readonly struct EntityPosition
     {
 
         public static TilePosition GetEntityTile(EntityPosition position) =>
@@ -12,20 +11,15 @@ namespace AChildsCourage.Game
                              FloorToInt(position.Y));
 
 
-        public readonly struct EntityPosition
+        public float X { get; }
+
+        public float Y { get; }
+
+
+        public EntityPosition(float x, float y)
         {
-
-            public float X { get; }
-
-            public float Y { get; }
-
-
-            public EntityPosition(float x, float y)
-            {
-                X = x;
-                Y = y;
-            }
-
+            X = x;
+            Y = y;
         }
 
     }

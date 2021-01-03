@@ -1,5 +1,4 @@
 ﻿using System;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade

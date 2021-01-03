@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AChildsCourage
 {
 
-    public static class MRange
+    public static class Range
     {
 
         public static float Lerp(float t, Range<float> range) =>
@@ -16,25 +16,24 @@ namespace AChildsCourage
         public static Range<TValue> Between<TValue>(TValue from, TValue to) where TValue : IComparable<TValue> =>
             new Range<TValue>(from, to);
 
+    }
 
-        [Serializable]
-        public struct Range<TValue> where TValue : IComparable<TValue>
+    [Serializable]
+    public struct Range<TValue> where TValue : IComparable<TValue>
+    {
+
+        [SerializeField] private TValue min;
+        [SerializeField] private TValue max;
+
+        public TValue Min => min;
+
+        public TValue Max => max;
+
+
+        public Range(TValue min, TValue max)
         {
-
-            [SerializeField] private TValue min;
-            [SerializeField] private TValue max;
-
-            public TValue Min => min;
-
-            public TValue Max => max;
-
-
-            public Range(TValue min, TValue max)
-            {
-                this.min = min;
-                this.max = max;
-            }
-
+            this.min = min;
+            this.max = max;
         }
 
     }

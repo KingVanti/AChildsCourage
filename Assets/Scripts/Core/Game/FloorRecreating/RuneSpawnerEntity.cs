@@ -1,6 +1,5 @@
-﻿using AChildsCourage.Infrastructure;
-using UnityEngine;
-using static AChildsCourage.Game.MTilePosition;
+﻿using UnityEngine;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -13,13 +12,13 @@ namespace AChildsCourage.Game.Floors
 #pragma warning  restore 649
 
 
-        public void Spawn(TilePosition position, RuneData _) => 
+        public void Spawn(TilePosition position, RuneData _) =>
             InstantiateStaticObjectAt(position);
 
         private void InstantiateStaticObjectAt(TilePosition tilePosition)
         {
             var position = ToVector2(tilePosition) + new Vector2(0.5f, 0);
-            MInfrastructure.Spawn(runePrefab, position, Quaternion.identity, transform);
+            Infrastructure.Spawn(runePrefab, position, Quaternion.identity, transform);
         }
 
     }

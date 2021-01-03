@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Shade.Navigation;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.Game.Shade.MVisibility;
-using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Shade.Navigation.InvestigationHistory;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
@@ -28,7 +26,7 @@ namespace AChildsCourage.Game.Shade
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
 
         private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
-        private InvestigationHistory investigationHistory = Empty;
+        private InvestigationHistory investigationHistory = EmptyInvestigationHistory;
         private Vector3 currentTargetPosition;
         private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
         private readonly DirectHuntingBehaviour directHuntingBehaviour = new DirectHuntingBehaviour();
@@ -92,7 +90,7 @@ namespace AChildsCourage.Game.Shade
                 .Then(() => StartBehaviour(IndirectHunt));
 
         private bool ShouldStartIndirectHunt(Visibility charVisibility) =>
-            charVisibility == Visibility.NotVisible && IsHuntingDirectly;
+            charVisibility.Equals(NotVisible) && IsHuntingDirectly;
 
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
@@ -121,7 +119,7 @@ namespace AChildsCourage.Game.Shade
             void CompleteInvestigation()
             {
                 var completed = investigationBehaviour.CompleteInvestigation();
-                investigationHistory = investigationHistory.Add(completed);
+                investigationHistory = investigationHistory.Map(AddToHistory, completed);
 
                 StartBehaviour(Investigate);
             }

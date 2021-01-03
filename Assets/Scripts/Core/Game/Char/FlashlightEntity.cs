@@ -1,9 +1,8 @@
 ﻿using System;
 using AChildsCourage.Game.Input;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using static AChildsCourage.MRange;
+using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Char
 {

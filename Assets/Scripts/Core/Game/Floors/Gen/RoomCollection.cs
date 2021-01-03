@@ -4,7 +4,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.Gen.RoomConfiguration;
-using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

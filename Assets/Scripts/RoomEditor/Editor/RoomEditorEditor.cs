@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MChunkPassages;
 
 namespace AChildsCourage.RoomEditor.Editor
 {
@@ -13,13 +13,8 @@ namespace AChildsCourage.RoomEditor.Editor
     public class RoomEditorEditor : UnityEditor.Editor
     {
 
-        #region Properties
-
         private RoomEditorEntity RoomEditor => target as RoomEditorEntity;
 
-        #endregion
-
-        #region Methods
 
         public override void OnInspectorGUI()
         {
@@ -127,8 +122,6 @@ namespace AChildsCourage.RoomEditor.Editor
 
             if (GUILayout.Button("Unload asset")) RoomEditor.Unload();
         }
-
-        #endregion
 
     }
 

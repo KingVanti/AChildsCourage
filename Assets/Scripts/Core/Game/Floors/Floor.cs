@@ -2,13 +2,13 @@
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
 
-    public static class MFloor
+    public readonly struct Floor
     {
 
         public static FloorDimensions GetFloorDimensions(Floor floor)
@@ -57,42 +57,37 @@ namespace AChildsCourage.Game.Floors
                       endRoomChunk);
 
 
-        public readonly struct Floor
+        public ImmutableHashSet<FloorObject> Objects { get; }
+
+        public ChunkPosition EndRoomChunk { get; }
+
+
+        public Floor(ImmutableHashSet<FloorObject> objects, ChunkPosition endRoomChunk)
         {
-
-            public ImmutableHashSet<FloorObject> Objects { get; }
-
-            public ChunkPosition EndRoomChunk { get; }
-
-
-            public Floor(ImmutableHashSet<FloorObject> objects, ChunkPosition endRoomChunk)
-            {
-                Objects = objects;
-                EndRoomChunk = endRoomChunk;
-            }
-
+            Objects = objects;
+            EndRoomChunk = endRoomChunk;
         }
 
-        public readonly struct FloorDimensions
+    }
+
+    public readonly struct FloorDimensions
+    {
+
+        public TilePosition LowerRight { get; }
+
+        public TilePosition UpperLeft { get; }
+
+        public int Width => UpperLeft.X - LowerRight.X + 1;
+
+        public int Height => UpperLeft.Y - LowerRight.Y + 1;
+
+        public Vector2 Center => new Vector3(LowerRight.X + Width / 2f, LowerRight.Y + Height / 2f);
+
+
+        public FloorDimensions(TilePosition lowerRight, TilePosition upperLeft)
         {
-
-            public TilePosition LowerRight { get; }
-
-            public TilePosition UpperLeft { get; }
-
-            public int Width => UpperLeft.X - LowerRight.X + 1;
-
-            public int Height => UpperLeft.Y - LowerRight.Y + 1;
-
-            public Vector2 Center => new Vector3(LowerRight.X + Width / 2f, LowerRight.Y + Height / 2f);
-
-
-            public FloorDimensions(TilePosition lowerRight, TilePosition upperLeft)
-            {
-                LowerRight = lowerRight;
-                UpperLeft = upperLeft;
-            }
-
+            LowerRight = lowerRight;
+            UpperLeft = upperLeft;
         }
 
     }

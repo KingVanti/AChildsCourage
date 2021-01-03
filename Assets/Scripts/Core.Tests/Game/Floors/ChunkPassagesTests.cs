@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.ChunkPassages;
 
 namespace AChildsCourage.Game.Floors
 {

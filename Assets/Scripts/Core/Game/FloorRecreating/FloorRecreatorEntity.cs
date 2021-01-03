@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.Gen;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.Game.Floors.Courage.CouragePickupAppearanceRepo;
@@ -13,11 +12,10 @@ using static AChildsCourage.Game.Floors.Gen.FloorGenParamsAsset;
 using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
-using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.Floors.RoomPersistence.RoomDataRepo;
-using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.Game.MNightData;
-using static AChildsCourage.Infrastructure.MInfrastructure;
+using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.NightData;
+using static AChildsCourage.Infrastructure;
 
 namespace AChildsCourage.Game
 {

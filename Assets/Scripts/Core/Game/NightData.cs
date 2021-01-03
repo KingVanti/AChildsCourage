@@ -1,24 +1,18 @@
-﻿using static AChildsCourage.MRng;
+﻿using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game
 {
 
-    public static class MNightData
+    public readonly struct NightData
     {
 
         public static NightData CreateNightWithRandomSeed() =>
             new NightData(RandomRng().GetValueBetween(int.MinValue, int.MaxValue));
 
-        
-        public class NightData
-        {
-
-            public int Seed { get; }
+        public int Seed { get; }
 
 
-            public NightData(int seed) => Seed = seed;
-
-        }
+        public NightData(int seed) => Seed = seed;
 
     }
 

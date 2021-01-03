@@ -3,7 +3,7 @@
 namespace AChildsCourage
 {
 
-    public static class MCustomMath
+    public static class CustomMath
     {
 
         public static float Map(float f, float sA, float sB, float tA, float tB) =>

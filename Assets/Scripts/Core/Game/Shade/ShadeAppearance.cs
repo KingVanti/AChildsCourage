@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.MLerper;
+using static AChildsCourage.Lerping;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade

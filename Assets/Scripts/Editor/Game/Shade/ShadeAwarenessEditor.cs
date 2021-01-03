@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Shade
 
         private void OnSceneGUI()
         {
-            var angleProgression = Awareness.CurrentAwareness.Value * 360;
+            var angleProgression = Awareness.CurrentAwareness * 360;
 
             Handles.color = new Color(0.75f, 0.9f, 0.75f, 0.5f);
             Handles.DrawSolidArc(Awareness.transform.position + new Vector3(0, 1.5f, 0), Vector3.forward, Vector3.up, angleProgression, 0.5f);

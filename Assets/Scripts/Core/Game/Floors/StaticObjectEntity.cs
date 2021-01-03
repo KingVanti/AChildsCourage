@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Infrastructure;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -8,8 +7,8 @@ namespace AChildsCourage.Game.Floors
     {
 
         [FindComponent] private SpriteRenderer spriteRenderer;
-        
-        
+
+
         public StaticObjectAppearance Appearance
         {
             set => spriteRenderer.sprite = value.Sprite;

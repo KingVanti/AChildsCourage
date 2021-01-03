@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage
@@ -22,7 +21,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private static IEnumerable<CouragePickupAppearanceAsset> LoadAssets() =>
             Resources.LoadAll<CouragePickupAppearanceAsset>(RoomResourcePath).ToImmutableHashSet();
-        
+
         private static CouragePickupAppearance ReadData(CouragePickupAppearanceAsset asset) =>
             new CouragePickupAppearance(asset.Variant,
                                         asset.LightOuterRadius,

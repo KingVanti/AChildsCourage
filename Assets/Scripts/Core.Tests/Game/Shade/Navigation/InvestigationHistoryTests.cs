@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Game.Shade.Navigation.MInvestigationHistory;
+using static AChildsCourage.Game.Shade.Navigation.InvestigationHistory;
 
 namespace AChildsCourage.Game.Shade.Navigation
 {
@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var empty = Empty;
+            var empty = EmptyInvestigationHistory;
 
             // When
 
@@ -32,11 +32,11 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var history = Empty;
+            var history = EmptyInvestigationHistory;
 
             // When
 
-            var added = history.Add(new CompletedInvestigation());
+            var added = history.Map(AddToHistory, new CompletedInvestigation());
 
             // Then
 
@@ -48,12 +48,12 @@ namespace AChildsCourage.Game.Shade.Navigation
         {
             // Given
 
-            var history = Empty;
+            var history = EmptyInvestigationHistory;
 
             // When
 
-            var investigation = new CompletedInvestigation((AoiIndex) 1, DateTime.Now);
-            var added = history.Add(investigation);
+            var investigation = new CompletedInvestigation(1, DateTime.Now);
+            var added = history.Map(AddToHistory, investigation);
 
             // Then
 

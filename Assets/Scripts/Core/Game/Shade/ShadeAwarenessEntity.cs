@@ -1,10 +1,9 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.Shade.MAwareness;
-using static AChildsCourage.Game.Shade.MVisibility;
-using static AChildsCourage.MRange;
+using static AChildsCourage.Game.Shade.Awareness;
+using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -46,7 +45,7 @@ namespace AChildsCourage.Game.Shade
 
         private float AwarenessGainPerSecond => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
 
-        private float PrimaryVisionMultiplier => currentCharVisibility == Visibility.Primary ? primaryVisionMultiplier : 1;
+        private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
 
         private float DistanceMultiplier => Remap(DistanceToCharacter, distanceRange, Between(maxDistanceMultiplier, 1));
 
@@ -58,7 +57,7 @@ namespace AChildsCourage.Game.Shade
 
         private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond;
 
-        private bool CanSeeChar => currentCharVisibility != Visibility.NotVisible;
+        private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
 
         private void Update() =>
@@ -80,7 +79,7 @@ namespace AChildsCourage.Game.Shade
             : AwarenessLevel.Oblivious;
 
         private bool HasEnoughAwarenessForLevel(AwarenessLevel level) =>
-            CurrentAwareness.Value >= minAwarenessForAwarenessLevel[level];
+            CurrentAwareness >= minAwarenessForAwarenessLevel[level];
 
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>

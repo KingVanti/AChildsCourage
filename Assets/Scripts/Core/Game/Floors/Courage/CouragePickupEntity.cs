@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Infrastructure;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Floors.Courage

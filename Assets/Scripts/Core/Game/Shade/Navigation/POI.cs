@@ -1,6 +1,4 @@
-﻿using static AChildsCourage.Game.MTilePosition;
-
-namespace AChildsCourage.Game.Shade.Navigation
+﻿namespace AChildsCourage.Game.Shade.Navigation
 {
 
     public readonly struct Poi

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Shade.Navigation
 {

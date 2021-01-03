@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using AChildsCourage.Infrastructure;
 using Pathfinding;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MFloor;
+using static AChildsCourage.Game.Floors.Floor;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -14,7 +13,7 @@ namespace AChildsCourage.Game.Floors
 
 
         private GridGraph GridGraph => pathfinder.graphs.First() as GridGraph;
-        
+
         private FloorDimensions CurrentDimensions
         {
             set
@@ -31,7 +30,7 @@ namespace AChildsCourage.Game.Floors
         public void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             this.DoAfter(() => ScaleToFit(eventArgs.Floor), 1);
 
-        private void ScaleToFit(Floor floor) => 
+        private void ScaleToFit(Floor floor) =>
             CurrentDimensions = GetFloorDimensions(floor);
 
     }

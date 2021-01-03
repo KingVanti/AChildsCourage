@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
-using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
@@ -11,8 +9,10 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
     public class RoomAsset : ScriptableObject
     {
 
-        [FormerlySerializedAs("_id")] [SerializeField] private int id;
-        [FormerlySerializedAs("_type")] [SerializeField] private RoomType type;
+        [FormerlySerializedAs("_id")] [SerializeField]
+        private int id;
+        [FormerlySerializedAs("_type")] [SerializeField]
+        private RoomType type;
         [SerializeField] [TextArea(10, 15)] private string passageJson;
         [SerializeField] [TextArea(10, 40)] private string contentJson;
 

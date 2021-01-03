@@ -1,7 +1,5 @@
 ﻿using System;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Infrastructure.MInfrastructure;
 
 namespace AChildsCourage
 {
@@ -17,7 +15,7 @@ namespace AChildsCourage
 
         private void SetupScene()
         {
-            SetupSceneInfrastructure();
+            Infrastructure.SetupSceneInfrastructure();
             OnSceneLoaded?.Invoke(this, EventArgs.Empty);
         }
 

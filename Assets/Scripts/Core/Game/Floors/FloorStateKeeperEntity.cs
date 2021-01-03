@@ -3,8 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Shade.Navigation;
 using UnityEngine;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -15,7 +14,7 @@ namespace AChildsCourage.Game.Floors
         private readonly Dictionary<AoiIndex, AoiState> aoiStates = new Dictionary<AoiIndex, AoiState>();
         private FloorState currentFloorState;
         private bool outDatedFloorState;
-        private Dictionary<ChunkPosition, AoiIndex> registeredAoiIndices = new Dictionary<ChunkPosition, AoiIndex>();
+        private readonly Dictionary<ChunkPosition, AoiIndex> registeredAoiIndices = new Dictionary<ChunkPosition, AoiIndex>();
         private AoiIndex currentAoiIndex;
 
 

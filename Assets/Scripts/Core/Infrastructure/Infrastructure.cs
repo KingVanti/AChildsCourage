@@ -6,10 +6,10 @@ using System.Reflection;
 using UnityEngine;
 using UnityObject = UnityEngine.Object;
 
-namespace AChildsCourage.Infrastructure
+namespace AChildsCourage
 {
 
-    public static class MInfrastructure
+    public static class Infrastructure
     {
 
         public const BindingFlags DefaultBindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;

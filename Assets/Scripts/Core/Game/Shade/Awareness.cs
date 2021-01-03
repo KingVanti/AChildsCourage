@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Shade
 {
 
-    public static class MAwareness
+    public readonly struct Awareness
     {
 
         private const float MinAwareness = 0;
@@ -11,19 +11,17 @@
 
 
         public static Awareness ChangeBy(float amount, Awareness awareness) =>
-            new Awareness(awareness.Value + amount);
+            new Awareness(awareness.value + amount);
+
+        private readonly float value;
 
 
-        public readonly struct Awareness
-        {
-
-            public float Value { get; }
+        private Awareness(float value) =>
+            this.value = value.Clamp(MinAwareness, MaxAwareness);
 
 
-            public Awareness(float value) =>
-                Value = value.Clamp(MinAwareness, MaxAwareness);
-
-        }
+        public static implicit operator float(Awareness awareness) =>
+            awareness.value;
 
     }
 

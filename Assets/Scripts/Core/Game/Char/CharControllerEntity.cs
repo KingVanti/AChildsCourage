@@ -3,9 +3,8 @@ using System.Collections;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using AChildsCourage.Game.Shade;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.MCustomMath;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Char
 {

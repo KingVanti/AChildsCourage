@@ -1,6 +1,5 @@
 ﻿using System;
 using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 

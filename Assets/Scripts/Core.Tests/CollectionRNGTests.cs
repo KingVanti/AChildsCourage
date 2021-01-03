@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.MRng;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage
 {

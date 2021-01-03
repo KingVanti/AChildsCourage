@@ -1,8 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Mathf;
-using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.Game.Shade.MVisionCone;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -28,7 +27,7 @@ namespace AChildsCourage.Game.Shade
 
         private void DrawVisionCone(Vector3 shadePosition, VisionCone visionCone)
         {
-            Handles.color = visionCone.Visibility == MVisibility.Visibility.Primary
+            Handles.color = visionCone.Visibility.Equals(Visibility.Primary)
                 ? new Color(1f, 0.22f, 0.25f, 0.2f)
                 : new Color(1f, 0.69f, 0.24f, 0.2f);
 

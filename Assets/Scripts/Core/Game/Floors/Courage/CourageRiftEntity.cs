@@ -1,7 +1,6 @@
 ﻿using System;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MFloor;
+using static AChildsCourage.Game.Floors.Floor;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
@@ -39,16 +38,16 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private int MaxSpriteIndex => riftStageSprites.Length - 1;
 
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(EntityTags.Char) && isOpen) OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
         }
-        
+
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             transform.position = eventArgs.Floor.Map(GetEndRoomCenter);
-        
+
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             UpdateRift(eventArgs.CompletionPercent);

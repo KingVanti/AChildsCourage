@@ -1,9 +1,8 @@
 ﻿using System;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Floors.Floor;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Shade
 {

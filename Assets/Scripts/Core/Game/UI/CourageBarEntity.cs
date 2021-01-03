@@ -1,10 +1,8 @@
 ﻿using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Infrastructure;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static AChildsCourage.MLerper;
-using static AChildsCourage.MRange;
+using static AChildsCourage.Lerping;
 
 namespace AChildsCourage.Game.UI
 {

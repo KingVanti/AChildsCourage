@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Floors;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.MRng;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game
 {

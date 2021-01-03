@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

@@ -4,8 +4,7 @@ using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomInstance;
 using static AChildsCourage.Game.Floors.Gen.RoomPlan;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.MRng;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

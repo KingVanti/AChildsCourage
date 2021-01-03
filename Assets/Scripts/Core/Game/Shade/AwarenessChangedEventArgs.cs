@@ -1,5 +1,4 @@
 ﻿using System;
-using static AChildsCourage.Game.Shade.MAwareness;
 
 namespace AChildsCourage.Game.Shade
 {

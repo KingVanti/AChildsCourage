@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using static AChildsCourage.Infrastructure.MInfrastructure;
+using static AChildsCourage.Infrastructure;
 
-namespace AChildsCourage.Infrastructure
+namespace AChildsCourage
 {
 
     [CustomEditor(typeof(MonoBehaviour), true)]
@@ -26,18 +26,15 @@ namespace AChildsCourage.Infrastructure
             GetFieldMessages(targetType.GetFields(DefaultBindingFlags));
 
         private static IEnumerable<string> GetFieldMessages(FieldInfo[] fields) =>
-            GetFindComponentMessages(fields)
-                .Concat(GetFindInSceneMessages(fields));
+            GetFindComponentMessages(fields).Concat(GetFindInSceneMessages(fields));
 
         private static IEnumerable<string> GetFindInSceneMessages(IEnumerable<FieldInfo> fields) =>
             fields
-                .Where(HasAttribute<FindInSceneAttribute>)
-                .Select(field => $"\"{field.Name}\" is found in the scene");
+                .Where(HasAttribute<FindInSceneAttribute>).Select(field => $"\"{field.Name}\" is found in the scene");
 
         private static IEnumerable<string> GetFindComponentMessages(IEnumerable<FieldInfo> fields) =>
             fields
-                .Where(HasAttribute<FindComponentAttribute>)
-                .Select(field =>
+                .Where(HasAttribute<FindComponentAttribute>).Select(field =>
                 {
                     var findMode = field.GetCustomAttribute<FindComponentAttribute>().FindMode;
                     var findModeString =

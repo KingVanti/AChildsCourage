@@ -1,6 +1,5 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage

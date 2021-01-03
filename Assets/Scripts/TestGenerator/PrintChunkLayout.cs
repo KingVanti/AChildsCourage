@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

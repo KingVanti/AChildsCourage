@@ -1,4 +1,4 @@
-﻿namespace AChildsCourage.Infrastructure
+﻿namespace AChildsCourage
 {
 
     public enum ComponentFindMode

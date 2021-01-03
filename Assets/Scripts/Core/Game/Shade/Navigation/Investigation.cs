@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using static AChildsCourage.Game.MEntityPosition;
-using static AChildsCourage.MRng;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.EntityPosition;
+using static AChildsCourage.Game.Shade.Navigation.InvestigationHistory;
+using static AChildsCourage.Rng;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Shade.Navigation
 {
 
-    public static class MInvestigation
+    public readonly struct Investigation
     {
 
         private const float MinDistance = 30;
@@ -71,10 +72,10 @@ namespace AChildsCourage.Game.Shade.Navigation
         private static IEnumerable<Poi> UninvestigatedPois(Investigation investigation) =>
             investigation.Aoi.Pois
                          .Where(poi => !investigation.InvestigatedPositions.Contains(poi.Position));
-        
+
         public static CompletedInvestigation Complete(Investigation investigation) =>
             new CompletedInvestigation(investigation.Aoi.Index, DateTime.Now);
-        
+
         private static Aoi ChooseAoi(FloorState floorState, ShadeState monsterState, CreateRng rng) =>
             floorState.AOIs.GetWeightedRandom(aoi => CalcTotalWeight(aoi, monsterState), rng);
 
@@ -82,28 +83,22 @@ namespace AChildsCourage.Game.Shade.Navigation
             DistanceTo(aoi.Center, GetEntityTile(monsterState.Position));
 
         private static float? SecondsSinceLastVisit(Aoi aoi, ShadeState monsterState) =>
-            monsterState.InvestigationHistory.FindLastIn(aoi.Index)
+            monsterState.InvestigationHistory.Map(FindInHistory, aoi.Index)
                         .Bind(i => monsterState.CurrentTime - i.CompletionTime)
                         .Bind(time => (float) time.TotalSeconds);
 
-        
+
         internal delegate float CalculateAoiWeight(Aoi aoi, ShadeState shadeState);
 
+        internal Aoi Aoi { get; }
 
-        public readonly struct Investigation
+        internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
+
+
+        internal Investigation(Aoi aoi, ImmutableHashSet<TilePosition> investigatedPositions)
         {
-
-            internal Aoi Aoi { get; }
-
-            internal ImmutableHashSet<TilePosition> InvestigatedPositions { get; }
-
-
-            internal Investigation(Aoi aoi, ImmutableHashSet<TilePosition> investigatedPositions)
-            {
-                Aoi = aoi;
-                InvestigatedPositions = investigatedPositions;
-            }
-
+            Aoi = aoi;
+            InvestigatedPositions = investigatedPositions;
         }
 
     }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
-using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.Game.Shade.MShadeVision;
-using static AChildsCourage.Game.Shade.MTilesInView;
-using static AChildsCourage.Game.Shade.MVisibility;
-using static AChildsCourage.Game.Shade.MVisionCone;
+using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.Shade.ShadeVision;
+using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Shade.TilesInView;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -39,7 +37,7 @@ namespace AChildsCourage.Game.Shade
             get => charVisibility;
             set
             {
-                if (CharVisibility == value) return;
+                if (CharVisibility.Equals(value)) return;
 
                 charVisibility = value;
                 OnCharVisibilityChanged?.Invoke(this, new CharVisibilityChangedEventArgs(CharVisibility));
@@ -65,12 +63,11 @@ namespace AChildsCourage.Game.Shade
             this.DoContinually(UpdateVision, WaitTime);
 
         public bool CanSee(Vector2 point) =>
-            CanSeePoint(Vision, point);
+            Vision.Map(CanSeePoint, point);
 
         private Visibility CalculateCharacterVisibility() =>
-            CurrentCharacterVisionPoints
-                .Select(point => GetPointVisibility(Vision, point))
-                .Map(GetHighestValue);
+            CurrentCharacterVisionPoints.Select(point => GetPointVisibility(Vision, point))
+                                        .Map(GetHighestValue);
 
         public TilesInView CalculateTilesInView() =>
             FindPositionsInRadius(CurrentTilePosition, LargestViewRadius)
@@ -78,7 +75,7 @@ namespace AChildsCourage.Game.Shade
                 .Map(ToTilesInView);
 
         private bool CanSee(TilePosition position) =>
-            CanSeePoint(Vision, GetTileCenter(position));
+            Vision.Map(CanSeePoint, position.Map(GetTileCenter));
 
         private bool ObstacleExistsBetween(Vector2 point1, Vector2 point2)
         {

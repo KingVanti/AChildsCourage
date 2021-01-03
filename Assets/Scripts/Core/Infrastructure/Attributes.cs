@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AChildsCourage.Infrastructure
+namespace AChildsCourage
 {
 
     [AttributeUsage(AttributeTargets.Field)]
@@ -32,8 +32,8 @@ namespace AChildsCourage.Infrastructure
 
         public ComponentFindMode FindMode { get; }
 
-  
-        public FindComponentAttribute(ComponentFindMode findMode = ComponentFindMode.OnSelf) => 
+
+        public FindComponentAttribute(ComponentFindMode findMode = ComponentFindMode.OnSelf) =>
             FindMode = findMode;
 
     }

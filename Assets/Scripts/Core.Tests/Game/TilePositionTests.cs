@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using NUnit.Framework;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game
 {
@@ -27,26 +27,6 @@ namespace AChildsCourage.Game
             Assert.That(position.X, Is.EqualTo(x), "Incorrect X coordinate!");
             Assert.That(position.Y, Is.EqualTo(y), "Incorrect Y coordinate!");
         }
-
-
-        [Test]
-        public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Coordinates_Are_Added()
-        {
-            // Given
-
-            var position = new TilePosition(0, 0);
-            var offset = new TileOffset(1, -1);
-
-            // When
-
-            var actual = offset.Map(ApplyTo, position);
-
-            // Then
-
-            Assert.That(actual.X, Is.EqualTo(position.X + offset.X), "X coordinate incorrectly added!");
-            Assert.That(actual.Y, Is.EqualTo(position.Y + offset.Y), "Y coordinate incorrectly added!");
-        }
-
 
         [Test]
         public void Distance_From_Origin_Is_Calculated_Correctly()
@@ -115,6 +95,25 @@ namespace AChildsCourage.Game
             // Then
 
             Assert.That(positions, Is.EqualTo(positions.Distinct()));
+        }
+        
+        
+        [Test]
+        public void Given_Any_TilePosition_When_It_Is_Converted_To_A_Vector3Int_Then_Its_Coordinates_Are_Copied_Correctly()
+        {
+            // Given
+
+            var tilePosition = new TilePosition(-1, 2);
+
+            // When
+
+            var vector = tilePosition.Map(ToVector3Int);
+
+            // Then
+
+            Assert.That(vector.x, Is.EqualTo(tilePosition.X), "X coordinate not copied correctly!");
+            Assert.That(vector.y, Is.EqualTo(tilePosition.Y), "Y coordinate not copied correctly!");
+            Assert.That(vector.z, Is.Zero, "Z coordinate should be 0!");
         }
 
     }

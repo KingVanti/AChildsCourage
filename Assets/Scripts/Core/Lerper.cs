@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
-using static AChildsCourage.MRange;
+using static AChildsCourage.Range;
 
 namespace AChildsCourage
 {
 
-    internal static class MLerper
+    internal static class Lerping
     {
 
         internal static IEnumerator StepLerp(Action<float> stepFunction, float stepSize)

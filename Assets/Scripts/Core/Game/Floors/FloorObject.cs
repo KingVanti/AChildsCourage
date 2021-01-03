@@ -1,6 +1,4 @@
-﻿using static AChildsCourage.Game.MTilePosition;
-
-namespace AChildsCourage.Game.Floors
+﻿namespace AChildsCourage.Game.Floors
 {
 
     public readonly struct FloorObject
@@ -9,8 +7,8 @@ namespace AChildsCourage.Game.Floors
         public static FloorObject MoveTo(TilePosition tilePosition, FloorObject floorObject) =>
             new FloorObject(tilePosition,
                             floorObject.Data);
-        
-        
+
+
         public TilePosition Position { get; }
 
         public FloorObjectData Data { get; }

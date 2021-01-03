@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public static class MChunkPassages
+    public readonly struct ChunkPassages
     {
 
         public static ChunkPassages AllPassages => new ChunkPassages(true, true, true, true);
@@ -34,30 +34,25 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        public readonly struct ChunkPassages
+        public bool HasNorth { get; }
+
+        public bool HasEast { get; }
+
+        public bool HasSouth { get; }
+
+        public bool HasWest { get; }
+
+
+        public ChunkPassages(bool hasNorth, bool hasEast, bool hasSouth, bool hasWest)
         {
-
-            public bool HasNorth { get; }
-
-            public bool HasEast { get; }
-
-            public bool HasSouth { get; }
-
-            public bool HasWest { get; }
-
-
-            public ChunkPassages(bool hasNorth, bool hasEast, bool hasSouth, bool hasWest)
-            {
-                HasNorth = hasNorth;
-                HasEast = hasEast;
-                HasSouth = hasSouth;
-                HasWest = hasWest;
-            }
-
-
-            public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
-
+            HasNorth = hasNorth;
+            HasEast = hasEast;
+            HasSouth = hasSouth;
+            HasWest = hasWest;
         }
+
+
+        public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
 
     }
 

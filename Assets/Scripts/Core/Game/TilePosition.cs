@@ -2,13 +2,13 @@
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using static AChildsCourage.Game.MChunkPosition;
 using static UnityEngine.Mathf;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.Game
 {
 
-    public static class MTilePosition
+    public readonly struct TilePosition
     {
 
         private const float TileSize = 1f;
@@ -24,9 +24,6 @@ namespace AChildsCourage.Game
         public static TilePosition OffsetBy(TileOffset offset, TilePosition position) =>
             new TilePosition(position.X + offset.X,
                              position.Y + offset.Y);
-
-        public static TilePosition ApplyTo(TilePosition position, TileOffset offset) =>
-            position.Map(OffsetBy, offset);
 
         public static Vector3Int ToVector3Int(TilePosition position) =>
             new Vector3Int(position.X, position.Y, 0);
@@ -64,10 +61,6 @@ namespace AChildsCourage.Game
             new TileOffset(position.X,
                            position.Y);
 
-        public static TileOffset Absolute(TileOffset offset) =>
-            new TileOffset(Abs(offset.X),
-                           Abs(offset.Y));
-
         public static ChunkPosition GetChunk(TilePosition tilePosition) =>
             new ChunkPosition(FloorToInt(tilePosition.X / (float) ChunkSize),
                               FloorToInt(tilePosition.Y / (float) ChunkSize));
@@ -89,40 +82,18 @@ namespace AChildsCourage.Game
             return new TilePosition(position.X, pivot.Y + yDiff);
         }
 
+        public int X { get; }
 
-        public readonly struct TilePosition
+        public int Y { get; }
+
+
+        public TilePosition(int x, int y)
         {
-
-            public int X { get; }
-
-            public int Y { get; }
-
-
-            public TilePosition(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
-
-            public override string ToString() => $"({X}, {Y})";
-
+            X = x;
+            Y = y;
         }
 
-        public readonly struct TileOffset
-        {
-
-            public int X { get; }
-
-            public int Y { get; }
-
-
-            public TileOffset(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
-
-        }
+        public override string ToString() => $"({X}, {Y})";
 
     }
 

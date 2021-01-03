@@ -4,26 +4,27 @@ using System.Linq;
 namespace AChildsCourage.Game.Shade
 {
 
-    public static class MVisibility
+    public readonly struct Visibility
     {
 
         public static Visibility GetHighestValue(IEnumerable<Visibility> visibilities) =>
             visibilities
-                .OrderByDescending(GetVisibilityValue)
+                .OrderByDescending(v => v.value)
                 .First();
 
-        private static int GetVisibilityValue(Visibility visibility) =>
-            (int) visibility;
+
+        public static Visibility NotVisible => new Visibility(0);
+
+        public static Visibility Secondary => new Visibility(1);
+
+        public static Visibility Primary => new Visibility(2);
 
 
-        public enum Visibility
-        {
+        private readonly int value;
 
-            NotVisible,
-            Secondary,
-            Primary
-
-        }
+        
+        private Visibility(int value) =>
+            this.value = value;
 
     }
 

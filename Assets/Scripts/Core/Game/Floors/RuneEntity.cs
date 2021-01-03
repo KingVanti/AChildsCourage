@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using AChildsCourage.Game.Shade;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 

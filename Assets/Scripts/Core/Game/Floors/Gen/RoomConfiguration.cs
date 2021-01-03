@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.Game.Floors.MChunkPassages;
+using static AChildsCourage.Game.Floors.ChunkPassages;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 new RoomConfiguration(config.RoomId, config.roomType, config.passages.Map(MirrorOverXAxis), config.RotationCount, true);
 
             RoomConfiguration Rotate(RoomConfiguration config) =>
-                new RoomConfiguration(config.RoomId, config.roomType, config.passages.Map(MChunkPassages.Rotate), config.RotationCount + 1, config.IsMirrored);
+                new RoomConfiguration(config.RoomId, config.roomType, config.passages.Map(ChunkPassages.Rotate), config.RotationCount + 1, config.IsMirrored);
 
             IEnumerable<RoomConfiguration> GetVariations(RoomConfiguration configuration)
             {

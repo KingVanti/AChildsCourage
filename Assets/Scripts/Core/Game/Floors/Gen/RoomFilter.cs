@@ -1,6 +1,4 @@
-﻿using static AChildsCourage.Game.Floors.MChunkPassages;
-
-namespace AChildsCourage.Game.Floors.Gen
+﻿namespace AChildsCourage.Game.Floors.Gen
 {
 
     public readonly struct RoomFilter

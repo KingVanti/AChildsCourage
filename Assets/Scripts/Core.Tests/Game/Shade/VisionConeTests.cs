@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using UnityEngine;
-using static AChildsCourage.Game.Shade.MVisionCone;
-using static AChildsCourage.Game.Shade.MVisibility.Visibility;
+using static AChildsCourage.Game.Shade.VisionCone;
+using static AChildsCourage.Game.Shade.Visibility;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -57,7 +57,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -75,7 +75,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -93,7 +93,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -111,7 +111,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 
@@ -129,7 +129,7 @@ namespace AChildsCourage.Game.Shade
 
             // When
 
-            var canSeePoint = cone.Map(MVisionCone.Contains, head, point);
+            var canSeePoint = cone.Map(Contains, head, point);
 
             // Then
 

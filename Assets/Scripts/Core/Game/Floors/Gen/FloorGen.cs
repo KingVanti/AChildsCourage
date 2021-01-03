@@ -5,11 +5,12 @@ using System.Linq;
 using AChildsCourage.Game.Floors.Courage;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Floors.Gen.RoomPlan;
-using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Floors.Floor;
+using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.TileOffset;
 using static AChildsCourage.Game.Floors.Gen.ChunkTransform;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
-using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
+using static AChildsCourage.Game.Floors.RoomPersistence.SerializedRoomContent;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -112,7 +113,7 @@ namespace AChildsCourage.Game.Floors.Gen
         {
             try
             {
-                return floor.Map(FilterObjects, 
+                return floor.Map(FilterObjects,
                                  Fun((FloorObject o) => o.Data is CouragePickupData c && c.Variant == variant),
                                  @params.CouragePickupCounts[variant]);
             }

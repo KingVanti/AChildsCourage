@@ -1,8 +1,9 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors.Courage;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.MFloor;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.Floors.Floor;
+using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.TileOffset;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

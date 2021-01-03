@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Infrastructure;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;

@@ -1,6 +1,5 @@
 ﻿using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.MRng;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -39,7 +38,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
 
             var remainingRoomCount = @params.RoomCount - BaseChunkCount;
-            
+
             return BaseChunkLayout
                 .Cycle(OccupyNextChunk, remainingRoomCount);
         }

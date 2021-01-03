@@ -5,53 +5,29 @@ using System.Collections.Immutable;
 namespace AChildsCourage.Game.Shade.Navigation
 {
 
-    public static class MInvestigationHistory
+    public readonly struct InvestigationHistory : IEnumerable<CompletedInvestigation>
     {
 
-        #region Types
+        public static InvestigationHistory AddToHistory(CompletedInvestigation investigation, InvestigationHistory history) =>
+            new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
 
-        public delegate InvestigationHistory AddInvestigation(InvestigationHistory history, CompletedInvestigation investigation);
+        public static CompletedInvestigation? FindInHistory(AoiIndex index, InvestigationHistory history) =>
+            history.CompletedInvestigations.FindLast(i => i.AoiIndex == index);
 
-        public delegate CompletedInvestigation? FindMostRecentAoiInvestigation(InvestigationHistory history, AoiIndex index);
-
-        public class InvestigationHistory : IEnumerable<CompletedInvestigation>
-        {
-
-            public ImmutableList<CompletedInvestigation> CompletedInvestigations { get; }
+        public static InvestigationHistory EmptyInvestigationHistory => new InvestigationHistory();
 
 
-            public InvestigationHistory(params CompletedInvestigation[] completedInvestigations) => CompletedInvestigations = ImmutableList.Create(completedInvestigations);
-
-            public InvestigationHistory(ImmutableList<CompletedInvestigation> completedInvestigations) => CompletedInvestigations = completedInvestigations;
+        public ImmutableList<CompletedInvestigation> CompletedInvestigations { get; }
 
 
-            public IEnumerator<CompletedInvestigation> GetEnumerator() => CompletedInvestigations.GetEnumerator();
+        public InvestigationHistory(params CompletedInvestigation[] completedInvestigations) => CompletedInvestigations = ImmutableList.Create(completedInvestigations);
 
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        }
-
-        #endregion
-
-        #region Functions
-
-        public static InvestigationHistory Add(this InvestigationHistory history, CompletedInvestigation investigation) => AddToHistory(history, investigation);
-
-        private static AddInvestigation AddToHistory =>
-            (history, investigation) =>
-                new InvestigationHistory(history.CompletedInvestigations.Add(investigation));
+        public InvestigationHistory(ImmutableList<CompletedInvestigation> completedInvestigations) => CompletedInvestigations = completedInvestigations;
 
 
-        public static CompletedInvestigation? FindLastIn(this InvestigationHistory history, AoiIndex index) => FindInHistory(history, index);
+        public IEnumerator<CompletedInvestigation> GetEnumerator() => CompletedInvestigations.GetEnumerator();
 
-        private static FindMostRecentAoiInvestigation FindInHistory =>
-            (history, index) =>
-                history.CompletedInvestigations.FindLast(i => i.AoiIndex == index);
-
-
-        public static InvestigationHistory Empty => new InvestigationHistory();
-
-        #endregion
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     }
 

@@ -1,5 +1,4 @@
 ﻿using AChildsCourage.Game.Shade;
-using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +11,8 @@ namespace AChildsCourage.Game.UI
         [SerializeField] private Image image;
         [SerializeField] private Sprite defaultVeins;
         [SerializeField] private Sprite activeVeins;
-        
-        
+
+
         private float Alpha
         {
             set => image.color = image.color.WithAlpha(value);
@@ -23,7 +22,7 @@ namespace AChildsCourage.Game.UI
         [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
         private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs)
         {
-            Alpha = eventArgs.NewAwareness.Value;
+            Alpha = eventArgs.NewAwareness;
             SetVeinSprite(eventArgs.Level);
         }
 

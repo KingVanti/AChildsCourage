@@ -1,5 +1,4 @@
-﻿using AChildsCourage.Infrastructure;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Char
 {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using AChildsCourage.Game;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.MTilePosition;
+using static AChildsCourage.Game.ChunkPosition;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -10,46 +10,10 @@ namespace AChildsCourage.RoomEditor
     public abstract class TileLayerEntity : MonoBehaviour
     {
 
-        #region Constants
-
         private const int ChunkCenterOffset = (ChunkSize - 1) / 2;
-
-        #endregion
-
-        #region Fields
 
         [SerializeField] private Tilemap tilemap;
 
-        #endregion
-
-        #region SubTypes
-
-        protected readonly struct TileAtPos
-        {
-
-            #region Properties
-
-            public Tile Tile { get; }
-
-            public TilePosition Position { get; }
-
-            #endregion
-
-            #region Constructors
-
-            public TileAtPos(Tile tile, TilePosition position)
-            {
-                Tile = tile;
-                Position = position;
-            }
-
-            #endregion
-
-        }
-
-        #endregion
-
-        #region Methods
 
         public void DeleteTileAt(Vector2Int position) => tilemap.SetTile((Vector3Int) position, null);
 
@@ -77,18 +41,38 @@ namespace AChildsCourage.RoomEditor
         }
 
         private static TilePosition GetLocalTilePos(Vector3Int global) =>
-            new TilePosition(
-                             global.x + ChunkCenterOffset,
+            new TilePosition(global.x + ChunkCenterOffset,
                              global.y + ChunkCenterOffset);
 
 
         private static Vector3Int ToGlobalPosition(TilePosition position) =>
-            new Vector3Int(
-                           position.X - ChunkCenterOffset,
+            new Vector3Int(position.X - ChunkCenterOffset,
                            position.Y - ChunkCenterOffset,
                            0);
 
-        #endregion
+
+        protected readonly struct TileAtPos
+        {
+
+            #region Properties
+
+            public Tile Tile { get; }
+
+            public TilePosition Position { get; }
+
+            #endregion
+
+            #region Constructors
+
+            public TileAtPos(Tile tile, TilePosition position)
+            {
+                Tile = tile;
+                Position = position;
+            }
+
+            #endregion
+
+        }
 
     }
 
