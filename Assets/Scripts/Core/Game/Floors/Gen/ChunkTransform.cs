@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
     public readonly struct ChunkTransform
     {
-        
+
         public static ChunkTransform CreateTransform(RoomInstance room)
         {
             var chunkCenter = GetCenter(room.Position);
@@ -19,52 +19,52 @@ namespace AChildsCourage.Game.Floors.Gen
             return new ChunkTransform(room.RotationCount, room.IsMirrored, chunkCorner, chunkCenter);
         }
 
-        public static RoomContentData TransformContent(RoomContentData content, ChunkTransform transform)
+        public static RoomContentData Transform(RoomContentData content, ChunkTransform transform)
         {
-            TilePosition Transform(TilePosition position)
-            {
-                TilePosition Translate(TilePosition p) =>
-                    new TilePosition(transform.chunkCorner.X + p.X,
-                                     transform.chunkCorner.Y + p.Y);
-
-                TilePosition Rotate(TilePosition p)
-                {
-                    var translated = new TilePosition(p.X - transform.chunkCenter.X, p.Y - transform.chunkCenter.Y);
-                    var rotated = new TilePosition(translated.Y, -translated.X);
-
-                    return new TilePosition(rotated.X + transform.chunkCenter.X, rotated.Y + transform.chunkCenter.Y);
-                }
-
-                TilePosition Mirror(TilePosition p)
-                {
-                    var yDiff = transform.chunkCenter.Y - p.Y;
-
-                    return new TilePosition(p.X, transform.chunkCenter.Y + yDiff);
-                }
-
-
-                return Take(position)
-                       .Map(Translate)
-                       .For(transform.rotationCount, Rotate)
-                       .DoIf(Mirror, transform.isMirrored);
-            }
-
             GroundTileData TransformGroundTile(GroundTileData groundTile) =>
-                new GroundTileData(Transform(groundTile.Position));
+                new GroundTileData(transform.Map(TransformPosition, groundTile.Position));
 
             StaticObjectData TransformStaticObject(StaticObjectData staticObject) =>
-                new StaticObjectData(Transform(staticObject.Position));
+                new StaticObjectData(transform.Map(TransformPosition, staticObject.Position));
 
             RuneData TransformRune(RuneData rune) =>
-                new RuneData(Transform(rune.Position));
+                new RuneData(transform.Map(TransformPosition, rune.Position));
 
             CouragePickupData TransformCouragePickup(CouragePickupData pickup) =>
-                new CouragePickupData(Transform(pickup.Position), pickup.Variant);
+                new CouragePickupData(transform.Map(TransformPosition, pickup.Position), pickup.Variant);
 
             return new RoomContentData(content.GroundData.Select(TransformGroundTile).ToArray(),
                                        content.CourageData.Select(TransformCouragePickup).ToArray(),
                                        content.StaticObjects.Select(TransformStaticObject).ToArray(),
                                        content.Runes.Select(TransformRune).ToArray());
+        }
+
+        private static TilePosition TransformPosition(TilePosition position, ChunkTransform transform)
+        {
+            TilePosition Translate(TilePosition p) =>
+                new TilePosition(transform.chunkCorner.X + p.X,
+                                 transform.chunkCorner.Y + p.Y);
+
+            TilePosition Rotate(TilePosition p)
+            {
+                var translated = new TilePosition(p.X - transform.chunkCenter.X, p.Y - transform.chunkCenter.Y);
+                var rotated = new TilePosition(translated.Y, -translated.X);
+
+                return new TilePosition(rotated.X + transform.chunkCenter.X, rotated.Y + transform.chunkCenter.Y);
+            }
+
+            TilePosition Mirror(TilePosition p)
+            {
+                var yDiff = transform.chunkCenter.Y - p.Y;
+
+                return new TilePosition(p.X, transform.chunkCenter.Y + yDiff);
+            }
+
+
+            return Take(position)
+                   .Map(Translate)
+                   .For(transform.rotationCount, Rotate)
+                   .DoIf(Mirror, transform.isMirrored);
         }
 
 

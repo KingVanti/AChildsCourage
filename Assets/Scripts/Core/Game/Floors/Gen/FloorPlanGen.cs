@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
             RoomContentData GetTransformedContent(RoomInstance room) =>
                 room.Map(CreateTransform)
-                    .Map(TransformContent, roomCollection.Map(GetContentFor, room.Id));
+                    .Map(Transform, roomCollection.Map(GetContentFor, room.Id));
 
             return roomPlan
                    .Map(Rooms)
