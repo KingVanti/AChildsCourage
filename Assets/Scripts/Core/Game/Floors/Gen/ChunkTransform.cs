@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.F;
 using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static AChildsCourage.Game.MTilePosition;
 
@@ -61,7 +60,7 @@ namespace AChildsCourage.Game.Floors.Gen
             }
 
 
-            return Take(position)
+            return position
                    .Map(Translate)
                    .For(transform.rotationCount, Rotate)
                    .DoIf(Mirror, transform.isMirrored);

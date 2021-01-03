@@ -114,7 +114,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
                 float CalculateWeight(TilePosition p) => weightFunction(p, taken);
 
-                return Take(positions)
+                return positions
                        .Where(IsNotTaken)
                        .GetWeightedRandom(CalculateWeight, rng);
             }
@@ -157,7 +157,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
                 float CalculateWeight(TilePosition p) => CalculateRuneWeight(p, taken);
 
-                return Take(positions)
+                return positions
                        .Where(IsNotTaken)
                        .GetWeightedRandom(CalculateWeight, rng);
             }

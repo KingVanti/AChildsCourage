@@ -8,10 +8,7 @@ namespace AChildsCourage
 
     public static partial class F
     {
-
-        public static TItem Take<TItem>(TItem input) =>
-            input;
-
+        
         public static TItem For<TItem>(this TItem input, int times, Func<TItem, TItem> function)
         {
             var result = input;
