@@ -3,7 +3,7 @@
 
     public readonly struct SerializedGroundTile
     {
-        
+
         public TilePosition Position { get; }
 
 

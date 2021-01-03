@@ -96,8 +96,8 @@ namespace AChildsCourage.Game
 
             Assert.That(positions, Is.EqualTo(positions.Distinct()));
         }
-        
-        
+
+
         [Test]
         public void Given_Any_TilePosition_When_It_Is_Converted_To_A_Vector3Int_Then_Its_Coordinates_Are_Copied_Correctly()
         {

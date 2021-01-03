@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Input
         internal Vector2 MousePosition { get; }
 
 
-        internal MousePositionChangedEventArgs(Vector2 mousePosition) => 
+        internal MousePositionChangedEventArgs(Vector2 mousePosition) =>
             MousePosition = mousePosition;
 
     }

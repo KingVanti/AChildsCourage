@@ -5,7 +5,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
     public readonly struct SerializedCouragePickup
     {
-        
+
         public TilePosition Position { get; }
 
         public CourageVariant Variant { get; }

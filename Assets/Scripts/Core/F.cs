@@ -8,7 +8,7 @@ namespace AChildsCourage
 
     public static partial class F
     {
-        
+
         public static TItem For<TItem>(this TItem input, int times, Func<TItem, TItem> function)
         {
             var result = input;
@@ -124,7 +124,7 @@ namespace AChildsCourage
 
         public static IEnumerable<TItem> Where<TItem, TP1>(this IEnumerable<TItem> items, Func<TP1, TItem, bool> predicate, TP1 p1) =>
             items.Where(item => predicate(p1, item));
-        
+
         public static IEnumerable<TRes> Select<TItem, TP1, TRes>(this IEnumerable<TItem> items, Func<TP1, TItem, TRes> selector, TP1 p1) =>
             items.Select(item => selector(p1, item));
 
@@ -134,7 +134,7 @@ namespace AChildsCourage
         public static IEnumerable<TItem> IfEmpty<TItem>(this IEnumerable<TItem> items, Func<IEnumerable<TItem>> replacement) =>
             !items.Any() ? replacement() : items;
 
-        public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func) 
+        public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func)
             => func;
 
     }

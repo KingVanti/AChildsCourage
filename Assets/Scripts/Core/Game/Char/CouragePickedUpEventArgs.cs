@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Char
         public CourageVariant Variant { get; }
 
 
-        public CouragePickedUpEventArgs(CourageVariant variant) => 
+        public CouragePickedUpEventArgs(CourageVariant variant) =>
             Variant = variant;
 
     }

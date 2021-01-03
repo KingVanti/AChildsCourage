@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors.Courage
     [CreateAssetMenu(fileName = "New courage-pickup appearance", menuName = "A Child's Courage/Courage-pickup appearance")]
     public class CouragePickupAppearanceAsset : ScriptableObject
     {
-        
+
         [SerializeField] private CourageVariant variant;
         [SerializeField] private float lightOuterRadius;
         [SerializeField] private float lightIntensity;

@@ -4,7 +4,7 @@
     public readonly struct AoiIndex
     {
 
-        public static AoiIndex Zero => (AoiIndex) 0;
+        public static AoiIndex Zero => 0;
 
 
         private readonly int value;

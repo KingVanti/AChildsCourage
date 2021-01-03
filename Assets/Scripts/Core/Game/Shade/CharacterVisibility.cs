@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Shade
 
         private readonly int value;
 
-        
+
         private Visibility(int value) =>
             this.value = value;
 

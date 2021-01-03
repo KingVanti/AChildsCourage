@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics;
 using UnityEngine;
 using static AChildsCourage.Range;
 
@@ -32,7 +31,7 @@ namespace AChildsCourage
         internal static IEnumerator TimeLerp(Range<float> range, Action<float> stepFunction, float time, Action onLerpCompleted = null)
         {
             var t = 0f;
-            
+
             void UpdateStepFunction() =>
                 stepFunction?.Invoke(range.Map(Lerp, t));
 
@@ -44,7 +43,7 @@ namespace AChildsCourage
                 UpdateStepFunction();
                 yield return null;
             }
-            
+
             onLerpCompleted?.Invoke();
         }
 

@@ -3,7 +3,7 @@
 
     public readonly struct SerializedStaticObject
     {
-        
+
         public TilePosition Position { get; }
 
 

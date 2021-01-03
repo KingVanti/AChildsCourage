@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         public static RoomContent Create(IEnumerable<FloorObject> objects) =>
             new RoomContent(objects.ToImmutableHashSet());
 
-        
+
         public ImmutableHashSet<FloorObject> Objects { get; }
 
 

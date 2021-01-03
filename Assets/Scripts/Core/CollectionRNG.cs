@@ -18,7 +18,7 @@ namespace AChildsCourage
         private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
         {
             var weightedElements = elements.AttachWeights(calculateWeight).ToArray();
-            
+
             if (!weightedElements.Any()) return default;
 
             var totalWeight = weightedElements.Sum(o => o.Weight);
@@ -40,7 +40,7 @@ namespace AChildsCourage
                 .Select(o => AttachWeight(o, calculateWeight));
 
 
-        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) => 
+        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) =>
             new Weighted<T>(element, calculateWeight(element));
 
 

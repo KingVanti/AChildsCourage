@@ -11,7 +11,7 @@ namespace AChildsCourage
 
         public static float Remap(this float f, float sA, float sB, float tA, float tB) =>
             Map(f, sA, sB, tA, tB);
-        
+
         public static float Remap(this int i, int sA, int sB, float tA, float tB) =>
             Map(i, sA, sB, tA, tB);
 
@@ -48,7 +48,7 @@ namespace AChildsCourage
 
         public static int Times(this int i, int mult) =>
             i * mult;
-        
+
         public static float Times(this int i, float mult) =>
             i * mult;
 
