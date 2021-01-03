@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Shade.Navigation
         public static CompletedInvestigation? FindInHistory(AoiIndex index, InvestigationHistory history) =>
             history.CompletedInvestigations.FindLast(i => i.AoiIndex == index);
 
-        public static InvestigationHistory EmptyInvestigationHistory => new InvestigationHistory();
+        public static InvestigationHistory EmptyInvestigationHistory => new InvestigationHistory(ImmutableList<CompletedInvestigation>.Empty);
 
 
         public ImmutableList<CompletedInvestigation> CompletedInvestigations { get; }
