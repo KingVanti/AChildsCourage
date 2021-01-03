@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Floors.Gen
             return roomPlan
                    .Map(Rooms)
                    .Select(GetTransformedContent)
-                   .Aggregate(EmptyFloorPlan, AddContent);
+                   .Aggregate(EmptyFloorPlan(roomPlan.Map(FindEndRoomChunk)), AddContent);
         }
 
     }

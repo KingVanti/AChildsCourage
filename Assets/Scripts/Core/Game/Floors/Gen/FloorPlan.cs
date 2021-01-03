@@ -5,6 +5,7 @@ using AChildsCourage.Game.Floors.Courage;
 using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
 using static AChildsCourage.Game.MTilePosition;
 using static AChildsCourage.F;
+using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -15,11 +16,12 @@ namespace AChildsCourage.Game.Floors.Gen
         private const int WallHeight = 2;
 
 
-        public static FloorPlan EmptyFloorPlan => new FloorPlan(ImmutableHashSet<TilePosition>.Empty,
-                                                                ImmutableHashSet<CouragePickup>.Empty,
-                                                                ImmutableHashSet<StaticObject>.Empty,
-                                                                ImmutableHashSet<Rune>.Empty);
-
+        public static FloorPlan EmptyFloorPlan(ChunkPosition endRoomChunk) =>
+            new FloorPlan(ImmutableHashSet<TilePosition>.Empty,
+                          ImmutableHashSet<CouragePickup>.Empty,
+                          ImmutableHashSet<StaticObject>.Empty,
+                          ImmutableHashSet<Rune>.Empty,
+                          endRoomChunk);
 
         public static IEnumerable<TilePosition> GetGroundPositions(FloorPlan floorPlan) =>
             floorPlan.groundPositions;
@@ -181,7 +183,8 @@ namespace AChildsCourage.Game.Floors.Gen
             return new FloorPlan(floorPlan.groundPositions.Union(groundPositions),
                                  floorPlan.couragePickups.Union(couragePickups),
                                  floorPlan.staticObjects.Union(staticObjects),
-                                 floorPlan.runes.Union(runes));
+                                 floorPlan.runes.Union(runes),
+                                 floorPlan.EndRoomChunk);
         }
 
 
@@ -191,12 +194,16 @@ namespace AChildsCourage.Game.Floors.Gen
         private readonly ImmutableHashSet<Rune> runes;
 
 
-        private FloorPlan(ImmutableHashSet<TilePosition> groundPositions, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes)
+        public ChunkPosition EndRoomChunk { get; }
+
+
+        private FloorPlan(ImmutableHashSet<TilePosition> groundPositions, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes, ChunkPosition endRoomChunk)
         {
             this.groundPositions = groundPositions;
             this.couragePickups = couragePickups;
             this.staticObjects = staticObjects;
             this.runes = runes;
+            EndRoomChunk = endRoomChunk;
         }
 
 

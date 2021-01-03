@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
+using static AChildsCourage.Game.MChunkPosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -15,6 +17,11 @@ namespace AChildsCourage.Game.Floors.Gen
 
         public static IEnumerable<RoomInstance> Rooms(RoomPlan roomPlan) =>
             roomPlan.rooms;
+
+        public static ChunkPosition FindEndRoomChunk(RoomPlan roomPlan) =>
+            roomPlan.rooms
+                    .Select(r => r.Position)
+                    .FirstByDescending(GetDistanceToOrigin);
 
 
         private readonly ImmutableList<RoomInstance> rooms;

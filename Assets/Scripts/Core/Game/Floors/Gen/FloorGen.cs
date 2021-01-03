@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Floors.Gen
                       floorPlan.Map(ChooseCouragePickups, @params).ToImmutableHashSet(),
                       floorPlan.Map(GetStaticObjects).ToImmutableHashSet(),
                       floorPlan.Map(ChooseRunes, @params).ToImmutableHashSet(),
-                      new MChunkPosition.ChunkPosition(1, 0));
+                      floorPlan.EndRoomChunk);
 
     }
 
