@@ -13,20 +13,17 @@ namespace AChildsCourage.Game.Floors
 
         public static FloorDimensions GetFloorDimensions(Floor floor)
         {
-            var groundPositions = GetGroundPositions(floor);
+            var minX = floor.Walls.Min(p => p.Position.X);
+            var minY = floor.Walls.Min(p => p.Position.Y);
+            var maxX = floor.Walls.Max(p => p.Position.X);
+            var maxY = floor.Walls.Max(p => p.Position.Y);
 
-            var minX = groundPositions.Min(p => p.X);
-            var minY = groundPositions.Min(p => p.Y);
-            var maxX = groundPositions.Max(p => p.X);
-            var maxY = groundPositions.Max(p => p.Y);
+            var minChunk = new TilePosition(minX, minY).Map(GetChunk);
+            var maxChunk = new TilePosition(maxX, maxY).Map(GetChunk);
 
-            return new FloorDimensions(new TilePosition(minX, minY),
-                                       new TilePosition(maxX, maxY));
+            return new FloorDimensions(minChunk.Map(GetCorner),
+                                       maxChunk.Map(GetCorner).Map(OffsetBy, TopCornerOffset));
         }
-
-        private static ImmutableHashSet<TilePosition> GetGroundPositions(Floor floor) =>
-            floor.Rooms.SelectMany(r => r.GroundTiles).Select(t => t.Position).ToImmutableHashSet();
-
 
         public static Vector2 GetEndRoomCenter(Floor floor) =>
             floor.EndRoomChunkPosition
@@ -40,22 +37,25 @@ namespace AChildsCourage.Game.Floors
         public readonly struct Floor
         {
 
+            public ImmutableHashSet<TilePosition> GroundPositions { get; }
+
             public ImmutableHashSet<Wall> Walls { get; }
 
             public ImmutableHashSet<CouragePickup> CouragePickups { get; }
 
-            public ImmutableHashSet<Room> Rooms { get; }
+            public ImmutableHashSet<StaticObject> StaticObjects { get; }
 
             public ImmutableHashSet<Rune> Runes { get; }
 
             public ChunkPosition EndRoomChunkPosition { get; }
 
 
-            public Floor(ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<Room> rooms, ImmutableHashSet<Rune> runes, ChunkPosition endRoomChunkPosition)
+            public Floor(ImmutableHashSet<TilePosition> groundPositions, ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes, ChunkPosition endRoomChunkPosition)
             {
+                GroundPositions = groundPositions;
                 Walls = walls;
                 CouragePickups = couragePickups;
-                Rooms = rooms;
+                StaticObjects = staticObjects;
                 Runes = runes;
                 EndRoomChunkPosition = endRoomChunkPosition;
             }

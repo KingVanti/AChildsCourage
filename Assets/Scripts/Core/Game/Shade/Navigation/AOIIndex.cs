@@ -13,7 +13,7 @@
         private AoiIndex(int value) => this.value = value;
 
 
-        public static explicit operator AoiIndex(int index) => new AoiIndex(index);
+        public static implicit operator AoiIndex(int index) => new AoiIndex(index);
 
         public static implicit operator int(AoiIndex index) => index.value;
 

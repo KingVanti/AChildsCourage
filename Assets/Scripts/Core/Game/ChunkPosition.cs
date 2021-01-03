@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.Game.MTilePosition;
+using static UnityEngine.Mathf;
 
 namespace AChildsCourage.Game
 {
@@ -11,11 +13,18 @@ namespace AChildsCourage.Game
     {
 
         public const int ChunkSize = 21;
-        private const int ChunkExtent = (ChunkSize - 1) / 2;
+        public const int MaxChunkCoord = ChunkSize - 1;
+        public const int ChunkExtent = MaxChunkCoord / 2;
+        
+
+        public static ChunkPosition OriginChunk => new ChunkPosition(0, 0);
+
+        public static TileOffset TopCornerOffset => new TileOffset(MaxChunkCoord, MaxChunkCoord);
+        
 
         private static TileOffset ChunkCenterTileOffset { get; } = new TileOffset(ChunkExtent, ChunkExtent);
 
-        
+
         public static TilePosition GetCenter(ChunkPosition position) =>
             position
                 .Map(GetCorner)
@@ -25,7 +34,7 @@ namespace AChildsCourage.Game
             new TilePosition(position.X * ChunkSize,
                              position.Y * ChunkSize);
 
-        internal static float GetChunkDistanceToOrigin(ChunkPosition position) =>
+        internal static float GetDistanceToOrigin(ChunkPosition position) =>
             new Vector2(position.X, position.Y).magnitude;
 
         internal static ChunkPosition GetAdjacentChunk(ChunkPosition position, PassageDirection direction)
@@ -47,6 +56,52 @@ namespace AChildsCourage.Game
             yield return GetAdjacentChunk(position, PassageDirection.South);
             yield return GetAdjacentChunk(position, PassageDirection.West);
         }
+
+        internal static IEnumerable<ChunkPosition> GetDiagonalAdjacentChunks(ChunkPosition position)
+        {
+            yield return new ChunkPosition(position.X + 1, position.Y + 1);
+            yield return new ChunkPosition(position.X + 1, position.Y - 1);
+            yield return new ChunkPosition(position.X - 1, position.Y - 1);
+            yield return new ChunkPosition(position.X - 1, position.Y + 1);
+        }
+
+        public static ChunkPosition GetLowerLeft(IEnumerable<ChunkPosition> positions) =>
+            positions
+                .Map(GetBounds)
+                .Map(b => new ChunkPosition(b.MinX, b.MinY));
+
+        public static ChunkPosition Absolute(ChunkPosition position) =>
+            new ChunkPosition(Abs(position.X), Abs(position.Y));
+
+        public static (int MinX, int MinY, int MaxX, int MaxY) GetBounds(IEnumerable<ChunkPosition> positions)
+        {
+            var chunkPositions = positions as ChunkPosition[] ?? positions.ToArray();
+            if (!chunkPositions.Any()) return (0, 0, 0, 0);
+            return (chunkPositions.Min(p => p.X),
+                    chunkPositions.Min(p => p.Y),
+                    chunkPositions.Max(p => p.X),
+                    chunkPositions.Max(p => p.Y));
+        }
+
+        public static (int Width, int Height) GetDimensions(IEnumerable<ChunkPosition> positions)
+        {
+            var chunkPositions = positions as ChunkPosition[] ?? positions.ToArray();
+
+            if (!chunkPositions.Any()) return (0, 0);
+            var corners = GetBounds(chunkPositions);
+
+            var width = corners.MaxX - corners.MinX + 1;
+            var height = corners.MaxY - corners.MinY + 1;
+
+            return (width, height);
+        }
+
+        public static IEnumerable<TilePosition> GetPositionsInChunk(ChunkPosition position) =>
+            position
+                .Map(GetCorner)
+                .Map(corner => Grid.Generate(corner.X, corner.Y, ChunkSize, ChunkSize))
+                .Select(pos => new TilePosition(pos.X, pos.Y));
+        
 
 
         public readonly struct ChunkPosition

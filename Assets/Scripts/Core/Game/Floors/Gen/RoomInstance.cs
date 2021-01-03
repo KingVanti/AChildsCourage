@@ -1,0 +1,33 @@
+﻿using AChildsCourage.Game.Floors.RoomPersistence;
+using static AChildsCourage.Game.MChunkPosition;
+
+namespace AChildsCourage.Game.Floors.Gen
+{
+
+    public readonly struct RoomInstance
+    {
+
+        public static RoomInstance CreateRoomFromConfiguration(RoomConfiguration config, ChunkPosition position) =>
+            new RoomInstance(position, config.RoomId, config.RotationCount, config.IsMirrored);
+
+
+        public ChunkPosition Position { get; }
+
+        public RoomId Id { get; }
+
+        public int RotationCount { get; }
+
+        public bool IsMirrored { get; }
+
+
+        public RoomInstance(ChunkPosition position, RoomId id, int rotationCount, bool isMirrored)
+        {
+            Position = position;
+            Id = id;
+            RotationCount = rotationCount;
+            IsMirrored = isMirrored;
+        }
+
+    }
+
+}

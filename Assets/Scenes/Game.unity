@@ -1778,8 +1778,7 @@ MonoBehaviour:
   couragePickupParent: {fileID: 733911144}
   groundTilemap: {fileID: 118822148}
   staticTilemap: {fileID: 465115103}
-  generationParameters:
-    roomCount: 12
+  floorGenParamsAsset: {fileID: 11400000, guid: 65dd4f3c75b85c94f849ea1797cd29be, type: 2}
 --- !u!4 &1187637745
 Transform:
   m_ObjectHideFlags: 0

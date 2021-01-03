@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
+using static AChildsCourage.Game.MChunkPosition;
 using static UnityEngine.Mathf;
 
 namespace AChildsCourage.Game
@@ -63,6 +64,10 @@ namespace AChildsCourage.Game
         public static TileOffset Absolute(TileOffset offset) =>
             new TileOffset(Abs(offset.X),
                            Abs(offset.Y));
+
+        public static ChunkPosition GetChunk(TilePosition tilePosition) =>
+            new ChunkPosition(FloorToInt(tilePosition.X / (float) ChunkSize),
+                              FloorToInt(tilePosition.Y / (float) ChunkSize));
 
 
         public readonly struct TilePosition

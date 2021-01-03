@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Shade.Navigation;
 using UnityEngine;
+using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -14,6 +15,8 @@ namespace AChildsCourage.Game.Floors
         private readonly Dictionary<AoiIndex, AoiState> aoiStates = new Dictionary<AoiIndex, AoiState>();
         private FloorState currentFloorState;
         private bool outDatedFloorState;
+        private Dictionary<ChunkPosition, AoiIndex> registeredAoiIndices = new Dictionary<ChunkPosition, AoiIndex>();
+        private AoiIndex currentAoiIndex;
 
 
         public FloorState CurrentFloorState
@@ -29,22 +32,32 @@ namespace AChildsCourage.Game.Floors
         private IEnumerable<AoiState> CurrentAoiStates => aoiStates.Values;
 
 
-        public void OnGroundTilePlaced(GroundTile groundTile)
+        public void OnGroundTilePlaced(TilePosition groundPosition)
         {
-            if (!HasStateForIndex(groundTile.AoiIndex)) AddAoiFor(groundTile);
+            var aoiIndex = GetAoiIndexFor(groundPosition);
+            if (!HasStateForIndex(aoiIndex)) AddAoiFor(aoiIndex);
 
-            AddPoiFor(groundTile);
+            AddPoiFor(groundPosition, aoiIndex);
             outDatedFloorState = true;
+        }
+
+        private AoiIndex GetAoiIndexFor(TilePosition groundPosition)
+        {
+            var chunk = groundPosition.Map(GetChunk);
+
+            if (!registeredAoiIndices.ContainsKey(chunk)) registeredAoiIndices.Add(chunk, currentAoiIndex++);
+
+            return registeredAoiIndices[chunk];
         }
 
         private bool HasStateForIndex(AoiIndex index) =>
             aoiStates.ContainsKey(index);
 
-        private void AddAoiFor(GroundTile groundTile) =>
-            aoiStates.Add(groundTile.AoiIndex, new AoiState(groundTile.AoiIndex));
+        private void AddAoiFor(AoiIndex aoiIndex) =>
+            aoiStates.Add(aoiIndex, new AoiState(aoiIndex));
 
-        private void AddPoiFor(GroundTile groundTile) =>
-            aoiStates[groundTile.AoiIndex].AddPoi(groundTile.Position);
+        private void AddPoiFor(TilePosition groundTile, AoiIndex aoiIndex) =>
+            aoiStates[aoiIndex].AddPoi(groundTile);
 
         private void UpdateFloorState()
         {

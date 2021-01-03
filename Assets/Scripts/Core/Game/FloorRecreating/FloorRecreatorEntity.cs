@@ -1,18 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Courage;
-using AChildsCourage.Game.Floors.RoomPersistence;
+using AChildsCourage.Game.Floors.Gen;
 using AChildsCourage.Infrastructure;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AChildsCourage.Game.Floors.Courage.CouragePickupAppearanceRepo;
+using static AChildsCourage.Game.Floors.Gen.ChunkLayoutGen;
+using static AChildsCourage.Game.Floors.Gen.FloorGen;
+using static AChildsCourage.Game.Floors.Gen.FloorGenParamsAsset;
+using static AChildsCourage.Game.Floors.Gen.FloorPlanGen;
+using static AChildsCourage.Game.Floors.Gen.PassagePlan;
+using static AChildsCourage.Game.Floors.Gen.RoomCollection;
+using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
 using static AChildsCourage.Game.Floors.MFloor;
 using static AChildsCourage.Game.Floors.RoomPersistence.RoomDataRepo;
-using static AChildsCourage.Game.MOldFloorGenerating;
 using static AChildsCourage.Game.MTilePosition;
-using static AChildsCourage.MRng;
 using static AChildsCourage.Game.MNightData;
 using static AChildsCourage.Infrastructure.MInfrastructure;
 
@@ -30,8 +34,8 @@ namespace AChildsCourage.Game
         [SerializeField] private Transform couragePickupParent;
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
-        [SerializeField] private GenerationParameters generationParameters;
-        
+        [SerializeField] private FloorGenParamsAsset floorGenParamsAsset;
+
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
         [FindInScene] private TileRepositoryEntity tileRepository;
         [FindInScene] private StaticObjectSpawnerEntity staticObjectSpawner;
@@ -39,16 +43,23 @@ namespace AChildsCourage.Game
 
         [FindService] private LoadRoomData loadRoomData;
         [FindService] private LoadCouragePickupAppearances loadCouragePickupAppearances;
-        
-        private ImmutableHashSet<RoomData> roomData;
+
+        private RoomCollection roomCollection = EmptyRoomCollection;
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> couragePickupAppearances;
 
         #endregion
 
         #region Properties
 
-        private ImmutableHashSet<RoomData> RoomData =>
-            roomData ?? (roomData = loadRoomData().ToImmutableHashSet());
+        private RoomCollection RoomCollection
+        {
+            get
+            {
+                if (roomCollection.Map(IsEmpty)) roomCollection = CreateRoomCollection(loadRoomData());
+
+                return roomCollection;
+            }
+        }
 
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances =>
             couragePickupAppearances ?? (couragePickupAppearances = loadCouragePickupAppearances().ToImmutableDictionary(a => a.Variant));
@@ -66,37 +77,36 @@ namespace AChildsCourage.Game
                 .Map(GenerateFromNightData)
                 .Do(Recreate);
 
-        private Floor GenerateFromNightData(NightData nightData) =>
-            RngFromSeed(nightData.Seed)
-                .Map(GenerateFromRng);
-
-        private Floor GenerateFromRng(CreateRng rng) =>
-            GenerateFloor(rng, RoomData, generationParameters);
+        private Floor GenerateFromNightData(NightData nightData)
+        {
+            var genParams = floorGenParamsAsset
+                .Map(CreateParams, nightData.Seed, RoomCollection);
+            return GenerateChunkLayout(genParams)
+                   .Map(CreatePassagePlan)
+                   .Map(CreateRoomPlan, genParams)
+                   .Map(CreateFloorPlan, genParams)
+                   .Map(CreateFloorFrom, genParams);
+        }
 
         private void Recreate(Floor floor)
         {
             floor.Walls.ForEach(PlaceWall);
-            floor.Rooms.ForEach(RecreateRoom);
+            floor.GroundPositions.ForEach(PlaceGround);
+            floor.StaticObjects.ForEach(staticObjectSpawner.Spawn);
             floor.CouragePickups.ForEach(PlaceCouragePickup);
             floor.Runes.ForEach(runeSpawner.Spawn);
 
             OnFloorRecreated?.Invoke(this, new FloorRecreatedEventArgs(floor));
         }
 
-        private void RecreateRoom(Room room)
-        {
-            room.GroundTiles.ForEach(PlaceGround);
-            room.StaticObjects.ForEach(staticObjectSpawner.Spawn);
-        }
-
-        private void PlaceGround(GroundTile groundTile)
+        private void PlaceGround(TilePosition groundPosition)
         {
             var tile = tileRepository.GetGroundTile();
-            var position = groundTile.Position.Map(ToVector3Int);
+            var position = groundPosition.Map(ToVector3Int);
 
             groundTilemap.SetTile(position, tile);
 
-            floorStateKeeper.OnGroundTilePlaced(groundTile);
+            floorStateKeeper.OnGroundTilePlaced(groundPosition);
         }
 
         private void PlaceWall(Wall wall)

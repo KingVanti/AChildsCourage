@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace AChildsCourage
@@ -21,7 +22,7 @@ namespace AChildsCourage
 
         public static Color WithAlpha(this Color c, float a) =>
             new Color(c.r, c.g, c.b, a);
-
+        
     }
 
 }

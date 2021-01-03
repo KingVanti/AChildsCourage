@@ -14,6 +14,9 @@
 
         public static implicit operator int(RoomId id) => id.value;
 
+
+        public override string ToString() => $"Room {value}";
+
     }
 
 }
