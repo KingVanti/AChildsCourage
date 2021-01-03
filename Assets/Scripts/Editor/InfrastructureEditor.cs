@@ -38,7 +38,7 @@ namespace AChildsCourage
                 {
                     var findMode = field.GetCustomAttribute<FindComponentAttribute>().FindMode;
                     var findModeString =
-                        findMode == ComponentFindMode.OnSelf ? "game-object"
+                        findMode == ComponentFindMode.OnSelf ? "this game-object"
                         : findMode == ComponentFindMode.OnChildren ? "one of the game-objects children"
                         : "the game-objects parent";
 
