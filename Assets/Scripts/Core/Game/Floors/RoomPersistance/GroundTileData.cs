@@ -6,13 +6,13 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
     public readonly struct GroundTileData
     {
 
-        public TilePosition Position { get; }
-        
+        public static GroundTileData ApplyTo(GroundTileData _, TilePosition position) =>
+            new GroundTileData(position);
 
-        public GroundTileData(TilePosition position)
-        {
-            Position = position;
-        }
+        public TilePosition Position { get; }
+
+
+        public GroundTileData(TilePosition position) => Position = position;
 
     }
 

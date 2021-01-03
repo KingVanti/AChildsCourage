@@ -72,6 +72,23 @@ namespace AChildsCourage.Game
             new ChunkPosition(FloorToInt(tilePosition.X / (float) ChunkSize),
                               FloorToInt(tilePosition.Y / (float) ChunkSize));
 
+        public static TilePosition RotateAround(TilePosition pivot, TilePosition position)
+        {
+            var translated = new TilePosition(position.X - pivot.X,
+                                              position.Y - pivot.Y);
+            var rotated = new TilePosition(translated.Y, -translated.X);
+
+            return new TilePosition(rotated.X + pivot.X,
+                                    rotated.Y + pivot.Y);
+        }
+
+        public static TilePosition YMirrorOver(TilePosition pivot, TilePosition position)
+        {
+            var yDiff = pivot.Y - position.Y;
+
+            return new TilePosition(position.X, pivot.Y + yDiff);
+        }
+
 
         public readonly struct TilePosition
         {
