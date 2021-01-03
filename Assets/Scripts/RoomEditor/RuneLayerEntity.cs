@@ -18,22 +18,22 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(IEnumerable<RuneData> runes)
+        public void PlaceAll(IEnumerable<SerializedRune> runes)
         {
             Clear();
 
             foreach (var rune in runes) Place(rune);
         }
 
-        private void Place(RuneData groundTile) => PlaceTileAt(tile, groundTile.Position);
+        private void Place(SerializedRune groundTile) => PlaceTileAt(tile, groundTile.Position);
 
 
         public void PlaceAt(Vector2Int position) => PlaceTileAt(tile, position);
 
 
-        public RuneData[] ReadAll() =>
+        public SerializedRune[] ReadAll() =>
             GetTiles()
-                .Select(t => new RuneData(t.Position))
+                .Select(t => new SerializedRune(t.Position))
                 .ToArray();
 
         #endregion

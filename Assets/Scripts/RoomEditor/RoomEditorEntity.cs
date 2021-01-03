@@ -3,7 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
+using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 
 namespace AChildsCourage.RoomEditor
 {
@@ -51,7 +51,7 @@ namespace AChildsCourage.RoomEditor
             LoadContent(asset.Content);
         }
 
-        private void LoadContent(RoomContentData content)
+        private void LoadContent(SerializedRoomContent content)
         {
             groundLayer.PlaceAll(content.GroundData);
             courageLayer.PlaceAll(content.CourageData);
@@ -120,8 +120,8 @@ namespace AChildsCourage.RoomEditor
             LoadedAsset.Content = ReadContent();
         }
 
-        private RoomContentData ReadContent() =>
-            new RoomContentData(groundLayer.ReadAll(),
+        private SerializedRoomContent ReadContent() =>
+            new SerializedRoomContent(groundLayer.ReadAll(),
                                                  courageLayer.ReadAll(),
                                                  staticObjectLayer.ReadAll(),
                                                  runeLayer.ReadAll());

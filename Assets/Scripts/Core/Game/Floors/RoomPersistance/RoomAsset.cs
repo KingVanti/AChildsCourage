@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Serialization;
 using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
+using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
@@ -26,9 +26,9 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
             set => passageJson = SerializeObject(value);
         }
 
-        public RoomContentData Content
+        public SerializedRoomContent Content
         {
-            get => DeserializeObject<RoomContentData>(contentJson);
+            get => DeserializeObject<SerializedRoomContent>(contentJson);
             set => contentJson = SerializeObject(value);
         }
 

@@ -25,8 +25,8 @@ namespace AChildsCourage.Game
         public Tile GetGroundTile() => groundTiles.GetTile(createRng);
 
 
-        public Tile GetWallTileFor(Wall wall) =>
-            wall.Type == WallType.Side ? wallSideTiles.GetTile(createRng) : wallTopTiles.GetTile(createRng);
+        public Tile GetWallTileFor(WallData wallData) =>
+            wallData.Type == WallType.Side ? wallSideTiles.GetTile(createRng) : wallTopTiles.GetTile(createRng);
 
         #endregion
 

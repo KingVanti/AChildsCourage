@@ -22,18 +22,18 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(IEnumerable<CouragePickupData> couragePickups)
+        public void PlaceAll(IEnumerable<SerializedCouragePickup> couragePickups)
         {
             Clear();
 
             foreach (var couragePickup in couragePickups) Place(couragePickup);
         }
 
-        private void Place(CouragePickupData couragePickup)
+        private void Place(SerializedCouragePickup serializedCouragePickup)
         {
-            var tile = GetTileFor(couragePickup.Variant);
+            var tile = GetTileFor(serializedCouragePickup.Variant);
 
-            PlaceTileAt(tile, couragePickup.Position);
+            PlaceTileAt(tile, serializedCouragePickup.Position);
         }
 
 
@@ -45,17 +45,17 @@ namespace AChildsCourage.RoomEditor
         }
 
 
-        public CouragePickupData[] ReadAll() =>
+        public SerializedCouragePickup[] ReadAll() =>
             GetTiles()
                 .Select(ToPickup)
                 .ToArray();
 
-        private static CouragePickupData ToPickup(TileAtPos tileAtPos)
+        private static SerializedCouragePickup ToPickup(TileAtPos tileAtPos)
         {
             var position = tileAtPos.Position;
             var variant = GetVariantOf(tileAtPos.Tile);
 
-            return new CouragePickupData(position, variant);
+            return new SerializedCouragePickup(position, variant);
         }
 
         private static CourageVariant GetVariantOf(Object tile) => tile.name.Contains("Orb") ? CourageVariant.Orb : CourageVariant.Spark;

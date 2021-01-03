@@ -1,5 +1,5 @@
 ﻿using static AChildsCourage.Game.Floors.MChunkPassages;
-using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
+using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {
@@ -13,10 +13,10 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public ChunkPassages Passages { get; }
 
-        public RoomContentData Content { get; }
+        public SerializedRoomContent Content { get; }
 
         
-        public RoomData(RoomId id, RoomType type, ChunkPassages passages, RoomContentData content)
+        public RoomData(RoomId id, RoomType type, ChunkPassages passages, SerializedRoomContent content)
         {
             Id = id;
             Type = type;

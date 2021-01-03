@@ -18,22 +18,22 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(IEnumerable<GroundTileData> groundTiles)
+        public void PlaceAll(IEnumerable<SerializedGroundTile> groundTiles)
         {
             Clear();
 
             foreach (var groundTile in groundTiles) Place(groundTile);
         }
 
-        private void Place(GroundTileData groundTile) => PlaceTileAt(tile, groundTile.Position);
+        private void Place(SerializedGroundTile serializedGroundTile) => PlaceTileAt(tile, serializedGroundTile.Position);
 
 
         public void PlaceAt(Vector2Int position) => PlaceTileAt(tile, position);
 
 
-        public GroundTileData[] ReadAll() =>
+        public SerializedGroundTile[] ReadAll() =>
             GetTiles()
-                .Select(t => new GroundTileData(t.Position))
+                .Select(t => new SerializedGroundTile(t.Position))
                 .ToArray();
 
         #endregion

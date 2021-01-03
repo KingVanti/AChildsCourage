@@ -1,11 +1,6 @@
 ﻿using System.Linq;
-using AChildsCourage.Game.Floors.RoomPersistence;
-using static AChildsCourage.Game.Floors.RoomPersistence.CouragePickupData;
-using static AChildsCourage.Game.Floors.RoomPersistence.GroundTileData;
+using static AChildsCourage.Game.Floors.FloorObject;
 using static AChildsCourage.Game.MChunkPosition;
-using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
-using static AChildsCourage.Game.Floors.RoomPersistence.RuneData;
-using static AChildsCourage.Game.Floors.RoomPersistence.StaticObjectData;
 using static AChildsCourage.Game.MTilePosition;
 
 namespace AChildsCourage.Game.Floors.Gen
@@ -22,35 +17,15 @@ namespace AChildsCourage.Game.Floors.Gen
             return new ChunkTransform(room.RotationCount, room.IsMirrored, chunkCorner, chunkCenter);
         }
 
-        public static RoomContentData TransformContent(RoomContentData content, ChunkTransform transform)
+        public static RoomContent TransformContent(RoomContent content, ChunkTransform transform)
         {
-            TilePosition Transform(TilePosition p) =>
-                transform.Map(TransformPosition, p);
+            FloorObject Transform(FloorObject floorObject) =>
+                floorObject
+                    .Map(MoveTo, transform.Map(TransformPosition, floorObject.Position));
 
-            GroundTileData TransformGroundTile(GroundTileData groundTile) =>
-                groundTile.Position
-                          .Map(Transform)
-                          .Map(ApplyTo, groundTile);
-
-            StaticObjectData TransformStaticObject(StaticObjectData staticObject) =>
-                staticObject.Position
-                            .Map(Transform)
-                            .Map(ApplyTo, staticObject);
-
-            RuneData TransformRune(RuneData rune) =>
-                rune.Position
-                    .Map(Transform)
-                    .Map(ApplyTo, rune);
-
-            CouragePickupData TransformCouragePickup(CouragePickupData pickup) =>
-                pickup.Position
-                      .Map(Transform)
-                      .Map(ApplyTo, pickup);
-
-            return new RoomContentData(content.GroundData.Select(TransformGroundTile).ToArray(),
-                                       content.CourageData.Select(TransformCouragePickup).ToArray(),
-                                       content.StaticObjects.Select(TransformStaticObject).ToArray(),
-                                       content.Runes.Select(TransformRune).ToArray());
+            return content.Objects
+                          .Select(Transform)
+                          .Map(RoomContent.Create);
         }
 
         private static TilePosition TransformPosition(TilePosition position, ChunkTransform transform)

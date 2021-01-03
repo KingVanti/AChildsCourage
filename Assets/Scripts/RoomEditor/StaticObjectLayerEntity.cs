@@ -18,22 +18,22 @@ namespace AChildsCourage.RoomEditor
 
         #region Methods
 
-        public void PlaceAll(IEnumerable<StaticObjectData> staticObjects)
+        public void PlaceAll(IEnumerable<SerializedStaticObject> staticObjects)
         {
             Clear();
 
             foreach (var staticObject in staticObjects) Place(staticObject);
         }
 
-        private void Place(StaticObjectData groundTile) => PlaceTileAt(tile, groundTile.Position);
+        private void Place(SerializedStaticObject groundTile) => PlaceTileAt(tile, groundTile.Position);
 
 
         public void PlaceAt(Vector2Int position) => PlaceTileAt(tile, position);
 
 
-        public StaticObjectData[] ReadAll() =>
+        public SerializedStaticObject[] ReadAll() =>
             GetTiles()
-                .Select(t => new StaticObjectData(t.Position))
+                .Select(t => new SerializedStaticObject(t.Position))
                 .ToArray();
 
         #endregion

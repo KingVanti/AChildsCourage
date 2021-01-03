@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public static RoomPlan AddRoom(RoomPlan roomPlan, RoomInstance instance) =>
             new RoomPlan(roomPlan.rooms.Add(instance));
 
-        public static IEnumerable<RoomInstance> Rooms(RoomPlan roomPlan) =>
+        public static IEnumerable<RoomInstance> GetRooms(RoomPlan roomPlan) =>
             roomPlan.rooms;
 
         public static ChunkPosition FindEndRoomChunk(RoomPlan roomPlan) =>

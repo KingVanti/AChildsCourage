@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.RoomPersistence;
 using static AChildsCourage.Game.Floors.Gen.RoomConfiguration;
-using static AChildsCourage.Game.Floors.RoomPersistence.MRoomContentData;
+using static AChildsCourage.Game.Floors.RoomPersistence.MSerializedRoomContent;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Floors.Gen
     {
 
         public static RoomCollection EmptyRoomCollection => new RoomCollection(ImmutableList<RoomConfiguration>.Empty,
-                                                                               ImmutableDictionary<RoomId, RoomContentData>.Empty);
+                                                                               ImmutableDictionary<RoomId, SerializedRoomContent>.Empty);
 
 
         public static RoomCollection CreateRoomCollection(IEnumerable<RoomData> roomDataCollection)
@@ -38,15 +38,15 @@ namespace AChildsCourage.Game.Floors.Gen
         public static bool IsEmpty(RoomCollection collection) =>
             collection.configurations.IsEmpty;
 
-        public static RoomContentData GetContentFor(RoomId roomId, RoomCollection collection) =>
+        public static SerializedRoomContent GetContentFor(RoomId roomId, RoomCollection collection) =>
             collection.contents[roomId];
 
 
         private readonly ImmutableList<RoomConfiguration> configurations;
-        private readonly ImmutableDictionary<RoomId, RoomContentData> contents;
+        private readonly ImmutableDictionary<RoomId, SerializedRoomContent> contents;
 
 
-        private RoomCollection(ImmutableList<RoomConfiguration> configurations, ImmutableDictionary<RoomId, RoomContentData> contents)
+        private RoomCollection(ImmutableList<RoomConfiguration> configurations, ImmutableDictionary<RoomId, SerializedRoomContent> contents)
         {
             this.configurations = configurations;
             this.contents = contents;

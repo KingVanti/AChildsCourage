@@ -10,7 +10,6 @@ using static AChildsCourage.Game.Floors.Courage.CouragePickupAppearanceRepo;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayoutGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGenParamsAsset;
-using static AChildsCourage.Game.Floors.Gen.FloorPlanGen;
 using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
@@ -84,42 +83,57 @@ namespace AChildsCourage.Game
             return GenerateChunkLayout(genParams)
                    .Map(CreatePassagePlan)
                    .Map(CreateRoomPlan, genParams)
-                   .Map(CreateFloorPlan, genParams)
-                   .Map(CreateFloorFrom, genParams);
+                   .Map(CreateFloor, genParams);
         }
 
         private void Recreate(Floor floor)
         {
-            floor.Walls.ForEach(PlaceWall);
-            floor.GroundPositions.ForEach(PlaceGround);
-            floor.StaticObjects.ForEach(staticObjectSpawner.Spawn);
-            floor.CouragePickups.ForEach(PlaceCouragePickup);
-            floor.Runes.ForEach(runeSpawner.Spawn);
+            floor.Objects.ForEach(PlaceFloorObject);
 
             OnFloorRecreated?.Invoke(this, new FloorRecreatedEventArgs(floor));
         }
 
-        private void PlaceGround(TilePosition groundPosition)
+        private void PlaceFloorObject(FloorObject floorObject)
+        {
+            switch (floorObject.Data)
+            {
+                case GroundTileData groundTileData:
+                    PlaceGround(floorObject.Position, groundTileData);
+                    break;
+                case WallData wallData:
+                    PlaceWall(floorObject.Position, wallData);
+                    break;
+                case StaticObjectData staticObjectData:
+                    staticObjectSpawner.Spawn(floorObject.Position, staticObjectData);
+                    break;
+                case CouragePickupData couragePickupData:
+                    PlaceCouragePickup(floorObject.Position, couragePickupData);
+                    break;
+                case RuneData runeData:
+                    runeSpawner.Spawn(floorObject.Position, runeData);
+                    break;
+            }
+        }
+
+        private void PlaceGround(TilePosition position, GroundTileData _)
         {
             var tile = tileRepository.GetGroundTile();
-            var position = groundPosition.Map(ToVector3Int);
 
-            groundTilemap.SetTile(position, tile);
+            groundTilemap.SetTile(position.Map(ToVector3Int), tile);
 
-            floorStateKeeper.OnGroundTilePlaced(groundPosition);
+            floorStateKeeper.OnGroundTilePlaced(position);
         }
 
-        private void PlaceWall(Wall wall)
+        private void PlaceWall(TilePosition position, WallData wallData)
         {
-            var tile = tileRepository.GetWallTileFor(wall);
-            var position = wall.Position.Map(ToVector3Int);
+            var tile = tileRepository.GetWallTileFor(wallData);
 
-            staticTilemap.SetTile(position, tile);
+            staticTilemap.SetTile(position.Map(ToVector3Int), tile);
         }
 
-        private void PlaceCouragePickup(CouragePickup pickup)
+        private void PlaceCouragePickup(TilePosition position, CouragePickupData pickup)
         {
-            var entity = SpawnCouragePickup(pickup.Position);
+            var entity = SpawnCouragePickup(position);
             var appearance = CouragePickupAppearances[pickup.Variant];
             entity.Initialize(pickup.Variant, appearance);
         }

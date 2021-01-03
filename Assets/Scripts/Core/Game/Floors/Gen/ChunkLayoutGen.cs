@@ -1,5 +1,4 @@
-﻿using static AChildsCourage.F;
-using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
+﻿using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.MRng;
 
@@ -39,7 +38,10 @@ namespace AChildsCourage.Game.Floors.Gen
             }
 
 
-            return AggregateTimes(BaseChunkLayout, OccupyNextChunk, @params.RoomCount - BaseChunkCount);
+            var remainingRoomCount = @params.RoomCount - BaseChunkCount;
+            
+            return BaseChunkLayout
+                .Cycle(OccupyNextChunk, remainingRoomCount);
         }
 
     }

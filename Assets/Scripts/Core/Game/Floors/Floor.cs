@@ -1,6 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
-using AChildsCourage.Game.Floors.Courage;
 using UnityEngine;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.Game.MTilePosition;
@@ -13,10 +13,14 @@ namespace AChildsCourage.Game.Floors
 
         public static FloorDimensions GetFloorDimensions(Floor floor)
         {
-            var minX = floor.Walls.Min(p => p.Position.X);
-            var minY = floor.Walls.Min(p => p.Position.Y);
-            var maxX = floor.Walls.Max(p => p.Position.X);
-            var maxY = floor.Walls.Max(p => p.Position.Y);
+            var wallPositions = floor
+                                .Map(GetPositionsOfType<WallData>)
+                                .ToImmutableHashSet();
+
+            var minX = wallPositions.Min(p => p.X);
+            var minY = wallPositions.Min(p => p.Y);
+            var maxX = wallPositions.Max(p => p.X);
+            var maxY = wallPositions.Max(p => p.Y);
 
             var minChunk = new TilePosition(minX, minY).Map(GetChunk);
             var maxChunk = new TilePosition(maxX, maxY).Map(GetChunk);
@@ -26,38 +30,45 @@ namespace AChildsCourage.Game.Floors
         }
 
         public static Vector2 GetEndRoomCenter(Floor floor) =>
-            floor.EndRoomChunkPosition
+            floor.EndRoomChunk
                  .Map(GetCenter)
                  .Map(GetTileCenter);
 
         public static TilePosition FindEndChunkCenter(Floor floor) =>
-            floor.EndRoomChunkPosition.Map(GetCenter);
+            floor.EndRoomChunk.Map(GetCenter);
+
+
+        public static int CountObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
+            floor
+                .Map(GetObjectsOfType<TFloorObject>)
+                .Count();
+
+        public static IEnumerable<FloorObject> GetObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
+            floor.Objects
+                 .Where(o => o.Data is TFloorObject);
+
+        public static IEnumerable<TilePosition> GetPositionsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
+            floor
+                .Map(GetObjectsOfType<TFloorObject>)
+                .Select(t => t.Position);
+
+        public static Floor EmptyFloor(ChunkPosition endRoomChunk) =>
+            new Floor(ImmutableHashSet<FloorObject>.Empty,
+                      endRoomChunk);
 
 
         public readonly struct Floor
         {
 
-            public ImmutableHashSet<TilePosition> GroundPositions { get; }
+            public ImmutableHashSet<FloorObject> Objects { get; }
 
-            public ImmutableHashSet<Wall> Walls { get; }
-
-            public ImmutableHashSet<CouragePickup> CouragePickups { get; }
-
-            public ImmutableHashSet<StaticObject> StaticObjects { get; }
-
-            public ImmutableHashSet<Rune> Runes { get; }
-
-            public ChunkPosition EndRoomChunkPosition { get; }
+            public ChunkPosition EndRoomChunk { get; }
 
 
-            public Floor(ImmutableHashSet<TilePosition> groundPositions, ImmutableHashSet<Wall> walls, ImmutableHashSet<CouragePickup> couragePickups, ImmutableHashSet<StaticObject> staticObjects, ImmutableHashSet<Rune> runes, ChunkPosition endRoomChunkPosition)
+            public Floor(ImmutableHashSet<FloorObject> objects, ChunkPosition endRoomChunk)
             {
-                GroundPositions = groundPositions;
-                Walls = walls;
-                CouragePickups = couragePickups;
-                StaticObjects = staticObjects;
-                Runes = runes;
-                EndRoomChunkPosition = endRoomChunkPosition;
+                Objects = objects;
+                EndRoomChunk = endRoomChunk;
             }
 
         }

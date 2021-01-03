@@ -18,7 +18,7 @@ MonoBehaviour:
     enumTypeName: AChildsCourage.Game.Floors.Courage.CourageVariant
     enums:
     - enumValue: 0
-      mappedValue: 15
+      mappedValue: 19
     - enumValue: 1
       mappedValue: 5
   runeCount: 5

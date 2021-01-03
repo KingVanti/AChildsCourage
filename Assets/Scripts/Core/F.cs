@@ -93,7 +93,7 @@ namespace AChildsCourage
             return accumulate;
         }
 
-        public static TAccumulate AggregateTimes<TAccumulate>(TAccumulate seed, Func<TAccumulate, TAccumulate> func, int times)
+        public static TAccumulate Cycle<TAccumulate>(this TAccumulate seed, Func<TAccumulate, TAccumulate> func, int times)
         {
             var accumulate = seed;
 
@@ -124,12 +124,18 @@ namespace AChildsCourage
 
         public static IEnumerable<TItem> Where<TItem, TP1>(this IEnumerable<TItem> items, Func<TP1, TItem, bool> predicate, TP1 p1) =>
             items.Where(item => predicate(p1, item));
+        
+        public static IEnumerable<TRes> Select<TItem, TP1, TRes>(this IEnumerable<TItem> items, Func<TP1, TItem, TRes> selector, TP1 p1) =>
+            items.Select(item => selector(p1, item));
 
         public static int Count<TItem, TP1>(this IEnumerable<TItem> items, Func<TP1, TItem, bool> selector, TP1 p1) =>
             items.Count(item => selector(p1, item));
 
         public static IEnumerable<TItem> IfEmpty<TItem>(this IEnumerable<TItem> items, Func<IEnumerable<TItem>> replacement) =>
             !items.Any() ? replacement() : items;
+
+        public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func) 
+            => func;
 
     }
 

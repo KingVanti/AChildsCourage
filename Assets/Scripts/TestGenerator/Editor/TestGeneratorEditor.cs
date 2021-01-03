@@ -4,7 +4,6 @@ using UnityEngine;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayoutGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGenParamsAsset;
-using static AChildsCourage.Game.Floors.Gen.FloorPlanGen;
 using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
@@ -131,8 +130,7 @@ namespace AChildsCourage.Game.Floors.Gen
             var layout = GenerateChunkLayout(genParams);
             var passagePlan = CreatePassagePlan(layout);
             var roomPlan = passagePlan.Map(CreateRoomPlan, genParams);
-            var floorPlan = roomPlan.Map(CreateFloorPlan, genParams);
-            var floor = floorPlan.Map(CreateFloorFrom, genParams);
+            var floor = roomPlan.Map(CreateFloor, genParams);
 
             chunkLayoutImage = layout.PrintToTexture();
             floorImage = floor.PrintToTexture();

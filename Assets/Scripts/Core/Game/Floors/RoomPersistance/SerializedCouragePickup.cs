@@ -4,18 +4,18 @@ using static AChildsCourage.Game.MTilePosition;
 namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
-    public readonly struct CouragePickupData
+    public readonly struct SerializedCouragePickup
     {
 
-        public static CouragePickupData ApplyTo(CouragePickupData pickup, TilePosition position) =>
-            new CouragePickupData(position, pickup.Variant);
+        public static SerializedCouragePickup ApplyTo(SerializedCouragePickup pickup, TilePosition position) =>
+            new SerializedCouragePickup(position, pickup.Variant);
         
         public TilePosition Position { get; }
 
         public CourageVariant Variant { get; }
 
 
-        public CouragePickupData(TilePosition position, CourageVariant variant)
+        public SerializedCouragePickup(TilePosition position, CourageVariant variant)
         {
             Position = position;
             Variant = variant;

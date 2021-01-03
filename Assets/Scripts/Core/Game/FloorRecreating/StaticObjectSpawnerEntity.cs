@@ -13,9 +13,9 @@ namespace AChildsCourage.Game.Floors
         private readonly CreateRng rng = RandomRng();
 
 
-        public void Spawn(StaticObject staticObject)
+        public void Spawn(TilePosition position, StaticObjectData _)
         {
-            var entity = InstantiateStaticObjectAt(staticObject.Position);
+            var entity = InstantiateStaticObjectAt(position);
 
             entity.Appearance = ChooseRandomAppearance();
         }
