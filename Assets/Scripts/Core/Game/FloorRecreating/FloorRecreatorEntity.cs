@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Immutable;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Floors.Gen;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static AChildsCourage.Game.Floors.Courage.CouragePickupAppearanceRepo;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayoutGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGenParamsAsset;
@@ -13,9 +9,7 @@ using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
 using static AChildsCourage.Game.Floors.RoomPersistence.RoomDataRepo;
-using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.NightData;
-using static AChildsCourage.Infrastructure;
 
 namespace AChildsCourage.Game
 {
@@ -24,13 +18,12 @@ namespace AChildsCourage.Game
     {
 
         [Pub] public event EventHandler<FloorRecreatedEventArgs> OnFloorRecreated;
-        
-        [SerializeField] private Tilemap groundTilemap;
-        [SerializeField] private Tilemap staticTilemap;
+
+
         [SerializeField] private FloorGenParamsAsset floorGenParamsAsset;
 
-        [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
-        [FindInScene] private TileRepositoryEntity tileRepository;
+        [FindInScene] private GroundTileSpawnerEntity groundTileSpawner;
+        [FindInScene] private WallSpawnerEntity wallSpawner;
         [FindInScene] private CouragePickupSpawnerEntity couragePickupSpawner;
         [FindInScene] private StaticObjectSpawnerEntity staticObjectSpawner;
         [FindInScene] private RuneSpawnerEntity runeSpawner;
@@ -38,8 +31,8 @@ namespace AChildsCourage.Game
         [FindService] private LoadRoomData loadRoomData;
 
         private RoomCollection roomCollection = EmptyRoomCollection;
-        
-        
+
+
         private RoomCollection RoomCollection
         {
             get
@@ -82,10 +75,10 @@ namespace AChildsCourage.Game
             switch (floorObject.Data)
             {
                 case GroundTileData groundTileData:
-                    PlaceGround(floorObject.Position, groundTileData);
+                    groundTileSpawner.Spawn(floorObject.Position, groundTileData);
                     break;
                 case WallData wallData:
-                    PlaceWall(floorObject.Position, wallData);
+                    wallSpawner.Spawn(floorObject.Position, wallData);
                     break;
                 case StaticObjectData staticObjectData:
                     staticObjectSpawner.Spawn(floorObject.Position, staticObjectData);
@@ -97,22 +90,6 @@ namespace AChildsCourage.Game
                     runeSpawner.Spawn(floorObject.Position, runeData);
                     break;
             }
-        }
-
-        private void PlaceGround(TilePosition position, GroundTileData _)
-        {
-            var tile = tileRepository.GetGroundTile();
-
-            groundTilemap.SetTile(position.Map(ToVector3Int), tile);
-
-            floorStateKeeper.OnGroundTilePlaced(position);
-        }
-
-        private void PlaceWall(TilePosition position, WallData wallData)
-        {
-            var tile = tileRepository.GetWallTileFor(wallData);
-
-            staticTilemap.SetTile(position.Map(ToVector3Int), tile);
         }
 
     }
