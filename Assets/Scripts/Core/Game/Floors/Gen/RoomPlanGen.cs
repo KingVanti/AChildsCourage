@@ -4,6 +4,7 @@ using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomInstance;
 using static AChildsCourage.Game.Floors.Gen.RoomPlan;
 using static AChildsCourage.Game.MChunkPosition;
+using static AChildsCourage.MRng;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -13,7 +14,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
         public static RoomPlan CreateRoomPlan(FloorGenParams @params, PassagePlan plan)
         {
-            var rng = MRng.RngFromSeed(@params.Seed);
+            var rng = RngFromSeed(@params.Seed);
             var roomCollection = @params.RoomCollection;
 
             RoomInstance ChooseRoom(ChunkPosition position) =>
