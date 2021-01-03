@@ -19,8 +19,10 @@ namespace AChildsCourage.Game.Floors.Gen
 
         public static PassagePlan CreatePassagePlan(ChunkLayout layout)
         {
-            bool HasAdjacentChunkIn(ChunkPosition position, PassageDirection direction) =>
-                layout.Map(IsOccupiedIn, position.Map(GetAdjacentChunk, direction));
+            bool HasAdjacentChunkIn(PassageDirection direction, ChunkPosition position) =>
+                position
+                    .Map(GetAdjacentChunk, direction)
+                    .Map(IsOccupiedIn, layout);
 
             ChunkPassages GetPassagesFor(ChunkPosition position) =>
                 new ChunkPassages(position.Map(HasAdjacentChunkIn, PassageDirection.North),
@@ -42,7 +44,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public static IEnumerable<ChunkPosition> GetChunks(PassagePlan plan) =>
             plan.passages.Keys;
 
-        public static RoomFilter CreateFilterFor(PassagePlan plan, ChunkPosition position)
+        public static RoomFilter CreateFilterFor(ChunkPosition position, PassagePlan plan)
         {
             ChunkPosition GetFurthestChunkFromOrigin() =>
                 plan.Map(GetChunks)
@@ -50,7 +52,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
             var passages = plan.passages[position];
 
-            var roomType = 
+            var roomType =
                 position.Equals(OriginChunk) ? RoomType.Start
                 : position.Equals(GetFurthestChunkFromOrigin()) ? RoomType.End
                 : RoomType.Normal;

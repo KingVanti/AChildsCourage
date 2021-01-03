@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Floors.Gen
     public readonly struct RoomInstance
     {
 
-        public static RoomInstance CreateRoomFromConfiguration(RoomConfiguration config, ChunkPosition position) =>
+        public static RoomInstance CreateRoomFromConfiguration(ChunkPosition position, RoomConfiguration config) =>
             new RoomInstance(position, config.RoomId, config.RotationCount, config.IsMirrored);
 
 

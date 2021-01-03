@@ -11,16 +11,13 @@ namespace AChildsCourage.Game.Floors.Gen
     public static class FloorPlanGen
     {
 
-        public static FloorPlan CreateFloorPlan(RoomPlan roomPlan, FloorGenParams @params)
+        public static FloorPlan CreateFloorPlan(FloorGenParams @params, RoomPlan roomPlan)
         {
             var roomCollection = @params.RoomCollection;
 
-            RoomContentData GetTransformedContent(RoomInstance room)
-            {
-                var transform = room.Map(CreateTransform);
-                return roomCollection.Map(GetContentFor, room.Id)
-                                     .Map(TransformContent, transform);
-            }
+            RoomContentData GetTransformedContent(RoomInstance room) =>
+                room.Map(CreateTransform)
+                    .Map(TransformContent, roomCollection.Map(GetContentFor, room.Id));
 
             return roomPlan
                    .Map(Rooms)

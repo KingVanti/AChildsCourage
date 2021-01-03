@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Aggregate(EmptyRoomCollection, AddRoom);
         }
 
-        public static IEnumerable<RoomConfiguration> FindConfigurationsMatching(RoomCollection collection, RoomFilter filter) =>
+        public static IEnumerable<RoomConfiguration> FindConfigurationsMatching(RoomFilter filter, RoomCollection collection) =>
             collection.configurations
                       .Where(MatchesFilter, filter)
                       .IfEmpty(() => throw new Exception($"Could not find rooms matching filter {filter}!"));
@@ -38,7 +38,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public static bool IsEmpty(RoomCollection collection) =>
             collection.configurations.IsEmpty;
 
-        public static RoomContentData GetContentFor(RoomCollection collection, RoomId roomId) =>
+        public static RoomContentData GetContentFor(RoomId roomId, RoomCollection collection) =>
             collection.contents[roomId];
 
 

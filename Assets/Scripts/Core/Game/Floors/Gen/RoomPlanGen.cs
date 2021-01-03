@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.Gen
     public static class RoomPlanGen
     {
 
-        public static RoomPlan CreateRoomPlan(PassagePlan plan, FloorGenParams @params)
+        public static RoomPlan CreateRoomPlan(FloorGenParams @params, PassagePlan plan)
         {
             var rng = MRng.RngFromSeed(@params.Seed);
             var roomCollection = @params.RoomCollection;

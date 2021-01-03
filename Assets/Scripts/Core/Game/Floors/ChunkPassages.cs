@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Floors
         public static ChunkPassages MirrorOverXAxis(ChunkPassages passages) =>
             new ChunkPassages(passages.HasSouth, passages.HasEast, passages.HasNorth, passages.HasWest);
 
-        public static bool HasPassageWithDirection(ChunkPassages passages, PassageDirection direction)
+        public static bool HasPassageWithDirection(PassageDirection direction, ChunkPassages passages)
         {
             switch (direction)
             {

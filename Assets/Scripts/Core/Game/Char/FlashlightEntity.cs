@@ -118,8 +118,8 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = Lerp(innerRadiusRange, ShineDistanceInterpolation);
-            lightComponent.pointLightOuterRadius = Lerp(outerRadiusRange, ShineDistanceInterpolation);
+            lightComponent.pointLightInnerRadius = innerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
+            lightComponent.pointLightOuterRadius = outerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
         }
 
 

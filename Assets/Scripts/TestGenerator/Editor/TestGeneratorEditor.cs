@@ -130,9 +130,9 @@ namespace AChildsCourage.Game.Floors.Gen
             var genParams = floorGenParamsAsset.Map(CreateParams, seed, roomCollection);
             var layout = GenerateChunkLayout(genParams);
             var passagePlan = CreatePassagePlan(layout);
-            var roomPlan = CreateRoomPlan(passagePlan, genParams);
-            var floorPlan = CreateFloorPlan(roomPlan, genParams);
-            var floor = CreateFloorFrom(floorPlan, genParams);
+            var roomPlan = passagePlan.Map(CreateRoomPlan, genParams);
+            var floorPlan = roomPlan.Map(CreateFloorPlan, genParams);
+            var floor = floorPlan.Map(CreateFloorFrom, genParams);
 
             chunkLayoutImage = layout.PrintToTexture();
             floorImage = floor.PrintToTexture();

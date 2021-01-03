@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using static AChildsCourage.F;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Game.MChunkPosition;
 using static AChildsCourage.MRng;
@@ -9,7 +9,6 @@ namespace AChildsCourage.Game.Floors.Gen
     public static class ChunkLayoutGen
     {
 
-        private const float BaseWeight = 1;
         private const float NoWeight = 0;
 
 
@@ -17,34 +16,30 @@ namespace AChildsCourage.Game.Floors.Gen
         {
             var rng = RngFromSeed(@params.Seed);
 
-            ChunkLayout OccupyNextChunk(ChunkLayout layout) =>
-                layout
-                    .Map(OccupyChunkIn, layout.Map(ChooseNextChunk));
-
-            ChunkPosition ChooseNextChunk(ChunkLayout layout)
+            ChunkLayout OccupyNextChunk(ChunkLayout layout)
             {
-                float ConnectivityWeight(ChunkPosition position)
+                float CalculateConnectivityWeight(ChunkPosition position)
                 {
-                    var directConnectionCount = GetAdjacentChunks(position)
-                        .Count(p => IsOccupiedIn(layout, p));
+                    var directConnectionCount = position.Map(CountDirectConnections, layout);
+                    var indirectConnectionCount = position.Map(CountIndirectConnections, layout);
 
-                    var indirectConnectionCount = GetDiagonalAdjacentChunks(position)
-                        .Count(p => IsOccupiedIn(layout, p));
+                    var directConnectionWeight = directConnectionCount > 1 ? @params.ClumpingFactor : NoWeight;
+                    var indirectConnectionWeight = indirectConnectionCount.Times(@params.ClumpingFactor);
 
-                    return (directConnectionCount > 1 ? @params.ClumpingFactor : NoWeight) +
-                           indirectConnectionCount.Times(@params.ClumpingFactor);
+                    return directConnectionWeight + indirectConnectionWeight;
                 }
 
-                float TotalWeight(ChunkPosition position) =>
-                    BaseWeight +
-                    ConnectivityWeight(position);
+                float CalculateWeight(ChunkPosition position) =>
+                    CalculateConnectivityWeight(position);
 
                 return layout
                        .Map(GetPossibleNextChunks)
-                       .GetWeightedRandom(TotalWeight, rng);
+                       .GetWeightedRandom(CalculateWeight, rng)
+                       .Map(OccupyIn, layout);
             }
 
-            return BaseChunkLayout.For(@params.RoomCount - BaseChunkCount, OccupyNextChunk);
+
+            return AggregateTimes(BaseChunkLayout, OccupyNextChunk, @params.RoomCount - BaseChunkCount);
         }
 
     }

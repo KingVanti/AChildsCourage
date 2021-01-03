@@ -69,7 +69,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Select(CreateWall);
         }
 
-        public static IEnumerable<CouragePickup> ChooseCouragePickups(FloorPlan floorPlan, FloorGenParams @params)
+        public static IEnumerable<CouragePickup> ChooseCouragePickups(FloorGenParams @params, FloorPlan floorPlan)
         {
             var rng = MRng.RngFromSeed(@params.Seed);
 
@@ -134,7 +134,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public static IEnumerable<StaticObject> GetStaticObjects(FloorPlan floorPlan) =>
             floorPlan.staticObjects;
 
-        public static IEnumerable<Rune> ChooseRunes(FloorPlan floorPlan, FloorGenParams @params)
+        public static IEnumerable<Rune> ChooseRunes(FloorGenParams @params, FloorPlan floorPlan)
         {
             var rng = MRng.RngFromSeed(@params.Seed);
 
@@ -164,7 +164,7 @@ namespace AChildsCourage.Game.Floors.Gen
                                          .Select(r => r.Position)
                                          .ToImmutableHashSet();
 
-            ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) => 
+            ImmutableHashSet<TilePosition> AddNext(ImmutableHashSet<TilePosition> taken) =>
                 taken.Add(ChooseNextRunePosition(runePositions, taken));
 
             return AggregateTimes(ImmutableHashSet<TilePosition>.Empty, AddNext, @params.RuneCount)

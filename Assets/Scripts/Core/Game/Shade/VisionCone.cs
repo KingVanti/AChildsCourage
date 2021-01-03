@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
     public static class MVisionCone
     {
 
-        public static bool Contains(VisionCone cone, ShadeHead head, Vector2 point) =>
+        public static bool Contains(ShadeHead head, Vector2 point, VisionCone cone) =>
             PointIsInRadius(point, head.Position, cone.ViewRadius) &&
             PointIsInAngle(point, head.Position, head.Direction, cone.ViewAngle) &&
             (cone.CanSeeThroughWalls ||
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Shade
             [SerializeField] private float viewAngle;
             [SerializeField] private bool canSeeThroughWalls;
 
-            
+
             public Visibility Visibility => visibility;
 
             public float ViewRadius => viewRadius;
@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.Shade
 
             public bool CanSeeThroughWalls => canSeeThroughWalls;
 
-            
+
             public VisionCone(Visibility visibility, float viewRadius, float viewAngle, bool canSeeThroughWalls)
             {
                 this.visibility = visibility;

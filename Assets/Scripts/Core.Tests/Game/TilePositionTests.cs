@@ -39,7 +39,7 @@ namespace AChildsCourage.Game
 
             // When
 
-            var actual = OffsetBy(position, offset);
+            var actual = offset.Map(ApplyTo, position);
 
             // Then
 

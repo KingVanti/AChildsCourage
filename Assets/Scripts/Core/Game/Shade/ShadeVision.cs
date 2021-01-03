@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Shade
             vision.VisionCones
                   .Where(cone => cone.Map(Contains, vision.Head, point))
                   .Select(cone => cone.Visibility)
-                  .Match(visibilities => GetHighestValue(visibilities),
+                  .Match(GetHighestValue,
                          () => Visibility.NotVisible);
 
 

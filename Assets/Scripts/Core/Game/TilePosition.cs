@@ -21,9 +21,12 @@ namespace AChildsCourage.Game
         internal static float DistanceTo(TilePosition p1, TilePosition p2) =>
             Vector2.Distance(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y));
 
-        public static TilePosition OffsetBy(TilePosition position, TileOffset offset) =>
+        public static TilePosition OffsetBy(TileOffset offset, TilePosition position) =>
             new TilePosition(position.X + offset.X,
                              position.Y + offset.Y);
+
+        public static TilePosition ApplyTo(TilePosition position, TileOffset offset) =>
+            position.Map(OffsetBy, offset);
 
         public static Vector3Int ToVector3Int(TilePosition position) =>
             new Vector3Int(position.X, position.Y, 0);

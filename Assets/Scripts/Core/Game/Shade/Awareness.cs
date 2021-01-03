@@ -10,7 +10,7 @@
         public static Awareness NoAwareness => new Awareness(MinAwareness);
 
 
-        public static Awareness ChangeBy(Awareness awareness, float amount) =>
+        public static Awareness ChangeBy(float amount, Awareness awareness) =>
             new Awareness(awareness.Value + amount);
 
 

@@ -30,21 +30,29 @@ namespace AChildsCourage.Game.Floors.Gen
         private static ChunkLayout EmptyChunkLayout => new ChunkLayout(ImmutableHashSet<ChunkPosition>.Empty);
 
         public static ChunkLayout BaseChunkLayout =>
-            BasePositions.Aggregate(EmptyChunkLayout, OccupyChunkIn);
+            BasePositions.Aggregate(EmptyChunkLayout, OccupyIn);
 
 
         public static IEnumerable<ChunkPosition> GetPositions(ChunkLayout layout) =>
             layout.occupiedChunks;
 
         public static (int Width, int Height) GetDimensions(ChunkLayout layout) =>
-            layout.Map(IsEmpty) 
+            layout.Map(IsEmpty)
                 ? noSize
                 : layout.occupiedChunks.Map(MChunkPosition.GetDimensions);
 
         private static bool IsEmpty(ChunkLayout layout) =>
             layout.occupiedChunks.IsEmpty;
 
-        public static ChunkLayout OccupyChunkIn(ChunkLayout layout, ChunkPosition position) =>
+        public static int CountDirectConnections(ChunkLayout layout, ChunkPosition position) =>
+            GetAdjacentChunks(position)
+                .Count(IsOccupiedIn, layout);
+
+        public static int CountIndirectConnections(ChunkLayout layout, ChunkPosition position) =>
+            GetDiagonalAdjacentChunks(position)
+                .Count(IsOccupiedIn, layout);
+
+        public static ChunkLayout OccupyIn(ChunkLayout layout, ChunkPosition position) =>
             new ChunkLayout(layout.occupiedChunks.Add(position));
 
         public static IEnumerable<ChunkPosition> GetPossibleNextChunks(ChunkLayout layout)

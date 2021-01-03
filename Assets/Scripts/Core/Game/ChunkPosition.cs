@@ -15,12 +15,12 @@ namespace AChildsCourage.Game
         public const int ChunkSize = 21;
         public const int MaxChunkCoord = ChunkSize - 1;
         public const int ChunkExtent = MaxChunkCoord / 2;
-        
+
 
         public static ChunkPosition OriginChunk => new ChunkPosition(0, 0);
 
         public static TileOffset TopCornerOffset => new TileOffset(MaxChunkCoord, MaxChunkCoord);
-        
+
 
         private static TileOffset ChunkCenterTileOffset { get; } = new TileOffset(ChunkExtent, ChunkExtent);
 
@@ -37,7 +37,7 @@ namespace AChildsCourage.Game
         internal static float GetDistanceToOrigin(ChunkPosition position) =>
             new Vector2(position.X, position.Y).magnitude;
 
-        internal static ChunkPosition GetAdjacentChunk(ChunkPosition position, PassageDirection direction)
+        internal static ChunkPosition GetAdjacentChunk(PassageDirection direction, ChunkPosition position)
         {
             switch (direction)
             {
@@ -51,10 +51,10 @@ namespace AChildsCourage.Game
 
         internal static IEnumerable<ChunkPosition> GetAdjacentChunks(ChunkPosition position)
         {
-            yield return GetAdjacentChunk(position, PassageDirection.North);
-            yield return GetAdjacentChunk(position, PassageDirection.East);
-            yield return GetAdjacentChunk(position, PassageDirection.South);
-            yield return GetAdjacentChunk(position, PassageDirection.West);
+            yield return position.Map(GetAdjacentChunk, PassageDirection.North);
+            yield return position.Map(GetAdjacentChunk, PassageDirection.East);
+            yield return position.Map(GetAdjacentChunk, PassageDirection.South);
+            yield return position.Map(GetAdjacentChunk, PassageDirection.West);
         }
 
         internal static IEnumerable<ChunkPosition> GetDiagonalAdjacentChunks(ChunkPosition position)
@@ -101,7 +101,6 @@ namespace AChildsCourage.Game
                 .Map(GetCorner)
                 .Map(corner => Grid.Generate(corner.X, corner.Y, ChunkSize, ChunkSize))
                 .Select(pos => new TilePosition(pos.X, pos.Y));
-        
 
 
         public readonly struct ChunkPosition

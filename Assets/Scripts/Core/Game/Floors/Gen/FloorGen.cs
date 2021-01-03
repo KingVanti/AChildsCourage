@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Floors.Gen
     public static class FloorGen
     {
 
-        public static Floor CreateFloorFrom(FloorPlan floorPlan, FloorGenParams @params) =>
+        public static Floor CreateFloorFrom(FloorGenParams @params, FloorPlan floorPlan) =>
             new Floor(floorPlan.Map(GetGroundPositions).ToImmutableHashSet(),
                       floorPlan.Map(GenerateWalls).ToImmutableHashSet(),
                       floorPlan.Map(ChooseCouragePickups, @params).ToImmutableHashSet(),

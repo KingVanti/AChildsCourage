@@ -125,13 +125,13 @@ namespace AChildsCourage
         public static TItem FirstByDescending<TItem>(this IEnumerable<TItem> items, Func<TItem, float> selector) =>
             items.OrderByDescending(selector).First();
 
-        public static IEnumerable<TItem> Where<TItem, TP1>(this IEnumerable<TItem> items, Func<TItem, TP1, bool> predicate, TP1 p1) =>
-            items.Where(i => predicate(i, p1));
+        public static IEnumerable<TItem> Where<TItem, TP1>(this IEnumerable<TItem> items, Func<TP1, TItem, bool> predicate, TP1 p1) =>
+            items.Where(item => predicate(p1, item));
 
-        public static IEnumerable<TRes> Select<TItem, TP1, TRes>(this IEnumerable<TItem> items, Func<TItem, TP1, TRes> selector, TP1 p1) =>
-            items.Select(i => selector(i, p1));
+        public static int Count<TItem, TP1>(this IEnumerable<TItem> items, Func<TP1, TItem, bool> selector, TP1 p1) =>
+            items.Count(item => selector(p1, item));
 
-        public static IEnumerable<TItem> IfEmpty<TItem>(this IEnumerable<TItem> items, Func<IEnumerable<TItem>> replacement) => 
+        public static IEnumerable<TItem> IfEmpty<TItem>(this IEnumerable<TItem> items, Func<IEnumerable<TItem>> replacement) =>
             !items.Any() ? replacement() : items;
 
     }

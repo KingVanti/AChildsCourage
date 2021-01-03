@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Map(GetVariations);
         }
 
-        public static bool MatchesFilter(RoomConfiguration config, RoomFilter filter)
+        public static bool MatchesFilter(RoomFilter filter, RoomConfiguration config)
         {
             bool RoomTypesMatch() =>
                 config.roomType == filter.RoomType;
