@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public bool IsMirrored { get; }
 
 
-        public RoomInstance(ChunkPosition position, RoomId id, int rotationCount, bool isMirrored)
+        private RoomInstance(ChunkPosition position, RoomId id, int rotationCount, bool isMirrored)
         {
             Position = position;
             Id = id;
