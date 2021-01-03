@@ -13,10 +13,10 @@ namespace AChildsCourage.Game.Floors.Gen
         public int RoomCount { get; }
 
         public float ClumpingFactor { get; }
-        
-        public  EnumArray<CourageVariant, int> CouragePickupCounts { get; }
-        
-        public  int RuneCount { get; }
+
+        public EnumArray<CourageVariant, int> CouragePickupCounts { get; }
+
+        public int RuneCount { get; }
 
 
         public FloorGenParams(int seed, RoomCollection roomCollection, int roomCount, float clumpingFactor, EnumArray<CourageVariant, int> couragePickupCounts, int runeCount)
