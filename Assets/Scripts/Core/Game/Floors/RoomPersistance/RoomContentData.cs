@@ -6,9 +6,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
     public class SerializedRoomContent
     {
-
-        public static SerializedRoomContent NoContent => new SerializedRoomContent(null, null, null, null);
-
+        
         public SerializedGroundTile[] GroundData { get; }
 
         public SerializedCouragePickup[] CourageData { get; }

@@ -12,10 +12,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
         private static PassagePlan Empty => new PassagePlan(ImmutableDictionary<ChunkPosition, ChunkPassages>.Empty);
 
-        public static (int Width, int Height) GetDimensions(PassagePlan plan) =>
-            plan.passages.Keys
-                .Map(ChunkPosition.GetDimensions);
-
+        
         public static PassagePlan CreatePassagePlan(ChunkLayout layout)
         {
             bool HasAdjacentChunkIn(PassageDirection direction, ChunkPosition position) =>
@@ -35,11 +32,7 @@ namespace AChildsCourage.Game.Floors.Gen
             return layout.Map(GetPositions)
                          .Aggregate(Empty, AddPassagesFor);
         }
-
-
-        public static IEnumerable<(ChunkPosition Chunk, ChunkPassages Passages)> GetChunkPassages(PassagePlan plan) =>
-            plan.passages.Select(kvp => (kvp.Key, kvp.Value));
-
+        
         public static IEnumerable<ChunkPosition> GetChunks(PassagePlan plan) =>
             plan.passages.Keys;
 

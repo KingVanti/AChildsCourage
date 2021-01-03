@@ -15,7 +15,8 @@ namespace AChildsCourage.Game.Shade
         private readonly ImmutableHashSet<TilePosition> positions;
 
 
-        public TilesInView(IEnumerable<TilePosition> positions) => this.positions = ImmutableHashSet.CreateRange(positions);
+        private TilesInView(IEnumerable<TilePosition> positions) =>
+            this.positions = ImmutableHashSet.CreateRange(positions);
 
 
         public IEnumerator<TilePosition> GetEnumerator() => positions.GetEnumerator();

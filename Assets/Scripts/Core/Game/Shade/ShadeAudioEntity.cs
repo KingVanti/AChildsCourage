@@ -59,6 +59,7 @@ namespace AChildsCourage.Game.Shade
                         if (old_awarness == AwarenessLevel.Suspicious) //2-1
                             RuntimeManager.PlayOneShot(awarenessCues_12, GetComponent<Transform>().position);
                         break;
+                    default: throw new Exception("Invalid awareness level!");
                 }
 
                 old_awarness = awareness;

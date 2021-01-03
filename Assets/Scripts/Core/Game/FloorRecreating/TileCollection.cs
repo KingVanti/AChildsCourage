@@ -10,24 +10,16 @@ namespace AChildsCourage.Game
     internal class TileCollection
     {
 
-        #region Methods
+        [SerializeField] [Range(0, 100)] private float variantProb;
+        [SerializeField] private Tile baseTile;
+        [SerializeField] private Tile[] variants;
 
         internal Tile GetTile(CreateRng createRng)
         {
-            var getVariant = createRng.Prob(_variantProb);
+            var getVariant = createRng.Prob(variantProb);
 
-            return getVariant ? _variants.GetRandom(createRng) : _baseTile;
+            return getVariant ? variants.GetRandom(createRng) : baseTile;
         }
-
-        #endregion
-
-        #region Fields
-
-        [SerializeField] [Range(0, 100)] private float _variantProb;
-        [SerializeField] private Tile _baseTile;
-        [SerializeField] private Tile[] _variants;
-
-        #endregion
 
     }
 

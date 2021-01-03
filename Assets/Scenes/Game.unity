@@ -1745,21 +1745,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: 9d3e061c3597c854f92173dbea7f799d, type: 2}
-    _variants:
+    variantProb: 5
+    baseTile: {fileID: 11400000, guid: 9d3e061c3597c854f92173dbea7f799d, type: 2}
+    variants:
     - {fileID: 11400000, guid: 00e40060c36f4e94eba83d606f926d68, type: 2}
     - {fileID: 11400000, guid: 4c221a60abe8e174087af358445f7874, type: 2}
   wallSideTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
-    _variants:
+    variantProb: 5
+    baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
+    variants:
     - {fileID: 11400000, guid: 0473d0e8f96c608469653d0b890a6879, type: 2}
     - {fileID: 11400000, guid: 5c9f2df03d3b0424aa1e527eccc00ad9, type: 2}
   wallTopTiles:
-    _variantProb: 5
-    _baseTile: {fileID: 11400000, guid: ced51251e36120c4e95e51a74d1e1b82, type: 2}
-    _variants:
+    variantProb: 5
+    baseTile: {fileID: 11400000, guid: ced51251e36120c4e95e51a74d1e1b82, type: 2}
+    variants:
     - {fileID: 11400000, guid: 7587d3a44e680b64189a6fc4498b1094, type: 2}
     - {fileID: 11400000, guid: 2781a482b7c310d4389832fadb125ee1, type: 2}
 --- !u!114 &1187637744

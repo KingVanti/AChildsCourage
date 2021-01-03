@@ -13,8 +13,8 @@ namespace AChildsCourage.Game
     {
 
         public const int ChunkSize = 21;
-        public const int MaxChunkCoord = ChunkSize - 1;
-        public const int ChunkExtent = MaxChunkCoord / 2;
+        private const int MaxChunkCoord = ChunkSize - 1;
+        private const int ChunkExtent = MaxChunkCoord / 2;
 
 
         public static ChunkPosition OriginChunk => new ChunkPosition(0, 0);

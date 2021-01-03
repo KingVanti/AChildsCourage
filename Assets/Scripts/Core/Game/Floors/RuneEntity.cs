@@ -31,9 +31,9 @@ namespace AChildsCourage.Game.Floors
             }
         }
 
-        private bool WasUsed => state == RuneState.Used;
+        private bool WasUsed => State == RuneState.Used;
 
-        private bool IsActive => state == RuneState.Active;
+        private bool IsActive => State == RuneState.Active;
 
 
         private void OnTriggerEnter2D(Collider2D other)

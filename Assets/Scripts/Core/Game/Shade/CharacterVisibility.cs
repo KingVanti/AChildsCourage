@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
 
-    public readonly struct Visibility
+    [Serializable]
+    public struct Visibility
     {
 
-        public static Visibility GetHighestValue(IEnumerable<Visibility> visibilities) =>
-            visibilities
-                .OrderByDescending(v => v.value)
-                .First();
+        [SerializeField] private int value;
 
 
         public static Visibility NotVisible => new Visibility(0);
@@ -20,11 +20,13 @@ namespace AChildsCourage.Game.Shade
         public static Visibility Primary => new Visibility(2);
 
 
-        private readonly int value;
-
-
         private Visibility(int value) =>
             this.value = value;
+
+        public static Visibility GetHighestValue(IEnumerable<Visibility> visibilities) =>
+            visibilities
+                .OrderByDescending(v => v.value)
+                .First();
 
     }
 

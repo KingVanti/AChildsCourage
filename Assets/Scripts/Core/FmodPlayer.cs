@@ -103,11 +103,9 @@ namespace AChildsCourage
 
         private void PlaySprint_stop()
         {
-            if (Char_sprint_stop_Is_playing == false)
-            {
-                StartCoroutine(SprintTimer());
-                RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
-            }
+            if (Char_sprint_stop_Is_playing) return;
+            StartCoroutine(SprintTimer());
+            RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
         }
 
 
