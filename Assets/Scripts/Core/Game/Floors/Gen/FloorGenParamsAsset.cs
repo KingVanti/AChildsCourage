@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Floors.Gen
         [SerializeField] [Range(1, 10)] private int runeCount;
 
 
-        public static FloorGenParams CreateParams(int seed, RoomCollection roomCollection, FloorGenParamsAsset asset) =>
+        public static FloorGenParams ToParams(int seed, RoomCollection roomCollection, FloorGenParamsAsset asset) =>
             new FloorGenParams(seed,
                                roomCollection,
                                asset.roomCount,

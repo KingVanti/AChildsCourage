@@ -80,7 +80,7 @@ namespace AChildsCourage.Game
         private Floor GenerateFromNightData(NightData nightData)
         {
             var genParams = floorGenParamsAsset
-                .Map(CreateParams, nightData.Seed, RoomCollection);
+                .Map(ToParams, nightData.Seed, RoomCollection);
             return GenerateChunkLayout(genParams)
                    .Map(CreatePassagePlan)
                    .Map(CreateRoomPlan, genParams)
