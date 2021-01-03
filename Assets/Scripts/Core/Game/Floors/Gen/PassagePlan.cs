@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.Gen
             PassagePlan AddPassagesFor(PassagePlan plan, ChunkPosition position) =>
                 new PassagePlan(plan.passages.Add(position, GetPassagesFor(position)));
 
-            return layout.Map(Positions)
+            return layout.Map(GetPositions)
                          .Aggregate(Empty, AddPassagesFor);
         }
 
