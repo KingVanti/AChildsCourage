@@ -1340,6 +1340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 733911144}
+  - component: {fileID: 733911145}
   m_Layer: 0
   m_Name: Pickups
   m_TagString: Untagged
@@ -1361,6 +1362,20 @@ Transform:
   m_Father: {fileID: 1187637745}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &733911145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733911143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bbfa765b970e324ab513305e836e269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
+  couragePickupParent: {fileID: 0}
 --- !u!1 &756146564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,8 +1789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0293d1da5eae5e14785c7f2872b5b70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  couragePickupPrefab: {fileID: 7978117672004816450, guid: f0d83e5eed19d4c4794d917916bed657, type: 3}
-  couragePickupParent: {fileID: 733911144}
   groundTilemap: {fileID: 118822148}
   staticTilemap: {fileID: 465115103}
   floorGenParamsAsset: {fileID: 11400000, guid: 65dd4f3c75b85c94f849ea1797cd29be, type: 2}

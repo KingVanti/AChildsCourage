@@ -24,26 +24,22 @@ namespace AChildsCourage.Game
     {
 
         [Pub] public event EventHandler<FloorRecreatedEventArgs> OnFloorRecreated;
-
-
-        [SerializeField] private GameObject couragePickupPrefab;
-        [SerializeField] private Transform couragePickupParent;
+        
         [SerializeField] private Tilemap groundTilemap;
         [SerializeField] private Tilemap staticTilemap;
         [SerializeField] private FloorGenParamsAsset floorGenParamsAsset;
 
         [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
         [FindInScene] private TileRepositoryEntity tileRepository;
+        [FindInScene] private CouragePickupSpawnerEntity couragePickupSpawner;
         [FindInScene] private StaticObjectSpawnerEntity staticObjectSpawner;
         [FindInScene] private RuneSpawnerEntity runeSpawner;
 
         [FindService] private LoadRoomData loadRoomData;
-        [FindService] private LoadCouragePickupAppearances loadCouragePickupAppearances;
 
         private RoomCollection roomCollection = EmptyRoomCollection;
-        private ImmutableDictionary<CourageVariant, CouragePickupAppearance> couragePickupAppearances;
-
-
+        
+        
         private RoomCollection RoomCollection
         {
             get
@@ -53,9 +49,6 @@ namespace AChildsCourage.Game
                 return roomCollection;
             }
         }
-
-        private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances =>
-            couragePickupAppearances ?? (couragePickupAppearances = loadCouragePickupAppearances().ToImmutableDictionary(a => a.Variant));
 
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
@@ -98,7 +91,7 @@ namespace AChildsCourage.Game
                     staticObjectSpawner.Spawn(floorObject.Position, staticObjectData);
                     break;
                 case CouragePickupData couragePickupData:
-                    PlaceCouragePickup(floorObject.Position, couragePickupData);
+                    couragePickupSpawner.Spawn(floorObject.Position, couragePickupData);
                     break;
                 case RuneData runeData:
                     runeSpawner.Spawn(floorObject.Position, runeData);
@@ -121,17 +114,6 @@ namespace AChildsCourage.Game
 
             staticTilemap.SetTile(position.Map(ToVector3Int), tile);
         }
-
-        private void PlaceCouragePickup(TilePosition position, CouragePickupData pickup)
-        {
-            var entity = SpawnCouragePickup(position);
-            var appearance = CouragePickupAppearances[pickup.Variant];
-            entity.Initialize(pickup.Variant, appearance);
-        }
-
-        private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
-            Spawn(couragePickupPrefab, tilePosition.Map(GetTileCenter), couragePickupParent)
-                .GetComponent<CouragePickupEntity>();
 
     }
 
