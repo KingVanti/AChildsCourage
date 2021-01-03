@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomInstance;
@@ -17,9 +18,12 @@ namespace AChildsCourage.Game.Floors.Gen
             var rng = RngFromSeed(@params.Seed);
             var roomCollection = @params.RoomCollection;
 
+            IEnumerable<RoomConfiguration> FindMatchingConfigurations(RoomFilter filter) =>
+                roomCollection.Map(FindConfigurationsMatching, filter);
+
             RoomInstance ChooseRoom(ChunkPosition position) =>
-                roomCollection
-                    .Map(FindConfigurationsMatching, plan.Map(CreateFilterFor, position))
+                plan.Map(CreateFilterFor, position)
+                    .Map(FindMatchingConfigurations)
                     .GetRandom(rng)
                     .Map(CreateRoomFromConfiguration, position);
 
