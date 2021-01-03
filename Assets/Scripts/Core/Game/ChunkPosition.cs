@@ -88,10 +88,10 @@ namespace AChildsCourage.Game
             var chunkPositions = positions as ChunkPosition[] ?? positions.ToArray();
 
             if (!chunkPositions.Any()) return (0, 0);
-            var corners = GetBounds(chunkPositions);
+            var bounds = GetBounds(chunkPositions);
 
-            var width = corners.MaxX - corners.MinX + 1;
-            var height = corners.MaxY - corners.MinY + 1;
+            var width = bounds.MaxX - bounds.MinX + 1;
+            var height = bounds.MaxY - bounds.MinY + 1;
 
             return (width, height);
         }
