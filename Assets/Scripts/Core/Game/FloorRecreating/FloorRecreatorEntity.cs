@@ -25,7 +25,6 @@ namespace AChildsCourage.Game
 
         [Pub] public event EventHandler<FloorRecreatedEventArgs> OnFloorRecreated;
 
-        #region Fields
 
         [SerializeField] private GameObject couragePickupPrefab;
         [SerializeField] private Transform couragePickupParent;
@@ -44,9 +43,6 @@ namespace AChildsCourage.Game
         private RoomCollection roomCollection = EmptyRoomCollection;
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> couragePickupAppearances;
 
-        #endregion
-
-        #region Properties
 
         private RoomCollection RoomCollection
         {
@@ -61,9 +57,6 @@ namespace AChildsCourage.Game
         private ImmutableDictionary<CourageVariant, CouragePickupAppearance> CouragePickupAppearances =>
             couragePickupAppearances ?? (couragePickupAppearances = loadCouragePickupAppearances().ToImmutableDictionary(a => a.Variant));
 
-        #endregion
-
-        #region Methods
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
@@ -139,8 +132,6 @@ namespace AChildsCourage.Game
         private CouragePickupEntity SpawnCouragePickup(TilePosition tilePosition) =>
             Spawn(couragePickupPrefab, tilePosition.Map(GetTileCenter), couragePickupParent)
                 .GetComponent<CouragePickupEntity>();
-
-        #endregion
 
     }
 
