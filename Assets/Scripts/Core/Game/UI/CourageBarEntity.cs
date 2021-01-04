@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Floors.Courage;
+﻿using AChildsCourage.Game.Char;
+using AChildsCourage.Game.Floors.Courage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,9 @@ namespace AChildsCourage.Game.UI
         [SerializeField] private Image courageBarFill;
         [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
         [SerializeField] private Color textColor;
+        [SerializeField] private Animation pickupAnimation;
+
+        private float completionPercent;
 
 
         private float FillPercent
@@ -28,11 +32,14 @@ namespace AChildsCourage.Game.UI
 
         private float CompletionPercent
         {
+            get {
+                return completionPercent;
+            }
             set
             {
+                completionPercent = value;
                 TextColor = value >= HundredPercent ? textColor : defaultTextColor;
                 Text = $"{Mathf.FloorToInt(value * 100)}%";
-                UpdateBarFill(value);
             }
         }
 
@@ -50,6 +57,25 @@ namespace AChildsCourage.Game.UI
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             CompletionPercent = eventArgs.CompletionPercent;
+
+        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
+        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) {
+
+            if(eventArgs.Variant == CourageVariant.Spark) {
+                pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
+            }
+
+            if (eventArgs.Variant == CourageVariant.Orb) {
+                pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
+            }
+
+        }
+
+        private void PlayFillAnimation(AnimationEvent fillAnimation) {
+            fillAnimation.floatParameter = CompletionPercent;
+            UpdateBarFill(CompletionPercent);
+        }
+
 
         private void UpdateBarFill(float percent) =>
             this.StartOnly(() => TimeLerp(new Range<float>(FillPercent, percent),
