@@ -1846,7 +1846,6 @@ GameObject:
   - component: {fileID: 1187637745}
   - component: {fileID: 1187637744}
   - component: {fileID: 1187637743}
-  - component: {fileID: 1187637742}
   - component: {fileID: 1187637746}
   m_Layer: 0
   m_Name: Floor
@@ -1855,18 +1854,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!114 &1187637742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1187637741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597cd2a8557f2354faf0f923cadbff1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1187637743
 MonoBehaviour:
   m_ObjectHideFlags: 0
