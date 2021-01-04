@@ -65,6 +65,10 @@ namespace AChildsCourage.Game.UI
                 pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
             }
 
+            if (eventArgs.Variant == CourageVariant.Orb) {
+                pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
+            }
+
         }
 
         private void PlayFillAnimation(AnimationEvent fillAnimation) {
