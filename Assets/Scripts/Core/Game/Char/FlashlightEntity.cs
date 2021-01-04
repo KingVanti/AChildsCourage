@@ -105,8 +105,8 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation);
-            lightComponent.pointLightOuterRadius = outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation);
+            lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
+            lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
         }
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
