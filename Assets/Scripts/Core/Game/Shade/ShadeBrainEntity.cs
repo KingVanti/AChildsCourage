@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
-using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.Visibility;
 using static AChildsCourage.F;
+using static AChildsCourage.Game.Shade.Investigation;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -46,7 +46,24 @@ namespace AChildsCourage.Game.Shade
             set => CurrentTargetPosition = value.Map(GetTileCenter);
         }
 
-        private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
+
+        public void StartInvestigation(Aoi aoi) =>
+            StartCoroutine(Investigate(aoi));
+
+        private IEnumerator Investigate(Aoi aoi)
+        {
+            var investigation = Start(aoi);
+
+            while (!investigation.Map(IsComplete))
+            {
+                var poi = investigation.Map(GetCurrentTarget);
+                CurrentTargetPosition = poi.Position;
+
+                yield return new WaitUntil(() => Vector2.Distance(transform.position, CurrentTargetPosition) < 1);
+
+                investigation = investigation.Map(Progress);
+            }
+        }
 
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
