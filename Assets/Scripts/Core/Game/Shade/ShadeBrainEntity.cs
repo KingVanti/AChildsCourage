@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.Visibility;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
@@ -39,7 +38,7 @@ namespace AChildsCourage.Game.Shade
         private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
-        
+
 
         public void StartInvestigation(Aoi aoi) =>
             StartCoroutine(Investigate(aoi));
