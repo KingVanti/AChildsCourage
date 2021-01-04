@@ -19,7 +19,6 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float behaviourUpdatesPerSecond;
-        [SerializeField] private int touchDamage;
         [SerializeField] private Rigidbody2D characterRigidbody;
 
         [FindInScene] private ShadeEyesEntity shadeEyes;
@@ -33,9 +32,6 @@ namespace AChildsCourage.Game.Shade
         private IndirectHuntingBehaviour indirectHuntingBehaviour;
         private Coroutine behaviourRoutine;
         private ShadeBehaviourType behaviourType;
-
-
-        public int TouchDamage => touchDamage;
 
         public Vector2 CurrentTargetPosition
         {

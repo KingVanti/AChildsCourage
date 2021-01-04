@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
-using AChildsCourage.Game.Shade;
 using UnityEngine;
 using static AChildsCourage.CustomMath;
 
@@ -19,13 +17,13 @@ namespace AChildsCourage.Game.Char
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
         private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
 
+        [Pub] public event EventHandler OnCharKilled;
+
         [Pub] public event EventHandler<CouragePickedUpEventArgs> OnCouragePickedUp;
 
         [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
 
         [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
-
-        [Pub] public event EventHandler<CharDamageReceivedEventArgs> OnReceivedDamage;
 
         #region Fields
 
@@ -35,7 +33,6 @@ namespace AChildsCourage.Game.Char
         [Header("Stats")]
         [SerializeField] private float movementSpeed;
         [SerializeField] private float sprintSpeed;
-        [SerializeField] private float knockBackMultiplier;
 
         [FindComponent] private Animator animator;
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
@@ -49,8 +46,6 @@ namespace AChildsCourage.Game.Char
         private Vector2 movingDirection;
         private int rotationIndex;
         private bool hasFlashlightEquipped;
-        private bool isInvincible;
-        private bool gettingKnockedBack;
         private bool canCollectCourage = true;
         private bool isSprinting;
         private bool hasStamina = true;
@@ -200,7 +195,7 @@ namespace AChildsCourage.Game.Char
 
         private void Move()
         {
-            if (!gettingKnockedBack) rb.velocity = MovingDirection * movementSpeed;
+            rb.velocity = MovingDirection * movementSpeed;
 
             OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
             UpdateMovementState();
@@ -215,10 +210,7 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))]
-        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs)
-        {
-            if (!gettingKnockedBack) MovingDirection = eventArgs.MoveDirection;
-        }
+        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) => MovingDirection = eventArgs.MoveDirection;
 
         #region Sprinting
 
@@ -292,14 +284,11 @@ namespace AChildsCourage.Game.Char
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (!collision.gameObject.CompareTag(EntityTags.Shade) || gettingKnockedBack || isInvincible) return;
-
-            var shade = collision.gameObject.GetComponent<ShadeBrainEntity>();
-            var shadeMovement = collision.gameObject.GetComponent<ShadeMovementEntity>();
-
-            shadeMovement.WaitAfterDealingDamage();
-            TakingDamage(shade.TouchDamage, shadeMovement.CurrentDirection);
+            if (collision.gameObject.CompareTag(EntityTags.Shade)) Kill();
         }
+
+        private void Kill() =>
+            OnCharKilled?.Invoke(this, EventArgs.Empty);
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -308,49 +297,6 @@ namespace AChildsCourage.Game.Char
             var couragePickup = other.GetComponent<CouragePickupEntity>();
             OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
             Destroy(other.gameObject);
-        }
-
-        private void TakingDamage(int damage, Vector2 knockBackVector)
-        {
-            StartCoroutine(KnockBack(damage * movementSpeed * knockBackMultiplier, 0.175f, knockBackVector));
-            StartCoroutine(DamageTaken(2f));
-
-            OnReceivedDamage?.Invoke(this, new CharDamageReceivedEventArgs(damage));
-        }
-
-        private IEnumerator DamageTaken(float duration)
-        {
-            isInvincible = true;
-
-            // Physics2D.IgnoreLayerCollision(8, 12, true);
-            const int steps = 5;
-
-            var f = spriteRenderer.color;
-            var g = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
-
-            for (var i = 0; i < steps; i++)
-            {
-                spriteRenderer.color = g;
-                yield return new WaitForSeconds(duration / 2 / steps);
-                spriteRenderer.color = f;
-                yield return new WaitForSeconds(duration / 2 / steps);
-            }
-
-            // Physics2D.IgnoreLayerCollision(8, 12, false);
-            isInvincible = false;
-        }
-
-        private IEnumerator KnockBack(float strength, float duration, Vector2 direction)
-        {
-            gettingKnockedBack = true;
-
-            rb.AddForce(direction * strength, ForceMode2D.Impulse);
-            MovingDirection = Vector2.zero;
-
-            yield return new WaitForSeconds(duration);
-
-            rb.velocity = Vector2.zero;
-            gettingKnockedBack = false;
         }
 
         #endregion

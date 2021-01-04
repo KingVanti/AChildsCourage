@@ -391,7 +391,6 @@ MonoBehaviour:
   characterVision: {fileID: 1624709431971907045}
   movementSpeed: 1.7
   sprintSpeed: 4
-  knockBackMultiplier: 2
 --- !u!114 &1871683216658508858
 MonoBehaviour:
   m_ObjectHideFlags: 0

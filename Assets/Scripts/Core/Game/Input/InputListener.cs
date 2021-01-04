@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using UnityEngine;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
@@ -62,8 +63,8 @@ namespace AChildsCourage.Game.Input
         private void OnFlashLightInputOccurred(Context _) =>
             OnFlashLightInput?.Invoke(this, EventArgs.Empty);
 
-        [Sub(nameof(CourageManagerEntity.OnCourageDepleted))]
-        private void OnCourageDepleted(object _1, EventArgs _2) =>
+        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        private void OnCharKilled(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 
         [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]

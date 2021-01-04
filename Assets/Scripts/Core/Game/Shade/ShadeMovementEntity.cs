@@ -12,11 +12,7 @@ namespace AChildsCourage.Game.Shade
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int xAnimatorKey = Animator.StringToHash("X");
         private static readonly int yAnimatorKey = Animator.StringToHash("Y");
-
-
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float waitTimeAfterDealingDamage;
-
+        
         [FindComponent] private Animator animator;
 
         [FindInScene] private AIPath aiPath;
@@ -43,25 +39,6 @@ namespace AChildsCourage.Game.Shade
 
         private void SetMovementTarget(Vector3 position) =>
             aiPath.destination = position;
-
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
-        private void OnShadeSpawned(object _1, EventArgs _2) =>
-            ResetSpeed();
-
-        private void ResetSpeed() =>
-            aiPath.maxSpeed = movementSpeed;
-
-        public void WaitAfterDealingDamage() =>
-            StartCoroutine(WaitAndContinue());
-
-        private IEnumerator WaitAndContinue()
-        {
-            aiPath.maxSpeed = 0.0001f;
-
-            yield return new WaitForSeconds(waitTimeAfterDealingDamage);
-
-            ResetSpeed();
-        }
 
     }
 
