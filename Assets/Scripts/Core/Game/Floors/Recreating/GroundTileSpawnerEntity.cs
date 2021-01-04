@@ -10,7 +10,6 @@ namespace AChildsCourage.Game.Floors
 
         [FindComponent] private Tilemap groundTilemap;
 
-        [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
         [FindInScene] private TileRepositoryEntity tileRepository;
 
 
@@ -19,8 +18,6 @@ namespace AChildsCourage.Game.Floors
             var tile = tileRepository.GetGroundTile();
 
             groundTilemap.SetTile(position.Map(ToVector3Int), tile);
-
-            floorStateKeeper.OnGroundTilePlaced(position);
         }
 
     }

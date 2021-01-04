@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using AChildsCourage.Game.Floors;
-using AChildsCourage.Game.Shade.Navigation;
 using UnityEngine;
 using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.Visibility;
-using static AChildsCourage.Game.Shade.Navigation.InvestigationHistory;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
@@ -22,12 +19,8 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private Rigidbody2D characterRigidbody;
 
         [FindInScene] private ShadeEyesEntity shadeEyes;
-        [FindInScene] private FloorStateKeeperEntity floorStateKeeper;
 
-        private readonly HashSet<TilePosition> investigatedPositions = new HashSet<TilePosition>();
-        private InvestigationHistory investigationHistory = EmptyInvestigationHistory;
         private Vector3 currentTargetPosition;
-        private readonly InvestigationBehaviour investigationBehaviour = new InvestigationBehaviour();
         private readonly DirectHuntingBehaviour directHuntingBehaviour = new DirectHuntingBehaviour();
         private IndirectHuntingBehaviour indirectHuntingBehaviour;
         private Coroutine behaviourRoutine;
@@ -53,8 +46,6 @@ namespace AChildsCourage.Game.Shade
             set => CurrentTargetPosition = value.Map(GetTileCenter);
         }
 
-        private ShadeState CurrentState => new ShadeState(Position, DateTime.Now, investigationHistory);
-
         private EntityPosition Position => new EntityPosition(transform.position.x, transform.position.y);
 
 
@@ -74,12 +65,6 @@ namespace AChildsCourage.Game.Shade
         private bool ShouldStartDirectHunt(AwarenessLevel level) =>
             behaviourType != ShadeBehaviourType.DirectHunting && level == AwarenessLevel.Hunting;
 
-
-        [Sub(nameof(ShadeEyesEntity.OnTilesInViewChanged))]
-        private void OnTilesInVisionChanged(object _, TilesInViewChangedEventArgs eventArgs) =>
-            investigatedPositions.UnionWith(eventArgs.TilesInView);
-
-
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
             If(ShouldStartIndirectHunt(eventArgs.CharVisibility))
@@ -87,49 +72,6 @@ namespace AChildsCourage.Game.Shade
 
         private bool ShouldStartIndirectHunt(Visibility charVisibility) =>
             charVisibility.Equals(NotVisible) && IsHuntingDirectly;
-
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
-        private void OnShadeSpawned(object _1, EventArgs _2) =>
-            StartBehaviour(Investigate);
-
-
-        private IEnumerator Investigate()
-        {
-            void StartInvestigation()
-            {
-                behaviourType = ShadeBehaviourType.Investigating;
-                investigationBehaviour.StartNewInvestigation(floorStateKeeper.CurrentFloorState, CurrentState);
-                CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-            }
-
-            bool InvestigationIsInProgress() => investigationBehaviour.InvestigationIsInProgress;
-
-            void ProgressInvestigation()
-            {
-                investigationBehaviour.ProgressInvestigation(CurrentState, investigatedPositions);
-                investigatedPositions.Clear();
-
-                if (!investigationBehaviour.CurrentTargetTile.Equals(CurrentTargetTile)) CurrentTargetTile = investigationBehaviour.CurrentTargetTile;
-            }
-
-            void CompleteInvestigation()
-            {
-                var completed = investigationBehaviour.CompleteInvestigation();
-                investigationHistory = investigationHistory.Map(AddToHistory, completed);
-
-                StartBehaviour(Investigate);
-            }
-
-            StartInvestigation();
-
-            while (InvestigationIsInProgress())
-            {
-                ProgressInvestigation();
-                yield return new WaitForSeconds(BehaviourUpdateWaitTime);
-            }
-
-            CompleteInvestigation();
-        }
 
         private IEnumerator DirectHunt()
         {
@@ -172,7 +114,7 @@ namespace AChildsCourage.Game.Shade
                 CurrentTargetPosition = indirectHuntingBehaviour.TargetPosition;
             }
 
-            void StopHunt() => StartBehaviour(Investigate);
+            void StopHunt() { }
 
             StartHunt();
 

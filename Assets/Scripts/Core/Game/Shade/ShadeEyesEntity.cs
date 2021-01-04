@@ -5,7 +5,6 @@ using UnityEngine;
 using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.ShadeVision;
 using static AChildsCourage.Game.Shade.Visibility;
-using static AChildsCourage.Game.Shade.TilesInView;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -14,8 +13,6 @@ namespace AChildsCourage.Game.Shade
     {
 
         [Pub] public event EventHandler<CharVisibilityChangedEventArgs> OnCharVisibilityChanged;
-
-        [Pub] public event EventHandler<TilesInViewChangedEventArgs> OnTilesInViewChanged;
 
 
         [SerializeField] private float updatesPerSecond;
@@ -29,9 +26,7 @@ namespace AChildsCourage.Game.Shade
         public IEnumerable<VisionCone> VisionCones => visionCones;
 
         private float WaitTime => 1f / updatesPerSecond;
-
-        private float LargestViewRadius => visionCones.Max(c => c.ViewRadius);
-
+        
         private Visibility CharVisibility
         {
             get => charVisibility;
@@ -52,12 +47,8 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeHead Head => new ShadeHead(transform.position, transform.right, ObstacleExistsBetween);
 
-        private TilesInView TilesInView
-        {
-            set => OnTilesInViewChanged?.Invoke(this, new TilesInViewChangedEventArgs(value));
-        }
-
         private IEnumerable<Vector2> CurrentCharacterVisionPoints => characterVisionPoints.Select(p => (Vector2) p.position);
+
 
         private void OnEnable() =>
             this.DoContinually(UpdateVision, WaitTime);
@@ -69,11 +60,6 @@ namespace AChildsCourage.Game.Shade
             CurrentCharacterVisionPoints.Select(point => GetPointVisibility(Vision, point))
                                         .Map(GetHighestValue);
 
-        public TilesInView CalculateTilesInView() =>
-            FindPositionsInRadius(CurrentTilePosition, LargestViewRadius)
-                .Where(CanSee)
-                .Map(ToTilesInView);
-
         private bool CanSee(TilePosition position) =>
             Vision.Map(CanSeePoint, position.Map(GetTileCenter));
 
@@ -83,11 +69,7 @@ namespace AChildsCourage.Game.Shade
             return Physics2D.Raycast(point1, dirToPoint, dirToPoint.magnitude, obstructionLayers);
         }
 
-        private void UpdateVision()
-        {
-            CharVisibility = CalculateCharacterVisibility();
-            TilesInView = CalculateTilesInView();
-        }
+        private void UpdateVision() => CharVisibility = CalculateCharacterVisibility();
 
     }
 
