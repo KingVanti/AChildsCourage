@@ -39,13 +39,7 @@ namespace AChildsCourage.Game.Shade
         private bool IsHuntingDirectly => behaviourType == ShadeBehaviourType.DirectHunting;
 
         private float BehaviourUpdateWaitTime => 1f / behaviourUpdatesPerSecond;
-
-        private TilePosition CurrentTargetTile
-        {
-            get => CurrentTargetPosition.Map(ToTile);
-            set => CurrentTargetPosition = value.Map(GetTileCenter);
-        }
-
+        
 
         public void StartInvestigation(Aoi aoi) =>
             StartCoroutine(Investigate(aoi));
