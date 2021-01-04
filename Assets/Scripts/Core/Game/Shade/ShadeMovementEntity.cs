@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Pathfinding;
+﻿using Pathfinding;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
@@ -10,9 +8,7 @@ namespace AChildsCourage.Game.Shade
     {
 
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
-        private static readonly int xAnimatorKey = Animator.StringToHash("X");
-        private static readonly int yAnimatorKey = Animator.StringToHash("Y");
-        
+
         [FindComponent] private Animator animator;
 
         [FindInScene] private AIPath aiPath;
@@ -20,18 +16,17 @@ namespace AChildsCourage.Game.Shade
 
         public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
 
-        private bool IsMoving => CurrentDirection.magnitude > float.Epsilon;
+        private bool IsMoving
+        {
+            set => animator.SetBool(movingAnimatorKey, value);
+        }
 
 
         private void Update() =>
-            UpdateAnimator();
+            UpdateIsMoving();
 
-        private void UpdateAnimator()
-        {
-            animator.SetBool(movingAnimatorKey, IsMoving);
-            animator.SetFloat(xAnimatorKey, CurrentDirection.x);
-            animator.SetFloat(yAnimatorKey, CurrentDirection.y);
-        }
+        private void UpdateIsMoving() =>
+            IsMoving = CurrentDirection.magnitude > float.Epsilon;
 
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>

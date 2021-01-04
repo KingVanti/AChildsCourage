@@ -15,7 +15,8 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler OnShadeSteppedOnRune;
 
 
-        [FindComponent] private new Collider2D collider;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private new Collider2D collider;
 
 
         public void Banish()

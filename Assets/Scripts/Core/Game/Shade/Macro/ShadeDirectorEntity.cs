@@ -25,7 +25,10 @@ namespace AChildsCourage.Game.Shade
                 .Do(shade.StartInvestigation);
 
         private Aoi GenerateStandardAoi() =>
-            throw new NotImplementedException();
+            new[]
+            {
+                new Vector2(10, 10)
+            }.Map(Aoi.ToAoi);
 
     }
 
