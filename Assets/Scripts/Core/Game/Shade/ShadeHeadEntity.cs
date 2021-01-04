@@ -35,10 +35,10 @@ namespace AChildsCourage.Game.Shade
         private void FaceMovementDirection()
         {
             transform.right = CurrentDirection;
-            Angle = CalculateCurrentAngle();
+            Angle = ChooseCurrentAngle();
         }
 
-        private float CalculateCurrentAngle() =>
+        private float ChooseCurrentAngle() =>
             IsMoving
                 ? CurrentMovementAngle
                 : DownAngle;
