@@ -56,8 +56,9 @@ namespace AChildsCourage.Game.Shade
 
             while (!investigation.Map(IsComplete))
             {
-                var poi = investigation.Map(GetCurrentTarget);
-                CurrentTargetPosition = poi.Position;
+                CurrentTargetPosition = investigation
+                                        .Map(GetCurrentTarget)
+                                        .Position;
 
                 yield return new WaitUntil(() => Vector2.Distance(transform.position, CurrentTargetPosition) < 1);
 
