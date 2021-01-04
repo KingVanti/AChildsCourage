@@ -10,7 +10,6 @@ namespace AChildsCourage.Game.Char
     public class FlashlightEntity : MonoBehaviour
     {
 
-
         [Pub] public event EventHandler<FlashlightToggleEventArgs> OnFlashlightToggled;
 
 
@@ -22,7 +21,7 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private Range<float> outerRadiusRange;
 
         [FindInScene] private Camera mainCamera;
-        
+
         private bool isTurnedOn;
         private Vector2 mousePosition;
         private Vector2 charPosition;
@@ -88,9 +87,9 @@ namespace AChildsCourage.Game.Char
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 0, 1).Clamp(0, 1), 2);
+        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0), 2);
 
-        
+
         private void UpdateShinePosition()
         {
             var hit = RaycastMouseToCharacter();
@@ -102,21 +101,21 @@ namespace AChildsCourage.Game.Char
             Physics2D.Raycast(CharPosition, ShineDirection, ProjectionDistance, obstructionLayers);
 
         private void UpdateShineIntensity() =>
-            lightComponent.intensity = (1 - ShineDistanceInterpolation) * maxIntensity;
+            lightComponent.intensity = ShineDistanceInterpolation * maxIntensity;
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = innerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
-            lightComponent.pointLightOuterRadius = outerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
+            lightComponent.pointLightInnerRadius = innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation);
+            lightComponent.pointLightOuterRadius = outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation);
         }
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => CharPosition = eventArgs.NewPosition;
-        
+
         [Sub(nameof(InputListener.OnMousePositionChanged))]
         private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) =>
             MousePos = eventArgs.MousePosition;
-        
+
         [Sub(nameof(InputListener.OnFlashLightInput))]
         private void OnFlashlightInput(object _1, EventArgs _2) => Toggle();
 
