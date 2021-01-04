@@ -20,6 +20,7 @@ namespace AChildsCourage.Game.UI
         [SerializeField] private TextMeshProUGUI courageCounterTextMesh;
         [SerializeField] private Color textColor;
         [SerializeField] private Animation pickupAnimation;
+        [SerializeField] private Material glossMaterial;
 
         private float completionPercent;
 
@@ -40,6 +41,8 @@ namespace AChildsCourage.Game.UI
                 completionPercent = value;
                 TextColor = value >= HundredPercent ? textColor : defaultTextColor;
                 Text = $"{Mathf.FloorToInt(value * 100)}%";
+                if (value >= HundredPercent)
+                    courageBarFill.material = glossMaterial;
             }
         }
 

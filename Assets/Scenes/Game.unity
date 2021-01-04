@@ -1819,6 +1819,7 @@ MonoBehaviour:
   courageCounterTextMesh: {fileID: 316459172}
   textColor: {r: 0.8490566, g: 0.71515983, b: 0.1481844, a: 1}
   pickupAnimation: {fileID: 1171723090}
+  glossMaterial: {fileID: 2100000, guid: d3004484b5ffb33459cd7ead14df6a61, type: 2}
 --- !u!111 &1171723090
 Animation:
   m_ObjectHideFlags: 0
@@ -1831,7 +1832,6 @@ Animation:
   m_Animation: {fileID: 0}
   m_Animations:
   - {fileID: 7400000, guid: ab50d3523ef4e404f883df92ac64bd72, type: 2}
-  - {fileID: 0}
   - {fileID: 7400000, guid: 20d15f92eda5a9344ad065278034244d, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0

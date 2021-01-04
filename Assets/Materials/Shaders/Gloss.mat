@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CourageBarMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: d338da2cc5beee04b9dae62a08686de7, type: 3}
+  m_Name: Gloss
+  m_Shader: {fileID: -6465566751694194690, guid: e81593a8d5aa86246bc8cfde72c2c82d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,17 +19,15 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Emission:
-        m_Texture: {fileID: 2800000, guid: a36cc04b57cea444781432d05aa2ef1f, type: 3}
+    - Texture2D_661B816F:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 664f4959fb5333b4984823fc609d4933, type: 3}
+    - Texture2D_B1335F54:
+        m_Texture: {fileID: 2800000, guid: a8dcf4ad957def341a633594a4ff10e0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - AngleOffset: 5
-    - Vector1_6DFA17E0: 5
-    m_Colors:
-    - Color_D45C07F1: {r: 1.498039, g: 0.3999213, b: 0, a: 0}
+    - Vector1_CBF016B: -0.3
+    m_Colors: []
   m_BuildTextureStacks: []
