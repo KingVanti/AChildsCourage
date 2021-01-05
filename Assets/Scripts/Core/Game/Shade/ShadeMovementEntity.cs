@@ -40,6 +40,12 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
+        private Vector2 Target
+        {
+            get => aiPath.destination;
+            set => aiPath.destination = value;
+        }
+
 
         private void Update()
         {
@@ -54,11 +60,16 @@ namespace AChildsCourage.Game.Shade
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
             SetMovementTarget(eventArgs.NewTargetPosition);
 
-        private void SetMovementTarget(Vector3 position)
+        private void SetMovementTarget(Vector2 position)
         {
-            aiPath.destination = position;
+            if (!position.Map(IsNewTarget)) return;
+
+            Target = position;
             ReachedTarget = false;
         }
+
+        private bool IsNewTarget(Vector2 position) =>
+            Vector2.Distance(position, Target) >= 0.05f;
 
     }
 
