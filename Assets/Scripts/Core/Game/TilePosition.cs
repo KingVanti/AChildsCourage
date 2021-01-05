@@ -31,7 +31,7 @@ namespace AChildsCourage.Game
         public static Vector2 ToVector2(TilePosition position) =>
             new Vector2(position.X, position.Y);
 
-        public static Vector2 GetTileCenter(TilePosition position) =>
+        public static Vector2 GetCenter(TilePosition position) =>
             new Vector2(position.X + TileExtent, position.Y + TileExtent);
 
         public static TilePosition ToTile(Vector2 vector) =>
@@ -39,7 +39,7 @@ namespace AChildsCourage.Game
                              FloorToInt(vector.y));
 
         public static IEnumerable<TilePosition> FindPositionsInRadius(TilePosition center, float radius) =>
-            GeneratePositionsInRadius(GetTileCenter(center), radius)
+            GeneratePositionsInRadius(GetCenter(center), radius)
                 .Select(ToTile);
 
         private static IEnumerable<Vector2> GeneratePositionsInRadius(Vector2 center, float radius) =>

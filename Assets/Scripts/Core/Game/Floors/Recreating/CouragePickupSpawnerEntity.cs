@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Floors
         }
 
         private CouragePickupEntity InstantiatePickup(TilePosition tilePosition) =>
-            Infrastructure.Spawn(couragePickupPrefab, tilePosition.Map(GetTileCenter), transform)
+            Infrastructure.Spawn(couragePickupPrefab, tilePosition.Map(GetCenter), transform)
                           .GetComponent<CouragePickupEntity>();
 
     }
