@@ -19,6 +19,7 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float maxIntensity;
         [SerializeField] private Range<float> innerRadiusRange;
         [SerializeField] private Range<float> outerRadiusRange;
+        [SerializeField] private CircleCollider2D courageTrigger;
 
         [FindInScene] private Camera mainCamera;
 
@@ -83,7 +84,7 @@ namespace AChildsCourage.Game.Char
 
         private Vector2 ShineDirection => (ProjectedMousePos - CharPosition).normalized;
 
-        private float DistanceToCharacter => Vector2.Distance(ShinePosition, CharPosition);
+        public float DistanceToCharacter => Vector2.Distance(ShinePosition, CharPosition);
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
@@ -107,6 +108,7 @@ namespace AChildsCourage.Game.Char
         {
             lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
             lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
+            courageTrigger.radius = lightComponent.pointLightOuterRadius;
         }
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]

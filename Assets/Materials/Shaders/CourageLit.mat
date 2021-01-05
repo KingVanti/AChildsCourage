@@ -29,6 +29,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_FAB428A0: {r: 1.198827, g: 0.6323093, b: 0, a: 0}
-    - Vector3_E06D296D: {r: 0, g: 0.2, b: 0, a: 0}
+    - Color_FAB428A0: {r: 1.4980392, g: 0.7921569, b: 0, a: 0}
+    - Vector3_E06D296D: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []

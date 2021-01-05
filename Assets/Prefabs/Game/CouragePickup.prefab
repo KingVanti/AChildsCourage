@@ -382,7 +382,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.02
+      scalar: 0.025
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4882,8 +4882,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1147400151
-  m_SortingLayer: 4
+  m_SortingLayerID: 1316811689
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 1
@@ -4898,7 +4898,7 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 1
+  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1

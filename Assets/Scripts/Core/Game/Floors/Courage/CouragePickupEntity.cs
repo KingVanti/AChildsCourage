@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Char;
+using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Floors.Courage
@@ -35,7 +36,22 @@ namespace AChildsCourage.Game.Floors.Courage
             maxIntensity = appearance.LightIntensity;
         }
 
-        
+        private void OnTriggerStay2D(Collider2D collision) {
+
+            if (collision.CompareTag(EntityTags.Flashlight)) {
+
+                FlashlightEntity fe = collision.GetComponent<FlashlightEntity>();
+
+                if (fe.IsTurnedOn && (fe.DistanceToCharacter <= 5)) {
+                    if (lightSource.intensity <= maxIntensity) {
+                        lightSource.intensity = Mathf.MoveTowards(lightSource.intensity, maxIntensity, Time.deltaTime * 1);
+                    }
+                }
+            }
+
+        }
+
+
 
     }
 
