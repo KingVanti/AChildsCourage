@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.ShadeVision;
-using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Char.Visibility;
 
 namespace AChildsCourage.Game.Shade
 {

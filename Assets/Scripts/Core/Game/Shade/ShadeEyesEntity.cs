@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.ShadeVision;
-using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Char.Visibility;
 
 namespace AChildsCourage.Game.Shade
 {

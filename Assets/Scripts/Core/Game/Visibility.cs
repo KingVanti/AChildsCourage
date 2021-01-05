@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace AChildsCourage.Game.Shade
+namespace AChildsCourage.Game.Char
 {
 
     [Serializable]

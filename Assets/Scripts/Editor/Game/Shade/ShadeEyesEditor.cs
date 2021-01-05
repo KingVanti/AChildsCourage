@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using AChildsCourage.Game.Char;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Mathf;
 

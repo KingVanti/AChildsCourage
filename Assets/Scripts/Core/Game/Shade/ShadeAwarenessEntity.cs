@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.Awareness;
-using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Char.Visibility;
 using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Shade
