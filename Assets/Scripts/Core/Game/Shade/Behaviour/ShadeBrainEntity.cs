@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
@@ -29,13 +30,26 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
+        private ShadeState CurrentState
+        {
+            get => currentState;
+            set
+            {
+                if (value == currentState) return;
+
+                var prev = currentState;
+                currentState = value;
+                prev.Exit(currentState);
+            }
+        }
+
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             currentState = Idle();
 
-        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
-        private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs) =>
+        [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
+        private void OnCharSpotted(object _, CharSpottedEventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
@@ -46,13 +60,12 @@ namespace AChildsCourage.Game.Shade
         private void OnTargetReached(object _, ShadeTargetReachedEventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        private void ReactTo(EventArgs eventArgs)
-        {
-            var prev = currentState;
-         
-            currentState = currentState.React(eventArgs);;
-            prev.Exit(currentState);
-        }
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
+            ReactTo(eventArgs);
+
+        private void ReactTo(EventArgs eventArgs) =>
+            CurrentState = CurrentState.React(eventArgs);
 
         private ShadeState Idle()
         {
@@ -89,11 +102,28 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case ShadeTargetReachedEventArgs _: return ProgressInvestigation();
+                    case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit);
                     default: return currentState;
                 }
             }
 
             return new ShadeState(ShadeStateType.Investigation, React, OnExit);
+        }
+
+        private ShadeState Pursuit(Vector2 charPosition)
+        {
+            CurrentTargetPosition = charPosition;
+
+            ShadeState React(EventArgs eventArgs)
+            {
+                switch (eventArgs)
+                {
+                    case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition);
+                    default: return currentState;
+                }
+            }
+
+            return new ShadeState(ShadeStateType.Pursuit, React, NoExitAction);
         }
 
     }

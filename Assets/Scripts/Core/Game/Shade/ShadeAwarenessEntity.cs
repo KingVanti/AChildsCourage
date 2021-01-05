@@ -12,6 +12,7 @@ namespace AChildsCourage.Game.Shade
     {
 
         [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
+        [Pub] public event EventHandler<CharSpottedEventArgs> OnCharSpotted;
 
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
@@ -38,8 +39,26 @@ namespace AChildsCourage.Game.Shade
                 if (currentAwareness.Equals(value)) return;
 
                 currentAwareness = value;
-                currentAwarenessLevel = CalculateAwarenessLevel();
-                OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, currentAwarenessLevel));
+                CurrentAwarenessLevel = CalculateAwarenessLevel();
+                OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, CurrentAwarenessLevel));
+            }
+        }
+
+        private AwarenessLevel CurrentAwarenessLevel
+        {
+            get => currentAwarenessLevel;
+            set
+            {
+                if(CurrentAwarenessLevel == value) return;
+
+                currentAwarenessLevel = value;
+
+                switch (CurrentAwarenessLevel)
+                {
+                    case AwarenessLevel.Aware: 
+                        OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
+                        break;
+                }
             }
         }
 
@@ -59,6 +78,8 @@ namespace AChildsCourage.Game.Shade
 
         private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
+        private Vector2 CharPosition => charController.transform.position;
+
 
         private void Update() =>
             UpdateAwareness();
@@ -74,7 +95,7 @@ namespace AChildsCourage.Game.Shade
             CurrentAwareness = NoAwareness;
 
         private AwarenessLevel CalculateAwarenessLevel() =>
-            HasEnoughAwarenessForLevel(AwarenessLevel.Hunting) ? AwarenessLevel.Hunting
+            HasEnoughAwarenessForLevel(AwarenessLevel.Aware) ? AwarenessLevel.Aware
             : HasEnoughAwarenessForLevel(AwarenessLevel.Suspicious) ? AwarenessLevel.Suspicious
             : AwarenessLevel.Oblivious;
 

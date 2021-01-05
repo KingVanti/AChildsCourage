@@ -7,7 +7,8 @@ namespace AChildsCourage.Game.Shade
     {
 
         Idle,
-        Investigation
+        Investigation,
+        Pursuit
 
     }
 
@@ -20,7 +21,7 @@ namespace AChildsCourage.Game.Shade
 
 
         public static OnStateExited NoExitAction => _ => { };
-        
+
 
         public ShadeStateType Type { get; }
 
