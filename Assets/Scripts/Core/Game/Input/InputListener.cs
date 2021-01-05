@@ -18,6 +18,8 @@ namespace AChildsCourage.Game.Input
 
         [Pub] public event EventHandler<SprintInputEventArgs> OnSprintInput;
 
+        [Pub] public event EventHandler OnExitInput;
+
 
         private CharControls charControls;
 
@@ -40,6 +42,7 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Flashlight.performed += OnFlashLightInputOccurred;
             charControls.Char.Sprint.performed += OnSprintPressed;
             charControls.Char.Sprint.canceled += OnSprintReleased;
+            charControls.Char.Exit.performed += OnExitInputOccurred;
         }
 
         private void OnLook(Context context)
@@ -63,12 +66,19 @@ namespace AChildsCourage.Game.Input
         private void OnFlashLightInputOccurred(Context _) =>
             OnFlashLightInput?.Invoke(this, EventArgs.Empty);
 
+        private void OnExitInputOccurred(Context _) =>
+            OnExitInput?.Invoke(this, EventArgs.Empty);
+
         [Sub(nameof(CharControllerEntity.OnCharKilled))]
         private void OnCharKilled(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 
         [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
         private void OnCharWin(object _1, EventArgs _2) =>
+            UnsubscribeFromInputs();
+
+        [Sub(nameof(GameManager.OnBackToMainMenu))]
+        private void OnBackToMainMenu(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 
         private void UnsubscribeFromInputs()
@@ -78,6 +88,7 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Flashlight.performed -= OnFlashLightInputOccurred;
             charControls.Char.Sprint.performed -= OnSprintPressed;
             charControls.Char.Sprint.canceled -= OnSprintReleased;
+            charControls.Char.Exit.performed -= OnExitInputOccurred;
         }
 
     }
