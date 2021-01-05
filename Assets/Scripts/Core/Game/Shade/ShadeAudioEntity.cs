@@ -55,7 +55,7 @@ namespace AChildsCourage.Game.Shade
                             RuntimeManager.PlayOneShot(awarenessCues_01, GetComponent<Transform>().position);
                         break;
 
-                    case AwarenessLevel.Hunting: //2
+                    case AwarenessLevel.Aware: //2
                         if (old_awarness == AwarenessLevel.Suspicious) //2-1
                             RuntimeManager.PlayOneShot(awarenessCues_12, GetComponent<Transform>().position);
                         break;
