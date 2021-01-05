@@ -15,6 +15,8 @@ namespace AChildsCourage.Game.Floors.Courage
         [FindComponent(ComponentFindMode.OnChildren)]
         private Light2D lightSource;
 
+        private float maxIntensity;
+
         public CourageVariant Variant { get; private set; }
 
 
@@ -30,8 +32,10 @@ namespace AChildsCourage.Game.Floors.Courage
             spriteRenderer.transform.localScale = appearance.Scale;
             spriteRenderer.material.SetTexture(emissionTextureKey, appearance.Emission);
             lightSource.pointLightOuterRadius = appearance.LightOuterRadius;
-            lightSource.intensity = appearance.LightIntensity;
+            maxIntensity = appearance.LightIntensity;
         }
+
+        
 
     }
 

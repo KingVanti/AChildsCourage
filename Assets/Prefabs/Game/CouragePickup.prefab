@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25c0fc52ecd3c14418fe6e81daf2a31d, type: 2}
+  - {fileID: 2100000, guid: bef8df1fe8e82f041b0e1d6fa5752aa1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,8 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212b5941691835640a5af80167b25c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 7978117671522099882}
-  courageLight: {fileID: 7978117672213814819}
 --- !u!198 &1745441868050171075
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4975,7 +4973,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.85
   m_Color: {r: 0.990566, g: 0.7889849, b: 0.54668033, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0
   m_LightVolumeOpacity: 0.25
   m_ApplyToSortingLayers: 00000000a9f37c4ecbf16821afacebfaf591a27d
   m_LightCookieSprite: {fileID: 0}
