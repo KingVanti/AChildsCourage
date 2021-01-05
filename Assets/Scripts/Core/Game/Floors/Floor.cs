@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Floors
         public static Vector2 GetEndRoomCenter(Floor floor) =>
             floor.EndRoomChunk
                  .Map(GetCenter)
-                 .Map(GetTileCenter);
+                 .Map(GetCenter);
 
         public static TilePosition FindEndChunkCenter(Floor floor) =>
             floor.EndRoomChunk.Map(GetCenter);
@@ -55,10 +55,10 @@ namespace AChildsCourage.Game.Floors
         public static Floor EmptyFloor(ChunkPosition endRoomChunk) =>
             new Floor(ImmutableHashSet<FloorObject>.Empty,
                       endRoomChunk);
-
-
+        
+        
         public ImmutableHashSet<FloorObject> Objects { get; }
-
+        
         public ChunkPosition EndRoomChunk { get; }
 
 

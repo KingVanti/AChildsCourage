@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Shade
         public static Aoi ToAoi(IEnumerable<Vector2> positions) =>
             new Aoi(positions.Select(p => p.Map(Poi.ToPoi)).ToImmutableHashSet());
 
-        
+
         public ImmutableHashSet<Poi> Pois { get; }
 
 
