@@ -11,8 +11,11 @@ namespace AChildsCourage.Game.Shade
     public class ShadeAwarenessEntity : MonoBehaviour
     {
 
-        [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
+        [Pub] public event EventHandler<CharLostEventArgs> OnCharLost;
+
         [Pub] public event EventHandler<CharSpottedEventArgs> OnCharSpotted;
+
+        [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
         [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
@@ -49,16 +52,15 @@ namespace AChildsCourage.Game.Shade
             get => currentAwarenessLevel;
             set
             {
-                if(CurrentAwarenessLevel == value) return;
-
-                currentAwarenessLevel = value;
-
-                switch (CurrentAwarenessLevel)
-                {
-                    case AwarenessLevel.Aware: 
+                if (CurrentAwarenessLevel == value) return;
+                
+               if(value == AwarenessLevel.Aware)
                         OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
-                        break;
-                }
+               else if(CurrentAwarenessLevel == AwarenessLevel.Aware)
+                        OnCharLost?.Invoke(this, new CharLostEventArgs(CharPosition, CharVelocity));
+                
+                
+                currentAwarenessLevel = value;
             }
         }
 
@@ -79,6 +81,8 @@ namespace AChildsCourage.Game.Shade
         private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
         private Vector2 CharPosition => charController.transform.position;
+
+        private Vector2 CharVelocity => charController.Velocity;
 
 
         private void Update() =>

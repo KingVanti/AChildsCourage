@@ -376,8 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourUpdatesPerSecond: 10
-  characterRigidbody: {fileID: 0}
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathRefreshesPerSecond: 2
 --- !u!114 &1705656334
 MonoBehaviour:
   m_ObjectHideFlags: 0

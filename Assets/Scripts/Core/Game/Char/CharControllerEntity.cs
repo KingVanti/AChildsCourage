@@ -134,6 +134,12 @@ namespace AChildsCourage.Game.Char
             }
         }
 
+        public Vector2 Velocity
+        {
+            get => rb.velocity;
+            private set => rb.velocity = value;
+        }
+
         #endregion
 
         #region Methods
@@ -195,7 +201,7 @@ namespace AChildsCourage.Game.Char
 
         private void Move()
         {
-            rb.velocity = MovingDirection * movementSpeed;
+            Velocity = MovingDirection * movementSpeed;
 
             OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
             UpdateMovementState();

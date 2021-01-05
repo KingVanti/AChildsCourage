@@ -16,11 +16,11 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
 
-        private Vector2 currentTargetPosition;
+        private Vector2? currentTargetPosition;
         private ShadeState currentState;
 
 
-        public Vector2 CurrentTargetPosition
+        public Vector2? CurrentTargetPosition
         {
             get => currentTargetPosition;
             private set
@@ -64,11 +64,17 @@ namespace AChildsCourage.Game.Shade
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
             ReactTo(eventArgs);
 
+        [Sub(nameof(ShadeAwarenessEntity.OnCharLost))]
+        private void OnCharLost(object _, CharLostEventArgs eventArgs) =>
+            ReactTo(eventArgs);
+
         private void ReactTo(EventArgs eventArgs) =>
             CurrentState = CurrentState.React(eventArgs);
 
         private ShadeState Idle()
         {
+            CurrentTargetPosition = null;
+            
             ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
                 eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
 
@@ -119,6 +125,7 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition);
+                    case CharLostEventArgs _: return Idle();
                     default: return currentState;
                 }
             }

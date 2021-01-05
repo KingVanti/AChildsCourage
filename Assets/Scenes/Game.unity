@@ -985,11 +985,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 555895927203934551, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
   m_PrefabInstance: {fileID: 489588450}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &489588455 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 3546636511749136385, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-  m_PrefabInstance: {fileID: 489588450}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514745767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,14 +2500,6 @@ PrefabInstance:
       propertyPath: characterVisionPoints.Array.data[1]
       value: 
       objectReference: {fileID: 489588452}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: characterRigidbody
-      value: 
-      objectReference: {fileID: 489588455}
-    - target: {fileID: 7337468781757878326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: pathRefreshesPerSecond
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &2074507388

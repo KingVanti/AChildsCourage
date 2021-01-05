@@ -17,10 +17,10 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float pathRefreshesPerSecond;
 
         [FindComponent] private Animator animator;
-
+        
         [FindInScene] private AIPath aiPath;
 
-        private Vector2 targetPosition;
+        private Vector2? targetPosition;
         private bool reachedTarget;
 
 
@@ -49,20 +49,30 @@ namespace AChildsCourage.Game.Shade
             set => aiPath.destination = value;
         }
 
+        private float RefreshWaitTime => 1f / pathRefreshesPerSecond;
+
+
         private void Update()
         {
             IsMoving = !aiPath.isStopped;
             ReachedTarget = aiPath.reachedDestination;
         }
 
-
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
-            this.DoContinually(RecalculatePath, 1f / pathRefreshesPerSecond);
+            this.DoContinually(RecalculatePath, RefreshWaitTime);
 
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
-        private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
-            SetMovementTarget(eventArgs.NewTargetPosition);
+        private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs)
+        {
+            if (eventArgs.NewTargetPosition.HasValue)
+                SetMovementTarget(eventArgs.NewTargetPosition.Value);
+            else
+            {
+                targetPosition = null;
+                aiPath.SetPath(null);
+            }
+        }
 
         private void SetMovementTarget(Vector2 position)
         {
@@ -73,11 +83,12 @@ namespace AChildsCourage.Game.Shade
         }
 
         private bool IsNewTarget(Vector2 position) =>
-            Vector2.Distance(position, targetPosition) >= 0.05f;
+            targetPosition == null ||
+            Vector2.Distance(position, targetPosition.Value) >= 0.05f;
 
         private void RecalculatePath()
         {
-            if (targetPosition != AiTarget) AiTarget = targetPosition;
+            if (targetPosition != null && targetPosition != AiTarget) AiTarget = targetPosition.Value;
         }
 
     }
