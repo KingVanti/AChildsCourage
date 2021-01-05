@@ -14,10 +14,13 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<ShadeTargetReachedEventArgs> OnTargetReached;
 
 
+        [SerializeField] private float pathRefreshesPerSecond;
+
         [FindComponent] private Animator animator;
 
         [FindInScene] private AIPath aiPath;
 
+        private Vector2 targetPosition;
         private bool reachedTarget;
 
 
@@ -40,21 +43,22 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private Vector2 Target
+        private Vector2 AiTarget
         {
             get => aiPath.destination;
             set => aiPath.destination = value;
         }
 
-
         private void Update()
         {
-            UpdateIsMoving();
+            IsMoving = !aiPath.isStopped;
             ReachedTarget = aiPath.reachedDestination;
         }
 
-        private void UpdateIsMoving() =>
-            IsMoving = CurrentDirection.magnitude > float.Epsilon;
+
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        private void OnSceneLoaded(object _1, EventArgs _2) =>
+            this.DoContinually(RecalculatePath, 1f / pathRefreshesPerSecond);
 
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs) =>
@@ -64,12 +68,17 @@ namespace AChildsCourage.Game.Shade
         {
             if (!position.Map(IsNewTarget)) return;
 
-            Target = position;
+            targetPosition = position;
             ReachedTarget = false;
         }
 
         private bool IsNewTarget(Vector2 position) =>
-            Vector2.Distance(position, Target) >= 0.05f;
+            Vector2.Distance(position, targetPosition) >= 0.05f;
+
+        private void RecalculatePath()
+        {
+            if (targetPosition != AiTarget) AiTarget = targetPosition;
+        }
 
     }
 

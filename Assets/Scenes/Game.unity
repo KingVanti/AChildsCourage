@@ -2509,6 +2509,10 @@ PrefabInstance:
       propertyPath: characterRigidbody
       value: 
       objectReference: {fileID: 489588455}
+    - target: {fileID: 7337468781757878326, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
+      propertyPath: pathRefreshesPerSecond
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &2074507388
