@@ -41,7 +41,8 @@ namespace AChildsCourage.Game.Shade
             get => transform.right;
             set
             {
-                transform.right = value;
+                var transformAngle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(transformAngle, Vector3.forward);
                 Angle = Vector2.SignedAngle(Vector2.right, CurrentDirection);
             }
         }
