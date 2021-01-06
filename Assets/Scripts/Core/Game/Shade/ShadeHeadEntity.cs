@@ -28,7 +28,9 @@ namespace AChildsCourage.Game.Shade
 
         private bool IsMoving => CurrentMovementDirection.magnitude > float.Epsilon;
 
-        private Vector2? ExplicitFaceDirection => explicitTargetPosition ?? (Vector2) transform.position;
+        private Vector2? ExplicitFaceDirection => explicitTargetPosition.HasValue
+            ? explicitTargetPosition.Value - (Vector2) transform.position
+            : (Vector2?) null;
 
         private Vector2 MovementFaceDirection => IsMoving
             ? CurrentMovementDirection
