@@ -3,6 +3,7 @@ using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
+using static AChildsCourage.Game.Shade.LastKnownCharInfo;
 using static AChildsCourage.Game.Shade.ShadeState;
 
 namespace AChildsCourage.Game.Shade
@@ -44,6 +45,10 @@ namespace AChildsCourage.Game.Shade
         }
 
 
+        private void Update() =>
+            ReactTo(new TimeTickEventArgs());
+
+
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             currentState = Idle();
@@ -74,7 +79,7 @@ namespace AChildsCourage.Game.Shade
         private ShadeState Idle()
         {
             CurrentTargetPosition = null;
-            
+
             ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
                 eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
 
@@ -125,12 +130,28 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition);
-                    case CharLostEventArgs _: return Idle();
+                    case CharLostEventArgs charLost: return Predict(charLost.CharInfo, Time.time);
                     default: return currentState;
                 }
             }
 
             return new ShadeState(ShadeStateType.Pursuit, React, NoExitAction);
+        }
+
+        private ShadeState Predict(LastKnownCharInfo charInfo, float currentTime)
+        {
+            CurrentTargetPosition = charInfo.Map(PredictPosition, currentTime);
+
+            ShadeState React(EventArgs eventArgs)
+            {
+                switch (eventArgs)
+                {
+                    case TimeTickEventArgs _: return Predict(charInfo, Time.time);
+                    default: return currentState;
+                }
+            }
+
+            return new ShadeState(ShadeStateType.Predict, React, NoExitAction);
         }
 
     }

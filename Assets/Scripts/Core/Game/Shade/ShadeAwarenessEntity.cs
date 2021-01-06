@@ -53,13 +53,12 @@ namespace AChildsCourage.Game.Shade
             set
             {
                 if (CurrentAwarenessLevel == value) return;
-                
-               if(value == AwarenessLevel.Aware)
-                        OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
-               else if(CurrentAwarenessLevel == AwarenessLevel.Aware)
-                        OnCharLost?.Invoke(this, new CharLostEventArgs(CharPosition, CharVelocity));
-                
-                
+
+                if (value == AwarenessLevel.Aware)
+                    OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
+                else if (CurrentAwarenessLevel == AwarenessLevel.Aware) OnCharLost?.Invoke(this, new CharLostEventArgs(GetCurrentCharInfo()));
+
+
                 currentAwarenessLevel = value;
             }
         }
@@ -109,6 +108,9 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
             currentCharVisibility = eventArgs.CharVisibility;
+
+        private LastKnownCharInfo GetCurrentCharInfo() =>
+            new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
 
     }
 

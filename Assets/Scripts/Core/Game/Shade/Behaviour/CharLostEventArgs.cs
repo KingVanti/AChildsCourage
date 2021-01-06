@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -7,16 +6,11 @@ namespace AChildsCourage.Game.Shade
     public class CharLostEventArgs : EventArgs
     {
 
-        private Vector2 LastKnownPosition { get; }
+        public LastKnownCharInfo CharInfo { get; }
 
-        private Vector2 LastKnownVelocity { get; }
-
-
-        public CharLostEventArgs(Vector2 lastKnownPosition, Vector2 lastKnownVelocity)
-        {
-            LastKnownPosition = lastKnownPosition;
-            LastKnownVelocity = lastKnownVelocity;
-        }
+        
+        public CharLostEventArgs(LastKnownCharInfo charInfo) =>
+            CharInfo = charInfo;
 
     }
 
