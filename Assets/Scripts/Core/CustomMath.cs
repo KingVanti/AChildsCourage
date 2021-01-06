@@ -52,6 +52,9 @@ namespace AChildsCourage
         public static float Times(this int i, float mult) =>
             i * mult;
 
+        public static float CalculateCircleArea(float radius) =>
+            PI * radius.Squared();
+
     }
 
 }

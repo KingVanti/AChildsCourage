@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Char;
+using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
 namespace AChildsCourage.Game.Floors.Courage
@@ -15,6 +16,8 @@ namespace AChildsCourage.Game.Floors.Courage
         [FindComponent(ComponentFindMode.OnChildren)]
         private Light2D lightSource;
 
+        private float maxIntensity;
+
         public CourageVariant Variant { get; private set; }
 
 
@@ -30,8 +33,25 @@ namespace AChildsCourage.Game.Floors.Courage
             spriteRenderer.transform.localScale = appearance.Scale;
             spriteRenderer.material.SetTexture(emissionTextureKey, appearance.Emission);
             lightSource.pointLightOuterRadius = appearance.LightOuterRadius;
-            lightSource.intensity = appearance.LightIntensity;
+            maxIntensity = appearance.LightIntensity;
         }
+
+        private void OnTriggerStay2D(Collider2D collision) {
+
+            if (collision.CompareTag(EntityTags.Flashlight)) {
+
+                FlashlightEntity fe = collision.GetComponent<FlashlightEntity>();
+
+                if (fe.IsTurnedOn && (fe.DistanceToCharacter <= 5)) {
+                    if (lightSource.intensity <= maxIntensity) {
+                        lightSource.intensity = Mathf.MoveTowards(lightSource.intensity, maxIntensity, Time.deltaTime * 1);
+                    }
+                }
+            }
+
+        }
+
+
 
     }
 

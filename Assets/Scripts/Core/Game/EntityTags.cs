@@ -19,6 +19,11 @@
         /// </summary>
         internal const string Shade = "Shade";
 
+        /// <summary>
+        ///     Unity tag for the Flashlight entity
+        /// </summary>
+        internal const string Flashlight = "Flashlight";
+
     }
 
 }

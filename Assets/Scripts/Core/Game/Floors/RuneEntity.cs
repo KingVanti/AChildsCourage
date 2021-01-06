@@ -35,6 +35,10 @@ namespace AChildsCourage.Game.Floors
 
         private bool IsActive => State == RuneState.Active;
 
+        private void Start() {
+            StartCoroutine(Wobble());
+        }
+
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -91,6 +95,17 @@ namespace AChildsCourage.Game.Floors
         {
             spriteRenderer.material = litMaterial;
             runeLight.intensity = 0.1f;
+        }
+
+        IEnumerator Wobble() {
+
+            float startingRadius = runeLight.pointLightOuterRadius;
+
+            while (true) {
+                runeLight.pointLightOuterRadius = startingRadius + (Mathf.Sin(Time.time) * 0.2f);
+                yield return null;
+            }
+
         }
 
 

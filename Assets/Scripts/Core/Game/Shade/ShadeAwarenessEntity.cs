@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.Awareness;
-using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Char.Visibility;
 using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Shade
@@ -10,6 +10,10 @@ namespace AChildsCourage.Game.Shade
 
     public class ShadeAwarenessEntity : MonoBehaviour
     {
+
+        [Pub] public event EventHandler<CharLostEventArgs> OnCharLost;
+
+        [Pub] public event EventHandler<CharSpottedEventArgs> OnCharSpotted;
 
         [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
@@ -38,8 +42,24 @@ namespace AChildsCourage.Game.Shade
                 if (currentAwareness.Equals(value)) return;
 
                 currentAwareness = value;
-                currentAwarenessLevel = CalculateAwarenessLevel();
-                OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, currentAwarenessLevel));
+                CurrentAwarenessLevel = CalculateAwarenessLevel();
+                OnShadeAwarenessChanged?.Invoke(this, new AwarenessChangedEventArgs(CurrentAwareness, CurrentAwarenessLevel));
+            }
+        }
+
+        private AwarenessLevel CurrentAwarenessLevel
+        {
+            get => currentAwarenessLevel;
+            set
+            {
+                if (CurrentAwarenessLevel == value) return;
+
+                if (value == AwarenessLevel.Aware)
+                    OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
+                else if (CurrentAwarenessLevel == AwarenessLevel.Aware) OnCharLost?.Invoke(this, new CharLostEventArgs(GetCurrentCharInfo()));
+
+
+                currentAwarenessLevel = value;
             }
         }
 
@@ -59,6 +79,10 @@ namespace AChildsCourage.Game.Shade
 
         private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
+        private Vector2 CharPosition => charController.transform.position;
+
+        private Vector2 CharVelocity => charController.Velocity;
+
 
         private void Update() =>
             UpdateAwareness();
@@ -74,7 +98,7 @@ namespace AChildsCourage.Game.Shade
             CurrentAwareness = NoAwareness;
 
         private AwarenessLevel CalculateAwarenessLevel() =>
-            HasEnoughAwarenessForLevel(AwarenessLevel.Hunting) ? AwarenessLevel.Hunting
+            HasEnoughAwarenessForLevel(AwarenessLevel.Aware) ? AwarenessLevel.Aware
             : HasEnoughAwarenessForLevel(AwarenessLevel.Suspicious) ? AwarenessLevel.Suspicious
             : AwarenessLevel.Oblivious;
 
@@ -84,6 +108,9 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
             currentCharVisibility = eventArgs.CharVisibility;
+
+        private LastKnownCharInfo GetCurrentCharInfo() =>
+            new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
 
     }
 

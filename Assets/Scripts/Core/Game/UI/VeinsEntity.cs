@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.UI
         }
 
         private void SetVeinSprite(AwarenessLevel level) =>
-            image.sprite = level == AwarenessLevel.Hunting
+            image.sprite = level == AwarenessLevel.Aware
                 ? activeVeins
                 : defaultVeins;
 

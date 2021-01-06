@@ -10,13 +10,8 @@ namespace AChildsCourage.Game.Char
     public class FlashlightEntity : MonoBehaviour
     {
 
-        #region Events
-
         [Pub] public event EventHandler<FlashlightToggleEventArgs> OnFlashlightToggled;
 
-        #endregion
-
-        #region Fields
 
         [SerializeField] private Light2D lightComponent;
         [SerializeField] private LayerMask obstructionLayers;
@@ -24,18 +19,15 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float maxIntensity;
         [SerializeField] private Range<float> innerRadiusRange;
         [SerializeField] private Range<float> outerRadiusRange;
+        [SerializeField] private CircleCollider2D courageTrigger;
 
         [FindInScene] private Camera mainCamera;
-
 
         private bool isTurnedOn;
         private Vector2 mousePosition;
         private Vector2 charPosition;
         private Vector2 shinePosition;
 
-        #endregion
-
-        #region Properties
 
         public bool IsTurnedOn
         {
@@ -92,15 +84,12 @@ namespace AChildsCourage.Game.Char
 
         private Vector2 ShineDirection => (ProjectedMousePos - CharPosition).normalized;
 
-        private float DistanceToCharacter => Vector2.Distance(ShinePosition, CharPosition);
+        public float DistanceToCharacter => Vector2.Distance(ShinePosition, CharPosition);
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 0, 1).Clamp(0, 1), 2);
+        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0), 2);
 
-        #endregion
-
-        #region Methods
 
         private void UpdateShinePosition()
         {
@@ -113,31 +102,27 @@ namespace AChildsCourage.Game.Char
             Physics2D.Raycast(CharPosition, ShineDirection, ProjectionDistance, obstructionLayers);
 
         private void UpdateShineIntensity() =>
-            lightComponent.intensity = (1 - ShineDistanceInterpolation) * maxIntensity;
+            lightComponent.intensity = ShineDistanceInterpolation * maxIntensity;
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = innerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
-            lightComponent.pointLightOuterRadius = outerRadiusRange.Map(Lerp, ShineDistanceInterpolation);
+            lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
+            lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
+            courageTrigger.radius = lightComponent.pointLightOuterRadius;
         }
-
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => CharPosition = eventArgs.NewPosition;
 
-
         [Sub(nameof(InputListener.OnMousePositionChanged))]
         private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) =>
             MousePos = eventArgs.MousePosition;
-
 
         [Sub(nameof(InputListener.OnFlashLightInput))]
         private void OnFlashlightInput(object _1, EventArgs _2) => Toggle();
 
         private void Toggle() =>
             IsTurnedOn = !IsTurnedOn;
-
-        #endregion
 
     }
 

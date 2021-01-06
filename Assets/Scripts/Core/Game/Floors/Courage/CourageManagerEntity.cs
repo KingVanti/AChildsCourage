@@ -13,8 +13,6 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
 
-        [Pub] public event EventHandler OnCourageDepleted;
-
 
         [SerializeField] private int targetCourage;
         [SerializeField] private EnumArray<CourageVariant, int> courageValues;
@@ -29,14 +27,10 @@ namespace AChildsCourage.Game.Floors.Courage
             {
                 currentCourage = value.Clamp(0, targetCourage);
                 OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentCourage, CompletionPercent));
-
-                if (HasNoCourage) OnCourageDepleted?.Invoke(this, EventArgs.Empty);
             }
         }
 
         private float CompletionPercent => CurrentCourage / (float) targetCourage;
-
-        private bool HasNoCourage => CurrentCourage == NoCourage;
 
 
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
@@ -49,14 +43,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void AddCourage(int amount) =>
             CurrentCourage += amount;
-
-        [Sub(nameof(CharControllerEntity.OnReceivedDamage))]
-        private void OnCharReceivedDamage(object _, CharDamageReceivedEventArgs eventArgs) =>
-            LooseCourage(eventArgs.ReceivedDamage);
-
-        private void LooseCourage(int amount) =>
-            CurrentCourage -= amount;
-
+        
     }
 
 }

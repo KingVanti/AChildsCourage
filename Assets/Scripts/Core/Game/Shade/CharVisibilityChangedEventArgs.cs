@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Char;
 
 namespace AChildsCourage.Game.Shade
 {

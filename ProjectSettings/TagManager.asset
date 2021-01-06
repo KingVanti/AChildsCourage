@@ -13,6 +13,7 @@ TagManager:
   - Courage
   - Shade
   - Char
+  - Flashlight
   layers:
   - Default
   - TransparentFX

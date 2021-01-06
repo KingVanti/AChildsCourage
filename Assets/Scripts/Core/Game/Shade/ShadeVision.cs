@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.VisionCone;
-using static AChildsCourage.Game.Shade.Visibility;
+using static AChildsCourage.Game.Char.Visibility;
 
 namespace AChildsCourage.Game.Shade
 {
