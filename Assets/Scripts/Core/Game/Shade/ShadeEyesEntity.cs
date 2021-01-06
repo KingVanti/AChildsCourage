@@ -40,10 +40,6 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private Vector2 CurrentPosition => transform.position;
-
-        private TilePosition CurrentTilePosition => CurrentPosition.Map(ToTile);
-
         private ShadeVision Vision => new ShadeVision(Head, visionCones);
 
         private ShadeHead Head => new ShadeHead(transform.position, transform.right, ObstacleExistsBetween);
