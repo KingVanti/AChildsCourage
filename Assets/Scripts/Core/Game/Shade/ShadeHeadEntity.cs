@@ -6,9 +6,6 @@ namespace AChildsCourage.Game.Shade
     public class ShadeHeadEntity : MonoBehaviour
     {
 
-        private const float DownAngle = -90;
-
-
         private static readonly int angleAnimatorKey = Animator.StringToHash("Angle");
 
 
