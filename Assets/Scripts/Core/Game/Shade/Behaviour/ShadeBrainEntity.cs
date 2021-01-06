@@ -14,12 +14,15 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler OnCompletedInvestigation;
 
-        [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
+        [Pub] public event EventHandler<ShadeLookTargetChangedEventArgs> OnLookTargetChanged;
+
+        [Pub] public event EventHandler<ShadeMoveTargetChangedEventArgs> OnMoveTargetChanged;
 
 
         [SerializeField] private float maxPredictionTime;
 
         private Vector2? currentMoveTarget;
+        private Vector2? currentLookTarget;
         private ShadeState currentState;
 
 
@@ -30,6 +33,16 @@ namespace AChildsCourage.Game.Shade
             {
                 currentMoveTarget = value;
                 OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(currentMoveTarget));
+            }
+        }
+
+        public Vector2? CurrentLookTarget
+        {
+            get => currentLookTarget;
+            private set
+            {
+                currentLookTarget = value;
+                OnLookTargetChanged?.Invoke(this, new ShadeLookTargetChangedEventArgs(currentLookTarget));
             }
         }
 

@@ -11,10 +11,15 @@ namespace AChildsCourage.Game.Shade
 
         private static readonly int angleAnimatorKey = Animator.StringToHash("Angle");
 
+
+        [SerializeField] private float degreesPerSecond;
+
         [FindComponent(ComponentFindMode.OnParent)]
         private Animator animator;
 
         [FindInScene] private ShadeMovementEntity shadeMovement;
+
+        private readonly Vector2? explicitTargetPosition;
 
 
         private float Angle
@@ -22,31 +27,33 @@ namespace AChildsCourage.Game.Shade
             set => animator.SetFloat(angleAnimatorKey, value);
         }
 
-        private Vector2 CurrentDirection => shadeMovement.CurrentDirection;
+        private Vector2 CurrentMovementDirection => shadeMovement.CurrentDirection;
 
-        private bool IsMoving => CurrentDirection.magnitude > float.Epsilon;
+        private bool IsMoving => CurrentMovementDirection.magnitude > float.Epsilon;
 
-        private float CurrentMovementAngle => Vector2.SignedAngle(Vector2.right, CurrentDirection);
+        private Vector2? ExplicitFaceDirection => explicitTargetPosition ?? (Vector2) transform.position;
 
+        private Vector2 MovementFaceDirection => IsMoving
+            ? CurrentMovementDirection
+            : Vector2.down;
 
-        private void Update() =>
-            FaceMovementDirection();
+        private Vector2 TargetDirection => ExplicitFaceDirection ?? MovementFaceDirection;
 
-        private void FaceMovementDirection()
+        private Vector2 CurrentDirection
         {
-            transform.right = ChooseDirection();
-            Angle = ChooseCurrentAngle();
+            get => transform.right;
+            set
+            {
+                transform.right = value;
+                Angle = Vector2.SignedAngle(Vector2.right, CurrentDirection);
+            }
         }
 
-        private Vector2 ChooseDirection() =>
-            IsMoving
-                ? CurrentDirection
-                : Vector2.down;
 
-        private float ChooseCurrentAngle() =>
-            IsMoving
-                ? CurrentMovementAngle
-                : DownAngle;
+        private void Update() => RotateTowardsTarget();
+
+        private void RotateTowardsTarget() =>
+            CurrentDirection = Vector2.MoveTowards(CurrentDirection, TargetDirection, degreesPerSecond * Time.deltaTime);
 
     }
 
