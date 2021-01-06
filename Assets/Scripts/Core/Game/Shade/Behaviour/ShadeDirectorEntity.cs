@@ -24,8 +24,8 @@ namespace AChildsCourage.Game.Shade
             StartStandardInvestigation();
         }
 
-        [Sub(nameof(ShadeBrainEntity.OnCompletedInvestigation))]
-        private void OnCompletedInvestigation(object _1, EventArgs _2) =>
+        [Sub(nameof(ShadeBrainEntity.OnRequestAoi))]
+        private void OnRequestAoi(object _1, EventArgs _2) =>
             StartStandardInvestigation();
 
         private void StartStandardInvestigation() =>

@@ -12,11 +12,11 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrainEntity : MonoBehaviour
     {
 
-        [Pub] public event EventHandler OnCompletedInvestigation;
-
         [Pub] public event EventHandler<ShadeLookTargetChangedEventArgs> OnLookTargetChanged;
 
         [Pub] public event EventHandler<ShadeMoveTargetChangedEventArgs> OnMoveTargetChanged;
+
+        [Pub] public event EventHandler OnRequestAoi;
 
 
         [SerializeField] private float maxPredictionTime;
@@ -88,8 +88,15 @@ namespace AChildsCourage.Game.Shade
         private void OnCharLost(object _, CharLostEventArgs eventArgs) =>
             ReactTo(eventArgs);
 
+        [Sub(nameof(ShadeHeadEntity.OnVisualContactToTarget))]
+        private void OnVisualContactToTarget(object _, VisualContactToTargetEventArgs eventArgs) =>
+            ReactTo(eventArgs);
+
         private void ReactTo(EventArgs eventArgs) =>
             CurrentState = CurrentState.React(eventArgs);
+
+        private void RequestAoi() =>
+            OnRequestAoi?.Invoke(this, EventArgs.Empty);
 
         private ShadeState Idle()
         {
@@ -116,7 +123,7 @@ namespace AChildsCourage.Game.Shade
 
             void OnExit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Investigation)
-                    .Then(() => OnCompletedInvestigation?.Invoke(this, EventArgs.Empty));
+                    .Then(RequestAoi);
 
             ShadeState ProgressInvestigation() =>
                 investigation.Map(IsComplete)
@@ -156,6 +163,11 @@ namespace AChildsCourage.Game.Shade
         private ShadeState Predict(LastKnownCharInfo charInfo, float currentTime)
         {
             CurrentMoveTarget = charInfo.Map(PredictPosition, currentTime);
+            currentLookTarget = CurrentMoveTarget;
+
+            void OnExit(ShadeState next) =>
+                If(next.Type == ShadeStateType.Idle)
+                    .Then(RequestAoi);
 
             ShadeState OnTick()
             {
@@ -172,11 +184,12 @@ namespace AChildsCourage.Game.Shade
                 {
                     case TimeTickEventArgs _: return OnTick();
                     case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position);
+                    case VisualContactToTargetEventArgs _: return Idle();
                     default: return currentState;
                 }
             }
 
-            return new ShadeState(ShadeStateType.Predict, React, NoExitAction);
+            return new ShadeState(ShadeStateType.Predict, React, OnExit);
         }
 
     }
