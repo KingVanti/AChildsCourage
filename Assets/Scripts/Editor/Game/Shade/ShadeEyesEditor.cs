@@ -30,13 +30,11 @@ namespace AChildsCourage.Game.Shade
                 : new Color(1f, 0.69f, 0.24f, 0.2f);
 
             Handles.DrawWireArc(shadePosition, Vector3.forward, Vector3.right, 360, visionCone.ViewRadius);
-
-
             Handles.DrawSolidArc(shadePosition, Vector3.forward, ToVector(Eyes.transform.eulerAngles.z - visionCone.ViewAngle / 2f), visionCone.ViewAngle, visionCone.ViewRadius);
         }
 
-        private static Vector3 ToVector(float angle) =>
-            new Vector3(Cos(angle * Deg2Rad),
+        private static Vector2 ToVector(float angle) =>
+            new Vector2(Cos(angle * Deg2Rad),
                         Sin(angle * Deg2Rad));
 
     }
