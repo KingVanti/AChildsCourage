@@ -4,13 +4,13 @@ using UnityEngine;
 namespace AChildsCourage.Game.Shade
 {
 
-    public class ShadeTargetPositionChangedEventArgs : EventArgs
+    public class ShadeMoveTargetChangedEventArgs : EventArgs
     {
 
         public Vector2? NewTargetPosition { get; }
 
 
-        public ShadeTargetPositionChangedEventArgs(Vector2? newTargetPosition) =>
+        public ShadeMoveTargetChangedEventArgs(Vector2? newTargetPosition) =>
             NewTargetPosition = newTargetPosition;
 
     }

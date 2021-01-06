@@ -19,17 +19,17 @@ namespace AChildsCourage.Game.Shade
 
         [SerializeField] private float maxPredictionTime;
 
-        private Vector2? currentTargetPosition;
+        private Vector2? currentMoveTarget;
         private ShadeState currentState;
 
 
-        public Vector2? CurrentTargetPosition
+        public Vector2? CurrentMoveTarget
         {
-            get => currentTargetPosition;
+            get => currentMoveTarget;
             private set
             {
-                currentTargetPosition = value;
-                OnTargetPositionChanged?.Invoke(this, new ShadeTargetPositionChangedEventArgs(currentTargetPosition));
+                currentMoveTarget = value;
+                OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(currentMoveTarget));
             }
         }
 
@@ -80,7 +80,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Idle()
         {
-            CurrentTargetPosition = null;
+            CurrentMoveTarget = null;
 
             ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
                 eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
@@ -99,7 +99,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Investigate(Investigation investigation)
         {
-            CurrentTargetPosition = investigation.Map(GetCurrentTarget).Position;
+            CurrentMoveTarget = investigation.Map(GetCurrentTarget).Position;
 
             void OnExit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Investigation)
@@ -125,7 +125,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Pursuit(Vector2 charPosition)
         {
-            CurrentTargetPosition = charPosition;
+            CurrentMoveTarget = charPosition;
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -142,7 +142,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Predict(LastKnownCharInfo charInfo, float currentTime)
         {
-            CurrentTargetPosition = charInfo.Map(PredictPosition, currentTime);
+            CurrentMoveTarget = charInfo.Map(PredictPosition, currentTime);
 
             ShadeState OnTick()
             {

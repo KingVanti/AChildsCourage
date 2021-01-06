@@ -66,8 +66,8 @@ namespace AChildsCourage.Game.Shade
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             this.DoContinually(RecalculatePath, RefreshWaitTime);
 
-        [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
-        private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs)
+        [Sub(nameof(ShadeBrainEntity.OnMoveTargetChanged))]
+        private void OnMoveTargetChanged(object _, ShadeMoveTargetChangedEventArgs eventArgs)
         {
             aiPath.isStopped = !eventArgs.NewTargetPosition.HasValue;
 
