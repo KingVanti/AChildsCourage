@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Shade
             return info.lastKnownPosition + travelledDistance;
         }
 
-        private static float CalculateElapsedTime(float currentTime, LastKnownCharInfo info) =>
+        public static float CalculateElapsedTime(float currentTime, LastKnownCharInfo info) =>
             currentTime - info.lastSpottedTime;
 
         private static Vector2 CalculateTravelledDistance(float elapsedTime, LastKnownCharInfo info) =>

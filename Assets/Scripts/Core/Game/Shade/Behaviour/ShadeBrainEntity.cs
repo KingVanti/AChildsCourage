@@ -17,6 +17,8 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<ShadeTargetPositionChangedEventArgs> OnTargetPositionChanged;
 
 
+        [SerializeField] private float maxPredictionTime;
+
         private Vector2? currentTargetPosition;
         private ShadeState currentState;
 
@@ -142,11 +144,20 @@ namespace AChildsCourage.Game.Shade
         {
             CurrentTargetPosition = charInfo.Map(PredictPosition, currentTime);
 
+            ShadeState OnTick()
+            {
+                var elapsedTime = charInfo.Map(CalculateElapsedTime, Time.time);
+
+                return elapsedTime < maxPredictionTime
+                    ? Predict(charInfo, Time.time)
+                    : Idle();
+            }
+
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case TimeTickEventArgs _: return Predict(charInfo, Time.time);
+                    case TimeTickEventArgs _: return OnTick();
                     case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position);
                     default: return currentState;
                 }
