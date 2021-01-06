@@ -306,7 +306,7 @@ MonoBehaviour:
   version: 2
   radius: 0.8
   height: 2
-  repathRate: 0
+  repathRate: 0.5
   canSearch: 1
   canMove: 1
   maxSpeed: 2.2
@@ -428,7 +428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6e34da7a9fc5946b1d3092f9bfe597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathRefreshesPerSecond: 2
 --- !u!114 &1705656334
 MonoBehaviour:
   m_ObjectHideFlags: 0
