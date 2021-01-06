@@ -220,7 +220,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{24ddf997-cb5d-44d1-8ff0-ffbda9f69609}">
 		<property name="volume">
-			<value>-25</value>
+			<value>-30</value>
 		</property>
 		<property name="name">
 			<value>Audio 3</value>
@@ -238,6 +238,7 @@
 	<object class="MixerBusEffectChain" id="{2ea6e873-698f-4565-a482-abd162832c04}">
 		<relationship name="effects">
 			<destination>{c062a493-fdde-4384-9cfe-69fd4536616f}</destination>
+			<destination>{dce1bb2b-cba7-4298-b8ad-3cfc871b9f29}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f8876c17-01d2-4db6-bf7d-1c43f0e069c5}" />
@@ -329,6 +330,20 @@
 	</object>
 	<object class="MixerBusPanner" id="{a21fe743-644b-418d-8a6e-c2a56580bf09}" />
 	<object class="MixerBusFader" id="{c062a493-fdde-4384-9cfe-69fd4536616f}" />
+	<object class="SFXReverbEffect" id="{dce1bb2b-cba7-4298-b8ad-3cfc871b9f29}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
+		<property name="decayTime">
+			<value>2900</value>
+		</property>
+		<property name="diffusion">
+			<value>69</value>
+		</property>
+		<property name="highCut">
+			<value>1300</value>
+		</property>
+	</object>
 	<object class="AutomationPoint" id="{684e5fd4-e2cc-4edb-8a65-abe735e03f8d}">
 		<property name="position">
 			<value>0.25096609257266689</value>

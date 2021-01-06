@@ -15,6 +15,7 @@ namespace AChildsCourage
         private readonly float waitTime = 1.5f;
         private bool Char_sprint_stop_Is_playing;
         private EventInstance Footsteps;
+        private EventInstance Footsteps_sprint;
         private EventInstance Stamina_eventInstance;
 
 
@@ -26,42 +27,23 @@ namespace AChildsCourage
         }
 
 
-        /*
-    void MaterialCheck()
-    {
-        RaycastHit2D hit;
-
-        hit = Physics2D.Raycast(transform.position, Vector2.down, distance, 1 << 1);
-
-        if (hit.collider)
-        {
-            if (hit.collider.tag == "earth")
-            {
-                Material = 1f;
-            }
-            else if (hit.collider.tag == "stone")
-            {
-                Material = 2f;
-            }
-            else
-            {
-                Material = 1f;
-            }
-        }
-    }
-    */
-
-
         public void OnDestroy() => Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
 
-        public void PlayFootstepsEvent()
+        public void PlayFootsteps()
         {
             Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
             Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-            Footsteps.setParameterByName("Material", Material);
             Footsteps.start();
             Footsteps.release();
+        }
+
+        public void PlayFootsteps_sprint()
+        {
+            Footsteps_sprint = RuntimeManager.CreateInstance(Footsteps_sprint_Path);
+            Footsteps_sprint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            Footsteps_sprint.start();
+            Footsteps_sprint.release();
         }
 
         [Sub(nameof(FlashlightEntity.OnFlashlightToggled))]
@@ -132,6 +114,7 @@ namespace AChildsCourage
         #region eventpaths
 
         private const string Footsteps_Path = "event:/char/steps";
+        private const string Footsteps_sprint_Path = "event:/char/sprint";
         private const string PickUp_Path = "event:/UI/Item/ItemPickup";
         private const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
         private const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
