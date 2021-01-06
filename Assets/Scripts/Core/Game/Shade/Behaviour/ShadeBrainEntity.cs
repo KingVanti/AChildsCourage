@@ -147,6 +147,7 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return Predict(charInfo, Time.time);
+                    case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position);
                     default: return currentState;
                 }
             }
