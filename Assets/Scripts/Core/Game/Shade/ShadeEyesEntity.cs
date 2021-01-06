@@ -61,9 +61,6 @@ namespace AChildsCourage.Game.Shade
             CurrentCharacterVisionPoints.Select(point => GetPointVisibility(Vision, point))
                                         .Map(GetHighestValue);
 
-        private bool CanSee(TilePosition position) =>
-            Vision.Map(CanSeePoint, position.Map(GetCenter));
-
         private bool ObstacleExistsBetween(Vector2 point1, Vector2 point2)
         {
             var dirToPoint = point2 - point1;
