@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float pathRefreshesPerSecond;
 
         [FindComponent] private Animator animator;
-        
+
         [FindInScene] private AIPath aiPath;
 
         private Vector2? targetPosition;
@@ -46,7 +46,11 @@ namespace AChildsCourage.Game.Shade
         private Vector2 AiTarget
         {
             get => aiPath.destination;
-            set => aiPath.destination = value;
+            set
+            {
+                aiPath.destination = value;
+                aiPath.SearchPath();
+            }
         }
 
         private float RefreshWaitTime => 1f / pathRefreshesPerSecond;
@@ -65,6 +69,8 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeBrainEntity.OnTargetPositionChanged))]
         private void OnTargetPositionChanged(object _, ShadeTargetPositionChangedEventArgs eventArgs)
         {
+            aiPath.isStopped = !eventArgs.NewTargetPosition.HasValue;
+
             if (eventArgs.NewTargetPosition.HasValue)
                 SetMovementTarget(eventArgs.NewTargetPosition.Value);
             else
