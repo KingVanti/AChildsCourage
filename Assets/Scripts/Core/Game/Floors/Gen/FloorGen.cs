@@ -76,6 +76,7 @@ namespace AChildsCourage.Game.Floors.Gen
             IEnumerable<TilePosition> GenerateWallPositions() =>
                 groundPositions
                     .SelectMany(GetSurroundingWallPositions)
+                    .Distinct()
                     .Where(IsUnoccupied);
 
             FloorObject CreateWall(TilePosition wallPosition)
