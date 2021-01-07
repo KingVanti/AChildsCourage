@@ -14,11 +14,11 @@ namespace AChildsCourage.Game
         [SerializeField] private Tile baseTile;
         [SerializeField] private Tile[] variants;
 
-        internal Tile GetTile(CreateRng createRng)
+        internal Tile GetTile(Rng rng)
         {
-            var getVariant = createRng.Prob(variantProb);
+            var getVariant = rng.Map(Prob, variantProb);
 
-            return getVariant ? variants.GetRandom(createRng) : baseTile;
+            return getVariant ? variants.GetRandom(rng) : baseTile;
         }
 
     }

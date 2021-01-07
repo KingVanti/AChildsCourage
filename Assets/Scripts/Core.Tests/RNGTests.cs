@@ -21,8 +21,8 @@ namespace AChildsCourage
 
             for (var i = 0; i < 10; i++)
             {
-                var value1 = rng1.GetValueBetween(4.123f, 8.6622f);
-                var value2 = rng2.GetValueBetween(4.123f, 8.6622f);
+                var value1 = rng1.Map(GetValueBetween, 4.123f, 8.6622f);
+                var value2 = rng2.Map(GetValueBetween, 4.123f, 8.6622f);
 
                 Assert.That(value1, Is.EqualTo(value2), $"Values differed after {i} queries!");
             }

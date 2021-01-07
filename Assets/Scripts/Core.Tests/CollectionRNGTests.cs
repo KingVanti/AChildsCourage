@@ -15,12 +15,10 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-
-            float CreateRng() => 0;
-
+            
             // When
 
-            var element = elements.GetRandom(CreateRng);
+            var element = elements.GetRandom(ConstantRng(0));
 
             // Then
 
@@ -33,12 +31,10 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-
-            float CreateRng() => 0;
-
+            
             // When
 
-            var element = elements.GetWeightedRandom(e => e, CreateRng);
+            var element = elements.GetWeightedRandom(e => e, ConstantRng(0));
 
             // Then
 

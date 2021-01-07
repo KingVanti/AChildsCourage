@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectSpawnerEntity : MonoBehaviour
     {
 
-        private readonly CreateRng rng = RandomRng();
+        private readonly Rng rng = RandomRng();
 
 
         public void Spawn(TilePosition position, StaticObjectData _)

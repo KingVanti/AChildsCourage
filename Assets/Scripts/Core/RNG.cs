@@ -3,46 +3,54 @@
 namespace AChildsCourage
 {
 
-    public static class Rng
+    public readonly struct Rng
     {
 
-        public delegate float CreateRng();
+        private const float MinPercent = float.Epsilon;
+        private const float HundredPercent = 100f;
+        
 
-
-        public static CreateRng RngFromSeed(int seed)
+        public static Rng RngFromSeed(int seed)
         {
             var random = new Random(seed);
 
-            return () => (float) random.NextDouble();
+            return new Rng(() => (float) random.NextDouble());
         }
 
-        public static CreateRng ConstantRng(float value) => () => value;
+        public static Rng ConstantRng(float value) => new Rng(() => value);
 
-        public static CreateRng RandomRng() => RngFromSeed(DateTime.Now.GetHashCode());
-
-
-        private static float Next(this CreateRng source) => source();
-
-
-        public static float GetValueBetween(this CreateRng source, float min, float max)
+        
+        public static Rng RandomRng() =>
+            RngFromSeed(DateTime.Now.GetHashCode());
+        
+        private static float NextValue(Rng rng) =>
+            rng.source();
+        
+        public static float GetValueBetween(float min, float max, Rng rng)
         {
             var diff = max - min;
-            var dist = diff * source.Next();
+            var dist = diff * rng.Map(NextValue);
 
             return min + dist;
         }
+        
+        public static int GetValueBetween(int min, int max, Rng rng) =>
+            (int) rng.Map(GetValueBetween, (float) min, (float) max);
+        
+        public static float GetValueUnder(float max, Rng rng) =>
+            rng.Map(NextValue) * max;
+        
+        public static int GetValueUnder(int max, Rng rng) =>
+            (int) rng.Map(GetValueUnder, (float) max);
+        
+        public static bool Prob(float variantProb, Rng rng) =>
+            rng.Map(GetValueBetween, MinPercent, HundredPercent) <= variantProb;
 
 
-        public static int GetValueBetween(this CreateRng source, int min, int max) => (int) source.GetValueBetween((float) min, max);
+        private readonly Func<float> source;
 
-
-        public static float GetValueUnder(this CreateRng source, float max) => source.Next() * max;
-
-
-        public static int GetValueUnder(this CreateRng source, int max) => (int) source.GetValueUnder((float) max);
-
-
-        public static bool Prob(this CreateRng source, float variantProb) => source.GetValueBetween(float.Epsilon, 100f) <= variantProb;
+        private Rng(Func<float> rngSource) =>
+            source = rngSource;
 
     }
 

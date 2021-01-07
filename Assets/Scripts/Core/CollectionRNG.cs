@@ -12,17 +12,18 @@ namespace AChildsCourage
         public delegate float CalculateWeight<in T>(T element);
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, CreateRng createRng) => GetWeightedRandom(calculateWeight, createRng, elements);
+        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng) =>
+            GetWeightedRandom(calculateWeight, rng, elements);
 
 
-        private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, CreateRng createRng, IEnumerable<T> elements)
+        private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, Rng rng, IEnumerable<T> elements)
         {
             var weightedElements = elements.AttachWeights(calculateWeight).ToArray();
 
             if (!weightedElements.Any()) return default;
 
             var totalWeight = weightedElements.Sum(o => o.Weight);
-            var itemWeightIndex = createRng.GetValueUnder(totalWeight);
+            var itemWeightIndex = rng.Map(GetValueUnder, totalWeight);
             var currentWeightIndex = 0f;
 
             foreach (var weightedElement in weightedElements)
@@ -44,17 +45,17 @@ namespace AChildsCourage
             new Weighted<T>(element, calculateWeight(element));
 
 
-        public static T GetRandom<T>(this IEnumerable<T> elements, CreateRng createRng) =>
-            GetRandom(createRng, elements);
+        public static T GetRandom<T>(this IEnumerable<T> elements, Rng rng) =>
+            GetRandom(rng, elements);
 
 
-        private static T GetRandom<T>(CreateRng createRng, IEnumerable<T> elements)
+        private static T GetRandom<T>(Rng rng, IEnumerable<T> elements)
         {
             var elementsArray = elements.ToArray();
 
             if (!elementsArray.Any()) return default;
 
-            var index = createRng.GetValueUnder(elementsArray.Length);
+            var index = rng.Map(GetValueUnder, elementsArray.Length);
             return elementsArray[index];
         }
 

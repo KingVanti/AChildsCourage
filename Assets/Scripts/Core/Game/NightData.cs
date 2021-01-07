@@ -7,7 +7,7 @@ namespace AChildsCourage.Game
     {
 
         public static NightData CreateNightWithRandomSeed() =>
-            new NightData(RandomRng().GetValueBetween(int.MinValue, int.MaxValue));
+            new NightData(RandomRng().Map(GetValueBetween, int.MinValue, int.MaxValue));
 
         public int Seed { get; }
 

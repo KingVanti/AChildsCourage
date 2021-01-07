@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors
                  .ToImmutableHashSet()
                  .Map(positions => new GroundPlan(positions));
 
-        public static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng.CreateRng rng, AoiGenParams @params, GroundPlan groundPlan)
+        public static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng rng, AoiGenParams @params, GroundPlan groundPlan)
         {
             var center = groundPlan.groundPositions
                                    .GetRandom(rng);
