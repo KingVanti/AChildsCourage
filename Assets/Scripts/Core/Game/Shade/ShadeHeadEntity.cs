@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
@@ -27,7 +28,12 @@ namespace AChildsCourage.Game.Shade
 
         private float Angle
         {
-            set => animator.SetFloat(angleAnimatorKey, value);
+            get => transform.eulerAngles.z;
+            set
+            {
+                transform.eulerAngles = new Vector3(0, 0, value);
+                animator.SetFloat(angleAnimatorKey, value.Map(AsSignedAngle));
+            }
         }
 
         private Vector2 CurrentMovementDirection => shadeMovement.CurrentDirection;
@@ -44,16 +50,7 @@ namespace AChildsCourage.Game.Shade
 
         private Vector2 TargetDirection => (ExplicitFaceDirection ?? MovementFaceDirection).normalized;
 
-        private Vector2 CurrentDirection
-        {
-            get => transform.right;
-            set
-            {
-                var transformAngle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(transformAngle, Vector3.forward);
-                Angle = Vector2.SignedAngle(Vector2.right, CurrentDirection);
-            }
-        }
+        private float TargetAngle => CalculateAngle(TargetDirection);
 
         private bool CanSeeExplicitTarget => explicitTargetPosition.HasValue && shadeEyes.CanSee(explicitTargetPosition.Value);
 
@@ -65,7 +62,7 @@ namespace AChildsCourage.Game.Shade
         }
 
         private void RotateTowardsTarget() =>
-            CurrentDirection = Vector2.MoveTowards(CurrentDirection, TargetDirection, degreesPerSecond * Time.deltaTime);
+            Angle = Mathf.MoveTowardsAngle(Angle, TargetAngle, degreesPerSecond * Time.deltaTime);
 
         private void UpdateVisualContact() =>
             If(CanSeeExplicitTarget)

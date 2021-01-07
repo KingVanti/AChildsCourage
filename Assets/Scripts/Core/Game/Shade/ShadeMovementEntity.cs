@@ -8,13 +8,8 @@ namespace AChildsCourage.Game.Shade
     public class ShadeMovementEntity : MonoBehaviour
     {
 
-        private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
-
-
         [Pub] public event EventHandler<ShadeTargetReachedEventArgs> OnTargetReached;
-
-        [FindComponent] private Animator animator;
-
+        
         [FindInScene] private AIPath aiPath;
 
         private Vector2? targetPosition;
@@ -22,11 +17,6 @@ namespace AChildsCourage.Game.Shade
 
 
         public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
-
-        private bool IsMoving
-        {
-            set => animator.SetBool(movingAnimatorKey, value);
-        }
 
         private bool ReachedTarget
         {
@@ -44,13 +34,9 @@ namespace AChildsCourage.Game.Shade
         {
             set => aiPath.destination = value;
         }
-        
 
-        private void Update()
-        {
-            IsMoving = !aiPath.isStopped;
-            ReachedTarget = aiPath.reachedDestination;
-        }
+
+        private void Update() => ReachedTarget = aiPath.reachedDestination;
 
         [Sub(nameof(ShadeBrainEntity.OnMoveTargetChanged))]
         private void OnMoveTargetChanged(object _, ShadeMoveTargetChangedEventArgs eventArgs)
@@ -78,7 +64,6 @@ namespace AChildsCourage.Game.Shade
         private bool IsNewTarget(Vector2 position) =>
             targetPosition == null ||
             Vector2.Distance(position, targetPosition.Value) >= 0.05f;
-        
 
     }
 

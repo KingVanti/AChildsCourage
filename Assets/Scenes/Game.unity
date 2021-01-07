@@ -3281,22 +3281,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: minAwarenessForAwarenessLevel.enums.Array.data[1].mappedValue
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: awarenessLossPerSecond.enums.Array.data[0].mappedValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: awarenessLossPerSecond.enums.Array.data[1].mappedValue
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2064087353, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: awarenessLossPerSecond.enums.Array.data[2].mappedValue
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 537825537936044892, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
       propertyPath: m_Name
       value: Shade
@@ -3357,18 +3341,6 @@ PrefabInstance:
       propertyPath: characterVisionPoints.Array.data[1]
       value: 
       objectReference: {fileID: 489588452}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: randomStopChance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: restTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8837610286537015916, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: degreesPerSecond
-      value: 30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &2074507388

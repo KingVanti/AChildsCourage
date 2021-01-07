@@ -1,4 +1,5 @@
-﻿using static UnityEngine.Mathf;
+﻿using UnityEngine;
+using static UnityEngine.Mathf;
 
 namespace AChildsCourage
 {
@@ -17,6 +18,9 @@ namespace AChildsCourage
 
         public static float RemapSquared(this float f, float sA, float sB, float tA, float tB) =>
             Lerp(tA, tB, InverseLerp(sA, sB, f).Squared());
+
+        public static float CalculateAngle(Vector2 vector2) =>
+            Atan2(vector2.y, vector2.x) * Rad2Deg;
 
         public static float CalculateAngle(float yPos, float xPos) =>
             Atan2(yPos, xPos) * Rad2Deg;
@@ -54,6 +58,13 @@ namespace AChildsCourage
 
         public static float CalculateCircleArea(float radius) =>
             PI * radius.Squared();
+
+        public static float Mod(float mod, float f) =>
+            f % mod;
+
+        public static float AsSignedAngle(float angle) =>
+            angle
+                .Map(Mod, 360f);
 
     }
 
