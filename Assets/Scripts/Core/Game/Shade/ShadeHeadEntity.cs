@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Shade
         [FindInScene] private ShadeMovementEntity shadeMovement;
         [FindInScene] private ShadeEyesEntity shadeEyes;
 
-        private readonly Vector2? explicitTargetPosition;
+        private Vector2? explicitTargetPosition;
 
 
         private float Angle
@@ -70,6 +70,10 @@ namespace AChildsCourage.Game.Shade
         private void UpdateVisualContact() =>
             If(CanSeeExplicitTarget)
                 .Then(() => OnVisualContactToTarget?.Invoke(this, new VisualContactToTargetEventArgs()));
+
+        [Sub(nameof(ShadeBrainEntity.OnLookTargetChanged))]
+        private void OnLookTargetChanged(object _, ShadeLookTargetChangedEventArgs eventArgs) =>
+            explicitTargetPosition = eventArgs.NewTargetPosition;
 
     }
 

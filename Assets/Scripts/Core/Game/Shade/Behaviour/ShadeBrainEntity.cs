@@ -21,28 +21,28 @@ namespace AChildsCourage.Game.Shade
 
         [SerializeField] private float maxPredictionTime;
 
-        private Vector2? currentMoveTarget;
-        private Vector2? currentLookTarget;
+        private Vector2? moveTarget;
+        private Vector2? lookTarget;
         private ShadeState currentState;
 
 
-        public Vector2? CurrentMoveTarget
+        public Vector2? MoveTarget
         {
-            get => currentMoveTarget;
+            get => moveTarget;
             private set
             {
-                currentMoveTarget = value;
-                OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(currentMoveTarget));
+                moveTarget = value;
+                OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(moveTarget));
             }
         }
 
-        public Vector2? CurrentLookTarget
+        public Vector2? LookTarget
         {
-            get => currentLookTarget;
+            get => lookTarget;
             private set
             {
-                currentLookTarget = value;
-                OnLookTargetChanged?.Invoke(this, new ShadeLookTargetChangedEventArgs(currentLookTarget));
+                lookTarget = value;
+                OnLookTargetChanged?.Invoke(this, new ShadeLookTargetChangedEventArgs(lookTarget));
             }
         }
 
@@ -59,6 +59,8 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
+        private ShadeState NoStateChange => CurrentState;
+
 
         private void Update() =>
             ReactTo(new TimeTickEventArgs());
@@ -70,6 +72,10 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
         private void OnCharSpotted(object _, CharSpottedEventArgs eventArgs) =>
+            ReactTo(eventArgs);
+
+        [Sub(nameof(ShadeAwarenessEntity.OnCharSuspected))]
+        private void OnCharSuspected(object _, CharSuspectedEventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
@@ -100,7 +106,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Idle()
         {
-            CurrentMoveTarget = null;
+            MoveTarget = null;
 
             ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
                 eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
@@ -109,8 +115,8 @@ namespace AChildsCourage.Game.Shade
             {
                 switch (eventArgs)
                 {
-                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen);
-                    default: return currentState;
+                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen).Log(_ => "Shade: Chose an AOI!");
+                    default: return NoStateChange;
                 }
             }
 
@@ -119,7 +125,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Investigate(Investigation investigation)
         {
-            CurrentMoveTarget = investigation.Map(GetCurrentTarget).Position;
+            MoveTarget = investigation.Map(GetCurrentTarget).Position;
 
             void OnExit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Investigation)
@@ -127,33 +133,56 @@ namespace AChildsCourage.Game.Shade
 
             ShadeState ProgressInvestigation() =>
                 investigation.Map(IsComplete)
-                    ? Idle()
-                    : Investigate(investigation.Map(Progress));
+                    ? Idle().Log(_ => "Shade: Reached POI, im done!")
+                    : Investigate(investigation.Map(Progress)).Log(_ => "Shade: Reached POI, next!");
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
                     case ShadeTargetReachedEventArgs _: return ProgressInvestigation();
-                    case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit);
-                    default: return currentState;
+                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log(_ => "Shade: I think I saw the player!");
+                    default: return NoStateChange;
                 }
             }
 
             return new ShadeState(ShadeStateType.Investigation, React, OnExit);
         }
 
-        private ShadeState Pursuit(Vector2 charPosition)
+        private ShadeState Suspicious(Vector2 charPosition)
         {
-            CurrentMoveTarget = charPosition;
+            MoveTarget = null;
+            LookTarget = charPosition;
+
+            void OnExit(ShadeState next) =>
+                If(next.Type == ShadeStateType.Idle)
+                    .Then(RequestAoi);
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition);
-                    case CharLostEventArgs charLost: return Predict(charLost.CharInfo, Time.time);
-                    default: return currentState;
+                    case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log(_ => "Shade: I saw the player!");
+                    case CharLostEventArgs _: return Idle().Log(_ => "Shade: Maybe I didnt see them...");
+                    case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log(_ => "I think they moved...");
+                    default: return NoStateChange;
+                }
+            }
+
+            return new ShadeState(ShadeStateType.Suspicious, React, OnExit);
+        }
+
+        private ShadeState Pursuit(Vector2 charPosition)
+        {
+            MoveTarget = charPosition;
+
+            ShadeState React(EventArgs eventArgs)
+            {
+                switch (eventArgs)
+                {
+                    case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition).Log(_ => "Shade: The player moved. Let's get them!");
+                    case CharLostEventArgs charLost: return Predict(charLost.CharInfo, Time.time).Log(_ => "Shade: Where did they go? They must be around here somewhere.");
+                    default: return NoStateChange;
                 }
             }
 
@@ -162,8 +191,8 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Predict(LastKnownCharInfo charInfo, float currentTime)
         {
-            CurrentMoveTarget = charInfo.Map(PredictPosition, currentTime);
-            currentLookTarget = CurrentMoveTarget;
+            MoveTarget = charInfo.Map(PredictPosition, currentTime);
+            lookTarget = MoveTarget;
 
             void OnExit(ShadeState next) =>
                 If(next.Type == ShadeStateType.Idle)
@@ -174,8 +203,8 @@ namespace AChildsCourage.Game.Shade
                 var elapsedTime = charInfo.Map(CalculateElapsedTime, Time.time);
 
                 return elapsedTime < maxPredictionTime
-                    ? Predict(charInfo, Time.time)
-                    : Idle();
+                    ? Predict(charInfo, Time.time).Log(_ => "Shade: Maybe over here.")
+                    : Idle().Log(_ => "Shade: Ah forget it, they're gone by now.");
             }
 
             ShadeState React(EventArgs eventArgs)
@@ -183,9 +212,9 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return OnTick();
-                    case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position);
-                    case VisualContactToTargetEventArgs _: return Idle();
-                    default: return currentState;
+                    case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log(_ => "Shade: There they are!");
+                    case VisualContactToTargetEventArgs _: return Idle().Log(_ => "Shade: Ok... they are not there...");
+                    default: return NoStateChange;
                 }
             }
 

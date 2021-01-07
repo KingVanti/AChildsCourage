@@ -9,7 +9,8 @@ namespace AChildsCourage.Game.Shade
         Idle,
         Investigation,
         Pursuit,
-        Predict
+        Predict,
+        Suspicious
 
     }
 

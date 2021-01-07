@@ -15,6 +15,8 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<CharSpottedEventArgs> OnCharSpotted;
 
+        [Pub] public event EventHandler<CharSuspectedEventArgs> OnCharSuspected;
+
         [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
         [SerializeField] private float awarenessLossPerSecond;
@@ -54,10 +56,18 @@ namespace AChildsCourage.Game.Shade
             {
                 if (CurrentAwarenessLevel == value) return;
 
-                if (value == AwarenessLevel.Aware)
-                    OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
-                else if (CurrentAwarenessLevel == AwarenessLevel.Aware) OnCharLost?.Invoke(this, new CharLostEventArgs(GetCurrentCharInfo()));
-
+                switch (value)
+                {
+                    case AwarenessLevel.Aware when CurrentAwarenessLevel != AwarenessLevel.Aware:
+                        OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
+                        break;
+                    case AwarenessLevel.Oblivious when CurrentAwarenessLevel != AwarenessLevel.Oblivious:
+                        OnCharLost?.Invoke(this, new CharLostEventArgs(GetCurrentCharInfo()));
+                        break;
+                    case AwarenessLevel.Suspicious when CurrentAwarenessLevel == AwarenessLevel.Oblivious:
+                        OnCharSuspected?.Invoke(this, new CharSuspectedEventArgs(CharPosition));
+                        break;
+                }
 
                 currentAwarenessLevel = value;
             }
