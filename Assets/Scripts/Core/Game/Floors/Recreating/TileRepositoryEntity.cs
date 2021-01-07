@@ -16,17 +16,17 @@ namespace AChildsCourage.Game
         [SerializeField] private TileCollection wallTopTiles;
 
 
-        private readonly CreateRng createRng = RngFromSeed(0);
+        private readonly Rng rng = RngFromSeed(0);
 
         #endregion
 
         #region Methods
 
-        public Tile GetGroundTile() => groundTiles.GetTile(createRng);
+        public Tile GetGroundTile() => groundTiles.GetTile(rng);
 
 
         public Tile GetWallTileFor(WallData wallData) =>
-            wallData.Type == WallType.Side ? wallSideTiles.GetTile(createRng) : wallTopTiles.GetTile(createRng);
+            wallData.Type == WallType.Side ? wallSideTiles.GetTile(rng) : wallTopTiles.GetTile(rng);
 
         #endregion
 

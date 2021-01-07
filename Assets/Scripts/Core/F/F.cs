@@ -48,13 +48,7 @@ namespace AChildsCourage
         {
             while (predicate()) action();
         }
-
-        public static void Do<TItem, TP1>(this TItem item, Action<TItem, TP1> action, TP1 p1) =>
-            action(item, p1);
-
-        public static void Do<TItem>(this TItem item, Action<TItem> action) =>
-            action(item);
-
+        
         public static void ForEach<TItem>(this IEnumerable<TItem> elements, Action<TItem> action)
         {
             foreach (var element in elements) action(element);

@@ -5,42 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using Object = UnityEngine.Object;
 
 namespace AChildsCourage.RoomEditor
 {
-
-    public class RoomEditorInput : IInputActionCollection, IDisposable
+    public class @RoomEditorInput : IInputActionCollection, IDisposable
     {
-
-        // Mouse
-        private readonly InputActionMap m_Mouse;
-        private readonly InputAction m_Mouse_Delete;
-        private readonly InputAction m_Mouse_Move;
-        private readonly InputAction m_Mouse_Place;
-
-        // Movement
-        private readonly InputActionMap m_Movement;
-        private readonly InputAction m_Movement_Horizontal;
-        private readonly InputAction m_Movement_Vertical;
-
-        // Zoom
-        private readonly InputActionMap m_Zoom;
-        private readonly InputAction m_Zoom_Focus;
-        private readonly InputAction m_Zoom_Scroll;
-        private IMouseActions m_MouseActionsCallbackInterface;
-        private IMovementActions m_MovementActionsCallbackInterface;
-        private IZoomActions m_ZoomActionsCallbackInterface;
-
         public InputActionAsset asset { get; }
-
-        public MouseActions Mouse => new MouseActions(this);
-
-        public MovementActions Movement => new MovementActions(this);
-
-        public ZoomActions Zoom => new ZoomActions(this);
-
-        public RoomEditorInput()
+        public @RoomEditorInput()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""RoomEditor"",
@@ -249,25 +220,25 @@ namespace AChildsCourage.RoomEditor
     ],
     ""controlSchemes"": []
 }");
-
             // Mouse
-            m_Mouse = asset.FindActionMap("Mouse", true);
-            m_Mouse_Place = m_Mouse.FindAction("Place", true);
-            m_Mouse_Delete = m_Mouse.FindAction("Delete", true);
-            m_Mouse_Move = m_Mouse.FindAction("Move", true);
-
+            m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
+            m_Mouse_Place = m_Mouse.FindAction("Place", throwIfNotFound: true);
+            m_Mouse_Delete = m_Mouse.FindAction("Delete", throwIfNotFound: true);
+            m_Mouse_Move = m_Mouse.FindAction("Move", throwIfNotFound: true);
             // Movement
-            m_Movement = asset.FindActionMap("Movement", true);
-            m_Movement_Horizontal = m_Movement.FindAction("Horizontal", true);
-            m_Movement_Vertical = m_Movement.FindAction("Vertical", true);
-
+            m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+            m_Movement_Horizontal = m_Movement.FindAction("Horizontal", throwIfNotFound: true);
+            m_Movement_Vertical = m_Movement.FindAction("Vertical", throwIfNotFound: true);
             // Zoom
-            m_Zoom = asset.FindActionMap("Zoom", true);
-            m_Zoom_Scroll = m_Zoom.FindAction("Scroll", true);
-            m_Zoom_Focus = m_Zoom.FindAction("Focus", true);
+            m_Zoom = asset.FindActionMap("Zoom", throwIfNotFound: true);
+            m_Zoom_Scroll = m_Zoom.FindAction("Scroll", throwIfNotFound: true);
+            m_Zoom_Focus = m_Zoom.FindAction("Focus", throwIfNotFound: true);
         }
 
-        public void Dispose() => Object.Destroy(asset);
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
 
         public InputBinding? bindingMask
         {
@@ -283,194 +254,176 @@ namespace AChildsCourage.RoomEditor
 
         public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
 
-        public bool Contains(InputAction action) => asset.Contains(action);
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
 
-        public IEnumerator<InputAction> GetEnumerator() => asset.GetEnumerator();
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-        public void Enable() => asset.Enable();
+        public void Enable()
+        {
+            asset.Enable();
+        }
 
-        public void Disable() => asset.Disable();
+        public void Disable()
+        {
+            asset.Disable();
+        }
 
+        // Mouse
+        private readonly InputActionMap m_Mouse;
+        private IMouseActions m_MouseActionsCallbackInterface;
+        private readonly InputAction m_Mouse_Place;
+        private readonly InputAction m_Mouse_Delete;
+        private readonly InputAction m_Mouse_Move;
         public struct MouseActions
         {
-
-            private readonly RoomEditorInput m_Wrapper;
-
-            public MouseActions(RoomEditorInput wrapper) => m_Wrapper = wrapper;
-
-            public InputAction Place => m_Wrapper.m_Mouse_Place;
-
-            public InputAction Delete => m_Wrapper.m_Mouse_Delete;
-
-            public InputAction Move => m_Wrapper.m_Mouse_Move;
-
-            public InputActionMap Get() => m_Wrapper.m_Mouse;
-
-            public void Enable() => Get().Enable();
-
-            public void Disable() => Get().Disable();
-
+            private @RoomEditorInput m_Wrapper;
+            public MouseActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Place => m_Wrapper.m_Mouse_Place;
+            public InputAction @Delete => m_Wrapper.m_Mouse_Delete;
+            public InputAction @Move => m_Wrapper.m_Mouse_Move;
+            public InputActionMap Get() { return m_Wrapper.m_Mouse; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(MouseActions set) => set.Get();
-
+            public static implicit operator InputActionMap(MouseActions set) { return set.Get(); }
             public void SetCallbacks(IMouseActions instance)
             {
                 if (m_Wrapper.m_MouseActionsCallbackInterface != null)
                 {
-                    Place.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
-                    Place.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
-                    Place.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
-                    Delete.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
-                    Delete.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
-                    Delete.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
-                    Move.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
-                    Move.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
-                    Move.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
+                    @Place.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    @Place.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    @Place.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnPlace;
+                    @Delete.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    @Delete.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    @Delete.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnDelete;
+                    @Move.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMove;
                 }
-
                 m_Wrapper.m_MouseActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    Place.started += instance.OnPlace;
-                    Place.performed += instance.OnPlace;
-                    Place.canceled += instance.OnPlace;
-                    Delete.started += instance.OnDelete;
-                    Delete.performed += instance.OnDelete;
-                    Delete.canceled += instance.OnDelete;
-                    Move.started += instance.OnMove;
-                    Move.performed += instance.OnMove;
-                    Move.canceled += instance.OnMove;
+                    @Place.started += instance.OnPlace;
+                    @Place.performed += instance.OnPlace;
+                    @Place.canceled += instance.OnPlace;
+                    @Delete.started += instance.OnDelete;
+                    @Delete.performed += instance.OnDelete;
+                    @Delete.canceled += instance.OnDelete;
+                    @Move.started += instance.OnMove;
+                    @Move.performed += instance.OnMove;
+                    @Move.canceled += instance.OnMove;
                 }
             }
-
         }
+        public MouseActions @Mouse => new MouseActions(this);
 
+        // Movement
+        private readonly InputActionMap m_Movement;
+        private IMovementActions m_MovementActionsCallbackInterface;
+        private readonly InputAction m_Movement_Horizontal;
+        private readonly InputAction m_Movement_Vertical;
         public struct MovementActions
         {
-
-            private readonly RoomEditorInput m_Wrapper;
-
-            public MovementActions(RoomEditorInput wrapper) => m_Wrapper = wrapper;
-
-            public InputAction Horizontal => m_Wrapper.m_Movement_Horizontal;
-
-            public InputAction Vertical => m_Wrapper.m_Movement_Vertical;
-
-            public InputActionMap Get() => m_Wrapper.m_Movement;
-
-            public void Enable() => Get().Enable();
-
-            public void Disable() => Get().Disable();
-
+            private @RoomEditorInput m_Wrapper;
+            public MovementActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Horizontal => m_Wrapper.m_Movement_Horizontal;
+            public InputAction @Vertical => m_Wrapper.m_Movement_Vertical;
+            public InputActionMap Get() { return m_Wrapper.m_Movement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(MovementActions set) => set.Get();
-
+            public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
             public void SetCallbacks(IMovementActions instance)
             {
                 if (m_Wrapper.m_MovementActionsCallbackInterface != null)
                 {
-                    Horizontal.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
-                    Horizontal.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
-                    Horizontal.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
-                    Vertical.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
-                    Vertical.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
-                    Vertical.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    @Horizontal.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Horizontal.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Horizontal.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnHorizontal;
+                    @Vertical.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    @Vertical.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
+                    @Vertical.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnVertical;
                 }
-
                 m_Wrapper.m_MovementActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    Horizontal.started += instance.OnHorizontal;
-                    Horizontal.performed += instance.OnHorizontal;
-                    Horizontal.canceled += instance.OnHorizontal;
-                    Vertical.started += instance.OnVertical;
-                    Vertical.performed += instance.OnVertical;
-                    Vertical.canceled += instance.OnVertical;
+                    @Horizontal.started += instance.OnHorizontal;
+                    @Horizontal.performed += instance.OnHorizontal;
+                    @Horizontal.canceled += instance.OnHorizontal;
+                    @Vertical.started += instance.OnVertical;
+                    @Vertical.performed += instance.OnVertical;
+                    @Vertical.canceled += instance.OnVertical;
                 }
             }
-
         }
+        public MovementActions @Movement => new MovementActions(this);
 
+        // Zoom
+        private readonly InputActionMap m_Zoom;
+        private IZoomActions m_ZoomActionsCallbackInterface;
+        private readonly InputAction m_Zoom_Scroll;
+        private readonly InputAction m_Zoom_Focus;
         public struct ZoomActions
         {
-
-            private readonly RoomEditorInput m_Wrapper;
-
-            public ZoomActions(RoomEditorInput wrapper) => m_Wrapper = wrapper;
-
-            public InputAction Scroll => m_Wrapper.m_Zoom_Scroll;
-
-            public InputAction Focus => m_Wrapper.m_Zoom_Focus;
-
-            public InputActionMap Get() => m_Wrapper.m_Zoom;
-
-            public void Enable() => Get().Enable();
-
-            public void Disable() => Get().Disable();
-
+            private @RoomEditorInput m_Wrapper;
+            public ZoomActions(@RoomEditorInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Scroll => m_Wrapper.m_Zoom_Scroll;
+            public InputAction @Focus => m_Wrapper.m_Zoom_Focus;
+            public InputActionMap Get() { return m_Wrapper.m_Zoom; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-
-            public static implicit operator InputActionMap(ZoomActions set) => set.Get();
-
+            public static implicit operator InputActionMap(ZoomActions set) { return set.Get(); }
             public void SetCallbacks(IZoomActions instance)
             {
                 if (m_Wrapper.m_ZoomActionsCallbackInterface != null)
                 {
-                    Scroll.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
-                    Scroll.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
-                    Scroll.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
-                    Focus.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
-                    Focus.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
-                    Focus.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    @Scroll.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Scroll.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Scroll.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnScroll;
+                    @Focus.started -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    @Focus.performed -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
+                    @Focus.canceled -= m_Wrapper.m_ZoomActionsCallbackInterface.OnFocus;
                 }
-
                 m_Wrapper.m_ZoomActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    Scroll.started += instance.OnScroll;
-                    Scroll.performed += instance.OnScroll;
-                    Scroll.canceled += instance.OnScroll;
-                    Focus.started += instance.OnFocus;
-                    Focus.performed += instance.OnFocus;
-                    Focus.canceled += instance.OnFocus;
+                    @Scroll.started += instance.OnScroll;
+                    @Scroll.performed += instance.OnScroll;
+                    @Scroll.canceled += instance.OnScroll;
+                    @Focus.started += instance.OnFocus;
+                    @Focus.performed += instance.OnFocus;
+                    @Focus.canceled += instance.OnFocus;
                 }
             }
-
         }
-
+        public ZoomActions @Zoom => new ZoomActions(this);
         public interface IMouseActions
         {
-
             void OnPlace(InputAction.CallbackContext context);
-
             void OnDelete(InputAction.CallbackContext context);
-
             void OnMove(InputAction.CallbackContext context);
-
         }
-
         public interface IMovementActions
         {
-
             void OnHorizontal(InputAction.CallbackContext context);
-
             void OnVertical(InputAction.CallbackContext context);
-
         }
-
         public interface IZoomActions
         {
-
             void OnScroll(InputAction.CallbackContext context);
-
             void OnFocus(InputAction.CallbackContext context);
-
         }
-
     }
-
 }

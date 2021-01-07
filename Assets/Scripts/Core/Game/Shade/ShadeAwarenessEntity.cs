@@ -15,14 +15,16 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<CharSpottedEventArgs> OnCharSpotted;
 
+        [Pub] public event EventHandler<CharSuspectedEventArgs> OnCharSuspected;
+
         [Pub] public event EventHandler<AwarenessChangedEventArgs> OnShadeAwarenessChanged;
 
-        [SerializeField] private float awarenessLossPerSecond;
         [SerializeField] private float baseAwarenessGainPerSecond;
         [SerializeField] private float primaryVisionMultiplier;
         [SerializeField] private float maxDistanceMultiplier;
         [SerializeField] private float flashLightMultiplier;
         [SerializeField] private Range<float> distanceRange;
+        [SerializeField] private EnumArray<AwarenessLevel, float> awarenessLossPerSecond;
         [SerializeField] private EnumArray<MovementState, float> movementStateMultipliers;
         [SerializeField] private EnumArray<AwarenessLevel, float> minAwarenessForAwarenessLevel;
 
@@ -32,6 +34,7 @@ namespace AChildsCourage.Game.Shade
         private Visibility currentCharVisibility;
         private Awareness currentAwareness;
         private AwarenessLevel currentAwarenessLevel;
+        private LastKnownCharInfo lastKnownCharInfo;
 
 
         public Awareness CurrentAwareness
@@ -54,10 +57,19 @@ namespace AChildsCourage.Game.Shade
             {
                 if (CurrentAwarenessLevel == value) return;
 
-                if (value == AwarenessLevel.Aware)
-                    OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
-                else if (CurrentAwarenessLevel == AwarenessLevel.Aware) OnCharLost?.Invoke(this, new CharLostEventArgs(GetCurrentCharInfo()));
-
+                switch (value)
+                {
+                    case AwarenessLevel.Aware when CurrentAwarenessLevel != AwarenessLevel.Aware:
+                        OnCharSpotted?.Invoke(this, new CharSpottedEventArgs(CharPosition));
+                        break;
+                    case AwarenessLevel.Suspicious when CurrentAwarenessLevel == AwarenessLevel.Aware:
+                    case AwarenessLevel.Oblivious when CurrentAwarenessLevel == AwarenessLevel.Suspicious:
+                        OnCharLost?.Invoke(this, new CharLostEventArgs(lastKnownCharInfo));
+                        break;
+                    case AwarenessLevel.Suspicious when CurrentAwarenessLevel == AwarenessLevel.Oblivious:
+                        OnCharSuspected?.Invoke(this, new CharSuspectedEventArgs(CharPosition));
+                        break;
+                }
 
                 currentAwarenessLevel = value;
             }
@@ -75,7 +87,7 @@ namespace AChildsCourage.Game.Shade
 
         private float FlashLightMultiplier => flashlight.IsTurnedOn ? flashLightMultiplier : 1;
 
-        private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond;
+        private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
 
         private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
@@ -84,11 +96,22 @@ namespace AChildsCourage.Game.Shade
         private Vector2 CharVelocity => charController.Velocity;
 
 
-        private void Update() =>
+        private void Update()
+        {
             UpdateAwareness();
+            UpdateLastKnownCharInfo();
+        }
 
-        private void UpdateAwareness() =>
+        private void UpdateLastKnownCharInfo()
+        {
+            if (CurrentAwarenessLevel == AwarenessLevel.Aware)
+                lastKnownCharInfo = new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
+        }
+
+        private void UpdateAwareness()
+        {
             CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
+        }
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
@@ -108,9 +131,6 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
             currentCharVisibility = eventArgs.CharVisibility;
-
-        private LastKnownCharInfo GetCurrentCharInfo() =>
-            new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
 
     }
 

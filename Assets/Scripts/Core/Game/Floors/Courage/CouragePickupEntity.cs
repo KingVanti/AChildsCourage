@@ -17,6 +17,8 @@ namespace AChildsCourage.Game.Floors.Courage
         private Light2D lightSource;
 
         private float maxIntensity;
+        [SerializeField] private float maxPlayerDistance = default;
+        [SerializeField] private float illuminateSpeed = default;
 
         public CourageVariant Variant { get; private set; }
 
@@ -42,9 +44,9 @@ namespace AChildsCourage.Game.Floors.Courage
 
                 FlashlightEntity fe = collision.GetComponent<FlashlightEntity>();
 
-                if (fe.IsTurnedOn && (fe.DistanceToCharacter <= 5)) {
+                if (fe.IsTurnedOn && (fe.DistanceToCharacter <= maxPlayerDistance)) {
                     if (lightSource.intensity <= maxIntensity) {
-                        lightSource.intensity = Mathf.MoveTowards(lightSource.intensity, maxIntensity, Time.deltaTime * 1);
+                        lightSource.intensity = Mathf.MoveTowards(lightSource.intensity, maxIntensity, Time.deltaTime * illuminateSpeed);
                     }
                 }
             }

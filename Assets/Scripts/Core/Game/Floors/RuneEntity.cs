@@ -102,7 +102,7 @@ namespace AChildsCourage.Game.Floors
             float startingRadius = runeLight.pointLightOuterRadius;
 
             while (true) {
-                runeLight.pointLightOuterRadius = startingRadius + (Mathf.Sin(Time.time) * 0.2f);
+                runeLight.pointLightOuterRadius = startingRadius + (Mathf.Sin(Time.time) * 0.35f);
                 yield return null;
             }
 
