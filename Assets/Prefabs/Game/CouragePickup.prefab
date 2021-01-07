@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212b5941691835640a5af80167b25c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayerDistance: 5
+  illuminateSpeed: 1.25
 --- !u!198 &1745441868050171075
 ParticleSystem:
   m_ObjectHideFlags: 0

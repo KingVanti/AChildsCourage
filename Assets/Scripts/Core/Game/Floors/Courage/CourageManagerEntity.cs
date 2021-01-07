@@ -7,9 +7,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
     public class CourageManagerEntity : MonoBehaviour
     {
-
-        private const int NoCourage = 0;
-        private const int BaseCourage = 1;
+        private const int BaseCourage = 0;
 
         [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
 
