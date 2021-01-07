@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
+using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
 using static AChildsCourage.Game.Shade.LastKnownCharInfo;
 using static AChildsCourage.Game.Shade.ShadeState;
@@ -105,10 +106,11 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Idle()
         {
-            MoveTarget = null;
-
-            void OnEnter() => 
+            void OnEnter()
+            {
+                MoveTarget = null;
                 RequestAoi();
+            }
 
             ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
                 eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
@@ -127,7 +129,8 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Investigate(Investigation investigation)
         {
-            MoveTarget = investigation.Map(GetCurrentTarget).Position;
+            void OnEnter() =>
+                MoveTarget = investigation.Map(GetCurrentTarget).Position;
 
             ShadeState ProgressInvestigation() =>
                 investigation.Map(IsComplete)
@@ -144,13 +147,20 @@ namespace AChildsCourage.Game.Shade
                 }
             }
 
-            return new ShadeState(ShadeStateType.Investigation, NoEntryAction, React, NoExitAction);
+            return new ShadeState(ShadeStateType.Investigation, OnEnter, React, NoExitAction);
         }
 
         private ShadeState Suspicious(Vector2 charPosition)
         {
-            MoveTarget = null;
-            LookTarget = charPosition;
+            void OnEnter()
+            {
+                MoveTarget = null;
+                LookTarget = charPosition;
+            }
+
+            void Exit(ShadeState next) =>
+                If(next.Type != ShadeStateType.Suspicious)
+                 .Then(() => LookTarget = null);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -163,12 +173,13 @@ namespace AChildsCourage.Game.Shade
                 }
             }
 
-            return new ShadeState(ShadeStateType.Suspicious, NoEntryAction, React, NoExitAction);
+            return new ShadeState(ShadeStateType.Suspicious, OnEnter, React, Exit);
         }
 
         private ShadeState Pursuit(Vector2 charPosition)
         {
-            MoveTarget = charPosition;
+            void OnEnter() =>
+                MoveTarget = charPosition;
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -180,20 +191,23 @@ namespace AChildsCourage.Game.Shade
                 }
             }
 
-            return new ShadeState(ShadeStateType.Pursuit, NoEntryAction, React, NoExitAction);
+            return new ShadeState(ShadeStateType.Pursuit, OnEnter, React, NoExitAction);
         }
 
         private ShadeState Predict(LastKnownCharInfo charInfo, float currentTime)
         {
-            MoveTarget = charInfo.Map(PredictPosition, currentTime);
-            lookTarget = MoveTarget;
+            void OnEnter()
+            {
+                MoveTarget = charInfo.Map(PredictPosition, currentTime);
+                lookTarget = MoveTarget;
+            }
 
             ShadeState OnTick()
             {
                 var elapsedTime = charInfo.Map(CalculateElapsedTime, Time.time);
 
                 return elapsedTime < maxPredictionTime
-                    ? Predict(charInfo, Time.time).Log("Shade: Maybe over here.")
+                    ? Predict(charInfo, Time.time)
                     : Idle().Log("Shade: Ah forget it, they're gone by now.");
             }
 
@@ -208,7 +222,7 @@ namespace AChildsCourage.Game.Shade
                 }
             }
 
-            return new ShadeState(ShadeStateType.Predict, NoEntryAction, React, NoExitAction);
+            return new ShadeState(ShadeStateType.Predict, OnEnter, React, NoExitAction);
         }
 
     }
