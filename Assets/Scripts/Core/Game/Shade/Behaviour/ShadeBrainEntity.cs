@@ -115,7 +115,7 @@ namespace AChildsCourage.Game.Shade
             {
                 switch (eventArgs)
                 {
-                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen).Log(_ => "Shade: Chose an AOI!");
+                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen).Log("Shade: Chose an AOI!");
                     default: return NoStateChange;
                 }
             }
@@ -133,15 +133,15 @@ namespace AChildsCourage.Game.Shade
 
             ShadeState ProgressInvestigation() =>
                 investigation.Map(IsComplete)
-                    ? Idle().Log(_ => "Shade: Reached POI, im done!")
-                    : Investigate(investigation.Map(Progress)).Log(_ => "Shade: Reached POI, next!");
+                    ? Idle().Log("Shade: Reached POI, im done!")
+                    : Investigate(investigation.Map(Progress)).Log("Shade: Reached POI, next!");
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
                     case ShadeTargetReachedEventArgs _: return ProgressInvestigation();
-                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log(_ => "Shade: I think I saw the player!");
+                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
                     default: return NoStateChange;
                 }
             }
@@ -162,9 +162,9 @@ namespace AChildsCourage.Game.Shade
             {
                 switch (eventArgs)
                 {
-                    case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log(_ => "Shade: I saw the player!");
-                    case CharLostEventArgs _: return Idle().Log(_ => "Shade: Maybe I didnt see them...");
-                    case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log(_ => "I think they moved...");
+                    case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log("Shade: I saw the player!");
+                    case CharLostEventArgs _: return Idle().Log("Shade: Maybe I didnt see them...");
+                    case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log("I think they moved...");
                     default: return NoStateChange;
                 }
             }
@@ -180,8 +180,8 @@ namespace AChildsCourage.Game.Shade
             {
                 switch (eventArgs)
                 {
-                    case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition).Log(_ => "Shade: The player moved. Let's get them!");
-                    case CharLostEventArgs charLost: return Predict(charLost.CharInfo, Time.time).Log(_ => "Shade: Where did they go? They must be around here somewhere.");
+                    case CharPositionChangedEventArgs positionChanged: return Pursuit(positionChanged.NewPosition).Log("Shade: The player moved. Let's get them!");
+                    case CharLostEventArgs charLost: return Predict(charLost.CharInfo, Time.time).Log("Shade: Where did they go? They must be around here somewhere.");
                     default: return NoStateChange;
                 }
             }
@@ -203,8 +203,8 @@ namespace AChildsCourage.Game.Shade
                 var elapsedTime = charInfo.Map(CalculateElapsedTime, Time.time);
 
                 return elapsedTime < maxPredictionTime
-                    ? Predict(charInfo, Time.time).Log(_ => "Shade: Maybe over here.")
-                    : Idle().Log(_ => "Shade: Ah forget it, they're gone by now.");
+                    ? Predict(charInfo, Time.time).Log("Shade: Maybe over here.")
+                    : Idle().Log("Shade: Ah forget it, they're gone by now.");
             }
 
             ShadeState React(EventArgs eventArgs)
@@ -212,8 +212,8 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return OnTick();
-                    case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log(_ => "Shade: There they are!");
-                    case VisualContactToTargetEventArgs _: return Idle().Log(_ => "Shade: Ok... they are not there...");
+                    case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log("Shade: There they are!");
+                    case VisualContactToTargetEventArgs _: return Idle().Log("Shade: Ok... they are not there...");
                     default: return NoStateChange;
                 }
             }
