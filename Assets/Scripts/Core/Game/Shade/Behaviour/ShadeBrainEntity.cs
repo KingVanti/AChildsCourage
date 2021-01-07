@@ -5,6 +5,7 @@ using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
 using static AChildsCourage.Game.Shade.LastKnownCharInfo;
 using static AChildsCourage.Game.Shade.ShadeState;
+using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -20,6 +21,8 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float maxPredictionTime;
+        [SerializeField] private float restTime;
+        [SerializeField] private float randomStopChance;
 
         private Vector2? moveTarget;
         private Vector2? lookTarget;
@@ -109,6 +112,7 @@ namespace AChildsCourage.Game.Shade
             void OnEnter()
             {
                 MoveTarget = null;
+                LookTarget = null;
                 RequestAoi();
             }
 
@@ -137,12 +141,18 @@ namespace AChildsCourage.Game.Shade
                     ? Idle().Log("Shade: Reached POI, im done!")
                     : Investigate(investigation.Map(Progress)).Log("Shade: Reached POI, next!");
 
+            ShadeState OnTick() =>
+                Rng.RandomRng().Map(Rng.Prob, randomStopChance)
+                    ? Rest(Time.time).Log("Shade: I'll take a rest!")
+                    : NoStateChange;
+
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
                     case ShadeTargetReachedEventArgs _: return ProgressInvestigation();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
+                    case TimeTickEventArgs _: return OnTick();
                     default: return NoStateChange;
                 }
             }
@@ -160,7 +170,7 @@ namespace AChildsCourage.Game.Shade
 
             void Exit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Suspicious)
-                 .Then(() => LookTarget = null);
+                    .Then(() => LookTarget = null);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -223,6 +233,31 @@ namespace AChildsCourage.Game.Shade
             }
 
             return new ShadeState(ShadeStateType.Predict, OnEnter, React, NoExitAction);
+        }
+
+        private ShadeState Rest(float restStartTime)
+        {
+            void OnEnter()
+            {
+                MoveTarget = null;
+                LookTarget = transform.position + (Vector3) Random.insideUnitCircle;
+            }
+
+            ShadeState OnTick() =>
+                Time.time - restStartTime >= restTime
+                    ? Idle().Log("Shade: I've rested enough!")
+                    : NoStateChange;
+
+            ShadeState React(EventArgs eventArgs)
+            {
+                switch (eventArgs)
+                {
+                    case TimeTickEventArgs _: return OnTick();
+                    default: return NoStateChange;
+                }
+            }
+
+            return new ShadeState(ShadeStateType.Rest, OnEnter, React, NoExitAction);
         }
 
     }
