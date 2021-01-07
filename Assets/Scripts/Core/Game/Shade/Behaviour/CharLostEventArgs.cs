@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
 
         public LastKnownCharInfo CharInfo { get; }
 
-        
+
         public CharLostEventArgs(LastKnownCharInfo charInfo) =>
             CharInfo = charInfo;
 

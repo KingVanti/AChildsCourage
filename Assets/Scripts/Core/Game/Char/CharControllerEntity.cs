@@ -51,6 +51,7 @@ namespace AChildsCourage.Game.Char
         private bool hasStamina = true;
         private float defaultSpeed;
         private MovementState movementState;
+        private Vector2 prevPos = Vector2.negativeInfinity;
 
         #endregion
 
@@ -140,6 +141,8 @@ namespace AChildsCourage.Game.Char
             private set => rb.velocity = value;
         }
 
+        private Vector2 Position => transform.position;
+
         #endregion
 
         #region Methods
@@ -203,7 +206,12 @@ namespace AChildsCourage.Game.Char
         {
             Velocity = MovingDirection * movementSpeed;
 
-            OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
+            if (Vector2.Distance(Position, prevPos) > 0.05f)
+            {
+                OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
+                prevPos = Position;
+            }
+
             UpdateMovementState();
         }
 
