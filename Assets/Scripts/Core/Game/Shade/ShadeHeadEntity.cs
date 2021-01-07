@@ -42,7 +42,7 @@ namespace AChildsCourage.Game.Shade
             ? CurrentMovementDirection
             : Vector2.down;
 
-        private Vector2 TargetDirection => ExplicitFaceDirection ?? MovementFaceDirection;
+        private Vector2 TargetDirection => (ExplicitFaceDirection ?? MovementFaceDirection).normalized;
 
         private Vector2 CurrentDirection
         {
