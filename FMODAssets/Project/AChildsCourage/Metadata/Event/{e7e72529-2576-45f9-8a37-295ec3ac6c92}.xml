@@ -115,7 +115,7 @@
 	<object class="MixerBusPanner" id="{b2268489-45c3-4c5e-aca0-102c6bee1608}" />
 	<object class="SingleSound" id="{0e6c0fbe-7dc2-4051-9a3d-26e5cdccd039}">
 		<property name="length">
-			<value>131.25725623582767</value>
+			<value>125.99999999999999</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{aa3f27d1-7031-4e34-84fb-f83dae135fb3}</destination>
@@ -182,7 +182,7 @@
 	</object>
 	<object class="SoundScatterer" id="{fbb57f9b-727e-4a09-aa6d-0a92d52c2a59}">
 		<property name="length">
-			<value>131.25725623582767</value>
+			<value>125.99999999999999</value>
 		</property>
 		<property name="polyphony">
 			<value>4</value>
@@ -231,7 +231,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>131.25725623582767</value>
+			<value>125.99999999999999</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{ba05c2f5-7e8e-467f-b169-b733a5aa1cc6}</destination>
@@ -339,7 +339,6 @@
 		</property>
 	</object>
 	<object class="SingleSound" id="{2809979a-9974-4135-a011-2c57fadb5a2b}">
-		<property name="name" />
 		<relationship name="audioFile">
 			<destination>{8575fcd0-dd53-46c4-b4ac-8de78384edac}</destination>
 		</relationship>
