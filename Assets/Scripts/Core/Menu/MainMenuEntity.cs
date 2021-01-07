@@ -9,7 +9,7 @@ namespace AChildsCourage.Menu.UI
     {
 
         public void OnPlayButtonPressed() =>
-            SceneManager.LoadScene(SceneNames.Game);
+            SceneManager.LoadScene(SceneNames.StartCutscene);
 
         public void OnQuitButtonPressed()
         {

@@ -24,7 +24,7 @@ namespace AChildsCourage.Game
             OnWin();
 
         private void OnWin() =>
-            LoadScene(SceneNames.End);
+            LoadScene(SceneNames.EndCutscene);
 
 
         private void BackToMainMenu() {
