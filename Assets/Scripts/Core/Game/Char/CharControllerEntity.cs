@@ -208,7 +208,7 @@ namespace AChildsCourage.Game.Char
 
             if (Vector2.Distance(Position, prevPos) > 0.05f)
             {
-                OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
+                OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
             }
 
