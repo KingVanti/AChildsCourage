@@ -5,13 +5,13 @@ namespace AChildsCourage.Game.Shade
 
     public abstract class ShadeCommand { }
 
-    public class MoveCommand : ShadeCommand
+    public class MoveToCommand : ShadeCommand
     {
 
         public Vector2 Target { get; }
 
 
-        public MoveCommand(Vector2 target) =>
+        public MoveToCommand(Vector2 target) =>
             Target = target;
 
     }

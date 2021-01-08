@@ -44,7 +44,7 @@ namespace AChildsCourage.Game.Shade
         {
             switch (eventArgs.Command)
             {
-                case MoveCommand moveTo:
+                case MoveToCommand moveTo:
                     SetMovementTarget(moveTo.Target);
                     break;
                 case StopCommand _:

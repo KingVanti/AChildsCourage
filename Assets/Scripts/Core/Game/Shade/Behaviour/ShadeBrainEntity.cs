@@ -82,7 +82,7 @@ namespace AChildsCourage.Game.Shade
             Execute(new RequestAoiCommand());
 
         private void MoveTo(Vector2 target) =>
-            Execute(new MoveCommand(target));
+            Execute(new MoveToCommand(target));
 
         private void LookAt(Vector2 target) =>
             Execute(new LookAtCommand(target));
