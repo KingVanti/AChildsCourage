@@ -14,41 +14,14 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrainEntity : MonoBehaviour
     {
 
-        [Pub] public event EventHandler<ShadeLookTargetChangedEventArgs> OnLookTargetChanged;
-
-        [Pub] public event EventHandler<ShadeMoveTargetChangedEventArgs> OnMoveTargetChanged;
-
-        [Pub] public event EventHandler OnRequestAoi;
+        [Pub] public event EventHandler<ShadeCommandEventArgs> OnCommand;
 
 
         [SerializeField] private float maxPredictionTime;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
 
-        private Vector2? moveTarget;
-        private Vector2? lookTarget;
         private ShadeState currentState;
-
-
-        public Vector2? MoveTarget
-        {
-            get => moveTarget;
-            private set
-            {
-                moveTarget = value;
-                OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(moveTarget));
-            }
-        }
-
-        public Vector2? LookTarget
-        {
-            get => lookTarget;
-            private set
-            {
-                lookTarget = value;
-                OnLookTargetChanged?.Invoke(this, new ShadeLookTargetChangedEventArgs(lookTarget));
-            }
-        }
 
         private ShadeState CurrentState
         {
@@ -105,14 +78,29 @@ namespace AChildsCourage.Game.Shade
             CurrentState = CurrentState.React(eventArgs);
 
         private void RequestAoi() =>
-            OnRequestAoi?.Invoke(this, EventArgs.Empty);
+            Execute(new RequestAoiCommand());
+
+        private void MoveTo(Vector2 target) =>
+            Execute(new MoveCommand(target));
+
+        private void LookAt(Vector2 target) =>
+            Execute(new LookAtCommand(target));
+
+        private void Stop() =>
+            Execute(new StopCommand());
+
+        private void LookAhead() =>
+            Execute(new LookAheadCommand());
+
+        private void Execute(ShadeCommand command) =>
+            OnCommand?.Invoke(this, new ShadeCommandEventArgs(command));
 
         private ShadeState Idle()
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = null;
+                Stop();
+                LookAhead();
                 RequestAoi();
             }
 
@@ -133,8 +121,13 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState Investigate(Investigation investigation)
         {
-            void OnEnter() =>
-                MoveTarget = investigation.Map(GetCurrentTarget).Position;
+            void OnEnter()
+            {
+                investigation
+                    .Map(GetCurrentTarget).Position
+                    .Do(MoveTo);
+                LookAhead();
+            }
 
             ShadeState ChooseOnTimeTick() =>
                 RandomRng().Map(Prob, randomStopChance)
@@ -164,13 +157,13 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = charPosition;
+                Stop();
+                LookAt(charPosition);
             }
 
             void Exit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Suspicious)
-                    .Then(() => LookTarget = null);
+                    .Then(LookAhead);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -189,7 +182,7 @@ namespace AChildsCourage.Game.Shade
         private ShadeState Pursuit(Vector2 charPosition)
         {
             void OnEnter() =>
-                MoveTarget = charPosition;
+                MoveTo(charPosition);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -208,8 +201,11 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
-                MoveTarget = charInfo.Map(PredictPosition, currentTime);
-                lookTarget = MoveTarget;
+                charInfo
+                    .Map(PredictPosition, currentTime)
+                    .Do(MoveTo);
+                
+               LookAhead();
             }
 
             ShadeState OnTick()
@@ -239,8 +235,8 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = transform.position + (Vector3) Random.insideUnitCircle;
+                Stop();
+                LookAt(transform.position + (Vector3) Random.insideUnitCircle);
             }
 
             ShadeState OnTick() =>

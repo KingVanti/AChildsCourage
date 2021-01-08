@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Shade
     {
 
         [Pub] public event EventHandler<ShadeTargetReachedEventArgs> OnTargetReached;
-        
+
         [FindInScene] private AIPath aiPath;
 
         private Vector2? targetPosition;
@@ -30,30 +30,32 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private Vector2 AiTarget
+        public Vector2 AiTarget
         {
-            set => aiPath.destination = value;
+            get => aiPath.destination;
+            private set => aiPath.destination = value;
         }
 
 
         private void Update() => ReachedTarget = aiPath.reachedDestination;
 
-        [Sub(nameof(ShadeBrainEntity.OnMoveTargetChanged))]
-        private void OnMoveTargetChanged(object _, ShadeMoveTargetChangedEventArgs eventArgs)
+        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
         {
-            aiPath.isStopped = !eventArgs.NewTargetPosition.HasValue;
-
-            if (eventArgs.NewTargetPosition.HasValue)
-                SetMovementTarget(eventArgs.NewTargetPosition.Value);
-            else
+            switch (eventArgs.Command)
             {
-                targetPosition = null;
-                aiPath.SetPath(null);
+                case MoveCommand moveTo:
+                    SetMovementTarget(moveTo.Target);
+                    break;
+                case StopCommand _:
+                    Stop();
+                    break;
             }
         }
 
         private void SetMovementTarget(Vector2 position)
         {
+            aiPath.isStopped = false;
             if (!position.Map(IsNewTarget)) return;
 
             targetPosition = position;
@@ -64,6 +66,13 @@ namespace AChildsCourage.Game.Shade
         private bool IsNewTarget(Vector2 position) =>
             targetPosition == null ||
             Vector2.Distance(position, targetPosition.Value) >= 0.05f;
+
+        private void Stop()
+        {
+            aiPath.isStopped = true;
+            targetPosition = null;
+            aiPath.SetPath(null);
+        }
 
     }
 
