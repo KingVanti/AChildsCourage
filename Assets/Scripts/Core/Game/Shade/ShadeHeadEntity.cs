@@ -50,7 +50,7 @@ namespace AChildsCourage.Game.Shade
 
         private Vector2 TargetDirection => (ExplicitFaceDirection ?? MovementFaceDirection).normalized;
 
-        private float TargetAngle => CalculateAngle(TargetDirection);
+        private float TargetAngle => TargetDirection.Map(CalculateAngle);
 
         private bool CanSeeExplicitTarget => explicitTargetPosition.HasValue && shadeEyes.CanSee(explicitTargetPosition.Value);
 
