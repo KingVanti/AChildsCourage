@@ -20,9 +20,10 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float maxPredictionTime;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
-
+        
         private ShadeState currentState;
 
+        
         private ShadeState CurrentState
         {
             get => currentState;
@@ -38,10 +39,10 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState NoStateChange => CurrentState;
 
+        
         private void Update() =>
             ReactTo(new TimeTickEventArgs());
-
-
+        
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             currentState = Idle();
