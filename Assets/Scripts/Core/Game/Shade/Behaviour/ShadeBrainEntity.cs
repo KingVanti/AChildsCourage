@@ -139,7 +139,7 @@ namespace AChildsCourage.Game.Shade
             ShadeState ChooseOnTargetReached() =>
                 investigation.Map(IsComplete)
                     ? Idle().Log("Shade: Reached POI, im done!")
-                    : Investigate(investigation.Map(Progress)).Log("Shade: Reached POI, next!");
+                    : Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!");
 
             ShadeState React(EventArgs eventArgs)
             {
