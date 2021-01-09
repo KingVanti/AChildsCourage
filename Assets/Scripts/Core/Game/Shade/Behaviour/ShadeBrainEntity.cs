@@ -133,7 +133,7 @@ namespace AChildsCourage.Game.Shade
 
             ShadeState ChooseOnTimeTick() =>
                 RandomRng().Map(Prob, randomStopChance)
-                    ? Rest(Time.time, restRotationCount).Log("Shade: I'll take a rest!")
+                    ? Rest(Time.time, restRotationCount - 1).Log("Shade: I'll take a rest!")
                     : NoStateChange;
 
             ShadeState ChooseOnTargetReached() =>
