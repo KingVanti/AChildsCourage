@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Shade
             set
             {
                 transform.eulerAngles = new Vector3(0, 0, value);
-                animator.SetFloat(angleAnimatorKey, value.Map(AsSignedAngle));
+                animator.SetFloat(angleAnimatorKey, value.Map(NormalizeAngle));
             }
         }
 

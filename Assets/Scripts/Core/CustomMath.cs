@@ -62,9 +62,8 @@ namespace AChildsCourage
         public static float Mod(float mod, float f) =>
             f % mod;
 
-        public static float AsSignedAngle(float angle) =>
-            angle
-                .Map(Mod, 360f);
+        public static float NormalizeAngle(float angle) =>
+            Repeat(angle, 360);
 
     }
 
