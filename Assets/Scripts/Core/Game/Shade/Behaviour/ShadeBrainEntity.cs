@@ -23,6 +23,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float randomStopChance;
 
         private ShadeState currentState;
+        private Investigation currentInvestigation = Complete;
 
 
         private ShadeState CurrentState
@@ -48,16 +49,16 @@ namespace AChildsCourage.Game.Shade
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             currentState = Idle();
 
+        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
+        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs) =>
+            currentInvestigation = eventArgs.Aoi.Map(StartInvestigation);
+
         [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
         private void OnCharSpotted(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSuspected))]
         private void OnCharSuspected(object _, EventArgs eventArgs) =>
-            ReactTo(eventArgs);
-
-        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
-        private void OnAoiChosen(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeMovementEntity.OnTargetReached))]
@@ -103,17 +104,19 @@ namespace AChildsCourage.Game.Shade
             {
                 Stop();
                 LookAhead();
-                RequestAoi();
-            }
 
-            ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
-                eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
+                if (currentInvestigation.Map(IsComplete))
+                {
+                    RequestAoi();
+                    Debug.Log("Shade: I have no AOI, so I requested one!");
+                }
+            }
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen).Log("Shade: Chose an AOI!");
+                    case TimeTickEventArgs _ when !currentInvestigation.Map(IsComplete): return MoveToInvestigationTarget().Log("Shade: I'll move to my next POI!");
                     default: return NoStateChange;
                 }
             }
@@ -121,13 +124,11 @@ namespace AChildsCourage.Game.Shade
             return new ShadeState(ShadeStateType.Idle, OnEnter, React, NoExitAction);
         }
 
-        private ShadeState Investigate(Investigation investigation)
+        private ShadeState MoveToInvestigationTarget()
         {
             void OnEnter()
             {
-                investigation
-                    .Map(GetCurrentTarget).Position
-                    .Do(MoveTo);
+                currentInvestigation.Map(GetCurrentTarget).Position.Do(MoveTo);
                 LookAhead();
             }
 
@@ -136,16 +137,17 @@ namespace AChildsCourage.Game.Shade
                     ? Rest(Time.time, restRotationCount - 1).Log("Shade: I'll take a rest!")
                     : NoStateChange;
 
-            ShadeState ChooseOnTargetReached() =>
-                investigation.Map(IsComplete)
-                    ? Idle().Log("Shade: Reached POI, im done!")
-                    : Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!");
+            ShadeState OnPoiReached()
+            {
+                currentInvestigation = currentInvestigation.Map(Progress);
+                return Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!");
+            }
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case ShadeTargetReachedEventArgs _: return ChooseOnTargetReached();
+                    case ShadeTargetReachedEventArgs _: return OnPoiReached();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
                     case TimeTickEventArgs _: return ChooseOnTimeTick();
                     default: return NoStateChange;
