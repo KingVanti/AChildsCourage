@@ -19,10 +19,10 @@ namespace AChildsCourage
         public static float RemapSquared(this float f, float sA, float sB, float tA, float tB) =>
             Lerp(tA, tB, InverseLerp(sA, sB, f).Squared());
 
-        public static float CalculateAngle(Vector2 vector2) =>
-            Atan2(vector2.y, vector2.x) * Rad2Deg;
+        public static float CalculateAngle(Vector2 vector) =>
+            CalculateAngle(vector.x, vector.y);
 
-        public static float CalculateAngle(float yPos, float xPos) =>
+        public static float CalculateAngle(float xPos, float yPos) =>
             Atan2(yPos, xPos) * Rad2Deg;
 
         public static float Clamp(this float f, float min, float max) =>
@@ -62,9 +62,8 @@ namespace AChildsCourage
         public static float Mod(float mod, float f) =>
             f % mod;
 
-        public static float AsSignedAngle(float angle) =>
-            angle
-                .Map(Mod, 360f);
+        public static float NormalizeAngle(float angle) =>
+            Repeat(angle, 360);
 
     }
 

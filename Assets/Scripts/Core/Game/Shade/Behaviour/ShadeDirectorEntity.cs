@@ -24,9 +24,16 @@ namespace AChildsCourage.Game.Shade
             StartStandardInvestigation();
         }
 
-        [Sub(nameof(ShadeBrainEntity.OnRequestAoi))]
-        private void OnRequestAoi(object _1, EventArgs _2) =>
-            StartStandardInvestigation();
+        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
+        {
+            switch (eventArgs.Command)
+            {
+                case RequestAoiCommand _:
+                    StartStandardInvestigation();
+                    break;
+            }
+        }
 
         private void StartStandardInvestigation() =>
             GenerateAoi(standardParams)

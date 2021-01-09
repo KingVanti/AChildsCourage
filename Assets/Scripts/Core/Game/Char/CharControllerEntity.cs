@@ -184,7 +184,7 @@ namespace AChildsCourage.Game.Char
 
             RelativeMousePos = (projectedMousePosition - charPos).normalized;
 
-            LookAngle = CalculateAngle(RelativeMousePos.y, RelativeMousePos.x);
+            LookAngle = CalculateAngle(RelativeMousePos.x, RelativeMousePos.y);
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
@@ -208,7 +208,7 @@ namespace AChildsCourage.Game.Char
 
             if (Vector2.Distance(Position, prevPos) > 0.05f)
             {
-                OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(transform.position));
+                OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
             }
 

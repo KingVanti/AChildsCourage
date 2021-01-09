@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Shade
             set
             {
                 transform.eulerAngles = new Vector3(0, 0, value);
-                animator.SetFloat(angleAnimatorKey, value.Map(AsSignedAngle));
+                animator.SetFloat(angleAnimatorKey, value.Map(NormalizeAngle));
             }
         }
 
@@ -40,8 +40,10 @@ namespace AChildsCourage.Game.Shade
 
         private bool IsMoving => CurrentMovementDirection.magnitude > float.Epsilon;
 
-        private Vector2? ExplicitFaceDirection => explicitTargetPosition.HasValue
-            ? explicitTargetPosition.Value - (Vector2) transform.position
+        public Vector2? ExplicitTargetPosition => explicitTargetPosition;
+
+        private Vector2? ExplicitFaceDirection => ExplicitTargetPosition.HasValue
+            ? ExplicitTargetPosition.Value - (Vector2) transform.position
             : (Vector2?) null;
 
         private Vector2 MovementFaceDirection => IsMoving
@@ -68,9 +70,19 @@ namespace AChildsCourage.Game.Shade
             If(CanSeeExplicitTarget)
                 .Then(() => OnVisualContactToTarget?.Invoke(this, new VisualContactToTargetEventArgs()));
 
-        [Sub(nameof(ShadeBrainEntity.OnLookTargetChanged))]
-        private void OnLookTargetChanged(object _, ShadeLookTargetChangedEventArgs eventArgs) =>
-            explicitTargetPosition = eventArgs.NewTargetPosition;
+        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
+        {
+            switch (eventArgs.Command)
+            {
+                case LookAtCommand lookAt:
+                    explicitTargetPosition = lookAt.Target;
+                    break;
+                case LookAheadCommand _:
+                    explicitTargetPosition = null;
+                    break;
+            }
+        }
 
     }
 

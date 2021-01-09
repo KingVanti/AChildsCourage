@@ -378,7 +378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPredictionTime: 3
-  restTime: 3
+  restRotationCount: 3
+  restTime: 2
   randomStopChance: 0.1
 --- !u!114 &2064087353
 MonoBehaviour:
