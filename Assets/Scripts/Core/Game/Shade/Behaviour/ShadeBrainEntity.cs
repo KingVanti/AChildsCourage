@@ -18,12 +18,13 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float maxPredictionTime;
+        [SerializeField] private int restRotationCount;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
-        
+
         private ShadeState currentState;
 
-        
+
         private ShadeState CurrentState
         {
             get => currentState;
@@ -39,10 +40,10 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState NoStateChange => CurrentState;
 
-        
+
         private void Update() =>
             ReactTo(new TimeTickEventArgs());
-        
+
         [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             currentState = Idle();
@@ -132,7 +133,7 @@ namespace AChildsCourage.Game.Shade
 
             ShadeState ChooseOnTimeTick() =>
                 RandomRng().Map(Prob, randomStopChance)
-                    ? Rest(Time.time).Log("Shade: I'll take a rest!")
+                    ? Rest(Time.time, restRotationCount).Log("Shade: I'll take a rest!")
                     : NoStateChange;
 
             ShadeState ChooseOnTargetReached() =>
@@ -205,8 +206,8 @@ namespace AChildsCourage.Game.Shade
                 charInfo
                     .Map(PredictPosition, currentTime)
                     .Do(MoveTo);
-                
-               LookAhead();
+
+                LookAhead();
             }
 
             ShadeState OnTick()
@@ -232,7 +233,7 @@ namespace AChildsCourage.Game.Shade
             return new ShadeState(ShadeStateType.Predict, OnEnter, React, NoExitAction);
         }
 
-        private ShadeState Rest(float restStartTime)
+        private ShadeState Rest(float restStartTime, int remainingRotations)
         {
             void OnEnter()
             {
@@ -242,8 +243,13 @@ namespace AChildsCourage.Game.Shade
 
             ShadeState OnTick() =>
                 Time.time - restStartTime >= restTime
-                    ? Idle().Log("Shade: I've rested enough!")
+                    ? OnRestCompleted()
                     : NoStateChange;
+
+            ShadeState OnRestCompleted() =>
+                remainingRotations == 0
+                    ? Idle().Log("Shade: I've rested enough!")
+                    : Rest(Time.time, remainingRotations - 1).Log("Shade: I'll rest some more...");
 
             ShadeState React(EventArgs eventArgs)
             {
