@@ -40,11 +40,8 @@ namespace AChildsCourage.Game.Shade
 
         private bool IsMoving => CurrentMovementDirection.magnitude > float.Epsilon;
 
-        public Vector2? ExplicitTargetPosition
-        {
-            get => explicitTargetPosition;
-        }
-        
+        public Vector2? ExplicitTargetPosition => explicitTargetPosition;
+
         private Vector2? ExplicitFaceDirection => ExplicitTargetPosition.HasValue
             ? ExplicitTargetPosition.Value - (Vector2) transform.position
             : (Vector2?) null;
