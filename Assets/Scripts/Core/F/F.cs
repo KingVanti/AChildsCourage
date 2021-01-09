@@ -32,14 +32,10 @@ namespace AChildsCourage
             return result;
         }
 
-        public static TItem While<TItem>(this TItem input, Func<TItem, bool> predicate, Func<TItem, TItem> function)
-        {
-            var result = input;
-
-            while (predicate(result)) result = function(result);
-
-            return result;
-        }
+        public static TItem While<TItem>(this TItem input, Func<TItem, bool> predicate, Func<TItem, TItem> function) => 
+            predicate(input)
+                ? function(input).While(predicate, function) 
+                : input;
 
         public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate) =>
             predicate ? function(input) : input;
@@ -48,7 +44,7 @@ namespace AChildsCourage
         {
             while (predicate()) action();
         }
-        
+
         public static void ForEach<TItem>(this IEnumerable<TItem> elements, Action<TItem> action)
         {
             foreach (var element in elements) action(element);
