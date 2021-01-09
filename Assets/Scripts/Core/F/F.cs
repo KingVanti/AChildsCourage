@@ -40,6 +40,9 @@ namespace AChildsCourage
         public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate) =>
             predicate ? function(input) : input;
 
+        public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, Func<TItem, bool> predicate) =>
+            predicate(input) ? function(input) : input;
+
         public static void While(this Action action, Func<bool> predicate)
         {
             while (predicate()) action();
