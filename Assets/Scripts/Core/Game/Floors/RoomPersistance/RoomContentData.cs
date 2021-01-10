@@ -14,14 +14,17 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
         public SerializedStaticObject[] StaticObjects { get; }
 
         public SerializedRune[] Runes { get; }
+        
+        public SerializedPortal[] Portals { get; }
 
 
-        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes)
+        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes, SerializedPortal[] portals)
         {
             GroundData = groundData ?? new SerializedGroundTile[0];
             CourageData = courageData ?? new SerializedCouragePickup[0];
             StaticObjects = staticObjects ?? new SerializedStaticObject[0];
             Runes = runes ?? new SerializedRune[0];
+            Portals = portals ?? new SerializedPortal[0];
         }
 
         public static RoomContent ReadContent(SerializedRoomContent content)

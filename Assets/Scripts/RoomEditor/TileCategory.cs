@@ -7,7 +7,8 @@
         Ground,
         Courage,
         StaticObject,
-        Runes
+        Runes,
+        Portal
 
     }
 
