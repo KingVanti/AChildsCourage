@@ -28,7 +28,8 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Aggregate(EmptyFloor(roomPlan.Map(FindEndRoomChunk)), AddContent)
                 .Map(GenerateWalls)
                 .Map(FilterCouragePickups, @params)
-                .Map(FilterRunes, @params);
+                .Map(FilterRunes, @params)
+                .Map(FilterPortals, @params);
 
         private static RoomContent GetContent(RoomCollection roomCollection, RoomInstance room)
         {
@@ -136,6 +137,20 @@ namespace AChildsCourage.Game.Floors.Gen
             catch (Exception e)
             {
                 throw new Exception($"Error while filtering runes: {e.Message}");
+            }
+        }
+        
+        private static Floor FilterPortals(FloorGenParams @params, Floor floor)
+        {
+            try
+            {
+                return floor.Map(FilterObjects,
+                                 Fun((FloorObject o) => o.Data is PortalData),
+                                 @params.PortalCount);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Error while filtering portals: {e.Message}");
             }
         }
 
