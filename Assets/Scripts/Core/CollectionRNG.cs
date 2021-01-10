@@ -37,8 +37,7 @@ namespace AChildsCourage
         }
 
         private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight) =>
-            elements
-                .Select(o => AttachWeight(o, calculateWeight));
+            elements.Select(o => AttachWeight(o, calculateWeight));
 
 
         private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) =>
