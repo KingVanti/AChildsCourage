@@ -9,8 +9,6 @@ namespace AChildsCourage.Game.Floors
 
         [SerializeField] private GameObject runePrefab;
 
-#pragma warning  restore 649
-
 
         public void Spawn(TilePosition position, RuneData _) =>
             InstantiateRuneAt(position);
