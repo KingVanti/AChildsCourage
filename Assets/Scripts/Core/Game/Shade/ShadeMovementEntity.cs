@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Shade
 
         public Vector2 AiTarget
         {
-            get => aiPath.destination;
+            get => aiPath ? aiPath.destination : transform.position;
             private set => aiPath.destination = value;
         }
 
