@@ -3367,10 +3367,6 @@ PrefabInstance:
       propertyPath: characterVisionPoints.Array.data[1]
       value: 
       objectReference: {fileID: 489588452}
-    - target: {fileID: 6287393413328556662, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
-      propertyPath: minTimeBeforeRest
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb1dc0e0770b5f44092ea6a8f4a4ccdd, type: 3}
 --- !u!1 &2074507388
