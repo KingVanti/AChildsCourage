@@ -50,8 +50,11 @@ namespace AChildsCourage.Game.Shade
             currentState = Idle();
 
         [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
-        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs) =>
+        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs)
+        {
             currentInvestigation = eventArgs.Aoi.Map(StartInvestigation);
+            ReactTo(eventArgs);
+        }
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
         private void OnCharSpotted(object _, EventArgs eventArgs) =>
@@ -150,6 +153,7 @@ namespace AChildsCourage.Game.Shade
                     case ShadeTargetReachedEventArgs _: return OnPoiReached();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
                     case TimeTickEventArgs _: return ChooseOnTimeTick();
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }
@@ -259,6 +263,7 @@ namespace AChildsCourage.Game.Shade
                 {
                     case TimeTickEventArgs _: return OnTick();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }

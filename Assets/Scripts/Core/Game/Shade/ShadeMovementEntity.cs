@@ -37,7 +37,8 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        private void Update() => ReachedTarget = aiPath.reachedDestination;
+        private void Update() => 
+            ReachedTarget = aiPath.reachedDestination && aiPath.hasPath;
 
         [Sub(nameof(ShadeBrainEntity.OnCommand))]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)

@@ -129,6 +129,11 @@ namespace AChildsCourage
 
         public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func)
             => func;
+        
+        public static IEnumerable<T> AsSingleEnumerable<T>(this T item)
+        {
+            yield return item; 
+        }
 
     }
 
