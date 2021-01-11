@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float randomStopChance;
 
         private ShadeState currentState;
-        private Investigation currentInvestigation = Complete;
+        private Investigation currentInvestigation = CompleteInvestigation;
 
 
         private ShadeState CurrentState
@@ -180,6 +180,7 @@ namespace AChildsCourage.Game.Shade
                     case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log("Shade: I saw the player!");
                     case CharLostEventArgs _: return Idle().Log("Shade: Maybe I didnt see them...");
                     case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log("I think they moved...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }
@@ -191,7 +192,7 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter() =>
                 MoveTo(charPosition);
-
+            
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
@@ -232,6 +233,7 @@ namespace AChildsCourage.Game.Shade
                     case TimeTickEventArgs _: return OnTick();
                     case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log("Shade: There they are!");
                     case VisualContactToTargetEventArgs _: return Idle().Log("Shade: Ok... they are not there...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }

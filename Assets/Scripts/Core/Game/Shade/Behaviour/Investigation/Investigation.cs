@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Shade
     public readonly struct Investigation
     {
 
-        public static Investigation Complete => new Investigation(null, ImmutableHashSet<Poi>.Empty);
+        public static Investigation CompleteInvestigation => new Investigation(null, ImmutableHashSet<Poi>.Empty);
 
 
         public static Investigation StartInvestigation(Aoi aoi) =>

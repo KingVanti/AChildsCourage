@@ -2622,7 +2622,9 @@ MonoBehaviour:
     radius: 10
     poiDistance: 3
   lowTensionInterventionTime: 25
+  highTensionInterventionTime: 10
   repeatHintTime: 7
+  sendAwayDistance: 30
 --- !u!114 &1187637743
 MonoBehaviour:
   m_ObjectHideFlags: 0

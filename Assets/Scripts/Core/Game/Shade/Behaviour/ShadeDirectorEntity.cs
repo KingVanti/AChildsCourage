@@ -15,7 +15,9 @@ namespace AChildsCourage.Game.Shade
 
         [SerializeField] private AoiGenParams standardParams;
         [SerializeField] private float lowTensionInterventionTime;
+        [SerializeField] private float highTensionInterventionTime;
         [SerializeField] private float repeatHintTime;
+        [SerializeField] private float sendAwayDistance;
 
         [FindInScene] private CharControllerEntity @char;
 
@@ -62,8 +64,15 @@ namespace AChildsCourage.Game.Shade
             if (interventionRoutine != null)
                 StopCoroutine(interventionRoutine);
 
-            if (tensionLevel == TensionLevel.Low)
-                interventionRoutine = this.DoAfter(SendShadeToChar, lowTensionInterventionTime);
+            switch (tensionLevel)
+            {
+                case TensionLevel.Low:
+                    interventionRoutine = this.DoAfter(SendShadeToChar, lowTensionInterventionTime);
+                    break;
+                case TensionLevel.High:
+                    interventionRoutine = this.DoAfter(SendShadeAwayFromChar, highTensionInterventionTime);
+                    break;
+            }
         }
 
         private void SendShadeToChar()
@@ -75,6 +84,13 @@ namespace AChildsCourage.Game.Shade
 
             interventionRoutine = this.DoAfter(SendShadeToChar, repeatHintTime);
         }
+
+        private void SendShadeAwayFromChar() =>
+            groundPlan
+                .Map(ChooseRandomPositionOutsideRadius, Rng.RandomRng(), sendAwayDistance)
+                .AsSingleEnumerable()
+                .Map(ToAoi)
+                .Do(SendAoiToShade);
 
         private void SendAoiToShade(Aoi aoi) =>
             OnAoiChosen?.Invoke(this, new AoiChosenEventArgs(aoi));
