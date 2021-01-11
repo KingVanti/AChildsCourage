@@ -258,6 +258,7 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return OnTick();
+                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
                     default: return NoStateChange;
                 }
             }
