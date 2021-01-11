@@ -1,4 +1,5 @@
-﻿using AChildsCourage.Game.Shade;
+﻿using System;
+using AChildsCourage.Game.Shade;
 using UnityEngine;
 using static AChildsCourage.Game.Char.TensionMeter;
 
@@ -7,6 +8,9 @@ namespace AChildsCourage.Game.Char
 
     public class TensionMeterEntity : MonoBehaviour
     {
+
+        [Pub] public event EventHandler<TensionLevelChangedEventArgs> OnTensionLevelChanged;
+
 
         [SerializeField] private float canSeeShadeGain;
         [SerializeField] private float shadeDetectionDistance;
@@ -17,8 +21,31 @@ namespace AChildsCourage.Game.Char
         [FindInScene] private ShadeBodyEntity shade;
         [FindInScene] private CharControllerEntity @char;
 
+        private TensionLevel tensionLevel;
+        private TensionMeter tensionMeter = EmptyTensionMeter;
 
-        public TensionMeter TensionMeter { get; private set; } = EmptyTensionMeter;
+
+        private TensionLevel TensionLevel
+        {
+            get => tensionLevel;
+            set
+            {
+                if (tensionLevel == value) return;
+
+                tensionLevel = value;
+                OnTensionLevelChanged?.Invoke(this, new TensionLevelChangedEventArgs(TensionLevel));
+            }
+        }
+
+        public TensionMeter TensionMeter
+        {
+            get => tensionMeter;
+            private set
+            {
+                tensionMeter = value;
+                TensionLevel = tensionMeter.Map(CalculateTensionLevel);
+            }
+        }
 
         private bool CanSeeShade => flashlight.ShinesOn(ShadePosition);
 
