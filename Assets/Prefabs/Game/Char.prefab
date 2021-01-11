@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 7727361372551759643}
   - component: {fileID: 6550638052725105802}
   - component: {fileID: 104577623}
+  - component: {fileID: 1231063780078513856}
   m_Layer: 8
   m_Name: Char
   m_TagString: Char
@@ -5274,3 +5275,21 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
+--- !u!114 &1231063780078513856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820627343415363622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b57ec50b3eef974a94d1ee4ba8d6fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSeeShadeGain: 0.05
+  shadeDetectionDistance: 10
+  shadeDistanceGainRange:
+    min: 0
+    max: 0.25
+  baseDrain: 0.1
