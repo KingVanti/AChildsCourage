@@ -206,7 +206,7 @@ namespace AChildsCourage.Game.Char
         {
             Velocity = MovingDirection * movementSpeed;
 
-            if (Vector2.Distance(Position, prevPos) > 0.05f)
+            if (Position != prevPos)
             {
                 OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
