@@ -21,10 +21,19 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private int restRotationCount;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
+        [SerializeField] private float minTimeBeforeRest;
 
         private ShadeState currentState;
         private Investigation currentInvestigation = CompleteInvestigation;
+        private float lastRestTime = 0;
 
+
+        private float TimeSinceLastRest => Time.time - lastRestTime;
+
+        private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
+
+        private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
+        
 
         private ShadeState CurrentState
         {
@@ -136,14 +145,16 @@ namespace AChildsCourage.Game.Shade
             }
 
             ShadeState ChooseOnTimeTick() =>
-                RandomRng().Map(Prob, randomStopChance)
+                ShouldRest
                     ? Rest(Time.time, restRotationCount - 1).Log("Shade: I'll take a rest!")
                     : NoStateChange;
 
             ShadeState OnPoiReached()
             {
                 currentInvestigation = currentInvestigation.Map(Progress);
-                return Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!");
+                return ShouldRest
+                    ? Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!")
+                    : Idle().Log("Shade: Reached POI. I don't need to rest right now!");
             }
 
             ShadeState React(EventArgs eventArgs)
@@ -245,6 +256,7 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
+                lastRestTime = Time.time;
                 Stop();
                 LookAt(transform.position + (Vector3) Random.insideUnitCircle);
             }
