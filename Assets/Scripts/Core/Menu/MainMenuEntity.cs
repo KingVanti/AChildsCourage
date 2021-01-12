@@ -3,37 +3,30 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Menu.UI
-{
+namespace AChildsCourage.Menu.UI {
 
-    public class MainMenuEntity : MonoBehaviour
-    {
+    public class MainMenuEntity : MonoBehaviour {
 
         [SerializeField] private Animator menuAnimationController;
+
+        private static readonly int tutorialIndexKey = Animator.StringToHash("Tutorial");
+        private static readonly int controlsIndexKey = Animator.StringToHash("Controls");
+        private static readonly int creditsIndexKey = Animator.StringToHash("Credits");
 
         public void OnPlayButtonPressed() =>
             Transition.To(SceneName.startCutscene);
 
-        public void OnQuitButtonPressed()
-        {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#else
-      Application.Quit();
-#endif
-        }
+        public void OnQuitButtonPressed() =>
+            Application.Quit();
 
-        public void OnTutorialButtonPressed() {
-            menuAnimationController.SetTrigger("Tutorial");
-        }
+        public void OnTutorialButtonPressed() =>
+            menuAnimationController.SetTrigger(tutorialIndexKey);
 
-        public void OnControlsButtonPressed() {
-            menuAnimationController.SetTrigger("Controls");
-        }
+        public void OnControlsButtonPressed() =>
+            menuAnimationController.SetTrigger(controlsIndexKey);
 
-        public void OnCreditsButtonPressed() {
-            menuAnimationController.SetTrigger("Credits");
-        }
+        public void OnCreditsButtonPressed() =>
+            menuAnimationController.SetTrigger(creditsIndexKey);
 
     }
 
