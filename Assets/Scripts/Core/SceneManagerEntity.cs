@@ -21,7 +21,7 @@ namespace AChildsCourage
             OnSceneSetupComplete();
         }
 
-        protected virtual void OnSceneSetupComplete(){}
+        protected virtual void OnSceneSetupComplete() { }
 
     }
 
