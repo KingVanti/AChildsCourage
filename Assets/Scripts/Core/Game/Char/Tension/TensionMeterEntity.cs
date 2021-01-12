@@ -4,6 +4,7 @@ using AChildsCourage.Game.Shade;
 using UnityEngine;
 using static AChildsCourage.Game.Char.TensionLevelRange;
 using static AChildsCourage.Game.Char.TensionMeter;
+using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Char
 {
@@ -60,7 +61,7 @@ namespace AChildsCourage.Game.Char
 
         private float ShadeDistanceInterpolator => ShadeDistance.Remap(0, shadeDetectionDistance, 1, 0);
 
-        private float ShadeDistanceGain => shadeDistanceGainRange.Map(Range.Lerp, ShadeDistanceInterpolator);
+        private float ShadeDistanceGain => shadeDistanceGainRange.Map(Lerp, ShadeDistanceInterpolator);
 
         private float TensionDelta =>
             IsInShadeDetectionRange
@@ -86,8 +87,8 @@ namespace AChildsCourage.Game.Char
             currentTensionLevelRange = CalculateTensionLevelRange(completionPercent);
 
         private TensionLevelRange CalculateTensionLevelRange(float completionPercent) =>
-            new TensionLevelRange(minNormalTensionRange.Map(Range.Lerp, completionPercent),
-                                  minHighTensionRange.Map(Range.Lerp, completionPercent));
+            new TensionLevelRange(minNormalTensionRange.Map(Lerp, completionPercent),
+                                  minHighTensionRange.Map(Lerp, completionPercent));
 
     }
 
