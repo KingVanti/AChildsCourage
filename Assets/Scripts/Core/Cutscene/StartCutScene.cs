@@ -8,6 +8,6 @@ namespace AChildsCourage.Game
     public class StartCutScene : MonoBehaviour
     {
         private void OnStartCutSceneEnded() =>
-            SceneManager.LoadScene(SceneNames.Game);
+            SceneManager.LoadScene(SceneName.game);
     }
 }

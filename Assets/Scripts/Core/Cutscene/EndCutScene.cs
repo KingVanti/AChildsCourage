@@ -8,6 +8,6 @@ namespace AChildsCourage.Game
     public class EndCutScene : MonoBehaviour
     {
         private void OnEndCutSceneEnded() =>
-            SceneManager.LoadScene(SceneNames.End);
+            SceneManager.LoadScene(SceneName.end);
     }
 }
