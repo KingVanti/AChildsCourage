@@ -32,12 +32,13 @@ namespace AChildsCourage.Game.Shade
 
         public Vector2 AiTarget
         {
-            get => aiPath.destination;
+            get => aiPath ? aiPath.destination : transform.position;
             private set => aiPath.destination = value;
         }
 
 
-        private void Update() => ReachedTarget = aiPath.reachedDestination;
+        private void Update() => 
+            ReachedTarget = aiPath.reachedDestination && aiPath.hasPath;
 
         [Sub(nameof(ShadeBrainEntity.OnCommand))]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)

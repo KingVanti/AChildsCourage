@@ -90,6 +90,12 @@ namespace AChildsCourage.Game.Char
 
         private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0), 2);
 
+        private float ShineRadius => lightComponent.pointLightOuterRadius;
+
+
+        public bool ShinesOn(Vector2 position) =>
+            Vector2.Distance(position, shinePosition) <= ShineRadius;
+
 
         private void UpdateShinePosition()
         {
@@ -106,8 +112,8 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
-            lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation),0,maxShineDistance);
+            lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, maxShineDistance);
+            lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, maxShineDistance);
             courageTrigger.radius = lightComponent.pointLightOuterRadius;
         }
 

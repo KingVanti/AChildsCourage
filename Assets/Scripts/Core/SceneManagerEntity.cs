@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static AChildsCourage.Infrastructure;
 
 namespace AChildsCourage
 {
@@ -15,9 +16,12 @@ namespace AChildsCourage
 
         private void SetupScene()
         {
-            Infrastructure.SetupSceneInfrastructure();
+            SetupSceneInfrastructure();
             OnSceneLoaded?.Invoke(this, EventArgs.Empty);
+            OnSceneSetupComplete();
         }
+
+        protected virtual void OnSceneSetupComplete(){}
 
     }
 

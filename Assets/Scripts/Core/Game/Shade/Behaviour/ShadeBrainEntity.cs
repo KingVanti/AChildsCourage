@@ -16,14 +16,23 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<ShadeCommandEventArgs> OnCommand;
 
-
+        [SerializeField] private float tickWaitTime;
         [SerializeField] private float maxPredictionTime;
         [SerializeField] private int restRotationCount;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
+        [SerializeField] private float minTimeBeforeRest;
 
         private ShadeState currentState;
-        private Investigation currentInvestigation = Complete;
+        private Investigation currentInvestigation = CompleteInvestigation;
+        private float lastRestTime;
+
+
+        private float TimeSinceLastRest => Time.time - lastRestTime;
+
+        private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
+
+        private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
 
 
         private ShadeState CurrentState
@@ -42,16 +51,19 @@ namespace AChildsCourage.Game.Shade
         private ShadeState NoStateChange => CurrentState;
 
 
-        private void Update() =>
-            ReactTo(new TimeTickEventArgs());
-
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) =>
+        [Sub(nameof(GameManager.OnStartGame))]
+        private void OnStartGame(object _1, EventArgs _2)
+        {
             currentState = Idle();
+            _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
+        }
 
         [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
-        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs) =>
+        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs)
+        {
             currentInvestigation = eventArgs.Aoi.Map(StartInvestigation);
+            ReactTo(eventArgs);
+        }
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
         private void OnCharSpotted(object _, EventArgs eventArgs) =>
@@ -78,7 +90,7 @@ namespace AChildsCourage.Game.Shade
             ReactTo(eventArgs);
 
         private void ReactTo(EventArgs eventArgs) =>
-            CurrentState = CurrentState.React(eventArgs);
+            CurrentState = CurrentState?.React(eventArgs);
 
         private void RequestAoi() =>
             Execute(new RequestAoiCommand());
@@ -133,14 +145,16 @@ namespace AChildsCourage.Game.Shade
             }
 
             ShadeState ChooseOnTimeTick() =>
-                RandomRng().Map(Prob, randomStopChance)
+                ShouldRest
                     ? Rest(Time.time, restRotationCount - 1).Log("Shade: I'll take a rest!")
                     : NoStateChange;
 
             ShadeState OnPoiReached()
             {
                 currentInvestigation = currentInvestigation.Map(Progress);
-                return Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!");
+                return ShouldRest
+                    ? Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!")
+                    : Idle().Log("Shade: Reached POI. I don't need to rest right now!");
             }
 
             ShadeState React(EventArgs eventArgs)
@@ -150,6 +164,7 @@ namespace AChildsCourage.Game.Shade
                     case ShadeTargetReachedEventArgs _: return OnPoiReached();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
                     case TimeTickEventArgs _: return ChooseOnTimeTick();
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }
@@ -176,6 +191,7 @@ namespace AChildsCourage.Game.Shade
                     case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log("Shade: I saw the player!");
                     case CharLostEventArgs _: return Idle().Log("Shade: Maybe I didnt see them...");
                     case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log("I think they moved...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }
@@ -228,6 +244,7 @@ namespace AChildsCourage.Game.Shade
                     case TimeTickEventArgs _: return OnTick();
                     case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log("Shade: There they are!");
                     case VisualContactToTargetEventArgs _: return Idle().Log("Shade: Ok... they are not there...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }
@@ -239,6 +256,7 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
+                lastRestTime = Time.time;
                 Stop();
                 LookAt(transform.position + (Vector3) Random.insideUnitCircle);
             }
@@ -258,6 +276,8 @@ namespace AChildsCourage.Game.Shade
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return OnTick();
+                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }

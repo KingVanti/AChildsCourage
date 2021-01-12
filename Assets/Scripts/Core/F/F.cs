@@ -18,11 +18,6 @@ namespace AChildsCourage
             return result;
         }
 
-        public static void For(this Action action, int times)
-        {
-            for (var _ = 0; _ < times; _++) action();
-        }
-
         public static TItem While<TItem>(this TItem input, Func<bool> predicate, Func<TItem, TItem> function)
         {
             var result = input;
@@ -129,6 +124,11 @@ namespace AChildsCourage
 
         public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func)
             => func;
+        
+        public static IEnumerable<T> AsSingleEnumerable<T>(this T item)
+        {
+            yield return item; 
+        }
 
     }
 

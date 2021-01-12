@@ -377,10 +377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a263b37116a612a49ab4c3c9b9c258cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tickWaitTime: 0.05
   maxPredictionTime: 3
   restRotationCount: 3
   restTime: 2
   randomStopChance: 0.1
+  minTimeBeforeRest: 5
 --- !u!114 &2064087353
 MonoBehaviour:
   m_ObjectHideFlags: 0
