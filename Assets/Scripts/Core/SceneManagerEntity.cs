@@ -11,17 +11,19 @@ namespace AChildsCourage
         [Pub] public event EventHandler OnSceneLoaded;
 
 
-        private void Awake() =>
-            SetupScene();
-
-        private void SetupScene()
+        private void Awake()
+        {
+            if (Transition.IsUninitialized)
+                Transition.ToSelf();
+        }
+        
+        internal void OnSceneOpened()
         {
             SetupSceneInfrastructure();
             OnSceneLoaded?.Invoke(this, EventArgs.Empty);
-            OnSceneSetupComplete();
         }
 
-        protected virtual void OnSceneSetupComplete() { }
+        internal virtual void OnSceneVisible() { }
 
     }
 

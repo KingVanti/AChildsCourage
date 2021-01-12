@@ -2,7 +2,6 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
-using static UnityEngine.SceneManagement.SceneManager;
 
 namespace AChildsCourage.Game
 {
@@ -39,8 +38,7 @@ namespace AChildsCourage.Game
             BackToMainMenu();
         }
 
-
-        protected override void OnSceneSetupComplete() => 
+        internal override void OnSceneVisible() =>
             OnStartGame?.Invoke(this, EventArgs.Empty);
 
     }
