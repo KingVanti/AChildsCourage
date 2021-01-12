@@ -1187,6 +1187,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: minNormalTensionRange.min
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: minNormalTensionRange.max
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: minHighTensionRange.min
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: minHighTensionRange.max
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Char

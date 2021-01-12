@@ -1,6 +1,8 @@
 ﻿using System;
+using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
+using static AChildsCourage.Game.Char.TensionLevelRange;
 using static AChildsCourage.Game.Char.TensionMeter;
 
 namespace AChildsCourage.Game.Char
@@ -16,6 +18,8 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float shadeDetectionDistance;
         [SerializeField] private Range<float> shadeDistanceGainRange;
         [SerializeField] private float baseDrain;
+        [SerializeField] private Range<float> minNormalTensionRange;
+        [SerializeField] private Range<float> minHighTensionRange;
 
         [FindInScene] private FlashlightEntity flashlight;
         [FindInScene] private ShadeBodyEntity shade;
@@ -23,6 +27,7 @@ namespace AChildsCourage.Game.Char
 
         private TensionLevel tensionLevel;
         private TensionMeter tensionMeter = EmptyTensionMeter;
+        private TensionLevelRange currentTensionLevelRange;
 
 
         private TensionLevel TensionLevel
@@ -43,7 +48,7 @@ namespace AChildsCourage.Game.Char
             private set
             {
                 tensionMeter = value;
-                TensionLevel = tensionMeter.Map(CalculateTensionLevel);
+                TensionLevel = currentTensionLevelRange.Map(CalculateLevel, value.Tension);
             }
         }
 
@@ -72,6 +77,17 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateTensionMeter() =>
             TensionMeter = TensionMeter.Map(ChangeBy, TensionDelta * Time.deltaTime);
+
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+            UpdateTensionLevelRange(eventArgs.CompletionPercent);
+
+        private void UpdateTensionLevelRange(float completionPercent) =>
+            currentTensionLevelRange = CalculateTensionLevelRange(completionPercent);
+
+        private TensionLevelRange CalculateTensionLevelRange(float completionPercent) =>
+            new TensionLevelRange(minNormalTensionRange.Map(Range.Lerp, completionPercent),
+                                  minHighTensionRange.Map(Range.Lerp, completionPercent));
 
     }
 
