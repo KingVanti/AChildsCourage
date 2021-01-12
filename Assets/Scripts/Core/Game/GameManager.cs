@@ -28,14 +28,15 @@ namespace AChildsCourage.Game
         private void OnWin() =>
             Transition.To(SceneName.endCutscene);
 
-        private void BackToMainMenu() =>
-            Transition.To(SceneName.menu);
 
         [Sub(nameof(InputListener.OnExitInput))]
-        private void OnExitInputPressed(object _1, EventArgs _2)
+        private void OnExitInputPressed(object _1, EventArgs _2) => 
+            GoBackToMenu();
+
+        private void GoBackToMenu()
         {
             OnBackToMainMenu?.Invoke(this, EventArgs.Empty);
-            BackToMainMenu();
+            Transition.To(SceneName.menu);
         }
 
         internal override void OnSceneVisible() =>
