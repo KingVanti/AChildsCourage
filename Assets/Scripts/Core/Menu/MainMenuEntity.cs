@@ -27,6 +27,14 @@ namespace AChildsCourage.Menu.UI
             menuAnimationController.SetTrigger("Tutorial");
         }
 
+        public void OnControlsButtonPressed() {
+            menuAnimationController.SetTrigger("Controls");
+        }
+
+        public void OnCreditsButtonPressed() {
+            menuAnimationController.SetTrigger("Credits");
+        }
+
     }
 
 }
