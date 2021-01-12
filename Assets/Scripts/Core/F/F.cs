@@ -18,11 +18,6 @@ namespace AChildsCourage
             return result;
         }
 
-        public static void For(this Action action, int times)
-        {
-            for (var _ = 0; _ < times; _++) action();
-        }
-
         public static TItem While<TItem>(this TItem input, Func<bool> predicate, Func<TItem, TItem> function)
         {
             var result = input;
