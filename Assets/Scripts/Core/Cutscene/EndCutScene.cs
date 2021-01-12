@@ -8,6 +8,6 @@ namespace AChildsCourage.Game
     public class EndCutScene : MonoBehaviour
     {
         private void OnEndCutSceneEnded() =>
-          Transition.To(SceneName.end);
+          Transition.To(SceneName.menu);
     }
 }
