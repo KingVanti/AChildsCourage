@@ -12,8 +12,11 @@ namespace AChildsCourage.Game
 
         [Pub] public event EventHandler OnBackToMainMenu;
 
+        [Pub] public event EventHandler OnStartGame;
+
+
         [Sub(nameof(CharControllerEntity.OnCharKilled))]
-        private void OnCharKilled(object _1, EventArgs _2) => 
+        private void OnCharKilled(object _1, EventArgs _2) =>
             OnLose();
 
         private void OnLose() =>
@@ -26,18 +29,18 @@ namespace AChildsCourage.Game
         private void OnWin() =>
             LoadScene(SceneNames.EndCutscene);
 
-
-        private void BackToMainMenu() {
-            LoadScene(SceneNames.Menu);
-        }
+        private void BackToMainMenu() => LoadScene(SceneNames.Menu);
 
         [Sub(nameof(InputListener.OnExitInput))]
-        private void OnExitInputPressed(object _1, EventArgs _2) {
+        private void OnExitInputPressed(object _1, EventArgs _2)
+        {
             OnBackToMainMenu?.Invoke(this, EventArgs.Empty);
-            BackToMainMenu();    
+            BackToMainMenu();
         }
 
 
+        protected override void OnSceneSetupComplete() => 
+            OnStartGame?.Invoke(this, EventArgs.Empty);
 
     }
 

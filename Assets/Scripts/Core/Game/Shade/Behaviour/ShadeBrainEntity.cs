@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler<ShadeCommandEventArgs> OnCommand;
 
-
+        [SerializeField] private float tickWaitTime;
         [SerializeField] private float maxPredictionTime;
         [SerializeField] private int restRotationCount;
         [SerializeField] private float restTime;
@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState currentState;
         private Investigation currentInvestigation = CompleteInvestigation;
-        private float lastRestTime = 0;
+        private float lastRestTime;
 
 
         private float TimeSinceLastRest => Time.time - lastRestTime;
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Shade
         private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
 
         private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
-        
+
 
         private ShadeState CurrentState
         {
@@ -51,12 +51,12 @@ namespace AChildsCourage.Game.Shade
         private ShadeState NoStateChange => CurrentState;
 
 
-        private void Update() =>
-            ReactTo(new TimeTickEventArgs());
-
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) =>
+        [Sub(nameof(GameManager.OnStartGame))]
+        private void OnStartGame(object _1, EventArgs _2)
+        {
             currentState = Idle();
+            _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
+        }
 
         [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
         private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs)
@@ -90,7 +90,7 @@ namespace AChildsCourage.Game.Shade
             ReactTo(eventArgs);
 
         private void ReactTo(EventArgs eventArgs) =>
-            CurrentState = CurrentState.React(eventArgs);
+            CurrentState = CurrentState?.React(eventArgs);
 
         private void RequestAoi() =>
             Execute(new RequestAoiCommand());
@@ -203,7 +203,7 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter() =>
                 MoveTo(charPosition);
-            
+
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)

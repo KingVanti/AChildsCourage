@@ -18,7 +18,10 @@ namespace AChildsCourage
         {
             SetupSceneInfrastructure();
             OnSceneLoaded?.Invoke(this, EventArgs.Empty);
+            OnSceneSetupComplete();
         }
+
+        protected virtual void OnSceneSetupComplete(){}
 
     }
 
