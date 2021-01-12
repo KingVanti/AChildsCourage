@@ -1,12 +1,15 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace AChildsCourage.Menu.UI
 {
 
     public class MainMenuEntity : MonoBehaviour
     {
+
+        [SerializeField] private Animator menuAnimationController;
 
         public void OnPlayButtonPressed() =>
             SceneManager.LoadScene(SceneNames.StartCutscene);
@@ -18,6 +21,10 @@ namespace AChildsCourage.Menu.UI
 #else
       Application.Quit();
 #endif
+        }
+
+        public void OnTutorialButtonPressed() {
+            menuAnimationController.SetTrigger("Tutorial");
         }
 
     }
