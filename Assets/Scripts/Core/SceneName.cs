@@ -3,8 +3,7 @@
 
     internal readonly struct SceneName
     {
-
-        public static readonly SceneName end = new SceneName("EndScene");
+        
         public static readonly SceneName game = new SceneName("Game");
         public static readonly SceneName menu = new SceneName("MainMenu");
         public static readonly SceneName startCutscene = new SceneName("StartCutscene");
