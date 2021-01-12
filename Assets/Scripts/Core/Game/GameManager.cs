@@ -20,16 +20,17 @@ namespace AChildsCourage.Game
             OnLose();
 
         private void OnLose() =>
-            LoadScene(SceneName.menu);
+            Transition.To(SceneName.menu);
 
         [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
         private void OnCharEnteredRift(object _1, EventArgs _2) =>
             OnWin();
 
         private void OnWin() =>
-            LoadScene(SceneName.endCutscene);
+            Transition.To(SceneName.endCutscene);
 
-        private void BackToMainMenu() => LoadScene(SceneName.menu);
+        private void BackToMainMenu() =>
+            Transition.To(SceneName.menu);
 
         [Sub(nameof(InputListener.OnExitInput))]
         private void OnExitInputPressed(object _1, EventArgs _2)
