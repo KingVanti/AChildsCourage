@@ -17,11 +17,9 @@ namespace AChildsCourage.Game.Floors.Gen
         public EnumArray<CourageVariant, int> CouragePickupCounts { get; }
 
         public int RuneCount { get; }
-        
-        public int PortalCount { get; }
 
 
-        public FloorGenParams(int seed, RoomCollection roomCollection, int roomCount, float clumpingFactor, EnumArray<CourageVariant, int> couragePickupCounts, int runeCount, int portalCount)
+        public FloorGenParams(int seed, RoomCollection roomCollection, int roomCount, float clumpingFactor, EnumArray<CourageVariant, int> couragePickupCounts, int runeCount)
         {
             Seed = seed;
             RoomCollection = roomCollection;
@@ -29,7 +27,6 @@ namespace AChildsCourage.Game.Floors.Gen
             ClumpingFactor = clumpingFactor;
             CouragePickupCounts = couragePickupCounts;
             RuneCount = runeCount;
-            PortalCount = portalCount;
         }
 
     }

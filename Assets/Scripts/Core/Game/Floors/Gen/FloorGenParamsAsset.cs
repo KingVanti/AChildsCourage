@@ -12,7 +12,6 @@ namespace AChildsCourage.Game.Floors.Gen
         [SerializeField] [Range(0.1f, 20)] private float clumpingFactor;
         [SerializeField] private EnumArray<CourageVariant, int> couragePickupCounts;
         [SerializeField] [Range(1, 10)] private int runeCount;
-        [SerializeField] [Range(1, 10)] private int portalCount;
 
 
         public static FloorGenParams ToParams(int seed, RoomCollection roomCollection, FloorGenParamsAsset asset) =>
@@ -21,8 +20,7 @@ namespace AChildsCourage.Game.Floors.Gen
                                asset.roomCount,
                                asset.clumpingFactor,
                                asset.couragePickupCounts,
-                               asset.runeCount,
-                               asset.portalCount);
+                               asset.runeCount);
 
     }
 
