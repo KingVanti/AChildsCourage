@@ -35,8 +35,7 @@ namespace AChildsCourage
 
         private static void ContinueTransitionTo(SceneName sceneName)
         {
-            SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-            ShowScene();
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single).completed += _ => ShowScene();
         }
 
         private static void ShowScene()
