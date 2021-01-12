@@ -2,7 +2,6 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
-using static UnityEngine.SceneManagement.SceneManager;
 
 namespace AChildsCourage.Game
 {
@@ -12,32 +11,31 @@ namespace AChildsCourage.Game
 
         [Pub] public event EventHandler OnBackToMainMenu;
 
+        
         [Sub(nameof(CharControllerEntity.OnCharKilled))]
-        private void OnCharKilled(object _1, EventArgs _2) => 
+        private void OnCharKilled(object _1, EventArgs _2) =>
             OnLose();
 
         private void OnLose() =>
-            LoadScene(SceneNames.End);
+            Transition.To(SceneName.menu);
 
         [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
         private void OnCharEnteredRift(object _1, EventArgs _2) =>
             OnWin();
 
         private void OnWin() =>
-            LoadScene(SceneNames.EndCutscene);
+            Transition.To(SceneName.endCutscene);
 
-
-        private void BackToMainMenu() {
-            LoadScene(SceneNames.Menu);
-        }
 
         [Sub(nameof(InputListener.OnExitInput))]
-        private void OnExitInputPressed(object _1, EventArgs _2) {
+        private void OnExitInputPressed(object _1, EventArgs _2) => 
+            GoBackToMenu();
+
+        private void GoBackToMenu()
+        {
             OnBackToMainMenu?.Invoke(this, EventArgs.Empty);
-            BackToMainMenu();    
+            Transition.To(SceneName.menu);
         }
-
-
 
     }
 

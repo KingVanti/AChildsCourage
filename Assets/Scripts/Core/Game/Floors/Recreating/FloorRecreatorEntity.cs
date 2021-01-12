@@ -27,6 +27,7 @@ namespace AChildsCourage.Game
         [FindInScene] private CouragePickupSpawnerEntity couragePickupSpawner;
         [FindInScene] private StaticObjectSpawnerEntity staticObjectSpawner;
         [FindInScene] private RuneSpawnerEntity runeSpawner;
+        [FindInScene] private PortalSpawnerEntity portalSpawner;
 
         [FindService] private LoadRoomData loadRoomData;
 
@@ -88,6 +89,9 @@ namespace AChildsCourage.Game
                     break;
                 case RuneData runeData:
                     runeSpawner.Spawn(floorObject.Position, runeData);
+                    break;
+                case PortalData portalData:
+                    portalSpawner.Spawn(floorObject.Position, portalData);
                     break;
             }
         }

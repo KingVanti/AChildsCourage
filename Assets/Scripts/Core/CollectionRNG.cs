@@ -6,13 +6,13 @@ using static AChildsCourage.Rng;
 namespace AChildsCourage
 {
 
-    public static class CollectionRng
+    internal static class CollectionRng
     {
 
-        public delegate float CalculateWeight<in T>(T element);
+        internal delegate float CalculateWeight<in T>(T element);
 
 
-        public static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng) =>
+        internal static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng) =>
             GetWeightedRandom(calculateWeight, rng, elements);
 
 
@@ -37,15 +37,14 @@ namespace AChildsCourage
         }
 
         private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight) =>
-            elements
-                .Select(o => AttachWeight(o, calculateWeight));
+            elements.Select(o => AttachWeight(o, calculateWeight));
 
 
         private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) =>
             new Weighted<T>(element, calculateWeight(element));
 
 
-        public static T GetRandom<T>(this IEnumerable<T> elements, Rng rng) =>
+        internal static T GetRandom<T>(this IEnumerable<T> elements, Rng rng) =>
             GetRandom(rng, elements);
 
 

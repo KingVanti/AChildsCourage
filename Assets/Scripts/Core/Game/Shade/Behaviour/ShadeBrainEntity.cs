@@ -5,6 +5,7 @@ using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
 using static AChildsCourage.Game.Shade.LastKnownCharInfo;
 using static AChildsCourage.Game.Shade.ShadeState;
+using static AChildsCourage.Rng;
 using Random = UnityEngine.Random;
 
 namespace AChildsCourage.Game.Shade
@@ -13,41 +14,26 @@ namespace AChildsCourage.Game.Shade
     public class ShadeBrainEntity : MonoBehaviour
     {
 
-        [Pub] public event EventHandler<ShadeLookTargetChangedEventArgs> OnLookTargetChanged;
+        [Pub] public event EventHandler<ShadeCommandEventArgs> OnCommand;
 
-        [Pub] public event EventHandler<ShadeMoveTargetChangedEventArgs> OnMoveTargetChanged;
-
-        [Pub] public event EventHandler OnRequestAoi;
-
-
+        [SerializeField] private float tickWaitTime;
         [SerializeField] private float maxPredictionTime;
+        [SerializeField] private int restRotationCount;
         [SerializeField] private float restTime;
         [SerializeField] private float randomStopChance;
+        [SerializeField] private float minTimeBeforeRest;
 
-        private Vector2? moveTarget;
-        private Vector2? lookTarget;
         private ShadeState currentState;
+        private Investigation currentInvestigation = CompleteInvestigation;
+        private float lastRestTime;
 
 
-        public Vector2? MoveTarget
-        {
-            get => moveTarget;
-            private set
-            {
-                moveTarget = value;
-                OnMoveTargetChanged?.Invoke(this, new ShadeMoveTargetChangedEventArgs(moveTarget));
-            }
-        }
+        private float TimeSinceLastRest => Time.time - lastRestTime;
 
-        public Vector2? LookTarget
-        {
-            get => lookTarget;
-            private set
-            {
-                lookTarget = value;
-                OnLookTargetChanged?.Invoke(this, new ShadeLookTargetChangedEventArgs(lookTarget));
-            }
-        }
+        private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
+
+        private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
+
 
         private ShadeState CurrentState
         {
@@ -65,65 +51,84 @@ namespace AChildsCourage.Game.Shade
         private ShadeState NoStateChange => CurrentState;
 
 
-        private void Update() =>
-            ReactTo(new TimeTickEventArgs());
-
-
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
-        private void OnSceneLoaded(object _1, EventArgs _2) =>
+        [Sub(nameof(SceneManagerEntity.OnSceneBecameVisible))]
+        private void OnSceneBecameVisible(object _1, EventArgs _2)
+        {
             currentState = Idle();
+            _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
+        }
+
+        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
+        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs)
+        {
+            currentInvestigation = eventArgs.Aoi.Map(StartInvestigation);
+            ReactTo(eventArgs);
+        }
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
-        private void OnCharSpotted(object _, CharSpottedEventArgs eventArgs) =>
+        private void OnCharSpotted(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharSuspected))]
-        private void OnCharSuspected(object _, CharSuspectedEventArgs eventArgs) =>
-            ReactTo(eventArgs);
-
-        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
-        private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs) =>
+        private void OnCharSuspected(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeMovementEntity.OnTargetReached))]
-        private void OnTargetReached(object _, ShadeTargetReachedEventArgs eventArgs) =>
+        private void OnTargetReached(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
-        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
+        private void OnCharPositionChanged(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeAwarenessEntity.OnCharLost))]
-        private void OnCharLost(object _, CharLostEventArgs eventArgs) =>
+        private void OnCharLost(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         [Sub(nameof(ShadeHeadEntity.OnVisualContactToTarget))]
-        private void OnVisualContactToTarget(object _, VisualContactToTargetEventArgs eventArgs) =>
+        private void OnVisualContactToTarget(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
         private void ReactTo(EventArgs eventArgs) =>
-            CurrentState = CurrentState.React(eventArgs);
+            CurrentState = CurrentState?.React(eventArgs);
 
         private void RequestAoi() =>
-            OnRequestAoi?.Invoke(this, EventArgs.Empty);
+            Execute(new RequestAoiCommand());
+
+        private void MoveTo(Vector2 target) =>
+            Execute(new MoveToCommand(target));
+
+        private void LookAt(Vector2 target) =>
+            Execute(new LookAtCommand(target));
+
+        private void Stop() =>
+            Execute(new StopCommand());
+
+        private void LookAhead() =>
+            Execute(new LookAheadCommand());
+
+        private void Execute(ShadeCommand command) =>
+            OnCommand?.Invoke(this, new ShadeCommandEventArgs(command));
 
         private ShadeState Idle()
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = null;
-                RequestAoi();
-            }
+                Stop();
+                LookAhead();
 
-            ShadeState StartInvestigation(AoiChosenEventArgs eventArgs) =>
-                eventArgs.Aoi.Map(Investigation.StartInvestigation).Map(Investigate);
+                if (currentInvestigation.Map(IsComplete))
+                {
+                    RequestAoi();
+                    Debug.Log("Shade: I have no AOI, so I requested one!");
+                }
+            }
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case AoiChosenEventArgs aoiChosen: return StartInvestigation(aoiChosen).Log("Shade: Chose an AOI!");
+                    case TimeTickEventArgs _ when !currentInvestigation.Map(IsComplete): return MoveToInvestigationTarget().Log("Shade: I'll move to my next POI!");
                     default: return NoStateChange;
                 }
             }
@@ -131,28 +136,35 @@ namespace AChildsCourage.Game.Shade
             return new ShadeState(ShadeStateType.Idle, OnEnter, React, NoExitAction);
         }
 
-        private ShadeState Investigate(Investigation investigation)
+        private ShadeState MoveToInvestigationTarget()
         {
-            void OnEnter() =>
-                MoveTarget = investigation.Map(GetCurrentTarget).Position;
+            void OnEnter()
+            {
+                currentInvestigation.Map(GetCurrentTarget).Position.Do(MoveTo);
+                LookAhead();
+            }
 
-            ShadeState ProgressInvestigation() =>
-                investigation.Map(IsComplete)
-                    ? Idle().Log("Shade: Reached POI, im done!")
-                    : Investigate(investigation.Map(Progress)).Log("Shade: Reached POI, next!");
-
-            ShadeState OnTick() =>
-                Rng.RandomRng().Map(Rng.Prob, randomStopChance)
-                    ? Rest(Time.time).Log("Shade: I'll take a rest!")
+            ShadeState ChooseOnTimeTick() =>
+                ShouldRest
+                    ? Rest(Time.time, restRotationCount - 1).Log("Shade: I'll take a rest!")
                     : NoStateChange;
+
+            ShadeState OnPoiReached()
+            {
+                currentInvestigation = currentInvestigation.Map(Progress);
+                return ShouldRest
+                    ? Rest(Time.time, restRotationCount - 1).Log("Shade: Reached POI. I'll rest!")
+                    : Idle().Log("Shade: Reached POI. I don't need to rest right now!");
+            }
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
-                    case ShadeTargetReachedEventArgs _: return ProgressInvestigation();
+                    case ShadeTargetReachedEventArgs _: return OnPoiReached();
                     case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
-                    case TimeTickEventArgs _: return OnTick();
+                    case TimeTickEventArgs _: return ChooseOnTimeTick();
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }
@@ -164,13 +176,13 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = charPosition;
+                Stop();
+                LookAt(charPosition);
             }
 
             void Exit(ShadeState next) =>
                 If(next.Type != ShadeStateType.Suspicious)
-                    .Then(() => LookTarget = null);
+                    .Then(LookAhead);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -179,6 +191,7 @@ namespace AChildsCourage.Game.Shade
                     case CharSpottedEventArgs charSpotted: return charSpotted.Position.Map(Pursuit).Log("Shade: I saw the player!");
                     case CharLostEventArgs _: return Idle().Log("Shade: Maybe I didnt see them...");
                     case CharPositionChangedEventArgs positionChanged: return Suspicious(positionChanged.NewPosition).Log("I think they moved...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }
@@ -189,7 +202,7 @@ namespace AChildsCourage.Game.Shade
         private ShadeState Pursuit(Vector2 charPosition)
         {
             void OnEnter() =>
-                MoveTarget = charPosition;
+                MoveTo(charPosition);
 
             ShadeState React(EventArgs eventArgs)
             {
@@ -208,8 +221,11 @@ namespace AChildsCourage.Game.Shade
         {
             void OnEnter()
             {
-                MoveTarget = charInfo.Map(PredictPosition, currentTime);
-                lookTarget = MoveTarget;
+                charInfo
+                    .Map(PredictPosition, currentTime)
+                    .Do(MoveTo);
+
+                LookAhead();
             }
 
             ShadeState OnTick()
@@ -228,6 +244,7 @@ namespace AChildsCourage.Game.Shade
                     case TimeTickEventArgs _: return OnTick();
                     case CharSpottedEventArgs charSpotted: return Pursuit(charSpotted.Position).Log("Shade: There they are!");
                     case VisualContactToTargetEventArgs _: return Idle().Log("Shade: Ok... they are not there...");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: Actually, I want to leave now...");
                     default: return NoStateChange;
                 }
             }
@@ -235,24 +252,32 @@ namespace AChildsCourage.Game.Shade
             return new ShadeState(ShadeStateType.Predict, OnEnter, React, NoExitAction);
         }
 
-        private ShadeState Rest(float restStartTime)
+        private ShadeState Rest(float restStartTime, int remainingRotations)
         {
             void OnEnter()
             {
-                MoveTarget = null;
-                LookTarget = transform.position + (Vector3) Random.insideUnitCircle;
+                lastRestTime = Time.time;
+                Stop();
+                LookAt(transform.position + (Vector3) Random.insideUnitCircle);
             }
 
             ShadeState OnTick() =>
                 Time.time - restStartTime >= restTime
-                    ? Idle().Log("Shade: I've rested enough!")
+                    ? OnRestCompleted()
                     : NoStateChange;
+
+            ShadeState OnRestCompleted() =>
+                remainingRotations == 0
+                    ? Idle().Log("Shade: I've rested enough!")
+                    : Rest(Time.time, remainingRotations - 1).Log("Shade: I'll rest some more...");
 
             ShadeState React(EventArgs eventArgs)
             {
                 switch (eventArgs)
                 {
                     case TimeTickEventArgs _: return OnTick();
+                    case CharSuspectedEventArgs charSuspected: return charSuspected.Position.Map(Suspicious).Log("Shade: I think I saw the player!");
+                    case AoiChosenEventArgs _: return Idle().Log("Shade: I've got the feeling I should go somewhere else...");
                     default: return NoStateChange;
                 }
             }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dd072bb984897aa40817012af5cb578b
+guid: d2020cf2628bd6248a28940a4f094121
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,13 +10,13 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 25a63327f814cd04cbdbd7e8ae6dfcf9, type: 3}
   textureSettings:
     textureType: 8
-    pixelsPerUnit: 24
+    pixelsPerUnit: 32
     mirror: 0
     transparencyMode: 0
     transparentColor: {r: 1, g: 0, b: 1, a: 1}
     meshType: 1
     extrudeEdges: 1
-    spritePivot: {x: 0.5, y: 0}
+    spritePivot: {x: 0.5, y: 0.5}
     generatePhysics: 1
     wrapMode: 1
     filterMode: 0

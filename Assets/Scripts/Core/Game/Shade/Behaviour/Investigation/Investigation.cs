@@ -7,6 +7,9 @@ namespace AChildsCourage.Game.Shade
     public readonly struct Investigation
     {
 
+        public static Investigation CompleteInvestigation => new Investigation(null, ImmutableHashSet<Poi>.Empty);
+
+
         public static Investigation StartInvestigation(Aoi aoi) =>
             aoi.Pois
                .Map(pois => new Investigation(null, pois.ToImmutableHashSet()))
@@ -25,10 +28,13 @@ namespace AChildsCourage.Game.Shade
         }
 
         public static bool IsComplete(Investigation investigation) =>
-            investigation.Map(IsOutOfPois);
+            investigation.Map(IsOutOfPois) && investigation.Map(HasNoTarget);
 
         private static bool IsOutOfPois(Investigation investigation) =>
             investigation.remainingPois.IsEmpty;
+
+        private static bool HasNoTarget(Investigation investigation) =>
+            investigation.currentTarget == null;
 
         public static Poi GetCurrentTarget(Investigation investigation) =>
             investigation.currentTarget ?? throw new Exception("This investigation has no target!");

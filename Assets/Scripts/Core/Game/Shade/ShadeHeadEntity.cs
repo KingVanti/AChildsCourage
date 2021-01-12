@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
@@ -27,15 +28,22 @@ namespace AChildsCourage.Game.Shade
 
         private float Angle
         {
-            set => animator.SetFloat(angleAnimatorKey, value);
+            get => transform.eulerAngles.z;
+            set
+            {
+                transform.eulerAngles = new Vector3(0, 0, value);
+                animator.SetFloat(angleAnimatorKey, value.Map(NormalizeAngle));
+            }
         }
 
         private Vector2 CurrentMovementDirection => shadeMovement.CurrentDirection;
 
         private bool IsMoving => CurrentMovementDirection.magnitude > float.Epsilon;
 
-        private Vector2? ExplicitFaceDirection => explicitTargetPosition.HasValue
-            ? explicitTargetPosition.Value - (Vector2) transform.position
+        public Vector2? ExplicitTargetPosition => explicitTargetPosition;
+
+        private Vector2? ExplicitFaceDirection => ExplicitTargetPosition.HasValue
+            ? ExplicitTargetPosition.Value - (Vector2) transform.position
             : (Vector2?) null;
 
         private Vector2 MovementFaceDirection => IsMoving
@@ -44,16 +52,7 @@ namespace AChildsCourage.Game.Shade
 
         private Vector2 TargetDirection => (ExplicitFaceDirection ?? MovementFaceDirection).normalized;
 
-        private Vector2 CurrentDirection
-        {
-            get => transform.right;
-            set
-            {
-                var transformAngle = Mathf.Atan2(value.y, value.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.AngleAxis(transformAngle, Vector3.forward);
-                Angle = Vector2.SignedAngle(Vector2.right, CurrentDirection);
-            }
-        }
+        private float TargetAngle => TargetDirection.Map(CalculateAngle);
 
         private bool CanSeeExplicitTarget => explicitTargetPosition.HasValue && shadeEyes.CanSee(explicitTargetPosition.Value);
 
@@ -65,15 +64,25 @@ namespace AChildsCourage.Game.Shade
         }
 
         private void RotateTowardsTarget() =>
-            CurrentDirection = Vector2.MoveTowards(CurrentDirection, TargetDirection, degreesPerSecond * Time.deltaTime);
+            Angle = Mathf.MoveTowardsAngle(Angle, TargetAngle, degreesPerSecond * Time.deltaTime);
 
         private void UpdateVisualContact() =>
             If(CanSeeExplicitTarget)
                 .Then(() => OnVisualContactToTarget?.Invoke(this, new VisualContactToTargetEventArgs()));
 
-        [Sub(nameof(ShadeBrainEntity.OnLookTargetChanged))]
-        private void OnLookTargetChanged(object _, ShadeLookTargetChangedEventArgs eventArgs) =>
-            explicitTargetPosition = eventArgs.NewTargetPosition;
+        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
+        {
+            switch (eventArgs.Command)
+            {
+                case LookAtCommand lookAt:
+                    explicitTargetPosition = lookAt.Target;
+                    break;
+                case LookAheadCommand _:
+                    explicitTargetPosition = null;
+                    break;
+            }
+        }
 
     }
 

@@ -28,7 +28,8 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Aggregate(EmptyFloor(roomPlan.Map(FindEndRoomChunk)), AddContent)
                 .Map(GenerateWalls)
                 .Map(FilterCouragePickups, @params)
-                .Map(FilterRunes, @params);
+                .Map(FilterRunes, @params)
+                .Map(FilterPortals, @params);
 
         private static RoomContent GetContent(RoomCollection roomCollection, RoomInstance room)
         {
@@ -106,38 +107,24 @@ namespace AChildsCourage.Game.Floors.Gen
         }
 
         private static Floor FilterCouragePickups(FloorGenParams @params, Floor floor) =>
-            floor
-                .Map(FilterCouragePickupsOfType, CourageVariant.Spark, @params)
-                .Map(FilterCouragePickupsOfType, CourageVariant.Orb, @params);
+            floor.Map(FilterCouragePickupsOfType, CourageVariant.Spark, @params)
+                 .Map(FilterCouragePickupsOfType, CourageVariant.Orb, @params);
 
-        private static Floor FilterCouragePickupsOfType(CourageVariant variant, FloorGenParams @params, Floor floor)
-        {
-            try
-            {
-                return floor.Map(FilterObjects,
-                                 Fun((FloorObject o) => o.Data is CouragePickupData c && c.Variant == variant),
-                                 @params.CouragePickupCounts[variant]);
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Error while filtering courage of {variant} variant: {e.Message}");
-            }
-        }
+        private static Floor FilterCouragePickupsOfType(CourageVariant variant, FloorGenParams @params, Floor floor) =>
+            floor.Map(FilterObjects,
+                      Fun((FloorObject o) => o.Data is CouragePickupData c && c.Variant == variant),
+                      @params.CouragePickupCounts[variant]);
 
 
-        private static Floor FilterRunes(FloorGenParams @params, Floor floor)
-        {
-            try
-            {
-                return floor.Map(FilterObjects,
-                                 Fun((FloorObject o) => o.Data is RuneData),
-                                 @params.RuneCount);
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Error while filtering runes: {e.Message}");
-            }
-        }
+        private static Floor FilterRunes(FloorGenParams @params, Floor floor) =>
+            floor.Map(FilterObjects,
+                      Fun((FloorObject o) => o.Data is RuneData),
+                      @params.RuneCount);
+
+        private static Floor FilterPortals(FloorGenParams @params, Floor floor) =>
+            floor.Map(FilterObjects,
+                      Fun((FloorObject o) => o.Data is PortalData),
+                      @params.PortalCount);
 
         private static Floor FilterObjects(Func<FloorObject, bool> objectSelector, int goalCount, Floor floor)
         {
@@ -147,14 +134,14 @@ namespace AChildsCourage.Game.Floors.Gen
 
             var removeCount = initial.Count.Minus(goalCount);
 
-            if (removeCount < 0) throw new Exception($"Floor has to little objects! (Needs {goalCount}, has {initial.Count})");
-
             IEnumerable<FloorObject> GetFiltered()
             {
                 ImmutableHashSet<FloorObject> RemoveObject(ImmutableHashSet<FloorObject> objects) =>
-                    objects
-                        .First()
-                        .Map(objects.Remove);
+                    objects.IsEmpty
+                        ? objects
+                        : objects
+                          .First()
+                          .Map(objects.Remove);
 
                 return initial
                     .Cycle(RemoveObject, removeCount);

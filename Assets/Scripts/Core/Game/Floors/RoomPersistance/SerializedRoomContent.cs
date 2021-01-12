@@ -1,0 +1,57 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace AChildsCourage.Game.Floors.RoomPersistence
+{
+
+    public class SerializedRoomContent
+    {
+
+        public SerializedGroundTile[] GroundData { get; }
+
+        public SerializedCouragePickup[] CourageData { get; }
+
+        public SerializedStaticObject[] StaticObjects { get; }
+
+        public SerializedRune[] Runes { get; }
+
+        public SerializedPortal[] Portals { get; }
+
+
+        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes, SerializedPortal[] portals)
+        {
+            GroundData = groundData ?? new SerializedGroundTile[0];
+            CourageData = courageData ?? new SerializedCouragePickup[0];
+            StaticObjects = staticObjects ?? new SerializedStaticObject[0];
+            Runes = runes ?? new SerializedRune[0];
+            Portals = portals ?? new SerializedPortal[0];
+        }
+
+        public static RoomContent ReadContent(SerializedRoomContent content)
+        {
+            IEnumerable<FloorObject> ReadGroundData() =>
+                content.GroundData.Select(g => new FloorObject(g.Position, new GroundTileData()));
+
+            IEnumerable<FloorObject> ReadCouragePickupData() =>
+                content.CourageData.Select(c => new FloorObject(c.Position, new CouragePickupData(c.Variant)));
+
+            IEnumerable<FloorObject> ReadStaticObjectData() =>
+                content.StaticObjects.Select(s => new FloorObject(s.Position, new StaticObjectData()));
+
+            IEnumerable<FloorObject> ReadRuneData() =>
+                content.Runes.Select(r => new FloorObject(r.Position, new RuneData()));
+
+            IEnumerable<FloorObject> ReadPortalData() =>
+                content.Portals.Select(r => new FloorObject(r.Position, new PortalData()));
+
+            return ReadGroundData()
+                   .Concat(ReadCouragePickupData())
+                   .Concat(ReadStaticObjectData())
+                   .Concat(ReadRuneData())
+                   .Concat(ReadPortalData())
+                   .Map(RoomContent.Create);
+        }
+
+    }
+
+}
