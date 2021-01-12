@@ -12,7 +12,7 @@ namespace AChildsCourage
     {
 
         private readonly float Material = 0;
-        private readonly float waitTime = 1.5f;
+        private readonly float waitTime = 2f;
         private bool Char_sprint_stop_Is_playing;
         private EventInstance Footsteps;
         private EventInstance Footsteps_sprint;
@@ -85,6 +85,7 @@ namespace AChildsCourage
 
         private void PlaySprint_stop()
         {
+            Debug.Log("stop");
             if (Char_sprint_stop_Is_playing) return;
             StartCoroutine(SprintTimer());
             RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
@@ -94,9 +95,16 @@ namespace AChildsCourage
         [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
         {
+
             Stamina_eventInstance.setParameterByName("stamina", eventArgs.Stamina);
 
-            if (eventArgs.Stamina == 0) PlaySprint_depleted();
+            if (eventArgs.Stamina == 0)
+            {
+                Debug.Log("full stop");
+                PlaySprint_depleted();
+                StartCoroutine(SprintTimer());
+            }
+
         }
 
         private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
