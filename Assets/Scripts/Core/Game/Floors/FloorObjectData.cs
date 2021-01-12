@@ -30,7 +30,5 @@ namespace AChildsCourage.Game.Floors
     public class StaticObjectData : FloorObjectData { }
 
     public class RuneData : FloorObjectData { }
-    
-    public class PortalData : FloorObjectData { }
 
 }

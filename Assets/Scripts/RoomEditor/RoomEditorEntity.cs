@@ -14,7 +14,6 @@ namespace AChildsCourage.RoomEditor
         [SerializeField] private CouragePickupLayerEntity courageLayer;
         [SerializeField] private StaticObjectLayerEntity staticObjectLayer;
         [SerializeField] private RuneLayerEntity runeLayer;
-        [SerializeField] private PortalLayerEntity portalLayer;
 
         internal RoomAsset LoadedAsset { get; private set; }
 
@@ -54,7 +53,6 @@ namespace AChildsCourage.RoomEditor
             courageLayer.PlaceAll(content.CourageData);
             staticObjectLayer.PlaceAll(content.StaticObjects);
             runeLayer.PlaceAll(content.Runes);
-            portalLayer.PlaceAll(content.Portals);
         }
 
         private void ProcessEvent(MouseDownEventArgs eventArgs)
@@ -81,9 +79,6 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Runes:
                     runeLayer.PlaceAt(position);
                     break;
-                case TileCategory.Portal:
-                    portalLayer.PlaceAt(position);
-                    break;
                 default: throw new Exception("Invalid tile category!");
             }
         }
@@ -104,9 +99,6 @@ namespace AChildsCourage.RoomEditor
                 case TileCategory.Runes:
                     runeLayer.DeleteTileAt(position);
                     break;
-                case TileCategory.Portal:
-                    portalLayer.DeleteTileAt(position);
-                    break;
                 default: throw new Exception("Invalid tile category!");
             }
         }
@@ -122,8 +114,7 @@ namespace AChildsCourage.RoomEditor
             new SerializedRoomContent(groundLayer.ReadAll(),
                                       courageLayer.ReadAll(),
                                       staticObjectLayer.ReadAll(),
-                                      runeLayer.ReadAll(),
-                                      portalLayer.ReadAll());
+                                      runeLayer.ReadAll());
 
 
         internal void Unload()
@@ -134,7 +125,6 @@ namespace AChildsCourage.RoomEditor
             courageLayer.Clear();
             staticObjectLayer.Clear();
             runeLayer.Clear();
-            portalLayer.Clear();
         }
 
     }

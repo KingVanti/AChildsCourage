@@ -15,16 +15,13 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public SerializedRune[] Runes { get; }
 
-        public SerializedPortal[] Portals { get; }
 
-
-        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes, SerializedPortal[] portals)
+        public SerializedRoomContent(SerializedGroundTile[] groundData, SerializedCouragePickup[] courageData, SerializedStaticObject[] staticObjects, SerializedRune[] runes)
         {
             GroundData = groundData ?? new SerializedGroundTile[0];
             CourageData = courageData ?? new SerializedCouragePickup[0];
             StaticObjects = staticObjects ?? new SerializedStaticObject[0];
             Runes = runes ?? new SerializedRune[0];
-            Portals = portals ?? new SerializedPortal[0];
         }
 
         public static RoomContent ReadContent(SerializedRoomContent content)
@@ -41,14 +38,10 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
             IEnumerable<FloorObject> ReadRuneData() =>
                 content.Runes.Select(r => new FloorObject(r.Position, new RuneData()));
 
-            IEnumerable<FloorObject> ReadPortalData() =>
-                content.Portals.Select(r => new FloorObject(r.Position, new PortalData()));
-
             return ReadGroundData()
                    .Concat(ReadCouragePickupData())
                    .Concat(ReadStaticObjectData())
                    .Concat(ReadRuneData())
-                   .Concat(ReadPortalData())
                    .Map(RoomContent.Create);
         }
 

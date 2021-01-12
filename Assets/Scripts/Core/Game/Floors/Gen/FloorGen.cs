@@ -28,8 +28,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Aggregate(EmptyFloor(roomPlan.Map(FindEndRoomChunk)), AddContent)
                 .Map(GenerateWalls)
                 .Map(FilterCouragePickups, @params)
-                .Map(FilterRunes, @params)
-                .Map(FilterPortals, @params);
+                .Map(FilterRunes, @params);
 
         private static RoomContent GetContent(RoomCollection roomCollection, RoomInstance room)
         {
@@ -120,11 +119,6 @@ namespace AChildsCourage.Game.Floors.Gen
             floor.Map(FilterObjects,
                       Fun((FloorObject o) => o.Data is RuneData),
                       @params.RuneCount);
-
-        private static Floor FilterPortals(FloorGenParams @params, Floor floor) =>
-            floor.Map(FilterObjects,
-                      Fun((FloorObject o) => o.Data is PortalData),
-                      @params.PortalCount);
 
         private static Floor FilterObjects(Func<FloorObject, bool> objectSelector, int goalCount, Floor floor)
         {
