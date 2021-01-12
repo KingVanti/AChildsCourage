@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1560023c16e874e825aa5c057db29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCourage: 44
+  targetCourage: 50
   courageValues:
     enumTypeName: AChildsCourage.Game.Floors.Courage.CourageVariant
     enums:
