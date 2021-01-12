@@ -11,9 +11,7 @@ namespace AChildsCourage.Game
 
         [Pub] public event EventHandler OnBackToMainMenu;
 
-        [Pub] public event EventHandler OnStartGame;
-
-
+        
         [Sub(nameof(CharControllerEntity.OnCharKilled))]
         private void OnCharKilled(object _1, EventArgs _2) =>
             OnLose();
@@ -38,9 +36,6 @@ namespace AChildsCourage.Game
             OnBackToMainMenu?.Invoke(this, EventArgs.Empty);
             Transition.To(SceneName.menu);
         }
-
-        internal override void OnSceneVisible() =>
-            OnStartGame?.Invoke(this, EventArgs.Empty);
 
     }
 

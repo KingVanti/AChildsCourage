@@ -8,6 +8,8 @@ namespace AChildsCourage
     public class SceneManagerEntity : MonoBehaviour
     {
 
+        [Pub] public event EventHandler OnSceneBecameVisible;
+
         [Pub] public event EventHandler OnSceneLoaded;
 
 
@@ -16,14 +18,15 @@ namespace AChildsCourage
             if (Transition.IsUninitialized)
                 Transition.ToSelf();
         }
-        
+
         internal void OnSceneOpened()
         {
             SetupSceneInfrastructure();
             OnSceneLoaded?.Invoke(this, EventArgs.Empty);
         }
 
-        internal virtual void OnSceneVisible() { }
+        internal void OnSceneVisible() =>
+            OnSceneBecameVisible?.Invoke(this, EventArgs.Empty);
 
     }
 

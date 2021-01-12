@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.Courage
         private float CompletionPercent => CurrentCourage / (float) targetCourage;
 
 
-        [Sub(nameof(GameManager.OnStartGame))]
+        [Sub(nameof(GameManager.OnSceneBecameVisible))]
         private void OnStartGame(object _1, EventArgs _2) =>
             CurrentCourage = BaseCourage;
 
