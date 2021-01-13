@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using AChildsCourage.Game.Shade;
+﻿using AChildsCourage.Game.Char;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+using static AChildsCourage.Game.Floors.RuneCharge;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -9,114 +8,35 @@ namespace AChildsCourage.Game.Floors
     public class RuneEntity : MonoBehaviour
     {
 
-        [SerializeField] private float activeTime;
-        [SerializeField] private float litTimeAfterUsed;
-        [SerializeField] private EnumArray<RuneState, Sprite> stateSprites;
-        [SerializeField] private Material litMaterial;
-
-        [FindComponent] private SpriteRenderer spriteRenderer;
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private Light2D runeLight;
-
-        private RuneState state;
+        private const float Radius = 1.5f;
 
 
-        private RuneState State
-        {
-            get => state;
-            set
-            {
-                state = value;
-                spriteRenderer.sprite = stateSprites[state];
-            }
-        }
+        [SerializeField] private float chargeDrain;
+        [SerializeField] private Range<float> chargeGainRange;
 
-        private bool WasUsed => State == RuneState.Used;
+        [FindInScene] private FlashlightEntity flashLight;
 
-        private bool IsActive => State == RuneState.Active;
-
-        private void Start() {
-            StartCoroutine(Wobble());
-        }
+        private RuneCharge charge = NoCharge;
 
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (WasUsed) return;
+        private Vector2 Center => transform.position;
 
-            if (IsActive && IsShade(other, out var shade))
-                OnShadeEnter(shade);
-            else if (IsChar(other)) OnCharEnter();
-        }
+        private Vector2 FlashlightCenter => flashLight.transform.position;
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (IsChar(other)) OnCharExit();
-        }
+        private float DistanceToFlashlight => Vector2.Distance(Center, FlashlightCenter);
 
-        private static bool IsShade(Component other, out ShadeBodyEntity shade)
-        {
-            shade = other.GetComponent<ShadeBodyEntity>();
-            return other.gameObject.CompareTag(EntityTags.Shade);
-        }
+        private bool IsShoneOn => DistanceToFlashlight <= Radius + flashLight.ShineRadius;
 
-        private static bool IsChar(Component other) =>
-            other.gameObject.CompareTag(EntityTags.Char);
+        private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.ShineDistanceInterpolation);
 
-        private void OnCharEnter() =>
-            Activate();
-
-        private void OnCharExit() =>
-            this.StartOnly(WaitAndDeactivate);
-
-        private IEnumerator WaitAndDeactivate()
-        {
-            yield return new WaitForSeconds(activeTime);
-            Deactivate();
-        }
-
-        private void OnShadeEnter(ShadeBodyEntity shade) =>
-            UseRuneOn(shade);
-
-        private void Activate() =>
-            State = RuneState.Active;
-
-        private void Deactivate() =>
-            State = RuneState.Inactive;
-
-        private void UseRuneOn(ShadeBodyEntity shade)
-        {
-            shade.Banish();
-            State = RuneState.Used;
-            this.DoAfter(TurnOffLight, litTimeAfterUsed);
-        }
-
-        private void TurnOffLight()
-        {
-            spriteRenderer.material = litMaterial;
-            runeLight.intensity = 0.1f;
-        }
-
-        IEnumerator Wobble() {
-
-            float startingRadius = runeLight.pointLightOuterRadius;
-
-            while (true) {
-                runeLight.pointLightOuterRadius = startingRadius + (Mathf.Sin(Time.time) * 0.35f);
-                yield return null;
-            }
-
-        }
+        private float CurrentChargeDelta => IsShoneOn ? CurrentChargeGain : -chargeDrain;
 
 
-        private enum RuneState
-        {
+        private void Update() =>
+            UpdateCharge();
 
-            Inactive,
-            Active,
-            Used
-
-        }
+        private void UpdateCharge() => 
+            charge = charge.Map(Change, CurrentChargeDelta * Time.deltaTime);
 
     }
 

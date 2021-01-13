@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6417160014689851347}
   - component: {fileID: 6417160014689851344}
-  - component: {fileID: 6417160014689851346}
   - component: {fileID: -3375665635034509671}
   m_Layer: 14
   m_Name: Rune
@@ -85,22 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6417160014689851346
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6417160014689851345}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 1, y: 1}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!114 &-3375665635034509671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,18 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8a42c7692788d48bf95dd7c9e816c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTime: 1
-  litTimeAfterUsed: 1
-  stateSprites:
-    enumTypeName: AChildsCourage.Game.Floors.RuneEntity+RuneState
-    enums:
-    - enumValue: 0
-      mappedValue: {fileID: 21300000, guid: 29302e9a62b2b984083ade44747b1427, type: 3}
-    - enumValue: 1
-      mappedValue: {fileID: 21300000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
-    - enumValue: 2
-      mappedValue: {fileID: 21300000, guid: e662447a9cdd4f14493b6c346329d099, type: 3}
-  litMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
+  chargeDrain: 0.25
+  chargeGainRange:
+    min: 0
+    max: 0.5
 --- !u!1 &8492341495005754838
 GameObject:
   m_ObjectHideFlags: 0

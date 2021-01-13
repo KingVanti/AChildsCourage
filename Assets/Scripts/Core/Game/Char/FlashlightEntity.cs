@@ -90,7 +90,7 @@ namespace AChildsCourage.Game.Char
 
         public float ShineDistanceInterpolation => DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0).Squared();
 
-        private float ShineRadius => lightComponent.pointLightOuterRadius;
+        internal float ShineRadius => lightComponent.pointLightOuterRadius;
 
 
         public bool ShinesOn(Vector2 position) =>
