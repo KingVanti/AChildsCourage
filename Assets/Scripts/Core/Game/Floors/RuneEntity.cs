@@ -13,11 +13,16 @@ namespace AChildsCourage.Game.Floors
 
         [SerializeField] private float chargeDrain;
         [SerializeField] private Range<float> chargeGainRange;
+        [SerializeField] private float minBanishingCharge;
+        [SerializeField] private Sprite unchargedSprite;
+        [SerializeField] private Sprite chargedSprite;
 
         [FindInScene] private FlashlightEntity flashLight;
 
         [FindComponent(ComponentFindMode.OnChildren)]
         private new RuneLight light;
+        [FindComponent] private SpriteRenderer spriteRenderer;
+
         private RuneCharge charge = NoCharge;
 
 
@@ -40,8 +45,12 @@ namespace AChildsCourage.Game.Floors
             {
                 charge = value;
                 light.UpdateLight(charge);
+                spriteRenderer.sprite = HasBanishingCharge ? chargedSprite : unchargedSprite;
             }
         }
+
+        private bool HasBanishingCharge => Charge >= minBanishingCharge;
+
 
         private void Update() =>
             UpdateCharge();
