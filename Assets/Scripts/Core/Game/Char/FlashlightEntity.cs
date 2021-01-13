@@ -88,7 +88,7 @@ namespace AChildsCourage.Game.Char
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        private float ShineDistanceInterpolation => Mathf.Pow(DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0), 2);
+        public float ShineDistanceInterpolation => DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0).Squared();
 
         private float ShineRadius => lightComponent.pointLightOuterRadius;
 
