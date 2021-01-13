@@ -16,6 +16,8 @@ namespace AChildsCourage.Game.Floors
 
         [FindInScene] private FlashlightEntity flashLight;
 
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private new RuneLight light;
         private RuneCharge charge = NoCharge;
 
 
@@ -25,18 +27,27 @@ namespace AChildsCourage.Game.Floors
 
         private float DistanceToFlashlight => Vector2.Distance(Center, FlashlightCenter);
 
-        private bool IsShoneOn => DistanceToFlashlight <= Radius + flashLight.ShineRadius;
+        private bool IsShoneOn => flashLight.IsTurnedOn && DistanceToFlashlight <= Radius + flashLight.ShineRadius;
 
         private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.ShineDistanceInterpolation);
 
         private float CurrentChargeDelta => IsShoneOn ? CurrentChargeGain : -chargeDrain;
 
+        private RuneCharge Charge
+        {
+            get => charge;
+            set
+            {
+                charge = value;
+                light.UpdateLight(charge);
+            }
+        }
 
         private void Update() =>
             UpdateCharge();
 
-        private void UpdateCharge() => 
-            charge = charge.Map(Change, CurrentChargeDelta * Time.deltaTime);
+        private void UpdateCharge() =>
+            Charge = Charge.Map(Change, CurrentChargeDelta * Time.deltaTime);
 
     }
 
