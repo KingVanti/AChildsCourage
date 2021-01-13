@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Char;
+using AChildsCourage.Game.Shade;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.RuneCharge;
 
@@ -16,6 +17,7 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private float minBanishingCharge;
         [SerializeField] private Sprite unchargedSprite;
         [SerializeField] private Sprite chargedSprite;
+        [SerializeField] private Sprite inactiveSprite;
 
         [FindInScene] private FlashlightEntity flashLight;
 
@@ -55,8 +57,27 @@ namespace AChildsCourage.Game.Floors
         private void Update() =>
             UpdateCharge();
 
+        private void OnTriggerEnter2D(Collider2D c)
+        {
+            if (HasBanishingCharge)
+                BanishShade(c.GetComponentInParent<ShadeBodyEntity>());
+        }
+
         private void UpdateCharge() =>
             Charge = Charge.Map(Change, CurrentChargeDelta * Time.deltaTime);
+
+        private void BanishShade(ShadeBodyEntity shade)
+        {
+            shade.Banish();
+            Deactivate();
+        }
+
+        private void Deactivate()
+        {
+            enabled = false;
+            Charge = NoCharge;
+            spriteRenderer.sprite = inactiveSprite;
+        }
 
     }
 
