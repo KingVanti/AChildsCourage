@@ -68,7 +68,7 @@ namespace AChildsCourage
             var gameObject = UnityObject.Instantiate(prefab, position, rotation, parent);
 
             gameObject
-                .GetComponents<MonoBehaviour>()
+                .GetComponentsInChildren<MonoBehaviour>()
                 .ForEach(SetupInfrastructure);
 
             return gameObject;
