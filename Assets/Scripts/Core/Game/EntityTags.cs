@@ -24,6 +24,11 @@
         /// </summary>
         internal const string Flashlight = "Flashlight";
 
+        /// <summary>
+        ///     Unity tag for the Courage Rift entity
+        /// </summary>
+        internal const string Rift = "Rift";
+
     }
 
 }

@@ -1240,6 +1240,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 466596156, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 170224889}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Char
@@ -8178,6 +8182,22 @@ PrefabInstance:
       propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3739399925676272225, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12246847
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739399925676272225, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_Size.x
+      value: 1.7256255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739399925676272225, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08741927
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739399925676272225, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_Size.y
+      value: 2.52817
+      objectReference: {fileID: 0}
     - target: {fileID: 4809530094353232115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 5
@@ -8233,6 +8253,10 @@ PrefabInstance:
     - target: {fileID: 4809530094449874115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_Name
       value: CourageRift
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809530094449874115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_TagString
+      value: Rift
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
