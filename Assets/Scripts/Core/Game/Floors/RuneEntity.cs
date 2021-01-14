@@ -75,6 +75,7 @@ namespace AChildsCourage.Game.Floors
         private void Deactivate()
         {
             enabled = false;
+            light.Flash();
             Charge = NoCharge;
             spriteRenderer.sprite = inactiveSprite;
         }

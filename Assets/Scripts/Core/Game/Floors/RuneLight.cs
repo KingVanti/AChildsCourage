@@ -12,9 +12,39 @@ namespace AChildsCourage.Game.Floors
 
         [FindComponent] private new Light2D light;
 
+        private bool burnedOut;
 
-        public void UpdateLight(RuneCharge charge) =>
-            light.intensity = intensityRange.Map(Lerp, (float) charge);
+
+        private float Intensity
+        {
+            get => light.intensity;
+            set => light.intensity = value;
+        }
+
+
+        internal void UpdateLight(RuneCharge charge)
+        {
+            if (!burnedOut)
+                Intensity = intensityRange.Map(Lerp, (float) charge);
+        }
+
+        public void Flash()
+        {
+            burnedOut = true;
+
+            void ApplyT(float t) =>
+                Intensity = t.Remap(0, 1, intensityRange.Max, 100);
+
+            StartCoroutine(Lerping.TimeLerp(ApplyT, 0.75f, FadeOut));
+        }
+
+        private void FadeOut()
+        {
+            void ApplyT(float t) =>
+                Intensity = t.RemapSquared(0, 1, 100, intensityRange.Min);
+
+            StartCoroutine(Lerping.TimeLerp(ApplyT, 2f));
+        }
 
     }
 
