@@ -8182,6 +8182,14 @@ PrefabInstance:
       propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: maxLightIntensity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: maxOuterRadius
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 3739399925676272225, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_Offset.x
       value: -0.12246847
@@ -8249,6 +8257,14 @@ PrefabInstance:
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809530094449874114, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1316811689
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809530094449874114, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4809530094449874115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_Name
