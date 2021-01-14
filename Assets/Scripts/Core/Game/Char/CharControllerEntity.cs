@@ -38,6 +38,7 @@ namespace AChildsCourage.Game.Char
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
+        [FindComponent(ComponentFindMode.OnChildren)] private CanvasGroup contextInfoGroup;
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
@@ -50,8 +51,11 @@ namespace AChildsCourage.Game.Char
         private bool isSprinting;
         private bool hasStamina = true;
         private float defaultSpeed;
+        private bool hasMaxCourage = false;
+        private bool isInRiftProximity = false;
         private MovementState movementState;
         private Vector2 prevPos = Vector2.negativeInfinity;
+        
 
         #endregion
 
@@ -291,10 +295,25 @@ namespace AChildsCourage.Game.Char
             courageCollectParticleSystem.Play();
         }
 
+        [Sub(nameof(InputListener.OnRiftInteractInput))]
+        private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs) {
+
+            if (hasMaxCourage && isInRiftProximity) {
+                if (eventArgs.HasRiftInteractInput) {
+                    Debug.Log("Starting to leave");
+                } else {
+                    Debug.Log("Canceled Leaving Process");
+                }
+            }
+
+        }
+
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
-        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) {
+            if(eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
             canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
+        }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -306,11 +325,28 @@ namespace AChildsCourage.Game.Char
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+
+            if(other.CompareTag(EntityTags.Rift) && hasMaxCourage) {
+                contextInfoGroup.alpha = 1;
+                isInRiftProximity = true;
+            }
+
             if (!other.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
 
             var couragePickup = other.GetComponent<CouragePickupEntity>();
             OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
             Destroy(other.gameObject);
+
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) {
+                contextInfoGroup.alpha = 0;
+                isInRiftProximity = false;
+            }
+
         }
 
         #endregion
