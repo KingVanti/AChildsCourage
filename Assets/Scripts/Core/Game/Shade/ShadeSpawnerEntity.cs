@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.Shade
             TimeoutShade();
 
         private void TimeoutShade() =>
-            Invoke(nameof(SpawnShade), shadeTimeoutTime);
+            this.DoAfter(SpawnShade, shadeTimeoutTime);
 
         private void SpawnShade()
         {
