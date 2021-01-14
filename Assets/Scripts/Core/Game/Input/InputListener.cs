@@ -98,6 +98,8 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Sprint.performed -= OnSprintPressed;
             charControls.Char.Sprint.canceled -= OnSprintReleased;
             charControls.Char.Exit.performed -= OnExitInputOccurred;
+            charControls.Char.Interact.performed -= OnRiftInteractPressed;
+            charControls.Char.Interact.canceled -= OnRiftInteractReleased;
         }
 
     }
