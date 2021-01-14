@@ -59,6 +59,14 @@ namespace AChildsCourage.Game.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ac1ac8a0-d0fe-4c02-bc77-b5fde9824581"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,6 +166,17 @@ namespace AChildsCourage.Game.Input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1a8d94c-b8a1-4b0b-b47d-6d11d34288b1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -474,6 +493,7 @@ namespace AChildsCourage.Game.Input
             m_Char_Flashlight = m_Char.FindAction("Flashlight", throwIfNotFound: true);
             m_Char_Sprint = m_Char.FindAction("Sprint", throwIfNotFound: true);
             m_Char_Exit = m_Char.FindAction("Exit", throwIfNotFound: true);
+            m_Char_Interact = m_Char.FindAction("Interact", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigation = m_UI.FindAction("Navigation", throwIfNotFound: true);
@@ -537,6 +557,7 @@ namespace AChildsCourage.Game.Input
         private readonly InputAction m_Char_Flashlight;
         private readonly InputAction m_Char_Sprint;
         private readonly InputAction m_Char_Exit;
+        private readonly InputAction m_Char_Interact;
         public struct CharActions
         {
             private @CharControls m_Wrapper;
@@ -546,6 +567,7 @@ namespace AChildsCourage.Game.Input
             public InputAction @Flashlight => m_Wrapper.m_Char_Flashlight;
             public InputAction @Sprint => m_Wrapper.m_Char_Sprint;
             public InputAction @Exit => m_Wrapper.m_Char_Exit;
+            public InputAction @Interact => m_Wrapper.m_Char_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Char; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -570,6 +592,9 @@ namespace AChildsCourage.Game.Input
                     @Exit.started -= m_Wrapper.m_CharActionsCallbackInterface.OnExit;
                     @Exit.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnExit;
                     @Exit.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnExit;
+                    @Interact.started -= m_Wrapper.m_CharActionsCallbackInterface.OnInteract;
+                    @Interact.performed -= m_Wrapper.m_CharActionsCallbackInterface.OnInteract;
+                    @Interact.canceled -= m_Wrapper.m_CharActionsCallbackInterface.OnInteract;
                 }
                 m_Wrapper.m_CharActionsCallbackInterface = instance;
                 if (instance != null)
@@ -589,6 +614,9 @@ namespace AChildsCourage.Game.Input
                     @Exit.started += instance.OnExit;
                     @Exit.performed += instance.OnExit;
                     @Exit.canceled += instance.OnExit;
+                    @Interact.started += instance.OnInteract;
+                    @Interact.performed += instance.OnInteract;
+                    @Interact.canceled += instance.OnInteract;
                 }
             }
         }
@@ -726,6 +754,7 @@ namespace AChildsCourage.Game.Input
             void OnFlashlight(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnExit(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
