@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dissolveTime: 1
-  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  defaultMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
   dissolveMaterial: {fileID: 2100000, guid: 43a50397f36e9e94389729784f852392, type: 2}
 --- !u!114 &996754674
 MonoBehaviour:
