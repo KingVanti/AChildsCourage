@@ -18,8 +18,9 @@ namespace AChildsCourage.Game.Input
 
         [Pub] public event EventHandler<SprintInputEventArgs> OnSprintInput;
 
-        [Pub] public event EventHandler OnExitInput;
+        [Pub] public event EventHandler<RiftInteractInputEventArgs> OnRiftInteractInput;
 
+        [Pub] public event EventHandler OnExitInput;
 
         private CharControls charControls;
 
@@ -43,6 +44,8 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Sprint.performed += OnSprintPressed;
             charControls.Char.Sprint.canceled += OnSprintReleased;
             charControls.Char.Exit.performed += OnExitInputOccurred;
+            charControls.Char.Interact.performed += OnRiftInteractPressed;
+            charControls.Char.Interact.canceled += OnRiftInteractReleased;
         }
 
         private void OnLook(Context context)
@@ -62,6 +65,12 @@ namespace AChildsCourage.Game.Input
 
         private void OnSprintReleased(Context context) =>
             OnSprintInput?.Invoke(this, new SprintInputEventArgs(false));
+
+        private void OnRiftInteractPressed(Context context) =>
+            OnRiftInteractInput?.Invoke(this, new RiftInteractInputEventArgs(true));
+
+        private void OnRiftInteractReleased(Context context) =>
+            OnRiftInteractInput?.Invoke(this, new RiftInteractInputEventArgs(false));
 
         private void OnFlashLightInputOccurred(Context _) =>
             OnFlashLightInput?.Invoke(this, EventArgs.Empty);
@@ -89,6 +98,8 @@ namespace AChildsCourage.Game.Input
             charControls.Char.Sprint.performed -= OnSprintPressed;
             charControls.Char.Sprint.canceled -= OnSprintReleased;
             charControls.Char.Exit.performed -= OnExitInputOccurred;
+            charControls.Char.Interact.performed -= OnRiftInteractPressed;
+            charControls.Char.Interact.canceled -= OnRiftInteractReleased;
         }
 
     }
