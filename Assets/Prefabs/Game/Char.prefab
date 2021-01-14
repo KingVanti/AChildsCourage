@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 6550638052725105802}
   - component: {fileID: 104577623}
   - component: {fileID: 1231063780078513856}
+  - component: {fileID: 104577613}
   m_Layer: 8
   m_Name: Char
   m_TagString: Char
@@ -292,7 +293,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -418,8 +419,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.85
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.25
+  m_Color: {r: 0.8066038, g: 1, b: 0.991857, a: 1}
+  m_Intensity: 0.2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000cbf16821afacebfaa9f37c4e
   m_LightCookieSprite: {fileID: 0}
@@ -430,8 +431,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.25
-  m_PointLightOuterRadius: 3
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 5
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -5293,3 +5294,22 @@ MonoBehaviour:
     min: 0
     max: 0.25
   baseDrain: 0.1
+  minNormalTensionRange:
+    min: 0.1
+    max: 0.25
+  minHighTensionRange:
+    min: 0.75
+    max: 0.95
+--- !u!114 &104577613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820627343415363622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b66396a99871cf4494ae95ef43beb22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIntensity: 0.5

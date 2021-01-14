@@ -395,13 +395,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c927ae17e708f534eb0cf60f1a9d0cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAwarenessGainPerSecond: 0.4
-  primaryVisionMultiplier: 2
-  maxDistanceMultiplier: 2
-  flashLightMultiplier: 2
-  distanceRange:
-    min: 0
-    max: 15
+  baseAwarenessGainPerSecond: 0.1
+  primaryVisionMultiplier: 1.5
+  maxDistanceMultiplier: 1.5
+  charLitMultiplier: 5
+  maxDistance: 15
   awarenessLossPerSecond:
     enumTypeName: AChildsCourage.Game.Shade.AwarenessLevel
     enums:
@@ -426,7 +424,7 @@ MonoBehaviour:
     - enumValue: 0
       mappedValue: 0
     - enumValue: 1
-      mappedValue: 0.1
+      mappedValue: 0.6
     - enumValue: 2
       mappedValue: 1
 --- !u!114 &7337468781757878326

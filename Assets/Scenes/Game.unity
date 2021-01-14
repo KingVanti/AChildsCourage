@@ -1240,22 +1240,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: minNormalTensionRange.min
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: minNormalTensionRange.max
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: minHighTensionRange.min
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231063780078513856, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
-      propertyPath: minHighTensionRange.max
-      value: 0.95
-      objectReference: {fileID: 0}
     - target: {fileID: 8820627343415363622, guid: 8e46c562fd7fd4646928df5c4467ba30, type: 3}
       propertyPath: m_Name
       value: Char
@@ -2631,7 +2615,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 0.7275516, b: 0.41037738, a: 1}
   m_Intensity: 3
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000a9f37c4e
+  m_ApplyToSortingLayers: 00000000a9f37c4ef591a27d
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -8184,6 +8168,14 @@ PrefabInstance:
     - target: {fileID: 1063552414703545796, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: onRiftEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809530094353232115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809530094353232115, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: 2107806197
       objectReference: {fileID: 0}
     - target: {fileID: 4809530094449874113, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
       propertyPath: m_LocalPosition.x

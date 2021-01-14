@@ -3,7 +3,6 @@ using AChildsCourage.Game.Char;
 using UnityEngine;
 using static AChildsCourage.Game.Shade.Awareness;
 using static AChildsCourage.Game.Char.Visibility;
-using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -22,14 +21,14 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float baseAwarenessGainPerSecond;
         [SerializeField] private float primaryVisionMultiplier;
         [SerializeField] private float maxDistanceMultiplier;
-        [SerializeField] private float flashLightMultiplier;
-        [SerializeField] private Range<float> distanceRange;
+        [SerializeField] private float charLitMultiplier;
+        [SerializeField] private float maxDistance;
         [SerializeField] private EnumArray<AwarenessLevel, float> awarenessLossPerSecond;
         [SerializeField] private EnumArray<MovementState, float> movementStateMultipliers;
         [SerializeField] private EnumArray<AwarenessLevel, float> minAwarenessForAwarenessLevel;
 
         [FindInScene] private CharControllerEntity charController;
-        [FindInScene] private FlashlightEntity flashlight;
+        [FindInScene] private LightMeterEntity lightMeter;
 
         private Visibility currentCharVisibility;
         private Awareness currentAwareness;
@@ -79,13 +78,13 @@ namespace AChildsCourage.Game.Shade
 
         private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
 
-        private float DistanceMultiplier => Remap(DistanceToCharacter, distanceRange, Between(maxDistanceMultiplier, 1));
+        private float DistanceMultiplier => DistanceToCharacter.Remap(0, maxDistance, maxDistanceMultiplier, 0);
 
         private float DistanceToCharacter => Vector3.Distance(transform.position, charController.transform.position);
 
         private float MovementMultiplier => movementStateMultipliers[charController.CurrentMovementState];
 
-        private float FlashLightMultiplier => flashlight.IsTurnedOn ? flashLightMultiplier : 1;
+        private float FlashLightMultiplier => lightMeter.IsLit ? charLitMultiplier : 1;
 
         private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
 
@@ -108,10 +107,7 @@ namespace AChildsCourage.Game.Shade
                 lastKnownCharInfo = new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
         }
 
-        private void UpdateAwareness()
-        {
-            CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
-        }
+        private void UpdateAwareness() => CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
