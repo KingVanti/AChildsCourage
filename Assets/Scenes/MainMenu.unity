@@ -2439,6 +2439,7 @@ GameObject:
   - component: {fileID: 577280977}
   - component: {fileID: 577280976}
   - component: {fileID: 577280979}
+  - component: {fileID: 577280980}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -2579,6 +2580,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &577280980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577280974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuAnimationController: {fileID: 0}
 --- !u!1 &585995073
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,6 +4242,7 @@ GameObject:
   - component: {fileID: 919858530}
   - component: {fileID: 919858529}
   - component: {fileID: 919858532}
+  - component: {fileID: 919858533}
   m_Layer: 5
   m_Name: ControlsButton
   m_TagString: Untagged
@@ -4368,6 +4383,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &919858533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919858527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuAnimationController: {fileID: 0}
 --- !u!1 &929146853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,6 +4701,7 @@ GameObject:
   - component: {fileID: 965794090}
   - component: {fileID: 965794089}
   - component: {fileID: 965794088}
+  - component: {fileID: 965794092}
   m_Layer: 5
   m_Name: TutorialButton
   m_TagString: Untagged
@@ -4813,6 +4842,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965794086}
   m_CullTransparentMesh: 0
+--- !u!114 &965794092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965794086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuAnimationController: {fileID: 0}
 --- !u!1 &1034676830
 GameObject:
   m_ObjectHideFlags: 0
@@ -8811,6 +8853,7 @@ GameObject:
   - component: {fileID: 1833755979}
   - component: {fileID: 1833755978}
   - component: {fileID: 1833755981}
+  - component: {fileID: 1833755982}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -8951,6 +8994,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1833755982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833755976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuAnimationController: {fileID: 0}
 --- !u!1 &1844671984
 GameObject:
   m_ObjectHideFlags: 0
@@ -9906,6 +9962,7 @@ GameObject:
   - component: {fileID: 2005978047}
   - component: {fileID: 2005978046}
   - component: {fileID: 2005978049}
+  - component: {fileID: 2005978050}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -10046,6 +10103,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2005978050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005978044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuAnimationController: {fileID: 0}
 --- !u!1 &2031927640
 GameObject:
   m_ObjectHideFlags: 0
