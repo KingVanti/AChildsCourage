@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace AChildsCourage.Game.Char
         [Pub] public event EventHandler<MovementStateChangedEventArgs> OnMovementStateChanged;
 
         [Pub] public event EventHandler<CharPositionChangedEventArgs> OnPositionChanged;
+
+        [Pub] public event EventHandler<RiftEscapeEventArgs> OnRiftEscapeUpdate;
 
         #region Fields
 
@@ -51,11 +54,13 @@ namespace AChildsCourage.Game.Char
         private bool isSprinting;
         private bool hasStamina = true;
         private float defaultSpeed;
-        private bool hasMaxCourage = false;
-        private bool isInRiftProximity = false;
         private MovementState movementState;
         private Vector2 prevPos = Vector2.negativeInfinity;
-        
+
+        private bool hasMaxCourage = false;
+        private bool isInRiftProximity = false;
+        private bool isEscapingThroughRift = false;
+
 
         #endregion
 
@@ -158,7 +163,8 @@ namespace AChildsCourage.Game.Char
             defaultSpeed = movementSpeed;
         }
 
-        private void FixedUpdate() => Move();
+        private void FixedUpdate() { { Move(); }
+        }
 
 
         private void UpdateMovementState() =>
@@ -172,9 +178,16 @@ namespace AChildsCourage.Game.Char
             animator.speed = IsSprinting ? 1.4f : 1;
 
             animator.SetFloat(rotationIndexAnimatorKey, RotationIndex);
-            animator.SetBool(movingAnimatorKey, IsMoving);
-            animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
-            animator.SetBool(sprintingAnimatorKey, IsSprinting);
+
+            if (!isEscapingThroughRift) {
+                animator.SetBool(movingAnimatorKey, IsMoving);
+                animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
+                animator.SetBool(sprintingAnimatorKey, IsSprinting);
+            } else {
+                animator.SetBool(movingAnimatorKey, false);
+                animator.SetBool(movingBackwardsAnimatorKey, false);
+                animator.SetBool(sprintingAnimatorKey, false);
+            }
         }
 
 
@@ -208,15 +221,18 @@ namespace AChildsCourage.Game.Char
 
         private void Move()
         {
-            Velocity = MovingDirection * movementSpeed;
+            if (!isEscapingThroughRift) {
+                Velocity = MovingDirection * movementSpeed;
+                UpdateMovementState();
+            }
 
-            if (Position != prevPos)
+                if (Position != prevPos)
             {
                 OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
             }
 
-            UpdateMovementState();
+            
         }
 
 
@@ -228,7 +244,9 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))]
-        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) => MovingDirection = eventArgs.MoveDirection;
+        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) {
+                MovingDirection = eventArgs.MoveDirection;
+        }
 
         #region Sprinting
 
@@ -299,11 +317,15 @@ namespace AChildsCourage.Game.Char
         private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs) {
 
             if (hasMaxCourage && isInRiftProximity) {
+
                 if (eventArgs.HasRiftInteractInput) {
-                    Debug.Log("Starting to leave");
+                    isEscapingThroughRift = true;
                 } else {
-                    Debug.Log("Canceled Leaving Process");
+                    isEscapingThroughRift = false;
                 }
+
+                OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(isEscapingThroughRift));
+                UpdateAnimator();
             }
 
         }

@@ -6,7 +6,8 @@
 
         Standing,
         Walking,
-        Sprinting
+        Sprinting,
+        Escaping
 
     }
 

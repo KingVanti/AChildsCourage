@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AChildsCourage.Game.Char;
+using System;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Floor;
 
@@ -41,7 +42,12 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(EntityTags.Char) && isOpen) OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
+            // if (other.CompareTag(EntityTags.Char) && isOpen) OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
+        }
+
+        [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))]
+        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) {
+
         }
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
