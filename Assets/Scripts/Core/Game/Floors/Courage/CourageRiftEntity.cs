@@ -31,6 +31,8 @@ namespace AChildsCourage.Game.Floors.Courage
         private bool isEscaping = false;
         private Coroutine escapeCoroutine;
 
+        private float lightSpeed = 0f;
+
         private float EmissionRate
         {
             set
@@ -48,6 +50,11 @@ namespace AChildsCourage.Game.Floors.Courage
         private float LightIntensity {
             get => courageLight.intensity;
             set => courageLight.intensity = value;
+        }
+
+        private float LightOuterRadius {
+            get => courageLight.pointLightOuterRadius;
+            set => courageLight.pointLightOuterRadius = value;
         }
 
         private int MaxSpriteIndex => riftStageSprites.Length - 1;
@@ -110,18 +117,19 @@ namespace AChildsCourage.Game.Floors.Courage
             }
         }
 
-
-
         IEnumerator CourageLighting() {
+
+            float intensitySpeed = (maxLightIntensity - 0.3f) / escapeTime;
+            float radiusSpeed = (maxOuterRadius - 12) / escapeTime;
 
             while (true) {
 
                 if (isEscaping) {
-                    LightIntensity = Mathf.MoveTowards(LightIntensity, maxLightIntensity, (maxLightIntensity-LightIntensity)/escapeTime * Time.deltaTime);
-                    courageLight.pointLightOuterRadius = Mathf.MoveTowards(courageLight.pointLightOuterRadius, maxOuterRadius, (maxOuterRadius- courageLight.pointLightOuterRadius)/escapeTime * Time.deltaTime);
+                    LightIntensity = Mathf.MoveTowards(LightIntensity, maxLightIntensity, intensitySpeed * Time.deltaTime);
+                    LightOuterRadius = Mathf.MoveTowards(LightOuterRadius, maxOuterRadius, radiusSpeed * Time.deltaTime);
                 } else {
-                    LightIntensity = Mathf.MoveTowards(LightIntensity, 0.3f, Time.deltaTime * 30f);
-                    courageLight.pointLightOuterRadius = Mathf.MoveTowards(courageLight.pointLightOuterRadius, 12, Time.deltaTime * 30f);
+                    LightIntensity = Mathf.MoveTowards(LightIntensity, 0.3f, Time.deltaTime * intensitySpeed * 5f);
+                    LightOuterRadius = Mathf.MoveTowards(LightOuterRadius, 12, Time.deltaTime * radiusSpeed * 5f);
                 }
 
                 yield return null;
