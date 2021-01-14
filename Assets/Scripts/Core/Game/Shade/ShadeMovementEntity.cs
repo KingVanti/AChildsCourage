@@ -1,4 +1,5 @@
 ﻿using System;
+using AChildsCourage.Game.Floors.Courage;
 using Pathfinding;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace AChildsCourage.Game.Shade
     {
 
         [Pub] public event EventHandler<ShadeTargetReachedEventArgs> OnTargetReached;
+
+
+        [SerializeField] private Range<float> speedRange;
 
         [FindInScene] private AIPath aiPath;
 
@@ -36,8 +40,13 @@ namespace AChildsCourage.Game.Shade
             private set => aiPath.destination = value;
         }
 
+        private float Speed
+        {
+            set => aiPath.maxSpeed = value;
+        }
 
-        private void Update() => 
+
+        private void Update() =>
             ReachedTarget = aiPath.reachedDestination && aiPath.hasPath;
 
         [Sub(nameof(ShadeBrainEntity.OnCommand))]
@@ -74,6 +83,10 @@ namespace AChildsCourage.Game.Shade
             targetPosition = null;
             aiPath.SetPath(null);
         }
+
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
+            Speed = speedRange.Map(Range.Lerp, eventArgs.CompletionPercent);
 
     }
 
