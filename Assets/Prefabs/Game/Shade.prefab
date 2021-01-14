@@ -399,6 +399,7 @@ MonoBehaviour:
   primaryVisionMultiplier: 1.5
   maxDistanceMultiplier: 1.5
   charLitMultiplier: 5
+  isShoneOnMultiplier: 5
   maxDistance: 15
   awarenessLossPerSecond:
     enumTypeName: AChildsCourage.Game.Shade.AwarenessLevel

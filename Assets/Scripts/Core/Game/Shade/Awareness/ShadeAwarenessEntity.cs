@@ -22,6 +22,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float primaryVisionMultiplier;
         [SerializeField] private float maxDistanceMultiplier;
         [SerializeField] private float charLitMultiplier;
+        [SerializeField] private float isShoneOnMultiplier;
         [SerializeField] private float maxDistance;
         [SerializeField] private EnumArray<AwarenessLevel, float> awarenessLossPerSecond;
         [SerializeField] private EnumArray<MovementState, float> movementStateMultipliers;
@@ -29,6 +30,7 @@ namespace AChildsCourage.Game.Shade
 
         [FindInScene] private CharControllerEntity charController;
         [FindInScene] private LightMeterEntity lightMeter;
+        [FindInScene] private FlashlightEntity flashlight;
 
         private Visibility currentCharVisibility;
         private Awareness currentAwareness;
@@ -74,7 +76,9 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        private float AwarenessGainPerSecond => baseAwarenessGainPerSecond * PrimaryVisionMultiplier * DistanceMultiplier * MovementMultiplier * FlashLightMultiplier;
+        private float AwarenessGainPerSecond => baseAwarenessGainPerSecond * PrimaryVisionMultiplier *
+                                                DistanceMultiplier * MovementMultiplier *
+                                                FlashLightMultiplier * IsShoneOnMultiplier;
 
         private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
 
@@ -86,7 +90,11 @@ namespace AChildsCourage.Game.Shade
 
         private float FlashLightMultiplier => lightMeter.IsLit ? charLitMultiplier : 1;
 
-        private float AwarenessChange => CanSeeChar ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
+        private bool IsShoneOn => flashlight.ShinesOn(transform.position);
+
+        private float IsShoneOnMultiplier => IsShoneOn ? isShoneOnMultiplier : 1;
+
+        private float AwarenessChangePerSecond => CanSeeChar || IsShoneOn ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
 
         private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
 
@@ -107,7 +115,7 @@ namespace AChildsCourage.Game.Shade
                 lastKnownCharInfo = new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
         }
 
-        private void UpdateAwareness() => CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChange * Time.deltaTime);
+        private void UpdateAwareness() => CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChangePerSecond * Time.deltaTime);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>

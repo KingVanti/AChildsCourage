@@ -8,15 +8,16 @@
         private const float MaxAwareness = 1;
 
         public static Awareness NoAwareness => new Awareness(MinAwareness);
-
-
+        
+        
         public static Awareness ChangeBy(float amount, Awareness awareness) =>
             new Awareness(awareness.value + amount);
-
+        
+        
         private readonly float value;
 
 
-        private Awareness(float value) =>
+        public Awareness(float value) =>
             this.value = value.Clamp(MinAwareness, MaxAwareness);
 
 

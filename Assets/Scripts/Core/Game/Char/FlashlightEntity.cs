@@ -94,7 +94,7 @@ namespace AChildsCourage.Game.Char
 
 
         public bool ShinesOn(Vector2 position) =>
-            Vector2.Distance(position, shinePosition) <= ShineRadius;
+            IsTurnedOn && Vector2.Distance(position, shinePosition) <= ShineRadius;
 
 
         private void UpdateShinePosition()
