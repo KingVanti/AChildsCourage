@@ -57,7 +57,7 @@ namespace AChildsCourage.Game.Floors
         private void Update() =>
             UpdateCharge();
 
-        private void OnTriggerEnter2D(Collider2D c)
+        private void OnTriggerStay2D(Collider2D c)
         {
             if (HasBanishingCharge)
                 BanishShade(c.GetComponentInParent<ShadeBodyEntity>());
