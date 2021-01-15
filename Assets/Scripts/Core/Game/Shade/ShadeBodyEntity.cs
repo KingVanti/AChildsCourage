@@ -23,12 +23,21 @@ namespace AChildsCourage.Game.Shade
         private new Collider2D collider;
         [FindComponent] private Animator animator;
 
+        private bool isAwareOfChar;
 
         private bool IsInAttackRange
         {
             set => animator.SetBool(isInAttackRangeKey, value);
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.Map(IsChar) && isAwareOfChar)
+                collision.gameObject.GetComponent<CharControllerEntity>().Kill();
+        }
+
+        private bool IsChar(Collision2D collision) =>
+            collision.gameObject.CompareTag(EntityTags.Char);
 
         public void Banish()
         {
@@ -60,7 +69,11 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
-            IsInAttackRange = Vector2.Distance(transform.position, eventArgs.NewPosition) < attackAnimationRange;
+            IsInAttackRange = Vector2.Distance(transform.position, eventArgs.NewPosition) < attackAnimationRange && isAwareOfChar;
+
+        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
+        private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs) =>
+            isAwareOfChar = eventArgs.Level == AwarenessLevel.Aware;
 
     }
 

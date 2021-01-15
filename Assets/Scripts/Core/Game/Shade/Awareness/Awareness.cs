@@ -8,6 +8,8 @@
         private const float MaxAwareness = 1;
 
         public static Awareness NoAwareness => new Awareness(MinAwareness);
+
+        public static Awareness TotalAwareness = new Awareness(MaxAwareness);
         
         
         public static Awareness ChangeBy(float amount, Awareness awareness) =>

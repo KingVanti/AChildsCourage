@@ -336,13 +336,8 @@ namespace AChildsCourage.Game.Char
             if(eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
             canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
         }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag(EntityTags.Shade)) Kill();
-        }
-
-        private void Kill() =>
+        
+        public void Kill() =>
             OnCharKilled?.Invoke(this, EventArgs.Empty);
 
         private void OnTriggerEnter2D(Collider2D other)

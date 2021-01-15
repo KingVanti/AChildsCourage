@@ -61,7 +61,7 @@ MonoBehaviour:
   visionCones:
   - visibility:
       value: 2
-    viewRadius: 1
+    viewRadius: 2
     viewAngle: 360
     canSeeThroughWalls: 1
   - visibility:

@@ -108,14 +108,15 @@ namespace AChildsCourage.Game.Shade
             UpdateAwareness();
             UpdateLastKnownCharInfo();
         }
-
+        
         private void UpdateLastKnownCharInfo()
         {
             if (CurrentAwarenessLevel == AwarenessLevel.Aware)
                 lastKnownCharInfo = new LastKnownCharInfo(CharPosition, CharVelocity, Time.time);
         }
 
-        private void UpdateAwareness() => CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChangePerSecond * Time.deltaTime);
+        private void UpdateAwareness() =>
+            CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChangePerSecond * Time.deltaTime);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
