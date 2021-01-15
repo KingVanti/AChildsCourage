@@ -12,14 +12,18 @@ namespace AChildsCourage.Game.Floors
         private readonly Rng rng = RandomRng();
 
 
+        [SerializeField] private GameObject staticObjectPrefab;
+        [SerializeField] private StaticObjectWeights[] appearanceWeights;
+
+
         public void Spawn(TilePosition position, StaticObjectData _)
         {
             var entity = InstantiateStaticObjectAt(position);
 
-            entity.Appearance = ChooseRandomAppearance();
+            entity.Sprite = ChooseRandomSprite();
         }
 
-        private StaticObjectAppearance ChooseRandomAppearance() => appearanceWeights.GetWeightedRandom(p => p.Weight, rng).Appearance;
+        private Sprite ChooseRandomSprite() => appearanceWeights.GetWeightedRandom(p => p.Weight, rng).Sprite;
 
         private StaticObjectEntity InstantiateStaticObjectAt(TilePosition tilePosition)
         {
@@ -29,33 +33,17 @@ namespace AChildsCourage.Game.Floors
 
 
         [Serializable]
-        private struct StaticObjectWeights
+        private class StaticObjectWeights
         {
 
-            public StaticObjectAppearance Appearance => appearance;
+            [SerializeField] private Sprite sprite;
+            [SerializeField] [Range(1, 10)] private float weight = 5;
+
+            public Sprite Sprite => sprite;
 
             public float Weight => weight;
 
-
-            public StaticObjectWeights(StaticObjectAppearance appearance, float weight)
-            {
-                this.appearance = appearance;
-                this.weight = weight;
-            }
-
-
-            [SerializeField] private StaticObjectAppearance appearance;
-            [SerializeField] [Range(1, 10)] private float weight;
-
-#pragma warning  restore 649
-
         }
-
-
-        [SerializeField] private GameObject staticObjectPrefab;
-        [SerializeField] private StaticObjectWeights[] appearanceWeights;
-
-#pragma warning  restore 649
 
     }
 

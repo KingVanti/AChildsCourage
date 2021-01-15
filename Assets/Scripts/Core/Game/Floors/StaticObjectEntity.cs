@@ -9,9 +9,9 @@ namespace AChildsCourage.Game.Floors
         [FindComponent] private SpriteRenderer spriteRenderer;
 
 
-        public StaticObjectAppearance Appearance
+        public Sprite Sprite
         {
-            set => spriteRenderer.sprite = value.Sprite;
+            set => spriteRenderer.sprite = value;
         }
 
     }
