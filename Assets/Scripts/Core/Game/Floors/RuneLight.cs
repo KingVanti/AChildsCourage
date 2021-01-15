@@ -9,6 +9,9 @@ namespace AChildsCourage.Game.Floors
     {
 
         [SerializeField] private Range<float> intensityRange;
+        [SerializeField] private float flashTime;
+        [SerializeField] private float fadeOutTime;
+        [SerializeField] private float flashIntensity;
 
         [FindComponent] private new Light2D light;
 
@@ -33,17 +36,17 @@ namespace AChildsCourage.Game.Floors
             burnedOut = true;
 
             void ApplyT(float t) =>
-                Intensity = t.Remap(0, 1, intensityRange.Max, 100);
+                Intensity = t.Remap(0, 1, intensityRange.Max, flashIntensity);
 
-            StartCoroutine(Lerping.TimeLerp(ApplyT, 0.75f, FadeOut));
+            StartCoroutine(Lerping.TimeLerp(ApplyT, flashTime, FadeOut));
         }
 
         private void FadeOut()
         {
             void ApplyT(float t) =>
-                Intensity = t.RemapSquared(0, 1, 100, intensityRange.Min);
+                Intensity = t.RemapSquared(0, 1, flashIntensity, intensityRange.Min);
 
-            StartCoroutine(Lerping.TimeLerp(ApplyT, 2f));
+            StartCoroutine(Lerping.TimeLerp(ApplyT, fadeOutTime));
         }
 
     }

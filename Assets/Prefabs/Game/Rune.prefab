@@ -169,7 +169,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.8
   m_Color: {r: 0.504717, g: 0.81644255, b: 1, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.25
   m_LightVolumeOpacity: 0.25
   m_ApplyToSortingLayers: 00000000a9f37c4eafacebfaf591a27dcbf16821
   m_LightCookieSprite: {fileID: 0}
@@ -207,5 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intensityRange:
-    min: 0.1
-    max: 2
+    min: 0.25
+    max: 1.8
+  flashTime: 0.3
+  fadeOutTime: 1
+  flashIntensity: 50
