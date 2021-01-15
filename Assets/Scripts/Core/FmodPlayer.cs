@@ -11,7 +11,6 @@ namespace AChildsCourage
     public class FmodPlayer : MonoBehaviour
     {
 
-        private readonly float Material = 0;
         private readonly float waitTime = 2f;
         private bool Char_sprint_stop_Is_playing;
         private EventInstance Footsteps;

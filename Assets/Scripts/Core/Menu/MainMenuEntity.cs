@@ -35,14 +35,14 @@ namespace AChildsCourage.Menu.UI
         public void btn_Hover()
         {
             btn_HoverInstance = RuntimeManager.CreateInstance(btnOnHover);
-            btn_HoverInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            //btn_HoverInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_HoverInstance.start();
             btn_HoverInstance.release();
         }
         public void btn_Click()
         {
             btn_ClickInstance = RuntimeManager.CreateInstance(btnOnClick);
-            btn_ClickInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            //btn_ClickInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_ClickInstance.start();
             btn_ClickInstance.release();
         }
