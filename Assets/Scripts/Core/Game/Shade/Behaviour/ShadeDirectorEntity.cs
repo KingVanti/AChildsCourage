@@ -18,6 +18,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float highTensionInterventionTime;
         [SerializeField] private float repeatHintTime;
         [SerializeField] private float sendAwayDistance;
+        [SerializeField] private float spawnDistance;
 
         [FindInScene] private CharControllerEntity @char;
 
@@ -94,6 +95,10 @@ namespace AChildsCourage.Game.Shade
 
         private void SendAoiToShade(Aoi aoi) =>
             OnAoiChosen?.Invoke(this, new AoiChosenEventArgs(aoi));
+        
+        internal Vector3 FindShadeSpawnPoint() =>
+            groundPlan
+                .Map(ChooseRandomPositionOutsideRadius, Rng.RandomRng(), spawnDistance);
 
     }
 

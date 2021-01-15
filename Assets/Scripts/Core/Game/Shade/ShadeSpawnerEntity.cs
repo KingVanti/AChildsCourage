@@ -14,20 +14,14 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float shadeTimeoutTime;
+        
         [FindInScene] private ShadeBrainEntity shadeBrain;
-
-        private Vector2 spawnPosition;
+        [FindInScene] private ShadeDirectorEntity shadeDirector;
 
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
-        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
-        {
-            FindSpawnPosition(eventArgs.Floor);
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) => 
             SpawnShade();
-        }
-
-        private void FindSpawnPosition(Floor floor) =>
-            spawnPosition = floor.Map(FindEndChunkCenter).Map(ToVector2);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
         private void OnShadeBanished(object _1, EventArgs _2) =>
@@ -43,7 +37,7 @@ namespace AChildsCourage.Game.Shade
         }
 
         private void TeleportShadeToSpawn() =>
-            shadeBrain.transform.position = spawnPosition;
+            shadeBrain.transform.position = shadeDirector.FindShadeSpawnPoint();
 
     }
 
