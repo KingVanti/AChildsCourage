@@ -4,6 +4,7 @@ using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.GroundPlan;
 using static AChildsCourage.Game.Shade.Aoi;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -14,9 +15,9 @@ namespace AChildsCourage.Game.Shade
         [Pub] public event EventHandler<AoiChosenEventArgs> OnAoiChosen;
 
         [SerializeField] private AoiGenParams standardParams;
+        [SerializeField] private AoiGenParams playerHintParams;
         [SerializeField] private float lowTensionInterventionTime;
         [SerializeField] private float highTensionInterventionTime;
-        [SerializeField] private float repeatHintTime;
         [SerializeField] private float sendAwayDistance;
         [SerializeField] private float spawnDistance;
 
@@ -24,6 +25,7 @@ namespace AChildsCourage.Game.Shade
 
         private GroundPlan groundPlan;
         private Coroutine interventionRoutine;
+        private bool sendShadeToChar;
 
 
         private Vector2 CharPosition => @char.transform.position;
@@ -43,7 +45,10 @@ namespace AChildsCourage.Game.Shade
             switch (eventArgs.Command)
             {
                 case RequestAoiCommand _:
-                    StartStandardInvestigation();
+                    if (sendShadeToChar)
+                        SendShadeToChar();
+                    else
+                        StartStandardInvestigation();
                     break;
             }
         }
@@ -53,12 +58,9 @@ namespace AChildsCourage.Game.Shade
             OnTensionLevelChanged(eventArgs.Level);
 
         private void StartStandardInvestigation() =>
-            GenerateAoi(standardParams)
-                .Do(SendAoiToShade);
-
-        private Aoi GenerateAoi(AoiGenParams @params) =>
-            groundPlan.Map(ChooseRandomAoiPositions, Rng.RandomRng(), @params)
-                      .Map(ToAoi);
+            groundPlan.Map(ChooseRandomAoiPositions, RandomRng(), standardParams)
+                      .Map(ToAoi)
+                      .Do(SendAoiToShade);
 
         private void OnTensionLevelChanged(TensionLevel tensionLevel)
         {
@@ -68,37 +70,36 @@ namespace AChildsCourage.Game.Shade
             switch (tensionLevel)
             {
                 case TensionLevel.Low:
-                    interventionRoutine = this.DoAfter(SendShadeToChar, lowTensionInterventionTime);
+                    interventionRoutine = this.DoAfter(() => sendShadeToChar = true, lowTensionInterventionTime);
+                    break;
+                case TensionLevel.Normal:
+                    sendShadeToChar = false;
                     break;
                 case TensionLevel.High:
+                    sendShadeToChar = false;
                     interventionRoutine = this.DoAfter(SendShadeAwayFromChar, highTensionInterventionTime);
                     break;
             }
         }
 
-        private void SendShadeToChar()
-        {
-            CharPosition
-                .AsSingleEnumerable()
-                .Map(ToAoi)
-                .Do(SendAoiToShade);
-
-            interventionRoutine = this.DoAfter(SendShadeToChar, repeatHintTime);
-        }
+        private void SendShadeToChar() =>
+            groundPlan.Map(ChooseRandomAoiPositionsWithCenter, CharPosition, RandomRng(), playerHintParams)
+                      .Map(ToAoi)
+                      .Do(SendAoiToShade);
 
         private void SendShadeAwayFromChar() =>
             groundPlan
-                .Map(ChooseRandomPositionOutsideRadius, Rng.RandomRng(), sendAwayDistance)
+                .Map(ChooseRandomPositionOutsideRadius, RandomRng(), sendAwayDistance)
                 .AsSingleEnumerable()
                 .Map(ToAoi)
                 .Do(SendAoiToShade);
 
         private void SendAoiToShade(Aoi aoi) =>
             OnAoiChosen?.Invoke(this, new AoiChosenEventArgs(aoi));
-        
+
         internal Vector3 FindShadeSpawnPoint() =>
             groundPlan
-                .Map(ChooseRandomPositionOutsideRadius, Rng.RandomRng(), spawnDistance);
+                .Map(ChooseRandomPositionOutsideRadius, RandomRng(), spawnDistance);
 
     }
 

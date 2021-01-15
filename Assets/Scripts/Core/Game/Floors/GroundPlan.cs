@@ -20,6 +20,12 @@ namespace AChildsCourage.Game.Floors
         {
             var center = groundPlan.groundPositions
                                    .GetRandom(rng);
+            
+            return groundPlan.Map(ChooseRandomAoiPositionsWithCenter, center, rng, @params);
+        }
+
+        public static IEnumerable<Vector2> ChooseRandomAoiPositionsWithCenter(Vector2 center, Rng rng, AoiGenParams @params, GroundPlan groundPlan)
+        {
             var circlePositions = groundPlan.groundPositions
                                             .Where(p => Vector2.Distance(p, center) < @params.Radius)
                                             .ToImmutableHashSet();
