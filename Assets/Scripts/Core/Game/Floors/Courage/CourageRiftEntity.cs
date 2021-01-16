@@ -31,8 +31,6 @@ namespace AChildsCourage.Game.Floors.Courage
         private bool isEscaping = false;
         private Coroutine escapeCoroutine;
 
-        private float lightSpeed = 0f;
-
         private float EmissionRate
         {
             set
