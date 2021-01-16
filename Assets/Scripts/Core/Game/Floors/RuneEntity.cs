@@ -18,11 +18,9 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Sprite unchargedSprite;
         [SerializeField] private Sprite chargedSprite;
         [SerializeField] private Sprite inactiveSprite;
+        [SerializeField] private new RuneLight light;
 
         [FindInScene] private FlashlightEntity flashLight;
-
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private new RuneLight light;
         [FindComponent] private SpriteRenderer spriteRenderer;
 
         private RuneCharge charge = NoCharge;
