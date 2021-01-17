@@ -2763,9 +2763,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 00e40060c36f4e94eba83d606f926d68, type: 2}
     - {fileID: 11400000, guid: 4c221a60abe8e174087af358445f7874, type: 2}
   wallBottomHalfTiles:
-    variantProb: 0
+    variantProb: 5
     baseTile: {fileID: 11400000, guid: 63574af09e846624083c71a33f31af0c, type: 2}
-    variants: []
+    variants:
+    - {fileID: 11400000, guid: c74ea3c6165310b4498e598abe614cd5, type: 2}
+    - {fileID: 11400000, guid: 1df6ceee38b1e3540bc1ec3e59a2dc54, type: 2}
+    - {fileID: 11400000, guid: 447beb4b06cffca4ca5006aa8c83b2c9, type: 2}
+    - {fileID: 11400000, guid: d60e0590dabecce43872de7b44933029, type: 2}
+    - {fileID: 11400000, guid: b9c79a58930bbbe49b518251bba4420a, type: 2}
+    - {fileID: 11400000, guid: b895ae42cc6a2ca4a89c3f98c25e4a1f, type: 2}
   wallTopHalfTiles:
     variantProb: 5
     baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
@@ -2776,7 +2782,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d679999c6df96124482228686794a6e2, type: 2}
     - {fileID: 11400000, guid: 08bae3a165351ff48af5658a275c3d9d, type: 2}
     - {fileID: 11400000, guid: 63d57669295e9fe4d918cbf67afc0b6e, type: 2}
-    - {fileID: 11400000, guid: 8201df597e73efd41bcd23c0f0fe973e, type: 2}
+    - {fileID: 0}
     - {fileID: 11400000, guid: a82541f14b5e35d44ba6c9761dd7867a, type: 2}
     - {fileID: 11400000, guid: b4c1c6bd22ff28144aa39a2a997d7f48, type: 2}
     - {fileID: 11400000, guid: 3d94b7254503331478abde2a80d14588, type: 2}
