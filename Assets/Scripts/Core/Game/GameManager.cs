@@ -24,7 +24,7 @@ namespace AChildsCourage.Game
             OnWin();
 
         private void OnWin() =>
-            Transition.To(SceneName.endCutscene);
+            Transition.To(SceneName.endCutscene, Transition.TransitionColor.White);
 
 
         [Sub(nameof(InputListener.OnExitInput))]
