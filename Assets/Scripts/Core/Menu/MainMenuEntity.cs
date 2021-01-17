@@ -21,10 +21,12 @@ namespace AChildsCourage.Menu.UI
         private EventInstance btn_ClickInstance;
         private EventInstance btn_HoverInstance;
 
-        public void OnPlayButtonPressed() => Transition.To(SceneName.startCutscene);
+        public void OnPlayButtonPressed() => 
+            Transition.To(SceneName.startCutscene, FadeColor.Black);
 
 
-        public void OnQuitButtonPressed() => Application.Quit();
+        public void OnQuitButtonPressed() =>
+            Application.Quit();
 
         public void OnTutorialButtonPressed() => menuAnimationController.SetTrigger(tutorialIndexKey);
 

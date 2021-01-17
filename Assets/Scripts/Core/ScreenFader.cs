@@ -16,7 +16,6 @@ namespace AChildsCourage
 
         private Color Color
         {
-            get => fadeImage.color;
             set => fadeImage.color = value;
         }
 
@@ -24,26 +23,24 @@ namespace AChildsCourage
         private void Awake() =>
             HandleSingletonPattern();
 
-        internal void FadeToBlack(Action callBack) =>
-            FadeTo(Color.black, callBack);
-
-        internal void FadeFromBlack(Action callBack) =>
-            FadeTo(Color.clear, callBack);
-
-        internal void FadeToWhite(Action callBack) =>
-            FadeTo(Color.white, callBack);
-
-        internal void FadeFromWhite(Action callBack) =>
-            FadeTo(new Color(1,1,1,0), callBack);
-
-        private void FadeTo(Color color, Action callBack)
+        internal void FadeTo(FadeColor color, FadeMode fadeMode, Action callBack)
         {
-            var startColor = Color;
+            var from = fadeMode == FadeMode.From ? color.GoalColor : color.StartColor;
+            var to = fadeMode == FadeMode.From ? color.StartColor : color.GoalColor;
 
             void ApplyT(float t) =>
-                Color = Color.Lerp(startColor, color, t);
+                Color = Color.Lerp(from, to, t);
 
             fadeRoutine = this.RestartCoroutine(fadeRoutine, Lerping.TimeLerp(ApplyT, fadeTime, callBack));
+        }
+
+
+        internal enum FadeMode
+        {
+
+            To,
+            From
+
         }
 
 
