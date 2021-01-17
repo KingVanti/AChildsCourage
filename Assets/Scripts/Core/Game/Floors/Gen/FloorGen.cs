@@ -6,11 +6,11 @@ using AChildsCourage.Game.Floors.Courage;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Floors.Gen.RoomPlan;
 using static AChildsCourage.Game.Floors.Floor;
-using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.TileOffset;
 using static AChildsCourage.Game.Floors.Gen.ChunkTransform;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.RoomPersistence.SerializedRoomContent;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -81,23 +81,15 @@ namespace AChildsCourage.Game.Floors.Gen
 
             FloorObject CreateWall(TilePosition wallPosition)
             {
-                bool HasGroundBelow() =>
-                    GetCheckGroundPositions()
-                        .Any(groundPositions.Contains);
+                bool HasGroundBelow(int offset) =>
+                    groundPositions.Contains(wallPosition.Map(OffsetBy, new TileOffset(0, -offset)));
 
-                IEnumerable<TilePosition> GetCheckGroundPositions() =>
-                    GetGroundOffsets()
-                        .Select(offset => wallPosition.Map(OffsetBy, offset));
-
-                IEnumerable<TileOffset> GetGroundOffsets() =>
-                    Enumerable.Range(-WallHeight, WallHeight)
-                              .Select(y => new TileOffset(0, y));
-
-                var wallType = HasGroundBelow()
-                    ? WallType.Side
+                WallType GetWallType() =>
+                    HasGroundBelow(1) ? WallType.BottomHalf
+                    : HasGroundBelow(2) ? WallType.TopHalf
                     : WallType.Top;
 
-                return new FloorObject(wallPosition, new WallData(wallType));
+                return new FloorObject(wallPosition, new WallData(GetWallType()));
             }
 
             return GenerateWallPositions()

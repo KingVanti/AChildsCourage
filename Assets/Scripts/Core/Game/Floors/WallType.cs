@@ -4,7 +4,8 @@
     public enum WallType
     {
 
-        Side,
+        TopHalf,
+        BottomHalf,
         Top
 
     }

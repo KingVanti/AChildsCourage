@@ -2762,7 +2762,11 @@ MonoBehaviour:
     variants:
     - {fileID: 11400000, guid: 00e40060c36f4e94eba83d606f926d68, type: 2}
     - {fileID: 11400000, guid: 4c221a60abe8e174087af358445f7874, type: 2}
-  wallSideTiles:
+  wallBottomHalfTiles:
+    variantProb: 0
+    baseTile: {fileID: 11400000, guid: 63574af09e846624083c71a33f31af0c, type: 2}
+    variants: []
+  wallTopHalfTiles:
     variantProb: 5
     baseTile: {fileID: 11400000, guid: 97eeadb556aa12a40ab819c90da3ff55, type: 2}
     variants:
