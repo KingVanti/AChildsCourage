@@ -30,28 +30,22 @@ namespace AChildsCourage
         private static void StartTransitionTo(SceneName sceneName, TransitionColor color)
         {
             isTransitioning = true;
-            if (color == TransitionColor.Black) {
+            if (color == TransitionColor.Black)
                 Fader.FadeToBlack(() => ContinueTransitionTo(sceneName, color));
-            } else {
+            else
                 Fader.FadeToWhite(() => ContinueTransitionTo(sceneName, color));
-            }
         }
 
-        private static void ContinueTransitionTo(SceneName sceneName, TransitionColor color)
-        {
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single).completed += _ => ShowScene(color);
-        }
+        private static void ContinueTransitionTo(SceneName sceneName, TransitionColor color) => SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single).completed += _ => ShowScene(color);
 
         private static void ShowScene(TransitionColor color)
         {
             NotifyOfSceneOpening(CurrentSceneManager);
 
-            if (color == TransitionColor.Black) {
+            if (color == TransitionColor.Black)
                 Fader.FadeFromBlack(CompleteTransition);
-            } else {
+            else
                 Fader.FadeFromWhite(CompleteTransition);
-            }
-
         }
 
         private static void NotifyOfSceneOpening(SceneManagerEntity sceneManager)
@@ -73,9 +67,12 @@ namespace AChildsCourage
                 sceneManager.OnSceneVisible();
         }
 
-        public enum TransitionColor {
+        public enum TransitionColor
+        {
+
             Black,
             White
+
         }
 
     }
