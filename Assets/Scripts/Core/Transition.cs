@@ -18,30 +18,40 @@ namespace AChildsCourage
         private static SceneManagerEntity CurrentSceneManager => Object.FindObjectOfType<SceneManagerEntity>();
 
 
-        internal static void To(SceneName sceneName)
+        internal static void To(SceneName sceneName, TransitionColor color = TransitionColor.Black)
         {
             if (!isTransitioning)
-                StartTransitionTo(sceneName);
+                StartTransitionTo(sceneName, color);
         }
 
         internal static void ToSelf() =>
-            ShowScene();
+            ShowScene(TransitionColor.Black);
 
-        private static void StartTransitionTo(SceneName sceneName)
+        private static void StartTransitionTo(SceneName sceneName, TransitionColor color)
         {
             isTransitioning = true;
-            Fader.FadeToBlack(() => ContinueTransitionTo(sceneName));
+            if (color == TransitionColor.Black) {
+                Fader.FadeToBlack(() => ContinueTransitionTo(sceneName, color));
+            } else {
+                Fader.FadeToWhite(() => ContinueTransitionTo(sceneName, color));
+            }
         }
 
-        private static void ContinueTransitionTo(SceneName sceneName)
+        private static void ContinueTransitionTo(SceneName sceneName, TransitionColor color)
         {
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single).completed += _ => ShowScene();
+            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single).completed += _ => ShowScene(color);
         }
 
-        private static void ShowScene()
+        private static void ShowScene(TransitionColor color)
         {
             NotifyOfSceneOpening(CurrentSceneManager);
-            Fader.FadeFromBlack(CompleteTransition);
+
+            if (color == TransitionColor.Black) {
+                Fader.FadeFromBlack(CompleteTransition);
+            } else {
+                Fader.FadeFromWhite(CompleteTransition);
+            }
+
         }
 
         private static void NotifyOfSceneOpening(SceneManagerEntity sceneManager)
@@ -61,6 +71,11 @@ namespace AChildsCourage
         {
             if (sceneManager)
                 sceneManager.OnSceneVisible();
+        }
+
+        public enum TransitionColor {
+            Black,
+            White
         }
 
     }

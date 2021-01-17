@@ -30,6 +30,12 @@ namespace AChildsCourage
         internal void FadeFromBlack(Action callBack) =>
             FadeTo(Color.clear, callBack);
 
+        internal void FadeToWhite(Action callBack) =>
+            FadeTo(Color.white, callBack);
+
+        internal void FadeFromWhite(Action callBack) =>
+            FadeTo(new Color(1,1,1,0), callBack);
+
         private void FadeTo(Color color, Action callBack)
         {
             var startColor = Color;
