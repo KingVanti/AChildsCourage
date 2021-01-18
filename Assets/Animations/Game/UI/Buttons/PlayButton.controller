@@ -180,7 +180,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: btn_Click
+    functionName: PlayClickSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -843,7 +843,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: btn_Hover
+    functionName: PlayHoverSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
