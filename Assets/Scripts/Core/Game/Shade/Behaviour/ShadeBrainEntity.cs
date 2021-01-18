@@ -26,6 +26,7 @@ namespace AChildsCourage.Game.Shade
         private ShadeState currentState;
         private Investigation currentInvestigation = CompleteInvestigation;
         private float lastRestTime;
+        private bool canReact = true;
 
 
         private float TimeSinceLastRest => Time.time - lastRestTime;
@@ -33,8 +34,7 @@ namespace AChildsCourage.Game.Shade
         private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
 
         private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
-
-
+        
         private ShadeState CurrentState
         {
             get => currentState;
@@ -50,10 +50,18 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState NoStateChange => CurrentState;
 
+        
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnSpawned(object _1, EventArgs _2)
         {
             _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
+            CurrentState = Idle();
+        }
+
+        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        private void OnCharKilled(object _1, EventArgs _2)
+        {
+            canReact = false;
             CurrentState = Idle();
         }
 
@@ -88,8 +96,11 @@ namespace AChildsCourage.Game.Shade
         private void OnVisualContactToTarget(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        private void ReactTo(EventArgs eventArgs) =>
-            CurrentState = CurrentState?.React(eventArgs);
+        private void ReactTo(EventArgs eventArgs)
+        {
+            if (canReact)
+                CurrentState = CurrentState?.React(eventArgs);
+        }
 
         private void RequestAoi() =>
             Execute(new RequestAoiCommand());

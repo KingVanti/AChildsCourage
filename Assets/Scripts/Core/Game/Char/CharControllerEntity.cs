@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using UnityEngine;
@@ -17,6 +16,7 @@ namespace AChildsCourage.Game.Char
         private static readonly int movingAnimatorKey = Animator.StringToHash("IsMoving");
         private static readonly int movingBackwardsAnimatorKey = Animator.StringToHash("IsMovingBackwards");
         private static readonly int sprintingAnimatorKey = Animator.StringToHash("IsSprinting");
+        private static readonly int deathTriggerKey = Animator.StringToHash("Death");
 
         [Pub] public event EventHandler OnCharKilled;
 
@@ -41,7 +41,8 @@ namespace AChildsCourage.Game.Char
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
-        [FindComponent(ComponentFindMode.OnChildren)] private CanvasGroup contextInfoGroup;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private CanvasGroup contextInfoGroup;
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
@@ -57,11 +58,10 @@ namespace AChildsCourage.Game.Char
         private MovementState movementState;
         private Vector2 prevPos = Vector2.negativeInfinity;
 
-        private bool hasMaxCourage = false;
-        private bool isInRiftProximity = false;
-        private bool isEscapingThroughRift = false;
-
-
+        private bool hasMaxCourage;
+        private bool isInRiftProximity;
+        private bool isEscapingThroughRift;
+        
         #endregion
 
         #region Properties
@@ -163,8 +163,8 @@ namespace AChildsCourage.Game.Char
             defaultSpeed = movementSpeed;
         }
 
-        private void FixedUpdate() { { Move(); }
-        }
+        private void FixedUpdate() => 
+            Move();
 
 
         private void UpdateMovementState() =>
@@ -179,11 +179,14 @@ namespace AChildsCourage.Game.Char
 
             animator.SetFloat(rotationIndexAnimatorKey, RotationIndex);
 
-            if (!isEscapingThroughRift) {
+            if (!isEscapingThroughRift)
+            {
                 animator.SetBool(movingAnimatorKey, IsMoving);
                 animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
                 animator.SetBool(sprintingAnimatorKey, IsSprinting);
-            } else {
+            }
+            else
+            {
                 animator.SetBool(movingAnimatorKey, false);
                 animator.SetBool(movingBackwardsAnimatorKey, false);
                 animator.SetBool(sprintingAnimatorKey, false);
@@ -221,18 +224,17 @@ namespace AChildsCourage.Game.Char
 
         private void Move()
         {
-            if (!isEscapingThroughRift) {
+            if (!isEscapingThroughRift)
+            {
                 Velocity = MovingDirection * movementSpeed;
                 UpdateMovementState();
             }
 
-                if (Position != prevPos)
+            if (Position != prevPos)
             {
                 OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
             }
-
-            
         }
 
 
@@ -244,9 +246,7 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))]
-        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) {
-                MovingDirection = eventArgs.MoveDirection;
-        }
+        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) => MovingDirection = eventArgs.MoveDirection;
 
         #region Sprinting
 
@@ -314,36 +314,38 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnRiftInteractInput))]
-        private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs) {
-
-            if (hasMaxCourage && isInRiftProximity) {
-
-                if (eventArgs.HasRiftInteractInput) {
+        private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs)
+        {
+            if (hasMaxCourage && isInRiftProximity)
+            {
+                if (eventArgs.HasRiftInteractInput)
                     isEscapingThroughRift = true;
-                } else {
+                else
                     isEscapingThroughRift = false;
-                }
 
                 OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(isEscapingThroughRift));
                 UpdateAnimator();
             }
-
         }
 
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
-        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) {
-            if(eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
+        private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs)
+        {
+            if (eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
             canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
         }
-        
-        public void Kill() =>
+
+        public void Kill()
+        {
+            animator.SetTrigger(deathTriggerKey);
             OnCharKilled?.Invoke(this, EventArgs.Empty);
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-
-            if(other.CompareTag(EntityTags.Rift) && hasMaxCourage) {
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
+            {
                 contextInfoGroup.alpha = 1;
                 isInRiftProximity = true;
             }
@@ -353,17 +355,15 @@ namespace AChildsCourage.Game.Char
             var couragePickup = other.GetComponent<CouragePickupEntity>();
             OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
             Destroy(other.gameObject);
-
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) {
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
+            {
                 contextInfoGroup.alpha = 0;
                 isInRiftProximity = false;
             }
-
         }
 
         #endregion

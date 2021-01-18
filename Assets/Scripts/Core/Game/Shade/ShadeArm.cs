@@ -22,9 +22,10 @@ namespace AChildsCourage.Game.Shade
         private bool charIsInRange;
         private bool attackIsOnCooldown;
         private bool isBanished;
+        private bool charIsAlive = true;
 
 
-        private bool CanAttack => !isBanished && charIsInRange && !attackIsOnCooldown;
+        private bool CanAttack => charIsAlive && !isBanished && charIsInRange && !attackIsOnCooldown;
 
 
         private void Awake() =>
@@ -44,6 +45,10 @@ namespace AChildsCourage.Game.Shade
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             isBanished = false;
+
+        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        private void OnCharKilled(object _1, EventArgs _2) =>
+            charIsAlive = false;
 
         private void TryAttack()
         {

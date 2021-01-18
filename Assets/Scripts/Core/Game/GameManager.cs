@@ -17,7 +17,7 @@ namespace AChildsCourage.Game
             OnLose();
 
         private void OnLose() =>
-            Transition.To(SceneName.menu, FadeColor.Black);
+            this.DoAfter(() => Transition.To(SceneName.menu, FadeColor.Black), 2);
 
         [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
         private void OnCharEnteredRift(object _1, EventArgs _2) =>
