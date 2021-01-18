@@ -6,11 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Menu.UI
-{
+namespace AChildsCourage.Menu.UI {
 
-    public class MainMenuEntity : MonoBehaviour
-    {
+    public class MainMenuEntity : MonoBehaviour {
 
         [SerializeField] private Animator menuAnimationController;
 
@@ -21,28 +19,41 @@ namespace AChildsCourage.Menu.UI
         private EventInstance btn_ClickInstance;
         private EventInstance btn_HoverInstance;
 
-        public void OnPlayButtonPressed() => 
+        public void OnPlayButtonPressed() =>
             Transition.To(SceneName.startCutscene, FadeColor.Black);
 
         public void OnQuitButtonPressed() =>
             Application.Quit();
 
-        public void OnTutorialButtonPressed() => menuAnimationController.SetTrigger(tutorialIndexKey);
+        public void OnTutorialButtonPressed() {
+            ResetAnimationTriggers();
+            menuAnimationController.SetTrigger(tutorialIndexKey);
+        }
 
-        public void OnControlsButtonPressed() => menuAnimationController.SetTrigger(controlsIndexKey);
+        public void OnControlsButtonPressed() {
+            ResetAnimationTriggers();
+            menuAnimationController.SetTrigger(controlsIndexKey);
+        }
 
-        public void OnCreditsButtonPressed() => menuAnimationController.SetTrigger(creditsIndexKey);
+        public void OnCreditsButtonPressed() {
+            ResetAnimationTriggers();
+            menuAnimationController.SetTrigger(creditsIndexKey);
+        }
 
-        public void btn_Hover()
-        {
+        private void ResetAnimationTriggers() {
+            menuAnimationController.ResetTrigger(creditsIndexKey);
+            menuAnimationController.ResetTrigger(tutorialIndexKey);
+            menuAnimationController.ResetTrigger(controlsIndexKey);
+        }
+
+        public void btn_Hover() {
             btn_HoverInstance = RuntimeManager.CreateInstance(btnOnHover);
             //btn_HoverInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_HoverInstance.start();
             btn_HoverInstance.release();
         }
 
-        public void btn_Click()
-        {
+        public void btn_Click() {
             btn_ClickInstance = RuntimeManager.CreateInstance(btnOnClick);
             //btn_ClickInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_ClickInstance.start();
