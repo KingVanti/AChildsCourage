@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAnimationController: {fileID: 0}
+  menuAnimationController: {fileID: 585995077}
 --- !u!1 &585995073
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,7 +4395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAnimationController: {fileID: 0}
+  menuAnimationController: {fileID: 585995077}
 --- !u!1 &929146853
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,7 +4854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAnimationController: {fileID: 0}
+  menuAnimationController: {fileID: 585995077}
 --- !u!1 &1034676830
 GameObject:
   m_ObjectHideFlags: 0
@@ -9025,7 +9025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAnimationController: {fileID: 0}
+  menuAnimationController: {fileID: 585995077}
 --- !u!1 &1844671984
 GameObject:
   m_ObjectHideFlags: 0
@@ -10134,7 +10134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a6a22733c7af3418b24a8632d5b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuAnimationController: {fileID: 0}
+  menuAnimationController: {fileID: 585995077}
 --- !u!1 &2031927640
 GameObject:
   m_ObjectHideFlags: 0
