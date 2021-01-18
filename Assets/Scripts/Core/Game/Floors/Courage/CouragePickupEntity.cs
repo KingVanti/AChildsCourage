@@ -11,22 +11,50 @@ namespace AChildsCourage.Game.Floors.Courage
         private static readonly int emissionTextureKey = Shader.PropertyToID("_Emission");
 
 
+        [SerializeField] private float maxPlayerDistance;
+        [SerializeField] private float illuminateSpeed;
+
         [FindComponent(ComponentFindMode.OnChildren)]
         private SpriteRenderer spriteRenderer;
+        [FindComponent]
+        private new Collider2D collider;
         [FindComponent(ComponentFindMode.OnChildren)]
         private Light2D lightSource;
 
+        [FindInScene] private FlashlightEntity flashlight;
+
+        private float charge;
         private float maxIntensity;
-        [SerializeField] private float maxPlayerDistance = default;
-        [SerializeField] private float illuminateSpeed = default;
-
-        public CourageVariant Variant { get; private set; }
 
 
-        public void Initialize(CourageVariant variant, CouragePickupAppearance appearance)
+        private float Charge
+        {
+            get => charge;
+            set
+            {
+                charge = value.Clamp(0, 1);
+                lightSource.intensity = Mathf.Lerp(0, maxIntensity, Charge);
+
+                spriteRenderer.enabled = Charge > 0;
+                collider.enabled = Charge > 0;
+            }
+        }
+
+
+        internal CourageVariant Variant { get; private set; }
+
+        private void Update()
+        {
+            if (flashlight.ShinesOn(transform.position))
+                Charge += illuminateSpeed * Time.deltaTime;
+        }
+
+
+        internal void Initialize(CourageVariant variant, CouragePickupAppearance appearance)
         {
             Variant = variant;
             SetAppearance(appearance);
+            Charge = 0;
         }
 
         private void SetAppearance(CouragePickupAppearance appearance)
@@ -37,23 +65,6 @@ namespace AChildsCourage.Game.Floors.Courage
             lightSource.pointLightOuterRadius = appearance.LightOuterRadius;
             maxIntensity = appearance.LightIntensity;
         }
-
-        private void OnTriggerStay2D(Collider2D collision) {
-
-            if (collision.CompareTag(EntityTags.Flashlight)) {
-
-                FlashlightEntity fe = collision.GetComponent<FlashlightEntity>();
-
-                if (fe.IsTurnedOn && (fe.DistanceToCharacter <= maxPlayerDistance)) {
-                    if (lightSource.intensity <= maxIntensity) {
-                        lightSource.intensity = Mathf.MoveTowards(lightSource.intensity, maxIntensity, Time.deltaTime * illuminateSpeed);
-                    }
-                }
-            }
-
-        }
-
-
 
     }
 

@@ -61,7 +61,7 @@ namespace AChildsCourage.Game.Char
         private bool hasMaxCourage;
         private bool isInRiftProximity;
         private bool isEscapingThroughRift;
-        
+
         #endregion
 
         #region Properties
@@ -163,7 +163,7 @@ namespace AChildsCourage.Game.Char
             defaultSpeed = movementSpeed;
         }
 
-        private void FixedUpdate() => 
+        private void FixedUpdate() =>
             Move();
 
 
@@ -350,11 +350,12 @@ namespace AChildsCourage.Game.Char
                 isInRiftProximity = true;
             }
 
-            if (!other.CompareTag(EntityTags.Courage) || !canCollectCourage) return;
-
-            var couragePickup = other.GetComponent<CouragePickupEntity>();
-            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
-            Destroy(other.gameObject);
+            if (other.CompareTag(EntityTags.Courage) && canCollectCourage)
+            {
+                var couragePickup = other.GetComponent<CouragePickupEntity>();
+                OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
+                Destroy(other.gameObject);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
