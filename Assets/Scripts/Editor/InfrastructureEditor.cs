@@ -29,8 +29,7 @@ namespace AChildsCourage
             GetFindComponentMessages(fields).Concat(GetFindInSceneMessages(fields));
 
         private static IEnumerable<string> GetFindInSceneMessages(IEnumerable<FieldInfo> fields) =>
-            fields
-                .Where(HasAttribute<FindInSceneAttribute>).Select(field => $"\"{field.Name}\" is found in the scene");
+            fields.Where(HasAttribute<FindInSceneAttribute>).Select(field => $"{field.FieldType.Name} \"{field.Name}\" is found in the scene");
 
         private static IEnumerable<string> GetFindComponentMessages(IEnumerable<FieldInfo> fields) =>
             fields
@@ -42,7 +41,7 @@ namespace AChildsCourage
                         : findMode == ComponentFindMode.OnChildren ? "one of the game-objects children"
                         : "the game-objects parent";
 
-                    return $"\"{field.Name}\" is found on {findModeString}";
+                    return $"{field.FieldType.Name} \"{field.Name}\" is found on {findModeString}";
                 });
 
         private static void DrawInfrastructureMessages(IEnumerable<string> messages)
