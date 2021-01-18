@@ -24,7 +24,6 @@ namespace AChildsCourage.Menu.UI
         public void OnPlayButtonPressed() => 
             Transition.To(SceneName.startCutscene, FadeColor.Black);
 
-
         public void OnQuitButtonPressed() =>
             Application.Quit();
 
@@ -41,6 +40,7 @@ namespace AChildsCourage.Menu.UI
             btn_HoverInstance.start();
             btn_HoverInstance.release();
         }
+
         public void btn_Click()
         {
             btn_ClickInstance = RuntimeManager.CreateInstance(btnOnClick);
