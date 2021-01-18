@@ -212,7 +212,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: PlayClickSound
+    functionName: btn_Click
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -1119,7 +1119,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: PlayHoverSound
+    functionName: btn_Hover
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
