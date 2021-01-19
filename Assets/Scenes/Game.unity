@@ -1804,13 +1804,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staticObjectPrefab: {fileID: 57104783504101754, guid: c7a422d2f403ccd4c8d01e8673e9163d, type: 3}
   appearanceWeights:
-  - sprite: {fileID: -4494193382955162521, guid: 87b94b84b8905d94eadea319eeb49280, type: 3}
+  - sprite: {fileID: 21300000, guid: e687493d9b0695d4ab025230b3ff5cd1, type: 3}
     weight: 5
-  - sprite: {fileID: 6860260584683262082, guid: 1e8c372669962f74c80dede1843cde7e, type: 3}
+  - sprite: {fileID: 21300000, guid: f9f2c9f83edf6a24d80452aabb8fc3f4, type: 3}
     weight: 5
-  - sprite: {fileID: 3403548148638547520, guid: 4266d138d8e79e4479aa0b613e87653a, type: 3}
+  - sprite: {fileID: 21300000, guid: 4084b568b3770c74997ac1862c673c61, type: 3}
     weight: 1
-  - sprite: {fileID: 2807247365349844877, guid: 12ff2621dab594f4cb3b50edaac3f849, type: 3}
+  - sprite: {fileID: 21300000, guid: 6ce3222f64236624f80d3cf356a10aae, type: 3}
     weight: 1
   - sprite: {fileID: 2557845688152859499, guid: 27c315f1129e00e449f084b13bfc9a0a, type: 3}
     weight: 6
@@ -1818,37 +1818,37 @@ MonoBehaviour:
     weight: 6
   - sprite: {fileID: 2812867475633870936, guid: e18c2230849316f4d98cf02aef0af08c, type: 3}
     weight: 6
-  - sprite: {fileID: 8495299784998510947, guid: faabaca0c27bcea4dae680b5e6cfc927, type: 3}
+  - sprite: {fileID: 21300000, guid: f1825ea09abdee34d89bb869b40f39e3, type: 3}
     weight: 3
-  - sprite: {fileID: -2008213627358707673, guid: dc36792a369514d439bb51faaadf2cd7, type: 3}
+  - sprite: {fileID: 21300000, guid: 99033a106642b3441bb031fed395ad7a, type: 3}
     weight: 3
-  - sprite: {fileID: 8008649206181541547, guid: 5a29ca9d79fba9945983a8cbec481f26, type: 3}
+  - sprite: {fileID: 21300000, guid: b08462a329a616c4d864206e0aaa21f8, type: 3}
     weight: 3
-  - sprite: {fileID: 8139378984915935027, guid: 0f7321e483b5c6b43982f4d3038a4ba3, type: 3}
+  - sprite: {fileID: 21300000, guid: 430306125fa3a844b81e132104f48ff1, type: 3}
     weight: 3
-  - sprite: {fileID: 7568503808982848328, guid: 2da25ae73da3d1447b52698d01d4b573, type: 3}
+  - sprite: {fileID: 21300000, guid: ae39b977d48c18f4faff11368c82b97d, type: 3}
     weight: 3
-  - sprite: {fileID: 8005049291610234830, guid: 50e2e1477609e4e4d83fcab4490ca7b5, type: 3}
+  - sprite: {fileID: 21300000, guid: 98be7e3ec4c67e84bb8013ae0137a1a5, type: 3}
     weight: 3
-  - sprite: {fileID: -6747191045904588289, guid: 5df6884770818934b88ed124e52c81a6, type: 3}
+  - sprite: {fileID: 21300000, guid: 07201970017a421448a2cc35a34bac01, type: 3}
     weight: 3
-  - sprite: {fileID: -1546129580906940222, guid: 339066160ae94c341acb0c4324a74010, type: 3}
+  - sprite: {fileID: 21300000, guid: 96e8742786017fc4188496af131d0631, type: 3}
     weight: 3
-  - sprite: {fileID: -7957537322196649908, guid: 4ce74b3ea92941b4d9bf4a583c282994, type: 3}
+  - sprite: {fileID: 21300000, guid: 4dd920dffbb7b8747af9a4340dc68189, type: 3}
     weight: 3
-  - sprite: {fileID: 8631829189241925809, guid: 77890f19d53aebd4d9280806d47e212d, type: 3}
+  - sprite: {fileID: 21300000, guid: c0492968e83bc2543b71914e1fda158e, type: 3}
     weight: 3
-  - sprite: {fileID: 3024006717981737385, guid: bf0190203ae706845a3c4151cd57267e, type: 3}
+  - sprite: {fileID: 21300000, guid: c2b063d10ce40234eb271d3de873db12, type: 3}
     weight: 3
-  - sprite: {fileID: 5521832036323880227, guid: ecdd55b87a71ea849b1e17ec06222e12, type: 3}
-    weight: 2
-  - sprite: {fileID: -855457861904887047, guid: 4edfcfcea09cd1b4d88b9884bad7ab47, type: 3}
+  - sprite: {fileID: 21300000, guid: 8c5f9ddb7be7a3a48a2299f751774fcf, type: 3}
+    weight: 3
+  - sprite: {fileID: 21300000, guid: 2c66ae329cacce349a49ba824c20f9cd, type: 3}
     weight: 5
-  - sprite: {fileID: -7572530949195215238, guid: dca4d184848a90c4a81b8980dd12032a, type: 3}
+  - sprite: {fileID: 21300000, guid: ca2b146a1a4105347afbabb4c78fad2b, type: 3}
     weight: 5
-  - sprite: {fileID: 6638802855224590145, guid: 2d6b995cd855f8447850e83af9d1074d, type: 3}
+  - sprite: {fileID: 21300000, guid: a17f74d84e75a2248aa4a6ff139a7e01, type: 3}
     weight: 1
-  - sprite: {fileID: 226001504100109904, guid: 00b228eb5fc0dab468fd25dbde0dcd02, type: 3}
+  - sprite: {fileID: 21300000, guid: dcc84da723aa2984cb692317cc224554, type: 3}
     weight: 1
 --- !u!1 &973679598
 GameObject:
@@ -3063,7 +3063,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1609446190
@@ -8084,7 +8084,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1847858660
@@ -8712,7 +8712,7 @@ SpriteRenderer:
   m_Size: {x: 0.75, y: 0.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2117680718
