@@ -1,4 +1,4 @@
-﻿using static AChildsCourage.CustomMath;
+﻿using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Shade
 {

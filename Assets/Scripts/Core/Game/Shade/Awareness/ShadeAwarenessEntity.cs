@@ -1,7 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.Game.Shade.Awareness;
 using static AChildsCourage.Game.Char.Visibility;
 

@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.Game.Char.TensionLevelRange;
 using static AChildsCourage.Game.Char.TensionMeter;
 using static AChildsCourage.Range;

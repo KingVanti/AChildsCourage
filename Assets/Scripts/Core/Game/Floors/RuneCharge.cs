@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Floors
 {

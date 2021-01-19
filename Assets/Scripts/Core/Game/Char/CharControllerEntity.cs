@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Char
 {

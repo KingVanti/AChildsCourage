@@ -4,7 +4,7 @@ using static UnityEngine.Mathf;
 namespace AChildsCourage
 {
 
-    internal static class CustomMath
+    internal static class M
     {
 
         internal static float Remap(float sA, float sB, float tA, float tB, float f) =>

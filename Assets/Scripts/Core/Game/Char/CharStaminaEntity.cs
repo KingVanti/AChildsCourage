@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Char
 {

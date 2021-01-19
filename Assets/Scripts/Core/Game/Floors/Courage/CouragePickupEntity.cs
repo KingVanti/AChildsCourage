@@ -1,7 +1,7 @@
 ﻿using AChildsCourage.Game.Char;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Floors.Courage
 {

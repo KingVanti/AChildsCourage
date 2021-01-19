@@ -3,7 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.Lerping;
 
 namespace AChildsCourage.Game.UI

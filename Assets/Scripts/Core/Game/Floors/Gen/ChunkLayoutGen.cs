@@ -1,5 +1,5 @@
 ﻿using System;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Rng;
 

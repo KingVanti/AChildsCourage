@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Floors

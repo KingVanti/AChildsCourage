@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 using static AChildsCourage.F;
 
 namespace AChildsCourage.Game.Shade
