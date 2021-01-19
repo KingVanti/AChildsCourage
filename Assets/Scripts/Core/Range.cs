@@ -8,7 +8,7 @@ namespace AChildsCourage
     {
 
         public static float Lerp(float t, Range<float> range) =>
-            range.Min + (range.Max - range.Min) * t;
+            Mathf.Lerp(range.Min, range.Max, t);
 
     }
 
