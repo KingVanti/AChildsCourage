@@ -204,7 +204,7 @@ namespace AChildsCourage.Game.Char
 
             RelativeMousePos = (projectedMousePosition - charPos).normalized;
 
-            LookAngle = CalculateAngle(RelativeMousePos.x, RelativeMousePos.y);
+            LookAngle = CalculateAngle(RelativeMousePos);
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 

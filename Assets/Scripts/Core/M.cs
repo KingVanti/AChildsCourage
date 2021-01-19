@@ -33,13 +33,13 @@ namespace AChildsCourage
             : i;
 
         internal static float Inverse(float f) =>
-            1f / f;
+            f == 0 ? 0 : 1f / f;
 
         internal static float Raise(float pow, float f) =>
             Pow(f, pow);
 
         internal static float Squared(float f) =>
-            Pow(f, 2);
+            f.Map(Raise, 2f);
 
         internal static int Minus(int sub, int i) =>
             i - sub;
