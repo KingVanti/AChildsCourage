@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System;
 using NUnit.Framework;
 using static AChildsCourage.Rng;
 
@@ -10,15 +10,31 @@ namespace AChildsCourage
     {
 
         [Test]
-        public void Getting_A_Random_Element_From_Empty_Collection_Returns_Default()
+        public void Getting_A_Random_Element_From_A_Non_Empty_Collection_Gets_The_Correct_Element()
+        {
+            // Given
+
+            var elements = new[] {1, 2, 3};
+
+            // When/Then
+
+            var element = elements.TryGetRandom(ConstantRng(0), () => 0);
+
+            // Then
+
+            Assert.That(element, Is.EqualTo(1), "Did not get correct element!");
+        }
+
+        [Test]
+        public void Getting_A_Random_Element_From_Empty_Collection_Continues_With_Correct_Action()
         {
             // Given
 
             var elements = new int[0];
 
-            // When
+            // When/Then
 
-            var element = elements.GetRandom(ConstantRng(0));
+            var element = elements.TryGetRandom(ConstantRng(0), () => 0);
 
             // Then
 
@@ -26,7 +42,7 @@ namespace AChildsCourage
         }
 
         [Test]
-        public void Getting_A_Random_Weighted_Element_From_Empty_Collection_Returns_Default()
+        public void Getting_A_Random_Weighted_Element_From_Empty_Collection_Continues_With_Correct_Action()
         {
             // Given
 
@@ -34,7 +50,7 @@ namespace AChildsCourage
 
             // When
 
-            var element = elements.GetWeightedRandom(e => e, ConstantRng(0));
+            var element = elements.TryGetWeightedRandom(e => e, ConstantRng(0), () => 0);
 
             // Then
 
@@ -51,14 +67,16 @@ namespace AChildsCourage
 
             // When
 
-            var numbers = new int[1000];
+            var element1Count = 0;
+            var element2Count = 0;
 
-            for (var i = 0; i < numbers.Length; i++) numbers[i] = elements.GetWeightedRandom(e => e, rng);
+            for (var i = 0; i < 1000; i++)
+                if (elements.TryGetWeightedRandom(e => e, rng, () => throw new Exception("Empty!")) == 1)
+                    element1Count++;
+                else
+                    element2Count++;
 
             // Then
-
-            var element1Count = numbers.Count(n => n == 1);
-            var element2Count = numbers.Count(n => n == 2);
 
             Assert.That(element2Count, Is.EqualTo(element1Count * 2)
                                          .Within(100), "Element not selected approximately double as often!");

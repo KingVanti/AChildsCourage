@@ -1,4 +1,5 @@
-﻿using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
+﻿using System;
+using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Floors.Gen
@@ -30,10 +31,9 @@ namespace AChildsCourage.Game.Floors.Gen
                 float CalculateWeight(ChunkPosition position) =>
                     CalculateConnectivityWeight(position);
 
-                return layout
-                       .Map(GetPossibleNextChunks)
-                       .GetWeightedRandom(CalculateWeight, rng)
-                       .Map(OccupyIn, layout);
+                return layout.Map(GetPossibleNextChunks)
+                             .TryGetWeightedRandom(CalculateWeight, rng, () => throw new Exception("No possible chunks remaining!"))
+                             .Map(OccupyIn, layout);
             }
 
 

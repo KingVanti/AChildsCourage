@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Shade;
@@ -19,7 +20,7 @@ namespace AChildsCourage.Game.Floors
         public static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng rng, AoiGenParams @params, GroundPlan groundPlan)
         {
             var center = groundPlan.groundPositions
-                                   .GetRandom(rng);
+                                   .TryGetRandom(rng, () => throw new Exception("Ground-plan is empty!"));
 
             return groundPlan.Map(ChooseRandomAoiPositionsWithCenter, center, rng, @params);
         }
@@ -39,7 +40,7 @@ namespace AChildsCourage.Game.Floors
             {
                 if (circlePositions.IsEmpty) return list;
 
-                var poi = circlePositions.GetRandom(rng);
+                var poi = circlePositions.TryGetRandom(rng, () => throw new Exception("Has no positions left!"));
 
                 RemovePositionsFromCircle(poi);
 
@@ -52,7 +53,7 @@ namespace AChildsCourage.Game.Floors
         public static Vector2 ChooseRandomPositionOutsideRadius(Rng rng, float radius, GroundPlan groundPlan) =>
             groundPlan.groundPositions
                       .Where(p => p.magnitude >= radius)
-                      .GetRandom(rng);
+                      .TryGetRandom(rng, () => throw new Exception("There are no positions outside the given radius!"));
 
 
         private readonly ImmutableHashSet<Vector2> groundPositions;

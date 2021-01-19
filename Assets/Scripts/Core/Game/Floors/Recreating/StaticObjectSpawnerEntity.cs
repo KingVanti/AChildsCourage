@@ -23,7 +23,8 @@ namespace AChildsCourage.Game.Floors
             entity.Sprite = ChooseRandomSprite();
         }
 
-        private Sprite ChooseRandomSprite() => appearanceWeights.GetWeightedRandom(p => p.Weight, rng).Sprite;
+        private Sprite ChooseRandomSprite() =>
+            appearanceWeights.TryGetWeightedRandom(p => p.Weight, rng, () => throw new Exception("No possible sprites!")).Sprite;
 
         private StaticObjectEntity InstantiateStaticObjectAt(TilePosition tilePosition)
         {

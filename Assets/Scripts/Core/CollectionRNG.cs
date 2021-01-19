@@ -9,18 +9,19 @@ namespace AChildsCourage
     internal static class CollectionRng
     {
 
-        internal static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng) =>
-            GetWeightedRandom(calculateWeight, rng, elements);
+        internal static T TryGetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng, Func<T> onEmpty) =>
+            elements.Select(AttachWeight, calculateWeight)
+                    .ToArray()
+                    .Map(TryGetWeightedRandom, rng, onEmpty);
 
+        private static T TryGetWeightedRandom<T>(Rng rng, Func<T> onEmpty, IReadOnlyList<Weighted<T>> weightedElements) =>
+            weightedElements.Any()
+                ? weightedElements.Map(GetWeightedRandom, rng)
+                : onEmpty();
 
-        private static T GetWeightedRandom<T>(CalculateWeight<T> calculateWeight, Rng rng, IEnumerable<T> elements)
+        private static T GetWeightedRandom<T>(Rng rng, IReadOnlyList<Weighted<T>> weightedElements)
         {
-            var weightedElements = elements.AttachWeights(calculateWeight).ToArray();
-
-            if (!weightedElements.Any()) return default;
-
-            var totalWeight = weightedElements.Sum(o => o.Weight);
-            var itemWeightIndex = rng.Map(GetValueUnder, totalWeight);
+            var itemWeightIndex = weightedElements.Map(CalculateItemWeightIndex, rng);
             var currentWeightIndex = 0f;
 
             foreach (var weightedElement in weightedElements)
@@ -33,27 +34,33 @@ namespace AChildsCourage
             throw new Exception("No element selected. This should not happen!");
         }
 
-        private static IEnumerable<Weighted<T>> AttachWeights<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight) =>
-            elements.Select(o => AttachWeight(o, calculateWeight));
+        private static float CalculateItemWeightIndex<T>(Rng rng, IEnumerable<Weighted<T>> weightedElements)
+        {
+            var totalWeight = weightedElements.Map(CalculateTotalWeight);
+            return rng.Map(GetValueUnder, totalWeight);
+        }
 
+        private static float CalculateTotalWeight<T>(IEnumerable<Weighted<T>> weightedElements) =>
+            weightedElements.Sum(o => o.Weight);
 
-        private static Weighted<T> AttachWeight<T>(T element, CalculateWeight<T> calculateWeight) =>
+        private static Weighted<T> AttachWeight<T>(CalculateWeight<T> calculateWeight, T element) =>
             new Weighted<T>(element, calculateWeight(element));
 
+        internal static T TryGetRandom<T>(this IEnumerable<T> elements, Rng rng, Func<T> onEmpty) =>
+            elements.ToArray()
+                    .Map(TryGetRandom, rng, onEmpty);
 
-        internal static T GetRandom<T>(this IEnumerable<T> elements, Rng rng) =>
-            GetRandom(rng, elements);
+        private static T TryGetRandom<T>(Rng rng, Func<T> onEmpty, IReadOnlyList<T> elements) =>
+            elements.Any()
+                ? elements.Map(GetRandom, rng)
+                : onEmpty();
 
+        private static T GetRandom<T>(Rng rng, IReadOnlyList<T> elements) =>
+            elements[elements.Map(ChooseRandomIndex, rng)];
 
-        private static T GetRandom<T>(Rng rng, IEnumerable<T> elements)
-        {
-            var elementsArray = elements.ToArray();
+        private static int ChooseRandomIndex<T>(Rng rng, IReadOnlyCollection<T> elements) =>
+            rng.Map(GetValueUnder, elements.Count);
 
-            if (!elementsArray.Any()) return default;
-
-            var index = rng.Map(GetValueUnder, elementsArray.Length);
-            return elementsArray[index];
-        }
 
         internal delegate float CalculateWeight<in T>(T element);
 
