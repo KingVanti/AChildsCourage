@@ -17,7 +17,7 @@ ScriptedImporter:
     meshType: 0
     extrudeEdges: 1
     spritePivot: {x: 0.5, y: 0}
-    generatePhysics: 0
+    generatePhysics: 1
     wrapMode: 1
     filterMode: 0
     tileSize: {x: 32, y: 32}
