@@ -1,4 +1,5 @@
 ﻿using System;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Rng;
 
@@ -23,7 +24,7 @@ namespace AChildsCourage.Game.Floors.Gen
                     var indirectConnectionCount = position.Map(CountIndirectConnections, layout);
 
                     var directConnectionWeight = directConnectionCount > 1 ? @params.ClumpingFactor : NoWeight;
-                    var indirectConnectionWeight = indirectConnectionCount.Times(@params.ClumpingFactor);
+                    var indirectConnectionWeight = indirectConnectionCount.Map(Times, @params.ClumpingFactor);
 
                     return directConnectionWeight + indirectConnectionWeight;
                 }

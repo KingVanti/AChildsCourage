@@ -3,6 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Lerping;
 
 namespace AChildsCourage.Game.UI
@@ -28,7 +29,7 @@ namespace AChildsCourage.Game.UI
         private float FillPercent
         {
             get => courageBarFill.fillAmount;
-            set => courageBarFill.fillAmount = value.Clamp(0, 1);
+            set => courageBarFill.fillAmount = value.Map(Clamp, 0f, 1f);
         }
 
         private float CompletionPercent

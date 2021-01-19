@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors.Courage;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Floors.Gen.RoomPlan;
 using static AChildsCourage.Game.Floors.Floor;
@@ -118,7 +119,7 @@ namespace AChildsCourage.Game.Floors.Gen
                                .Where(objectSelector)
                                .ToImmutableHashSet();
 
-            var removeCount = initial.Count.Minus(goalCount);
+            var removeCount = initial.Count.Map(Minus, goalCount);
 
             IEnumerable<FloorObject> GetFiltered()
             {

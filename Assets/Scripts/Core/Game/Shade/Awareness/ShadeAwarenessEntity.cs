@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Game.Shade.Awareness;
 using static AChildsCourage.Game.Char.Visibility;
 
@@ -82,7 +83,7 @@ namespace AChildsCourage.Game.Shade
 
         private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
 
-        private float DistanceMultiplier => DistanceToCharacter.Remap(0, maxDistance, maxDistanceMultiplier, 0);
+        private float DistanceMultiplier => DistanceToCharacter.Map(Remap, 0f, maxDistance, maxDistanceMultiplier, 0f);
 
         private float DistanceToCharacter => Vector3.Distance(transform.position, charController.transform.position);
 

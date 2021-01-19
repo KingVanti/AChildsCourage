@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Shade
+﻿using static AChildsCourage.CustomMath;
+
+namespace AChildsCourage.Game.Shade
 {
 
     public readonly struct Awareness
@@ -20,7 +22,7 @@
 
 
         public Awareness(float value) =>
-            this.value = value.Clamp(MinAwareness, MaxAwareness);
+            this.value = value.Map(Clamp, MinAwareness, MaxAwareness);
 
 
         public static implicit operator float(Awareness awareness) =>

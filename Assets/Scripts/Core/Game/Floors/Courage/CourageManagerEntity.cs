@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
@@ -24,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Courage
             get => currentCourage;
             set
             {
-                currentCourage = value.Clamp(0, targetCourage);
+                currentCourage = value.Map(Clamp, 0, targetCourage);
                 OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentCourage, CompletionPercent));
             }
         }

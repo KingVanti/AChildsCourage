@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Floors
@@ -36,7 +37,7 @@ namespace AChildsCourage.Game.Floors
             burnedOut = true;
 
             void ApplyT(float t) =>
-                Intensity = t.Remap(0, 1, intensityRange.Max, flashIntensity);
+                Intensity = t.Map(Remap, 0f, 1f, intensityRange.Max, flashIntensity);
 
             StartCoroutine(Lerping.TimeLerp(ApplyT, flashTime, FadeOut));
         }
@@ -44,7 +45,7 @@ namespace AChildsCourage.Game.Floors
         private void FadeOut()
         {
             void ApplyT(float t) =>
-                Intensity = t.RemapSquared(0, 1, flashIntensity, intensityRange.Min);
+                Intensity = t.Map(RemapSquared, 0f, 1f, flashIntensity, intensityRange.Min);
 
             StartCoroutine(Lerping.TimeLerp(ApplyT, fadeOutTime));
         }

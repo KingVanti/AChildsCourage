@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Char
+﻿using static AChildsCourage.CustomMath;
+
+namespace AChildsCourage.Game.Char
 {
 
     public readonly struct Tension
@@ -15,7 +17,7 @@
 
 
         private Tension(float value) =>
-            this.value = value.Clamp(MinTension, MaxTension);
+            this.value = value.Map(Clamp, MinTension, MaxTension);
 
 
         public static implicit operator Tension(float value) =>

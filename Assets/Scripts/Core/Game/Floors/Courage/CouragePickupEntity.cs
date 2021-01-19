@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Char;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
@@ -32,7 +33,7 @@ namespace AChildsCourage.Game.Floors.Courage
             get => charge;
             set
             {
-                charge = value.Clamp(0, 1);
+                charge = value.Map(Clamp, 0f, 1f);
                 lightSource.intensity = Mathf.Lerp(0, maxIntensity, Charge);
 
                 spriteRenderer.enabled = Charge > 0;

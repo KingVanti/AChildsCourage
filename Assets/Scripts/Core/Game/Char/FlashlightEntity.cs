@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Input;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Range;
 
 namespace AChildsCourage.Game.Char
@@ -88,7 +89,7 @@ namespace AChildsCourage.Game.Char
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        public float ShineDistanceInterpolation => DistanceToCharacter.Remap(0f, maxShineDistance, 1, 0).Squared();
+        public float ShineDistanceInterpolation => DistanceToCharacter.Map(Remap, 0f, maxShineDistance, 1f, 0f).Map(Squared);
 
         internal float ShineRadius => lightComponent.pointLightOuterRadius;
 

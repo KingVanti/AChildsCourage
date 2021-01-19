@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 using static AChildsCourage.Game.Char.TensionLevelRange;
 using static AChildsCourage.Game.Char.TensionMeter;
 using static AChildsCourage.Range;
@@ -59,7 +60,7 @@ namespace AChildsCourage.Game.Char
 
         private bool IsInShadeDetectionRange => ShadeDistance < shadeDetectionDistance;
 
-        private float ShadeDistanceInterpolator => ShadeDistance.Remap(0, shadeDetectionDistance, 1, 0);
+        private float ShadeDistanceInterpolator => ShadeDistance.Map(Remap, 0f, shadeDetectionDistance, 1f, 0f);
 
         private float ShadeDistanceGain => shadeDistanceGainRange.Map(Lerp, ShadeDistanceInterpolator);
 

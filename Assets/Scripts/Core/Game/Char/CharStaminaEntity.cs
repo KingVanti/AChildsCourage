@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Char
 {
@@ -65,8 +66,8 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateStamina() =>
             Stamina = Stamina
-                      .Plus(currentChangeRate * Time.deltaTime)
-                      .Clamp(0, 100);
+                      .Map(Plus, currentChangeRate * Time.deltaTime)
+                      .Map(Clamp, 0f, 100f);
 
         private void StartCoolDown()
         {

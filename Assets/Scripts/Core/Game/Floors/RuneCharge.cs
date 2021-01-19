@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static AChildsCourage.CustomMath;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -14,8 +15,8 @@ namespace AChildsCourage.Game.Floors
 
         public static RuneCharge Change(float delta, RuneCharge charge) =>
             charge.value
-                  .Plus(delta)
-                  .Clamp(MinCharge, MaxCharge)
+                  .Map(Plus, delta)
+                  .Map(Clamp, MinCharge, MaxCharge)
                   .Map(c => new RuneCharge(c));
 
 
