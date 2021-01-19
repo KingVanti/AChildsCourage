@@ -1,6 +1,7 @@
 ﻿using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.Game.Floors.RuneCharge;
 
 namespace AChildsCourage.Game.Floors
@@ -19,6 +20,8 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Sprite chargedSprite;
         [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private new RuneLight light;
+        [SerializeField] private Material runeUsedMaterial;
+        [SerializeField] private Light2D glowLight;
 
         [FindInScene] private FlashlightEntity flashLight;
         [FindComponent] private SpriteRenderer spriteRenderer;
@@ -76,6 +79,8 @@ namespace AChildsCourage.Game.Floors
             light.Flash();
             Charge = NoCharge;
             spriteRenderer.sprite = inactiveSprite;
+            spriteRenderer.material = runeUsedMaterial;
+            glowLight.intensity = 0;
         }
 
     }

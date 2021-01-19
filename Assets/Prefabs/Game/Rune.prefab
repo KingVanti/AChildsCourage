@@ -195,6 +195,8 @@ MonoBehaviour:
   chargedSprite: {fileID: 21300000, guid: 19b006918c31a704b9578b9cc222e6e4, type: 3}
   inactiveSprite: {fileID: 21300000, guid: e662447a9cdd4f14493b6c346329d099, type: 3}
   light: {fileID: 744023481850063004}
+  runeUsedMaterial: {fileID: 2100000, guid: ceb83b01c7e415c4ea1b51ac8df67d6f, type: 2}
+  glowLight: {fileID: 7896740895893267104}
 --- !u!1 &8492341495005754838
 GameObject:
   m_ObjectHideFlags: 0
