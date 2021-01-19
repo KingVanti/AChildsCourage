@@ -28,10 +28,13 @@ namespace AChildsCourage
             return monoBehaviour.StartCoroutine(WaitAndDo());
         }
 
-        internal static Coroutine StartOnly(this MonoBehaviour monoBehaviour, Func<IEnumerator> routineFunction)
+        internal static Coroutine StartOnly(this MonoBehaviour monoBehaviour, Func<IEnumerator> routineFunction) =>
+            monoBehaviour.StartOnly(routineFunction());
+
+        internal static Coroutine StartOnly(this MonoBehaviour monoBehaviour, IEnumerator routine)
         {
             monoBehaviour.StopAllCoroutines();
-            return monoBehaviour.StartCoroutine(routineFunction());
+            return monoBehaviour.StartCoroutine(routine);
         }
 
         internal static Coroutine DoContinually(this MonoBehaviour monoBehaviour, Action action, float waitTime = 0)
