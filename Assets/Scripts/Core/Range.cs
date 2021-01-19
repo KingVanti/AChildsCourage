@@ -26,6 +26,7 @@ namespace AChildsCourage
 
         public Range(TValue min, TValue max)
         {
+            if (min.CompareTo(max) == 1) throw new ArgumentException("Minimum must be smaller than maximum");
             this.min = min;
             this.max = max;
         }
