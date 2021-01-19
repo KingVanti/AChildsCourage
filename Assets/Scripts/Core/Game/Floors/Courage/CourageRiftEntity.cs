@@ -19,15 +19,21 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float escapeTime = 5f;
         [SerializeField] private float maxLightIntensity = 10f;
         [SerializeField] private float maxOuterRadius = 12f;
-        [SerializeField] private AnimationCurve lightCurve;
+
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private CanvasGroup contextInfo;
 
         [FindComponent] private SpriteRenderer spriteRenderer;
+
         [FindComponent(ComponentFindMode.OnChildren)]
         private ParticleSystem riftParticleSystem;
 
         [FindComponent(ComponentFindMode.OnChildren)]
         private Light2D courageLight;
+
+        [FindComponent] private AnimationCurve lightCurve;
         [FindInScene] private CourageManagerEntity courageManager;
+        
 
         private bool isOpen;
         private bool isEscaping;
@@ -100,6 +106,20 @@ namespace AChildsCourage.Game.Floors.Courage
         {
             var spriteIndex = Mathf.FloorToInt(MaxSpriteIndex * completionPercent);
             return riftStageSprites[spriteIndex];
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision) {
+            if (collision.CompareTag(EntityTags.Char)) {
+                if (isOpen) {
+                    contextInfo.alpha = 1;
+                }
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision) {
+            if (collision.CompareTag(EntityTags.Char)) {
+                contextInfo.alpha = 0;
+            }
         }
 
         private void UpdateEmissionRate(float completionPercent) =>

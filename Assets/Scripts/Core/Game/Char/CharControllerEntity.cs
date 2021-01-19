@@ -41,8 +41,6 @@ namespace AChildsCourage.Game.Char
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private CanvasGroup contextInfoGroup;
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
@@ -346,7 +344,6 @@ namespace AChildsCourage.Game.Char
         {
             if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
             {
-                contextInfoGroup.alpha = 1;
                 isInRiftProximity = true;
             }
 
@@ -362,7 +359,6 @@ namespace AChildsCourage.Game.Char
         {
             if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
             {
-                contextInfoGroup.alpha = 0;
                 isInRiftProximity = false;
             }
         }
