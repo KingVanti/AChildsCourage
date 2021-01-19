@@ -19,6 +19,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float escapeTime = 5f;
         [SerializeField] private float maxLightIntensity = 10f;
         [SerializeField] private float maxOuterRadius = 12f;
+        [SerializeField] private AnimationCurve lightCurve;
 
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent(ComponentFindMode.OnChildren)]
@@ -117,18 +118,19 @@ namespace AChildsCourage.Game.Floors.Courage
 
         IEnumerator CourageLighting() {
 
-            float intensitySpeed = (maxLightIntensity - 0.3f) / escapeTime;
-            float radiusSpeed = (maxOuterRadius - 12) / escapeTime;
+            float graphValue = 0f;
+            float speed = 1 / escapeTime;
 
             while (true) {
 
                 if (isEscaping) {
-                    LightIntensity = Mathf.MoveTowards(LightIntensity, maxLightIntensity, intensitySpeed * Time.deltaTime);
-                    LightOuterRadius = Mathf.MoveTowards(LightOuterRadius, maxOuterRadius, radiusSpeed * Time.deltaTime);
+                    graphValue = Mathf.MoveTowards(graphValue, 1, speed * Time.deltaTime);
                 } else {
-                    LightIntensity = Mathf.MoveTowards(LightIntensity, 0.3f, Time.deltaTime * intensitySpeed * 5f);
-                    LightOuterRadius = Mathf.MoveTowards(LightOuterRadius, 12, Time.deltaTime * radiusSpeed * 5f);
+                    graphValue = Mathf.MoveTowards(graphValue, 0, speed * Time.deltaTime * 5f);
                 }
+
+                LightIntensity = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxLightIntensity, 0.3f, maxLightIntensity);
+                LightOuterRadius = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxOuterRadius, 12, maxOuterRadius);
 
                 yield return null;
 
