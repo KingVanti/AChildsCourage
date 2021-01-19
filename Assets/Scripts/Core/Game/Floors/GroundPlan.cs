@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors
         {
             var center = groundPlan.groundPositions
                                    .GetRandom(rng);
-            
+
             return groundPlan.Map(ChooseRandomAoiPositionsWithCenter, center, rng, @params);
         }
 

@@ -1,5 +1,4 @@
-﻿using System.Security.Permissions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -12,7 +11,7 @@ namespace AChildsCourage.Game.Floors
 
         public static RuneCharge NoCharge => new RuneCharge(MinCharge);
 
-        
+
         public static RuneCharge Change(float delta, RuneCharge charge) =>
             charge.value
                   .Plus(delta)

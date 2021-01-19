@@ -30,7 +30,7 @@ namespace AChildsCourage.Game.Shade
     public class StopCommand : ShadeCommand { }
 
     public class LookAheadCommand : ShadeCommand { }
-    
+
     public class RequestAoiCommand : ShadeCommand { }
 
 }

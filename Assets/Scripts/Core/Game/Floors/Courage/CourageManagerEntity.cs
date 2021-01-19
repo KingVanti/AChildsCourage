@@ -7,6 +7,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
     public class CourageManagerEntity : MonoBehaviour
     {
+
         private const int BaseCourage = 0;
 
         [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
@@ -41,7 +42,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void AddCourage(int amount) =>
             CurrentCourage += amount;
-        
+
     }
 
 }

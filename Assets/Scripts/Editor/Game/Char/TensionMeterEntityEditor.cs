@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Char
     {
 
         private TensionMeterEntity TensionMeterEntity => (TensionMeterEntity) target;
-        
+
         private Tension CurrentTension => TensionMeterEntity.TensionMeter.Tension;
 
         private Vector3 CharPosition => TensionMeterEntity.transform.position;

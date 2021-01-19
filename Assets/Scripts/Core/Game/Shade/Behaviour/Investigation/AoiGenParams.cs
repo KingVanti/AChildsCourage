@@ -12,7 +12,7 @@ namespace AChildsCourage.Game.Shade
         [SerializeField] private float radius;
         [SerializeField] private float poiDistance;
 
-        
+
         public int PoiCount => poiCount;
 
         public float Radius => radius;

@@ -9,7 +9,7 @@
 
 
         public static Tension NoTension => new Tension(MinTension);
-        
+
 
         private readonly float value;
 

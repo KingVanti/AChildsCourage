@@ -8,7 +8,7 @@ namespace AChildsCourage.Game.Shade
 
         public ShadeCommand Command { get; }
 
-        
+
         public ShadeCommandEventArgs(ShadeCommand command) =>
             Command = command;
 

@@ -18,7 +18,7 @@ namespace AChildsCourage
             Debug.Log(formatter(item));
             return item;
         }
-        
+
         public static T Log<T>(this T item, string text)
         {
             Debug.Log(text);

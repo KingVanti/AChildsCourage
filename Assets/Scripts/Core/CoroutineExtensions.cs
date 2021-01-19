@@ -8,7 +8,7 @@ namespace AChildsCourage
     internal static class CoroutineExtensions
     {
 
-        internal static Coroutine RestartCoroutine(this MonoBehaviour monoBehaviour, Coroutine coroutine, Func<IEnumerator> routineFunction) => 
+        internal static Coroutine RestartCoroutine(this MonoBehaviour monoBehaviour, Coroutine coroutine, Func<IEnumerator> routineFunction) =>
             monoBehaviour.RestartCoroutine(coroutine, routineFunction());
 
         internal static Coroutine RestartCoroutine(this MonoBehaviour monoBehaviour, Coroutine coroutine, IEnumerator routine)

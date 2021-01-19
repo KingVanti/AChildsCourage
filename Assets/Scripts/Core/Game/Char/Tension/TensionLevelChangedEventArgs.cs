@@ -7,7 +7,7 @@ namespace AChildsCourage.Game.Char
     {
 
         public TensionLevel Level { get; }
-        
+
 
         public TensionLevelChangedEventArgs(TensionLevel level) =>
             Level = level;

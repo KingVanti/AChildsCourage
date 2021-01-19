@@ -27,9 +27,9 @@ namespace AChildsCourage
             return result;
         }
 
-        public static TItem While<TItem>(this TItem input, Func<TItem, bool> predicate, Func<TItem, TItem> function) => 
+        public static TItem While<TItem>(this TItem input, Func<TItem, bool> predicate, Func<TItem, TItem> function) =>
             predicate(input)
-                ? function(input).While(predicate, function) 
+                ? function(input).While(predicate, function)
                 : input;
 
         public static TItem DoIf<TItem>(this TItem input, Func<TItem, TItem> function, bool predicate) =>
@@ -124,11 +124,8 @@ namespace AChildsCourage
 
         public static Func<TP1, TRes> Fun<TP1, TRes>(Func<TP1, TRes> func)
             => func;
-        
-        public static IEnumerable<T> AsSingleEnumerable<T>(this T item)
-        {
-            yield return item; 
-        }
+
+        public static IEnumerable<T> AsSingleEnumerable<T>(this T item) { yield return item; }
 
     }
 

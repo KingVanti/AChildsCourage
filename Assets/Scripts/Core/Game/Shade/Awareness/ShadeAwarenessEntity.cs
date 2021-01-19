@@ -108,7 +108,7 @@ namespace AChildsCourage.Game.Shade
             UpdateAwareness();
             UpdateLastKnownCharInfo();
         }
-        
+
         private void UpdateLastKnownCharInfo()
         {
             if (CurrentAwarenessLevel == AwarenessLevel.Aware)

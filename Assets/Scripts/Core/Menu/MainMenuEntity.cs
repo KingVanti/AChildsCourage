@@ -1,20 +1,18 @@
 ﻿using FMOD.Studio;
 using FMODUnity;
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-namespace AChildsCourage.Menu.UI {
+namespace AChildsCourage.Menu.UI
+{
 
-    public class MainMenuEntity : MonoBehaviour {
-
-        [SerializeField] private Animator menuAnimationController;
+    public class MainMenuEntity : MonoBehaviour
+    {
 
         private static readonly int tutorialIndexKey = Animator.StringToHash("Tutorial");
         private static readonly int controlsIndexKey = Animator.StringToHash("Controls");
         private static readonly int creditsIndexKey = Animator.StringToHash("Credits");
+
+        [SerializeField] private Animator menuAnimationController;
 
         private EventInstance btn_ClickInstance;
         private EventInstance btn_HoverInstance;
@@ -25,47 +23,56 @@ namespace AChildsCourage.Menu.UI {
         public void OnQuitButtonPressed() =>
             Application.Quit();
 
-        public void OnTutorialButtonPressed() {
+        public void OnTutorialButtonPressed()
+        {
             ResetAnimationTriggers();
             menuAnimationController.SetTrigger(tutorialIndexKey);
         }
 
-        public void OnControlsButtonPressed() {
+        public void OnControlsButtonPressed()
+        {
             ResetAnimationTriggers();
             menuAnimationController.SetTrigger(controlsIndexKey);
         }
 
-        public void OnCreditsButtonPressed() {
+        public void OnCreditsButtonPressed()
+        {
             ResetAnimationTriggers();
             menuAnimationController.SetTrigger(creditsIndexKey);
         }
 
-        private void ResetAnimationTriggers() {
+        private void ResetAnimationTriggers()
+        {
             menuAnimationController.ResetTrigger(creditsIndexKey);
             menuAnimationController.ResetTrigger(tutorialIndexKey);
             menuAnimationController.ResetTrigger(controlsIndexKey);
         }
 
-        public void btn_Hover() {
+        public void btn_Hover()
+        {
             btn_HoverInstance = RuntimeManager.CreateInstance(btnOnHover);
+
             //btn_HoverInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_HoverInstance.start();
             btn_HoverInstance.release();
         }
 
-        public void btn_Click() {
+        public void btn_Click()
+        {
             btn_ClickInstance = RuntimeManager.CreateInstance(btnOnClick);
+
             //btn_ClickInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
             btn_ClickInstance.start();
             btn_ClickInstance.release();
         }
 
         #region eventpaths
+
         private const string btnOnHover = "event:/UI/Buttons/btn_hover";
         private const string btnOnClick = "event:/UI/Buttons/btn_click";
 
-
         #endregion
+
     }
 
 }

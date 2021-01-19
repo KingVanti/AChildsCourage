@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float minIntensity;
 
         [FindInScene] private FlashlightEntity flashlight;
-        
+
         private ImmutableHashSet<Light2D> lightSources;
 
 
@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Char
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
             lightSources = FindObjectsOfType<Light2D>().ToImmutableHashSet();
 
-        private void CheckForMissingLightSources() => 
+        private void CheckForMissingLightSources() =>
             lightSources = lightSources.Where(l => l).ToImmutableHashSet();
 
         private void UpdateLitStatus() =>

@@ -9,9 +9,6 @@ namespace AChildsCourage
     internal static class CollectionRng
     {
 
-        internal delegate float CalculateWeight<in T>(T element);
-
-
         internal static T GetWeightedRandom<T>(this IEnumerable<T> elements, CalculateWeight<T> calculateWeight, Rng rng) =>
             GetWeightedRandom(calculateWeight, rng, elements);
 
@@ -57,6 +54,8 @@ namespace AChildsCourage
             var index = rng.Map(GetValueUnder, elementsArray.Length);
             return elementsArray[index];
         }
+
+        internal delegate float CalculateWeight<in T>(T element);
 
 
         private readonly struct Weighted<T>

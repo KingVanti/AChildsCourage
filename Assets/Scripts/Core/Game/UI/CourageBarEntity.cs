@@ -33,9 +33,7 @@ namespace AChildsCourage.Game.UI
 
         private float CompletionPercent
         {
-            get {
-                return completionPercent;
-            }
+            get => completionPercent;
             set
             {
                 completionPercent = value;
@@ -62,19 +60,15 @@ namespace AChildsCourage.Game.UI
             CompletionPercent = eventArgs.CompletionPercent;
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
-        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) {
+        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs)
+        {
+            if (eventArgs.Variant == CourageVariant.Spark) pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
 
-            if(eventArgs.Variant == CourageVariant.Spark) {
-                pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
-            }
-
-            if (eventArgs.Variant == CourageVariant.Orb) {
-                pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
-            }
-
+            if (eventArgs.Variant == CourageVariant.Orb) pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
         }
 
-        private void PlayFillAnimation(AnimationEvent fillAnimation) {
+        private void PlayFillAnimation(AnimationEvent fillAnimation)
+        {
             fillAnimation.floatParameter = CompletionPercent;
             UpdateBarFill(CompletionPercent);
         }

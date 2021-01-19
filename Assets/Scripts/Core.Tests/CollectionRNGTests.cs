@@ -15,7 +15,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            
+
             // When
 
             var element = elements.GetRandom(ConstantRng(0));
@@ -31,7 +31,7 @@ namespace AChildsCourage
             // Given
 
             var elements = new int[0];
-            
+
             // When
 
             var element = elements.GetWeightedRandom(e => e, ConstantRng(0));

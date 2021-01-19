@@ -10,17 +10,17 @@ namespace AChildsCourage.Game.Input
     internal class InputListener : MonoBehaviour
     {
 
+        [Pub] public event EventHandler OnExitInput;
+
         [Pub] public event EventHandler OnFlashLightInput;
 
         [Pub] public event EventHandler<MousePositionChangedEventArgs> OnMousePositionChanged;
 
         [Pub] public event EventHandler<MoveDirectionChangedEventArgs> OnMoveDirectionChanged;
 
-        [Pub] public event EventHandler<SprintInputEventArgs> OnSprintInput;
-
         [Pub] public event EventHandler<RiftInteractInputEventArgs> OnRiftInteractInput;
 
-        [Pub] public event EventHandler OnExitInput;
+        [Pub] public event EventHandler<SprintInputEventArgs> OnSprintInput;
 
         private CharControls charControls;
 

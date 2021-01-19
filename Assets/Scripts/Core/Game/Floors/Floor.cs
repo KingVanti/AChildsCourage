@@ -55,10 +55,10 @@ namespace AChildsCourage.Game.Floors
         public static Floor EmptyFloor(ChunkPosition endRoomChunk) =>
             new Floor(ImmutableHashSet<FloorObject>.Empty,
                       endRoomChunk);
-        
-        
+
+
         public ImmutableHashSet<FloorObject> Objects { get; }
-        
+
         public ChunkPosition EndRoomChunk { get; }
 
 
