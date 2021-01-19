@@ -47,7 +47,11 @@ namespace AChildsCourage.Game.Floors
             void ApplyT(float t) =>
                 Intensity = t.Map(RemapSquared, 0f, 1f, flashIntensity, intensityRange.Min);
 
-            StartCoroutine(Lerping.TimeLerp(ApplyT, fadeOutTime));
+            StartCoroutine(Lerping.TimeLerp(ApplyT, fadeOutTime, SwitchOff));
+        }
+
+        private void SwitchOff() {
+            Intensity = 0f;
         }
 
     }
