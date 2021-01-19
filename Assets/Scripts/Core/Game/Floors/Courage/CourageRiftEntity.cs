@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Floors.Courage
         [FindComponent(ComponentFindMode.OnChildren)]
         private Light2D courageLight;
 
-        [FindComponent] private AnimationCurve lightCurve;
+        [SerializeField] private AnimationCurve lightCurve;
         [FindInScene] private CourageManagerEntity courageManager;
         
 
