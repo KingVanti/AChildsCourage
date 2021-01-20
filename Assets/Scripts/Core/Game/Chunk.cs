@@ -17,17 +17,14 @@ namespace AChildsCourage.Game
         public const int ChunkExtent = MaxChunkCoord / 2;
 
 
-        public static Chunk OriginChunk => new Chunk(0, 0);
-
-        public static TileOffset TopCornerOffset => new TileOffset(MaxChunkCoord, MaxChunkCoord);
-
-
-        private static TileOffset ChunkCenterTileOffset { get; } = new TileOffset(ChunkExtent, ChunkExtent);
+        public static readonly Chunk originChunk = new Chunk(0, 0);
+        public static readonly TileOffset topCornerOffset = new TileOffset(MaxChunkCoord, MaxChunkCoord);
+        private static readonly TileOffset chunkCenterTileOffset = new TileOffset(ChunkExtent, ChunkExtent);
 
 
         public static TilePosition GetCenter(Chunk position) =>
             position.Map(GetCorner)
-                    .Map(OffsetBy, ChunkCenterTileOffset);
+                    .Map(OffsetBy, chunkCenterTileOffset);
 
         internal static TilePosition GetCorner(Chunk position) =>
             new TilePosition(position.X * ChunkSize,

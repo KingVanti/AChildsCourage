@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.Floors
             var maxChunk = new TilePosition(maxX, maxY).Map(GetChunk);
 
             return new FloorDimensions(minChunk.Map(GetCorner),
-                                       maxChunk.Map(GetCorner).Map(OffsetBy, TopCornerOffset));
+                                       maxChunk.Map(GetCorner).Map(OffsetBy, topCornerOffset));
         }
 
         public static Vector2 GetEndRoomCenter(Floor floor) =>

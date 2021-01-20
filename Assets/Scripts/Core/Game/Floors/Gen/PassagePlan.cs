@@ -45,7 +45,7 @@ namespace AChildsCourage.Game.Floors.Gen
             var passages = plan.passages[position];
 
             var roomType =
-                position.Equals(OriginChunk) ? RoomType.Start
+                position.Equals(originChunk) ? RoomType.Start
                 : position.Equals(GetFurthestChunkFromOrigin()) ? RoomType.End
                 : RoomType.Normal;
 
