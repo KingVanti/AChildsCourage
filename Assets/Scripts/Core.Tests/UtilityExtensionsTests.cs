@@ -41,6 +41,39 @@ namespace AChildsCourage
 
             Assert.That(changed.a, Is.EqualTo(alpha), "A channel did not change!");
         }
+        
+        [Test]
+        public void Adding_Z_To_A_Vector_Does_Not_Change_The_Other_Coordinates([Random(0f, 1f, 100)] float coordinates)
+        {
+            // Given
+
+            var vector = new Vector2(coordinates, coordinates);
+
+            // When
+
+            var withZ = vector.WithZ(1);
+
+            // Then
+
+            Assert.That(withZ.x, Is.EqualTo(vector.x), "X changed!");
+            Assert.That(withZ.y, Is.EqualTo(vector.y), "Y changed!");
+        }
+
+        [Test]
+        public void Adding_Z_To_A_Vector_Changes_The_Z_Coordinate([Random(0f, 1f, 100)] float z)
+        {
+            // Given
+
+            var vector = new Vector2(0, 0);
+
+            // When
+
+            var withZ = vector.WithZ(z);
+
+            // Then
+
+            Assert.That(withZ.z, Is.EqualTo(z), "Z was not added correctly!");
+        }
 
     }
 

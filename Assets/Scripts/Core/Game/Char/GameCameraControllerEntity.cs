@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Char
             FocusOn(eventArgs.NewPosition);
 
         private void FocusOn(Vector2 newPosition) =>
-            transform.position = new Vector3(newPosition.x, newPosition.y, -10.0f);
+            transform.position = newPosition.WithZ(-10);
 
     }
 
