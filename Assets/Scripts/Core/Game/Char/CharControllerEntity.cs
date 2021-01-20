@@ -50,7 +50,6 @@ namespace AChildsCourage.Game.Char
         private bool hasFlashlightEquipped;
         private bool canCollectCourage = true;
         private bool isSprinting;
-        private bool hasStamina = true;
         private MovementState movementState;
         private Vector2 prevPos = Vector2.negativeInfinity;
 
@@ -116,9 +115,9 @@ namespace AChildsCourage.Game.Char
                 if (!HasDirectionalInput && IsSprinting)
                     StopSprinting();
 
-                if (HasSprintInput && HasDirectionalInput && !IsSprinting)
+                if (HasSprintInput && HasDirectionalInput && !IsSprinting && CanSprint)
                     StartSprinting();
-                
+
                 UpdateMovementState();
             }
         }
@@ -150,8 +149,10 @@ namespace AChildsCourage.Game.Char
             {
                 hasSprintInput = value;
 
-                if (HasSprintInput && HasDirectionalInput && !IsSprinting)
+                if (HasSprintInput && HasDirectionalInput && !IsSprinting && CanSprint)
                     StartSprinting();
+                else if (HasSprintInput && HasDirectionalInput && IsSprinting)
+                    StopSprinting();
             }
         }
 
@@ -160,6 +161,8 @@ namespace AChildsCourage.Game.Char
         private bool PositionChanged => Position != prevPos;
 
         private bool CanUseRift => hasMaxCourage && isInRiftProximity;
+
+        private bool CanSprint { get; set; } = true;
 
 
         private void FixedUpdate() =>
@@ -213,7 +216,6 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-
         private void UpdateRotation()
         {
             var projectedMousePosition = (Vector2) mainCamera.ScreenToWorldPoint(MousePos);
@@ -264,14 +266,14 @@ namespace AChildsCourage.Game.Char
             DirectionInput = eventArgs.MoveDirection;
 
         [Sub(nameof(InputListener.OnSprintInput))] [UsedImplicitly]
-        private void OnSprintInput(object _, SprintInputEventArgs eventArgs) => HasSprintInput = eventArgs.HasSprintInput;
+        private void OnSprintInput(object _, SprintInputEventArgs eventArgs) =>
+            HasSprintInput = eventArgs.HasSprintInput;
 
         private void StartSprinting() =>
             IsSprinting = true;
 
-        private void StopSprinting() => 
+        private void StopSprinting() =>
             IsSprinting = false;
-
 
         [Sub(nameof(CharStaminaEntity.OnStaminaChanged))] [UsedImplicitly]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
@@ -282,11 +284,12 @@ namespace AChildsCourage.Game.Char
         private void OnStaminaDepleted()
         {
             StopSprinting();
-            hasStamina = false;
+            CanSprint = false;
         }
 
         [Sub(nameof(CharStaminaEntity.OnStaminaRefreshed))] [UsedImplicitly]
-        private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
+        private void OnStaminaRefreshed(object _1, EventArgs _2) =>
+            CanSprint = true;
 
         [Sub(nameof(OnCouragePickedUp))] [UsedImplicitly]
         private void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
