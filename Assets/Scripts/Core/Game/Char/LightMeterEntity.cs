@@ -17,15 +17,15 @@ namespace AChildsCourage.Game.Char
         private ImmutableHashSet<Light2D> lightSources;
 
 
-        public bool DetectsLight { get; private set; }
+        internal bool DetectsLight => flashlight.IsTurnedOn || IsLitByAnySource;
+
+        private Vector2 MeasuringPosition => transform.position;
+
+        private bool IsLitByAnySource => lightSources.Any(ShinesOnLightMeter);
 
 
-        private void Update()
-        {
+        private void Update() =>
             RemoveMissingLightSources();
-            UpdateLitStatus();
-        }
-
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
@@ -34,13 +34,16 @@ namespace AChildsCourage.Game.Char
         private void RemoveMissingLightSources() =>
             lightSources = lightSources.Where(l => l).ToImmutableHashSet();
 
-        private void UpdateLitStatus() =>
-            DetectsLight = flashlight.IsTurnedOn || lightSources.Any(ShinesOnLightMeter);
-
         private bool ShinesOnLightMeter(Light2D source) =>
             source.enabled &&
-            source.intensity >= minIntensity &&
-            Vector2.Distance(transform.position, source.transform.position) <= source.pointLightOuterRadius;
+            SourceHasEnoughIntensity(source) &&
+            SourceIsCloseEnough(source);
+
+        private bool SourceHasEnoughIntensity(Light2D source) =>
+            source.intensity >= minIntensity;
+
+        private bool SourceIsCloseEnough(Light2D source) =>
+            Vector2.Distance(MeasuringPosition, source.transform.position) <= source.pointLightOuterRadius;
 
     }
 
