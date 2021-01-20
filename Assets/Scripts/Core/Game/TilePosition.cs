@@ -14,11 +14,8 @@ namespace AChildsCourage.Game
 
         private const float TileSize = 1f;
         private const float TileExtent = TileSize / 2f;
-
-
-        internal static float GetDistanceFromOrigin(TilePosition position) =>
-            new Vector2(position.X, position.Y).magnitude;
-
+        
+        
         internal static float DistanceTo(TilePosition p1, TilePosition p2) =>
             Vector2.Distance(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y));
 

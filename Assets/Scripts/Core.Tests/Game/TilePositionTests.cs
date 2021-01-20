@@ -28,23 +28,7 @@ namespace AChildsCourage.Game
             Assert.That(position.Y, Is.EqualTo(y), "Incorrect Y coordinate!");
         }
 
-        [Test]
-        public void Distance_From_Origin_Is_Calculated_Correctly()
-        {
-            // Given
-
-            var position = new TilePosition(2, 0);
-
-            // When
-
-            var distance = GetDistanceFromOrigin(position);
-
-            // When
-
-            Assert.That(distance, Is.EqualTo(2), "Incorrect distance calculated!");
-        }
-
-
+        
         [Test]
         public void Distance_Between_Positions_Is_Calculated_Correctly()
         {
