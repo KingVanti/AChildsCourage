@@ -62,8 +62,7 @@ namespace AChildsCourage.Game
 
         public static IEnumerable<TilePosition> GetPositionsInChunk(Chunk position) =>
             position.Map(GetCorner)
-                    .Map(corner => Grid.Generate(corner.X, corner.Y, ChunkSize, ChunkSize))
-                    .Select(pos => new TilePosition(pos.X, pos.Y));
+                    .Map(corner => Grid.GenerateTiles(corner.X, corner.Y, ChunkSize, ChunkSize));
 
 
         public int X { get; }
