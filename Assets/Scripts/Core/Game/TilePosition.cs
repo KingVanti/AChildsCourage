@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using static UnityEngine.Mathf;
 using static AChildsCourage.Game.Chunk;
+using static AChildsCourage.Game.TileOffset;
 
 namespace AChildsCourage.Game
 {
@@ -22,8 +23,7 @@ namespace AChildsCourage.Game
             Vector2.Distance(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y));
 
         public static TilePosition OffsetBy(TileOffset offset, TilePosition position) =>
-            new TilePosition(position.X + offset.X,
-                             position.Y + offset.Y);
+            offset.Map(ApplyTo, position);
 
         public static Vector3Int ToVector3Int(TilePosition position) =>
             new Vector3Int(position.X, position.Y, 0);
