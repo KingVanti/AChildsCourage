@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class FmodCutscenes : MonoBehaviour
 {
-    public void ShadeGrunt() => RuntimeManager.PlayOneShot("event:/cutScenes/Start/shade");
+    public void startAudio() => RuntimeManager.PlayOneShot("event:/cutScenes/startAudio");
 
-    public void ClosetClosing() => RuntimeManager.PlayOneShot("event:/cutScenes/End/ClosetClosing");
+    public void endAudio() => RuntimeManager.PlayOneShot("event:/cutScenes/endAudio");
 
-    public void ShadeGrunt2() => RuntimeManager.PlayOneShot("event:/cutScenes/Start/shade");
-
-    public void ShadeGrunt3() => RuntimeManager.PlayOneShot("event:/cutScenes/Start/shade");
-
-    public void ShadeGrunt4() => RuntimeManager.PlayOneShot("event:/cutScenes/Start/shade");
 
 }
