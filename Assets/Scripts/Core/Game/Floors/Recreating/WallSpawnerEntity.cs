@@ -9,7 +9,7 @@ namespace AChildsCourage.Game.Floors
     {
 
         [FindComponent] private Tilemap wallTilemap;
-        
+
         [FindInScene] private TileRepositoryEntity tileRepository;
 
 

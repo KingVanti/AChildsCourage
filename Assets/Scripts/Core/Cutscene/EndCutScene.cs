@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 namespace AChildsCourage.Game
 {
+
     public class EndCutScene : MonoBehaviour
     {
+
         private void OnEndCutSceneEnded() =>
-          Transition.To(SceneName.menu, FadeColor.Black);
+            Transition.To(SceneName.menu, FadeColor.Black);
+
     }
+
 }

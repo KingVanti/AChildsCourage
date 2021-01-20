@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var vision = CreateVisionWithCones(new VisionCone(Primary, 1, 360, true));
+            var vision = CreateVisionWithCones(new VisionCone(primary, 1, 360, true));
             var point = new Vector2(0, 0.5f);
 
             // When
@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var vision = CreateVisionWithCones(new VisionCone(Primary, 1, 360, true));
+            var vision = CreateVisionWithCones(new VisionCone(primary, 1, 360, true));
             var point = new Vector2(0, 1.5f);
 
             // When
@@ -49,8 +49,8 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var vision = CreateVisionWithCones(new VisionCone(Primary, 1, 360, true),
-                                               new VisionCone(Secondary, 1, 360, true));
+            var vision = CreateVisionWithCones(new VisionCone(primary, 1, 360, true),
+                                               new VisionCone(secondary, 1, 360, true));
             var point = new Vector2(0, 0.5f);
 
             // When
@@ -59,7 +59,7 @@ namespace AChildsCourage.Game.Shade
 
             // Then
 
-            Assert.That(pointVisibility, Is.EqualTo(Primary), "Should have highest value visibility!");
+            Assert.That(pointVisibility, Is.EqualTo(primary), "Should have highest value visibility!");
         }
 
 

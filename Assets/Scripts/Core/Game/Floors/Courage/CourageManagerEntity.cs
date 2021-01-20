@@ -1,12 +1,14 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Floors.Courage
 {
 
     public class CourageManagerEntity : MonoBehaviour
     {
+
         private const int BaseCourage = 0;
 
         [Pub] public event EventHandler<CollectedCourageChangedEventArgs> OnCollectedCourageChanged;
@@ -23,7 +25,7 @@ namespace AChildsCourage.Game.Floors.Courage
             get => currentCourage;
             set
             {
-                currentCourage = value.Clamp(0, targetCourage);
+                currentCourage = value.Map(Clamp, 0, targetCourage);
                 OnCollectedCourageChanged?.Invoke(this, new CollectedCourageChangedEventArgs(CurrentCourage, CompletionPercent));
             }
         }
@@ -41,7 +43,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void AddCourage(int amount) =>
             CurrentCourage += amount;
-        
+
     }
 
 }

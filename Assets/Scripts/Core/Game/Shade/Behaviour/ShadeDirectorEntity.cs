@@ -23,7 +23,7 @@ namespace AChildsCourage.Game.Shade
 
         [FindInScene] private CharControllerEntity @char;
 
-        private GroundPlan groundPlan;
+        private GroundPlan groundPlan = emptyGroundPlan;
         private Coroutine interventionRoutine;
         private bool sendShadeToChar;
 
@@ -98,8 +98,7 @@ namespace AChildsCourage.Game.Shade
             OnAoiChosen?.Invoke(this, new AoiChosenEventArgs(aoi));
 
         internal Vector3 FindShadeSpawnPoint() =>
-            groundPlan
-                .Map(ChooseRandomPositionOutsideRadius, RandomRng(), spawnDistance);
+            groundPlan.Map(ChooseRandomPositionOutsideRadius, RandomRng(), spawnDistance);
 
     }
 

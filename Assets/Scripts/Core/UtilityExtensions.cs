@@ -18,7 +18,7 @@ namespace AChildsCourage
             Debug.Log(formatter(item));
             return item;
         }
-        
+
         public static T Log<T>(this T item, string text)
         {
             Debug.Log(text);
@@ -27,6 +27,9 @@ namespace AChildsCourage
 
         public static Color WithAlpha(this Color c, float a) =>
             new Color(c.r, c.g, c.b, a);
+
+        public static Vector3 WithZ(this Vector2 v, float z) =>
+            new Vector3(v.x, v.y, z);
 
     }
 

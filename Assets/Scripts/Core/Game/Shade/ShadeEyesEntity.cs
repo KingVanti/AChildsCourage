@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AChildsCourage.Game.Char;
 using UnityEngine;
-using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.Shade.ShadeVision;
 using static AChildsCourage.Game.Char.Visibility;
 
@@ -27,7 +26,7 @@ namespace AChildsCourage.Game.Shade
         public IEnumerable<VisionCone> VisionCones => visionCones;
 
         private float WaitTime => 1f / updatesPerSecond;
-        
+
         private Visibility CharVisibility
         {
             get => charVisibility;

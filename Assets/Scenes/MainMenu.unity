@@ -5479,7 +5479,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ramon Brullo
+  m_text: Michael Zauchinger
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
   m_sharedMaterial: {fileID: 512608796327164621, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
@@ -5963,7 +5963,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level Programming
+  m_text: Programming
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
   m_sharedMaterial: {fileID: 512608796327164621, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
@@ -6847,7 +6847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Programming
+  m_text: UI & UI Programming
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
   m_sharedMaterial: {fileID: 512608796327164621, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
@@ -7941,7 +7941,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 0}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!114 &1599230463
 MonoBehaviour:
@@ -8106,7 +8106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AI Programming
+  m_text: AI & Level Programming
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
   m_sharedMaterial: {fileID: 512608796327164621, guid: 175ca4dcb80b7b24c86a4d97186a3933, type: 2}
@@ -10698,13 +10698,14 @@ GameObject:
   - component: {fileID: 2104754010}
   - component: {fileID: 2104754012}
   - component: {fileID: 2104754011}
+  - component: {fileID: 2104754013}
   m_Layer: 5
   m_Name: CompletionCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2104754010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10719,11 +10720,11 @@ RectTransform:
   m_Father: {fileID: 1599230461}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -10}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -80, y: 25}
   m_SizeDelta: {x: 15, y: 15}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &2104754011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10731,14 +10732,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104754009}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 334b4e2217e9917438baaa388029dda5, type: 2}
   m_Color: {r: 0.9735836, g: 1, b: 0.24056602, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10762,6 +10763,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104754009}
   m_CullTransparentMesh: 0
+--- !u!114 &2104754013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104754009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013e15ddd5673d846b823d66f6370d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completionCheckImage: {fileID: 2104754011}
 --- !u!1 &2106992247
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,34 +13,37 @@ namespace AChildsCourage.Game.Char
         [SerializeField] private float minIntensity;
 
         [FindInScene] private FlashlightEntity flashlight;
-        
-        private ImmutableHashSet<Light2D> lightSources;
+
+        private ImmutableHashSet<Light2D> lightSources = ImmutableHashSet<Light2D>.Empty;
 
 
-        public bool IsLit { get; private set; }
+        internal bool DetectsLight => flashlight.IsTurnedOn || IsLitByAnySource;
+
+        private Vector2 MeasuringPosition => transform.position;
+
+        private bool IsLitByAnySource => lightSources.Any(ShinesOnLightMeter);
 
 
-        private void Update()
-        {
-            CheckForMissingLightSources();
-            UpdateLitStatus();
-        }
-
+        private void Update() =>
+            RemoveMissingLightSources();
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
             lightSources = FindObjectsOfType<Light2D>().ToImmutableHashSet();
 
-        private void CheckForMissingLightSources() => 
+        private void RemoveMissingLightSources() =>
             lightSources = lightSources.Where(l => l).ToImmutableHashSet();
-
-        private void UpdateLitStatus() =>
-            IsLit = flashlight.IsTurnedOn || lightSources.Any(ShinesOnLightMeter);
 
         private bool ShinesOnLightMeter(Light2D source) =>
             source.enabled &&
-            source.intensity >= minIntensity &&
-            Vector2.Distance(transform.position, source.transform.position) <= source.pointLightOuterRadius;
+            SourceHasEnoughIntensity(source) &&
+            SourceIsCloseEnough(source);
+
+        private bool SourceHasEnoughIntensity(Light2D source) =>
+            source.intensity >= minIntensity;
+
+        private bool SourceIsCloseEnough(Light2D source) =>
+            Vector2.Distance(MeasuringPosition, source.transform.position) <= source.pointLightOuterRadius;
 
     }
 

@@ -1,4 +1,6 @@
-﻿using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
+﻿using System;
+using static AChildsCourage.M;
+using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Floors.Gen
@@ -16,24 +18,23 @@ namespace AChildsCourage.Game.Floors.Gen
 
             ChunkLayout OccupyNextChunk(ChunkLayout layout)
             {
-                float CalculateConnectivityWeight(ChunkPosition position)
+                float CalculateConnectivityWeight(Chunk position)
                 {
                     var directConnectionCount = position.Map(CountDirectConnections, layout);
                     var indirectConnectionCount = position.Map(CountIndirectConnections, layout);
 
                     var directConnectionWeight = directConnectionCount > 1 ? @params.ClumpingFactor : NoWeight;
-                    var indirectConnectionWeight = indirectConnectionCount.Times(@params.ClumpingFactor);
+                    var indirectConnectionWeight = indirectConnectionCount.Map(Times, @params.ClumpingFactor);
 
                     return directConnectionWeight + indirectConnectionWeight;
                 }
 
-                float CalculateWeight(ChunkPosition position) =>
+                float CalculateWeight(Chunk position) =>
                     CalculateConnectivityWeight(position);
 
-                return layout
-                       .Map(GetPossibleNextChunks)
-                       .GetWeightedRandom(CalculateWeight, rng)
-                       .Map(OccupyIn, layout);
+                return layout.Map(GetPossibleNextChunks)
+                             .TryGetWeightedRandom(CalculateWeight, rng, () => throw new Exception("No possible chunks remaining!"))
+                             .Map(OccupyIn, layout);
             }
 
 

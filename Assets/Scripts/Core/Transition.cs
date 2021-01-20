@@ -30,7 +30,7 @@ namespace AChildsCourage
         private static void StartTransitionTo(SceneName sceneName, FadeColor color)
         {
             isTransitioning = true;
-            Fader.FadeTo(color, ScreenFader.FadeMode.To, () => ContinueTransitionTo(sceneName, color));
+            Fader.FadeTo(color, FadeMode.To, () => ContinueTransitionTo(sceneName, color));
         }
 
         private static void ContinueTransitionTo(SceneName sceneName, FadeColor color) =>
@@ -39,7 +39,7 @@ namespace AChildsCourage
         private static void ShowScene(FadeColor color)
         {
             NotifyOfSceneOpening(CurrentSceneManager);
-            Fader.FadeTo(color, ScreenFader.FadeMode.From, CompleteTransition);
+            Fader.FadeTo(color, FadeMode.From, CompleteTransition);
         }
 
         private static void NotifyOfSceneOpening(SceneManagerEntity sceneManager)

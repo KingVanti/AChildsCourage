@@ -34,7 +34,7 @@ namespace AChildsCourage.Game.Shade
         private bool HasNotRestedLongEnough => TimeSinceLastRest > minTimeBeforeRest;
 
         private bool ShouldRest => HasNotRestedLongEnough && RandomRng().Map(Prob, randomStopChance);
-        
+
         private ShadeState CurrentState
         {
             get => currentState;
@@ -50,7 +50,7 @@ namespace AChildsCourage.Game.Shade
 
         private ShadeState NoStateChange => CurrentState;
 
-        
+
         [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
         private void OnSpawned(object _1, EventArgs _2)
         {

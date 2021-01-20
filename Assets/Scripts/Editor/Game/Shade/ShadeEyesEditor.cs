@@ -25,7 +25,7 @@ namespace AChildsCourage.Game.Shade
 
         private void DrawVisionCone(Vector3 shadePosition, VisionCone visionCone)
         {
-            Handles.color = visionCone.Visibility.Equals(Visibility.Primary)
+            Handles.color = visionCone.Visibility.Equals(Visibility.primary)
                 ? new Color(1f, 0.22f, 0.25f, 0.2f)
                 : new Color(1f, 0.69f, 0.24f, 0.2f);
 

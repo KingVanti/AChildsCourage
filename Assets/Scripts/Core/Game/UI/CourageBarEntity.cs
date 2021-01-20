@@ -3,6 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static AChildsCourage.M;
 using static AChildsCourage.Lerping;
 
 namespace AChildsCourage.Game.UI
@@ -28,14 +29,12 @@ namespace AChildsCourage.Game.UI
         private float FillPercent
         {
             get => courageBarFill.fillAmount;
-            set => courageBarFill.fillAmount = value.Clamp(0, 1);
+            set => courageBarFill.fillAmount = value.Map(Clamp, 0f, 1f);
         }
 
         private float CompletionPercent
         {
-            get {
-                return completionPercent;
-            }
+            get => completionPercent;
             set
             {
                 completionPercent = value;
@@ -62,19 +61,15 @@ namespace AChildsCourage.Game.UI
             CompletionPercent = eventArgs.CompletionPercent;
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
-        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs) {
+        private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs)
+        {
+            if (eventArgs.Variant == CourageVariant.Spark) pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
 
-            if(eventArgs.Variant == CourageVariant.Spark) {
-                pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
-            }
-
-            if (eventArgs.Variant == CourageVariant.Orb) {
-                pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
-            }
-
+            if (eventArgs.Variant == CourageVariant.Orb) pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
         }
 
-        private void PlayFillAnimation(AnimationEvent fillAnimation) {
+        private void PlayFillAnimation(AnimationEvent fillAnimation)
+        {
             fillAnimation.floatParameter = CompletionPercent;
             UpdateBarFill(CompletionPercent);
         }

@@ -11,6 +11,13 @@ namespace AChildsCourage
         public static FadeColor White => new FadeColor(new Color(1, 1, 1, 0), new Color(1, 1, 1, 1));
 
 
+        public static Color GetStartColor(FadeMode fadeMode, FadeColor color) =>
+            fadeMode == FadeMode.From ? color.GoalColor : color.StartColor;
+
+        public static Color GetGoalColor(FadeMode fadeMode, FadeColor color) =>
+            fadeMode == FadeMode.From ? color.StartColor : color.GoalColor;
+
+
         public Color StartColor { get; }
 
         public Color GoalColor { get; }

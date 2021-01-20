@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static AChildsCourage.FadeColor;
 
 namespace AChildsCourage
 {
@@ -25,24 +26,14 @@ namespace AChildsCourage
 
         internal void FadeTo(FadeColor color, FadeMode fadeMode, Action callBack)
         {
-            var from = fadeMode == FadeMode.From ? color.GoalColor : color.StartColor;
-            var to = fadeMode == FadeMode.From ? color.StartColor : color.GoalColor;
+            var from = color.Map(GetStartColor, fadeMode);
+            var to = color.Map(GetGoalColor, fadeMode);
 
             void ApplyT(float t) =>
                 Color = Color.Lerp(from, to, t);
 
             fadeRoutine = this.RestartCoroutine(fadeRoutine, Lerping.TimeLerp(ApplyT, fadeTime, callBack));
         }
-
-
-        internal enum FadeMode
-        {
-
-            To,
-            From
-
-        }
-
 
         #region Singleton pattern
 

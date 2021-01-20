@@ -1,8 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
-using static AChildsCourage.Game.Floors.Floor;
-using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -14,13 +12,13 @@ namespace AChildsCourage.Game.Shade
 
 
         [SerializeField] private float shadeTimeoutTime;
-        
+
         [FindInScene] private ShadeBrainEntity shadeBrain;
         [FindInScene] private ShadeDirectorEntity shadeDirector;
 
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
-        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) => 
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             SpawnShade();
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]

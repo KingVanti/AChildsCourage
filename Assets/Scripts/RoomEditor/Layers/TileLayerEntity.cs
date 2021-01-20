@@ -2,7 +2,7 @@
 using AChildsCourage.Game;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 
 namespace AChildsCourage.RoomEditor
 {

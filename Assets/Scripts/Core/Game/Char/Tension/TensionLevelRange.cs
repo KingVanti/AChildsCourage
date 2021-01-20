@@ -8,8 +8,8 @@
             tension < range.minNormalTension ? TensionLevel.Low
             : tension < range.minHighTension ? TensionLevel.Normal
             : TensionLevel.High;
-        
-        
+
+
         private readonly float minNormalTension;
         private readonly float minHighTension;
 

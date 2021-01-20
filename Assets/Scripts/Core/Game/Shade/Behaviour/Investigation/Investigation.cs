@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using static AChildsCourage.Rng;
 
 namespace AChildsCourage.Game.Shade
 {
@@ -19,7 +20,7 @@ namespace AChildsCourage.Game.Shade
         {
             var nextTarget = investigation.Map(IsOutOfPois)
                 ? (Poi?) null
-                : investigation.remainingPois.GetRandom(Rng.RandomRng());
+                : investigation.remainingPois.TryGetRandom(RandomRng(), () => throw new Exception("No Pois remaining!"));
             var remainingPositions = nextTarget != null
                 ? investigation.remainingPois.Remove(nextTarget.Value)
                 : investigation.remainingPois;

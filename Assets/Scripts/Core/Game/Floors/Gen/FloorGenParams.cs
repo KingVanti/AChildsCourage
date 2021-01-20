@@ -6,7 +6,7 @@ namespace AChildsCourage.Game.Floors.Gen
     public readonly struct FloorGenParams
     {
 
-        public int Seed { get; }
+        public GameSeed Seed { get; }
 
         public RoomCollection RoomCollection { get; }
 
@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public int RuneCount { get; }
 
 
-        public FloorGenParams(int seed, RoomCollection roomCollection, int roomCount, float clumpingFactor, EnumArray<CourageVariant, int> couragePickupCounts, int runeCount)
+        public FloorGenParams(GameSeed seed, RoomCollection roomCollection, int roomCount, float clumpingFactor, EnumArray<CourageVariant, int> couragePickupCounts, int runeCount)
         {
             Seed = seed;
             RoomCollection = roomCollection;

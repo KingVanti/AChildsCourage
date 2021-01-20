@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using static AChildsCourage.Game.Floors.FloorObject;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 using static AChildsCourage.Game.TilePosition;
 using static AChildsCourage.Game.TileOffset;
 

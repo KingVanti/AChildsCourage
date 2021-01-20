@@ -2,7 +2,7 @@
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using UnityEngine;
-using static AChildsCourage.CustomMath;
+using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Char
 {
@@ -41,8 +41,6 @@ namespace AChildsCourage.Game.Char
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private CanvasGroup contextInfoGroup;
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
@@ -204,7 +202,7 @@ namespace AChildsCourage.Game.Char
 
             RelativeMousePos = (projectedMousePosition - charPos).normalized;
 
-            LookAngle = CalculateAngle(RelativeMousePos.x, RelativeMousePos.y);
+            LookAngle = CalculateAngle(RelativeMousePos);
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
@@ -346,7 +344,6 @@ namespace AChildsCourage.Game.Char
         {
             if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
             {
-                contextInfoGroup.alpha = 1;
                 isInRiftProximity = true;
             }
 
@@ -362,7 +359,6 @@ namespace AChildsCourage.Game.Char
         {
             if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
             {
-                contextInfoGroup.alpha = 0;
                 isInRiftProximity = false;
             }
         }

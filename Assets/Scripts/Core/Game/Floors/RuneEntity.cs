@@ -1,6 +1,8 @@
 ﻿using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Shade;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.Game.Floors.RuneCharge;
 
 namespace AChildsCourage.Game.Floors
@@ -19,6 +21,8 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private Sprite chargedSprite;
         [SerializeField] private Sprite inactiveSprite;
         [SerializeField] private new RuneLight light;
+        [SerializeField] private Material runeUsedMaterial;
+        [SerializeField] private Light2D glowLight;
 
         [FindInScene] private FlashlightEntity flashLight;
         [FindComponent] private SpriteRenderer spriteRenderer;
@@ -32,9 +36,9 @@ namespace AChildsCourage.Game.Floors
 
         private float DistanceToFlashlight => Vector2.Distance(Center, FlashlightCenter);
 
-        private bool IsShoneOn => flashLight.IsTurnedOn && DistanceToFlashlight <= Radius + flashLight.ShineRadius;
+        private bool IsShoneOn => flashLight.IsTurnedOn && DistanceToFlashlight <= Radius + flashLight.Shine.OuterRadius;
 
-        private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.ShineDistanceInterpolation);
+        private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.Shine.Power);
 
         private float CurrentChargeDelta => IsShoneOn ? CurrentChargeGain : -chargeDrain;
 
@@ -74,9 +78,16 @@ namespace AChildsCourage.Game.Floors
         {
             enabled = false;
             light.Flash();
+            SwitchOff();
+        }
+
+        private void SwitchOff() {
             Charge = NoCharge;
             spriteRenderer.sprite = inactiveSprite;
+            spriteRenderer.material = runeUsedMaterial;
+            glowLight.intensity = 0;
         }
+
 
     }
 

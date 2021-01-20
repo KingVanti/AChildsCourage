@@ -94,7 +94,6 @@ namespace AChildsCourage
         [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
         {
-
             Stamina_eventInstance.setParameterByName("stamina", eventArgs.Stamina);
 
             if (eventArgs.Stamina == 0)
@@ -103,7 +102,6 @@ namespace AChildsCourage
                 PlaySprint_depleted();
                 StartCoroutine(SprintTimer());
             }
-
         }
 
         private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);

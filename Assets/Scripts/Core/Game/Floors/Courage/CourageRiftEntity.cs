@@ -1,6 +1,6 @@
-﻿using AChildsCourage.Game.Char;
-using System;
+﻿using System;
 using System.Collections;
+using AChildsCourage.Game.Char;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.Game.Floors.Floor;
@@ -19,17 +19,24 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float escapeTime = 5f;
         [SerializeField] private float maxLightIntensity = 10f;
         [SerializeField] private float maxOuterRadius = 12f;
-        [SerializeField] private AnimationCurve lightCurve;
+
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private CanvasGroup contextInfo;
 
         [FindComponent] private SpriteRenderer spriteRenderer;
+
         [FindComponent(ComponentFindMode.OnChildren)]
         private ParticleSystem riftParticleSystem;
 
-        [FindComponent(ComponentFindMode.OnChildren)] private Light2D courageLight;
+        [FindComponent(ComponentFindMode.OnChildren)]
+        private Light2D courageLight;
+
+        [SerializeField] private AnimationCurve lightCurve;
         [FindInScene] private CourageManagerEntity courageManager;
+        
 
         private bool isOpen;
-        private bool isEscaping = false;
+        private bool isEscaping;
         private Coroutine escapeCoroutine;
 
         private float EmissionRate
@@ -46,37 +53,33 @@ namespace AChildsCourage.Game.Floors.Courage
             set => spriteRenderer.sprite = value;
         }
 
-        private float LightIntensity {
+        private float LightIntensity
+        {
             get => courageLight.intensity;
             set => courageLight.intensity = value;
         }
 
-        private float LightOuterRadius {
+        private float LightOuterRadius
+        {
             get => courageLight.pointLightOuterRadius;
             set => courageLight.pointLightOuterRadius = value;
         }
 
         private int MaxSpriteIndex => riftStageSprites.Length - 1;
 
-        private void Start() {
-            StartCoroutine(CourageLighting());
-        }
+        private void Start() => StartCoroutine(CourageLighting());
 
-        private void Leave() {
-            OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
-        }
+        private void Leave() => OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
 
         [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))]
-        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) {
-
+        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs)
+        {
             isEscaping = eventArgs.IsEscapingThroughRift;
 
-            if (isEscaping) {
+            if (isEscaping)
                 escapeCoroutine = StartCoroutine(Escaping());
-            } else {
+            else
                 StopCoroutine(escapeCoroutine);
-            }
-
         }
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
@@ -105,35 +108,48 @@ namespace AChildsCourage.Game.Floors.Courage
             return riftStageSprites[spriteIndex];
         }
 
+        private void OnTriggerEnter2D(Collider2D collision) {
+            if (collision.CompareTag(EntityTags.Char)) {
+                if (isOpen) {
+                    contextInfo.alpha = 1;
+                }
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision) {
+            if (collision.CompareTag(EntityTags.Char)) {
+                contextInfo.alpha = 0;
+            }
+        }
+
         private void UpdateEmissionRate(float completionPercent) =>
             EmissionRate = Mathf.Lerp(2f, 20f, completionPercent);
 
-        IEnumerator Escaping() {
-
-            while (isEscaping) {
+        private IEnumerator Escaping()
+        {
+            while (isEscaping)
+            {
                 yield return new WaitForSeconds(escapeTime);
                 Leave();
             }
         }
 
-        IEnumerator CourageLighting() {
+        private IEnumerator CourageLighting()
+        {
+            var graphValue = 0f;
+            var speed = 1 / escapeTime;
 
-            float graphValue = 0f;
-            float speed = 1 / escapeTime;
-
-            while (true) {
-
-                if (isEscaping) {
+            while (true)
+            {
+                if (isEscaping)
                     graphValue = Mathf.MoveTowards(graphValue, 1, speed * Time.deltaTime);
-                } else {
+                else
                     graphValue = Mathf.MoveTowards(graphValue, 0, speed * Time.deltaTime * 5f);
-                }
 
                 LightIntensity = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxLightIntensity, 0.3f, maxLightIntensity);
                 LightOuterRadius = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxOuterRadius, 12, maxOuterRadius);
 
                 yield return null;
-
             }
         }
 

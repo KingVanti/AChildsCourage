@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.Floors
             var maxChunk = new TilePosition(maxX, maxY).Map(GetChunk);
 
             return new FloorDimensions(minChunk.Map(GetCorner),
-                                       maxChunk.Map(GetCorner).Map(OffsetBy, TopCornerOffset));
+                                       maxChunk.Map(GetCorner).Map(OffsetBy, topCornerOffset));
         }
 
         public static Vector2 GetEndRoomCenter(Floor floor) =>
@@ -52,17 +52,17 @@ namespace AChildsCourage.Game.Floors
                 .Map(GetObjectsOfType<TFloorObject>)
                 .Select(t => t.Position);
 
-        public static Floor EmptyFloor(ChunkPosition endRoomChunk) =>
+        public static Floor EmptyFloor(Chunk endRoomChunk) =>
             new Floor(ImmutableHashSet<FloorObject>.Empty,
                       endRoomChunk);
-        
-        
+
+
         public ImmutableHashSet<FloorObject> Objects { get; }
-        
-        public ChunkPosition EndRoomChunk { get; }
+
+        public Chunk EndRoomChunk { get; }
 
 
-        public Floor(ImmutableHashSet<FloorObject> objects, ChunkPosition endRoomChunk)
+        public Floor(ImmutableHashSet<FloorObject> objects, Chunk endRoomChunk)
         {
             Objects = objects;
             EndRoomChunk = endRoomChunk;

@@ -5,7 +5,7 @@ namespace AChildsCourage.Game.Shade
 
     public readonly struct LastKnownCharInfo
     {
-        
+
         public static Vector2 PredictPosition(float currentTime, LastKnownCharInfo info)
         {
             var elapsedTime = info.Map(CalculateElapsedTime, currentTime);

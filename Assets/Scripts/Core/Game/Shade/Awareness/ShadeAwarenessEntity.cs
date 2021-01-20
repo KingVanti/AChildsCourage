@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using UnityEngine;
+using static AChildsCourage.M;
 using static AChildsCourage.Game.Shade.Awareness;
 using static AChildsCourage.Game.Char.Visibility;
 
@@ -80,15 +81,15 @@ namespace AChildsCourage.Game.Shade
                                                 DistanceMultiplier * MovementMultiplier *
                                                 FlashLightMultiplier * IsShoneOnMultiplier;
 
-        private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
+        private float PrimaryVisionMultiplier => currentCharVisibility.Equals(primary) ? primaryVisionMultiplier : 1;
 
-        private float DistanceMultiplier => DistanceToCharacter.Remap(0, maxDistance, maxDistanceMultiplier, 0);
+        private float DistanceMultiplier => DistanceToCharacter.Map(Remap, 0f, maxDistance, maxDistanceMultiplier, 0f);
 
         private float DistanceToCharacter => Vector3.Distance(transform.position, charController.transform.position);
 
         private float MovementMultiplier => movementStateMultipliers[charController.CurrentMovementState];
 
-        private float FlashLightMultiplier => lightMeter.IsLit ? charLitMultiplier : 1;
+        private float FlashLightMultiplier => lightMeter.DetectsLight ? charLitMultiplier : 1;
 
         private bool IsShoneOn => flashlight.ShinesOn(transform.position);
 
@@ -96,7 +97,7 @@ namespace AChildsCourage.Game.Shade
 
         private float AwarenessChangePerSecond => CanSeeChar || IsShoneOn ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
 
-        private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
+        private bool CanSeeChar => !currentCharVisibility.Equals(notVisible);
 
         private Vector2 CharPosition => charController.transform.position;
 
@@ -108,7 +109,7 @@ namespace AChildsCourage.Game.Shade
             UpdateAwareness();
             UpdateLastKnownCharInfo();
         }
-        
+
         private void UpdateLastKnownCharInfo()
         {
             if (CurrentAwarenessLevel == AwarenessLevel.Aware)

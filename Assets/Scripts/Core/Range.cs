@@ -8,13 +8,7 @@ namespace AChildsCourage
     {
 
         public static float Lerp(float t, Range<float> range) =>
-            range.Min + (range.Max - range.Min) * t;
-
-        public static float Remap(float value, Range<float> r1, Range<float> r2) =>
-            value.Remap(r1.Min, r1.Max, r2.Min, r2.Max);
-
-        public static Range<TValue> Between<TValue>(TValue from, TValue to) where TValue : IComparable<TValue> =>
-            new Range<TValue>(from, to);
+            Mathf.Lerp(range.Min, range.Max, t);
 
     }
 
@@ -32,6 +26,7 @@ namespace AChildsCourage
 
         public Range(TValue min, TValue max)
         {
+            if (min.CompareTo(max) == 1) throw new ArgumentException("Minimum must be smaller than maximum");
             this.min = min;
             this.max = max;
         }

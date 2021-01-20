@@ -1,4 +1,6 @@
-﻿namespace AChildsCourage.Game.Shade
+﻿using static AChildsCourage.M;
+
+namespace AChildsCourage.Game.Shade
 {
 
     public readonly struct Awareness
@@ -10,17 +12,17 @@
         public static Awareness NoAwareness => new Awareness(MinAwareness);
 
         public static Awareness TotalAwareness = new Awareness(MaxAwareness);
-        
-        
+
+
         public static Awareness ChangeBy(float amount, Awareness awareness) =>
             new Awareness(awareness.value + amount);
-        
-        
+
+
         private readonly float value;
 
 
         public Awareness(float value) =>
-            this.value = value.Clamp(MinAwareness, MaxAwareness);
+            this.value = value.Map(Clamp, MinAwareness, MaxAwareness);
 
 
         public static implicit operator float(Awareness awareness) =>
