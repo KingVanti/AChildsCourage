@@ -91,14 +91,15 @@ MonoBehaviour:
   obstructionLayers:
     serializedVersion: 2
     m_Bits: 512
-  maxShineDistance: 11
-  maxIntensity: 0.85
-  innerRadiusRange:
-    min: 0.05
-    max: 0.8
-  outerRadiusRange:
-    min: 0.2
-    max: 3.6
+  flashlightParams:
+    maxShineDistance: 11
+    maxIntensity: 0.85
+    innerRadiusRange:
+      min: 0.05
+      max: 0.8
+    outerRadiusRange:
+      min: 0.2
+      max: 3.6
   courageTrigger: {fileID: 5557251556307612897}
 --- !u!58 &5557251556307612897
 CircleCollider2D:

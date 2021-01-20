@@ -16,10 +16,7 @@ namespace AChildsCourage.Game.Char
 
         [SerializeField] private Light2D lightComponent;
         [SerializeField] private LayerMask obstructionLayers;
-        [SerializeField] private float maxShineDistance;
-        [SerializeField] private float maxIntensity;
-        [SerializeField] private Range<float> innerRadiusRange;
-        [SerializeField] private Range<float> outerRadiusRange;
+        [SerializeField] private FlashlightParams flashlightParams;
         [SerializeField] private CircleCollider2D courageTrigger;
 
         [FindInScene] private Camera mainCamera;
@@ -89,7 +86,7 @@ namespace AChildsCourage.Game.Char
 
         private float ProjectionDistance => Vector2.Distance(ProjectedMousePos, CharPosition);
 
-        public float ShineDistanceInterpolation => DistanceToCharacter.Map(Remap, 0f, maxShineDistance, 1f, 0f).Map(Squared);
+        public float ShineDistanceInterpolation => DistanceToCharacter.Map(Remap, 0f, flashlightParams.MaxShineDistance, 1f, 0f).Map(Squared);
 
         internal float ShineRadius => lightComponent.pointLightOuterRadius;
 
@@ -109,12 +106,12 @@ namespace AChildsCourage.Game.Char
             Physics2D.Raycast(CharPosition, ShineDirection, ProjectionDistance, obstructionLayers);
 
         private void UpdateShineIntensity() =>
-            lightComponent.intensity = ShineDistanceInterpolation * maxIntensity;
+            lightComponent.intensity = ShineDistanceInterpolation * flashlightParams.MaxIntensity;
 
         private void UpdateShineRadius()
         {
-            lightComponent.pointLightInnerRadius = Mathf.Clamp(innerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, maxShineDistance);
-            lightComponent.pointLightOuterRadius = Mathf.Clamp(outerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, maxShineDistance);
+            lightComponent.pointLightInnerRadius = Mathf.Clamp(flashlightParams.InnerRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, flashlightParams.MaxShineDistance);
+            lightComponent.pointLightOuterRadius = Mathf.Clamp(flashlightParams.OuterRadiusRange.Map(Lerp, 1 - ShineDistanceInterpolation), 0, flashlightParams.MaxShineDistance);
             courageTrigger.radius = lightComponent.pointLightOuterRadius;
         }
 
