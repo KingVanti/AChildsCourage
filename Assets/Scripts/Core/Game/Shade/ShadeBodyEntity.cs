@@ -15,6 +15,8 @@ namespace AChildsCourage.Game.Shade
 
         [Pub] public event EventHandler OnShadeSteppedOnRune;
 
+        [Pub] public event EventHandler OnShadeActivated;
+
 
         [FindComponent(ComponentFindMode.OnChildren)]
         private new Collider2D collider;
@@ -38,8 +40,11 @@ namespace AChildsCourage.Game.Shade
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             Activate();
 
-        private void Activate() =>
+        private void Activate()
+        {
             gameObject.SetActive(true);
+            OnShadeActivated.Invoke(this, EventArgs.Empty);
+        }
 
     }
 

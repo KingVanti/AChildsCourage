@@ -52,8 +52,8 @@ namespace AChildsCourage.Game.Shade
         private ShadeState NoStateChange => CurrentState;
 
 
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))] [UsedImplicitly]
-        private void OnSpawned(object _1, EventArgs _2)
+        [Sub(nameof(ShadeBodyEntity.OnShadeActivated))] [UsedImplicitly]
+        private void OnShadeActivated(object _1, EventArgs _2)
         {
             _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
             CurrentState = Idle();
