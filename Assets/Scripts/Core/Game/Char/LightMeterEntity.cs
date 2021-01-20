@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Char
 
         private void Update()
         {
-            CheckForMissingLightSources();
+            RemoveMissingLightSources();
             UpdateLitStatus();
         }
 
@@ -31,7 +31,7 @@ namespace AChildsCourage.Game.Char
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
             lightSources = FindObjectsOfType<Light2D>().ToImmutableHashSet();
 
-        private void CheckForMissingLightSources() =>
+        private void RemoveMissingLightSources() =>
             lightSources = lightSources.Where(l => l).ToImmutableHashSet();
 
         private void UpdateLitStatus() =>
