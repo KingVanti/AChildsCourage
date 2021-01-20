@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Char
 
         [FindInScene] private FlashlightEntity flashlight;
 
-        private ImmutableHashSet<Light2D> lightSources;
+        private ImmutableHashSet<Light2D> lightSources = ImmutableHashSet<Light2D>.Empty;
 
 
         internal bool DetectsLight => flashlight.IsTurnedOn || IsLitByAnySource;
