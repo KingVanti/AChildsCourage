@@ -9,12 +9,12 @@ namespace AChildsCourage.Game
     {
 
         [Test]
-        public void Given_A_TilePosition_When_An_Offset_Is_Added_Then_The_Coordinates_Are_Added()
+        public void Offsetting_A_TilePosition_Changes_Its_Coordinates_Correctly([Random(-100, 100, 2)] int x, [Random(-100, 100, 2)] int y, [Random(-100, 100, 2)] int oX, [Random(-100, 100, 2)] int oY)
         {
             // Given
 
-            var position = new TilePosition(0, 0);
-            var offset = new TileOffset(1, -1);
+            var position = new TilePosition(x, y);
+            var offset = new TileOffset(oX, oY);
 
             // When
 

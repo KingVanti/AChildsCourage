@@ -8,8 +8,7 @@ namespace AChildsCourage.Game
     {
 
         public static TileOffset Absolute(TileOffset offset) =>
-            new TileOffset(Abs(offset.X),
-                           Abs(offset.Y));
+            new TileOffset(Abs(offset.X), Abs(offset.Y));
 
         public static TilePosition ApplyTo(TilePosition position, TileOffset offset) =>
             position.Map(OffsetBy, offset);
