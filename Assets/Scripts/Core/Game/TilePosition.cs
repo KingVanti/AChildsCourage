@@ -30,10 +30,6 @@ namespace AChildsCourage.Game
 
         public static Vector2 GetCenter(TilePosition position) =>
             new Vector2(position.X + TileExtent, position.Y + TileExtent);
-
-        public static TilePosition ToTile(Vector2 vector) =>
-            new TilePosition(FloorToInt(vector.x),
-                             FloorToInt(vector.y));
         
         public static TileOffset AsOffset(TilePosition position) =>
             new TileOffset(position.X,
