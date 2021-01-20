@@ -240,8 +240,6 @@ retry:
             result = coreSystem.setAdvancedSettings(ref advancedSettings);
             CheckInitResult(result, "FMOD.System.setAdvancedSettings");
 
-            result = coreSystem.setDSPBufferSize(1600, 4);
-            CheckInitResult(result, "FMOD.System.setDSPBufferSize");
 
             if (!string.IsNullOrEmpty(Settings.Instance.EncryptionKey))
             {
