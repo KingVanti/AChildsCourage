@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 62620829}
-  defaultVeins: {fileID: 21300000, guid: 0ff74467603f0d044ad7fabbd365a5d7, type: 3}
-  activeVeins: {fileID: 21300000, guid: 29e6362439790114e9491abef8394d3a, type: 3}
+  defaultVeins: {fileID: 21300000, guid: 485656ce23ab9e6458ae41e9e5468f93, type: 3}
+  activeVeins: {fileID: 21300000, guid: 0dc7dfde3e454684d856b450698949e8, type: 3}
 --- !u!114 &62620829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff74467603f0d044ad7fabbd365a5d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 485656ce23ab9e6458ae41e9e5468f93, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2037,7 +2037,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1031598868
@@ -2119,7 +2119,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1059038456
