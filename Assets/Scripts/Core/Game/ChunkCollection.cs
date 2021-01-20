@@ -12,8 +12,8 @@ namespace AChildsCourage.Game
         public static ChunkCollection EmptyChunkCollection => new ChunkCollection(ImmutableHashSet<Chunk>.Empty);
 
         private static (int, int, int, int) EmptyChunkBounds => (0, 0, 0, 0);
-        
-        
+
+
         public static (int MinX, int MinY, int MaxX, int MaxY) GetBounds(ChunkCollection chunkCollection) =>
             chunkCollection.Map(IsEmpty)
                 ? EmptyChunkBounds
@@ -41,6 +41,10 @@ namespace AChildsCourage.Game
 
         public static ChunkCollection Add(Chunk chunk, ChunkCollection chunkCollection) =>
             new ChunkCollection(chunkCollection.chunks.Add(chunk));
+
+        public static ChunkCollection Combine(IEnumerable<ChunkCollection> chunkCollections) =>
+            chunkCollections.SelectMany(c => c.chunks)
+                            .Map(chunks => new ChunkCollection(chunks));
 
 
         private readonly ImmutableHashSet<Chunk> chunks;

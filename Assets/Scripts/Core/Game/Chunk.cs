@@ -48,21 +48,17 @@ namespace AChildsCourage.Game
             }
         }
 
-        internal static IEnumerable<Chunk> GetAdjacentChunks(Chunk position)
-        {
-            yield return position.Map(GetAdjacentChunk, PassageDirection.North);
-            yield return position.Map(GetAdjacentChunk, PassageDirection.East);
-            yield return position.Map(GetAdjacentChunk, PassageDirection.South);
-            yield return position.Map(GetAdjacentChunk, PassageDirection.West);
-        }
+        internal static ChunkCollection GetAdjacentChunks(Chunk position) =>
+            new ChunkCollection(position.Map(GetAdjacentChunk, PassageDirection.North),
+                                position.Map(GetAdjacentChunk, PassageDirection.East),
+                                position.Map(GetAdjacentChunk, PassageDirection.South),
+                                position.Map(GetAdjacentChunk, PassageDirection.West));
 
-        internal static IEnumerable<Chunk> GetDiagonalAdjacentChunks(Chunk position)
-        {
-            yield return new Chunk(position.X + 1, position.Y + 1);
-            yield return new Chunk(position.X + 1, position.Y - 1);
-            yield return new Chunk(position.X - 1, position.Y - 1);
-            yield return new Chunk(position.X - 1, position.Y + 1);
-        }
+        internal static ChunkCollection GetDiagonalAdjacentChunks(Chunk position) =>
+            new ChunkCollection(new Chunk(position.X + 1, position.Y + 1),
+                                new Chunk(position.X + 1, position.Y - 1),
+                                new Chunk(position.X - 1, position.Y - 1),
+                                new Chunk(position.X - 1, position.Y + 1));
 
         public static Chunk Absolute(Chunk position) =>
             new Chunk(Abs(position.X), Abs(position.Y));

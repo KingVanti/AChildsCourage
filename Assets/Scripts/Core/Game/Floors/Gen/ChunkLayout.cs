@@ -61,9 +61,9 @@ namespace AChildsCourage.Game.Floors.Gen
                 !IsOccupiedIn(layout, position);
 
             return layout.occupiedChunks
-                         .SelectMany(GetAdjacentChunks)
-                         .Where(CanOccupy)
-                         .Distinct();
+                         .Select(GetAdjacentChunks)
+                         .Map(Combine)
+                         .Where(CanOccupy);
         }
 
         public static bool IsOccupiedIn(ChunkLayout layout, Chunk position) =>
