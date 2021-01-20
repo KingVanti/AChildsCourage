@@ -22,7 +22,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
         private bool drawChunkLayout = true;
         private bool drawFloor = true;
-        private int seed;
+        private GameSeed seed;
         private FloorGenParamsAsset floorGenParamsAsset;
         private Texture2D chunkLayoutImage;
         private Texture2D floorImage;
@@ -62,13 +62,13 @@ namespace AChildsCourage.Game.Floors.Gen
         private void DrawParamGUI()
         {
             floorGenParamsAsset = (FloorGenParamsAsset) EditorGUILayout.ObjectField("Parameter-asset", floorGenParamsAsset, typeof(FloorGenParamsAsset), false);
-            seed = EditorGUILayout.IntField("Seed", seed);
+            seed = (GameSeed) EditorGUILayout.IntField("Seed", seed);
         }
 
         private void DrawButtonGUI()
         {
             void GenerateRandomSeed() =>
-                seed = Random.Range(int.MinValue, int.MaxValue);
+                seed = GameSeed.CreateRandom();
 
             EditorGUILayout.Space();
 

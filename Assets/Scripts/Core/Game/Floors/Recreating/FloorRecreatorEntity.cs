@@ -9,7 +9,6 @@ using static AChildsCourage.Game.Floors.Gen.PassagePlan;
 using static AChildsCourage.Game.Floors.Gen.RoomCollection;
 using static AChildsCourage.Game.Floors.Gen.RoomPlanGen;
 using static AChildsCourage.Game.Floors.RoomPersistence.RoomDataRepo;
-using static AChildsCourage.Game.NightData;
 
 namespace AChildsCourage.Game
 {
@@ -49,14 +48,14 @@ namespace AChildsCourage.Game
             PrepareNightForCurrentRun();
 
         private void PrepareNightForCurrentRun() =>
-            CreateNightWithRandomSeed()
-                .Map(GenerateFromNightData)
+            GameSeed.CreateRandom()
+                .Map(GenerateFromSeed)
                 .Do(Recreate);
 
-        private Floor GenerateFromNightData(NightData nightData)
+        private Floor GenerateFromSeed(GameSeed gameSeed)
         {
             var genParams = floorGenParamsAsset
-                .Map(ToParams, nightData.Seed, RoomCollection);
+                .Map(ToParams, gameSeed, RoomCollection);
             return GenerateChunkLayout(genParams)
                    .Map(CreatePassagePlan)
                    .Map(CreateRoomPlan, genParams)
