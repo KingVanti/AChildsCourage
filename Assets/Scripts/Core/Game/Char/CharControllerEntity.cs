@@ -29,13 +29,11 @@ namespace AChildsCourage.Game.Char
 
         [Pub] public event EventHandler<RiftEscapeEventArgs> OnRiftEscapeUpdate;
 
-        #region Fields
-
         [Header("References")]
         [SerializeField] private Transform characterVision;
 
         [Header("Stats")]
-        [SerializeField] private float movementSpeed;
+        [SerializeField] private float walkingSpeed;
         [SerializeField] private float sprintSpeed;
 
         [FindComponent] private Animator animator;
@@ -45,34 +43,26 @@ namespace AChildsCourage.Game.Char
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
+        [FindInScene] private Camera mainCamera;
 
-        private Camera mainCamera;
-        private Vector2 movingDirection;
+        private Vector2 directionInput;
         private int rotationIndex;
         private bool hasFlashlightEquipped;
         private bool canCollectCourage = true;
         private bool isSprinting;
         private bool hasStamina = true;
-        private float defaultSpeed;
         private MovementState movementState;
         private Vector2 prevPos = Vector2.negativeInfinity;
 
+        private bool hasSprintInput;
         private bool hasMaxCourage;
         private bool isInRiftProximity;
         private bool isEscapingThroughRift;
+        private Vector2 mousePos;
 
-        #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///     The angle the char is facing towards the mouse cursor.
-        /// </summary>
         private float LookAngle { get; set; }
 
-        /// <summary>
-        ///     The rotation direction index for the animation.
-        /// </summary>
         private int RotationIndex
         {
             get => rotationIndex;
@@ -83,24 +73,26 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        /// <summary>
-        ///     The position of the mouse.
-        /// </summary>
-        private Vector2 MousePos { get; set; }
+        private Vector2 MousePos
+        {
+            get => mousePos;
+            set
+            {
+                mousePos = value;
+                UpdateRotation();
+            }
+        }
 
         private Vector2 RelativeMousePos { get; set; }
 
-        /// <summary>
-        ///     True if the character is currently moving.
-        /// </summary>
-        private bool IsMoving => MovingDirection != Vector2.zero;
+        private bool HasDirectionalInput => DirectionInput != Vector2.zero;
 
         private bool IsMovingBackwards
         {
             get
             {
-                if (IsMoving && RelativeMousePos.x < 0 && MovingDirection.x > 0) return true;
-                return IsMoving && RelativeMousePos.x > 0 && MovingDirection.x < 0;
+                if (HasDirectionalInput && RelativeMousePos.x < 0 && DirectionInput.x > 0) return true;
+                return HasDirectionalInput && RelativeMousePos.x > 0 && DirectionInput.x < 0;
             }
         }
 
@@ -110,24 +102,24 @@ namespace AChildsCourage.Game.Char
             set
             {
                 isSprinting = value;
-                UpdateAnimator();
+                UpdateMovementState();
             }
         }
 
-        /// <summary>
-        ///     .
-        ///     The moving direction of the char character
-        /// </summary>
-        private Vector2 MovingDirection
+        private Vector2 DirectionInput
         {
-            get => movingDirection;
+            get => directionInput;
             set
             {
-                movingDirection = value;
+                directionInput = value;
 
-                if (MovingDirection == Vector2.zero && IsSprinting) StopSprinting();
+                if (!HasDirectionalInput && IsSprinting)
+                    StopSprinting();
 
-                UpdateAnimator();
+                if (HasSprintInput && HasDirectionalInput && !IsSprinting)
+                    StartSprinting();
+                
+                UpdateMovementState();
             }
         }
 
@@ -151,26 +143,55 @@ namespace AChildsCourage.Game.Char
 
         private Vector2 Position => transform.position;
 
-        #endregion
-
-        #region Methods
-
-        private void Start()
+        private bool HasSprintInput
         {
-            mainCamera = GameObject.FindGameObjectWithTag("MainCamera")
-                                   .GetComponent<Camera>();
-            defaultSpeed = movementSpeed;
+            get => hasSprintInput;
+            set
+            {
+                hasSprintInput = value;
+
+                if (HasSprintInput && HasDirectionalInput && !IsSprinting)
+                    StartSprinting();
+            }
         }
 
+        private float MovementSpeed => IsSprinting ? sprintSpeed : walkingSpeed;
+
+        private bool PositionChanged => Position != prevPos;
+
+        private bool CanUseRift => hasMaxCourage && isInRiftProximity;
+
+
         private void FixedUpdate() =>
-            Move();
+            UpdateMovement();
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = true;
+
+            if (other.CompareTag(EntityTags.Courage) && canCollectCourage)
+            {
+                var couragePickup = other.GetComponent<CouragePickupEntity>();
+                OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
+                Destroy(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = false;
+        }
 
 
-        private void UpdateMovementState() =>
+        private void UpdateMovementState()
+        {
             CurrentMovementState =
                 IsSprinting ? MovementState.Sprinting
-                : IsMoving ? MovementState.Walking
+                : HasDirectionalInput ? MovementState.Walking
                 : MovementState.Standing;
+
+            UpdateAnimator();
+        }
 
         private void UpdateAnimator()
         {
@@ -180,7 +201,7 @@ namespace AChildsCourage.Game.Char
 
             if (!isEscapingThroughRift)
             {
-                animator.SetBool(movingAnimatorKey, IsMoving);
+                animator.SetBool(movingAnimatorKey, HasDirectionalInput);
                 animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
                 animator.SetBool(sprintingAnimatorKey, IsSprinting);
             }
@@ -193,21 +214,17 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        private void Rotate()
+        private void UpdateRotation()
         {
-            var projectedMousePosition = Vector2.zero;
+            var projectedMousePosition = (Vector2) mainCamera.ScreenToWorldPoint(MousePos);
 
-            if (mainCamera != null) projectedMousePosition = mainCamera.ScreenToWorldPoint(MousePos);
-
-            Vector2 charPos = transform.position;
-
-            RelativeMousePos = (projectedMousePosition - charPos).normalized;
+            RelativeMousePos = (projectedMousePosition - Position).normalized;
 
             LookAngle = CalculateAngle(RelativeMousePos);
 
             characterVision.rotation = Quaternion.AngleAxis(LookAngle, Vector3.forward);
 
-            if (Vector2.Distance(projectedMousePosition, charPos) > 0.2f) ChangeLookDirection(RelativeMousePos);
+            if (Vector2.Distance(projectedMousePosition, Position) > 0.2f) ChangeLookDirection(RelativeMousePos);
         }
 
         private void ChangeLookDirection(Vector2 relativeMousePosition)
@@ -218,63 +235,42 @@ namespace AChildsCourage.Game.Char
                 RotationIndex = 1;
             else if (relativeMousePosition.x < -0.7f && relativeMousePosition.y < 0.7f && relativeMousePosition.y > -0.7f)
                 RotationIndex = 2;
-            else if (relativeMousePosition.y < -0.7f && relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f) RotationIndex = 3;
+            else if (relativeMousePosition.y < -0.7f && relativeMousePosition.x < 0.7f && relativeMousePosition.x > -0.7f)
+                RotationIndex = 3;
         }
 
-        private void Move()
+        private void UpdateMovement()
         {
             if (!isEscapingThroughRift)
-            {
-                Velocity = MovingDirection * movementSpeed;
-                UpdateMovementState();
-            }
+                Velocity = DirectionInput * MovementSpeed;
 
-            if (Position != prevPos)
+            CheckForPositionChange();
+        }
+
+        private void CheckForPositionChange()
+        {
+            if (PositionChanged)
             {
                 OnPositionChanged?.Invoke(this, new CharPositionChangedEventArgs(Position));
                 prevPos = Position;
             }
         }
 
-
         [Sub(nameof(InputListener.OnMousePositionChanged))] [UsedImplicitly]
-        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs)
-        {
-            MousePos = eventArgs.MousePosition;
-            Rotate();
-        }
+        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) => MousePos = eventArgs.MousePosition;
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))] [UsedImplicitly]
         private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) =>
-            MovingDirection = eventArgs.MoveDirection;
-
-        #region Sprinting
+            DirectionInput = eventArgs.MoveDirection;
 
         [Sub(nameof(InputListener.OnSprintInput))] [UsedImplicitly]
-        private void OnSprintInput(object _, SprintInputEventArgs eventArgs)
-        {
-            if (eventArgs.HasSprintInput)
-                OnStartSprintInput();
-            else
-                OnStopSprintInput();
-        }
+        private void OnSprintInput(object _, SprintInputEventArgs eventArgs) => HasSprintInput = eventArgs.HasSprintInput;
 
-        private void OnStartSprintInput()
-        {
-            if (!hasStamina || !IsMoving) return;
-
-            movementSpeed = sprintSpeed;
+        private void StartSprinting() =>
             IsSprinting = true;
-        }
 
-        private void OnStopSprintInput() =>
-            StopSprinting();
-
-        private void StopSprinting()
-        {
+        private void StopSprinting() => 
             IsSprinting = false;
-            movementSpeed = defaultSpeed;
-        }
 
 
         [Sub(nameof(CharStaminaEntity.OnStaminaChanged))] [UsedImplicitly]
@@ -291,8 +287,6 @@ namespace AChildsCourage.Game.Char
 
         [Sub(nameof(CharStaminaEntity.OnStaminaRefreshed))] [UsedImplicitly]
         private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
-
-        #endregion
 
         [Sub(nameof(OnCouragePickedUp))] [UsedImplicitly]
         private void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
@@ -316,21 +310,20 @@ namespace AChildsCourage.Game.Char
         [Sub(nameof(InputListener.OnRiftInteractInput))] [UsedImplicitly]
         private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs)
         {
-            if (hasMaxCourage && isInRiftProximity)
+            if (CanUseRift)
             {
                 isEscapingThroughRift = eventArgs.HasRiftInteractInput;
+                UpdateAnimator();
 
                 OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(isEscapingThroughRift));
-                UpdateAnimator();
             }
         }
-
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs)
         {
-            if (eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
-            canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
+            hasMaxCourage = eventArgs.CompletionPercent >= HundredPercent;
+            canCollectCourage = !hasMaxCourage;
         }
 
         internal void Kill()
@@ -338,25 +331,6 @@ namespace AChildsCourage.Game.Char
             animator.SetTrigger(deathTriggerKey);
             OnCharKilled?.Invoke(this, EventArgs.Empty);
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = true;
-
-            if (other.CompareTag(EntityTags.Courage) && canCollectCourage)
-            {
-                var couragePickup = other.GetComponent<CouragePickupEntity>();
-                OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
-                Destroy(other.gameObject);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = false;
-        }
-
-        #endregion
 
     }
 

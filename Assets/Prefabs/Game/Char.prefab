@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterVision: {fileID: 1624709431971907045}
-  movementSpeed: 1.7
+  walkingSpeed: 1.7
   sprintSpeed: 4
 --- !u!114 &1871683216658508858
 MonoBehaviour:
