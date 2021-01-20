@@ -9,25 +9,6 @@ namespace AChildsCourage.Game
     [TestFixture]
     public class TilePositionTests
     {
-
-        [Test]
-        public void Given_Any_Coordinates_When_A_TilePosition_Is_Created_From_Them_Then_It_Has_These_Coordinates()
-        {
-            // Given
-
-            const int x = 5;
-            const int y = -10;
-
-            // When
-
-            var position = new TilePosition(x, y);
-
-            // Then
-
-            Assert.That(position.X, Is.EqualTo(x), "Incorrect X coordinate!");
-            Assert.That(position.Y, Is.EqualTo(y), "Incorrect Y coordinate!");
-        }
-
         
         [Test]
         public void Distance_Between_Positions_Is_Calculated_Correctly()
