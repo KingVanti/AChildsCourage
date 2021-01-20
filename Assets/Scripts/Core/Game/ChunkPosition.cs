@@ -13,8 +13,8 @@ namespace AChildsCourage.Game
     {
 
         public const int ChunkSize = 21;
-        private const int MaxChunkCoord = ChunkSize - 1;
-        private const int ChunkExtent = MaxChunkCoord / 2;
+        public const int MaxChunkCoord = ChunkSize - 1;
+        public const int ChunkExtent = MaxChunkCoord / 2;
 
 
         public static ChunkPosition OriginChunk => new ChunkPosition(0, 0);
@@ -26,9 +26,8 @@ namespace AChildsCourage.Game
 
 
         public static TilePosition GetCenter(ChunkPosition position) =>
-            position
-                .Map(GetCorner)
-                .Map(OffsetBy, ChunkCenterTileOffset);
+            position.Map(GetCorner)
+                    .Map(OffsetBy, ChunkCenterTileOffset);
 
         internal static TilePosition GetCorner(ChunkPosition position) =>
             new TilePosition(position.X * ChunkSize,
@@ -66,9 +65,8 @@ namespace AChildsCourage.Game
         }
 
         public static ChunkPosition GetLowerLeft(IEnumerable<ChunkPosition> positions) =>
-            positions
-                .Map(GetBounds)
-                .Map(b => new ChunkPosition(b.MinX, b.MinY));
+            positions.Map(GetBounds)
+                     .Map(b => new ChunkPosition(b.MinX, b.MinY));
 
         public static ChunkPosition Absolute(ChunkPosition position) =>
             new ChunkPosition(Abs(position.X), Abs(position.Y));
@@ -97,10 +95,9 @@ namespace AChildsCourage.Game
         }
 
         public static IEnumerable<TilePosition> GetPositionsInChunk(ChunkPosition position) =>
-            position
-                .Map(GetCorner)
-                .Map(corner => Grid.Generate(corner.X, corner.Y, ChunkSize, ChunkSize))
-                .Select(pos => new TilePosition(pos.X, pos.Y));
+            position.Map(GetCorner)
+                    .Map(corner => Grid.Generate(corner.X, corner.Y, ChunkSize, ChunkSize))
+                    .Select(pos => new TilePosition(pos.X, pos.Y));
 
 
         public int X { get; }
