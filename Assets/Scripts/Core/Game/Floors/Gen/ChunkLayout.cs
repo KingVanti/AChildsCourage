@@ -39,7 +39,9 @@ namespace AChildsCourage.Game.Floors.Gen
         public static (int Width, int Height) GetDimensions(ChunkLayout layout) =>
             layout.Map(IsEmpty)
                 ? noSize
-                : layout.occupiedChunks.Map(ChunkCollection.GetDimensions);
+                : layout.occupiedChunks
+                        .Map(GetBounds)
+                        .Map(IntBounds.GetDimensions);
 
         private static bool IsEmpty(ChunkLayout layout) =>
             layout.occupiedChunks.Map(ChunkCollection.IsEmpty);
