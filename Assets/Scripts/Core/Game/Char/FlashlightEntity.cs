@@ -119,14 +119,16 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(CharControllerEntity.OnPositionChanged))]
-        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => CharPosition = eventArgs.NewPosition;
+        private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) => 
+            CharPosition = eventArgs.NewPosition;
 
         [Sub(nameof(InputListener.OnMousePositionChanged))]
         private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) =>
             MousePos = eventArgs.MousePosition;
 
         [Sub(nameof(InputListener.OnFlashLightInput))]
-        private void OnFlashlightInput(object _1, EventArgs _2) => Toggle();
+        private void OnFlashlightInput(object _1, EventArgs _2) => 
+            Toggle();
 
         private void Toggle() =>
             IsTurnedOn = !IsTurnedOn;
