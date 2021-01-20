@@ -6,11 +6,11 @@ namespace AChildsCourage.Game.Floors.Gen
     public readonly struct RoomInstance
     {
 
-        public static RoomInstance CreateRoomFromConfiguration(ChunkPosition position, RoomConfiguration config) =>
+        public static RoomInstance CreateRoomFromConfiguration(Chunk position, RoomConfiguration config) =>
             new RoomInstance(position, config.RoomId, config.RotationCount, config.IsMirrored);
 
 
-        public ChunkPosition Position { get; }
+        public Chunk Position { get; }
 
         public RoomId Id { get; }
 
@@ -19,7 +19,7 @@ namespace AChildsCourage.Game.Floors.Gen
         public bool IsMirrored { get; }
 
 
-        private RoomInstance(ChunkPosition position, RoomId id, int rotationCount, bool isMirrored)
+        private RoomInstance(Chunk position, RoomId id, int rotationCount, bool isMirrored)
         {
             Position = position;
             Id = id;

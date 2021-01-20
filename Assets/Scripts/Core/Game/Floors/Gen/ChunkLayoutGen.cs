@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.Gen
 
             ChunkLayout OccupyNextChunk(ChunkLayout layout)
             {
-                float CalculateConnectivityWeight(ChunkPosition position)
+                float CalculateConnectivityWeight(Chunk position)
                 {
                     var directConnectionCount = position.Map(CountDirectConnections, layout);
                     var indirectConnectionCount = position.Map(CountIndirectConnections, layout);
@@ -29,7 +29,7 @@ namespace AChildsCourage.Game.Floors.Gen
                     return directConnectionWeight + indirectConnectionWeight;
                 }
 
-                float CalculateWeight(ChunkPosition position) =>
+                float CalculateWeight(Chunk position) =>
                     CalculateConnectivityWeight(position);
 
                 return layout.Map(GetPossibleNextChunks)

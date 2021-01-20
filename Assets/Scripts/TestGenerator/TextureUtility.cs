@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 
 namespace AChildsCourage.Game.Floors.Gen
 {

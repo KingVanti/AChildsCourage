@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game
 {
 
     [TestFixture]
-    public class ChunkPositionTests
+    public class ChunkTests
     {
 
         [Test]
@@ -14,16 +14,16 @@ namespace AChildsCourage.Game
         {
             // Given
 
-            var chunkPosition = new ChunkPosition(x, y);
+            var chunk = new Chunk(x, y);
 
             // When
 
-            var center = chunkPosition.Map(GetCenter);
+            var center = chunk.Map(GetCenter);
 
             // Then
 
-            var newChunkPosition = center.Map(GetChunk);
-            Assert.That(newChunkPosition, Is.EqualTo(chunkPosition), "Center is in different chunk!");
+            var newChunk = center.Map(GetChunk);
+            Assert.That(newChunk, Is.EqualTo(chunk), "Center is in different chunk!");
         }
 
         [Test]
@@ -31,11 +31,11 @@ namespace AChildsCourage.Game
         {
             // Given
 
-            var chunkPosition = new ChunkPosition(x, y);
+            var chunk = new Chunk(x, y);
 
             // When
 
-            var center = chunkPosition.Map(GetCenter);
+            var center = chunk.Map(GetCenter);
 
             // Then
 
@@ -48,16 +48,16 @@ namespace AChildsCourage.Game
         {
             // Given
 
-            var chunkPosition = new ChunkPosition(x, y);
+            var chunk = new Chunk(x, y);
 
             // When
 
-            var corner = chunkPosition.Map(GetCorner);
+            var corner = chunk.Map(GetCorner);
 
             // Then
 
-            var newChunkPosition = corner.Map(GetChunk);
-            Assert.That(newChunkPosition, Is.EqualTo(chunkPosition), "Corner is in different chunk!");
+            var newChunk = corner.Map(GetChunk);
+            Assert.That(newChunk, Is.EqualTo(chunk), "Corner is in different chunk!");
         }
 
         [Test]
@@ -65,11 +65,11 @@ namespace AChildsCourage.Game
         {
             // Given
 
-            var chunkPosition = new ChunkPosition(x, y);
+            var chunk = new Chunk(x, y);
 
             // When
 
-            var corner = chunkPosition.Map(GetCorner);
+            var corner = chunk.Map(GetCorner);
 
             // Then
 

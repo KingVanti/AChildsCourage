@@ -21,7 +21,7 @@ namespace AChildsCourage.Game.Floors.Gen
             IEnumerable<RoomConfiguration> FindMatchingConfigurations(RoomFilter filter) =>
                 roomCollection.Map(FindConfigurationsMatching, filter);
 
-            RoomInstance ChooseRoom(ChunkPosition position) =>
+            RoomInstance ChooseRoom(Chunk position) =>
                 plan.Map(CreateFilterFor, position)
                     .Map(FindMatchingConfigurations)
                     .TryGetRandom(rng, () => throw new Exception("No configurations match the filter!"))

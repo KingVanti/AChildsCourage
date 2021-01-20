@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
 using static UnityEngine.Mathf;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 
 namespace AChildsCourage.Game
 {
@@ -61,8 +61,8 @@ namespace AChildsCourage.Game
             new TileOffset(position.X,
                            position.Y);
 
-        public static ChunkPosition GetChunk(TilePosition tilePosition) =>
-            new ChunkPosition(FloorToInt(tilePosition.X / (float) ChunkSize),
+        public static Chunk GetChunk(TilePosition tilePosition) =>
+            new Chunk(FloorToInt(tilePosition.X / (float) ChunkSize),
                               FloorToInt(tilePosition.Y / (float) ChunkSize));
 
         public static TilePosition RotateAround(TilePosition pivot, TilePosition position)

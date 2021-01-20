@@ -2,7 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
-using static AChildsCourage.Game.ChunkPosition;
+using static AChildsCourage.Game.Chunk;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -10,35 +10,35 @@ namespace AChildsCourage.Game.Floors.Gen
     public readonly struct PassagePlan
     {
 
-        private static PassagePlan Empty => new PassagePlan(ImmutableDictionary<ChunkPosition, ChunkPassages>.Empty);
+        private static PassagePlan Empty => new PassagePlan(ImmutableDictionary<Chunk, ChunkPassages>.Empty);
 
 
         public static PassagePlan CreatePassagePlan(ChunkLayout layout)
         {
-            bool HasAdjacentChunkIn(PassageDirection direction, ChunkPosition position) =>
+            bool HasAdjacentChunkIn(PassageDirection direction, Chunk position) =>
                 position
                     .Map(GetAdjacentChunk, direction)
                     .Map(IsOccupiedIn, layout);
 
-            ChunkPassages GetPassagesFor(ChunkPosition position) =>
+            ChunkPassages GetPassagesFor(Chunk position) =>
                 new ChunkPassages(position.Map(HasAdjacentChunkIn, PassageDirection.North),
                                   position.Map(HasAdjacentChunkIn, PassageDirection.East),
                                   position.Map(HasAdjacentChunkIn, PassageDirection.South),
                                   position.Map(HasAdjacentChunkIn, PassageDirection.West));
 
-            PassagePlan AddPassagesFor(PassagePlan plan, ChunkPosition position) =>
+            PassagePlan AddPassagesFor(PassagePlan plan, Chunk position) =>
                 new PassagePlan(plan.passages.Add(position, GetPassagesFor(position)));
 
             return layout.Map(GetPositions)
                          .Aggregate(Empty, AddPassagesFor);
         }
 
-        public static IEnumerable<ChunkPosition> GetChunks(PassagePlan plan) =>
+        public static IEnumerable<Chunk> GetChunks(PassagePlan plan) =>
             plan.passages.Keys;
 
-        public static RoomFilter CreateFilterFor(ChunkPosition position, PassagePlan plan)
+        public static RoomFilter CreateFilterFor(Chunk position, PassagePlan plan)
         {
-            ChunkPosition GetFurthestChunkFromOrigin() =>
+            Chunk GetFurthestChunkFromOrigin() =>
                 plan.Map(GetChunks)
                     .FirstByDescending(GetDistanceToOrigin);
 
@@ -53,10 +53,10 @@ namespace AChildsCourage.Game.Floors.Gen
         }
 
 
-        private readonly ImmutableDictionary<ChunkPosition, ChunkPassages> passages;
+        private readonly ImmutableDictionary<Chunk, ChunkPassages> passages;
 
 
-        private PassagePlan(ImmutableDictionary<ChunkPosition, ChunkPassages> passages)
+        private PassagePlan(ImmutableDictionary<Chunk, ChunkPassages> passages)
             => this.passages = passages;
 
     }
