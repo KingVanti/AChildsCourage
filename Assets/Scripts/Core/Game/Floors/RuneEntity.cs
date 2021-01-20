@@ -35,9 +35,9 @@ namespace AChildsCourage.Game.Floors
 
         private float DistanceToFlashlight => Vector2.Distance(Center, FlashlightCenter);
 
-        private bool IsShoneOn => flashLight.IsTurnedOn && DistanceToFlashlight <= Radius + flashLight.ShineRadius;
+        private bool IsShoneOn => flashLight.IsTurnedOn && DistanceToFlashlight <= Radius + flashLight.Shine.OuterRadius;
 
-        private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.ShineDistanceInterpolation);
+        private float CurrentChargeGain => chargeGainRange.Map(Range.Lerp, flashLight.Shine.Power);
 
         private float CurrentChargeDelta => IsShoneOn ? CurrentChargeGain : -chargeDrain;
 
