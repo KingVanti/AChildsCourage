@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using AChildsCourage.Game.Char;
+using UnityEngine;
 
-namespace AChildsCourage.Game.Char
+namespace AChildsCourage.Game
 {
 
     public class GameCameraControllerEntity : MonoBehaviour
