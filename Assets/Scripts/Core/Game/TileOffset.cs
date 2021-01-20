@@ -1,4 +1,5 @@
-﻿using static UnityEngine.Mathf;
+﻿using UnityEngine;
+using static UnityEngine.Mathf;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game
@@ -12,6 +13,9 @@ namespace AChildsCourage.Game
 
         public static TilePosition ApplyTo(TilePosition position, TileOffset offset) =>
             position.Map(OffsetBy, offset);
+
+        public static float Magnitude(TileOffset offset) =>
+            new Vector2(offset.X, offset.Y).magnitude;
 
 
         public int X { get; }
