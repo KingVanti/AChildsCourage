@@ -134,26 +134,30 @@ namespace AChildsCourage
                 .ForEach(field =>
                 {
                     var findMode = field.GetCustomAttribute<FindComponentAttribute>().FindMode;
-                    var component = (Component) null;
-
-                    switch (findMode)
-                    {
-                        case ComponentFindMode.OnSelf:
-                            component = monoBehaviour.GetComponent(field.FieldType);
-                            break;
-                        case ComponentFindMode.OnParent:
-                            component = monoBehaviour.GetComponentInParent(field.FieldType);
-                            break;
-                        case ComponentFindMode.OnChildren:
-                            component = monoBehaviour.GetComponentInChildren(field.FieldType);
-                            break;
-                        default: throw new Exception($"Invalid find mode {findMode}!");
-                    }
-
+                    var component = FindComponent(monoBehaviour, field.FieldType, findMode);
+                    
                     if (component == null) throw new Exception($"Could not find component {field.FieldType.Name} on {monoBehaviour}");
 
                     field.SetValue(monoBehaviour, component);
                 });
+
+        private static Component FindComponent(MonoBehaviour monoBehaviour, Type componentType, ComponentFindMode findMode)
+        {
+            
+            switch (findMode)
+            {
+                case ComponentFindMode.OnSelf:
+                  return monoBehaviour.GetComponent(componentType);
+                   
+                case ComponentFindMode.OnParent:
+                    return monoBehaviour.GetComponentInParent(componentType);
+   
+                case ComponentFindMode.OnChildren:
+                    return monoBehaviour.GetComponentInChildren(componentType);
+               
+                default: throw new Exception($"Invalid find mode {findMode}!");
+            }
+        }
 
         private static IEnumerable<FieldInfo> GetFieldsWith<TAttr>(MonoBehaviour monoBehaviour) where TAttr : Attribute =>
             monoBehaviour
