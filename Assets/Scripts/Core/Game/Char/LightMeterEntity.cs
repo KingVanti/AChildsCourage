@@ -17,7 +17,7 @@ namespace AChildsCourage.Game.Char
         private ImmutableHashSet<Light2D> lightSources;
 
 
-        public bool IsLit { get; private set; }
+        public bool DetectsLight { get; private set; }
 
 
         private void Update()
@@ -35,7 +35,7 @@ namespace AChildsCourage.Game.Char
             lightSources = lightSources.Where(l => l).ToImmutableHashSet();
 
         private void UpdateLitStatus() =>
-            IsLit = flashlight.IsTurnedOn || lightSources.Any(ShinesOnLightMeter);
+            DetectsLight = flashlight.IsTurnedOn || lightSources.Any(ShinesOnLightMeter);
 
         private bool ShinesOnLightMeter(Light2D source) =>
             source.enabled &&

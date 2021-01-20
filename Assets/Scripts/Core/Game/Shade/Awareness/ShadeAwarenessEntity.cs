@@ -89,7 +89,7 @@ namespace AChildsCourage.Game.Shade
 
         private float MovementMultiplier => movementStateMultipliers[charController.CurrentMovementState];
 
-        private float FlashLightMultiplier => lightMeter.IsLit ? charLitMultiplier : 1;
+        private float FlashLightMultiplier => lightMeter.DetectsLight ? charLitMultiplier : 1;
 
         private bool IsShoneOn => flashlight.ShinesOn(transform.position);
 
