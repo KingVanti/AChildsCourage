@@ -35,9 +35,10 @@ namespace AChildsCourage.Game
             new TilePosition(FloorToInt(vector.x),
                              FloorToInt(vector.y));
 
-        public static IEnumerable<TilePosition> FindPositionsInRadius(TilePosition center, float radius) =>
+        public static TilePositionCollection FindPositionsInRadius(TilePosition center, float radius) =>
             GeneratePositionsInRadius(GetCenter(center), radius)
-                .Select(ToTile);
+                .Select(ToTile)
+                .Map(tiles => new TilePositionCollection(tiles));
 
         private static IEnumerable<Vector2> GeneratePositionsInRadius(Vector2 center, float radius) =>
             GeneratePositionsInSquare(center, radius)
@@ -49,11 +50,7 @@ namespace AChildsCourage.Game
                 for (var dY = -extend; dY <= extend; dY++)
                     yield return new Vector2(center.x + dX, center.y + dY);
         }
-
-        public static TilePosition Average(ImmutableHashSet<TilePosition> positions) =>
-            new TilePosition((int) positions.Select(p => p.X).Average(),
-                             (int) positions.Select(p => p.Y).Average());
-
+        
         public static TileOffset AsOffset(TilePosition position) =>
             new TileOffset(position.X,
                            position.Y);
