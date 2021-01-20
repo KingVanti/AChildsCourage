@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
+using UnityEngine;
 
 namespace AChildsCourage.Game
 {
@@ -23,8 +24,10 @@ namespace AChildsCourage.Game
         private void OnCharEnteredRift(object _1, EventArgs _2) =>
             OnWin();
 
-        private void OnWin() =>
+        private void OnWin() {
+            PlayerPrefs.SetInt("COMPLETED", 1);
             Transition.To(SceneName.endCutscene, FadeColor.White);
+        }
 
 
         [Sub(nameof(InputListener.OnExitInput))]
