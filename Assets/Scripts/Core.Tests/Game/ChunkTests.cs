@@ -77,6 +77,39 @@ namespace AChildsCourage.Game
             Assert.That(corner.Y % ChunkSize, Is.EqualTo(0), $"Tile {corner} y is not in chunk corner!");
         }
 
+        [Test]
+        public void Absolute_Chunk_Has_Same_Distance_To_Origin_As_Original([Random(-10, 10, 10)] int x, [Random(-10, 10, 10)] int y)
+        {
+            // Given
+
+            var chunk = new Chunk(x, y);
+
+            // When
+
+            var absolute = chunk.Map(Absolute);
+
+            // Then
+
+            Assert.That(absolute.Map(GetDistanceToOrigin), Is.EqualTo(chunk.Map(GetDistanceToOrigin)), "Chunks dont have same distance to origin!");
+        }
+
+        [Test]
+        public void Absolute_Chunk_Has_Only_Positive_Coordinates([Random(-10, 10, 10)] int x, [Random(-10, 10, 10)] int y)
+        {
+            // Given
+
+            var chunk = new Chunk(x, y);
+
+            // When
+
+            var absolute = chunk.Map(Absolute);
+
+            // Then
+
+            Assert.That(absolute.X, Is.GreaterThanOrEqualTo(0), "X is not positive!");
+            Assert.That(absolute.Y, Is.GreaterThanOrEqualTo(0), "Y is not positive!");
+        }
+
     }
 
 }
