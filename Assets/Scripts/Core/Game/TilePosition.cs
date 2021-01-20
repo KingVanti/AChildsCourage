@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using static UnityEngine.Mathf;
 using static AChildsCourage.Game.Chunk;
 using static AChildsCourage.Game.TileOffset;
@@ -14,8 +11,8 @@ namespace AChildsCourage.Game
 
         private const float TileSize = 1f;
         private const float TileExtent = TileSize / 2f;
-        
-        
+
+
         internal static float DistanceTo(TilePosition p1, TilePosition p2) =>
             Vector2.Distance(new Vector2(p1.X, p1.Y), new Vector2(p2.X, p2.Y));
 
@@ -30,14 +27,14 @@ namespace AChildsCourage.Game
 
         public static Vector2 GetCenter(TilePosition position) =>
             new Vector2(position.X + TileExtent, position.Y + TileExtent);
-        
+
         public static TileOffset AsOffset(TilePosition position) =>
             new TileOffset(position.X,
                            position.Y);
 
         public static Chunk GetChunk(TilePosition tilePosition) =>
             new Chunk(FloorToInt(tilePosition.X / (float) ChunkSize),
-                              FloorToInt(tilePosition.Y / (float) ChunkSize));
+                      FloorToInt(tilePosition.Y / (float) ChunkSize));
 
         public static TilePosition RotateAround(TilePosition pivot, TilePosition position)
         {
