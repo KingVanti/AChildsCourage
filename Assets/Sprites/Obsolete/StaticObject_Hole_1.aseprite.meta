@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 27c315f1129e00e449f084b13bfc9a0a
+guid: 481d7f5c3f3d62d42bc27c5b29f4d9f3
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -17,7 +17,7 @@ ScriptedImporter:
     meshType: 1
     extrudeEdges: 1
     spritePivot: {x: 0.5, y: 0}
-    generatePhysics: 0
+    generatePhysics: 1
     wrapMode: 1
     filterMode: 0
     tileSize: {x: 32, y: 32}

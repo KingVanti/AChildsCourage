@@ -1812,12 +1812,10 @@ MonoBehaviour:
     weight: 1
   - sprite: {fileID: 21300000, guid: 6ce3222f64236624f80d3cf356a10aae, type: 3}
     weight: 1
-  - sprite: {fileID: 2557845688152859499, guid: 27c315f1129e00e449f084b13bfc9a0a, type: 3}
-    weight: 6
-  - sprite: {fileID: 1112151849688767396, guid: d7ac8c8298dc70c44a1f7c81106593c8, type: 3}
-    weight: 6
-  - sprite: {fileID: 2812867475633870936, guid: e18c2230849316f4d98cf02aef0af08c, type: 3}
-    weight: 6
+  - sprite: {fileID: 21300000, guid: ce832dc1a4f413f488da134ffe40c74d, type: 3}
+    weight: 1
+  - sprite: {fileID: 21300000, guid: 54626e7d7ad3274458b704036e0b49d8, type: 3}
+    weight: 1
   - sprite: {fileID: 21300000, guid: f1825ea09abdee34d89bb869b40f39e3, type: 3}
     weight: 3
   - sprite: {fileID: 21300000, guid: 99033a106642b3441bb031fed395ad7a, type: 3}
@@ -1850,6 +1848,14 @@ MonoBehaviour:
     weight: 1
   - sprite: {fileID: 21300000, guid: dcc84da723aa2984cb692317cc224554, type: 3}
     weight: 1
+  - sprite: {fileID: 21300000, guid: 36c7864e7afca0248b8d76d197c30939, type: 3}
+    weight: 5
+  - sprite: {fileID: 21300000, guid: d2e8bca2174098e48848ffc784097914, type: 3}
+    weight: 5
+  - sprite: {fileID: 21300000, guid: 0f593577eb2d81e49bf1af656a148871, type: 3}
+    weight: 5
+  - sprite: {fileID: 21300000, guid: d0d80983af70c4b4381df60e93bddb4e, type: 3}
+    weight: 5
 --- !u!1 &973679598
 GameObject:
   m_ObjectHideFlags: 0
