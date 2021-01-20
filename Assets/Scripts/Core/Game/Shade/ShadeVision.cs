@@ -9,23 +9,23 @@ using static AChildsCourage.Game.Char.Visibility;
 namespace AChildsCourage.Game.Shade
 {
 
-    public readonly struct ShadeVision
+    internal readonly struct ShadeVision
     {
 
-        public static bool CanSeePoint(Vector2 point, ShadeVision vision) =>
+        internal static bool CanSeePoint(Vector2 point, ShadeVision vision) =>
             vision.VisionCones
                   .Any(cone => cone.Map(Contains, vision.Head, point));
 
-        public static Visibility GetPointVisibility(ShadeVision vision, Vector2 point) =>
+        internal static Visibility GetPointVisibility(ShadeVision vision, Vector2 point) =>
             vision.VisionCones
                   .Where(cone => cone.Map(Contains, vision.Head, point))
                   .Select(cone => cone.Visibility)
                   .Match(GetHighestValue,
                          () => notVisible);
 
-        public ShadeHead Head { get; }
+        private ShadeHead Head { get; }
 
-        public ImmutableHashSet<VisionCone> VisionCones { get; }
+        private ImmutableHashSet<VisionCone> VisionCones { get; }
 
 
         public ShadeVision(ShadeHead head, IEnumerable<VisionCone> visionCones)

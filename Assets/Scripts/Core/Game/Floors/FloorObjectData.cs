@@ -3,32 +3,32 @@
 namespace AChildsCourage.Game.Floors
 {
 
-    public abstract class FloorObjectData { }
+    internal abstract class FloorObjectData { }
 
-    public class GroundTileData : FloorObjectData { }
+    internal class GroundTileData : FloorObjectData { }
 
-    public class WallData : FloorObjectData
+    internal class WallData : FloorObjectData
     {
 
-        public WallType Type { get; }
+        internal WallType Type { get; }
 
-        public WallData(WallType type) =>
+        internal WallData(WallType type) =>
             Type = type;
 
     }
 
-    public class CouragePickupData : FloorObjectData
+    internal class CouragePickupData : FloorObjectData
     {
 
-        public CourageVariant Variant { get; }
+        internal CourageVariant Variant { get; }
 
-        public CouragePickupData(CourageVariant variant) =>
+        internal CouragePickupData(CourageVariant variant) =>
             Variant = variant;
 
     }
 
-    public class StaticObjectData : FloorObjectData { }
+    internal class StaticObjectData : FloorObjectData { }
 
-    public class RuneData : FloorObjectData { }
+    internal class RuneData : FloorObjectData { }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.M;
 
@@ -39,7 +40,7 @@ namespace AChildsCourage.Game.Char
         private bool HasNoStamina => Stamina == 0;
 
 
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))] [UsedImplicitly]
         private void OnSceneLoaded(object _1, EventArgs _2)
         {
             Stamina = maxStamina;
@@ -48,7 +49,7 @@ namespace AChildsCourage.Game.Char
             StartCoroutine(ContinuallyUpdateStamina());
         }
 
-        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))] [UsedImplicitly]
         private void OnMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs) =>
             UpdateDrainRate(eventArgs.Current);
 

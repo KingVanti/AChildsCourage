@@ -1,6 +1,5 @@
 ﻿using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Shade;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.Game.Floors.RuneCharge;
@@ -81,13 +80,13 @@ namespace AChildsCourage.Game.Floors
             SwitchOff();
         }
 
-        private void SwitchOff() {
+        private void SwitchOff()
+        {
             Charge = NoCharge;
             spriteRenderer.sprite = inactiveSprite;
             spriteRenderer.material = runeUsedMaterial;
             glowLight.intensity = 0;
         }
-
 
     }
 

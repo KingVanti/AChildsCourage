@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Char;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage.Game
@@ -7,7 +8,7 @@ namespace AChildsCourage.Game
     public class GameCameraControllerEntity : MonoBehaviour
     {
 
-        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))] [UsedImplicitly]
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
             FocusOn(eventArgs.NewPosition);
 

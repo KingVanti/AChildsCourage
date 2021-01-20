@@ -19,7 +19,7 @@ namespace AChildsCourage
         private static readonly Dictionary<string, (EventInfo Event, object Emitter)> events = new Dictionary<string, (EventInfo Event, object Emitter)>();
 
 
-        public static void SetupSceneInfrastructure()
+        internal static void SetupSceneInfrastructure()
         {
             if (services.Count == 0) SetupServices();
             events.Clear();
@@ -56,14 +56,11 @@ namespace AChildsCourage
             foreach (var @event in monoBehaviour.GetType().GetEvents(DefaultBindingFlags).Where(HasAttribute<PubAttribute>)) events.Add(@event.Name, (@event, monoBehaviour));
         }
 
-
-        public static GameObject Spawn(GameObject prefab, Transform parent) =>
-            Spawn(prefab, Vector3.zero, Quaternion.identity, parent);
-
-        public static GameObject Spawn(GameObject prefab, Vector3 position, Transform parent) =>
+        
+        internal static GameObject Spawn(GameObject prefab, Vector3 position, Transform parent) =>
             Spawn(prefab, position, Quaternion.identity, parent);
 
-        public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
+        internal static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
         {
             var gameObject = UnityObject.Instantiate(prefab, position, rotation, parent);
 
@@ -141,7 +138,7 @@ namespace AChildsCourage
                     field.SetValue(monoBehaviour, component);
                 });
 
-        private static Component FindComponent(MonoBehaviour monoBehaviour, Type componentType, ComponentFindMode findMode)
+        private static Component FindComponent(Component monoBehaviour, Type componentType, ComponentFindMode findMode)
         {
             
             switch (findMode)

@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace AChildsCourage.Menu {
-    public class CompletionCheck : MonoBehaviour {
+namespace AChildsCourage.Menu
+{
 
+    public class CompletionCheck : MonoBehaviour
+    {
+
+        private const string CompletionPlayerPrefKey = "COMPLETED";
+
+        
         [SerializeField] private Image completionCheckImage;
 
-        private bool HasCompletedGame {
-            get => PlayerPrefs.GetInt("COMPLETED") == 1;
-        }
+        private static bool HasCompletedGame => PlayerPrefs.GetInt(CompletionPlayerPrefKey) == 1;
 
-        private void Start() => completionCheckImage.enabled = HasCompletedGame;
+        private void Start() =>
+            completionCheckImage.enabled = HasCompletedGame;
 
     }
 

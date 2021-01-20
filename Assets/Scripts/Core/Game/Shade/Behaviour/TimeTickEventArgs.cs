@@ -3,6 +3,6 @@
 namespace AChildsCourage.Game.Shade
 {
 
-    public class TimeTickEventArgs : EventArgs { }
+    internal class TimeTickEventArgs : EventArgs { }
 
 }

@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Shade
 {
 
-    public enum AwarenessLevel
+    internal enum AwarenessLevel
     {
 
         Oblivious,

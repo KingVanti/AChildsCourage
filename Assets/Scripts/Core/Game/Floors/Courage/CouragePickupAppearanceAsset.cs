@@ -14,17 +14,18 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private Sprite sprite;
         [SerializeField] private Vector3 scale;
 
-        public CourageVariant Variant => variant;
 
-        public float LightOuterRadius => lightOuterRadius;
+        internal CourageVariant Variant => variant;
 
-        public float LightIntensity => lightIntensity;
+        internal float LightOuterRadius => lightOuterRadius;
 
-        public Texture2D Emission => emission;
+        internal float LightIntensity => lightIntensity;
 
-        public Sprite Sprite => sprite;
+        internal Texture2D Emission => emission;
 
-        public Vector3 Scale => scale;
+        internal Sprite Sprite => sprite;
+
+        internal Vector3 Scale => scale;
 
     }
 

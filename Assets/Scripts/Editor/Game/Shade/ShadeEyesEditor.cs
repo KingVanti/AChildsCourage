@@ -10,9 +10,6 @@ namespace AChildsCourage.Game.Shade
     public class ShadeEyesEditor : Editor
     {
 
-        private static readonly Color tileInVisionColor = new Color(0.31f, 0.37f, 0.9f, 1f);
-
-
         private ShadeEyesEntity Eyes => target as ShadeEyesEntity;
 
 

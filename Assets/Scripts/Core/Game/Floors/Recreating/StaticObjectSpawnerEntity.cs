@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private StaticObjectWeights[] appearanceWeights;
 
 
-        public void Spawn(TilePosition position, StaticObjectData _)
+        internal void Spawn(TilePosition position, StaticObjectData _)
         {
             var entity = InstantiateStaticObjectAt(position);
 

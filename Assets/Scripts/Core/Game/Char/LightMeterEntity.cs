@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Floors;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -27,7 +28,7 @@ namespace AChildsCourage.Game.Char
         private void Update() =>
             RemoveMissingLightSources();
 
-        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
             lightSources = FindObjectsOfType<Light2D>().ToImmutableHashSet();
 

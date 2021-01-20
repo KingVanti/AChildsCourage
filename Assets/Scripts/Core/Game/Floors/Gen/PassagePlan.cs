@@ -7,13 +7,13 @@ using static AChildsCourage.Game.Chunk;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct PassagePlan
+    internal readonly struct PassagePlan
     {
 
         private static PassagePlan Empty => new PassagePlan(ImmutableDictionary<Chunk, ChunkPassages>.Empty);
 
 
-        public static PassagePlan CreatePassagePlan(ChunkLayout layout)
+        internal static PassagePlan CreatePassagePlan(ChunkLayout layout)
         {
             bool HasAdjacentChunkIn(PassageDirection direction, Chunk position) =>
                 position
@@ -33,10 +33,10 @@ namespace AChildsCourage.Game.Floors.Gen
                          .Aggregate(Empty, AddPassagesFor);
         }
 
-        public static IEnumerable<Chunk> GetChunks(PassagePlan plan) =>
+        internal static IEnumerable<Chunk> GetChunks(PassagePlan plan) =>
             plan.passages.Keys;
 
-        public static RoomFilter CreateFilterFor(Chunk position, PassagePlan plan)
+        internal static RoomFilter CreateFilterFor(Chunk position, PassagePlan plan)
         {
             Chunk GetFurthestChunkFromOrigin() =>
                 plan.Map(GetChunks)

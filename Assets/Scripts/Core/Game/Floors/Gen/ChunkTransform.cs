@@ -7,10 +7,10 @@ using static AChildsCourage.Game.TileOffset;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct ChunkTransform
+    internal readonly struct ChunkTransform
     {
 
-        public static ChunkTransform CreateTransform(RoomInstance room)
+        internal static ChunkTransform CreateTransform(RoomInstance room)
         {
             var chunkCenter = room.Position.Map(GetCenter);
             var chunkCorner = room.Position.Map(GetCorner);
@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.Gen
             return new ChunkTransform(room.RotationCount, room.IsMirrored, chunkCorner, chunkCenter);
         }
 
-        public static RoomContent TransformContent(RoomContent content, ChunkTransform transform)
+        internal static RoomContent TransformContent(RoomContent content, ChunkTransform transform)
         {
             FloorObject Transform(FloorObject floorObject) =>
                 floorObject

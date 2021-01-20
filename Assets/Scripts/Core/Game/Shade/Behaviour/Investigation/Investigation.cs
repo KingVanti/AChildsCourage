@@ -5,18 +5,18 @@ using static AChildsCourage.Rng;
 namespace AChildsCourage.Game.Shade
 {
 
-    public readonly struct Investigation
+    internal readonly struct Investigation
     {
 
-        public static Investigation CompleteInvestigation => new Investigation(null, ImmutableHashSet<Poi>.Empty);
+        internal static Investigation CompleteInvestigation => new Investigation(null, ImmutableHashSet<Poi>.Empty);
 
 
-        public static Investigation StartInvestigation(Aoi aoi) =>
+        internal static Investigation StartInvestigation(Aoi aoi) =>
             aoi.Pois
                .Map(pois => new Investigation(null, pois.ToImmutableHashSet()))
                .Map(Progress);
 
-        public static Investigation Progress(Investigation investigation)
+        internal static Investigation Progress(Investigation investigation)
         {
             var nextTarget = investigation.Map(IsOutOfPois)
                 ? (Poi?) null
@@ -28,7 +28,7 @@ namespace AChildsCourage.Game.Shade
             return new Investigation(nextTarget, remainingPositions);
         }
 
-        public static bool IsComplete(Investigation investigation) =>
+        internal static bool IsComplete(Investigation investigation) =>
             investigation.Map(IsOutOfPois) && investigation.Map(HasNoTarget);
 
         private static bool IsOutOfPois(Investigation investigation) =>
@@ -37,7 +37,7 @@ namespace AChildsCourage.Game.Shade
         private static bool HasNoTarget(Investigation investigation) =>
             investigation.currentTarget == null;
 
-        public static Poi GetCurrentTarget(Investigation investigation) =>
+        internal static Poi GetCurrentTarget(Investigation investigation) =>
             investigation.currentTarget ?? throw new Exception("This investigation has no target!");
 
 

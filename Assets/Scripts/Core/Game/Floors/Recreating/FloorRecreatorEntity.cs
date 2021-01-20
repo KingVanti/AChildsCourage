@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Floors;
 using AChildsCourage.Game.Floors.Gen;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayoutGen;
 using static AChildsCourage.Game.Floors.Gen.FloorGen;
@@ -43,14 +44,14 @@ namespace AChildsCourage.Game
         }
 
 
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))] [UsedImplicitly]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             PrepareNightForCurrentRun();
 
         private void PrepareNightForCurrentRun() =>
             GameSeed.CreateRandom()
-                .Map(GenerateFromSeed)
-                .Do(Recreate);
+                    .Map(GenerateFromSeed)
+                    .Do(Recreate);
 
         private Floor GenerateFromSeed(GameSeed gameSeed)
         {

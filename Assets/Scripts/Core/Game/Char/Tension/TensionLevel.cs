@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Char
 {
 
-    public enum TensionLevel
+    internal enum TensionLevel
     {
 
         Low,

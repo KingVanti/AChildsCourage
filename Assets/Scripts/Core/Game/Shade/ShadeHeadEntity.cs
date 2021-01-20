@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.M;
 using static AChildsCourage.F;
@@ -70,7 +71,7 @@ namespace AChildsCourage.Game.Shade
             If(CanSeeExplicitTarget)
                 .Then(() => OnVisualContactToTarget?.Invoke(this, new VisualContactToTargetEventArgs()));
 
-        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        [Sub(nameof(ShadeBrainEntity.OnCommand))] [UsedImplicitly]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
         {
             switch (eventArgs.Command)

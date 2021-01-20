@@ -10,10 +10,10 @@ namespace AChildsCourage.Game.Floors
         private const float MinCharge = 0;
         private const float MaxCharge = 1;
 
-        public static RuneCharge NoCharge => new RuneCharge(MinCharge);
+        internal static RuneCharge NoCharge => new RuneCharge(MinCharge);
 
 
-        public static RuneCharge Change(float delta, RuneCharge charge) =>
+        internal static RuneCharge Change(float delta, RuneCharge charge) =>
             charge.value
                   .Map(Plus, delta)
                   .Map(Clamp, MinCharge, MaxCharge)

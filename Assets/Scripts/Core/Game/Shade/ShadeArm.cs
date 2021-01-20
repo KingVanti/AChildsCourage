@@ -1,5 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
@@ -31,22 +32,23 @@ namespace AChildsCourage.Game.Shade
         private void Awake() =>
             this.DoContinually(TryAttack, 1f / attackAttemptsPerSecond);
 
+        [UsedImplicitly]
         public void DamageChar() =>
             @char.Kill();
 
-        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))] [UsedImplicitly]
         private void OnPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
             charIsInRange = Vector2.Distance(eventArgs.NewPosition, transform.position) <= attackRange;
 
-        [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))]
+        [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))] [UsedImplicitly]
         private void OnShadeSteppedOnRune(object _1, EventArgs _2) =>
             isBanished = true;
 
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))] [UsedImplicitly]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             isBanished = false;
 
-        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        [Sub(nameof(CharControllerEntity.OnCharKilled))] [UsedImplicitly]
         private void OnCharKilled(object _1, EventArgs _2) =>
             charIsAlive = false;
 

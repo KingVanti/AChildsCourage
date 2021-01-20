@@ -7,10 +7,10 @@ namespace AChildsCourage.Game.Char
     public class CharPositionChangedEventArgs : EventArgs
     {
 
-        public Vector2 NewPosition { get; }
+        internal Vector2 NewPosition { get; }
 
 
-        public CharPositionChangedEventArgs(Vector2 newPosition) => 
+        internal CharPositionChangedEventArgs(Vector2 newPosition) => 
             NewPosition = newPosition;
 
     }

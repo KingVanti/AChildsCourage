@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Floors.Courage
@@ -15,7 +16,7 @@ namespace AChildsCourage.Game.Floors.Courage
         private const string RoomResourcePath = "Courage-Pickup Appearances/";
 
 
-        [Service]
+        [Service] [UsedImplicitly]
         public static LoadCouragePickupAppearances FromAssets =>
             () => LoadAssets().Select(ReadData);
 

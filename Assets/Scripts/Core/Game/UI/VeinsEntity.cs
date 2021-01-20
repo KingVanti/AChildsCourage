@@ -1,4 +1,5 @@
 ﻿using AChildsCourage.Game.Shade;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ namespace AChildsCourage.Game.UI
         }
 
 
-        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))]
+        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))] [UsedImplicitly] 
         private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs)
         {
             Alpha = eventArgs.NewAwareness;

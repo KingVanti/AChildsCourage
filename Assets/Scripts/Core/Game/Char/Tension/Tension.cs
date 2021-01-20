@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Char
         private const float MaxTension = 1;
 
 
-        public static Tension NoTension => new Tension(MinTension);
+        internal static Tension NoTension => new Tension(MinTension);
 
 
         private readonly float value;

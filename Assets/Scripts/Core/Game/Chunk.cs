@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AChildsCourage.Game.Floors;
 using UnityEngine;
 using static UnityEngine.Mathf;
@@ -13,16 +12,16 @@ namespace AChildsCourage.Game
     {
 
         public const int ChunkSize = 21;
-        public const int MaxChunkCoord = ChunkSize - 1;
-        public const int ChunkExtent = MaxChunkCoord / 2;
+        private const int MaxChunkCoord = ChunkSize - 1;
+        internal const int ChunkExtent = MaxChunkCoord / 2;
 
 
-        public static readonly Chunk originChunk = new Chunk(0, 0);
-        public static readonly TileOffset topCornerOffset = new TileOffset(MaxChunkCoord, MaxChunkCoord);
+        internal static readonly Chunk originChunk = new Chunk(0, 0);
+        internal static readonly TileOffset topCornerOffset = new TileOffset(MaxChunkCoord, MaxChunkCoord);
         private static readonly TileOffset chunkCenterTileOffset = new TileOffset(ChunkExtent, ChunkExtent);
 
 
-        public static TilePosition GetCenter(Chunk position) =>
+        internal static TilePosition GetCenter(Chunk position) =>
             position.Map(GetCorner)
                     .Map(OffsetBy, chunkCenterTileOffset);
 
@@ -57,20 +56,20 @@ namespace AChildsCourage.Game
                                 new Chunk(position.X - 1, position.Y - 1),
                                 new Chunk(position.X - 1, position.Y + 1));
 
-        public static Chunk Absolute(Chunk position) =>
+        internal static Chunk Absolute(Chunk position) =>
             new Chunk(Abs(position.X), Abs(position.Y));
 
-        public static IEnumerable<TilePosition> GetPositionsInChunk(Chunk position) =>
+        internal static IEnumerable<TilePosition> GetPositionsInChunk(Chunk position) =>
             position.Map(GetCorner)
                     .Map(corner => Grid.GenerateTiles(corner.X, corner.Y, ChunkSize, ChunkSize));
 
 
-        public int X { get; }
+        internal int X { get; }
 
-        public int Y { get; }
+        internal int Y { get; }
 
 
-        public Chunk(int x, int y)
+        internal Chunk(int x, int y)
         {
             X = x;
             Y = y;

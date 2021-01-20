@@ -10,7 +10,7 @@ using static AChildsCourage.Rng;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public static class RoomPlanGen
+    internal static class RoomPlanGen
     {
 
         public static RoomPlan CreateRoomPlan(FloorGenParams @params, PassagePlan plan)

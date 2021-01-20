@@ -18,7 +18,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
 
         public RoomId Id => (RoomId) id;
 
-        public RoomType Type => type;
+        internal RoomType Type => type;
 
         public ChunkPassages Passages
         {

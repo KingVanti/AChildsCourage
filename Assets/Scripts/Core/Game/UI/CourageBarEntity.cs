@@ -1,5 +1,7 @@
-﻿using AChildsCourage.Game.Char;
+﻿using System;
+using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,18 +58,26 @@ namespace AChildsCourage.Game.UI
         }
 
 
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             CompletionPercent = eventArgs.CompletionPercent;
 
-        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
+        [Sub(nameof(CharControllerEntity.OnCouragePickedUp))] [UsedImplicitly]
         private void OnCouragePickedUp(object _, CouragePickedUpEventArgs eventArgs)
         {
-            if (eventArgs.Variant == CourageVariant.Spark) pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
-
-            if (eventArgs.Variant == CourageVariant.Orb) pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
+            switch (eventArgs.Variant)
+            {
+                case CourageVariant.Spark:
+                    pickupAnimation.PlayQueued("Spark", QueueMode.CompleteOthers);
+                    break;
+                case CourageVariant.Orb:
+                    pickupAnimation.PlayQueued("Orb", QueueMode.CompleteOthers);
+                    break;
+                default: throw new ArgumentOutOfRangeException();
+            }
         }
 
+        [UsedImplicitly]
         private void PlayFillAnimation(AnimationEvent fillAnimation)
         {
             fillAnimation.floatParameter = CompletionPercent;

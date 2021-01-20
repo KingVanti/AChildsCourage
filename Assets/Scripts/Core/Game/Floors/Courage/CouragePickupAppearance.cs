@@ -3,7 +3,7 @@ using UnityEngine;
 namespace AChildsCourage.Game.Floors.Courage
 {
 
-    public class CouragePickupAppearance
+    internal class CouragePickupAppearance
     {
 
         public CourageVariant Variant { get; }

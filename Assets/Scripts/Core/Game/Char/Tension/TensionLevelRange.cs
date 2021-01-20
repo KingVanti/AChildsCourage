@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Char
 {
 
-    public readonly struct TensionLevelRange
+    internal readonly struct TensionLevelRange
     {
 
         internal static TensionLevel CalculateLevel(Tension tension, TensionLevelRange range) =>
@@ -14,7 +14,7 @@
         private readonly float minHighTension;
 
 
-        public TensionLevelRange(float minNormalTension, float minHighTension)
+        internal TensionLevelRange(float minNormalTension, float minHighTension)
         {
             this.minNormalTension = minNormalTension;
             this.minHighTension = minHighTension;

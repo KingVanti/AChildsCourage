@@ -1,19 +1,19 @@
 ﻿namespace AChildsCourage.Game.Floors.RoomPersistence
 {
 
-    public class RoomData
+    internal class RoomData
     {
 
-        public RoomId Id { get; }
+        internal RoomId Id { get; }
 
-        public RoomType Type { get; }
+        internal RoomType Type { get; }
 
-        public ChunkPassages Passages { get; }
+        internal ChunkPassages Passages { get; }
 
-        public SerializedRoomContent Content { get; }
+        internal SerializedRoomContent Content { get; }
 
 
-        public RoomData(RoomId id, RoomType type, ChunkPassages passages, SerializedRoomContent content)
+        internal RoomData(RoomId id, RoomType type, ChunkPassages passages, SerializedRoomContent content)
         {
             Id = id;
             Type = type;

@@ -2,6 +2,7 @@
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage.Game
@@ -13,24 +14,25 @@ namespace AChildsCourage.Game
         [Pub] public event EventHandler OnBackToMainMenu;
 
 
-        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        [Sub(nameof(CharControllerEntity.OnCharKilled))] [UsedImplicitly]
         private void OnCharKilled(object _1, EventArgs _2) =>
             OnLose();
 
         private void OnLose() =>
             this.DoAfter(() => Transition.To(SceneName.menu, FadeColor.Black), 2);
 
-        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
+        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))] [UsedImplicitly]
         private void OnCharEnteredRift(object _1, EventArgs _2) =>
             OnWin();
 
-        private void OnWin() {
+        private static void OnWin()
+        {
             PlayerPrefs.SetInt("COMPLETED", 1);
             Transition.To(SceneName.endCutscene, FadeColor.White);
         }
 
 
-        [Sub(nameof(InputListener.OnExitInput))]
+        [Sub(nameof(InputListener.OnExitInput))] [UsedImplicitly]
         private void OnExitInputPressed(object _1, EventArgs _2) =>
             GoBackToMenu();
 

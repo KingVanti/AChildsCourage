@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage
 {
 
-    public enum FadeMode
+    internal enum FadeMode
     {
 
         To,

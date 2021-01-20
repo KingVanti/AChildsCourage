@@ -16,7 +16,7 @@ using static AChildsCourage.Game.TilePosition;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public static class FloorGen
+    internal static class FloorGen
     {
 
         private const int WallHeight = 2;

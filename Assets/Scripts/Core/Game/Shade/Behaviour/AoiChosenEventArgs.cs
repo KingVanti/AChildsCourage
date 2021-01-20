@@ -6,10 +6,10 @@ namespace AChildsCourage.Game.Shade
     public class AoiChosenEventArgs : EventArgs
     {
 
-        public Aoi Aoi { get; }
+        internal Aoi Aoi { get; }
 
 
-        public AoiChosenEventArgs(Aoi aoi) =>
+        internal AoiChosenEventArgs(Aoi aoi) =>
             Aoi = aoi;
 
     }

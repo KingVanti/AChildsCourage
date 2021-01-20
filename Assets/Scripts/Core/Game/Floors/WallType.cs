@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public enum WallType
+    internal enum WallType
     {
 
         TopHalf,

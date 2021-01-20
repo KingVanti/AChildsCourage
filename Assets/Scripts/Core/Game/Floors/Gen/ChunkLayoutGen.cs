@@ -6,13 +6,13 @@ using static AChildsCourage.Rng;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public static class ChunkLayoutGen
+    internal static class ChunkLayoutGen
     {
 
         private const float NoWeight = 0;
 
 
-        public static ChunkLayout GenerateChunkLayout(FloorGenParams @params)
+        internal static ChunkLayout GenerateChunkLayout(FloorGenParams @params)
         {
             var rng = RngFromSeed(@params.Seed);
 

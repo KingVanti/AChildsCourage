@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game
@@ -9,7 +7,7 @@ namespace AChildsCourage.Game
     [TestFixture]
     public class TilePositionTests
     {
-        
+
         [Test]
         public void Distance_Between_Positions_Is_Calculated_Correctly()
         {
@@ -26,7 +24,7 @@ namespace AChildsCourage.Game
 
             Assert.That(distance, Is.EqualTo(2), "Incorrect distance calculated!");
         }
-        
+
         [Test]
         public void Given_Any_TilePosition_When_It_Is_Converted_To_A_Vector3Int_Then_Its_Coordinates_Are_Copied_Correctly()
         {

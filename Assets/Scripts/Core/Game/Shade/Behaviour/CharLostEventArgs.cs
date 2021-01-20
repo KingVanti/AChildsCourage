@@ -6,10 +6,10 @@ namespace AChildsCourage.Game.Shade
     public class CharLostEventArgs : EventArgs
     {
 
-        public LastKnownCharInfo CharInfo { get; }
+        internal LastKnownCharInfo CharInfo { get; }
 
 
-        public CharLostEventArgs(LastKnownCharInfo charInfo) =>
+        internal CharLostEventArgs(LastKnownCharInfo charInfo) =>
             CharInfo = charInfo;
 
     }

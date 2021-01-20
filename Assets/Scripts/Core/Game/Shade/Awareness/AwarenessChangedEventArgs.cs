@@ -6,12 +6,12 @@ namespace AChildsCourage.Game.Shade
     public class AwarenessChangedEventArgs : EventArgs
     {
 
-        public Awareness NewAwareness { get; }
+        internal Awareness NewAwareness { get; }
 
-        public AwarenessLevel Level { get; }
+        internal AwarenessLevel Level { get; }
 
 
-        public AwarenessChangedEventArgs(Awareness newAwareness, AwarenessLevel level)
+        internal AwarenessChangedEventArgs(Awareness newAwareness, AwarenessLevel level)
         {
             NewAwareness = newAwareness;
             Level = level;

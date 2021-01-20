@@ -6,7 +6,7 @@ namespace AChildsCourage.Game
     public readonly struct GameSeed
     {
 
-        public static GameSeed CreateRandom() =>
+        internal static GameSeed CreateRandom() =>
             new GameSeed(RandomRng().Map(GetValueBetween, int.MinValue, int.MaxValue));
 
 

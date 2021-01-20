@@ -6,14 +6,11 @@ namespace AChildsCourage.Game.Floors.Courage
     public class CollectedCourageChangedEventArgs : EventArgs
     {
 
-        public int Collected { get; }
-
-        public float CompletionPercent { get; }
+        internal float CompletionPercent { get; }
 
 
-        public CollectedCourageChangedEventArgs(int collected, float completionPercent)
+        internal CollectedCourageChangedEventArgs(float completionPercent)
         {
-            Collected = collected;
             CompletionPercent = completionPercent;
         }
 

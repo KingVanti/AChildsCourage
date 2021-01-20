@@ -4,7 +4,7 @@ using static AChildsCourage.Game.Chunk;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public static class TextureUtility
+    internal static class TextureUtility
     {
 
         public static void FillWith(this Texture2D texture, Color color) =>

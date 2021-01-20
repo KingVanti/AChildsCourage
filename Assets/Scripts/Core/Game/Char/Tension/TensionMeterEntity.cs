@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Shade;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.M;
 using static AChildsCourage.Game.Char.TensionLevelRange;
@@ -80,7 +81,7 @@ namespace AChildsCourage.Game.Char
         private void UpdateTensionMeter() =>
             TensionMeter = TensionMeter.Map(ChangeBy, TensionDelta * Time.deltaTime);
 
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             UpdateTensionLevelRange(eventArgs.CompletionPercent);
 

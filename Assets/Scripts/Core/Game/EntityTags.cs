@@ -15,16 +15,6 @@
         internal const string Courage = "Courage";
 
         /// <summary>
-        ///     Unity tag for the Shade entity
-        /// </summary>
-        internal const string Shade = "Shade";
-
-        /// <summary>
-        ///     Unity tag for the Flashlight entity
-        /// </summary>
-        internal const string Flashlight = "Flashlight";
-
-        /// <summary>
         ///     Unity tag for the Courage Rift entity
         /// </summary>
         internal const string Rift = "Rift";

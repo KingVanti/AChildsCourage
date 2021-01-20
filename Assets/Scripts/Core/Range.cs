@@ -4,10 +4,10 @@ using UnityEngine;
 namespace AChildsCourage
 {
 
-    public static class Range
+    internal static class Range
     {
 
-        public static float Lerp(float t, Range<float> range) =>
+        internal static float Lerp(float t, Range<float> range) =>
             Mathf.Lerp(range.Min, range.Max, t);
 
     }

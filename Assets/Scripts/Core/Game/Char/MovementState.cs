@@ -1,13 +1,12 @@
 ﻿namespace AChildsCourage.Game.Char
 {
 
-    public enum MovementState
+    internal enum MovementState
     {
 
         Standing,
         Walking,
-        Sprinting,
-        Escaping
+        Sprinting
 
     }
 

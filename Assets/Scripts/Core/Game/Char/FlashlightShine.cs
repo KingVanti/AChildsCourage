@@ -5,10 +5,10 @@ using static AChildsCourage.Range;
 namespace AChildsCourage.Game.Char
 {
 
-    public readonly struct FlashlightShine
+    internal readonly struct FlashlightShine
     {
 
-        public static bool ShinesOn(Vector2 position, FlashlightShine shine) =>
+        internal static bool ShinesOn(Vector2 position, FlashlightShine shine) =>
             Vector2.Distance(position, shine.position) <= shine.OuterRadius;
 
         private static float CalculateOuterRadius(float power, FlashlightParams @params) =>

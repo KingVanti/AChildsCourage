@@ -6,19 +6,19 @@ using static AChildsCourage.Game.Chunk;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct RoomPlan
+    internal readonly struct RoomPlan
     {
 
-        public static RoomPlan EmptyRoomPlan => new RoomPlan(ImmutableList<RoomInstance>.Empty);
+        internal static RoomPlan EmptyRoomPlan => new RoomPlan(ImmutableList<RoomInstance>.Empty);
 
 
-        public static RoomPlan AddRoom(RoomPlan roomPlan, RoomInstance instance) =>
+        internal static RoomPlan AddRoom(RoomPlan roomPlan, RoomInstance instance) =>
             new RoomPlan(roomPlan.rooms.Add(instance));
 
-        public static IEnumerable<RoomInstance> GetRooms(RoomPlan roomPlan) =>
+        internal static IEnumerable<RoomInstance> GetRooms(RoomPlan roomPlan) =>
             roomPlan.rooms;
 
-        public static Chunk FindEndRoomChunk(RoomPlan roomPlan) =>
+        internal static Chunk FindEndRoomChunk(RoomPlan roomPlan) =>
             roomPlan.rooms
                     .Select(r => r.Position)
                     .FirstByDescending(GetDistanceToOrigin);

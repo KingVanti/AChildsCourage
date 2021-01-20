@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Floor;
@@ -26,7 +27,7 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         public void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             this.DoAfter(() => ScaleToFit(eventArgs.Floor), 1);
 

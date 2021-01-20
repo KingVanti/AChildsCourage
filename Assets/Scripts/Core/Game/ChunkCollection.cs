@@ -6,13 +6,13 @@ using System.Linq;
 namespace AChildsCourage.Game
 {
 
-    public readonly struct ChunkCollection : IEnumerable<Chunk>
+    internal readonly struct ChunkCollection : IEnumerable<Chunk>
     {
 
-        public static ChunkCollection EmptyChunkCollection => new ChunkCollection(ImmutableHashSet<Chunk>.Empty);
+        internal static ChunkCollection EmptyChunkCollection => new ChunkCollection(ImmutableHashSet<Chunk>.Empty);
 
 
-        public static IntBounds GetBounds(ChunkCollection chunkCollection) =>
+        internal static IntBounds GetBounds(ChunkCollection chunkCollection) =>
             chunkCollection.Map(IsEmpty)
                 ? IntBounds.emptyBounds
                 : new IntBounds(chunkCollection.chunks.Min(p => p.X),
@@ -20,17 +20,17 @@ namespace AChildsCourage.Game
                                 chunkCollection.chunks.Max(p => p.X),
                                 chunkCollection.chunks.Max(p => p.Y));
 
-        public static Chunk GetLowerLeft(ChunkCollection chunkCollection) =>
+        internal static Chunk GetLowerLeft(ChunkCollection chunkCollection) =>
             chunkCollection.Map(GetBounds)
                            .Map(b => new Chunk(b.MinX, b.MinY));
 
-        public static bool IsEmpty(ChunkCollection chunkCollection) =>
+        internal static bool IsEmpty(ChunkCollection chunkCollection) =>
             chunkCollection.chunks.IsEmpty;
 
-        public static ChunkCollection Add(Chunk chunk, ChunkCollection chunkCollection) =>
+        internal static ChunkCollection Add(Chunk chunk, ChunkCollection chunkCollection) =>
             new ChunkCollection(chunkCollection.chunks.Add(chunk));
 
-        public static ChunkCollection Combine(IEnumerable<ChunkCollection> chunkCollections) =>
+        internal static ChunkCollection Combine(IEnumerable<ChunkCollection> chunkCollections) =>
             chunkCollections.SelectMany(c => c.chunks)
                             .Map(chunks => new ChunkCollection(chunks));
 
@@ -38,13 +38,13 @@ namespace AChildsCourage.Game
         private readonly ImmutableHashSet<Chunk> chunks;
 
 
-        public ChunkCollection(ImmutableHashSet<Chunk> chunks) =>
+        private ChunkCollection(ImmutableHashSet<Chunk> chunks) =>
             this.chunks = chunks;
 
-        public ChunkCollection(IEnumerable<Chunk> chunks) =>
+        private ChunkCollection(IEnumerable<Chunk> chunks) =>
             this.chunks = chunks.ToImmutableHashSet();
 
-        public ChunkCollection(params Chunk[] chunks) =>
+        internal ChunkCollection(params Chunk[] chunks) =>
             this.chunks = chunks.ToImmutableHashSet();
 
 

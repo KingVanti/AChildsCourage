@@ -6,10 +6,10 @@ namespace AChildsCourage.Game.Char
     public class TensionLevelChangedEventArgs : EventArgs
     {
 
-        public TensionLevel Level { get; }
+        internal TensionLevel Level { get; }
 
 
-        public TensionLevelChangedEventArgs(TensionLevel level) =>
+        internal TensionLevelChangedEventArgs(TensionLevel level) =>
             Level = level;
 
     }

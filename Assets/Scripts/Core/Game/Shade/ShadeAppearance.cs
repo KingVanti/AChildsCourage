@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.Lerping;
 using static AChildsCourage.F;
@@ -35,7 +36,7 @@ namespace AChildsCourage.Game.Shade
         }
 
 
-        [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))]
+        [Sub(nameof(ShadeBodyEntity.OnShadeSteppedOnRune))] [UsedImplicitly]
         private void OnShadeSteppedOnRune(object _1, EventArgs _2) =>
             If(!IsDissolving).Then(StartDissolving);
 

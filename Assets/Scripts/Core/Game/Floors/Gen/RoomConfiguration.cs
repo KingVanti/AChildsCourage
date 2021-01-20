@@ -5,10 +5,10 @@ using static AChildsCourage.Game.Floors.ChunkPassages;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct RoomConfiguration
+    internal readonly struct RoomConfiguration
     {
 
-        public static IEnumerable<RoomConfiguration> GetConfigurations(RoomData roomData)
+        internal static IEnumerable<RoomConfiguration> GetConfigurations(RoomData roomData)
         {
             var baseConfiguration = new RoomConfiguration(roomData.Id, roomData.Type, roomData.Passages, 0, false);
 
@@ -32,7 +32,7 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Map(GetVariations);
         }
 
-        public static bool MatchesFilter(RoomFilter filter, RoomConfiguration config)
+        internal static bool MatchesFilter(RoomFilter filter, RoomConfiguration config)
         {
             bool RoomTypesMatch() =>
                 config.roomType == filter.RoomType;
@@ -49,11 +49,11 @@ namespace AChildsCourage.Game.Floors.Gen
         private readonly ChunkPassages passages;
 
 
-        public RoomId RoomId { get; }
+        internal RoomId RoomId { get; }
 
-        public int RotationCount { get; }
+        internal int RotationCount { get; }
 
-        public bool IsMirrored { get; }
+        internal bool IsMirrored { get; }
 
 
         private RoomConfiguration(RoomId roomId, RoomType roomType, ChunkPassages passages, int rotationCount, bool isMirrored)

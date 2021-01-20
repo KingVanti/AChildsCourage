@@ -9,19 +9,17 @@ namespace AChildsCourage.Game.Shade
         private const float MinAwareness = 0;
         private const float MaxAwareness = 1;
 
-        public static Awareness NoAwareness => new Awareness(MinAwareness);
-
-        public static Awareness TotalAwareness = new Awareness(MaxAwareness);
+        internal static Awareness NoAwareness => new Awareness(MinAwareness);
 
 
-        public static Awareness ChangeBy(float amount, Awareness awareness) =>
+        internal static Awareness ChangeBy(float amount, Awareness awareness) =>
             new Awareness(awareness.value + amount);
 
 
         private readonly float value;
 
 
-        public Awareness(float value) =>
+        private Awareness(float value) =>
             this.value = value.Map(Clamp, MinAwareness, MaxAwareness);
 
 

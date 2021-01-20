@@ -1,7 +1,7 @@
 ﻿namespace AChildsCourage.Game.Floors
 {
 
-    public enum RoomType
+    internal enum RoomType
     {
 
         Start,

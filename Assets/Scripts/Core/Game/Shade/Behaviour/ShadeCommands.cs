@@ -3,9 +3,9 @@
 namespace AChildsCourage.Game.Shade
 {
 
-    public abstract class ShadeCommand { }
+    internal abstract class ShadeCommand { }
 
-    public class MoveToCommand : ShadeCommand
+    internal class MoveToCommand : ShadeCommand
     {
 
         public Vector2 Target { get; }
@@ -16,7 +16,7 @@ namespace AChildsCourage.Game.Shade
 
     }
 
-    public class LookAtCommand : ShadeCommand
+    internal class LookAtCommand : ShadeCommand
     {
 
         public Vector2 Target { get; }
@@ -27,10 +27,10 @@ namespace AChildsCourage.Game.Shade
 
     }
 
-    public class StopCommand : ShadeCommand { }
+    internal class StopCommand : ShadeCommand { }
 
-    public class LookAheadCommand : ShadeCommand { }
+    internal class LookAheadCommand : ShadeCommand { }
 
-    public class RequestAoiCommand : ShadeCommand { }
+    internal class RequestAoiCommand : ShadeCommand { }
 
 }

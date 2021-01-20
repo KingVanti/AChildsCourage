@@ -20,7 +20,6 @@ namespace AChildsCourage.Game.Floors
 
         private float Intensity
         {
-            get => light.intensity;
             set => light.intensity = value;
         }
 
@@ -30,7 +29,7 @@ namespace AChildsCourage.Game.Floors
                 Intensity = intensityRange.Map(Lerp, (float) charge);
         }
 
-        public void Flash()
+        internal void Flash()
         {
             burnedOut = true;
 

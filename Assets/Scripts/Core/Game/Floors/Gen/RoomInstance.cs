@@ -3,20 +3,20 @@
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct RoomInstance
+    internal readonly struct RoomInstance
     {
 
-        public static RoomInstance CreateRoomFromConfiguration(Chunk position, RoomConfiguration config) =>
+        internal static RoomInstance CreateRoomFromConfiguration(Chunk position, RoomConfiguration config) =>
             new RoomInstance(position, config.RoomId, config.RotationCount, config.IsMirrored);
 
 
-        public Chunk Position { get; }
+        internal Chunk Position { get; }
 
-        public RoomId Id { get; }
+        internal RoomId Id { get; }
 
-        public int RotationCount { get; }
+        internal int RotationCount { get; }
 
-        public bool IsMirrored { get; }
+        internal bool IsMirrored { get; }
 
 
         private RoomInstance(Chunk position, RoomId id, int rotationCount, bool isMirrored)

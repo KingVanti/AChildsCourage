@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage
@@ -10,7 +11,7 @@ namespace AChildsCourage
     public class EnumArray<TEnum, TMapped> where TEnum : Enum
     {
 
-        [SerializeField] [HideInInspector] private string enumTypeName;
+        [SerializeField] [HideInInspector] [UsedImplicitly] private string enumTypeName;
         [SerializeField] private MappedEnum[] enums;
 
 

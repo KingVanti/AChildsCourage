@@ -6,10 +6,10 @@ namespace AChildsCourage.Game.Floors
     public class FloorRecreatedEventArgs : EventArgs
     {
 
-        public Floor Floor { get; }
+        internal Floor Floor { get; }
 
 
-        public FloorRecreatedEventArgs(Floor floor) =>
+        internal FloorRecreatedEventArgs(Floor floor) =>
             Floor = floor;
 
     }

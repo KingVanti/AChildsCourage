@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Floors
             couragePickupAppearances ?? (couragePickupAppearances = loadCouragePickupAppearances().ToImmutableDictionary(a => a.Variant));
 
 
-        public void Spawn(TilePosition position, CouragePickupData pickup)
+        internal void Spawn(TilePosition position, CouragePickupData pickup)
         {
             var entity = InstantiatePickup(position);
             var appearance = CouragePickupAppearances[pickup.Variant];

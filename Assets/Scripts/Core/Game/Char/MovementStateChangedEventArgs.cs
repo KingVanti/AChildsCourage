@@ -6,12 +6,12 @@ namespace AChildsCourage.Game.Char
     public class MovementStateChangedEventArgs : EventArgs
     {
 
-        public MovementState Current { get; }
+        internal MovementState Current { get; }
 
-        public MovementState Previous { get; }
+        internal MovementState Previous { get; }
 
 
-        public MovementStateChangedEventArgs(MovementState current, MovementState previous)
+        internal MovementStateChangedEventArgs(MovementState current, MovementState previous)
         {
             Current = current;
             Previous = previous;

@@ -9,17 +9,17 @@ using static AChildsCourage.Game.TilePosition;
 namespace AChildsCourage.Game.Floors
 {
 
-    public readonly struct GroundPlan
+    internal readonly struct GroundPlan
     {
 
-        public static GroundPlan emptyGroundPlan = new GroundPlan(ImmutableHashSet<Vector2>.Empty);
+        internal static GroundPlan emptyGroundPlan = new GroundPlan(ImmutableHashSet<Vector2>.Empty);
 
-        public static GroundPlan CreateGroundPlan(Floor floor) =>
+        internal static GroundPlan CreateGroundPlan(Floor floor) =>
             floor.Map(Floor.GetPositionsOfType<GroundTileData>).Select(GetCenter)
                  .ToImmutableHashSet()
                  .Map(positions => new GroundPlan(positions));
 
-        public static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng rng, AoiGenParams @params, GroundPlan groundPlan)
+        internal static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng rng, AoiGenParams @params, GroundPlan groundPlan)
         {
             var center = groundPlan.groundPositions
                                    .TryGetRandom(rng, () => throw new Exception("Ground-plan is empty!"));
@@ -27,7 +27,7 @@ namespace AChildsCourage.Game.Floors
             return groundPlan.Map(ChooseRandomAoiPositionsWithCenter, center, rng, @params);
         }
 
-        public static IEnumerable<Vector2> ChooseRandomAoiPositionsWithCenter(Vector2 center, Rng rng, AoiGenParams @params, GroundPlan groundPlan)
+        internal static IEnumerable<Vector2> ChooseRandomAoiPositionsWithCenter(Vector2 center, Rng rng, AoiGenParams @params, GroundPlan groundPlan)
         {
             var circlePositions = groundPlan.groundPositions
                                             .Where(p => Vector2.Distance(p, center) < @params.Radius)
@@ -52,7 +52,7 @@ namespace AChildsCourage.Game.Floors
             return ImmutableList<Vector2>.Empty.Cycle(AddPosition, @params.PoiCount);
         }
 
-        public static Vector2 ChooseRandomPositionOutsideRadius(Rng rng, float radius, GroundPlan groundPlan) =>
+        internal static Vector2 ChooseRandomPositionOutsideRadius(Rng rng, float radius, GroundPlan groundPlan) =>
             groundPlan.groundPositions
                       .Where(p => p.magnitude >= radius)
                       .TryGetRandom(rng, () => throw new Exception("There are no positions outside the given radius!"));

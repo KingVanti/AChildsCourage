@@ -1,5 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Input;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -26,7 +27,7 @@ namespace AChildsCourage.Game.Char
         private FlashlightShine shine;
 
 
-        public bool IsTurnedOn
+        internal bool IsTurnedOn
         {
             get => isTurnedOn;
             private set
@@ -84,10 +85,10 @@ namespace AChildsCourage.Game.Char
 
         private float DistanceToChar => Vector2.Distance(ShinePosition, CharPosition);
 
-        public FlashlightShine Shine
+        internal FlashlightShine Shine
         {
             get => shine;
-            set
+            private set
             {
                 shine = value;
                 lightComponent.intensity = shine.Intensity;
@@ -97,7 +98,7 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        public bool ShinesOn(Vector2 position) =>
+        internal bool ShinesOn(Vector2 position) =>
             IsTurnedOn && shine.Map(FlashlightShine.ShinesOn, position);
 
 
@@ -111,15 +112,15 @@ namespace AChildsCourage.Game.Char
         private RaycastHit2D RaycastMouseToCharacter() =>
             Physics2D.Raycast(CharPosition, ShineDirection, ProjectionDistance, obstructionLayers);
 
-        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))] [UsedImplicitly]
         private void OnCharPositionChanged(object _, CharPositionChangedEventArgs eventArgs) =>
             CharPosition = eventArgs.NewPosition;
 
-        [Sub(nameof(InputListener.OnMousePositionChanged))]
+        [Sub(nameof(InputListener.OnMousePositionChanged))] [UsedImplicitly]
         private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) =>
             MousePos = eventArgs.MousePosition;
 
-        [Sub(nameof(InputListener.OnFlashLightInput))]
+        [Sub(nameof(InputListener.OnFlashLightInput))] [UsedImplicitly]
         private void OnFlashlightInput(object _1, EventArgs _2) =>
             Toggle();
 

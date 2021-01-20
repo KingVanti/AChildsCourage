@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct FloorGenParams
+    internal readonly struct FloorGenParams
     {
 
         public GameSeed Seed { get; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.F;
 using static AChildsCourage.Game.Shade.Investigation;
@@ -51,48 +52,48 @@ namespace AChildsCourage.Game.Shade
         private ShadeState NoStateChange => CurrentState;
 
 
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))] [UsedImplicitly]
         private void OnSpawned(object _1, EventArgs _2)
         {
             _ = this.DoContinually(() => ReactTo(new TimeTickEventArgs()), tickWaitTime);
             CurrentState = Idle();
         }
 
-        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        [Sub(nameof(CharControllerEntity.OnCharKilled))] [UsedImplicitly]
         private void OnCharKilled(object _1, EventArgs _2)
         {
             canReact = false;
             CurrentState = Idle();
         }
 
-        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))]
+        [Sub(nameof(ShadeDirectorEntity.OnAoiChosen))] [UsedImplicitly]
         private void OnAoiChosen(object _, AoiChosenEventArgs eventArgs)
         {
             currentInvestigation = eventArgs.Aoi.Map(StartInvestigation);
             ReactTo(eventArgs);
         }
 
-        [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))]
+        [Sub(nameof(ShadeAwarenessEntity.OnCharSpotted))] [UsedImplicitly]
         private void OnCharSpotted(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        [Sub(nameof(ShadeAwarenessEntity.OnCharSuspected))]
+        [Sub(nameof(ShadeAwarenessEntity.OnCharSuspected))] [UsedImplicitly]
         private void OnCharSuspected(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        [Sub(nameof(ShadeMovementEntity.OnTargetReached))]
+        [Sub(nameof(ShadeMovementEntity.OnTargetReached))] [UsedImplicitly]
         private void OnTargetReached(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        [Sub(nameof(CharControllerEntity.OnPositionChanged))]
+        [Sub(nameof(CharControllerEntity.OnPositionChanged))] [UsedImplicitly]
         private void OnCharPositionChanged(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        [Sub(nameof(ShadeAwarenessEntity.OnCharLost))]
+        [Sub(nameof(ShadeAwarenessEntity.OnCharLost))] [UsedImplicitly]
         private void OnCharLost(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 
-        [Sub(nameof(ShadeHeadEntity.OnVisualContactToTarget))]
+        [Sub(nameof(ShadeHeadEntity.OnVisualContactToTarget))] [UsedImplicitly]
         private void OnVisualContactToTarget(object _, EventArgs eventArgs) =>
             ReactTo(eventArgs);
 

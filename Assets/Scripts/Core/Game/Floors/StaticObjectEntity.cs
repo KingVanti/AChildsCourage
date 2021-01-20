@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         [FindComponent] private BoxCollider2D coll;
 
 
-        public Sprite Sprite
+        internal Sprite Sprite
         {
             get => spriteRenderer.sprite;
             set {

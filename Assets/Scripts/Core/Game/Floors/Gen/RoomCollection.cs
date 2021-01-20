@@ -8,14 +8,14 @@ using static AChildsCourage.Game.Floors.Gen.RoomConfiguration;
 namespace AChildsCourage.Game.Floors.Gen
 {
 
-    public readonly struct RoomCollection
+    internal readonly struct RoomCollection
     {
 
-        public static RoomCollection EmptyRoomCollection => new RoomCollection(ImmutableList<RoomConfiguration>.Empty,
-                                                                               ImmutableDictionary<RoomId, SerializedRoomContent>.Empty);
+        internal static RoomCollection EmptyRoomCollection => new RoomCollection(ImmutableList<RoomConfiguration>.Empty,
+                                                                                 ImmutableDictionary<RoomId, SerializedRoomContent>.Empty);
 
 
-        public static RoomCollection CreateRoomCollection(IEnumerable<RoomData> roomDataCollection)
+        internal static RoomCollection CreateRoomCollection(IEnumerable<RoomData> roomDataCollection)
         {
             RoomCollection AddRoom(RoomCollection collection, RoomData roomData)
             {
@@ -29,15 +29,15 @@ namespace AChildsCourage.Game.Floors.Gen
                 .Aggregate(EmptyRoomCollection, AddRoom);
         }
 
-        public static IEnumerable<RoomConfiguration> FindConfigurationsMatching(RoomFilter filter, RoomCollection collection) =>
+        internal static IEnumerable<RoomConfiguration> FindConfigurationsMatching(RoomFilter filter, RoomCollection collection) =>
             collection.configurations
                       .Where(MatchesFilter, filter)
                       .IfEmpty(() => throw new Exception($"Could not find rooms matching filter {filter}!"));
 
-        public static bool IsEmpty(RoomCollection collection) =>
+        internal static bool IsEmpty(RoomCollection collection) =>
             collection.configurations.IsEmpty;
 
-        public static SerializedRoomContent GetContentFor(RoomId roomId, RoomCollection collection) =>
+        internal static SerializedRoomContent GetContentFor(RoomId roomId, RoomCollection collection) =>
             collection.contents[roomId];
 
 

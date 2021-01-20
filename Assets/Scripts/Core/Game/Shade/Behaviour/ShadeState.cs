@@ -3,7 +3,7 @@
 namespace AChildsCourage.Game.Shade
 {
 
-    public enum ShadeStateType
+    internal enum ShadeStateType
     {
 
         Idle,
@@ -15,31 +15,22 @@ namespace AChildsCourage.Game.Shade
 
     }
 
-    public class ShadeState
+    internal class ShadeState
     {
 
-        public delegate void OnStateEntered();
-
-        public delegate void OnStateExited(ShadeState nextState);
-
-        public delegate ShadeState ReactToEvent(EventArgs eventArgs);
+        internal static OnStateExited NoExitAction => _ => { };
 
 
-        public static OnStateEntered NoEntryAction => () => { };
+        internal ShadeStateType Type { get; }
 
-        public static OnStateExited NoExitAction => _ => { };
+        internal OnStateEntered Enter { get; }
 
+        internal ReactToEvent React { get; }
 
-        public ShadeStateType Type { get; }
-
-        public OnStateEntered Enter { get; }
-
-        public ReactToEvent React { get; }
-
-        public OnStateExited Exit { get; }
+        internal OnStateExited Exit { get; }
 
 
-        public ShadeState(ShadeStateType type, OnStateEntered enter, ReactToEvent react, OnStateExited exit)
+        internal ShadeState(ShadeStateType type, OnStateEntered enter, ReactToEvent react, OnStateExited exit)
         {
             Type = type;
             Enter = enter;
@@ -49,6 +40,12 @@ namespace AChildsCourage.Game.Shade
 
 
         public override string ToString() => $"{Type} state";
+
+        internal delegate void OnStateEntered();
+
+        internal delegate void OnStateExited(ShadeState nextState);
+
+        internal delegate ShadeState ReactToEvent(EventArgs eventArgs);
 
     }
 

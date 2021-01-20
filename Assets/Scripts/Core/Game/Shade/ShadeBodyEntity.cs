@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage.Game.Shade
@@ -22,7 +23,7 @@ namespace AChildsCourage.Game.Shade
         internal void Banish() =>
             OnShadeSteppedOnRune?.Invoke(this, EventArgs.Empty);
 
-        [Sub(nameof(ShadeAppearance.OnShadeDissolved))]
+        [Sub(nameof(ShadeAppearance.OnShadeDissolved))] [UsedImplicitly]
         private void OnShadeDissolved(object _1, EventArgs _2) =>
             MoveShadeOutOfBounds();
 
@@ -33,11 +34,12 @@ namespace AChildsCourage.Game.Shade
             gameObject.SetActive(false);
         }
 
-        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))]
+        [Sub(nameof(ShadeSpawnerEntity.OnShadeSpawned))] [UsedImplicitly]
         private void OnShadeSpawned(object _1, EventArgs _2) =>
             Activate();
 
-        private void Activate() => gameObject.SetActive(true);
+        private void Activate() =>
+            gameObject.SetActive(true);
 
     }
 

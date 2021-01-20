@@ -19,7 +19,7 @@ namespace AChildsCourage
         internal static float CalculateAngle(Vector2 vector) =>
             CalculateAngle(vector.x, vector.y);
 
-        internal static float CalculateAngle(float xPos, float yPos) =>
+        private static float CalculateAngle(float xPos, float yPos) =>
             Atan2(yPos, xPos) * Rad2Deg;
 
         internal static float Clamp(float min, float max, float f) =>
@@ -35,7 +35,7 @@ namespace AChildsCourage
         internal static float Inverse(float f) =>
             f == 0 ? 0 : 1f / f;
 
-        internal static float Raise(float pow, float f) =>
+        private static float Raise(float pow, float f) =>
             Pow(f, pow);
 
         internal static float Squared(float f) =>
@@ -47,17 +47,8 @@ namespace AChildsCourage
         internal static float Plus(float add, float f) =>
             f + add;
 
-        internal static int Times(int mult, int i) =>
-            i * mult;
-
         internal static float Times(float mult, int i) =>
             i * mult;
-
-        internal static float CalculateCircleArea(float radius) =>
-            PI * radius.Map(Squared);
-
-        internal static float Mod(float mod, float f) =>
-            f % mod;
 
         internal static float NormalizeAngle(float angle) =>
             Repeat(angle, 360);

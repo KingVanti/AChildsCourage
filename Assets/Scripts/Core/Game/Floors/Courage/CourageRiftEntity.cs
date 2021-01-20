@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using AChildsCourage.Game.Char;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.Game.Floors.Floor;
@@ -33,7 +34,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         [SerializeField] private AnimationCurve lightCurve;
         [FindInScene] private CourageManagerEntity courageManager;
-        
+
 
         private bool isOpen;
         private bool isEscaping;
@@ -55,13 +56,11 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private float LightIntensity
         {
-            get => courageLight.intensity;
             set => courageLight.intensity = value;
         }
 
         private float LightOuterRadius
         {
-            get => courageLight.pointLightOuterRadius;
             set => courageLight.pointLightOuterRadius = value;
         }
 
@@ -69,9 +68,21 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void Start() => StartCoroutine(CourageLighting());
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag(EntityTags.Char))
+                if (isOpen)
+                    contextInfo.alpha = 1;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag(EntityTags.Char)) contextInfo.alpha = 0;
+        }
+
         private void Leave() => OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
 
-        [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))]
+        [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))] [UsedImplicitly]
         private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs)
         {
             isEscaping = eventArgs.IsEscapingThroughRift;
@@ -82,11 +93,11 @@ namespace AChildsCourage.Game.Floors.Courage
                 StopCoroutine(escapeCoroutine);
         }
 
-        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             transform.position = eventArgs.Floor.Map(GetEndRoomCenter);
 
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             UpdateRift(eventArgs.CompletionPercent);
 
@@ -108,20 +119,6 @@ namespace AChildsCourage.Game.Floors.Courage
             return riftStageSprites[spriteIndex];
         }
 
-        private void OnTriggerEnter2D(Collider2D collision) {
-            if (collision.CompareTag(EntityTags.Char)) {
-                if (isOpen) {
-                    contextInfo.alpha = 1;
-                }
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision) {
-            if (collision.CompareTag(EntityTags.Char)) {
-                contextInfo.alpha = 0;
-            }
-        }
-
         private void UpdateEmissionRate(float completionPercent) =>
             EmissionRate = Mathf.Lerp(2f, 20f, completionPercent);
 
@@ -141,10 +138,9 @@ namespace AChildsCourage.Game.Floors.Courage
 
             while (true)
             {
-                if (isEscaping)
-                    graphValue = Mathf.MoveTowards(graphValue, 1, speed * Time.deltaTime);
-                else
-                    graphValue = Mathf.MoveTowards(graphValue, 0, speed * Time.deltaTime * 5f);
+                graphValue = isEscaping
+                    ? Mathf.MoveTowards(graphValue, 1, speed * Time.deltaTime)
+                    : Mathf.MoveTowards(graphValue, 0, speed * Time.deltaTime * 5f);
 
                 LightIntensity = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxLightIntensity, 0.3f, maxLightIntensity);
                 LightOuterRadius = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxOuterRadius, 12, maxOuterRadius);

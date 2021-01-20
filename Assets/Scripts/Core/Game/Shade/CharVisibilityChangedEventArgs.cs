@@ -7,10 +7,10 @@ namespace AChildsCourage.Game.Shade
     public class CharVisibilityChangedEventArgs : EventArgs
     {
 
-        public Visibility CharVisibility { get; }
+        internal Visibility CharVisibility { get; }
 
 
-        public CharVisibilityChangedEventArgs(Visibility charVisibility) =>
+        internal CharVisibilityChangedEventArgs(Visibility charVisibility) =>
             CharVisibility = charVisibility;
 
     }

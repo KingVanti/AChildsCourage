@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
+using JetBrains.Annotations;
 using UnityEngine;
 using Context = UnityEngine.InputSystem.InputAction.CallbackContext;
 
@@ -25,7 +26,7 @@ namespace AChildsCourage.Game.Input
         private CharControls charControls;
 
 
-        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))]
+        [Sub(nameof(SceneManagerEntity.OnSceneLoaded))] [UsedImplicitly]
         private void OnSceneLoaded(object _1, EventArgs _2) =>
             SetupInputs();
 
@@ -78,15 +79,15 @@ namespace AChildsCourage.Game.Input
         private void OnExitInputOccurred(Context _) =>
             OnExitInput?.Invoke(this, EventArgs.Empty);
 
-        [Sub(nameof(CharControllerEntity.OnCharKilled))]
+        [Sub(nameof(CharControllerEntity.OnCharKilled))] [UsedImplicitly]
         private void OnCharKilled(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 
-        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))]
+        [Sub(nameof(CourageRiftEntity.OnCharEnteredRift))] [UsedImplicitly]
         private void OnCharWin(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 
-        [Sub(nameof(GameManager.OnBackToMainMenu))]
+        [Sub(nameof(GameManager.OnBackToMainMenu))] [UsedImplicitly]
         private void OnBackToMainMenu(object _1, EventArgs _2) =>
             UnsubscribeFromInputs();
 

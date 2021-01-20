@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.GroundPlan;
 using static AChildsCourage.Game.Shade.Aoi;
@@ -31,7 +32,7 @@ namespace AChildsCourage.Game.Shade
         private Vector2 CharPosition => @char.transform.position;
 
 
-        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))]
+        [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
         {
             groundPlan = eventArgs.Floor.Map(CreateGroundPlan);
@@ -39,7 +40,7 @@ namespace AChildsCourage.Game.Shade
             OnTensionLevelChanged(TensionLevel.Low);
         }
 
-        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        [Sub(nameof(ShadeBrainEntity.OnCommand))] [UsedImplicitly]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
         {
             switch (eventArgs.Command)
@@ -53,7 +54,7 @@ namespace AChildsCourage.Game.Shade
             }
         }
 
-        [Sub(nameof(TensionMeterEntity.OnTensionLevelChanged))]
+        [Sub(nameof(TensionMeterEntity.OnTensionLevelChanged))] [UsedImplicitly]
         private void OnTensionLevelChanged(object _, TensionLevelChangedEventArgs eventArgs) =>
             OnTensionLevelChanged(eventArgs.Level);
 
@@ -79,6 +80,7 @@ namespace AChildsCourage.Game.Shade
                     sendShadeToChar = false;
                     interventionRoutine = this.DoAfter(SendShadeAwayFromChar, highTensionInterventionTime);
                     break;
+                default: throw new ArgumentOutOfRangeException(nameof(tensionLevel), tensionLevel, null);
             }
         }
 

@@ -3,6 +3,7 @@ using AChildsCourage.Game.Char;
 using AChildsCourage.Game.Floors.Courage;
 using FMOD.Studio;
 using FMODUnity;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AChildsCourage
@@ -11,46 +12,47 @@ namespace AChildsCourage
     public class FmodPlayer : MonoBehaviour
     {
 
-        private readonly float waitTime = 2f;
-        private bool Char_sprint_stop_Is_playing;
-        private EventInstance Footsteps;
-        private EventInstance Footsteps_sprint;
-        private EventInstance Stamina_eventInstance;
+        private const float WaitTime = 2f;
+        private bool charSprintStopIsPlaying;
+        private EventInstance footsteps;
+        private EventInstance footstepsSprint;
+        private EventInstance staminaEventInstance;
 
 
         private void Start()
         {
-            Stamina_eventInstance = RuntimeManager.CreateInstance(Char_sprint_nearEnd);
-            Stamina_eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-            Stamina_eventInstance.start();
+            staminaEventInstance = RuntimeManager.CreateInstance(CharSprintNearEnd);
+            staminaEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            staminaEventInstance.start();
         }
 
 
-        public void OnDestroy() => Stamina_eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        public void OnDestroy() => 
+            staminaEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
 
         public void PlayFootsteps()
         {
-            Footsteps = RuntimeManager.CreateInstance(Footsteps_Path);
-            Footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-            Footsteps.start();
-            Footsteps.release();
+            footsteps = RuntimeManager.CreateInstance(FootstepsPath);
+            footsteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            footsteps.start();
+            footsteps.release();
         }
 
         public void PlayFootsteps_sprint()
         {
-            Footsteps_sprint = RuntimeManager.CreateInstance(Footsteps_sprint_Path);
-            Footsteps_sprint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-            Footsteps_sprint.start();
-            Footsteps_sprint.release();
+            footstepsSprint = RuntimeManager.CreateInstance(FootstepsSprintPath);
+            footstepsSprint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            footstepsSprint.start();
+            footstepsSprint.release();
         }
 
         [Sub(nameof(FlashlightEntity.OnFlashlightToggled))]
         public void OnFlashLightToggled(object _, FlashlightToggleEventArgs eventArgs) =>
-            RuntimeManager.PlayOneShot(eventArgs.IsTurnedOn ? Flashlight_ON_Path : Flashlight_OFF_Path, transform.position);
+            RuntimeManager.PlayOneShot(eventArgs.IsTurnedOn ? FlashlightOnPath : FlashlightOffPath, transform.position);
 
 
-        public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUp_Path, GetComponent<Transform>().position);
+        public void PlayPickUp() => RuntimeManager.PlayOneShot(PickUpPath, GetComponent<Transform>().position);
 
         [Sub(nameof(CharControllerEntity.OnCouragePickedUp))]
         public void PlayCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
@@ -58,11 +60,11 @@ namespace AChildsCourage
             switch (eventArgs.Variant)
             {
                 case CourageVariant.Spark:
-                    RuntimeManager.PlayOneShot(CourageSpark_Path, GetComponent<Transform>().position);
+                    RuntimeManager.PlayOneShot(CourageSparkPath, GetComponent<Transform>().position);
                     break;
 
                 case CourageVariant.Orb:
-                    RuntimeManager.PlayOneShot(CourageOrb_Path, GetComponent<Transform>().position);
+                    RuntimeManager.PlayOneShot(CourageOrbPath, GetComponent<Transform>().position);
                     break;
 
                 default:
@@ -71,12 +73,14 @@ namespace AChildsCourage
             }
         }
 
-        public void PlayChar_GetHit() => RuntimeManager.PlayOneShot(Char_getHit_Path, GetComponent<Transform>().position);
+        public void PlayChar_GetHit() => 
+            RuntimeManager.PlayOneShot(CharGetHitPath, GetComponent<Transform>().position);
 
-        public void PlayChar_Death() => RuntimeManager.PlayOneShot(Char_Death_Path, GetComponent<Transform>().position);
+        public void PlayChar_Death() =>
+            RuntimeManager.PlayOneShot(CharDeathPath, GetComponent<Transform>().position);
 
 
-        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))]
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))][UsedImplicitly]
         private void OnCharMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs)
         {
             if (eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting) PlaySprint_stop();
@@ -85,54 +89,52 @@ namespace AChildsCourage
         private void PlaySprint_stop()
         {
             //Debug.Log("stop");
-            if (Char_sprint_stop_Is_playing) return;
+            if (charSprintStopIsPlaying) return;
             StartCoroutine(SprintTimer());
-            RuntimeManager.PlayOneShot(Char_sprint_stop, GetComponent<Transform>().position);
+            RuntimeManager.PlayOneShot(CharSprintStop, GetComponent<Transform>().position);
         }
 
 
-        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
+        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))][UsedImplicitly]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
         {
-            Stamina_eventInstance.setParameterByName("stamina", eventArgs.Stamina);
+            staminaEventInstance.setParameterByName("stamina", eventArgs.Stamina);
 
             if (eventArgs.Stamina == 0)
             {
                 //Debug.Log("full stop");
-                PlaySprint_depleted();
+                PlaySprintDepleted();
                 StartCoroutine(SprintTimer());
             }
         }
 
-        private void PlaySprint_depleted() => RuntimeManager.PlayOneShot(Char_sprint_depleted, GetComponent<Transform>().position);
+        private void PlaySprintDepleted() => 
+            RuntimeManager.PlayOneShot(CharSprintDepleted, GetComponent<Transform>().position);
 
 
         private IEnumerator SprintTimer()
         {
-            Char_sprint_stop_Is_playing = true;
+            charSprintStopIsPlaying = true;
 
-            yield return new WaitForSeconds(waitTime);
-            Char_sprint_stop_Is_playing = false;
+            yield return new WaitForSeconds(WaitTime);
+            charSprintStopIsPlaying = false;
         }
 
 
         #region eventpaths
 
-        private const string Footsteps_Path = "event:/char/steps";
-        private const string Footsteps_sprint_Path = "event:/char/sprint";
-        private const string PickUp_Path = "event:/UI/Item/ItemPickup";
-        private const string Flashlight_ON_Path = "event:/UI/Flashlight/Flashlight_ON";
-        private const string Flashlight_OFF_Path = "event:/UI/Flashlight/Flashlight_OFF";
-        private const string Blankie_ON_Path = "event:/UI/Blankie/Blankie_ON";
-        private const string Blankie_OFF_Path = "event:/UI/Blankie/Blankie_OFF";
-        private const string ItemSwap_Path = "event:/UI/Item/ItemSwap";
-        private const string CourageSpark_Path = "event:/Courage/CurageSpark";
-        private const string CourageOrb_Path = "event:/Courage/CurageOrb";
-        private const string Char_getHit_Path = "event:/char/getHit";
-        private const string Char_Death_Path = "event:/char/death";
-        private const string Char_sprint_stop = "event:/char/stamina/panting_midSprint";
-        private const string Char_sprint_depleted = "event:/char/stamina/panting_depleted";
-        private const string Char_sprint_nearEnd = "event:/char/stamina/sprint_nearEnd";
+        private const string FootstepsPath = "event:/char/steps";
+        private const string FootstepsSprintPath = "event:/char/sprint";
+        private const string PickUpPath = "event:/UI/Item/ItemPickup";
+        private const string FlashlightOnPath = "event:/UI/Flashlight/Flashlight_ON";
+        private const string FlashlightOffPath = "event:/UI/Flashlight/Flashlight_OFF";
+        private const string CourageSparkPath = "event:/Courage/CurageSpark";
+        private const string CourageOrbPath = "event:/Courage/CurageOrb";
+        private const string CharGetHitPath = "event:/char/getHit";
+        private const string CharDeathPath = "event:/char/death";
+        private const string CharSprintStop = "event:/char/stamina/panting_midSprint";
+        private const string CharSprintDepleted = "event:/char/stamina/panting_depleted";
+        private const string CharSprintNearEnd = "event:/char/stamina/sprint_nearEnd";
 
         #endregion
 

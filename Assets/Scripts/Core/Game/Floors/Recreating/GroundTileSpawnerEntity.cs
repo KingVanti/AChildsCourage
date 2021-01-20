@@ -13,7 +13,7 @@ namespace AChildsCourage.Game.Floors
         [FindInScene] private TileRepositoryEntity tileRepository;
 
 
-        public void Spawn(TilePosition position, GroundTileData _)
+        internal void Spawn(TilePosition position, GroundTileData _)
         {
             var tile = tileRepository.GetGroundTile();
 

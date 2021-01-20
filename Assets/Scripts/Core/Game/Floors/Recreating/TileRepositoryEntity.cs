@@ -24,10 +24,11 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        public Tile GetGroundTile() => groundTiles.GetTile(rng);
+        internal Tile GetGroundTile() => 
+            groundTiles.GetTile(rng);
 
 
-        public Tile GetWallTileFor(WallData wallData) =>
+        internal Tile GetWallTileFor(WallData wallData) =>
             GetTileCollectionFor(wallData.Type).GetTile(rng);
 
         private TileCollection GetTileCollectionFor(WallType wallType)

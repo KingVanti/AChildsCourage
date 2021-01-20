@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Floors.RoomPersistence
             Runes = runes ?? new SerializedRune[0];
         }
 
-        public static RoomContent ReadContent(SerializedRoomContent content)
+        internal static RoomContent ReadContent(SerializedRoomContent content)
         {
             IEnumerable<FloorObject> ReadGroundData() =>
                 content.GroundData.Select(g => new FloorObject(g.Position, new GroundTileData()));

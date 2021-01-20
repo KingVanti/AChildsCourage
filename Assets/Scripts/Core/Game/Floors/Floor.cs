@@ -8,10 +8,10 @@ using static AChildsCourage.Game.TilePosition;
 namespace AChildsCourage.Game.Floors
 {
 
-    public readonly struct Floor
+    internal readonly struct Floor
     {
 
-        public static FloorDimensions GetFloorDimensions(Floor floor)
+        internal static FloorDimensions GetFloorDimensions(Floor floor)
         {
             var wallPositions = floor
                                 .Map(GetPositionsOfType<WallData>)
@@ -29,40 +29,31 @@ namespace AChildsCourage.Game.Floors
                                        maxChunk.Map(GetCorner).Map(OffsetBy, topCornerOffset));
         }
 
-        public static Vector2 GetEndRoomCenter(Floor floor) =>
+        internal static Vector2 GetEndRoomCenter(Floor floor) =>
             floor.EndRoomChunk
                  .Map(GetCenter)
                  .Map(GetCenter);
 
-        public static TilePosition FindEndChunkCenter(Floor floor) =>
-            floor.EndRoomChunk.Map(GetCenter);
-
-
-        public static int CountObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
-            floor
-                .Map(GetObjectsOfType<TFloorObject>)
-                .Count();
-
-        public static IEnumerable<FloorObject> GetObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
+        private static IEnumerable<FloorObject> GetObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
             floor.Objects
                  .Where(o => o.Data is TFloorObject);
 
-        public static IEnumerable<TilePosition> GetPositionsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
+        internal static IEnumerable<TilePosition> GetPositionsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
             floor
                 .Map(GetObjectsOfType<TFloorObject>)
                 .Select(t => t.Position);
 
-        public static Floor EmptyFloor(Chunk endRoomChunk) =>
+        internal static Floor EmptyFloor(Chunk endRoomChunk) =>
             new Floor(ImmutableHashSet<FloorObject>.Empty,
                       endRoomChunk);
 
 
-        public ImmutableHashSet<FloorObject> Objects { get; }
+        internal ImmutableHashSet<FloorObject> Objects { get; }
 
-        public Chunk EndRoomChunk { get; }
+        internal Chunk EndRoomChunk { get; }
 
 
-        public Floor(ImmutableHashSet<FloorObject> objects, Chunk endRoomChunk)
+        internal Floor(ImmutableHashSet<FloorObject> objects, Chunk endRoomChunk)
         {
             Objects = objects;
             EndRoomChunk = endRoomChunk;

@@ -3,7 +3,7 @@
 namespace AChildsCourage
 {
 
-    public readonly struct Rng
+    internal readonly struct Rng
     {
 
         private const float MinPercent = float.Epsilon;

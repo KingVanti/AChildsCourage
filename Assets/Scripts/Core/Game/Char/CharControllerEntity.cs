@@ -1,6 +1,7 @@
 ﻿using System;
 using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.M;
 
@@ -67,12 +68,12 @@ namespace AChildsCourage.Game.Char
         /// <summary>
         ///     The angle the char is facing towards the mouse cursor.
         /// </summary>
-        public float LookAngle { get; set; }
+        private float LookAngle { get; set; }
 
         /// <summary>
         ///     The rotation direction index for the animation.
         /// </summary>
-        public int RotationIndex
+        private int RotationIndex
         {
             get => rotationIndex;
             set
@@ -85,14 +86,14 @@ namespace AChildsCourage.Game.Char
         /// <summary>
         ///     The position of the mouse.
         /// </summary>
-        public Vector2 MousePos { get; set; }
+        private Vector2 MousePos { get; set; }
 
         private Vector2 RelativeMousePos { get; set; }
 
         /// <summary>
         ///     True if the character is currently moving.
         /// </summary>
-        public bool IsMoving => MovingDirection != Vector2.zero;
+        private bool IsMoving => MovingDirection != Vector2.zero;
 
         private bool IsMovingBackwards
         {
@@ -103,7 +104,7 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        public bool IsSprinting
+        private bool IsSprinting
         {
             get => isSprinting;
             set
@@ -117,7 +118,7 @@ namespace AChildsCourage.Game.Char
         ///     .
         ///     The moving direction of the char character
         /// </summary>
-        public Vector2 MovingDirection
+        private Vector2 MovingDirection
         {
             get => movingDirection;
             set
@@ -130,7 +131,7 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        public MovementState CurrentMovementState
+        internal MovementState CurrentMovementState
         {
             get => movementState;
             private set
@@ -142,7 +143,7 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        public Vector2 Velocity
+        internal Vector2 Velocity
         {
             get => rb.velocity;
             private set => rb.velocity = value;
@@ -236,19 +237,20 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        [Sub(nameof(InputListener.OnMousePositionChanged))]
+        [Sub(nameof(InputListener.OnMousePositionChanged))] [UsedImplicitly]
         private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs)
         {
             MousePos = eventArgs.MousePosition;
             Rotate();
         }
 
-        [Sub(nameof(InputListener.OnMoveDirectionChanged))]
-        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) => MovingDirection = eventArgs.MoveDirection;
+        [Sub(nameof(InputListener.OnMoveDirectionChanged))] [UsedImplicitly]
+        private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) =>
+            MovingDirection = eventArgs.MoveDirection;
 
         #region Sprinting
 
-        [Sub(nameof(InputListener.OnSprintInput))]
+        [Sub(nameof(InputListener.OnSprintInput))] [UsedImplicitly]
         private void OnSprintInput(object _, SprintInputEventArgs eventArgs)
         {
             if (eventArgs.HasSprintInput)
@@ -275,7 +277,7 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))]
+        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))] [UsedImplicitly]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
         {
             if (eventArgs.Stamina == 0) OnStaminaDepleted();
@@ -287,12 +289,12 @@ namespace AChildsCourage.Game.Char
             hasStamina = false;
         }
 
-        [Sub(nameof(CharStaminaEntity.OnStaminaRefreshed))]
+        [Sub(nameof(CharStaminaEntity.OnStaminaRefreshed))] [UsedImplicitly]
         private void OnStaminaRefreshed(object _1, EventArgs _2) => hasStamina = true;
 
         #endregion
 
-        [Sub(nameof(OnCouragePickedUp))]
+        [Sub(nameof(OnCouragePickedUp))] [UsedImplicitly]
         private void OnCouragePickUp(object _, CouragePickedUpEventArgs eventArgs)
         {
             var emission = courageCollectParticleSystem.emission;
@@ -311,15 +313,12 @@ namespace AChildsCourage.Game.Char
             courageCollectParticleSystem.Play();
         }
 
-        [Sub(nameof(InputListener.OnRiftInteractInput))]
+        [Sub(nameof(InputListener.OnRiftInteractInput))] [UsedImplicitly]
         private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs)
         {
             if (hasMaxCourage && isInRiftProximity)
             {
-                if (eventArgs.HasRiftInteractInput)
-                    isEscapingThroughRift = true;
-                else
-                    isEscapingThroughRift = false;
+                isEscapingThroughRift = eventArgs.HasRiftInteractInput;
 
                 OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(isEscapingThroughRift));
                 UpdateAnimator();
@@ -327,14 +326,14 @@ namespace AChildsCourage.Game.Char
         }
 
 
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs)
         {
             if (eventArgs.CompletionPercent >= HundredPercent) hasMaxCourage = true;
             canCollectCourage = eventArgs.CompletionPercent < HundredPercent;
         }
 
-        public void Kill()
+        internal void Kill()
         {
             animator.SetTrigger(deathTriggerKey);
             OnCharKilled?.Invoke(this, EventArgs.Empty);
@@ -342,10 +341,7 @@ namespace AChildsCourage.Game.Char
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
-            {
-                isInRiftProximity = true;
-            }
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = true;
 
             if (other.CompareTag(EntityTags.Courage) && canCollectCourage)
             {
@@ -357,10 +353,7 @@ namespace AChildsCourage.Game.Char
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage)
-            {
-                isInRiftProximity = false;
-            }
+            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = false;
         }
 
         #endregion

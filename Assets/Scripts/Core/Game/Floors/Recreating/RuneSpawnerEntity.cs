@@ -10,7 +10,7 @@ namespace AChildsCourage.Game.Floors
         [SerializeField] private GameObject runePrefab;
 
 
-        public void Spawn(TilePosition position, RuneData _) =>
+        internal void Spawn(TilePosition position, RuneData _) =>
             InstantiateRuneAt(position);
 
         private void InstantiateRuneAt(TilePosition tilePosition)

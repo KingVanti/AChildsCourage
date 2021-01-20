@@ -6,9 +6,10 @@ namespace AChildsCourage.Game.Char
     public class RiftEscapeEventArgs : EventArgs
     {
 
-        public bool IsEscapingThroughRift { get; }
+        internal bool IsEscapingThroughRift { get; }
 
-        public RiftEscapeEventArgs(bool isEscapingThroughRift) => IsEscapingThroughRift = isEscapingThroughRift;
+        internal RiftEscapeEventArgs(bool isEscapingThroughRift) =>
+            IsEscapingThroughRift = isEscapingThroughRift;
 
     }
 

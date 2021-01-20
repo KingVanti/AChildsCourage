@@ -1,5 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Floors.Courage;
+using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace AChildsCourage.Game.Shade
         private bool reachedTarget;
 
 
-        public Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
+        internal Vector2 CurrentDirection => aiPath.desiredVelocity.normalized;
 
         private bool ReachedTarget
         {
@@ -49,7 +50,7 @@ namespace AChildsCourage.Game.Shade
         private void Update() =>
             ReachedTarget = aiPath.reachedDestination && aiPath.hasPath;
 
-        [Sub(nameof(ShadeBrainEntity.OnCommand))]
+        [Sub(nameof(ShadeBrainEntity.OnCommand))] [UsedImplicitly]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
         {
             switch (eventArgs.Command)
@@ -84,7 +85,7 @@ namespace AChildsCourage.Game.Shade
             aiPath.SetPath(null);
         }
 
-        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))]
+        [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]
         private void OnCollectedCourageChanged(object _, CollectedCourageChangedEventArgs eventArgs) =>
             Speed = speedRange.Map(Range.Lerp, eventArgs.CompletionPercent);
 

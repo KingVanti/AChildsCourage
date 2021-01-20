@@ -1,5 +1,6 @@
 ﻿using System;
 using AChildsCourage.Game.Char;
+using JetBrains.Annotations;
 using UnityEngine;
 using static AChildsCourage.M;
 using static AChildsCourage.Game.Shade.Awareness;
@@ -71,6 +72,7 @@ namespace AChildsCourage.Game.Shade
                     case AwarenessLevel.Suspicious when CurrentAwarenessLevel == AwarenessLevel.Oblivious:
                         OnCharSuspected?.Invoke(this, new CharSuspectedEventArgs(CharPosition));
                         break;
+                    default: throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
 
                 currentAwarenessLevel = value;
@@ -119,7 +121,7 @@ namespace AChildsCourage.Game.Shade
         private void UpdateAwareness() =>
             CurrentAwareness = CurrentAwareness.Map(ChangeBy, AwarenessChangePerSecond * Time.deltaTime);
 
-        [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))]
+        [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))] [UsedImplicitly]
         private void OnShadeBanished(object _1, EventArgs _2) =>
             ClearAwareness();
 
@@ -134,7 +136,7 @@ namespace AChildsCourage.Game.Shade
         private bool HasEnoughAwarenessForLevel(AwarenessLevel level) =>
             CurrentAwareness >= minAwarenessForAwarenessLevel[level];
 
-        [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))]
+        [Sub(nameof(ShadeEyesEntity.OnCharVisibilityChanged))] [UsedImplicitly]
         private void OnCharVisibilityChanged(object _, CharVisibilityChangedEventArgs eventArgs) =>
             currentCharVisibility = eventArgs.CharVisibility;
 

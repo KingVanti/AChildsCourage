@@ -6,10 +6,10 @@ namespace AChildsCourage.Game.Char
     public class FlashlightToggleEventArgs : EventArgs
     {
 
-        public bool IsTurnedOn { get; }
+        internal bool IsTurnedOn { get; }
 
 
-        public FlashlightToggleEventArgs(bool isTurnedOn) =>
+        internal FlashlightToggleEventArgs(bool isTurnedOn) =>
             IsTurnedOn = isTurnedOn;
 
     }

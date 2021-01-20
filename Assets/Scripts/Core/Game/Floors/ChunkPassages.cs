@@ -5,23 +5,20 @@ namespace AChildsCourage.Game.Floors
 
     public readonly struct ChunkPassages
     {
-
-        public static ChunkPassages AllPassages => new ChunkPassages(true, true, true, true);
-
-
-        public static int GetPassageCount(ChunkPassages passages) =>
+        
+        internal static int GetPassageCount(ChunkPassages passages) =>
             (passages.HasNorth ? 1 : 0) +
             (passages.HasEast ? 1 : 0) +
             (passages.HasSouth ? 1 : 0) +
             (passages.HasWest ? 1 : 0);
 
-        public static ChunkPassages Rotate(ChunkPassages passages) =>
+        internal static ChunkPassages Rotate(ChunkPassages passages) =>
             new ChunkPassages(passages.HasWest, passages.HasNorth, passages.HasEast, passages.HasSouth);
 
-        public static ChunkPassages MirrorOverXAxis(ChunkPassages passages) =>
+        internal static ChunkPassages MirrorOverXAxis(ChunkPassages passages) =>
             new ChunkPassages(passages.HasSouth, passages.HasEast, passages.HasNorth, passages.HasWest);
 
-        public static bool HasPassageWithDirection(PassageDirection direction, ChunkPassages passages)
+        internal static bool HasPassageWithDirection(PassageDirection direction, ChunkPassages passages)
         {
             switch (direction)
             {
@@ -52,7 +49,8 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        public override string ToString() => $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
+        public override string ToString() => 
+            $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
 
     }
 
