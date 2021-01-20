@@ -15,7 +15,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 360, true);
+            var cone = new VisionCone(primary, 1, 360, true);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => false);
             var point = new Vector2(0, 0.5f);
 
@@ -33,7 +33,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 360, true);
+            var cone = new VisionCone(primary, 1, 360, true);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => false);
             var point = new Vector2(0, 1.5f);
 
@@ -51,7 +51,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 90, true);
+            var cone = new VisionCone(primary, 1, 90, true);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => false);
             var point = new Vector2(0, 0.5f);
 
@@ -69,7 +69,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 90, true);
+            var cone = new VisionCone(primary, 1, 90, true);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => false);
             var point = new Vector2(0, -0.5f);
 
@@ -87,7 +87,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 90, false);
+            var cone = new VisionCone(primary, 1, 90, false);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => false);
             var point = new Vector2(0, 0.5f);
 
@@ -105,7 +105,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 90, false);
+            var cone = new VisionCone(primary, 1, 90, false);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => true);
             var point = new Vector2(0, 0.5f);
 
@@ -123,7 +123,7 @@ namespace AChildsCourage.Game.Shade
         {
             // Given
 
-            var cone = new VisionCone(Primary, 1, 90, true);
+            var cone = new VisionCone(primary, 1, 90, true);
             var head = new ShadeHead(Vector2.zero, Vector2.up, (point1, point2) => true);
             var point = new Vector2(0, 0.5f);
 

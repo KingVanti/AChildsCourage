@@ -10,14 +10,12 @@ namespace AChildsCourage.Game.Char
     public struct Visibility
     {
 
+        public static readonly Visibility notVisible = new Visibility(0);
+        public static readonly Visibility secondary = new Visibility(1);
+        public static readonly Visibility primary = new Visibility(2);
+
+        
         [SerializeField] private int value;
-
-
-        public static Visibility NotVisible => new Visibility(0);
-
-        public static Visibility Secondary => new Visibility(1);
-
-        public static Visibility Primary => new Visibility(2);
 
 
         private Visibility(int value) =>

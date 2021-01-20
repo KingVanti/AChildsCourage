@@ -81,7 +81,7 @@ namespace AChildsCourage.Game.Shade
                                                 DistanceMultiplier * MovementMultiplier *
                                                 FlashLightMultiplier * IsShoneOnMultiplier;
 
-        private float PrimaryVisionMultiplier => currentCharVisibility.Equals(Primary) ? primaryVisionMultiplier : 1;
+        private float PrimaryVisionMultiplier => currentCharVisibility.Equals(primary) ? primaryVisionMultiplier : 1;
 
         private float DistanceMultiplier => DistanceToCharacter.Map(Remap, 0f, maxDistance, maxDistanceMultiplier, 0f);
 
@@ -97,7 +97,7 @@ namespace AChildsCourage.Game.Shade
 
         private float AwarenessChangePerSecond => CanSeeChar || IsShoneOn ? AwarenessGainPerSecond : -awarenessLossPerSecond[CurrentAwarenessLevel];
 
-        private bool CanSeeChar => !currentCharVisibility.Equals(NotVisible);
+        private bool CanSeeChar => !currentCharVisibility.Equals(notVisible);
 
         private Vector2 CharPosition => charController.transform.position;
 
