@@ -64,35 +64,8 @@ namespace AChildsCourage.Game
             yield return new Chunk(position.X - 1, position.Y + 1);
         }
 
-        public static Chunk GetLowerLeft(IEnumerable<Chunk> positions) =>
-            positions.Map(GetBounds)
-                     .Map(b => new Chunk(b.MinX, b.MinY));
-
         public static Chunk Absolute(Chunk position) =>
             new Chunk(Abs(position.X), Abs(position.Y));
-
-        public static (int MinX, int MinY, int MaxX, int MaxY) GetBounds(IEnumerable<Chunk> positions)
-        {
-            var chunks = positions as Chunk[] ?? positions.ToArray();
-            if (!chunks.Any()) return (0, 0, 0, 0);
-            return (chunks.Min(p => p.X),
-                    chunks.Min(p => p.Y),
-                    chunks.Max(p => p.X),
-                    chunks.Max(p => p.Y));
-        }
-
-        public static (int Width, int Height) GetDimensions(IEnumerable<Chunk> positions)
-        {
-            var chunks = positions as Chunk[] ?? positions.ToArray();
-
-            if (!chunks.Any()) return (0, 0);
-            var bounds = GetBounds(chunks);
-
-            var width = bounds.MaxX - bounds.MinX + 1;
-            var height = bounds.MaxY - bounds.MinY + 1;
-
-            return (width, height);
-        }
 
         public static IEnumerable<TilePosition> GetPositionsInChunk(Chunk position) =>
             position.Map(GetCorner)

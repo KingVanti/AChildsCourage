@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using static AChildsCourage.Game.Chunk;
+using static AChildsCourage.Game.ChunkCollection;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -27,33 +27,33 @@ namespace AChildsCourage.Game.Floors.Gen
             }
         }
 
-        private static ChunkLayout EmptyChunkLayout => new ChunkLayout(ImmutableHashSet<Chunk>.Empty);
+        private static ChunkLayout EmptyChunkLayout => new ChunkLayout(EmptyChunkCollection);
 
         public static ChunkLayout BaseChunkLayout =>
             BasePositions.Aggregate(EmptyChunkLayout, OccupyIn);
 
 
-        public static IEnumerable<Chunk> GetPositions(ChunkLayout layout) =>
+        public static ChunkCollection GetChunks(ChunkLayout layout) =>
             layout.occupiedChunks;
 
         public static (int Width, int Height) GetDimensions(ChunkLayout layout) =>
             layout.Map(IsEmpty)
                 ? noSize
-                : layout.occupiedChunks.Map(Chunk.GetDimensions);
+                : layout.occupiedChunks.Map(ChunkCollection.GetDimensions);
 
         private static bool IsEmpty(ChunkLayout layout) =>
-            layout.occupiedChunks.IsEmpty;
+            layout.occupiedChunks.Map(ChunkCollection.IsEmpty);
 
-        public static int CountDirectConnections(ChunkLayout layout, Chunk position) =>
-            GetAdjacentChunks(position)
+        public static int CountDirectConnections(ChunkLayout layout, Chunk chunk) =>
+            GetAdjacentChunks(chunk)
                 .Count(IsOccupiedIn, layout);
 
-        public static int CountIndirectConnections(ChunkLayout layout, Chunk position) =>
-            GetDiagonalAdjacentChunks(position)
+        public static int CountIndirectConnections(ChunkLayout layout, Chunk chunk) =>
+            GetDiagonalAdjacentChunks(chunk)
                 .Count(IsOccupiedIn, layout);
 
-        public static ChunkLayout OccupyIn(ChunkLayout layout, Chunk position) =>
-            new ChunkLayout(layout.occupiedChunks.Add(position));
+        public static ChunkLayout OccupyIn(ChunkLayout layout, Chunk chunk) =>
+            new ChunkLayout(layout.occupiedChunks.Map(Add, chunk));
 
         public static IEnumerable<Chunk> GetPossibleNextChunks(ChunkLayout layout)
         {
@@ -62,17 +62,18 @@ namespace AChildsCourage.Game.Floors.Gen
 
             return layout.occupiedChunks
                          .SelectMany(GetAdjacentChunks)
-                         .Where(CanOccupy);
+                         .Where(CanOccupy)
+                         .Distinct();
         }
 
         public static bool IsOccupiedIn(ChunkLayout layout, Chunk position) =>
             layout.occupiedChunks.Contains(position);
 
 
-        private readonly ImmutableHashSet<Chunk> occupiedChunks;
+        private readonly ChunkCollection occupiedChunks;
 
 
-        private ChunkLayout(ImmutableHashSet<Chunk> occupiedChunks) =>
+        private ChunkLayout(ChunkCollection occupiedChunks) =>
             this.occupiedChunks = occupiedChunks;
 
     }

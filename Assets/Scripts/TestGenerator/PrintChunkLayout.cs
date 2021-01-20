@@ -2,6 +2,7 @@
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Gen.ChunkLayout;
 using static AChildsCourage.Game.Chunk;
+using static AChildsCourage.Game.ChunkCollection;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -46,14 +47,14 @@ namespace AChildsCourage.Game.Floors.Gen
                 PositionIsInStartChunk(position) ? startChunkCenterColor
                 : chunkCenterColor;
 
-            foreach (var position in layout.Map(GetPositions).SelectMany(GetPositionsInChunk)) print(position, GetChunkColor(position));
+            foreach (var position in layout.Map(GetChunks).SelectMany(GetPositionsInChunk)) print(position, GetChunkColor(position));
 
             texture.Apply();
         }
 
         private static SetTexturePixel CreatePrinter(ChunkLayout layout, Texture2D texture)
         {
-            var minPos = layout.Map(GetPositions).Map(GetLowerLeft).Map(Absolute).Map(GetCorner);
+            var minPos = layout.Map(GetChunks).Map(GetLowerLeft).Map(Absolute).Map(GetCorner);
 
             return (pos, col) => texture.SetPixel(pos.X + minPos.X, pos.Y + minPos.Y, col);
         }
