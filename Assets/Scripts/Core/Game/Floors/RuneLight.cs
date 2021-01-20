@@ -18,13 +18,11 @@ namespace AChildsCourage.Game.Floors
 
         private bool burnedOut;
 
-
         private float Intensity
         {
             get => light.intensity;
             set => light.intensity = value;
         }
-
 
         internal void UpdateLight(RuneCharge charge)
         {
