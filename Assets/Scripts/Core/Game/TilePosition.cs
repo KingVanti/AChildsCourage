@@ -34,22 +34,6 @@ namespace AChildsCourage.Game
         public static TilePosition ToTile(Vector2 vector) =>
             new TilePosition(FloorToInt(vector.x),
                              FloorToInt(vector.y));
-
-        public static TilePositionCollection FindPositionsInRadius(TilePosition center, float radius) =>
-            GeneratePositionsInRadius(GetCenter(center), radius)
-                .Select(ToTile)
-                .Map(tiles => new TilePositionCollection(tiles));
-
-        private static IEnumerable<Vector2> GeneratePositionsInRadius(Vector2 center, float radius) =>
-            GeneratePositionsInSquare(center, radius)
-                .Where(v => Vector2.Distance(v, center) <= radius);
-
-        private static IEnumerable<Vector2> GeneratePositionsInSquare(Vector2 center, float extend)
-        {
-            for (var dX = -extend; dX <= extend; dX++)
-                for (var dY = -extend; dY <= extend; dY++)
-                    yield return new Vector2(center.x + dX, center.y + dY);
-        }
         
         public static TileOffset AsOffset(TilePosition position) =>
             new TileOffset(position.X,

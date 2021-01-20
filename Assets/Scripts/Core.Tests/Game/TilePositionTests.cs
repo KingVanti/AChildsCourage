@@ -26,43 +26,7 @@ namespace AChildsCourage.Game
 
             Assert.That(distance, Is.EqualTo(2), "Incorrect distance calculated!");
         }
-
-
-        [Test]
-        public void PositionsInRadius_Are_In_Radius()
-        {
-            // Given
-
-            var center = new TilePosition(0, 0);
-            var radius = 5;
-
-            // When
-
-            var positions = FindPositionsInRadius(center, radius);
-
-            // Then
-
-            Assert.That(positions.All(p => p.Map(DistanceTo, center) <= radius));
-        }
-
-        [Test]
-        public void PositionsInRadius_Are_Distinct()
-        {
-            // Given
-
-            var center = new TilePosition(0, 0);
-            var radius = 5;
-
-            // When
-
-            var positions = FindPositionsInRadius(center, radius).ToImmutableHashSet();
-
-            // Then
-
-            Assert.That(positions, Is.EqualTo(positions.Distinct()));
-        }
-
-
+        
         [Test]
         public void Given_Any_TilePosition_When_It_Is_Converted_To_A_Vector3Int_Then_Its_Coordinates_Are_Copied_Correctly()
         {
