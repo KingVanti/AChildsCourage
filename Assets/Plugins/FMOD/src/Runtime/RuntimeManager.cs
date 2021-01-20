@@ -240,6 +240,7 @@ retry:
             result = coreSystem.setAdvancedSettings(ref advancedSettings);
             CheckInitResult(result, "FMOD.System.setAdvancedSettings");
 
+
             if (!string.IsNullOrEmpty(Settings.Instance.EncryptionKey))
             {
                 FMOD.Studio.ADVANCEDSETTINGS studioAdvancedSettings = new FMOD.Studio.ADVANCEDSETTINGS();
