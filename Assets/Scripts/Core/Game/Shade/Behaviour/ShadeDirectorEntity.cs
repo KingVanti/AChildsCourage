@@ -33,15 +33,12 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
-        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) => 
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             groundPlan = eventArgs.Floor.Map(CreateGroundPlan);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeActivated))] [UsedImplicitly]
-        private void OnShadeActivated(object _1, EventArgs _2)
-        {
-            StartStandardInvestigation();
+        private void OnShadeActivated(object _1, EventArgs _2) => 
             OnTensionLevelChanged(TensionLevel.Low);
-        }
 
         [Sub(nameof(ShadeBrainEntity.OnCommand))] [UsedImplicitly]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)
