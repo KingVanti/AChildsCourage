@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.Shade
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
-            SpawnShade();
+            this.DoAfter(SpawnShade, 0.1f);
 
         [Sub(nameof(ShadeBodyEntity.OnShadeOutOfBounds))] [UsedImplicitly]
         private void OnShadeBanished(object _1, EventArgs _2) =>
