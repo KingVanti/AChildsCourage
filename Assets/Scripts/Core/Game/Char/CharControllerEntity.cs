@@ -3,6 +3,7 @@ using AChildsCourage.Game.Floors.Courage;
 using AChildsCourage.Game.Input;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using static AChildsCourage.M;
 
 namespace AChildsCourage.Game.Char
@@ -40,6 +41,7 @@ namespace AChildsCourage.Game.Char
         [FindComponent] private ParticleSystem courageCollectParticleSystem;
         [FindComponent] private SpriteRenderer spriteRenderer;
         [FindComponent] private Rigidbody2D rb;
+        [FindComponent] private Light2D characterGlow;
 
         [FindInScene] private CharStaminaEntity charStamina;
         [FindInScene] private CourageManagerEntity courageManager;
@@ -347,6 +349,7 @@ namespace AChildsCourage.Game.Char
 
         private void StopChar()
         {
+            characterGlow.intensity = 1;
             Velocity = Vector2.zero;
             DirectionInput = Vector2.zero;
             HasSprintInput = false;
