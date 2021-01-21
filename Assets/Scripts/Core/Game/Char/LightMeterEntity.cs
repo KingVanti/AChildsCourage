@@ -22,11 +22,15 @@ namespace AChildsCourage.Game.Char
 
         private Vector2 MeasuringPosition => transform.position;
 
-        private bool IsLitByAnySource => lightSources.Any(ShinesOnLightMeter);
+        private bool IsLitByAnySource
+        {
+            get
+            {
+                RemoveMissingLightSources();
+                return lightSources.Any(ShinesOnLightMeter);
+            }
+        }
 
-
-        private void Update() =>
-            RemoveMissingLightSources();
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _1, FloorRecreatedEventArgs _2) =>
