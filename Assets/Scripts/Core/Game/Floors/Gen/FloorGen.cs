@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.Floors.Gen
             roomPlan
                 .Map(GetRooms)
                 .Select(GetContent, @params.RoomCollection)
-                .Aggregate(EmptyFloor(roomPlan.Map(FindEndRoomChunk)), AddContent)
+                .Aggregate(CreateEmptyFloor(roomPlan.Map(FindEndRoomChunk)), AddContent)
                 .Map(GenerateWalls)
                 .Map(FilterCouragePickups, @params)
                 .Map(FilterRunes, @params);

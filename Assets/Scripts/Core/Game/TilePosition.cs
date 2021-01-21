@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using static UnityEngine.Mathf;
 using static AChildsCourage.Game.Chunk;
 using static AChildsCourage.Game.TileOffset;
@@ -52,6 +54,13 @@ namespace AChildsCourage.Game
 
             return new TilePosition(position.X, pivot.Y + yDiff);
         }
+
+        internal static IntBounds GetBounds(IReadOnlyCollection<TilePosition> positions) =>
+            new IntBounds(positions.Min(p => p.X),
+                          positions.Min(p => p.Y),
+                          positions.Max(p => p.X),
+                          positions.Max(p => p.Y));
+
 
         public int X { get; }
 

@@ -16,6 +16,12 @@
         internal static (int Width, int Height) GetDimensions(IntBounds bounds) =>
             (Width(bounds), Height(bounds));
 
+        internal static TilePosition GetMinPos(IntBounds bounds) =>
+            new TilePosition(bounds.MinX, bounds.MinY);
+        
+        internal static TilePosition GetMaxPos(IntBounds bounds) =>
+            new TilePosition(bounds.MaxX, bounds.MaxY);
+
 
         internal int MinX { get; }
 
