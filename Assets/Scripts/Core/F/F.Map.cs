@@ -8,7 +8,7 @@ namespace AChildsCourage
 
         public static TResult Map<TItem, TResult>(this TItem item, Func<TItem, TResult> function) =>
             function(item);
-        
+
         internal static TResult Map<TItem, TResult, TP1>(this TItem item, Func<TP1, TItem, TResult> function, TP1 p1) =>
             function(p1, item);
 

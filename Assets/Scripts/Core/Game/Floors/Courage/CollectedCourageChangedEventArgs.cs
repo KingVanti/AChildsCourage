@@ -9,10 +9,8 @@ namespace AChildsCourage.Game.Floors.Courage
         internal float CompletionPercent { get; }
 
 
-        internal CollectedCourageChangedEventArgs(float completionPercent)
-        {
+        internal CollectedCourageChangedEventArgs(float completionPercent) =>
             CompletionPercent = completionPercent;
-        }
 
     }
 

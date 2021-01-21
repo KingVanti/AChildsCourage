@@ -27,7 +27,7 @@ namespace AChildsCourage
         }
 
 
-        public void OnDestroy() => 
+        public void OnDestroy() =>
             staminaEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
 
@@ -73,14 +73,14 @@ namespace AChildsCourage
             }
         }
 
-        public void PlayChar_GetHit() => 
+        public void PlayChar_GetHit() =>
             RuntimeManager.PlayOneShot(CharGetHitPath, GetComponent<Transform>().position);
 
         public void PlayChar_Death() =>
             RuntimeManager.PlayOneShot(CharDeathPath, GetComponent<Transform>().position);
 
 
-        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))][UsedImplicitly]
+        [Sub(nameof(CharControllerEntity.OnMovementStateChanged))] [UsedImplicitly]
         private void OnCharMovementStateChanged(object _, MovementStateChangedEventArgs eventArgs)
         {
             if (eventArgs.Previous == MovementState.Sprinting && eventArgs.Current != MovementState.Sprinting) PlaySprint_stop();
@@ -95,7 +95,7 @@ namespace AChildsCourage
         }
 
 
-        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))][UsedImplicitly]
+        [Sub(nameof(CharStaminaEntity.OnStaminaChanged))] [UsedImplicitly]
         private void OnStaminaChanged(object _1, CharStaminaChangedEventArgs eventArgs)
         {
             staminaEventInstance.setParameterByName("stamina", eventArgs.Stamina);
@@ -108,7 +108,7 @@ namespace AChildsCourage
             }
         }
 
-        private void PlaySprintDepleted() => 
+        private void PlaySprintDepleted() =>
             RuntimeManager.PlayOneShot(CharSprintDepleted, GetComponent<Transform>().position);
 
 

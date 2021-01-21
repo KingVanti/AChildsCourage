@@ -26,7 +26,7 @@ namespace AChildsCourage.Game.Floors
             coll.offset = CalculateBoxOffset();
         }
 
-        private Vector2 CalculateBoxOffset() => 
+        private Vector2 CalculateBoxOffset() =>
             CalculateBoxCenter() - new Vector2(0.5f, 0);
 
         private Vector2 CalculateBoxCenter()

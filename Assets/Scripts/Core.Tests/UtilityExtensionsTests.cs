@@ -41,7 +41,7 @@ namespace AChildsCourage
 
             Assert.That(changed.a, Is.EqualTo(alpha), "A channel did not change!");
         }
-        
+
         [Test]
         public void Adding_Z_To_A_Vector_Does_Not_Change_The_Other_Coordinates([Random(0f, 1f, 100)] float coordinates)
         {

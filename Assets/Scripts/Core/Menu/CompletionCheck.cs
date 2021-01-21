@@ -9,7 +9,7 @@ namespace AChildsCourage.Menu
 
         private const string CompletionPlayerPrefKey = "COMPLETED";
 
-        
+
         [SerializeField] private Image completionCheckImage;
 
         private static bool HasCompletedGame => PlayerPrefs.GetInt(CompletionPlayerPrefKey) == 1;

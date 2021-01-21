@@ -47,9 +47,8 @@ namespace AChildsCourage.Game.Floors
             StartCoroutine(Lerping.TimeLerp(ApplyT, fadeOutTime, SwitchOff));
         }
 
-        private void SwitchOff() {
+        private void SwitchOff() =>
             Intensity = 0f;
-        }
 
     }
 

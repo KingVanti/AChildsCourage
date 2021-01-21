@@ -7,7 +7,7 @@ namespace AChildsCourage.Game
     [TestFixture]
     public class TileOffsetTests
     {
-        
+
         [Test]
         public void Absolute_Offset_Has_Same_Magnitude_As_Original([Random(-10, 10, 10)] int x, [Random(-10, 10, 10)] int y)
         {

@@ -10,12 +10,12 @@ namespace AChildsCourage.Game.Shade
 
         private static readonly Vector3 outOfBoundsPosition = new Vector3(100, 100, 0);
 
-
+        
+        [Pub] public event EventHandler OnShadeActivated;
+        
         [Pub] public event EventHandler OnShadeOutOfBounds;
 
         [Pub] public event EventHandler OnShadeSteppedOnRune;
-
-        [Pub] public event EventHandler OnShadeActivated;
 
 
         [FindComponent(ComponentFindMode.OnChildren)]

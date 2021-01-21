@@ -24,7 +24,7 @@ namespace AChildsCourage.Game
 
         #region Methods
 
-        internal Tile GetGroundTile() => 
+        internal Tile GetGroundTile() =>
             groundTiles.GetTile(rng);
 
 

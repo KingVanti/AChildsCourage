@@ -20,7 +20,7 @@ namespace AChildsCourage.Game.UI
         }
 
 
-        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))] [UsedImplicitly] 
+        [Sub(nameof(ShadeAwarenessEntity.OnShadeAwarenessChanged))] [UsedImplicitly]
         private void OnShadeAwarenessChanged(object _, AwarenessChangedEventArgs eventArgs)
         {
             Alpha = eventArgs.NewAwareness;

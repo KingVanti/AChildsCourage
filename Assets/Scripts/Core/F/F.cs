@@ -25,7 +25,7 @@ namespace AChildsCourage
         {
             foreach (var element in elements) action(element);
         }
-        
+
         internal static TAccumulate Cycle<TAccumulate>(this TAccumulate seed, Func<TAccumulate, TAccumulate> func, int times)
         {
             var accumulate = seed;

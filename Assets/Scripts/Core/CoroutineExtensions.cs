@@ -25,7 +25,7 @@ namespace AChildsCourage
             return monoBehaviour.StartCoroutine(WaitAndDo());
         }
 
-        internal static void StartOnly(this MonoBehaviour monoBehaviour, Func<IEnumerator> routineFunction) => 
+        internal static void StartOnly(this MonoBehaviour monoBehaviour, Func<IEnumerator> routineFunction) =>
             monoBehaviour.StartOnly(routineFunction());
 
         private static void StartOnly(this MonoBehaviour monoBehaviour, IEnumerator routine)

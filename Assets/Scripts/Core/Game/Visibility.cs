@@ -14,7 +14,7 @@ namespace AChildsCourage.Game.Char
         public static readonly Visibility secondary = new Visibility(1);
         public static readonly Visibility primary = new Visibility(2);
 
-        
+
         [SerializeField] private int value;
 
 

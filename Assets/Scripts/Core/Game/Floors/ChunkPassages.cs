@@ -5,7 +5,7 @@ namespace AChildsCourage.Game.Floors
 
     public readonly struct ChunkPassages
     {
-        
+
         internal static int GetPassageCount(ChunkPassages passages) =>
             (passages.HasNorth ? 1 : 0) +
             (passages.HasEast ? 1 : 0) +
@@ -49,7 +49,7 @@ namespace AChildsCourage.Game.Floors
         }
 
 
-        public override string ToString() => 
+        public override string ToString() =>
             $"({(HasNorth ? "North, " : "")}{(HasEast ? "East, " : "")}{(HasSouth ? "South, " : "")}{(HasWest ? "West" : "")})";
 
     }

@@ -56,7 +56,7 @@ namespace AChildsCourage
             foreach (var @event in monoBehaviour.GetType().GetEvents(DefaultBindingFlags).Where(HasAttribute<PubAttribute>)) events.Add(@event.Name, (@event, monoBehaviour));
         }
 
-        
+
         internal static GameObject Spawn(GameObject prefab, Vector3 position, Transform parent) =>
             Spawn(prefab, position, Quaternion.identity, parent);
 
@@ -132,7 +132,7 @@ namespace AChildsCourage
                 {
                     var findMode = field.GetCustomAttribute<FindComponentAttribute>().FindMode;
                     var component = FindComponent(monoBehaviour, field.FieldType, findMode);
-                    
+
                     if (component == null) throw new Exception($"Could not find component {field.FieldType.Name} on {monoBehaviour}");
 
                     field.SetValue(monoBehaviour, component);
@@ -140,18 +140,17 @@ namespace AChildsCourage
 
         private static Component FindComponent(Component monoBehaviour, Type componentType, ComponentFindMode findMode)
         {
-            
             switch (findMode)
             {
                 case ComponentFindMode.OnSelf:
-                  return monoBehaviour.GetComponent(componentType);
-                   
+                    return monoBehaviour.GetComponent(componentType);
+
                 case ComponentFindMode.OnParent:
                     return monoBehaviour.GetComponentInParent(componentType);
-   
+
                 case ComponentFindMode.OnChildren:
                     return monoBehaviour.GetComponentInChildren(componentType);
-               
+
                 default: throw new Exception($"Invalid find mode {findMode}!");
             }
         }

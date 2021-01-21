@@ -160,7 +160,7 @@ namespace AChildsCourage
 
             Assert.That(inverted, Is.LessThan(-1), "Inverted number should be less than -1!");
         }
-        
+
         [Test]
         public void A_Normalized_Angle_Is_Between_0_And_360([Random(float.MinValue, float.MaxValue, 100)] float angle)
         {

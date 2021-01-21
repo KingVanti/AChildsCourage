@@ -11,7 +11,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private static readonly int emissionTextureKey = Shader.PropertyToID("_Emission");
 
-        
+
         [SerializeField] private float illuminateSpeed;
 
         [FindComponent(ComponentFindMode.OnChildren)]

@@ -13,7 +13,7 @@ namespace AChildsCourage
 
             // Then
             Assert.That(() => new Range<float>(min, max), Throws.InstanceOf<ArgumentException>());
-        
+
         [Test]
         public void Max_Can_Be_Same_As_Min([Random(float.MinValue, float.MaxValue, 100)] float minMax) =>
 
