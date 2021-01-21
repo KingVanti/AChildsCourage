@@ -2,8 +2,9 @@
 using AChildsCourage.Game.Floors.Courage;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Floor;
-using static AChildsCourage.Game.TilePosition;
+using static AChildsCourage.Game.IntBounds;
 using static AChildsCourage.Game.TileOffset;
+using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors.Gen
 {
@@ -30,8 +31,8 @@ namespace AChildsCourage.Game.Floors.Gen
 
         private static Texture2D CreateFittingTexture(Floor floor)
         {
-            var dimensions = floor.Map(GetFloorDimensions);
-            return new Texture2D(dimensions.Width, dimensions.Height)
+            var bounds = floor.Map(GetFloorBounds);
+            return new Texture2D(bounds.Map(Width), bounds.Map(Height))
             {
                 filterMode = FilterMode.Point
             };
@@ -57,11 +58,10 @@ namespace AChildsCourage.Game.Floors.Gen
 
         private static SetTexturePixel CreatePrinter(Floor floor, Texture2D texture)
         {
-            var offset = floor
-                         .Map(GetFloorDimensions)
-                         .LowerRight
-                         .Map(AsOffset)
-                         .Map(Absolute);
+            var offset = floor.Map(GetFloorBounds)
+                              .Map(GetMinPos)
+                              .Map(AsOffset)
+                              .Map(Absolute);
 
             return (pos, col) => texture.SetPixel(pos.X + offset.X, pos.Y + offset.Y, col);
         }

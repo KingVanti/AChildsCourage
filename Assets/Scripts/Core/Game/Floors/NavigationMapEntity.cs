@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Pathfinding;
 using UnityEngine;
 using static AChildsCourage.Game.Floors.Floor;
+using static AChildsCourage.Game.IntBounds;
 
 namespace AChildsCourage.Game.Floors
 {
@@ -15,12 +16,12 @@ namespace AChildsCourage.Game.Floors
 
         private GridGraph GridGraph => pathfinder.graphs.First() as GridGraph;
 
-        private FloorDimensions CurrentDimensions
+        private IntBounds CurrentBounds
         {
             set
             {
-                GridGraph.center = value.Center;
-                GridGraph.SetDimensions(value.Width, value.Height, 1);
+                GridGraph.center = value.Map(Center);
+                GridGraph.SetDimensions(value.Map(Width), value.Map(Height), 1);
 
                 pathfinder.Scan(GridGraph);
             }
@@ -32,7 +33,7 @@ namespace AChildsCourage.Game.Floors
             this.DoAfter(() => ScaleToFit(eventArgs.Floor), 1);
 
         private void ScaleToFit(Floor floor) =>
-            CurrentDimensions = GetFloorDimensions(floor);
+            CurrentBounds = GetFloorBounds(floor);
 
     }
 

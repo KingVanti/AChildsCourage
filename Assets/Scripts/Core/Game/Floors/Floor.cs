@@ -3,7 +3,6 @@ using System.Collections.Immutable;
 using System.Linq;
 using UnityEngine;
 using static AChildsCourage.Game.Chunk;
-using static AChildsCourage.Game.IntBounds;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -12,23 +11,7 @@ namespace AChildsCourage.Game.Floors
     internal readonly struct Floor
     {
 
-        internal static FloorDimensions GetFloorDimensions(Floor floor)
-        {
-            var (minChunk, maxChunk) = floor.Map(GetBoundingChunks);
-
-            return new FloorDimensions(minChunk.Map(GetCorner),
-                                       maxChunk.Map(GetCorner).Map(OffsetBy, topCornerOffset));
-        }
-
-        private static (Chunk Min, Chunk Max) GetBoundingChunks(Floor floor)
-        {
-            var bounds = floor.Map(GetFloorBounds);
-
-            return (bounds.Map(GetMinPos).Map(GetChunk),
-                    bounds.Map(GetMaxPos).Map(GetChunk));
-        }
-
-        private static IntBounds GetFloorBounds(Floor floor) =>
+        internal static IntBounds GetFloorBounds(Floor floor) =>
             floor.Map(GetWallPositions)
                  .ToImmutableHashSet()
                  .Map(GetBounds);
