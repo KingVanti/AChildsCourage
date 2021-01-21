@@ -105,7 +105,8 @@ namespace AChildsCourage.Game.Floors.Courage
             OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
 
         [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))] [UsedImplicitly]
-        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) => IsEscaping = eventArgs.IsEscapingThroughRift;
+        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) => 
+            IsEscaping = eventArgs.IsEscapingThroughRift;
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
