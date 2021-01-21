@@ -40,8 +40,7 @@ namespace AChildsCourage.Game.Floors
             floor.EndRoomChunk.Map(GetExactCenter);
 
         private static IEnumerable<FloorObject> GetObjectsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
-            floor.Objects
-                 .Where(o => o.Data is TFloorObject);
+            floor.Objects.Where(o => o.Data is TFloorObject);
 
         internal static IEnumerable<TilePosition> GetPositionsOfType<TFloorObject>(Floor floor) where TFloorObject : FloorObjectData =>
             floor.Map(GetObjectsOfType<TFloorObject>)
