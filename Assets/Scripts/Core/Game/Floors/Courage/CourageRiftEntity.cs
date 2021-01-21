@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using AChildsCourage.Game.Char;
+using AChildsCourage.Game.Floors.Courage.UI;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
@@ -20,23 +21,17 @@ namespace AChildsCourage.Game.Floors.Courage
         [SerializeField] private float escapeTime = 5f;
         [SerializeField] private float maxLightIntensity = 10f;
         [SerializeField] private float maxOuterRadius = 12f;
-
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private CanvasGroup contextInfo;
+        [SerializeField] private AnimationCurve lightCurve;
 
         [FindComponent] private SpriteRenderer spriteRenderer;
+        [FindComponent(ComponentFindMode.OnChildren)] private ParticleSystem riftParticleSystem;
+        [FindComponent(ComponentFindMode.OnChildren)] private Light2D courageLight;
+        [FindComponent(ComponentFindMode.OnChildren)] private CourageRiftInfoText infoText;
 
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private ParticleSystem riftParticleSystem;
-
-        [FindComponent(ComponentFindMode.OnChildren)]
-        private Light2D courageLight;
-
-        [SerializeField] private AnimationCurve lightCurve;
         [FindInScene] private CourageManagerEntity courageManager;
 
 
-        private bool isOpen;
+        private bool riftIsOpen;
         private bool isEscaping;
         private Coroutine escapeCoroutine;
 
@@ -66,32 +61,51 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private int MaxSpriteIndex => riftStageSprites.Length - 1;
 
-        private void Start() => StartCoroutine(CourageLighting());
-
-        private void OnTriggerEnter2D(Collider2D collision)
+        private bool IsEscaping
         {
-            if (collision.CompareTag(EntityTags.Char))
-                if (isOpen)
-                    contextInfo.alpha = 1;
+            get => isEscaping;
+            set
+            {
+                isEscaping = value;
+
+                if (IsEscaping)
+                    escapeCoroutine = this.DoAfter(Leave, escapeTime);
+                else if (escapeCoroutine != null)
+                    StopCoroutine(escapeCoroutine);
+            }
+        }
+
+        private void Start() =>
+            StartCoroutine(ContinuouslyUpdateLighting());
+
+        private void OnTriggerEnter2D(Collider2D coll)
+        {
+            if (coll.CompareTag(EntityTags.Char))
+                OnCharEnteredRiftArea();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag(EntityTags.Char)) contextInfo.alpha = 0;
+            if (collision.CompareTag(EntityTags.Char))
+                OnCharLeftRiftArea();
         }
 
-        private void Leave() => OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
+        private void OnCharEnteredRiftArea()
+        {
+            if (riftIsOpen)
+                infoText.ShowEnterRiftInfo();
+            else
+                infoText.ShowNeedMoreCourageInfo();
+        }
+
+        private void OnCharLeftRiftArea() =>
+            infoText.Hide();
+
+        private void Leave() =>
+            OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
 
         [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))] [UsedImplicitly]
-        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs)
-        {
-            isEscaping = eventArgs.IsEscapingThroughRift;
-
-            if (isEscaping)
-                escapeCoroutine = StartCoroutine(Escaping());
-            else
-                StopCoroutine(escapeCoroutine);
-        }
+        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) => IsEscaping = eventArgs.IsEscapingThroughRift;
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
         private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
@@ -103,7 +117,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void UpdateRift(float completionPercent)
         {
-            isOpen = Mathf.Approximately(completionPercent, HundredPercent);
+            riftIsOpen = Mathf.Approximately(completionPercent, HundredPercent);
             UpdateRiftAppearance(completionPercent);
         }
 
@@ -122,31 +136,22 @@ namespace AChildsCourage.Game.Floors.Courage
         private void UpdateEmissionRate(float completionPercent) =>
             EmissionRate = Mathf.Lerp(2f, 20f, completionPercent);
 
-        private IEnumerator Escaping()
+        private IEnumerator ContinuouslyUpdateLighting()
         {
-            while (isEscaping)
-            {
-                yield return new WaitForSeconds(escapeTime);
-                Leave();
-            }
-        }
-
-        private IEnumerator CourageLighting()
-        {
-            var graphValue = 0f;
-            var speed = 1 / escapeTime;
+            var t = 0f;
 
             while (true)
             {
-                graphValue = isEscaping
-                    ? Mathf.MoveTowards(graphValue, 1, speed * Time.deltaTime)
-                    : Mathf.MoveTowards(graphValue, 0, speed * Time.deltaTime * 5f);
-
-                LightIntensity = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxLightIntensity, 0.3f, maxLightIntensity);
-                LightOuterRadius = Mathf.Clamp(lightCurve.Evaluate(graphValue) * maxOuterRadius, 12, maxOuterRadius);
-
+                t = Mathf.MoveTowards(t, 0, escapeTime / Time.deltaTime * (isEscaping ? 1f : 5f));
+                UpdateLighting(lightCurve.Evaluate(t));
                 yield return null;
             }
+        }
+
+        private void UpdateLighting(float curveValue)
+        {
+            LightIntensity = Mathf.Clamp(curveValue * maxLightIntensity, 0.3f, maxLightIntensity);
+            LightOuterRadius = Mathf.Clamp(curveValue * maxOuterRadius, 12, maxOuterRadius);
         }
 
     }

@@ -8276,10 +8276,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CourageRift
       objectReference: {fileID: 0}
-    - target: {fileID: 5299644225164151451, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 170224889}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c572183e073f0a940a3e67e10543acfc, type: 3}
 --- !u!1001 &2064087350
