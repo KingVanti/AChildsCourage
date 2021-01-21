@@ -45,7 +45,7 @@ namespace AChildsCourage.Game.Floors.Courage
 
         private void Update()
         {
-            if (flashlight.ShinesOn(transform.position))
+            if (flashlight.ShinesOn(transform.position, 0.25f))
                 Charge += illuminateSpeed * Time.deltaTime;
         }
 

@@ -98,8 +98,8 @@ namespace AChildsCourage.Game.Char
             }
         }
 
-        internal bool ShinesOn(Vector2 position) =>
-            IsTurnedOn && shine.Map(FlashlightShine.ShinesOn, position);
+        internal bool ShinesOn(Vector2 position, float minPower = 0) =>
+            IsTurnedOn && shine.Map(FlashlightShine.ShinesOn, position) && shine.Power >= minPower;
 
 
         private void UpdateShinePosition()
