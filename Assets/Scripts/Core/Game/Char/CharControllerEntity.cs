@@ -259,7 +259,8 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnMousePositionChanged))] [UsedImplicitly]
-        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) => MousePos = eventArgs.MousePosition;
+        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) => 
+            MousePos = eventArgs.MousePosition;
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))] [UsedImplicitly]
         private void OnMoveDirectionChanged(object _, MoveDirectionChangedEventArgs eventArgs) =>
