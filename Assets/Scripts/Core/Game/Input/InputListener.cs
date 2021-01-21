@@ -23,6 +23,7 @@ namespace AChildsCourage.Game.Input
 
         [Pub] public event EventHandler<SprintInputEventArgs> OnSprintInput;
 
+        
         private CharControls charControls;
 
 
