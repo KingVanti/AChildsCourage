@@ -91,7 +91,7 @@ namespace AChildsCourage.Game.Shade
 
         private void SendShadeAwayFromChar() =>
             groundPlan
-                .Map(ChooseRandomPositionOutsideRadius, RandomRng(), sendAwayDistance)
+                .Map(ChooseRandomPositionOutsideRadius, RandomRng(), CharPosition, sendAwayDistance)
                 .AsSingleEnumerable()
                 .Map(ToAoi)
                 .Do(SendAoiToShade);
@@ -100,7 +100,7 @@ namespace AChildsCourage.Game.Shade
             OnAoiChosen?.Invoke(this, new AoiChosenEventArgs(aoi));
 
         internal Vector3 FindShadeSpawnPoint() =>
-            groundPlan.Map(ChooseRandomPositionOutsideRadius, RandomRng(), spawnDistance);
+            groundPlan.Map(ChooseRandomPositionOutsideRadius, RandomRng(), CharPosition, spawnDistance);
 
     }
 

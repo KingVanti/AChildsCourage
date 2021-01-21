@@ -52,10 +52,10 @@ namespace AChildsCourage.Game.Floors
             return ImmutableList<Vector2>.Empty.Cycle(AddPosition, @params.PoiCount);
         }
 
-        internal static Vector2 ChooseRandomPositionOutsideRadius(Rng rng, float radius, GroundPlan groundPlan) =>
+        internal static Vector2 ChooseRandomPositionOutsideRadius(Rng rng, Vector2 center, float radius, GroundPlan groundPlan) =>
             groundPlan.groundPositions
-                      .Where(p => p.magnitude >= radius)
-                      .TryGetRandom(rng, () => groundPlan.Map(ChooseRandomPositionOutsideRadius, rng, radius * 0.75f));
+                      .Where(p => Vector2.Distance(p, center) >= radius)
+                      .TryGetRandom(rng, () => groundPlan.Map(ChooseRandomPositionOutsideRadius, rng, center, radius * 0.75f));
 
 
         private readonly ImmutableHashSet<Vector2> groundPositions;
