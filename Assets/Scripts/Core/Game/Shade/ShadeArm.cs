@@ -29,11 +29,12 @@ namespace AChildsCourage.Game.Shade
         private bool IsActive => !isBanished;
 
         private bool AttackIsReady => !attackIsOnCooldown;
-        
+
         private bool CanAttack => charIsAlive && IsActive && charIsInRange && AttackIsReady;
 
 
-        private void Awake() =>
+        [Sub(nameof(ShadeBodyEntity.OnShadeActivated))] [UsedImplicitly]
+        private void OnShadeActivated(object _1, EventArgs _2) =>
             this.DoContinually(TryAttack, 1f / attackAttemptsPerSecond);
 
         [UsedImplicitly]
