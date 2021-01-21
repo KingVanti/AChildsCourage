@@ -45,7 +45,7 @@ namespace AChildsCourage.Game.Char
         [FindInScene] private CourageManagerEntity courageManager;
         [FindInScene] private Camera mainCamera;
 
-      
+
         private int rotationIndex;
         private bool hasFlashlightEquipped;
         private bool canCollectCourage = true;
@@ -151,7 +151,7 @@ namespace AChildsCourage.Game.Char
 
                 if (HasSprintInput && HasDirectionalInput && !IsSprinting && CanSprint)
                     StartSprinting();
-                else if (HasSprintInput && HasDirectionalInput && IsSprinting)
+                else if (!HasSprintInput && IsSprinting)
                     StopSprinting();
             }
         }
@@ -198,7 +198,7 @@ namespace AChildsCourage.Game.Char
             OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(pickup.Variant));
             Destroy(pickup.gameObject);
         }
-        
+
         private void UpdateMovementState()
         {
             CurrentMovementState =
