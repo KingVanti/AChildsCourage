@@ -45,19 +45,19 @@ namespace AChildsCourage.Game.Char
         [FindInScene] private CourageManagerEntity courageManager;
         [FindInScene] private Camera mainCamera;
 
-        private Vector2 directionInput;
+      
         private int rotationIndex;
         private bool hasFlashlightEquipped;
         private bool canCollectCourage = true;
         private bool isSprinting;
-        private MovementState movementState;
-        private Vector2 prevPos = Vector2.negativeInfinity;
-
         private bool hasSprintInput;
         private bool hasMaxCourage;
         private bool isInRiftProximity;
         private bool isEscapingThroughRift;
+        private Vector2 directionInput;
+        private Vector2 prevPos = Vector2.negativeInfinity;
         private Vector2 mousePos;
+        private MovementState movementState;
 
 
         private float LookAngle { get; set; }
@@ -198,8 +198,7 @@ namespace AChildsCourage.Game.Char
             OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(pickup.Variant));
             Destroy(pickup.gameObject);
         }
-
-
+        
         private void UpdateMovementState()
         {
             CurrentMovementState =
@@ -328,7 +327,7 @@ namespace AChildsCourage.Game.Char
         [Sub(nameof(InputListener.OnRiftInteractInput))] [UsedImplicitly]
         private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs)
         {
-            if (CanUseRift) 
+            if (CanUseRift)
                 IsEscapingThroughRift = eventArgs.HasRiftInteractInput;
         }
 
