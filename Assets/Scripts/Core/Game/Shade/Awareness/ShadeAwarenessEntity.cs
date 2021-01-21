@@ -72,7 +72,6 @@ namespace AChildsCourage.Game.Shade
                     case AwarenessLevel.Suspicious when CurrentAwarenessLevel == AwarenessLevel.Oblivious:
                         OnCharSuspected?.Invoke(this, new CharSuspectedEventArgs(CharPosition));
                         break;
-                    default: throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
 
                 currentAwarenessLevel = value;
