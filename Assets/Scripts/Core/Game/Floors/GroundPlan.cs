@@ -13,8 +13,6 @@ namespace AChildsCourage.Game.Floors
     internal readonly struct GroundPlan
     {
 
-        internal static GroundPlan emptyGroundPlan = new GroundPlan(ImmutableHashSet<Vector2>.Empty);
-
         internal static GroundPlan CreateGroundPlan(Floor floor) =>
             floor.Map(GetPositionsOfType<GroundTileData>)
                  .Select(GetCenter)
