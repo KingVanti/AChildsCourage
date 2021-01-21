@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using AChildsCourage.Game.Shade;
 using UnityEngine;
+using static AChildsCourage.Game.Floors.Floor;
 using static AChildsCourage.Game.TilePosition;
 
 namespace AChildsCourage.Game.Floors
@@ -12,12 +13,10 @@ namespace AChildsCourage.Game.Floors
     internal readonly struct GroundPlan
     {
 
-        internal static GroundPlan emptyGroundPlan = new GroundPlan(ImmutableHashSet<Vector2>.Empty);
-
         internal static GroundPlan CreateGroundPlan(Floor floor) =>
-            floor.Map(Floor.GetPositionsOfType<GroundTileData>).Select(GetCenter)
-                 .ToImmutableHashSet()
-                 .Map(positions => new GroundPlan(positions));
+            floor.Map(GetPositionsOfType<GroundTileData>)
+                 .Select(GetCenter)
+                 .Map(positions => new GroundPlan(positions.ToImmutableHashSet()));
 
         internal static IEnumerable<Vector2> ChooseRandomAoiPositions(Rng rng, AoiGenParams @params, GroundPlan groundPlan)
         {
