@@ -331,9 +331,23 @@ namespace AChildsCourage.Game.Char
 
         internal void Kill()
         {
-            animator.SetTrigger(deathTriggerKey);
-            OnCharKilled?.Invoke(this, EventArgs.Empty);
+            StopChar();
+            PlayDeathAnimation();
+            RaiseDeathEvent();
         }
+
+        private void StopChar()
+        {
+            Velocity = Vector2.zero;
+            DirectionInput = Vector2.zero;
+            HasSprintInput = false;
+        }
+
+        private void PlayDeathAnimation() =>
+            animator.SetTrigger(deathTriggerKey);
+
+        private void RaiseDeathEvent() =>
+            OnCharKilled?.Invoke(this, EventArgs.Empty);
 
     }
 
