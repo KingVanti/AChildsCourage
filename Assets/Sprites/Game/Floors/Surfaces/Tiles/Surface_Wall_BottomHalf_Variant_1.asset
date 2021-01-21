@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Surface_Wall_BottomHalf_Variant_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 41f8f927576d68145bbd1f834c4000d1, type: 3}
+  m_Sprite: {fileID: -375988979494897389, guid: a78f1446271fafe42871ad3bd8609859, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
