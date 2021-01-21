@@ -26,7 +26,11 @@ namespace AChildsCourage.Game.Shade
         private bool charIsAlive = true;
 
 
-        private bool CanAttack => charIsAlive && !isBanished && charIsInRange && !attackIsOnCooldown;
+        private bool IsActive => !isBanished;
+
+        private bool AttackIsReady => !attackIsOnCooldown;
+        
+        private bool CanAttack => charIsAlive && IsActive && charIsInRange && AttackIsReady;
 
 
         private void Awake() =>
@@ -60,9 +64,12 @@ namespace AChildsCourage.Game.Shade
 
         private void Attack()
         {
-            animator.SetTrigger(attackTriggerKey);
+            PlayAttackAnimation();
             StartCooldown();
         }
+
+        private void PlayAttackAnimation() =>
+            animator.SetTrigger(attackTriggerKey);
 
         private void StartCooldown()
         {
