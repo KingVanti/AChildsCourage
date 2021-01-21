@@ -24,7 +24,7 @@ namespace AChildsCourage.Game.Shade
 
         [FindInScene] private CharControllerEntity @char;
 
-        private GroundPlan groundPlan = emptyGroundPlan;
+        private GroundPlan groundPlan;
         private Coroutine interventionRoutine;
         private bool sendShadeToChar;
 
@@ -33,12 +33,12 @@ namespace AChildsCourage.Game.Shade
 
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
-        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs)
-        {
+        private void OnFloorRecreated(object _, FloorRecreatedEventArgs eventArgs) =>
             groundPlan = eventArgs.Floor.Map(CreateGroundPlan);
-            StartStandardInvestigation();
+
+        [Sub(nameof(ShadeBodyEntity.OnShadeActivated))] [UsedImplicitly]
+        private void OnShadeActivated(object _1, EventArgs _2) => 
             OnTensionLevelChanged(TensionLevel.Low);
-        }
 
         [Sub(nameof(ShadeBrainEntity.OnCommand))] [UsedImplicitly]
         private void OnCommand(object _1, ShadeCommandEventArgs eventArgs)

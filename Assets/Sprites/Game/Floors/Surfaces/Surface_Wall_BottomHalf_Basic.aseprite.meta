@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 747693ccb41574d4ea3fc18512a6512a
+guid: af2a06fdcd2ad9444a38e55f3d86c3d4
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -10,7 +10,7 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 25a63327f814cd04cbdbd7e8ae6dfcf9, type: 3}
   textureSettings:
     textureType: 8
-    pixelsPerUnit: 32
+    pixelsPerUnit: 24
     mirror: 0
     transparencyMode: 0
     transparentColor: {r: 1, g: 0, b: 1, a: 1}
