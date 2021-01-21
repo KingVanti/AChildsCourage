@@ -164,25 +164,39 @@ namespace AChildsCourage.Game.Char
 
         private bool CanSprint { get; set; } = true;
 
+        private bool IsEscapingThroughRift
+        {
+            get => isEscapingThroughRift;
+            set
+            {
+                isEscapingThroughRift = value;
+
+                UpdateAnimator();
+                OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(IsEscapingThroughRift));
+            }
+        }
+
 
         private void FixedUpdate() =>
             UpdateMovement();
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = true;
+            if (other.CompareTag(EntityTags.Rift)) isInRiftProximity = true;
 
             if (other.CompareTag(EntityTags.Courage) && canCollectCourage)
-            {
-                var couragePickup = other.GetComponent<CouragePickupEntity>();
-                OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(couragePickup.Variant));
-                Destroy(other.gameObject);
-            }
+                CollectCouragePickup(other.GetComponent<CouragePickupEntity>());
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.CompareTag(EntityTags.Rift) && hasMaxCourage) isInRiftProximity = false;
+            if (other.CompareTag(EntityTags.Rift)) isInRiftProximity = false;
+        }
+
+        private void CollectCouragePickup(CouragePickupEntity pickup)
+        {
+            OnCouragePickedUp?.Invoke(this, new CouragePickedUpEventArgs(pickup.Variant));
+            Destroy(pickup.gameObject);
         }
 
 
@@ -202,7 +216,7 @@ namespace AChildsCourage.Game.Char
 
             animator.SetFloat(rotationIndexAnimatorKey, RotationIndex);
 
-            if (!isEscapingThroughRift)
+            if (!IsEscapingThroughRift)
             {
                 animator.SetBool(movingAnimatorKey, HasDirectionalInput);
                 animator.SetBool(movingBackwardsAnimatorKey, IsMovingBackwards);
@@ -243,7 +257,7 @@ namespace AChildsCourage.Game.Char
 
         private void UpdateMovement()
         {
-            if (!isEscapingThroughRift)
+            if (!IsEscapingThroughRift)
                 Velocity = DirectionInput * MovementSpeed;
 
             CheckForPositionChange();
@@ -259,7 +273,7 @@ namespace AChildsCourage.Game.Char
         }
 
         [Sub(nameof(InputListener.OnMousePositionChanged))] [UsedImplicitly]
-        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) => 
+        private void OnMousePositionChanged(object _, MousePositionChangedEventArgs eventArgs) =>
             MousePos = eventArgs.MousePosition;
 
         [Sub(nameof(InputListener.OnMoveDirectionChanged))] [UsedImplicitly]
@@ -314,13 +328,8 @@ namespace AChildsCourage.Game.Char
         [Sub(nameof(InputListener.OnRiftInteractInput))] [UsedImplicitly]
         private void OnRiftInteraction(object _, RiftInteractInputEventArgs eventArgs)
         {
-            if (CanUseRift)
-            {
-                isEscapingThroughRift = eventArgs.HasRiftInteractInput;
-                UpdateAnimator();
-
-                OnRiftEscapeUpdate?.Invoke(this, new RiftEscapeEventArgs(isEscapingThroughRift));
-            }
+            if (CanUseRift) 
+                IsEscapingThroughRift = eventArgs.HasRiftInteractInput;
         }
 
         [Sub(nameof(CourageManagerEntity.OnCollectedCourageChanged))] [UsedImplicitly]

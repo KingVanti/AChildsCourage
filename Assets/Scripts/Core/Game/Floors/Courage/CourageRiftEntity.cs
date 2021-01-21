@@ -66,6 +66,8 @@ namespace AChildsCourage.Game.Floors.Courage
             get => isEscaping;
             set
             {
+                if (isEscaping == value) return;
+
                 isEscaping = value;
 
                 if (IsEscaping)
@@ -105,7 +107,7 @@ namespace AChildsCourage.Game.Floors.Courage
             OnCharEnteredRift?.Invoke(this, EventArgs.Empty);
 
         [Sub(nameof(CharControllerEntity.OnRiftEscapeUpdate))] [UsedImplicitly]
-        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) => 
+        private void OnCharacterEscaping(object _, RiftEscapeEventArgs eventArgs) =>
             IsEscaping = eventArgs.IsEscapingThroughRift;
 
         [Sub(nameof(FloorRecreatorEntity.OnFloorRecreated))] [UsedImplicitly]
@@ -143,7 +145,10 @@ namespace AChildsCourage.Game.Floors.Courage
 
             while (true)
             {
-                t = Mathf.MoveTowards(t, 0, escapeTime / Time.deltaTime * (isEscaping ? 1f : 5f));
+                var targetValue = IsEscaping ? 1 : 0;
+                var delta = Time.deltaTime / escapeTime * (isEscaping ? 1f : 5f);
+
+                t = Mathf.MoveTowards(t, targetValue, delta);
                 UpdateLighting(lightCurve.Evaluate(t));
                 yield return null;
             }
